@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.designation.dataobjects.Designation" table="DESG_MASTER">  
+    <id name="designationId" type="integer" >  
+     	<column name="DESG_ID" sql-type="integer" not-null="true"></column>  
+     	<generator class="increment"/>
+    </id>  
+    <property name="designationName" column="DESG_NAME" not-null="true"></property>
+    <property name="description" column="DESCRIPTION" not-null="true"/>  
+    <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/>
+    <property name="status" column="STATUS" not-null="true"/>
+    <many-to-one name="department" fetch="select" 
+             class="com.payroll.department.dataobjects.Department"
+             column="DEPT_ID"
+             cascade="all">
+	</many-to-one>
+	<many-to-one name="headInfo" fetch="select" 
+             class="com.payroll.headInfo.dataobjects.HeadInfo"
+             column="HEAD_ID"
+             cascade="all">
+	</many-to-one>
+  </class>  
+ </hibernate-mapping> 

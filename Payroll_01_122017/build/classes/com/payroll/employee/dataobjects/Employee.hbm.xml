@@ -1,0 +1,42 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.employee.dataobjects.Employee" table="EMP_MASTER">  
+    <id name="employeeId" type="integer" >  
+     <column name="EMP_ID" sql-type="integer" not-null="true"/>  
+    </id>  
+    <property name="firstName" column="EMP_FNAME" not-null="true"/>
+    <property name="lastName" column="EMP_LNAME" not-null="true"/>
+    <property name="middleName" column="EMP_MNAME" />
+    <property name="email" column="EMP_EMAIL" />
+    <property name="phone" column="EMP_PHONE" not-null="true"/>
+    <property name="joiningDate" column="EMP_JOINING_DATE" not-null="true"/>
+   <!-- <property name="lastWorkingDate" column="EMP_LWD_DATE" /> -->  
+    <property name="addressLine1" column="ADDR_LINE1" not-null="true"/>
+    <property name="addressLine2" column="ADDR_LINE2" not-null="true"/>
+    <property name="addressLine3" column="ADDR_LINE3" not-null="true"/>
+    <property name="dob" column="BIRTH_DATE" not-null="true"/>
+    <property name="rowUpdatedDate" column="ROW_UPD_DATE" not-null="true"/>
+    <property name="contactNo" column="EMP_CONTACTNO" />
+    <property name="pan" column="EMP_PAN" />
+    <property name="adharNo" column="EMP_AADHAR" />
+    <property name="lastPromotionDate" column="EMP_LST_PROMO_DT" />
+    <property name="status" column="STATUS" />
+    <property name="gender" column="GENDER" />
+    <!-- <property name="designationId" column="designation_id" not-null="true"/>  
+    <property name="departmentId" column="department_id"/> -->  
+    
+    <set name="departments" table="EMP_DEPT_DETAILS"
+        	inverse="false" lazy="true" fetch="select" cascade="all" >
+            <key>
+                <column name="EMP_ID" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.payroll.department.dataobjects.Department">
+                <column name="DEPT_ID" not-null="true" />
+            </many-to-many>
+    </set>
+    
+  </class>  
+ </hibernate-mapping> 

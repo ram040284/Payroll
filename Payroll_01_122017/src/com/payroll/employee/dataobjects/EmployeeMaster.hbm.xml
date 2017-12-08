@@ -1,0 +1,16 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.employee.dataobjects.EmployeeMaster" table="EMP_MASTER">  
+     <composite-id>
+		<key-property name="empId" column="EMP_ID"  />
+		<key-property name="departmentId" column="DEPT_ID" />
+		<key-property name="designationId" column="DESG_ID" />
+		<key-property name="headId" column="HEAD_ID" />
+	</composite-id>
+	<property name="status" column="STATUS" not-null="true"/>  
+    <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/>
+  </class>  
+ </hibernate-mapping> 

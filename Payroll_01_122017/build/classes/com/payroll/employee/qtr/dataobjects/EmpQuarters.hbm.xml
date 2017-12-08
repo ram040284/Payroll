@@ -1,0 +1,14 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.employee.qtr.dataobjects.EmpQuarters" table="EMP_QTR">  
+    <id name="empId" type="integer" >  
+     <column name="EMP_ID" sql-type="integer" not-null="true"/>  
+    </id>  
+    <property name="afkQtr" column="AFK_QTR" not-null="true"/> 
+    <property name="status" column="STATUS" not-null="true"/>  
+    <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/>
+  </class>  
+ </hibernate-mapping> 

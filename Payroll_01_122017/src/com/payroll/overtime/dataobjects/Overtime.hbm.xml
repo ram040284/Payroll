@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.overtime.dataobjects.Overtime" table="OVERTIME">  
+    <composite-id>
+		<key-property name="empId" column="EMP_ID"  />
+		<key-property name="departmentId" column="DEPT_ID" />
+		<key-property name="designationId" column="DESG_ID" />
+		<key-property name="overtimeDate" column="OTIME_DATE" />
+	</composite-id>
+    <property name="overtimeAmount" column="OTIME_AMT" not-null="true"></property>  
+    
+  </class>  
+ </hibernate-mapping> 
