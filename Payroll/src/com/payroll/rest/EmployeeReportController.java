@@ -232,6 +232,7 @@ public class EmployeeReportController
       fileContent.append(employeeVO.getTa()).append(", ");
       fileContent.append(employeeVO.isHraFlag()).append(", ");
       fileContent.append(employeeVO.isPfFlag()).append(", ");
+      fileContent.append(employeeVO.getLwp()).append(", ");
       fileContent.append("\n");
     }
     response.setContentType("text/csv");
