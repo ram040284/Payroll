@@ -82,9 +82,6 @@ $(document).ready(function() {
 	});
 	
 	$('#empRptTable').DataTable({
-		<c:if test="${sessionScope.recordsSize eq 0}">
-		"sort":false,
-		</c:if>
 		"info" : false,
 		"paging" : false,
 	  	"filter" : false,
@@ -106,7 +103,7 @@ $(document).ready(function() {
 	
 	<jsp:include page="../jsp/employeeSearch.jsp" />
 	
-	<c:if test="${sessionScope.empSalaryReport.size() ge 0}">
+	<c:if test="${sessionScope.empSalaryReport.size() gt 0}">
 	<div  class="container" class="row" style ="position: relative;">
 	<div id="empListDiv" style ="width:100%;overflow-x: auto;overflow-y: auto;min-height:10px;max-height:380px;">
 		<table id="empRptTable" class="rptTblClass table table-striped table-bordered table-hover table-responsive">
@@ -144,9 +141,6 @@ $(document).ready(function() {
 			</tr>
 			</c:forEach>
 			
-			<c:if test="${sessionScope.recordsSize eq 0}">
-			<td align="center"> No matching records found </td>
-			</c:if>
 		</table>
 		</div>
 		</div>
