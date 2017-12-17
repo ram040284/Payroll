@@ -1,0 +1,11 @@
+// NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
+// IT'S JUST JUNK FOR OUR DOCS!
+// ++++++++++++++++++++++++++++++++++++++++++
+/*!
+ * Copyright 2014-2015 Twitter, Inc.
+ *
+ * Licensed under the Creative Commons Attribution 3.0 Unported License. For
+ * details, see https://creativecommons.org/licenses/by/3.0/.
+ */
+// Intended to prevent false-positive bug reports about Bootstrap not working properly in old versions of IE due to folks testing using IE's unreliable emulation modes.
+!function(){"use strict";function n(){var n=/MSIE ([0-9.]+)/.exec(window.navigator.userAgent);if(null===n)return null;var e=parseInt(n[1],10),r=Math.floor(e);return r}function e(){var n=new Function("/*@cc_on return @_jscript_version; @*/")();return void 0===n?11:9>n?8:n}var r=window.navigator.userAgent;if(!(r.indexOf("Opera")>-1||r.indexOf("Presto")>-1)){var i=n();if(null!==i){var o=e();i!==o&&window.alert("WARNING: You appear to be using IE"+o+" in IE"+i+" emulation mode.\nIE emulation modes can behave significantly differently from ACTUAL older versions of IE.\nPLEASE DON'T FILE BOOTSTRAP BUGS based on testing in IE emulation modes!")}}}();

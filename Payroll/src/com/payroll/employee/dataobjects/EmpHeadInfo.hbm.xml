@@ -1,0 +1,28 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.employee.dataobjects.EmpHeadInfo" table="EMP_COST_HEAD_DETAILS">  
+     <!-- <composite-id>
+		<key-property name="empId" column="EMP_ID"  />
+		<key-property name="designationId" column="DESG_ID" />
+		<key-property name="startDate" column="START_DATE" />
+	</composite-id> -->
+	<id name="employeeId" type="java.lang.Integer">
+			<column name="EMP_ID" />
+			<generator class="foreign">
+				<param name="property">employee</param>
+			</generator>
+	</id>
+	<one-to-one name="employee" class="com.payroll.employee.dataobjects.Employee"
+		constrained="true" fetch="select"></one-to-one>
+	<many-to-one name="headInfo"   
+        class="com.payroll.headInfo.dataobjects.HeadInfo" column="HEAD_ID" cascade="all">
+	</many-to-one>
+	
+    <property name="lastWokingDate" column="LW_DATE" /> 
+    <property name="status" column="STATUS" not-null="true"/>  
+    <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/>
+ </class>  
+ </hibernate-mapping> 

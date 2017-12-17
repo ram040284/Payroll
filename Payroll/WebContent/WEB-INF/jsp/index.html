@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="ico/favicon.png">
+
+    <title>KCB</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Jssor slider -->
+    <link href="css/jssor.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+    
+    <!-- Theme skins -->
+    <link id="skin" href="skins/default.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+ 	<!-- Start preloading -->
+	<div id="loading" class="loading-invisible">
+		<div class="loading-center">
+			<div class="loading-center-absolute">
+				<div class="object" id="object_one"></div>
+				<div class="object" id="object_two"></div>
+				<div class="object" id="object_three"></div>
+				<div class="object" id="object_four"></div>
+				<div class="object" id="object_five"></div>
+				<div class="object" id="object_six"></div>
+				<div class="object" id="object_seven"></div>
+				<div class="object" id="object_eight"></div>
+				<div class="object" id="object_big"></div>
+			</div>
+			<p>Please wait...</p>
+		</div>
+	</div>
+	<script type="text/javascript">
+		  document.getElementById("loading").className = "loading-visible";
+		  var hideDiv = function(){document.getElementById("loading").className = "loading-invisible";};
+		  var oldLoad = window.onload;
+		  var newLoad = oldLoad ? function(){hideDiv.call(this);oldLoad.call(this);} : hideDiv;
+		  window.onload = newLoad;
+	</script>
+	<!-- End preloading -->
+
+	
+	<!-- Start Navbar -->
+	<nav class="navbar yamm navbar-dark navbar-fixed-top">
+		<div class="wrapper" style="background:#e0e2ee;">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="index.html"><img src="img/logo-02.png" class="img-responsive"
+					alt="theme logo" /></a>
+				</div>
+				<!-- Start Form Search -->
+			</div>
+		</div>
+		
+		<div class="wrapper" style="background:#3b589a;">
+		<div class="container">
+			<!-- End Form Search -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" style="float: left;">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navlink-right">
+						<div class="dropdown shopping-cart">
+							<button class="btn-navlink" type="button" data-toggle="dropdown">
+								<i class="fa fa-sign-out fa-4" style="color:#ffff; float:right;"></i>
+							</button>
+						</div>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-left">
+					<li><a href="index.html">Home</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Masters <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="portfolio-alt1.html">Option-01</a></li>
+							<li><a href="portfolio-alt2.html">Option-02</a></li>
+							<li><a href="portfolio-alt3.html">Option-03</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Employee <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="portfolio-alt1.html">Option-01</a></li>
+							<li><a href="portfolio-alt2.html">Option-02</a></li>
+							<li><a href="portfolio-alt3.html">Option-03</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Leave <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="portfolio-alt1.html">Option-01</a></li>
+							<li><a href="portfolio-alt2.html">Option-02</a></li>
+							<li><a href="portfolio-alt3.html">Option-03</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Payroll <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="portfolio-alt1.html">Option-01</a></li>
+							<li><a href="portfolio-alt2.html">Option-02</a></li>
+							<li><a href="portfolio-alt3.html">Option-03</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Reports <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="portfolio-alt1.html">Option-01</a></li>
+							<li><a href="portfolio-alt2.html">Option-02</a></li>
+							<li><a href="portfolio-alt3.html">Option-03</a></li>
+						</ul>
+					</li>
+				</ul>
+				<!--<div class="navlink-right">
+						<div class="dropdown shopping-cart">
+							<button class="btn-navlink" type="button" data-toggle="dropdown">
+								<i class="fa fa-sign-out fa-4" style="color:#ffff"></i>
+							</button>
+						</div>
+				</div>-->
+			</div><!--/.nav-collapse -->
+			
+		</div>
+		</div>
+	</nav>
+	<!-- End Navbar -->
+	
+	<div class="clearfix"></div>
+	
+	<div class="contain-wrapp" style="padding-top:180px;">	
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-4 text-center">
+					<a href="index.html"><img src="img/Masters.png" class="img-responsive"
+					alt="theme logo" /></a>
+					<h3><a href="#">Masters</a></h3>
+				</div>
+				
+				<div class="col-md-4 text-center">
+					<div class="precess-column">
+						<a href="index.html"><img src="img/Employee.png" class="img-responsive"
+					alt="theme logo" /></a>
+					<h3><a href="#">Employee</a></h3>
+					</div>
+				</div>
+				
+				<div class="col-md-4 text-center">
+					<div class="precess-column">
+						<a href="index.html"><img src="img/Leave.png" class="img-responsive"
+					alt="theme logo" /></a>
+						<h3><a href="#">Leave</a></h3>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row" style="padding-top:40px;">
+				<div class="col-md-4 text-center">
+					<div class="precess-column">
+						<a href="index.html"><img src="img/payroll-2.png" class="img-responsive"
+					alt="theme logo" /></a>
+						<h3><a href="#">Payroll</a></h3>
+					</div>
+				</div>
+				<div class="col-md-4 text-center">
+					<div class="precess-column">
+						<a href="index.html"><img src="img/Pension.png" class="img-responsive"
+					alt="theme logo" /></a>
+						<h3><a href="#">Pension</a></h3>
+					</div>
+				</div>
+				<div class="col-md-4 text-center">
+					<div class="precess-column">
+						<a href="index.html"><img src="img/Reports.png" class="img-responsive"
+					alt="theme logo" /></a>
+						<h3><a href="#">Reports</a></h3>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	<!-- Start footer -->
+	<footer>
+		<div class="container">
+			<!--<div class="row"> -->
+				<div class="container"> 
+					<div class="subfooter">
+						<h5>Copyright &copy; 2017 KCB All rights Reserved</h5>
+					</div>
+				</div> 
+			<!--</div> -->
+		</div>
+	</footer>
+	<!-- End footer -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.easing-1.3.min.js"></script>
+	
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+	
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+	
+	
+	
+	
+	
+    <!-- PrettyPhoto -->
+	<script src="js/prettyPhoto/jquery.prettyPhoto.js"></script>  
+	<script src="js/prettyPhoto/setting.js"></script>
+	
+	<!-- Parallax -->
+	<script src="js/parallax/jquery.parallax-1.1.3.js"></script>
+	<script src="js/parallax/setting.js"></script>
+	
+    <!-- masonry -->
+	<script src="js/masonry/masonry.min.js"></script>	
+	<script src="js/masonry/masonry.filter.js"></script>
+	<script src="js/masonry/setting.js"></script>  
+	
+    <!-- Progres circle -->
+    <script src="js/classyloader/jquery.classyloader.min.js"></script> 
+		
+    <!-- owl carousel -->
+	<script src="js/owlcarousel/owl.carousel.min.js"></script>  
+	<script src="js/owlcarousel/setting.js"></script>
+	
+    <!-- JavaScript animatedBg -->	
+	<script src="js/animatedBg/animatedBg-setting.js"></script>
+
+    <!-- ticker -->
+	<script src="js/ticker/ticker.js"></script>
+	
+    <!-- Twitter -->
+    <!--[if lte IE 9]>
+    	<script src="js/tweecool/jquery.xdomainrequest.min.js"></script>      
+	<![endif]-->
+	<script src="js/tweecool/tweecool.js"></script>
+	<script src="js/tweecool/setting.js"></script>
+	
+	<!-- JavaScript totop -->
+	<script src="js/totop/jquery.ui.totop.js"></script>	
+	<script src="js/totop/setting.js"></script>
+	
+    <!-- Custom javaScript for this theme -->
+    <script src="js/custom.js"></script>
+
+	<!-- Theme option-->
+	<script src="js/theme-option/demosetting.js"></script>	
+  </body>
+
+</html>

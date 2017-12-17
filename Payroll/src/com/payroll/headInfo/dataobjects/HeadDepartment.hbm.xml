@@ -1,0 +1,14 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.headInfo.dataobjects.HeadDepartment" table="HEAD_DEPT">  
+    <composite-id> 
+     	<!-- <key-property name="headId" column="head_id"  /> -->
+		<key-property name="departmentId" column="DEPT_ID" />  
+		<key-property name="headId" column="HEAD_ID" />  
+    </composite-id>  
+    <property name="startDate" column="START_DATE" not-null="true"/> 
+  </class>  
+ </hibernate-mapping> 
