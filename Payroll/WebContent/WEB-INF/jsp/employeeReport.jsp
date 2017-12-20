@@ -5,6 +5,9 @@
 <head>
 <title>Reports</title>
 <link href="../Payroll/resources/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
+<jsp:include page="../jsp/public/postHeader.jsp" />
+<script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
+<script src="../Payroll/resources/js/dataTables.bootstrap.min.js"></script>
 <style type="text/css">
 select {
 	min-width: 200px;
@@ -15,7 +18,11 @@ select {
 	padding: 5px;
 }
 .btn-color{
-	background-color: #0101DF;
+	background-color: #0101DF; !important
+}
+
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
+display: none;
 }
 
 .rptTblClass table {
@@ -33,8 +40,8 @@ select {
 	padding: 5px;
 }
 
-.rptTblClass tr:nth-child(even) {
-	background-color: #f2f2f2;
+.rptTblClass tr:nth-child(odd) {
+	background-color: #f2f2f2; !important
 }
 
 .rptTblClass th {
@@ -42,36 +49,9 @@ select {
 	color: white;
 }
 
-table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
-display: none;
-}
 
-.dataTables_wrapper .dataTables_paginate .paginate_button{
-color: white;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button a:{
-  	color: #fff;
-	border-radius:5px;
-	background-color: #3b589a;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button a:hover{
-  	color: #fff;
-	border-radius:5px;
-	background-color: #3b589a;
-}
- 
-.dataTables_wrapper .dataTables_paginate .paginate_button a:active {
-  	color: #fff; 
-	background-color: #8B9DC3;
-	border-radius:5px;
-	margin-right: 5px;
-}
 </style>
-<jsp:include page="../jsp/public/postHeader.jsp" />
-<script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
-<script src="../Payroll/resources/js/dataTables.bootstrap.min.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#downloadLink").click(function(event) {
@@ -79,9 +59,6 @@ $(document).ready(function() {
 	});
 	
 	$('#empRptTable').DataTable({
-		<c:if test="${sessionScope.recordsSize eq 0}">
-		"sort":false,
-		</c:if>
 		"info" : false,
 		"paging" : false,
 	  	"filter" : false,
@@ -104,8 +81,8 @@ $(document).ready(function() {
 	
 	<c:if test="${sessionScope.employees.size() gt 0}">
 	<div  class="container" class="row" style ="position: relative;">
-	<div id="empListDiv" style ="width:100%;overflow-x: auto;overflow-y: auto;min-height:10px;max-height:380px;">
-		<table id="empRptTable" class="rptTblClass table table-striped table-bordered table-hover table-responsive">
+	<div id="empListDiv" class="rptTblClass" style ="width:100%;overflow-x: auto;overflow-y: auto;min-height:10px;max-height:380px;" >
+		<table id="empRptTable" class="table table-striped table-bordered table-hover table-responsive">
 		<thead>
 			<tr>
 			<th>Name</th>
@@ -120,11 +97,6 @@ $(document).ready(function() {
 			<th>Email</th>
 			<th>Aadhar Number</th>
 			<th>PAN</th>
-			<th>Year</th>
-			<th>Basic Pay</th>
-			<th>Grade Pay</th>
-			<th>Scale Pay</th>
-			<th>Scale Increment</th>
 			</tr></thead>
 			<c:forEach var="employee" items="${sessionScope.employees}">
 			<tr>
@@ -140,11 +112,6 @@ $(document).ready(function() {
 			<td> ${employee.email}</td>
 			<td> ${employee.adharNo} </td>
 			<td> ${employee.pan} </td>
-			<td> ${employee.salaryVo.year}</td>
-			<td> ${employee.salaryVo.basic}</td>
-			<td> ${employee.salaryVo.gradePay}</td>
-			<td> ${employee.salaryVo.scalePay}</td>
-			<td> ${employee.salaryVo.scaleInc}</td>
 			</tr>
 			</c:forEach>
 		</table>

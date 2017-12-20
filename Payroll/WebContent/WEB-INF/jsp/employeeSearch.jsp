@@ -14,24 +14,6 @@ select {
 	background-color: #0101DF;
 }
 
-table {
-	border-collapse: collapse;
-	width: 100%;
-}
-
-th, td {
-	text-align: left;
-	padding: 8px;
-}
-
-tr:nth-child(even) {
-	background-color: #f2f2f2
-}
-
-th {
-	background-color: #4CAF50;
-	color: white;
-}
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -171,8 +153,10 @@ function getHeadsByDept(deptId, headId) {
 		
 	</div><div class="col-sm-3">
 		<br>
-		<button type="submit" id="searchBtn"  class="btn" >Search</button>
+		<div class="formDiv" style="width:100%;margin-top:0px;border: 0px;">
+		<button type="button" id="searchBtn"  class="btn" >Search</button>
 		<button type="reset"  class="btn">Reset</button>	
+		</div>
 	</div></div>
 	</div></div>
 	</form:form> 

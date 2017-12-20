@@ -35,8 +35,8 @@ select {
 	padding: 5px;
 }
 
-.rptTblClass tr:nth-child(even) {
-	background-color: #f2f2f2;
+.rptTblClass tr:nth-child(odd) {
+	background-color: #f2f2f2; !important
 }
 
 .rptTblClass th {
@@ -48,28 +48,6 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
 display: none;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button{
-color: white;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button a:{
-  	color: #fff;
-	border-radius:5px;
-	background-color: #3b589a;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button a:hover{
-  	color: #fff;
-	border-radius:5px;
-	background-color: #3b589a;
-}
- 
-.dataTables_wrapper .dataTables_paginate .paginate_button a:active {
-  	color: #fff; 
-	background-color: #8B9DC3;
-	border-radius:5px;
-	margin-right: 5px;
-}
 </style>
 <jsp:include page="../jsp/public/postHeader.jsp" />
 <script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
@@ -119,9 +97,6 @@ $(document).ready(function() {
 			<th>UFA</th>
 			<th>FPA</th>
 			<th>TA</th>
-			<th>HRA Flag</th>
-			<th>PF Flag</th>
-			<th>LWP</th>
 			</tr></thead>
 			<c:forEach var="employee" items="${sessionScope.empSalaryReport}">
 			<tr>
@@ -135,9 +110,6 @@ $(document).ready(function() {
 			<td> ${employee.ufa}</td>
 			<td> ${employee.fpa} </td>
 			<td> ${employee.ta}</td>
-			<td> ${employee.hraFlag}</td>
-			<td> ${employee.pfFlag}</td>
-			<td> ${employee.lwp}</td>
 			</tr>
 			</c:forEach>
 			
