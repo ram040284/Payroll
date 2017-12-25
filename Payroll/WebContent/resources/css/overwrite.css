@@ -4,17 +4,16 @@ Typography
 =========================== */
 body {
 	1background:#fff;
-	background-image: url("../images/CBK_Logo.png");
-	background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 	1height: 100%;
-	background-size: 40%;
 	font-family:'raleway';
 	font-size:13px;
 	line-height:24px;
 	color:#616161;
 	letter-spacing:1px;
+	background-image: url("../images/CBK_Logo.png");
+	background-position: center 130px;	
+    background-repeat: no-repeat;
+    background-size: 40%;
 }
 
 a,

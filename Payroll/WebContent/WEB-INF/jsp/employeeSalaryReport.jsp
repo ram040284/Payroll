@@ -4,9 +4,10 @@
 <html>
 <head>
 <title>Reports</title>
-
-<%-- <link href="../Payroll/resources/css/jquery.dataTables.min.css" rel="stylesheet"/> --%>
 <link href="../Payroll/resources/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
+<jsp:include page="../jsp/public/postHeader.jsp" />
+<script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
+<script src="../Payroll/resources/js/dataTables.bootstrap.min.js"></script>
 <style type="text/css">
 select {
 	min-width: 200px;
@@ -49,9 +50,6 @@ display: none;
 }
 
 </style>
-<jsp:include page="../jsp/public/postHeader.jsp" />
-<script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
-<script src="../Payroll/resources/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	

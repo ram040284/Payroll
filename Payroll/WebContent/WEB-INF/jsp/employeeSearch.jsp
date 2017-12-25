@@ -145,7 +145,7 @@ function getHeadsByDept(deptId, headId) {
 	</div>
 	<div class="col-sm-3">
 		<label>Name</label>
-		<form:input type="text" id="fname" path="firstName" placeholder="Enter First Name" class="form-control"/>
+		<form:input type="text" id="fname" path="firstName" placeholder="Enter Name" class="form-control"/>
 		<%-- <label>Designation:</label>
 		<select id="designationBox" class="form-control" name="designationId"><option value="0">-- Select Designation --</option></select> --%>
 	</div>
