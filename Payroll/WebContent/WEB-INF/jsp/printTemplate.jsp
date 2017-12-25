@@ -18,6 +18,14 @@
 <script src="/Payroll/resources/js/dataTables.bootstrap.min.js"></script>
    
 <style type="text/css">
+@page {
+	size: auto;   /* auto is the initial value */
+    margin-top: 3mm;  /* this affects the margin in the printer settings */
+    margin-left: 3mm;
+    margin-right: 3mm;
+    margin-bottom: 10mm;
+}
+
 @media print {
 body {
 	1background:#fff;
@@ -65,21 +73,17 @@ display: none;
 </style>
 </head>
 <body>
-<div class="wrapper" style="background:#e0e2ee;">
-			<div class="container">
-				<div class="navbar-header">
-					<img src="../Payroll/resources/images/logo-02.png" class="img-responsive"
-					alt="theme logo" />
-				</div>
-				<!-- Start Form Search -->
-			</div>
-		</div>
-		
-		<div class="wrapper" style="background:#3b589a;">
-		<div class="container"><br>
-		<h5 style="color: #0101DF;margin-bottom:0px;" id="reportName"></h5>
-<div id="printReport" style="width:100%">
 
+<div style="background:#e0e2ee;">
+	<div><div>
+		<img src="../Payroll/resources/images/logo-02.png" class="img-responsive" alt="theme logo" />
+	</div></div>
 </div>
+		
+<div style="background:#3b589a;"><div><br>
+	<h5 style="color: #0101DF;margin-bottom:0px;" id="reportName"></h5>
+	<div id="printReport" style="width:100%">
+
+	</div>
 </div></div>
 </body>
