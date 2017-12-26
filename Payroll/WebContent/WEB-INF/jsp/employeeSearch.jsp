@@ -1,6 +1,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<link href="../Payroll/resources/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
+<script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
+<script src="../Payroll/resources/js/dataTables.bootstrap.min.js"></script>
+
 <style type="text/css">
 select {
 	min-width: 200px;
@@ -14,6 +18,46 @@ select {
 	background-color: #0101DF;
 }
 
+.rptTblClass table {
+	border-collapse: collapse;
+	width: 100%;
+	float: left;
+	margin: 0;
+  	padding: 0;
+	border: 1px solid #aaa;
+	table-layout: auto;
+}
+
+.rptTblClass th, td {
+	text-align: left;
+	padding: 5px;
+}
+
+.rptTblClass tr:nth-child(odd) {
+	background-color: #f2f2f2; !important
+}
+
+.rptTblClass th {
+	background-color: #8B9DC3;
+	color: white;
+}
+
+table.dataTable thead .sorting_asc { 
+background: url('../Payroll/resources/images/uparrow.png') no-repeat right bottom 8px; 
+background-size: 25px; 
+background-color: #8B9DC3;
+color: white;
+}
+table.dataTable thead .sorting_desc { 
+background: url('../Payroll/resources/images/downarrow.png') no-repeat right bottom 8px; 
+background-size: 25px; 
+background-color: #8B9DC3;
+color: white;
+}
+
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
+display: none;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function() {

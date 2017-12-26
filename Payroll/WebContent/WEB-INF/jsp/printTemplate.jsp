@@ -74,16 +74,14 @@ display: none;
 </head>
 <body>
 
-<div style="background:#e0e2ee;">
-	<div><div>
-		<img src="../Payroll/resources/images/logo-02.png" class="img-responsive" alt="theme logo" />
-	</div></div>
+<div style="text-align:center; width:100%">
+	<img src="../Payroll/resources/images/logo-02.png" class="img-responsive" alt="theme logo" style="float:center" width="600" height="150"/>
 </div>
 		
-<div style="background:#3b589a;"><div><br>
+<div style="width:100%;"><br>
 	<h5 style="color: #0101DF;margin-bottom:0px;" id="reportName"></h5>
 	<div id="printReport" style="width:100%">
 
 	</div>
-</div></div>
+</div>
 </body>
