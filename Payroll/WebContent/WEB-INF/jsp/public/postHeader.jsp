@@ -205,7 +205,7 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Reports <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="../Payroll/employeeSearch">Employee Report</a></li>
+							<li><a href="../Payroll/employeeSearch">Employee Details</a></li>
 							<li><a href="../Payroll/empSalarySearch">Employee Salary</a></li>
 							<%--<li><a href="portfolio-alt2.html">Option-02</a></li>
 							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
