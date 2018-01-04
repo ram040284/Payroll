@@ -98,6 +98,11 @@ public class EmployeeReportController
     } else {
       employees = employeesList;
     }
+   
+   /* for (int i=0; i<4; i++) {
+    	employees.addAll(employees);
+    }*/
+    
     request.getSession().setAttribute("reportName", "Employee Information");
     request.getSession().setAttribute("recordsSize", Integer.valueOf(employees.size()));
     request.getSession().setAttribute("employees", employees);
@@ -173,7 +178,7 @@ public class EmployeeReportController
     String csvFileName = "EmployeeReport_" + format.format(new Date()) + ".csv";
     
     List<EmployeeReportVO> employeesList = (List)request.getSession().getAttribute("employees");
-    StringBuilder fileContent = new StringBuilder("Name, Department, Head, Designation, Gender, Date of Birth, Joining Date, Phone, Email, Address, PAN, Aadhar, Year, Basic Pay, Grade Pay, Scale Pay, Scale Increment,").append("\n");
+    StringBuilder fileContent = new StringBuilder("Name, Department, Head, Designation, Gender, Date of Birth, Joining Date, Phone, Email, Address, PAN, Aadhar,").append("\n");
     for (EmployeeReportVO employeeVO : employeesList)
     {
       fileContent.append(employeeVO.getFullName()).append(", ");
@@ -188,15 +193,6 @@ public class EmployeeReportController
       fileContent.append(employeeVO.getAddress()).append(", ");
       fileContent.append(employeeVO.getPan()).append(", ");
       fileContent.append(employeeVO.getAdharNo()).append(", ");
-      SalaryVO salVo = employeeVO.getSalaryVo();
-      if (salVo != null)
-      {
-        fileContent.append(salVo.getYear()).append(", ");
-        fileContent.append(salVo.getBasic()).append(", ");
-        fileContent.append(salVo.getGradePay()).append(", ");
-        fileContent.append(salVo.getScalePay()).append(", ");
-        fileContent.append(salVo.getScaleInc()).append(", ");
-      }
       fileContent.append("\n");
     }
     response.setContentType("text/csv");

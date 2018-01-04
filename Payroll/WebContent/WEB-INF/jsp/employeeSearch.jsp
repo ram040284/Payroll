@@ -89,28 +89,6 @@ $(document).ready(function() {
 	
 	$('#closeSearch').hide();
 
-	$('#printLink').click(function(event) {
-		var newWin = window.frames["rptPrintFrame"];
-		var frameDoc = newWin.document;
-        if (newWin.contentWindow)
-            frameDoc = newWin.contentWindow.document;
-
-	    frameDoc.getElementById("printReport").innerHTML = document.getElementById("empListDiv").innerHTML;
-	    frameDoc.getElementById("reportName").innerHTML = document.getElementById("reportName").innerHTML;
-	
-	    if (newWin.contentWindow) {
-	    	newWin.contentWindow.focus();
-			newWin.contentWindow.print();
-	    } else {
-	    	var browserName = navigator.userAgent.toLowerCase();
-    		var printVar = newWin.document.execCommand('print', false, null);
-	    	if (!printVar) {
-	    		newWin.focus();
-				newWin.print();
-	    	}
-	    }
-	});
-	
 	$('#modifySearch').click(function(event) {
 		$('#searchDiv').show();
 		$('#closeSearch').show();
