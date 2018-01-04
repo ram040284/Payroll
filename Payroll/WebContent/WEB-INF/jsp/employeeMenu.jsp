@@ -59,17 +59,42 @@
 					<div class="precess-column">
 						<a href="../Payroll/viewEmpQtr"><img src="../Payroll/resources/images/empQuarters.jpeg" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
-						<h4><a href="../Payroll/viewEmpQtr">Quarter Details</a></h4>
+						<h4><a href="../Payroll/viewEmpQtr">Employee Quarters</a></h4>
 					</div>
 				</div>
 				<div class="col-md-3 text-center">
 					<div class="precess-column">
 						<a href="../Payroll/viewEmpLic"><img src="../Payroll/resources/images/lic.png" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
-						<h4><a href="../Payroll/viewEmpLic">LIC Details</a></h4>
+						<h4><a href="../Payroll/viewEmpLic">Employee LIC</a></h4>
 					</div>
 				</div>
+					<div class="col-md-3 text-center">
+					<div class="precess-column">
+						<a href="../Payroll/viewEmpAlwnce"><img src="../Payroll/resources/images/allowances.png" class="img-responsive imageMenuItem"
+					alt="theme logo" /></a>
+						<h4><a href="../Payroll/viewEmpAlwnce">Employee Allowances</a></h4>
+					</div>
+				</div>
+			
 			</div>
+			 <div class="row" style="padding-top:40px;">
+			 	<div class="col-md-3 text-center">
+					<div class="precess-column">
+						<a href="../Payroll/viewOvertime"><img src="../Payroll/resources/images/overtime.jpeg" class="img-responsive imageMenuItem"
+					alt="theme logo" /></a>
+						<h4><a href="../Payroll/viewOvertime">Employee Overtime</a></h4>
+					</div>
+				</div>
+				<div class="col-md-3 text-center">
+					<div class="precess-column">
+						<a href="../Payroll/viewEmpDeductions"><img src="../Payroll/resources/images/advance.png" class="img-responsive imageMenuItem"
+					alt="theme logo" /></a>
+						<h4><a href="../Payroll/viewEmpDeductions">Employee Deductions</a></h4>
+					</div>
+				</div>
+			
+			</div>	
 		</div>
 	</div>
 <jsp:include page="../jsp/public/postFooter.jsp" />

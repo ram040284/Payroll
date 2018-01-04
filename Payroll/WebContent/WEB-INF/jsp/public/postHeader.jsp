@@ -161,26 +161,24 @@
 				            <li><a href="../Payroll/viewHeads">Cost Heads</a></li>
 				            <li><a href="../Payroll/viewDesg">Designation</a></li>
 				            <li><a href="../Payroll/viewBankDetails">Bank Details</a></li>
-				            <li><a href="../Payroll/viewConveyance">Allowance Details</a></li>
-				           	<li><a href="../Payroll/viewOvertime">Overtime Payment</a></li>
-				           	<li><a href="../Payroll/viewAdvance">Advance Payment</a></li>
-				           	<%--<li><a href="../Payroll/viewPayHead">Pay-Head Details</a></li>
-				           	<li><a href="../Payroll/viewDeductHead">Deduction Details</a></li> --%>
-				           	
+				           <li><a href="../Payroll/viewAdvance">Advances </a></li>
+				            <li><a href="../Payroll/viewTaxSlab">Incometax Slabs </a></li>	
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Employee <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<%--<li><a href="#" onclick="inputAction('../Payroll/viewEmp')">New Employee</a></li> --%>
-							<li><a href="#" onclick="getList('../Payroll/employee')">Employee Details</a></li>
+							<li><a href="#" onclick="getList('../Payroll/employee')">Employee Master</a></li>
 							<li><a href="../Payroll/viewBank">Employee Bank</a></li>
 							<li><a href="../Payroll/viewSalary">Employee Salary</a></li>
 							<li><a href="#" onclick="getList('../Payroll/viewLeave')">Employee Leave</a></li>
-							<li><a href="../Payroll/viewEmpPf">Provident Fund</a></li>
-							<li><a href="../Payroll/viewEmpQtr">Quarters Details</a></li>
-							<li><a href="../Payroll/viewEmpLic">LIC Details</a></li>
-				           	
+							<li><a href="../Payroll/viewEmpPf">Employee PF</a></li>
+							<li><a href="../Payroll/viewEmpQtr">Employee Quarters</a></li>
+							<li><a href="../Payroll/viewEmpLic">Employee LIC</a></li>
+							<li><a href="../Payroll/viewEmpAlwnce">Employee Allowances</a></li>
+							<li><a href="../Payroll/viewOvertime">Employee Overtime</a></li>
+							<li><a href="../Payroll/viewEmpDeductions">Employee Deductions</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">

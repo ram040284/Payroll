@@ -32,5 +32,8 @@
    	<mapping resource="com/payroll/headInfo/dataobjects/HeadDepartment.hbm.xml"/>
    	<mapping resource="com/payroll/designation/dataobjects/DesignationHead.hbm.xml"/>
    	<mapping resource="com/payroll/bank/dataobjects/BankDetails.hbm.xml"/>
+   	<mapping resource="com/payroll/employee/allowance/dataobjects/EmpAllowance.hbm.xml"/>
+   	<mapping resource="com/payroll/employee/deductions/dataobjects/EmpDeductions.hbm.xml"/>
+   	<mapping resource="com/payroll/incomtax/dataobjects/IncomtaxSlab.hbm.xml"/>
 </session-factory>
 </hibernate-configuration>

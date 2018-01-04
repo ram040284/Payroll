@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.incomtax.dataobjects.IncomtaxSlab" table="INCOME_TAX_SLAB_MASTER">  
+    <id name="incomtaxId" type="integer" >  
+     <column name="INCOME_TAX_ID" sql-type="integer" not-null="true"/>  
+     <generator class="increment"/>
+    </id>  
+    <property name="financialYear" column="FIN_YEAR" not-null="true"/>  
+    <property name="lowerSlab" column="LOWER_SLAB" not-null="true"/> 
+    <property name="higherSlab" column="HIGHER_SLAB" not-null="true"/>  
+    <property name="incomtaxPercent" column="INCOME_TAX_PERCENT" />
+    <property name="surcharge" column="SURCHARGE" /> 
+    <property name="educationCess" column="EDUCATION_CESS" />  
+    <property name="otherCess" column="OTHER_CESS" /> 
+    <property name="status" column="STATUS" not-null="true"/>
+    <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/> 
+    </class>  
+ </hibernate-mapping> 

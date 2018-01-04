@@ -1,0 +1,22 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.employee.deductions.dataobjects.EmpDeductions" table="EMP_TAX_DEDUCTION">  
+    <id name="employeeId" type="java.lang.Integer">
+			<column name="EMP_ID" />
+			<generator class="foreign">
+				<param name="property">employee</param>
+			</generator>
+	</id>
+	<one-to-one name="employee" class="com.payroll.employee.dataobjects.Employee"
+		constrained="true" fetch="select"></one-to-one>
+	<property name="section80C" column="SECITION80C_DED" />  
+    <property name="homeLoanIntrst88EE" column="HOME_LOAN_INTEREST_88EE" />
+    <property name="selfDisable80U" column="SELF_DISABLE_80U" />  
+    <property name="cess" column="CESS"/>  
+    <property name="status" column="STATUS" not-null="true"/>  
+    <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/>
+  </class>  
+ </hibernate-mapping> 

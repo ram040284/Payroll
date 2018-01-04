@@ -50,23 +50,23 @@
 				
 				<div class="col-md-3 text-center">
 					<div class="precess-column">
-						<a href="../Payroll/viewConveyance"><img src="../Payroll/resources/images/allowances.png" class="img-responsive imageMenuItem"
+						<a href="../Payroll/viewTaxSlab"><img src="../Payroll/resources/images/allowances.png" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
-						<h4><a href="../Payroll/viewConveyance">Allowances</a></h4>
+						<h4><a href="../Payroll/viewTaxSlab">Incometax Slabs</a></h4>
 					</div>
 				</div>
-				<div class="col-md-3 text-center">
+				<%--<div class="col-md-3 text-center">
 					<div class="precess-column">
 						<a href="../Payroll/viewOvertime"><img src="../Payroll/resources/images/overtime.jpeg" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
 						<h4><a href="../Payroll/viewOvertime">Overtime Payment</a></h4>
 					</div>
-				</div>
+				</div> --%>
 				<div class="col-md-3 text-center">
 					<div class="precess-column">
 						<a href="../Payroll/viewAdvance"><img src="../Payroll/resources/images/advance.png" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
-						<h4><a href="../Payroll/viewAdvance">Advance Payment</a></h4>
+						<h4><a href="../Payroll/viewAdvance">Advances</a></h4>
 					</div>
 				</div>
 			</div>
