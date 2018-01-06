@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -129,7 +130,7 @@
 				<!-- Start Form Search -->
 			</div>
 		</div>
-		
+		<c:if test="${not empty sessionScope.user}">
 		<div class="wrapper" style="background:#3b589a;">
 		<div class="container">
 			<!-- End Form Search -->
@@ -221,6 +222,7 @@
 			
 		</div>
 		</div>
+		</c:if>
 	</nav>
 	<!-- End Navbar -->
 	
