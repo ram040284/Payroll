@@ -20,5 +20,9 @@ http://www.springframework.org/schema/aop http://www.springframework/aop/config/
 
 <!-- 	<mvc:resources mapping="/css/**" location="/WEB-INF/css/"/>    -->
 	<mvc:resources mapping="/resources/**" location="/resources/" cache-period="31556926"/> 
+	
+	<mvc:interceptors>
+		<bean class="com.payroll.interceptor.LoginInterceptor"/>
+	</mvc:interceptors>
 
 </beans>
