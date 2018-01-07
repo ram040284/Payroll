@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 @Controller
 public class LoginInterceptor extends HandlerInterceptorAdapter {
@@ -14,8 +15,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle (HttpServletRequest request,
                               HttpServletResponse response,
                               Object handler) throws Exception {
-        RequestMapping rm = ((HandlerMethod) handler).getMethodAnnotation(
-                            RequestMapping.class);
+    	RequestMapping rm = null;
+    	if (handler instanceof HandlerMethod) {
+    		rm = ((HandlerMethod) handler).getMethodAnnotation(RequestMapping.class);
+    	} else if (handler instanceof ResourceHttpRequestHandler) {
+    		return true;
+    	}
 
         boolean alreadyLoggedIn = request.getSession()
                                          .getAttribute("user") != null;

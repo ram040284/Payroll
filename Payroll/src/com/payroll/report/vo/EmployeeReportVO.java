@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class EmployeeReportVO
-  implements Serializable
-{
+public class EmployeeReportVO implements Serializable {
   private String firstName;
   private String lastName;
   private String middleName;

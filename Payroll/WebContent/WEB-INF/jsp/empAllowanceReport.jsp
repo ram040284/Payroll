@@ -9,8 +9,9 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	
 	$("#downloadLink").click(function(event) {
-		window.location = "../Payroll/employeeRptDownload";
+		window.location = "../Payroll/empAllowanceRptDownload";
 	});
 	
 	$('#empRptTable').DataTable({
@@ -38,11 +39,6 @@ $(document).ready(function() {
 	  	"paging":false
  	});
 	
-	$('#searchBtn').click(function(event) {
-		$("#formSearch").attr("action", "../Payroll/employeeReport");
-		$("#formSearch").submit();
-	});
-	
 	$('#printLink').click(function(event) {
 		var newWin = window.frames["rptPrintFrame"];
 		var frameDoc = newWin.document;
@@ -64,6 +60,12 @@ $(document).ready(function() {
 	    	}
 	    }
 	});
+	
+	$('#searchBtn').click(function(event) {
+		$("#formSearch").attr("action", "../Payroll/empAllowanceReport");
+		$("#formSearch").submit();
+	});
+	
 });
       </script>
 </head>
@@ -72,85 +74,80 @@ $(document).ready(function() {
 	
 	<jsp:include page="../jsp/employeeSearch.jsp" />
 	
-	<c:if test="${sessionScope.employees.size() ge 0}">
+	<c:if test="${sessionScope.empAllowanceReport.size() ge 0}">
 	<div  class="container" class="row" style ="position: relative;">
-	<div id="empListDiv" class="rptTblClass" style ="width:100%;" >
+	<div id="empListDiv" class="rptTblClass" style ="width:100%;">
 		<table id="empRptTable" class="table table-striped table-bordered table-hover table-responsive">
 		<thead>
 			<tr>
 			<th>Name</th>
 			<th>Department</th>
 			<th>Head</th>
-			<th>Designation</th>
-			<th>Address</th>
-			<th>Date of Birth</th>
-			<th>Gender</th>
-			<th>Joining Date</th>
-			<th>Phone</th>
-			<th>Email</th>
-			<th>Aadhar Number</th>
-			<th>PAN</th>
+			<th>CCA</th>
+			<th>Washing Allowance</th>
+			<th>Conveyance Allowance</th>
+			<th>Non Practical Allowance</th>
+			<th>Uniform Allowance</th>
+			<th>Family Plan Allowance</th>
+			<th>Cycle Allowance</th>
+			<th>HRA</th>
 			</tr></thead>
-			<c:forEach var="employee" items="${sessionScope.employees}">
+			<c:forEach var="employee" items="${sessionScope.empAllowanceReport}">
 			<tr>
 			<td> ${employee.fullName} </td>
 			<td> ${employee.department}</td>
 			<td> ${employee.headName}</td>
-			<td> ${employee.designation}</td>
-			<td> ${employee.address}</td>
-			<td> ${employee.dob} </td>
-			<td> ${employee.gender}</td>
-			<td> ${employee.joiningDate}</td>
-			<td> ${employee.phone}</td>
-			<td> ${employee.email}</td>
-			<td> ${employee.adharNo} </td>
-			<td> ${employee.pan} </td>
+			<td> ${employee.cca}</td>
+			<td> ${employee.washingAllowance}</td>
+			<td> ${employee.convAllowance}</td>
+			<td> ${employee.nonPractAllowance}</td>
+			<td> ${employee.uniformAllowance} </td>
+			<td> ${employee.familyPlanAllowance}</td>
+			<td> ${employee.cycleAllowance}</td>
+			<td> ${employee.hraFlag? "Yes":"No"}</td>
 			</tr>
 			</c:forEach>
+			
 		</table>
 		</div>
 		</div>
 	</c:if>
-	
-	<c:if test="${sessionScope.employees.size() gt 0}">
-	<div id="empListPrintDiv" class="rptTblClass" style ="width:100%;display:none;" >
+
+<c:if test="${sessionScope.empAllowanceReport.size() gt 0}">
+	<div id="empListPrintDiv" class="rptTblClass" style ="width:100%;overflow-x: auto;overflow-y: auto;min-height:10px;max-height:380px;display:none;" >
 		<table id="empRptPrintTable" class="table table-striped table-bordered table-hover table-responsive">
 		<thead>
 			<tr>
 			<th>Name</th>
 			<th>Department</th>
 			<th>Head</th>
-			<th>Designation</th>
-			<th>Address</th>
-			<th>Date of Birth</th>
-			<th>Gender</th>
-			<th>Joining Date</th>
-			<th>Phone</th>
-			<th>Email</th>
-			<th>Aadhar Number</th>
-			<th>PAN</th>
+			<th>CCA</th>
+			<th>Washing Allowance</th>
+			<th>Conveyance Allowance</th>
+			<th>Non Practical Allowance</th>
+			<th>Uniform Allowance</th>
+			<th>Family Plan Allowance</th>
+			<th>Cycle Allowance</th>
+			<th>HRA</th>
 			</tr></thead>
-			<c:forEach var="employee" items="${sessionScope.employees}">
+			<c:forEach var="employee" items="${sessionScope.empAllowanceReport}">
 			<tr>
 			<td> ${employee.fullName} </td>
 			<td> ${employee.department}</td>
 			<td> ${employee.headName}</td>
-			<td> ${employee.designation}</td>
-			<td> ${employee.address}</td>
-			<td> ${employee.dob} </td>
-			<td> ${employee.gender}</td>
-			<td> ${employee.joiningDate}</td>
-			<td> ${employee.phone}</td>
-			<td> ${employee.email}</td>
-			<td> ${employee.adharNo} </td>
-			<td> ${employee.pan} </td>
+			<td> ${employee.cca}</td>
+			<td> ${employee.washingAllowance}</td>
+			<td> ${employee.convAllowance}</td>
+			<td> ${employee.nonPractAllowance}</td>
+			<td> ${employee.uniformAllowance} </td>
+			<td> ${employee.familyPlanAllowance}</td>
+			<td> ${employee.cycleAllowance}</td>
+			<td> ${employee.hraFlag? "Yes":"No"}</td>
 			</tr>
 			</c:forEach>
 		</table>
-		</div>
+		</div></div>
 	</c:if>
-	</div>			
-	
 	<jsp:include page="../jsp/public/postFooter.jsp" />
 </body>
 </html>

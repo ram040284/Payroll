@@ -144,7 +144,7 @@
 			</div>
 			<div class="navlink-right">
 						<div class="dropdown shopping-cart">
-							<button class="btn-navlink" type="button" data-toggle="dropdown">
+							<button class="btn-navlink" type="button" data-toggle="dropdown" id="logoutBtn" onclick="logoutEvent();">
 								<i class="fa fa-sign-out fa-4" style="color:#ffff; float:right;"></i>
 							</button>
 						</div>
@@ -205,7 +205,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Reports <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="../Payroll/employeeSearch">Employee Details</a></li>
-							<li><a href="../Payroll/empSalarySearch">Employee Salary</a></li>
+							<li><a href="../Payroll/empAllowanceSearch">Employee Allowances</a></li>
 							<%--<li><a href="portfolio-alt2.html">Option-02</a></li>
 							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
 						</ul>
@@ -290,7 +290,14 @@
 <form action="" name="inputForm" method="post">
 	
 </form>
-
+<script type="text/javascript">
+function logoutEvent() {
+	var alertMsg = "Are you sure, you want to logout?";
+	if (confirm(alertMsg)) {
+		window.location = "../Payroll/login";
+	}
+}
+</script>
 <script src="../Payroll/resources/js/jquery-2.0.3.min.js"></script>
     <script src="../Payroll/resources/js/bootstrap.min.js"></script>
 	<script src="../Payroll/resources/js/jquery.easing-1.3.min.js"></script>

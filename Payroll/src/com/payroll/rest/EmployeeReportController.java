@@ -3,14 +3,12 @@ package com.payroll.rest;
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.SearchCriteria;
-import com.payroll.employee.salary.vo.SalaryVO;
 import com.payroll.headInfo.dataobjects.HeadInfoDAO;
 import com.payroll.headInfo.vo.HeadInfoVO;
 import com.payroll.report.business.EmployeeReportService;
-import com.payroll.report.vo.EmpSalaryReportVO;
+import com.payroll.report.vo.EmpAllowanceReportVO;
 import com.payroll.report.vo.EmployeeReportVO;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,7 +17,6 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -45,19 +42,19 @@ public class EmployeeReportController
     {
       e.printStackTrace();
     }
-    request.getSession().setAttribute("employees", new ArrayList());
+    request.getSession().removeAttribute("recordsSize");
+    request.getSession().removeAttribute("employees");
     request.getSession().setAttribute("departments", depJSON);
     
     SearchCriteria employee = new SearchCriteria();
     request.getSession().setAttribute("reportName", "Employee Information");
-    request.getSession().setAttribute("recordsSize", Integer.valueOf(-1));
     ModelAndView model = new ModelAndView("employeeReport", "command", employee);
     model.addObject("search", employee);
     return model;
   }
   
-  @RequestMapping(value={"/empSalarySearch"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public ModelAndView getEmployeesSalarySearch(HttpServletRequest request, ModelMap modelMap)
+  @RequestMapping(value={"/empAllowanceSearch"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  public ModelAndView getEmployeesAllowancesSearch(HttpServletRequest request, ModelMap modelMap)
   {
     ObjectMapper mapper = new ObjectMapper();
     List<Department> deptList = new DepartmentService().getDepartments();
@@ -71,13 +68,13 @@ public class EmployeeReportController
     {
       e.printStackTrace();
     }
-    request.getSession().setAttribute("empSalaryReport", new ArrayList());
+    request.getSession().removeAttribute("empAllowanceReport");
+    request.getSession().removeAttribute("recordsSize");
     request.getSession().setAttribute("departments", depJSON);
     
     SearchCriteria employee = new SearchCriteria();
-    request.getSession().setAttribute("reportName", "Employee Salary Information");
-    request.getSession().setAttribute("recordsSize", Integer.valueOf(-1));
-    ModelAndView model = new ModelAndView("employeeSalaryReport", "command", employee);
+    request.getSession().setAttribute("reportName", "Employee Allowances Report");
+    ModelAndView model = new ModelAndView("empAllowanceReport", "command", employee);
     model.addObject("search", employee);
     return model;
   }
@@ -127,15 +124,15 @@ public class EmployeeReportController
     return model;
   }
   
-  @RequestMapping(value={"/empSalaryReport"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
-  public ModelAndView getEmployeesSalaryReport(HttpServletRequest request, SearchCriteria search)
+  @RequestMapping(value={"/empAllowanceReport"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  public ModelAndView getEmpAllowanceReport(HttpServletRequest request, SearchCriteria search)
   {
-    List<EmpSalaryReportVO> employeesList = new EmployeeReportService().getEmpSalaryReport(search.getDepartmentId(), search.getHeadId());
+    List<EmpAllowanceReportVO> employeesList = new EmployeeReportService().getEmpAllowancesReport(search.getDepartmentId(), search.getHeadId());
     
-    List<EmpSalaryReportVO> employees = new ArrayList();
+    List<EmpAllowanceReportVO> employees = new ArrayList();
     String name = search.getFirstName() != null ? search.getFirstName().trim() : "";
     if ((!name.equals("")) && (employeesList != null) && (employeesList.size() != 0)) {
-      for (EmpSalaryReportVO empVO : employeesList) {
+      for (EmpAllowanceReportVO empVO : employeesList) {
         if (empVO.getFullName().toUpperCase().contains(name.toUpperCase())) {
           employees.add(empVO);
         }
@@ -145,10 +142,10 @@ public class EmployeeReportController
     }
     System.out.println("Salary Report Size:" + employees.size());
     
-    request.getSession().setAttribute("empSalaryReport", employees);
-    request.getSession().setAttribute("reportName", "Employee Salary Information");
+    request.getSession().setAttribute("empAllowanceReport", employees);
+    request.getSession().setAttribute("reportName", "Employee Allowances Report");
     request.getSession().setAttribute("recordsSize", Integer.valueOf(employees.size()));
-    ModelAndView model = new ModelAndView("employeeSalaryReport", "command", search);
+    ModelAndView model = new ModelAndView("empAllowanceReport", "command", search);
     model.addObject("search", search);
     if (search.getDepartmentId() != 0)
     {
@@ -185,14 +182,14 @@ public class EmployeeReportController
       fileContent.append(employeeVO.getDepartment()).append(", ");
       fileContent.append(employeeVO.getHeadName()).append(", ");
       fileContent.append(employeeVO.getDesignation()).append(", ");
-      fileContent.append(employeeVO.getGender()).append(", ");
+      fileContent.append(employeeVO.getAddress()).append(", ");
       fileContent.append(employeeVO.getDob()).append(", ");
+      fileContent.append(employeeVO.getGender()).append(", ");
       fileContent.append(employeeVO.getJoiningDate()).append(", ");
       fileContent.append(employeeVO.getPhone()).append(", ");
       fileContent.append(employeeVO.getEmail()).append(", ");
-      fileContent.append(employeeVO.getAddress()).append(", ");
-      fileContent.append(employeeVO.getPan()).append(", ");
       fileContent.append(employeeVO.getAdharNo()).append(", ");
+      fileContent.append(employeeVO.getPan()).append(", ");
       fileContent.append("\n");
     }
     response.setContentType("text/csv");
@@ -204,31 +201,31 @@ public class EmployeeReportController
     os.close();
   }
   
-  @RequestMapping(value={"/empSalaryRptDownload"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"text/csv"})
+  @RequestMapping(value={"/empAllowanceRptDownload"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"text/csv"})
   @ResponseBody
-  public void downloadEmpSalReport(HttpServletRequest request, HttpServletResponse response)
+  public void downloadEmpAllowancesReport(HttpServletRequest request, HttpServletResponse response)
     throws IOException
   {
     DateFormat format = new SimpleDateFormat("yyyyMMdd_HHmmss");
-    String csvFileName = "EmployeeSalaryReport_" + format.format(new Date()) + ".csv";
+    String csvFileName = "EmpAllowanceReport_" + format.format(new Date()) + ".csv";
     
-    List<EmpSalaryReportVO> employeesList = (List)request.getSession().getAttribute("empSalaryReport");
-    StringBuilder fileContent = new StringBuilder("Name, Department, Head, Designation, Basic, Grade Pay, CA, UFA, FPA, TA, HRA, PF, LWP").append("\n");
-    for (EmpSalaryReportVO employeeVO : employeesList)
+    List<EmpAllowanceReportVO> employeesList = (List)request.getSession().getAttribute("empAllowanceReport");
+    StringBuilder fileContent = new StringBuilder("Name, Department, Head, CCA, Washing Allowance, Conveyance Allowance, " +
+    "Non Practice Allowance, Uniform Allowance, Family Plan Allowance, Cycle Allowance, HRA").append("\n");
+    for (EmpAllowanceReportVO employeeVO : employeesList)
     {
       fileContent.append(employeeVO.getFullName()).append(", ");
       fileContent.append(employeeVO.getDepartment()).append(", ");
       fileContent.append(employeeVO.getHeadName()).append(", ");
-      fileContent.append(employeeVO.getDesignation()).append(", ");
-      fileContent.append(employeeVO.getBasic()).append(", ");
-      fileContent.append(employeeVO.getGradePay()).append(", ");
-      fileContent.append(employeeVO.getCa()).append(", ");
-      fileContent.append(employeeVO.getUfa()).append(", ");
-      fileContent.append(employeeVO.getFpa()).append(", ");
-      fileContent.append(employeeVO.getTa()).append(", ");
-      fileContent.append(employeeVO.isHraFlag()).append(", ");
-      fileContent.append(employeeVO.isPfFlag()).append(", ");
-      fileContent.append(employeeVO.getLwp()).append(", ");
+      //fileContent.append(employeeVO.getDesignation()).append(", ");
+      fileContent.append(employeeVO.getCca()).append(", ");
+      fileContent.append(employeeVO.getWashingAllowance()).append(", ");
+      fileContent.append(employeeVO.getConvAllowance()).append(", ");
+      fileContent.append(employeeVO.getNonPractAllowance()).append(", ");
+      fileContent.append(employeeVO.getUniformAllowance()).append(", ");
+      fileContent.append(employeeVO.getFamilyPlanAllowance()).append(", ");
+      fileContent.append(employeeVO.getCycleAllowance()).append(", ");
+      fileContent.append(employeeVO.isHraFlag()? "Yes" : "No").append(", ");
       fileContent.append("\n");
     }
     response.setContentType("text/csv");

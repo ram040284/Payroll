@@ -183,7 +183,7 @@ function getHeadsByDept(deptId, headId) {
 	</div></div>
 	</div></div>
 	</form:form> 
-<c:if test="${sessionScope.recordsSize gt 0}">
+<c:if test="${not empty sessionScope.recordsSize}">
 <div class="container" style ="position: relative;">
 <div class="col-sm-12" style ="width:100%;padding-left:0px;margin-top:0px;margin-left:0px;">
 	<div class="col-sm-4" style ="padding-left:0px;margin-left:0px;"><h6 style="color: #0101DF;margin-bottom:0px;" id="reportName">${sessionScope.reportName}</h6></div> 

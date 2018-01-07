@@ -18,8 +18,9 @@ public class LoginController
 {
   
   @RequestMapping(value={"/", "/login"}, method={RequestMethod.GET})
-  public ModelAndView login()
+  public ModelAndView login(HttpServletRequest request)
   {
+	 request.getSession().removeAttribute("user");
 	 UserVO userVO = new UserVO();
      ModelAndView model = new ModelAndView("userLogin", "command", userVO);
      return model;
@@ -39,6 +40,16 @@ public class LoginController
 	     model = new ModelAndView("userLogin", "command", user);
 	     model.addObject("errorMsg", "Invalid Username or Password");
 	 }
+     return model;
+  }
+  
+  @RequestMapping(value={"/logout"}, method={RequestMethod.GET})
+  public ModelAndView logout(HttpServletRequest request)
+  {
+	 request.getSession().removeAttribute("user");
+	 request.getSession().invalidate();
+	 UserVO userVO = new UserVO();
+     ModelAndView model = new ModelAndView("userLogin", "command", userVO);
      return model;
   }
 }

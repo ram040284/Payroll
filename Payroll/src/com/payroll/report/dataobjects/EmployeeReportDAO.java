@@ -12,11 +12,11 @@ import com.payroll.HibernateConnection;
 import com.payroll.Utils;
 import com.payroll.employee.salary.dataobjects.SalaryDAO;
 import com.payroll.employee.salary.vo.SalaryVO;
-import com.payroll.report.vo.EmpSalaryReportVO;
+import com.payroll.report.vo.EmpAllowanceReportVO;
 import com.payroll.report.vo.EmployeeReportVO;
 
 // Referenced classes of package com.payroll.report.vo:
-//            EmployeeReportVO, EmpSalaryReportVO
+//            EmployeeReportVO, EmpAllowanceReportVO
 
 public class EmployeeReportDAO
 {
@@ -140,21 +140,18 @@ public class EmployeeReportDAO
         empSalList = new ArrayList();
         try
         {
-            String queryString = "SELECT EMP_FNAME, EMP_MNAME, EMP_LNAME, BASIC, GRD_PAY, CA, UFALW, FPALW, TALW, " +
-"HRA_FLAG, PF_FLAG, SUM(empLeave.NO_OF_LEAVES) as LWP , (SELECT dept.DEPT_NAME FR" +
-"OM PAYROLL_DEV.DEPT_MASTER dept WHERE dept.DEPT_ID = empDept.DEPT_ID) as DeptNam" +
-"e,  (SELECT deptHead.HEAD_NAME FROM PAYROLL_DEV.dept_cost_head_master deptHead W" +
-"HERE deptHead.HEAD_ID = empHead.HEAD_ID) as HeadName, (SELECT desg.DESG_NAME FRO" +
-"M PAYROLL_DEV.desg_master desg WHERE desg.DESG_ID = empDesg.DESG_ID) as Designat" +
-"ion FROM PAYROLL_DEV.EMP_MASTER empMaster  LEFT OUTER JOIN  PAYROLL_DEV.EMP_SAL_" +
-"MASTER empSal ON empMaster.EMP_ID =empSal.EMP_ID LEFT OUTER JOIN  PAYROLL_DEV.EM" +
-"P_ALLOWANCES empAllowance   ON empMaster.EMP_ID =empAllowance.EMP_ID LEFT OUTER " +
-"JOIN  PAYROLL_DEV.EMP_LEAVE_MASTER empLeave  ON empMaster.EMP_ID =empLeave.EMP_I" +
-"D LEFT OUTER JOIN  PAYROLL_DEV.emp_dept_details empDept    ON empMaster.EMP_ID =" +
-"empDept.EMP_ID LEFT OUTER JOIN  PAYROLL_DEV.emp_cost_head_details empHead   ON e" +
-"mpMaster.EMP_ID =empHead.EMP_ID LEFT OUTER JOIN  PAYROLL_DEV.emp_desg_details em" +
-"pDesg   ON empMaster.EMP_ID =empDesg.EMP_ID "
-;
+        	String queryString = "SELECT empMaster.EMP_ID, EMP_FNAME, EMP_MNAME, EMP_LNAME, CCA, WASHING_ALLOWANCE, CONV_ALLOWANCE, NON_PRACT_ALLOWANCE, UNIFORM_ALLOWANCE, " + 
+        			"FAMILY_PLANNING_ALLOWANCE, CYCLE_ALLOWANCE, HRA_FLAG , (SELECT dept.DEPT_NAME FROM DEPT_MASTER dept " + 
+        			"WHERE dept.DEPT_ID = empDept.DEPT_ID) as DeptName,  (SELECT deptHead.HEAD_NAME FROM dept_cost_head_master deptHead " +
+        			"WHERE deptHead.HEAD_ID = empHead.HEAD_ID) as HeadName, (SELECT desg.DESG_NAME FROM desg_master desg " +
+        			"WHERE desg.DESG_ID = empDesg.DESG_ID) as Designation FROM EMP_MASTER empMaster " +
+        		//	"LEFT OUTER JOIN  EMP_SAL_MASTER empSal ON empMaster.EMP_ID =empSal.EMP_ID " +
+        			"LEFT OUTER JOIN  EMP_ALLOWANCES_MASTER empAllowance ON empMaster.EMP_ID =empAllowance.EMP_ID " +
+        		//	"LEFT OUTER JOIN  EMP_LEAVE_MASTER empLeave  ON empMaster.EMP_ID =empLeave.EMP_ID " +
+        			"LEFT OUTER JOIN  emp_dept_details empDept ON empMaster.EMP_ID =empDept.EMP_ID " +
+        			"LEFT OUTER JOIN  emp_cost_head_details empHead ON empMaster.EMP_ID=empHead.EMP_ID " +
+        			"LEFT OUTER JOIN  emp_desg_details empDesg ON empMaster.EMP_ID =empDesg.EMP_ID ";
+        			
             if(deptId != 0 || headId != 0)
             {
                 queryString = (new StringBuilder(String.valueOf(queryString))).append(" WHERE ").toString();
@@ -180,20 +177,20 @@ public class EmployeeReportDAO
             }
             List rows = query.list();
             System.out.println((new StringBuilder("rows size:")).append(rows.size()).toString());
-            EmpSalaryReportVO empSalVo;
+            EmpAllowanceReportVO empSalVo;
             for(Iterator iterator = rows.iterator(); iterator.hasNext(); empSalList.add(empSalVo))
             {
                 Object row[] = (Object[])iterator.next();
-                empSalVo = new EmpSalaryReportVO(0, (String)row[0], (String)row[1], (String)row[2], 
-                		row[3] != null ? ((Double)row[3]).doubleValue() : 0.0D, 
+                empSalVo = new EmpAllowanceReportVO(row[0] != null ? ((Integer)row[0]).intValue() : 0,
+                		(String)row[1], (String)row[2], (String)row[3], 
                 		row[4] != null ? ((Double)row[4]).doubleValue() : 0.0D, 
                 		row[5] != null ? ((Double)row[5]).doubleValue() : 0.0D, 
                 		row[6] != null ? ((Double)row[6]).doubleValue() : 0.0D, 
                 		row[7] != null ? ((Double)row[7]).doubleValue() : 0.0D, 
                 		row[8] != null ? ((Double)row[8]).doubleValue() : 0.0D, 
-                		row[9] != null ? ((Boolean)row[9]).booleanValue() : false, 
-                		row[10] != null ? ((Boolean)row[10]).booleanValue() : false, 
-                		row[11] != null ? ((BigDecimal)row[11]).intValue() : 0, 
+                		row[9] != null ? ((Double)row[9]).doubleValue() : 0.0D, 
+                		row[10] != null ? ((Double)row[10]).doubleValue() : 0.0D, 
+                		row[11] != null ? ((Boolean)row[11]).booleanValue() : false, 
                 		(String)row[12], (String)row[13], (String)row[14]);
             }
 
