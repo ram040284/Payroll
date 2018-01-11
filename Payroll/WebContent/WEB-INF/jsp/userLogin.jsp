@@ -7,14 +7,16 @@
 
 <jsp:include page="../jsp/public/postHeader.jsp" />
 <style type="text/css">
-	@media only screen and (min-width: 1025px) {
+	@media only screen and (min-width: 1200px) 
+  		and (max-width: 1600px) {
         #login {
            width:400px;
            margin:auto;
         }
     } 
     
-    @media only screen and (min-width: 700px) {
+    @media only screen and (min-width: 768px) 
+  		and (max-width: 1024px)  {
         #login {
         	width:400px;
         	margin:auto;

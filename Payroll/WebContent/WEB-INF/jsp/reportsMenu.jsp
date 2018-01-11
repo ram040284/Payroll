@@ -10,7 +10,7 @@
 </style>
 </head>
 <body>
-<div class="contain-wrapp" style="padding-top:180px;">	
+<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
 
 			<div class="row">
@@ -26,7 +26,7 @@
 					<div class="precess-column">
 						<a href="../Payroll/empSalarySearch"><img src="../Payroll/resources/images/costhead1.png" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
-					<h4><a href="../Payroll/empSalarySearch">Employee Salary</a></h4>
+					<h4><a href="../Payroll/empAllowanceSearch">Employee Allowances</a></h4>
 					</div>
 				</div>
 				

@@ -186,17 +186,16 @@ function getHeadsByDept(deptId, headId) {
 <c:if test="${not empty sessionScope.recordsSize}">
 <div class="container" style ="position: relative;">
 <div class="col-sm-12" style ="width:100%;padding-left:0px;margin-top:0px;margin-left:0px;">
-	<div class="col-sm-4" style ="padding-left:0px;margin-left:0px;"><h6 style="color: #0101DF;margin-bottom:0px;" id="reportName">${sessionScope.reportName}</h6></div> 
-	<div class="col-sm-4" style ="text-align:right;">
+	<div class="col-sm-6" style ="padding-left:0px;margin-left:0px;"><h6 style="color: #0101DF;margin-bottom:0px;" id="reportName">${sessionScope.reportName}</h6></div> 
+	<div class="col-sm-6" style ="padding-left:0px;margin-left:0px;">
 	<c:if test="${sessionScope.recordsSize gt 0}">
-	<a id="modifySearch" href="javascript:void(0)" style="color: #0101DF;text-decoration: underline;margin-right:15px;"><b>Modify Search</b></a>
-	<a id="closeSearch" href="javascript:void(0)" style="color: #0101DF;text-decoration: underline;margin-right:15px;"><b>Close Search</b></a>
+	<a id="modifySearch" href="javascript:void(0)" style="color: #0101DF;text-decoration: underline;"><b>Modify Search</b></a>
+	<a id="closeSearch" href="javascript:void(0)" style="color: #0101DF;text-decoration: underline;"><b>Close Search</b></a>
 	</c:if>
-	</div><div class="col-sm-2" ></div>
-	<div class="col-sm-2" style ="text-align:right;">
+	
 	<c:if test="${sessionScope.recordsSize gt 0}">
-	<a id="downloadLink" href="javascript:void(0)" style="color: #0101DF;text-decoration: underline;margin-right:15px;"><b>Download</b></a>
-	<a id="printLink" href="javascript:void(0)" style="color: #0101DF;text-decoration: underline;"><b>Print</b></a>
+	<a id="downloadLink" href="javascript:void(0)" style="color: #0101DF;text-decoration: underline;margin-right:15px;float:right;"><b>Download</b></a>
+	<a id="printLink" href="javascript:void(0)" style="color: #0101DF;text-decoration: underline;margin-right:15px;float:right;"><b>Print</b></a>
 	</c:if>
 	</div>
 </div></div>

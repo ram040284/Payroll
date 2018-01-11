@@ -10,7 +10,7 @@
 </style>
 </head>
 <body>
-<div class="contain-wrapp" style="padding-top:180px;">	
+<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
 
 			<div class="row">

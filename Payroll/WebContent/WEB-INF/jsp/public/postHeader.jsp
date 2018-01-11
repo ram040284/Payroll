@@ -76,8 +76,9 @@
 }
 
 .bodyDivCss {
-	padding-top:175px;
+	position:relative;
 	padding-bottom: 50px;
+	
 }
 .errMsg {
 	display: none;
@@ -124,7 +125,7 @@
 		<div class="wrapper" style="background:#e0e2ee;">
 			<div class="container">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="index.html"><img src="../Payroll/resources/images/logo-02.png" class="img-responsive"
+					<a class="navbar-brand" href="../Payroll/dashboard"><img src="../Payroll/resources/images/logo-02.png" class="img-responsive"
 					alt="theme logo" /></a>
 				</div>
 				<!-- Start Form Search -->

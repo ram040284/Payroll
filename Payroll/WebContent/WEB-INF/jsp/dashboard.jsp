@@ -2,7 +2,7 @@
 <jsp:include page="../jsp/public/postHeader.jsp" />
 <html>
 <body>
-<div class="contain-wrapp" style="padding-top:180px;">	
+<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
 
 			<div class="row">
