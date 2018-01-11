@@ -6,6 +6,21 @@
 <title>Reports</title>
 
 <jsp:include page="../jsp/public/postHeader.jsp" />
+<style type="text/css">
+	@media only screen and (min-width: 1025px) {
+        #login {
+           width:400px;
+           margin:auto;
+        }
+    } 
+    
+    @media only screen and (min-width: 700px) {
+        #login {
+        	width:400px;
+        	margin:auto;
+        }
+    }
+</style>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -29,8 +44,8 @@ $(document).ready(function() {
 <body >
 	<div class="contain-wrapp bodyDivCss">	
 	<form:form id="formLogin" method = "POST" action = "../Payroll/home">
-	<div id="searchDiv" class="container" style ="position: relative;width:400px;">
-	<div class="panel panel-primary">
+	<div id="searchDiv" class="container" style ="position: relative;">
+	<div class="panel panel-primary" id="login">
     	<div class="panel-heading" style="margin:0px;padding:5px;background-color: #8B9DC3;"><b>Payroll Login</b></div>
 		<div  class="panel-body formDiv" style="padding:10px;margin:0px;width:100%;">
 			<div class="col-sm-12">
