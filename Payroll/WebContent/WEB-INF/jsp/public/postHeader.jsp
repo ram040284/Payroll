@@ -85,6 +85,11 @@
 	font-size: 1.2em;
 	color: red;
 }
+.imageMenuItem {
+	height: 80px;
+	width: 80px;
+}
+
  </style>
  <script type="text/javascript">
  	function getList(actionPath) {

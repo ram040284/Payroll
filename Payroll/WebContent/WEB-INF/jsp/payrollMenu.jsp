@@ -3,10 +3,7 @@
 <html>
 <head>
 <style type="text/css">
-.imageMenuItem {
-	height: 120px;
-	width: 120px;
-}
+
 </style>
 </head>
 <body>
