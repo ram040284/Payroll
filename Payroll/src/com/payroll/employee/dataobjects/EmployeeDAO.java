@@ -362,4 +362,23 @@ public class EmployeeDAO {
 		return maxEmpId;
 	}
 	
+	public List<EmployeeVO> getEmployeesByDeptId(Integer deptId){
+		List<EmployeeVO> empList = null;
+		Session session = null;
+		try{
+			String queryString = "select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName) from Employee e "
+					+ "where e.status = ? and e.employeeId in (select eDept.employee.employeeId from EmpDepartment eDept where eDept.department.departmentId = ?)";
+			session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, "A");
+			query.setParameter(1, deptId);
+			empList = query.list();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return empList;
+	}
+	
 }

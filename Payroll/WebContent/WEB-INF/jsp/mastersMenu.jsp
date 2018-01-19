@@ -66,6 +66,14 @@
 						<h4><a href="../Payroll/viewAdvance">Advances</a></h4>
 					</div>
 				</div>
+				
+				<div class="col-md-3 text-center">
+					<div class="precess-column">
+						<a href="../Payroll/addUser"><img src="../Payroll/resources/images/userAdd.jpe" class="img-responsive imageMenuItem"
+					alt="theme logo" /></a>
+						<h4><a href="../Payroll/addUser">User</a></h4>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

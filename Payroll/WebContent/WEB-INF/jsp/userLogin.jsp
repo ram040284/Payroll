@@ -27,9 +27,9 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#loginBtn').click(function(event) {
-		if($('#userName').val().trim() == ""){
-			alert("User Name must be provided!");
-			$('#userName').focus();
+		if($('#userId').val().trim() == ""){
+			alert("User ID must be provided!");
+			$('#userId').focus();
 			return false;
 		}
 		if($('#password').val().trim() == ""){
@@ -57,7 +57,7 @@ $(document).ready(function() {
 				<label>User Name </label> 
 			</div>
 			<div class="col-sm-8  form-group">
-				<form:input type="text" id="userName" path="userName" placeholder="User ID" class="form-control"/>
+				<form:input type="text" id="userId" path="userId" placeholder="User ID" class="form-control"/>
 			</div>
 			<div class="col-sm-4 form-group">
 				<label>Password </label> 

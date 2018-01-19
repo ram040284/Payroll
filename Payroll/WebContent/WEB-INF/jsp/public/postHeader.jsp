@@ -59,8 +59,18 @@
 .tblClass tr > td:last-of-type {
     text-align: center;
 }
+
+@media only screen 
+  and (min-width: 1200px) and (max-width: 1600px){
 .formDiv{
-	margin-top: 10px; float: left; width: 70%; border: 1px solid #8B9DC3; margin-bottom: 10px;
+	margin-top: 0px; float: left; width: 70%; border: 1px solid #8B9DC3; margin-bottom: 10px;
+}
+}
+@media only screen 
+  and (min-width: 320px)and (max-width: 480px) {
+ .formDiv{
+	margin-top: 0px; float: left; border: 1px solid #8B9DC3; margin-bottom: 10px;width:100%;
+ } 
 }
 .formDiv button {
 	color: #fff; 
@@ -169,7 +179,8 @@
 				            <li><a href="../Payroll/viewDesg">Designation</a></li>
 				            <li><a href="../Payroll/viewBankDetails">Bank Details</a></li>
 				           <li><a href="../Payroll/viewAdvance">Advances </a></li>
-				            <li><a href="../Payroll/viewTaxSlab">Incometax Slabs </a></li>	
+				            <li><a href="../Payroll/viewTaxSlab">Incometax Slabs </a></li>
+				            <li><a href="../Payroll/addUser">User </a></li>	
 						</ul>
 					</li>
 					<li class="dropdown">

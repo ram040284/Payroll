@@ -1,0 +1,14 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.login.dataobjects.UserRoles" table="USER_ROLES">  
+    <id name="roleId" type="integer" >  
+     <column name="ROLE_ID" sql-type="integer" not-null="true"/>  
+     <generator class="increment"/>
+    </id>  
+    <property name="roleName" column="ROLE_NAME"  not-null="true" />
+    <property name="roleDesc" column="ROLE_DESC"/>
+  </class>  
+ </hibernate-mapping> 
