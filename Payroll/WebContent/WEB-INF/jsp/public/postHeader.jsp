@@ -60,17 +60,35 @@
     text-align: center;
 }
 
-@media only screen 
-  and (min-width: 1200px) and (max-width: 1600px){
+@media only screen and (min-width: 1200px) and (max-width: 1600px){
 .formDiv{
 	margin-top: 0px; float: left; width: 70%; border: 1px solid #8B9DC3; margin-bottom: 10px;
 }
+.imageMenuItem {
+	height: 80px;
+	width: 80px;
 }
-@media only screen 
-  and (min-width: 320px)and (max-width: 480px) {
+h3 {font-size:16pt;}
+}
+@media only screen and (min-width: 768px) and (max-width: 1199px)  {
+  .formDiv{
+	margin-top: 0px; float: left; width: 100%; border: 1px solid #8B9DC3; margin-bottom: 10px;
+  }
+  .imageMenuItem {
+	height: 60px;
+	width: 60px;
+  }
+  h3 {font-size:13pt; line-height:20px;margin-top:10px;}
+}
+@media only screen and (min-width: 320px)and (max-width: 767px) {
  .formDiv{
 	margin-top: 0px; float: left; border: 1px solid #8B9DC3; margin-bottom: 10px;width:100%;
  } 
+ .imageMenuItem {
+	height: 50px;
+	width: 50px;
+ }
+ h3 {font-size:11pt;line-height:20px;margin-top:6px;}
 }
 .formDiv button {
 	color: #fff; 
@@ -94,10 +112,6 @@
 	display: none;
 	font-size: 1.2em;
 	color: red;
-}
-.imageMenuItem {
-	height: 80px;
-	width: 80px;
 }
 
  </style>

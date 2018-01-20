@@ -45,7 +45,7 @@ $(document).ready(function() {
 </head>
 <body >
 	<div class="contain-wrapp bodyDivCss">	
-	<form:form id="formLogin" method = "POST" action = "../Payroll/home">
+	<form:form id="formLogin" method = "POST" action = "../Payroll/home" autocomplete="off">
 	<div id="searchDiv" class="container" style ="position: relative;">
 	<div class="panel panel-primary" id="login">
     	<div class="panel-heading" style="margin:0px;padding:5px;background-color: #8B9DC3;"><b>Payroll Login</b></div>

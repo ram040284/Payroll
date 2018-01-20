@@ -9,26 +9,23 @@
 <body>
 <div class="contain-wrapp bodyDivCss">	
 		<div class="container">
-
 			<div class="row">
-				<div class="col-md-3 text-center">
+				<div class="col-xs-4 text-center">
 					<div class="precess-column">
 					<a href="../Payroll/viewLeave"><img src="../Payroll/resources/images/applyleave.png" class="img-responsive imageMenuItem" 
 					alt="theme logo" /></a>
-					<h4><a href="../Payroll/viewLeave">Apply Leave</a></h4>
+					<h3><a href="../Payroll/viewLeave">Apply Leave</a></h3>
 					</div>
 				</div>
 				
-				<div class="col-md-3 text-center">
+				<div class="col-xs-4 text-center">
 					<div class="precess-column">
 						<a href="../Payroll/viewLeave"><img src="../Payroll/resources/images/leaveDetails.png" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
-					<h4><a href="../Payroll/viewLeave">Leave Report</a></h4>
+					<h3><a href="../Payroll/viewLeave">Leave Report</a></h3>
 					</div>
 				</div>
-				
-			</div>
-			
+			</div>	
 		</div>
 	</div>
 <jsp:include page="../jsp/public/postFooter.jsp" />

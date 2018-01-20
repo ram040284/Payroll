@@ -1,7 +1,6 @@
 package com.payroll.login.dataobjects;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -9,8 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.payroll.HibernateConnection;
-import com.payroll.employee.vo.EmployeeVO;
-import com.payroll.login.vo.UserVO;
+import com.payroll.employee.dataobjects.EmployeeDAO;
 
 public class UserDAO {
 	Session session = null;
@@ -22,9 +20,9 @@ public class UserDAO {
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-
 			user.setStatus("A");
 			user.setRowUpdatedDate(new Timestamp(System.currentTimeMillis()));
+			user.setRole(getUserRole(user.getRoleId()));
 			session.save(user);
 
 			transaction.commit();
@@ -51,6 +49,9 @@ public class UserDAO {
 			query.setParameter(1, "A");
 			user= (User)(!(query.list().isEmpty()) ? query.list().get(0) : null);
 			
+			//user.setRole(getUserRole(user.getRoleId()));
+			EmployeeDAO empDao = new EmployeeDAO();
+			user.setEmployee(empDao.getEmployeeById(user.getEmpId()));
 		}catch(Exception e){
 			e.printStackTrace();
 			transaction.rollback();
@@ -71,6 +72,55 @@ public class UserDAO {
 			Query query = session.createQuery(queryString);
 			query.setParameter(0, "A");
 			return query.list();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			transaction.rollback();
+		}finally {
+			HibernateConnection.closeSession(session);
+		}
+		return null;
+	}
+	
+	public List<User> getUsersList(Integer deptId){
+		Session session = null;
+		Transaction transaction = null;
+		try{
+			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			String queryString = " from User where status = ? and deptId = ?";
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, "A");
+			query.setParameter(1, deptId);
+			List<User> userList = query.list();
+			EmployeeDAO empDAO = new EmployeeDAO();
+			for (User user: userList) {
+				user.setEmployee(empDAO.getEmployeeById(user.getEmpId()));
+			}
+			
+			return userList;
+		}catch(Exception e){
+			e.printStackTrace();
+			transaction.rollback();
+		}finally {
+			HibernateConnection.closeSession(session);
+		}
+		return null;
+	}
+	
+	public UserRoles getUserRole(Integer roleId){
+		User user = null;
+		Session session = null;
+		Transaction transaction = null;
+		try{
+			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			String queryString = " from UserRoles where status = ? and roleId = ?";
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, "A");
+			query.setParameter(1, roleId);
+			List<UserRoles> roles = query.list();
+			return (roles != null && !roles.isEmpty())? roles.get(0):null;
 			
 		}catch(Exception e){
 			e.printStackTrace();

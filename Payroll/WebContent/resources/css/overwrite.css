@@ -22,7 +22,7 @@ body {
 
 @media only screen 
   and (min-width: 768px) 
-  and (max-width: 1024px)  {
+  and (max-width: 1199px)  {
         body {
 	1background:#fff;
 	1height: 100%;
@@ -40,7 +40,7 @@ body {
 
 @media only screen 
   and (min-width: 320px) 
-  and (max-width: 480px) {
+  and (max-width: 767px) {
         body {
 	1background:#fff;
 	1height: 100%;

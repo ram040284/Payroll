@@ -3,6 +3,8 @@ package com.payroll.login.dataobjects;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.payroll.employee.vo.EmployeeVO;
+
 public class User implements Serializable
 {
 	private String userId;
@@ -15,6 +17,8 @@ public class User implements Serializable
 	private String status;
 	private Timestamp rowUpdatedDate;
 	private boolean userNameAvailabe;
+	private EmployeeVO employee;
+	private UserRoles role;
 	
 	public String getPassword() {
 		return password;
@@ -75,5 +79,17 @@ public class User implements Serializable
 	}
 	public void setUserIdPk(Integer userIdPk) {
 		this.userIdPk = userIdPk;
+	}
+	public EmployeeVO getEmployee() {
+		return employee;
+	}
+	public void setEmployee(EmployeeVO employee) {
+		this.employee = employee;
+	}
+	public UserRoles getRole() {
+		return role;
+	}
+	public void setRole(UserRoles role) {
+		this.role = role;
 	}
 }
