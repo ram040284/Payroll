@@ -73,6 +73,11 @@ $(document).ready(function() {
 	$.each(departmentList, function( index, value ) {
 		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#deptId');
 	});
+	var deptId = '${user.deptId}';
+	$('#deptId').val(deptId==''?0:deptId);
+	var deptId = $('#deptId').val();
+	if (deptId != 0)
+	getEmployeesByDept(deptId);
 	
 	rolesList = ${sessionScope.roles};
 	$.each(rolesList, function( index, value ) {
@@ -219,6 +224,11 @@ $(document).ready(function() {
 	    	$('#available').html('');
 	    	$('#notAvailable').html('');
 	        return false;                         // prevent reset button from resetting again
+	    });
+	    
+	    $('#usersListBtn').click(function(event) {
+	    	$("#userForm").attr("action", "../Payroll/usersListFilter");
+			$("#userForm").submit();
 	    });
 	    
 	    $('#addUserBtn').click(function(event) {
@@ -452,10 +462,11 @@ function userIdAvailability() {
 							</div>		
 						</div>			
 						
-						<div class="row">	
+						<div class="row">
 							<div class="col-sm-12 form-group text-right">
 							<button type="button" id="addUserBtn" class="btn">Submit</button>
 							<button type="reset" class="btn" id="resetBtn">Reset</button>	
+							<button type="button" id="usersListBtn"  class="btn">Users List</button>	
 						</div>	
 						</div>			
 					</div>	

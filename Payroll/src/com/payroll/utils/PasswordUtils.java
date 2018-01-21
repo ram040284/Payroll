@@ -16,7 +16,7 @@ public class PasswordUtils {
 		 String encrypted = getEncryptedPassword(plainText);
 		 
 		 boolean match = isValidPassword(plainText, encrypted);
-		 System.out.println("match:" + match);
+		// System.out.println("match:" + match);
 		 
 	 }
 	 
@@ -39,7 +39,7 @@ public class PasswordUtils {
 			 PasswordUtils pwdUtis = new PasswordUtils();
 			 SecretKeySpec  secKey = pwdUtis.getSecretEncryptionKey();
 			 String decryptedText = pwdUtis.decryptText(encrypted.getBytes(), secKey);
-			 System.out.print("pwdText:" + pwdText + " :: decryptedText :" + decryptedText);
+			 //System.out.print("pwdText:" + pwdText + " :: decryptedText :" + decryptedText);
 			 if (pwdText.trim().equals(decryptedText)) {
 				 pwdMatch = true;
 			 }

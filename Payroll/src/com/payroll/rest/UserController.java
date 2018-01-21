@@ -24,8 +24,56 @@ import com.payroll.utils.PasswordUtils;
 @Controller
 public class UserController
 {
-  @RequestMapping(value={"/addUser"}, method={RequestMethod.GET})
-  public ModelAndView addUser(HttpServletRequest request)
+	  @RequestMapping(value={"/usersList"}, method={RequestMethod.GET})
+	  public ModelAndView getUsersList(HttpServletRequest request)
+	  {
+		 ObjectMapper mapper = new ObjectMapper();
+		    List<Department> deptList = new DepartmentService().getDepartments();
+		    List<User> usersList = new UserDAO().getUsersList(0);
+		    String depJSON = "";
+		    try
+		    {
+		      depJSON = mapper.writeValueAsString(deptList);
+		    }
+		    catch (Exception e)
+		    {
+		      e.printStackTrace();
+		    }
+		    request.getSession().setAttribute("departments", depJSON);
+		    request.getSession().setAttribute("users", usersList);
+		    
+		    User user = new User();
+		    ModelAndView model = new ModelAndView("userReport", "command", user);
+		    model.addObject("users", usersList);
+		    return model;
+	  }
+	  
+	  @RequestMapping(value={"/usersListFilter"}, method={RequestMethod.POST})
+	  public ModelAndView getUsersListFilter(HttpServletRequest request, User user)
+	  {
+		 ObjectMapper mapper = new ObjectMapper();
+		    List<Department> deptList = new DepartmentService().getDepartments();
+		    List<User> usersList = new UserDAO().getUsersList(user.getDeptId()==null? 0 : user.getDeptId());
+		    String depJSON = "";
+		    try
+		    {
+		      depJSON = mapper.writeValueAsString(deptList);
+		    }
+		    catch (Exception e)
+		    {
+		      e.printStackTrace();
+		    }
+		    request.getSession().setAttribute("departments", depJSON);
+		    request.getSession().setAttribute("users", usersList);
+		    
+		    ModelAndView model = new ModelAndView("userReport", "command", user);
+		    model.addObject("users", usersList);
+		    return model;
+	  }
+	  
+	  
+  @RequestMapping(value={"/addUser"}, method={RequestMethod.POST})
+  public ModelAndView addUser(HttpServletRequest request, User user)
   {
 	 ObjectMapper mapper = new ObjectMapper();
 	    List<Department> deptList = new DepartmentService().getDepartments();
@@ -45,8 +93,7 @@ public class UserController
 	    request.getSession().setAttribute("departments", depJSON);
 	    request.getSession().setAttribute("roles", rolesJSON);
 	    
-	    User userVO = new User();
-	    ModelAndView model = new ModelAndView("userAdd", "command", userVO);
+	    ModelAndView model = new ModelAndView("userAdd", "command", user);
 	    return model;
   }
   

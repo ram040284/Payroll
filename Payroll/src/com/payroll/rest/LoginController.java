@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.payroll.employee.vo.EmployeeVO;
 import com.payroll.login.business.UserService;
 import com.payroll.login.dataobjects.User;
 import com.payroll.login.vo.UserVO;
@@ -37,9 +38,12 @@ public class LoginController
 	 User userDb = UserService.validateUser(user);
 	 if (userDb != null) {
 		 model = new ModelAndView("dashboard");
-	     request.getSession().setAttribute("user", user);
+		 model.addObject("welcomeMsg", true);
+	     request.getSession().setAttribute("user", userDb);
 	 } else if (userMap.get(user.getUserId())!=null && userMap.get(user.getUserId().toLowerCase()).equals(user.getPassword())) {
 	     model = new ModelAndView("dashboard");
+	     model.addObject("welcomeMsg", true);
+	     user.setEmployee(new EmployeeVO(0, "Payroll", "User", ""));
 	     request.getSession().setAttribute("user", user);
 	 } else {
 	     model = new ModelAndView("userLogin", "command", user);

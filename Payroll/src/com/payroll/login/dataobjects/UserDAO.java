@@ -1,6 +1,7 @@
 package com.payroll.login.dataobjects;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -9,6 +10,7 @@ import org.hibernate.Transaction;
 
 import com.payroll.HibernateConnection;
 import com.payroll.employee.dataobjects.EmployeeDAO;
+import com.payroll.employee.vo.EmployeeVO;
 
 public class UserDAO {
 	Session session = null;
@@ -50,8 +52,10 @@ public class UserDAO {
 			user= (User)(!(query.list().isEmpty()) ? query.list().get(0) : null);
 			
 			//user.setRole(getUserRole(user.getRoleId()));
-			EmployeeDAO empDao = new EmployeeDAO();
-			user.setEmployee(empDao.getEmployeeById(user.getEmpId()));
+			if (user != null) {
+				EmployeeDAO empDao = new EmployeeDAO();
+				user.setEmployee(empDao.getEmployeeById(user.getEmpId()));
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			transaction.rollback();
@@ -82,23 +86,30 @@ public class UserDAO {
 		return null;
 	}
 	
-	public List<User> getUsersList(Integer deptId){
+	public List<User> getUsersList(int deptId){
 		Session session = null;
 		Transaction transaction = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			String queryString = " from User where status = ? and deptId = ?";
+			String queryString = " from User where status = ? ";
+			//if (deptId != 0) queryString += " and deptId = ?";
 			Query query = session.createQuery(queryString);
 			query.setParameter(0, "A");
-			query.setParameter(1, deptId);
+			//if (deptId != 0) query.setParameter(1, deptId);
 			List<User> userList = query.list();
 			EmployeeDAO empDAO = new EmployeeDAO();
+			UserDAO userDAO = new UserDAO();
+			List<User> userFilterList = new ArrayList<User>();
 			for (User user: userList) {
-				user.setEmployee(empDAO.getEmployeeById(user.getEmpId()));
+				EmployeeVO emp = empDAO.getEmployeeDetailsById(user.getEmpId(), deptId);
+				if (emp != null) {
+					user.setEmployee(emp);
+					userFilterList.add(user);
+				}
 			}
 			
-			return userList;
+			return userFilterList;
 		}catch(Exception e){
 			e.printStackTrace();
 			transaction.rollback();
@@ -108,7 +119,7 @@ public class UserDAO {
 		return null;
 	}
 	
-	public UserRoles getUserRole(Integer roleId){
+	public UserRoles getUserRole(int roleId){
 		User user = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -120,6 +131,7 @@ public class UserDAO {
 			query.setParameter(0, "A");
 			query.setParameter(1, roleId);
 			List<UserRoles> roles = query.list();
+			System.out.println(roleId + " :: Roles:" + roles.size());
 			return (roles != null && !roles.isEmpty())? roles.get(0):null;
 			
 		}catch(Exception e){

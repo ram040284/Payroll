@@ -134,6 +134,37 @@ public class EmployeeDAO {
 		return employee;
 	}
 	
+	public EmployeeVO getEmployeeDetailsById(int empId, int deptId){
+		//Session session = null;
+		EmployeeVO employee = null;
+		try{
+			String queryString = " select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName,"
+					+ " e.email, e.phone, e.pan, e.adharNo, e.dob, (select eDept.department.departmantName from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), "
+					+ "(select dh.headInfo.headName from EmpHeadInfo dh where dh.employee.employeeId = e.employeeId), "
+					+ "(select eDesg.designation.designationName from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId and eDesg.lastWokingDate is null), "
+					+ "e.addressLine1, e.addressLine2, e.addressLine3, e.gender, e.joiningDate) from Employee e where e.employeeId = ? and e.status = ? ";		
+			if (deptId != 0) {
+				queryString += " and e.employeeId = (select eDept1.employee.employeeId from EmpDepartment eDept1 where eDept1.employee.employeeId=e.employeeId and eDept1.department.departmentId = ? )";	
+			}
+			if(session == null || !session.isOpen()) 
+				session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			
+			query.setParameter(0, empId);
+			query.setParameter(1, "A");
+			if (deptId != 0) {
+				query.setParameter(2, deptId);
+			}
+			employee = (EmployeeVO)(!(query.list().isEmpty()) ? query.list().get(0) : null);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return employee;
+	}
+	
 	public EmpDesignation getEmpDesignationByIds(int empId, int desgId, Session session){
 		EmpDesignation empDesig = null;
 		try{

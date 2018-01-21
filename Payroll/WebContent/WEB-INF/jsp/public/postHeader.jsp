@@ -194,7 +194,7 @@ h3 {font-size:16pt;}
 				            <li><a href="../Payroll/viewBankDetails">Bank Details</a></li>
 				           <li><a href="../Payroll/viewAdvance">Advances </a></li>
 				            <li><a href="../Payroll/viewTaxSlab">Incometax Slabs </a></li>
-				            <li><a href="../Payroll/addUser">User </a></li>	
+				            <li><a href="../Payroll/usersList">User </a></li>	
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -394,3 +394,19 @@ function logoutEvent() {
 	<script src="../Payroll/resources/js/theme-option/demosetting.js"></script>	
 </body>
 </html>
+
+<script type="text/javascript">
+$(function() {
+	setNavigation();
+});
+function setNavigation() {
+	var path = window.location.pathname;
+	
+	$(".nav a").each(function () {
+		var href = $(this).attr('href');
+		if (path == href.substring(2,href.length)) {
+			$(this).closest('a').addClass('active');
+		}
+	});
+}
+</script>

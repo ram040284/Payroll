@@ -17,7 +17,7 @@
 	<many-to-one name="role" fetch="select" 
              class="com.payroll.login.dataobjects.UserRoles"
              column="ROLE_ID"
-             cascade="all">
+             cascade="all" lazy="false">
 	</many-to-one>
   </class>  
  </hibernate-mapping> 

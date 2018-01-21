@@ -1,11 +1,12 @@
 package com.payroll.employee.vo;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.payroll.Utils;
 
-public class EmployeeVO {
+public class EmployeeVO implements Serializable{
 	
 	private String firstName;
 	private String lastName;
@@ -94,7 +95,7 @@ public class EmployeeVO {
 		this.addressLine2 = addressLine2;
 		this.addressLine3 = addressLine3;
 		this.gender = gender; 
-		//this.fullName = firstName, middleName, lastName);
+		this.fullName = getName(firstName, middleName, lastName);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.middleName = middleName;

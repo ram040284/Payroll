@@ -69,9 +69,9 @@
 			<div class="row">
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="../Payroll/addUser"><img src="../Payroll/resources/images/userAdd.jpe" class="img-responsive imageMenuItem"
+						<a href="../Payroll/usersList"><img src="../Payroll/resources/images/userAdd.jpe" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
-						<h3><a href="../Payroll/addUser">User</a></h3>
+						<h3><a href="../Payroll/usersList">User</a></h3>
 					</div>
 				</div>
 			</div>
