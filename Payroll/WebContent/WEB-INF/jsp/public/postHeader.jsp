@@ -22,12 +22,12 @@
 <jsp:include page="bootstrap.min.jsp" /> --%>
  <style type="text/css">
 .addImg {
-	width: 40px;
-	height: 40px;
+	width: 25px;
+	height: 25px;
 }
 .listImg {
-	width: 30px;
-	height: 30px;
+	width: 25px;
+	height: 25px;
 	margin-right: 10px;
 }
 

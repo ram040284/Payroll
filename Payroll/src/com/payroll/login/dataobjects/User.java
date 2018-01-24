@@ -14,6 +14,8 @@ public class User implements Serializable
 	private Integer empId;
 	private Integer roleId;
 	private Integer deptId;
+	private int listRoleId;
+	private int listDeptId;
 	private String status;
 	private Timestamp rowUpdatedDate;
 	private boolean userNameAvailabe;
@@ -91,5 +93,17 @@ public class User implements Serializable
 	}
 	public void setRole(UserRoles role) {
 		this.role = role;
+	}
+	public int getListRoleId() {
+		return listRoleId;
+	}
+	public void setListRoleId(int listRoleId) {
+		this.listRoleId = listRoleId;
+	}
+	public int getListDeptId() {
+		return listDeptId;
+	}
+	public void setListDeptId(int listDeptId) {
+		this.listDeptId = listDeptId;
 	}
 }

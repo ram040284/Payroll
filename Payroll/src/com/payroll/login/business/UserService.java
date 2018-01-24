@@ -12,8 +12,8 @@ public class UserService {
 	}
 	
 	public static User validateUser(User userVO) {
-		User user = new UserDAO().getUser(userVO);
-		if (user != null) {
+		User user = new UserDAO().getUserByUserId(userVO);
+		if (user != null && user.getEmployee() != null) {
 			boolean isValid = PasswordUtils.isValidPassword(userVO.getPassword(), user.getPassword());
 			return (isValid? user : null);
 		} else return null;

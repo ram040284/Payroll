@@ -73,9 +73,10 @@ $(document).ready(function() {
 	$.each(departmentList, function( index, value ) {
 		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#deptId');
 	});
-	var deptId = '${user.deptId}';
+	var deptId = '${user.listDeptId}';
 	$('#deptId').val(deptId==''?0:deptId);
-	var deptId = $('#deptId').val();
+	deptId = $('#deptId').val();
+	
 	if (deptId != 0)
 	getEmployeesByDept(deptId);
 	
@@ -83,6 +84,11 @@ $(document).ready(function() {
 	$.each(rolesList, function( index, value ) {
 		$('<option>').val(value.roleId).text(value.roleName).appendTo('#roleId');
 	});
+	
+	var roleId = '${user.listRoleId}';
+	roleId = roleId == ''? 0 : roleId;
+	$('#roleId').val(roleId);
+	if (roleId != 0) roleSelection();
 	
 	$.widget( "custom.combobox", {
 	      _create: function() {
@@ -227,8 +233,8 @@ $(document).ready(function() {
 	    });
 	    
 	    $('#usersListBtn').click(function(event) {
-	    	$("#userForm").attr("action", "../Payroll/usersListFilter");
-			$("#userForm").submit();
+	    	$("#listForm").attr("action", "../Payroll/usersListFilter");
+			$("#listForm").submit();
 	    });
 	    
 	    $('#addUserBtn').click(function(event) {
@@ -394,10 +400,6 @@ function userIdAvailability() {
 	});
 }
 
-<c:if test="${not empty message}">
-	alert("${message}");
-</c:if>
-
 </script>
 </head>
 <body >
@@ -476,6 +478,10 @@ function userIdAvailability() {
 	</div>
 	</div>
 	</div>
+	<form:form  action="" id="listForm" method="post">
+		<form:input type="hidden" path="listDeptId" />
+		<form:input type="hidden" path="listRoleId" />
+	</form:form >
 	<jsp:include page="../jsp/public/postFooter.jsp" />
 </body>
 </html>

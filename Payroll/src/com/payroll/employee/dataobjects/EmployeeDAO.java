@@ -139,7 +139,8 @@ public class EmployeeDAO {
 		EmployeeVO employee = null;
 		try{
 			String queryString = " select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName,"
-					+ " e.email, e.phone, e.pan, e.adharNo, e.dob, (select eDept.department.departmantName from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), "
+					+ " e.email, e.phone, e.pan, e.adharNo, e.dob, (select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), " 
+					+ "(select eDept.department.departmantName from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), "
 					+ "(select dh.headInfo.headName from EmpHeadInfo dh where dh.employee.employeeId = e.employeeId), "
 					+ "(select eDesg.designation.designationName from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId and eDesg.lastWokingDate is null), "
 					+ "e.addressLine1, e.addressLine2, e.addressLine3, e.gender, e.joiningDate) from Employee e where e.employeeId = ? and e.status = ? ";		

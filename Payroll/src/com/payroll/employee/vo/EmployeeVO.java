@@ -103,6 +103,31 @@ public class EmployeeVO implements Serializable{
 		this.joiningDate = (joiningDate != null) ? dateFormat.format(joiningDate) : "";
 	}
 	
+	public EmployeeVO(int employeeId, String firstName, String lastName, String middleName,
+			String email, String phone, String pan, String aadhar, Date dob, int deptId, String department,
+			String headName, String designation, String addressLine1, String addressLine2, 
+			String addressLine3, String gender, Date joiningDate){
+		this.employeeId = employeeId;
+		
+		this.email = email;
+		this.pan = pan;
+		this.adharNo = aadhar;
+		this.phone = phone;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.designation = designation;
+		this.departmentId = deptId;
+		this.department = department;
+		this.dob = (dob != null) ? dateFormat.format(dob) : "";
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.addressLine3 = addressLine3;
+		this.gender = gender; 
+		this.fullName = getName(firstName, middleName, lastName);
+		this.headName = headName;
+		this.joiningDate = (joiningDate != null) ? dateFormat.format(joiningDate) : "";
+	}
 	
 	public String getFirstName() {
 		return firstName;
