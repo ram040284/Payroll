@@ -332,3 +332,15 @@ CREATE TABLE user_roles (
   FOREIGN KEY (EMP_ID) REFERENCES EMP_MASTER (EMP_ID),
   FOREIGN KEY (ROLE_ID) REFERENCES USER_ROLES (ROLE_ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO user_roles
+(`ROLE_ID`, `ROLE_NAME`, `ROLE_DESC`, `STATUS`, `ROW_UPD_DATE`)
+VALUES (1, 'ADMIN', 'User can access Master section links', 'A', current_timestamp());
+
+INSERT INTO user_roles
+(`ROLE_ID`, `ROLE_NAME`, `ROLE_DESC`, `STATUS`, `ROW_UPD_DATE`)
+VALUES (2, 'EMPLOYEE', 'User can access Employee specific links', 'A', current_timestamp());
+
+INSERT INTO user_roles
+(`ROLE_ID`, `ROLE_NAME`, `ROLE_DESC`, `STATUS`, `ROW_UPD_DATE`)
+VALUES (3, 'REPORT', 'User can access Report specific links', 'A', current_timestamp());

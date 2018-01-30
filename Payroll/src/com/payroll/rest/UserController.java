@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.payroll.Utils;
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.dataobjects.EmployeeDAO;
@@ -115,9 +116,16 @@ public class UserController
   @RequestMapping(value={"/editUserConfirm"}, method={RequestMethod.POST})
   public ModelAndView editUserConfirm(HttpServletRequest request, User userVo)
   {
-	  	userVo.setPassword(PasswordUtils.getEncryptedPassword(userVo.getPassword()));
+	  	if (Utils.isEmpty(userVo.getPassword())) {
+	  		if (userVo.getUserIdPk()!= null && userVo.getUserIdPk()!= 0) {
+	  			User user = new UserDAO().getUserByUserIdPk(userVo);
+	  			userVo.setPassword(user.getPassword());
+	  		}
+	  	} else {
+	  		userVo.setPassword(PasswordUtils.getEncryptedPassword(userVo.getPassword()));
+	  	}
 	  	boolean result = new UserDAO().updateUser(userVo);
-
+	  
 	  	User user = new User();
 	    user.setListDeptId(userVo.getListDeptId());
 	  	user.setListRoleId(userVo.getListRoleId());
