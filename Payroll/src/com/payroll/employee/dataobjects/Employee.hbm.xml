@@ -24,8 +24,9 @@
     <property name="pan" column="EMP_PAN" />
     <property name="adharNo" column="EMP_AADHAR" />
     <property name="lastPromotionDate" column="EMP_LST_PROMO_DT" />
-    <property name="status" column="STATUS" />
-    <property name="gender" column="GENDER" />
+    <property name="status" column="STATUS" not-null="true"/>
+    <property name="gender" column="GENDER" not-null="true"/>
+    <property name="retirementDate" column="RETMT_DATE"/>
     <!-- <property name="designationId" column="designation_id" not-null="true"/>  
     <property name="departmentId" column="department_id"/> -->  
     

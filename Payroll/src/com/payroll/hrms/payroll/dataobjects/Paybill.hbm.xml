@@ -1,0 +1,65 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+	<class name="com.payroll.hrms.payroll.dataobjects.Paybill" table="PAY_BILL">  
+   <id name="employeeId" type="java.lang.Integer">
+			<column name="EMP_ID" />
+			<generator class="foreign">
+				<param name="property">employee</param>
+			</generator>
+	</id>
+	<one-to-one name="employee" class="com.payroll.employee.dataobjects.Employee"
+		constrained="true" fetch="select"></one-to-one>
+	<property name="basic" column="BASIC" not-null="true"/> 
+    <property name="gradePay" column="GRADE_PAY" not-null="true"/>
+    <property name="dearnessAllowance" column="DA" not-null="true"/> 
+    <property name="houseRentAllowance" column="HRA" />
+    <property name="cca" column="CCA" /> 
+    <property name="travelAllowance" column="TA"  /> 
+    <property name="nonPracticingAllowance" column="NPA"  />
+    <property name="washingAllowance" column="WA"  /> 
+    <property name="conveyanceAllowance" column="CA"  />  
+    <property name="uniformAllowance" column="UFALW"  /> 
+    <property name="familyPlanningAllowance" column="FPALW"  />
+    <property name="totalAllowance" column="TALW"  />
+    <property name="overTimeAmount" column="OT_AMT"  /> 
+    <property name="otherPayAmount" column="OTHER_AMT"  />
+    <property name="grossPay" column="GROSS_PAY"  /> 
+    <property name="lfee" column="D_LFEE"  /> 
+    <property name="afkRent" column="D_AFK_RENT"  />
+    <property name="absentAmount" column="D_ABS_AMT"  /> 
+    <property name="festAdvRecovery" column="D_FA_RECOVERY"  />  
+    <property name="profTax" column="D_PROF_TAX"  />
+    <property name="lic" column="D_LIC"  />  
+	<property name="societyInstallment" column="D_SOCIETY"  /> 
+    <property name="grpInsurance" column="D_GRP_INS"  /> 
+    <property name="bankLoanRcry" column="D_BKLN_REC"  />
+    <property name="vehclLoanRcry" column="D_VLN_REC"  /> 
+    <property name="providentFund" column="D_PFS_CPF"  />
+    <property name="apfacpf" column="D_APF_ACPF"  /> 
+    <property name="pfLoanRecovery" column="D_PF_LN_REC"  /> 
+    <property name="cpfRecovery" column="D_CPF_REC"  />
+    <property name="incomeTax" column="D_INC_TAX"  /> 
+    <property name="unionFee" column="D_UNION_FEE"  />  
+    <property name="electricityRecovery" column="D_ELEC_REC"  />
+    <property name="courtRecovery" column="D_COURT_REC"  />
+    <property name="otherDeductions" column="D_OTHER"  /> 
+    <property name="miscAllowance" column="D_MISC"  /> 
+    <property name="unionFeeKss" column="D_UN_FEE_KSS"  />
+    <property name="totalDeductions" column="TOT_DED"  /> 
+    <property name="netPay" column="NET_PAY"  />
+    <property name="department" column="DEPT_NAME"  />
+    <property name="deptCostHead" column="COST_HEAD_NAME"  />
+    <property name="designation" column="DESG_NAME"  />  
+    <property name="bankAcctNo" column="BANK_ACCT_NO"  />
+    <property name="bankName" column="BANK_NAME"  />
+    <property name="bankId" column="BANK_ID"  />
+     <property name="month" column="MONTH_DATE"  />  
+    <property name="scale" column="SCALE"  />
+     <property name="incrementAmt" column="INC_AMT"  />  
+     <property name="incrementDate" column="INC_DATE"  />  
+    <property name="rowUpdDate" column="ROW_UPD_DATE"  />
+  </class>  
+ </hibernate-mapping>

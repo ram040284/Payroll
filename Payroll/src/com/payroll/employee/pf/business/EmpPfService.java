@@ -26,7 +26,7 @@ public class EmpPfService {
 		EmpPf empPf = new EmpPf();
 		try{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			empPf.setEmpId(empPfVO.getEmpId());
+			empPf.setEmployeeId(empPfVO.getEmpId());
 			empPf.setApfAcpfCntrbn(empPfVO.getApfAcpfCntrbn());
 			empPf.setCfLoneRecAmt(empPfVO.getCfLoneRecAmt());
 			empPf.setPfLoneRecAmt(empPfVO.getPfLoneRecAmt());

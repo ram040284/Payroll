@@ -13,9 +13,6 @@ $(document).ready(function() {
 	$.each(departmentList, function( index, value ) {
 		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#departmentId');
 	});
-	<%--$.each(designationList, function( index, value ) {
-		$('<option>').val(value.designationId).text(value.designationName).appendTo('#designationId');
-	});--%>
 	var deptId = "${leave.departmentId}";
 	var desgId = "${leave.designationId}";
 	var headId = "${leave.headId}";
@@ -29,23 +26,21 @@ $(document).ready(function() {
 	var empId = "${leave.employeeId}";
 	$('#departmentId').val(deptId);
 	$('#leaveIds').val(leaveIds);
-	<%--$('#designationId').val(desgId);
-	var leaveType = "${leave.leaveType}";
-	$('#leaveType').val(leaveType);--%>
 	if(empId != 0){
 		getEmployeesByIds(deptId, desgId, empId);
 	}
 	$('#addLeaveBtn').click(function(event) {
-			<%--var leaveId = "${leave.leaveId}";
-			if(leaveId != 0){
-				$('#leaveId').val(leaveId);
-				var noOfLeaves = "${leave.noOfLeaves}";
-			}--%>
 			if(empId != 0){
 				var sickLeaves = "${leave.sickLeaves}";
 				var casualLeaves = "${leave.casualLeaves}";
 				var paidLeaves = "${leave.paidLeaves}";
-				if(sickLeaves == $('#sickLeaveInp').val() && casualLeaves == $('#casualLeaveInp').val() && paidLeaves == $('#paidLeaveInp').val()){
+				var earnLeave = "${leave.earnLeave}";
+				var maternityLeave = "${leave.maternityLeave}";
+				var paternityLeave = "${leave.paternityLeave}";
+				var extraLeave = "${leave.extraLeave}";
+				if(sickLeaves == $('#sickLeaveInp').val() && casualLeaves == $('#casualLeaveInp').val() && paidLeaves == $('#paidLeaveInp').val() &&
+						earnLeave == $('#earnLeaveInp').val() && maternityLeave == $('#maternityLeaveInp').val() && paternityLeave == $('#paternityLeaveInp').val()&& 
+						extraLeave == $('#extraLeave').val()){
 					alert('Nothing was changed');
 					$('#sickLeaves').focus();
 					return false;
@@ -73,26 +68,13 @@ $(document).ready(function() {
 					return false;
 				}
 			}
-			if($('#sickLeaveInp').val() == 0 && $('#casualLeaveInp').val() == 0 && $('#paidLeaveInp').val() == 0){
-				alert("At least one (Sick/Casual/Paid) must be provided!");
+			if($('#sickLeaveInp').val() == 0 && $('#casualLeaveInp').val() == 0 && $('#paidLeaveInp').val() == 0 && 
+					$('#earnLeaveInp').val() == 0 && $('#maternityLeaveInp').val() == 0 && $('#paternityLeaveInp').val() == 0 && 
+					$('#extraLeave').val() ==0){
+				alert("At least one (Sick/Casual/Paid/Earned/Maternity/Paternity/Extraordinary) must be provided!");
 				$('#sickLeaveInp').focus();
 				return false;
 			}
-			<%--if($('#leaveType').val() == 0){
-			alert("Leave Type must be selected!");
-			$('#leaveType').focus();
-			return false;
-		}
-		if($('#noOfLeaves').val() < 1){
-			alert("No. Of Leaves must be provided!");
-			$('#noOfLeaves').focus();
-			return false;
-		}
-		if($('#leaveBalance').val() == ''){
-			alert("Leave Balance must be provided!");
-			$('#leaveBalance').focus();
-			return false;
-		}--%>
 		var empIdInput = 0;
 		if(empId !=0)
 			empIdInput = empId;
@@ -100,7 +82,9 @@ $(document).ready(function() {
 			empIdInput = $('#employeeId').val();
 		
 		var inputJson = { "employeeId" : empIdInput, "sickLeaveInp" : $('#sickLeaveInp').val(),  
-				"casualLeaveInp" : $('#casualLeaveInp').val(), "paidLeaveInp" : $('#paidLeaveInp').val(), "leaveIds": $('#leaveIds').val()};
+				"casualLeaveInp" : $('#casualLeaveInp').val(), "paidLeaveInp" : $('#paidLeaveInp').val(), "leaveIds": $('#leaveIds').val(),
+				"earnLeaveInp" : $('#earnLeaveInp').val(), "maternityLeaveInp" : $('#maternityLeaveInp').val(), "paternityLeaveInp" : $('#paternityLeaveInp').val(),  
+				"extraLeaveInp" : $('#extraLeaveInp').val()};
 		$.ajax({
 	        url: '../Payroll/addLeave',
 	        data: JSON.stringify(inputJson),
@@ -108,7 +92,6 @@ $(document).ready(function() {
 	        contentType: "application/json;charset=utf-8",
 	        success: function(data){ 
 	            if(data == "Yes"){
-	            	<%--window.location = "../Payroll/viewLeave";--%>
 	            	var f = document.forms['leaveInputForm'];
 	            	var submittedForm = document.forms['leaveForm'];
 	            	f.departmentId.value = submittedForm.departmentId.value;
@@ -116,7 +99,8 @@ $(document).ready(function() {
 	            	f.action="../Payroll/viewLeave";
 	            	f.submit();
 	            }else {
-	            	alert(data);
+	            	$("#errMsgDiv").text(data);
+		        	$("#errMsgDiv").show();
 	            }
 	        }
 	    });
@@ -129,6 +113,7 @@ $(document).ready(function() {
 <body>
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
+		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:14px; background-color: #8B9DC3; text-transform: none;">
 				<c:if test="${leave.employeeId != '0'}" >	Update</c:if><c:if test="${leave.employeeId == '0'}">Add</c:if> Employee Leave
@@ -170,49 +155,48 @@ $(document).ready(function() {
 								</div>
 							
 							</div>
-							<%--<div class="row">
-									<div class="col-sm-6 form-group">
-									<label>Leave Type:</label>
-									<select id="leaveType" class="form-control" <c:if test="${leave.empId != '0'}" >disabled = "disabled" </c:if>>
-										<option value="">-- Select Employee --</option>
-										<option value="Sick Leave">Sick Leave</option>
-										<option value="Casual Leave">Casual Leave</option>
-										<option value="Paid Vacation">Paid Vacation</option>
-									</select>
-								</div>
-							
-								<div class="col-sm-6 form-group">
-									<label>No.of Leaves:</label>
-									<form:input path="noOfLeaves"  id="noOfLeaves" placeholder="Enter No. Of Leaves" class="form-control"/>
-									
-								</div>
-								<div class="col-sm-6 form-group">
-									<label>Leave Balance:</label>
-									<form:input path="leaveBalance"  id="leaveBalance" placeholder="Enter Grade Pay" class="form-control"/>
-								</div> 
-							</div>--%>
 							<div class="row">
 									<div class="col-sm-4 form-group">
-										<label>Sick Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 10px;">Avl. Bal:<c:out value="${leave.sickLeaves}"/></span></c:if> </label>
+										<label>Medical Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.sickLeaves}"/></span></c:if> </label>
 										<form:input path="sickLeaveInp"  id="sickLeaveInp" class="form-control"/>
 									</div>
 									<div class="col-sm-4 form-group">
-										<label>Casual Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 10px;">Avl. Bal:<c:out value="${leave.casualLeaves}"/></span></c:if></label>
+										<label>Casual Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.casualLeaves}"/></span></c:if></label>
 										<form:input path="casualLeaveInp"  id="casualLeaveInp" class="form-control"/>
 									</div>
 									<div class="col-sm-4 form-group">
-										<label>Paid Leave: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 10px;">Avl. Bal:<c:out value="${leave.paidLeaves}"/></span></c:if></label>
+										<label>Half Pay Leave: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.paidLeaves}"/></span></c:if></label>
 										<form:input path="paidLeaveInp"  id="paidLeaveInp" class="form-control"/>
 									</div>
 									
-								</div>	
-							
-							<div class="row">	
+							</div>
+							<div class="row">
+								<div class="col-sm-3 form-group">
+									<label>Earned Lvs: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.earnLeave}"/></span></c:if> </label>
+									<form:input path="earnLeaveInp"  id="earnLeaveInp" class="form-control"/>
+								</div>
+								<div class="col-sm-3 form-group">
+									<label>Ptrnty Lvs: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.paternityLeave}"/></span></c:if></label>
+									<form:input path="paternityLeaveInp"  id="paternityLeaveInp" class="form-control"/>
+								</div>
+								<div class="col-sm-3 form-group">
+									<label>Mtrnity Lvs: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.maternityLeave}"/></span></c:if></label>
+									<form:input path="maternityLeaveInp"  id="maternityLeaveInp" class="form-control"/>
+								</div>
+								<div class="col-sm-3 form-group">
+									<label>Xtrdry Lvs: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.extraLeave}"/></span></c:if></label>
+									<form:input path="extraLeaveInp"  id="extraLeaveInp" class="form-control"/>
+								</div>
+	
+							</div>	
+							<div class="row">
 								<div class="text-right">
+									<button type="button" id="backBtn" class="btn text-left" style="margin-left: 10px; float: left;" onclick="getList('../Payroll/viewLeave')">Back</button>
 									<button type="button" id="addLeaveBtn" class="btn">Submit</button>
 									<button type="reset" class="btn">Reset</button>	
 								</div>	
 							</div>
+							
 					</div>
 					<input type="hidden" name = "leaveId" id="leaveId" />
 					<input type="hidden" name = "leaveIds" id="leaveIds" />				

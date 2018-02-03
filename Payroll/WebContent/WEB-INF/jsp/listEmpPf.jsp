@@ -16,10 +16,10 @@
                 	  		.append($('<td/>').text(empPf.fullName))
                 			.append($('<td/>').text(empPf.pfDate))
                 			.append($('<td/>').text(empPf.pfsCpfCntrbn))
+                			.append($('<td/>').text(empPf.apfAcpfCntrbn))
                 			.append($('<td/>').text(empPf.pfLoneRecAmt))
                 			.append($('<td/>').text(empPf.cfLoneRecAmt))
-                			.append($('<td/>').text(empPf.apfAcpfCntrbn))
-                			.append($('<td/>').append('<a href="#" onclick=viewPf('+empPf.empId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deletePf('+empPf.empId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
+                			.append($('<td/>').append('<a href="#" onclick=viewPf('+empPf.employeeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deletePf('+empPf.employeeId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                   });
                   
               }
@@ -27,7 +27,7 @@
       }
       function viewPf(id){
     	  var f = document.forms['editForm'];
-		  f.empId.value=id;
+		  f.employeeId.value=id;
 		  f.action="../Payroll/inputEmpPf";
 		  f.submit();
 	  }
@@ -38,8 +38,8 @@
 	  }
       function deletePf(id){
     	  if(confirm("Are you sure want to delete Employee Provident Fund?")){
-    		  var f = document.forms[0];
-    		  f.empId.value=id;
+    		  var f = document.forms['editForm'];
+    		  f.employeeId.value=id;
     		  f.action="../Payroll/deletePf";
     		  f.submit();
     	  }
@@ -52,7 +52,7 @@
 		<div class="container">
 	
 	<div style="margin-top: 12px; float: left; width: 98%;">
-			<h4 style="color: #0101DF;">Provident Fund Details</h4>
+			<h4 style="color: #0101DF;">Employee PF Details</h4>
 		<div>
 			<div class="tblClass" id="pfListDiv">
 				<table>
@@ -74,7 +74,7 @@
 	</div>
 	</div>
 	<form action="" name="editForm" method="post">
-		<input type="hidden" name="empId" value="0">
+		<input type="hidden" name="employeeId" value="0">
 		
 	</form>
 	<jsp:include page="../jsp/public/postFooter.jsp" />

@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import com.payroll.employee.dataobjects.Employee;
+
 public class EmpPf implements Serializable{
 	
-	private int empId;
+	private int employeeId;
 	private double pfsCpfCntrbn;
 	private double pfLoneRecAmt;
 	private double cfLoneRecAmt;
@@ -15,13 +17,14 @@ public class EmpPf implements Serializable{
 	private String status;
 	private short addUpdate; // 0 - Add / 1 - update
 	private Timestamp rowUpdDate;
+	private Employee employee;
 	
 	
-	public int getEmpId() {
-		return empId;
+	public int getEmployeeId() {
+		return employeeId;
 	}
-	public void setEmpId(int empId) {
-		this.empId = empId;
+	public void setEmployeeId(int empId) {
+		this.employeeId = empId;
 	}
 	public double getPfsCpfCntrbn() {
 		return pfsCpfCntrbn;
@@ -70,6 +73,12 @@ public class EmpPf implements Serializable{
 	}
 	public void setAddUpdate(short addUpdate) {
 		this.addUpdate = addUpdate;
+	}
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 	
 

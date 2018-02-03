@@ -13,15 +13,10 @@ td, th {
 
 <script type="text/javascript">
 $(document).ready(function() {
-	<%--var designationList = ${designations};--%>
 	var departmentList = ${departments};
 	$.each(departmentList, function( index, value ) {
 		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#departmentId');
 	});
-	<%--$.each(designationList, function( index, value ) {
-		$('<option>').val(value.designationId).text(value.designationName).appendTo('#designationId');
-	});--%>
-	
 	var deptId = "${salary.departmentId}";
 	var headId = "${salary.headId}";
 	var desgId = "${salary.designationId}";
@@ -33,12 +28,9 @@ $(document).ready(function() {
 	if(headId != 0) {
 		loadDesgByHead(headId, desgId);
 	}
-	
-	<%--$('#designationId').val(desgId);--%>
 	if(empId != 0){
 		getEmployeesByIds(deptId, desgId, empId);
 	}
-	
 	$('#addSalaryBtn').click(function(event) {
 		
 			var year = "${salary.year}";
@@ -82,7 +74,31 @@ $(document).ready(function() {
 			$('#year').focus();
 			return false;
 		}
-		if($('#basic').val() < 1){
+		var basicVal = $('#basic').val().trim();
+		if(basicVal){
+			if(!checkAmount(basicVal)){
+				alert("Invalid Basic Pay!");
+				$('#basic').focus();
+				return false;
+			}
+		}else {
+			alert("Basic Pay must be valid!");
+			$('#basic').focus();
+			return false;
+		}
+		var gradePayVal = $('#gradePay').val().trim();
+		if(gradePayVal){
+			if(!checkAmount(gradePayVal)){
+				alert("Invalid Basic Pay!");
+				$('#gradePay').focus();
+				return false;
+			}
+		}else {
+			alert("Grade Pay must be valid!");
+			$('#gradePay').focus();
+			return false;
+		}
+		<%--if($('#basic').val() < 1){
 			alert("Basic Pay must be valid!");
 			$('#basic').focus();
 			return false;
@@ -91,17 +107,12 @@ $(document).ready(function() {
 			alert("Grade Pay must be valid!");
 			$('#gradePay').focus();
 			return false;
-		}
+		}--%>
 		if($('#scalePay').val() < 1){
 			alert("Scale Pay must be valid!");
 			$('#scalePay').focus();
 			return false;
 		}
-		<%--if($('#scaleInc').val() == ''){
-			alert("Scale Inc must be provided!");
-			$('#scalePay').focus();
-			return false;
-		}--%>
 		var empIdInput = 0;
 		if(empId !=0)
 			empIdInput = empId;
@@ -120,7 +131,8 @@ $(document).ready(function() {
 	            if(data == "Yes"){
 	            	window.location = "../Payroll/viewSalary";
 	            }else{
-	            	alert(data);
+	            	$("#errMsgDiv").text(data);
+		        	$("#errMsgDiv").show();
 	            }
 	        }
 	    });
@@ -128,6 +140,13 @@ $(document).ready(function() {
 	});
 	
 });
+function checkAmount(value){
+	var decimal=  /^\d+(\.\d{2,2})?$/;   
+	if(value.match(decimal)) {   
+		return true;  
+	}
+	return false;
+}
     
 </script>
 <jsp:include page="../jsp/public/master.jsp" />
@@ -135,6 +154,7 @@ $(document).ready(function() {
 <body>
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
+		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:14px; background-color: #8B9DC3; text-transform: none;">
 				<c:if test="${salary.employeeId != '0'}" >	Update</c:if><c:if test="${salary.employeeId == '0'}">Add</c:if> Employee Salary

@@ -21,32 +21,28 @@
                   var advTab = $('<table style="margin-bottom: 10px;"/>').appendTo($('#advListDiv'));
                   $(data).each(function(i, advance){
                 	  $('<tr/>').appendTo(advTab)
-                	  		.append($('<td/>').text(advance.departmentName))
-                			.append($('<td/>').text(advance.designationName))
-                			.append($('<td/>').text(advance.paymentDate))
+                	  		.append($('<td/>').text(advance.advanceName))
+                			<%--.append($('<td/>').text(advance.paymentDate))--%>
                 			.append($('<td/>').text(advance.advanceAmount))
-                			.append($('<td/>').append('<a href="#" onclick=viewAdvance('+advance.empId+',\''+advance.paymentDate+'\')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteAdvance('+advance.empId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
+                			.append($('<td/>').append('<a href="#" onclick=viewAdvance('+advance.advanceId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteAdvance('+advance.advanceId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                   });
               }
           });
       }
-      function viewAdvance(id, paymentDate){
+      function viewAdvance(id){
     	  var f = document.forms['editForm'];
-		  <%--f.designationId.value=designationId;
-		  f.departmentId.value=departmentId;--%>
-		  f.empId.value=id;
-		  f.paymentDate.value = paymentDate;
+		  f.advanceId.value=id;
 		  f.action="../Payroll/inputAdvance";
 		  f.submit();
 	  }
       function inputAdvance(){
-    	  var f = document.forms[0];
+    	  var f = document.forms['editForm'];
 		  f.action="../Payroll/inputAdvance";
 		  f.submit();
 	  }
       function deleteAdvance(id){
     	  if(confirm("Are you sure want to delete Advance Amount?")){
-    		  var f = document.forms[0];
+    		  var f = document.forms['editForm'];
     		  f.advanceId.value=id;
     		  f.action="../Payroll/deleteAdvance";
     		  f.submit();
@@ -66,10 +62,10 @@
 				<div class="tblClass" id="advListDiv">
 				<table>
 				<tr>
-					<th>Department</th>
-					<th>Designation</th>
-					<%--<th>Employee</th> --%>
-					<th>Payment Date</th>
+					<th>Advance Name</th>
+					<%--<th>Designation</th>
+					<th>Employee</th>
+					<th>Payment Date</th> --%>
 					<th>Advance Amount</th>
 					<th><a href="#" onclick="inputAdvance()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
@@ -83,10 +79,7 @@
 	</div>
 	</div>
 	<form action="" name="editForm" method="post">
-		<input type="hidden" name="designationId" value="0">
-		<input type="hidden" name="empId" value="0">
-		<input type="hidden" name="paymentDate" value="0">
-		
+		<input type="hidden" name="advanceId" value="0">
 	</form>
 	<jsp:include page="../jsp/public/postFooter.jsp" />
 </body>

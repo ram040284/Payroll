@@ -11,6 +11,7 @@
     <property name="connection.username">root</property>
    	<property name="connection.password">root</property>
    	<property name="show_sql">true</property>
+   	
 
    	<mapping resource="com/payroll/department/dataobjects/Department.hbm.xml"/>
    	<mapping resource="com/payroll/designation/dataobjects/Designation.hbm.xml"/>
@@ -34,7 +35,8 @@
    	<mapping resource="com/payroll/employee/allowance/dataobjects/EmpAllowance.hbm.xml"/>
    	<mapping resource="com/payroll/employee/deductions/dataobjects/EmpDeductions.hbm.xml"/>
    	<mapping resource="com/payroll/incomtax/dataobjects/IncomtaxSlab.hbm.xml"/>
-    <mapping resource="com/payroll/login/dataobjects/UserRoles.hbm.xml"/>
-    <mapping resource="com/payroll/login/dataobjects/User.hbm.xml"/>
+   	<mapping resource="com/payroll/login/dataobjects/User.hbm.xml"/>
+   	<mapping resource="com/payroll/login/dataobjects/UserRoles.hbm.xml"/>
+   	<mapping resource="com/payroll/hrms/payroll/dataobjects/Paybill.hbm.xml"/>
 </session-factory>
 </hibernate-configuration>

@@ -48,7 +48,8 @@ $(document).ready(function() {
 		        if(data == "Yes"){
 		           	window.location = "../Payroll/viewBankDetails";
 		        }else {
-		        	alert(data);
+		        	$("#errMsgDiv").text(data);
+		        	$("#errMsgDiv").show();
 		        }
 	        }
 	    });
@@ -61,7 +62,7 @@ $(document).ready(function() {
 <body>
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
-	
+		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:14px; background-color: #8B9DC3; text-transform: none;">
 				<c:if test="${bankDetails.bankId != '0'}" >Update</c:if><c:if test="${bankDetails.bankId == '0'}">Add</c:if> Bank Details

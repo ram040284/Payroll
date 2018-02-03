@@ -97,11 +97,12 @@ public class IncomtaxSlabDAO {
 		Session session = null;
 		
 		try{
-			String queryString = " from IncomtaxSlab i where i.incomtaxId = ? ";
+			String queryString = " from IncomtaxSlab i where i.incomtaxId = ? and i.status =";
 					
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
 			query.setParameter(0, incomtaxId);
+			query.setParameter(1, "A");
 			incomtaxSlab = (IncomtaxSlab)(!(query.list().isEmpty())?query.list().get(0) : null);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -109,6 +110,26 @@ public class IncomtaxSlabDAO {
 			HibernateConnection.closeSession(session);
 		}
 		return incomtaxSlab;
+	}
+	
+	public List<IncomtaxSlab> getIncomtaxSlabByYr(String finYr){
+		List<IncomtaxSlab> incomtaxSlabList = null;
+		Session session = null;
+		
+		try{
+			String queryString = " from IncomtaxSlab i where i.financialYear = ? and i.status = ?";
+					
+			session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, finYr);
+			query.setParameter(1, "A");
+			incomtaxSlabList = query.list();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return incomtaxSlabList;
 	}
 
 

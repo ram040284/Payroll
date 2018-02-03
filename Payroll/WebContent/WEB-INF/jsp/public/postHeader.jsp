@@ -160,7 +160,7 @@ h3 {font-size:16pt;}
 				<!-- Start Form Search -->
 			</div>
 		</div>
-		<c:if test="${not empty sessionScope.user}">
+		<%--<c:if test="${not empty sessionScope.user}"> --%>
 		<div class="wrapper" style="background:#3b589a;">
 		<div class="container">
 			<!-- End Form Search -->
@@ -237,6 +237,11 @@ h3 {font-size:16pt;}
 						<ul class="dropdown-menu">
 							<li><a href="../Payroll/employeeSearch">Employee Details</a></li>
 							<li><a href="../Payroll/empAllowanceSearch">Employee Allowances</a></li>
+							<li><a href="#" onclick="getList('../Payroll/inputPaybill')">Paybill Report</a></li>
+							<li><a href="#" onclick="getList('../Payroll/monthlyRep')">Monthly Report</a></li>
+							<li><a href="#" onclick="getList('../Payroll/headwiseRep')">Headwise Report</a></li>
+							<li><a href="#" onclick="getList('../Payroll/bankwiseRep')">Bankwise Report</a></li>
+							<li><a href="#" onclick="getList('../Payroll/paycheckRep')">Paycheck</a></li>
 							<%--<li><a href="portfolio-alt2.html">Option-02</a></li>
 							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
 						</ul>
@@ -253,7 +258,7 @@ h3 {font-size:16pt;}
 			
 		</div>
 		</div>
-		</c:if>
+		<%--</c:if> --%>
 	</nav>
 	<!-- End Navbar -->
 	

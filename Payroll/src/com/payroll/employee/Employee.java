@@ -23,6 +23,7 @@ public class Employee {
 	private String addressLine3;
 	private String gender;
 	private int headId;
+	private String retirementDate;
 	
 	public int getEmployeeId() {
 		return employeeId;
@@ -216,5 +217,13 @@ public class Employee {
 
 	public void setHeadId(int headId) {
 		this.headId = headId;
+	}
+
+	public String getRetirementDate() {
+		return retirementDate;
+	}
+
+	public void setRetirementDate(String retirementDate) {
+		this.retirementDate = retirementDate;
 	}
 }

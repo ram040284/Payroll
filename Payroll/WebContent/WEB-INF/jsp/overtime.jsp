@@ -16,35 +16,52 @@ td, th {
 
 <script type="text/javascript">
 $(document).ready(function() {
-	var designationList = ${designations};
 	var departmentList = ${departments};
 	$.each(departmentList, function( index, value ) {
 		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#departmentId');
 	});
-	$.each(designationList, function( index, value ) {
-		$('<option>').val(value.designationId).text(value.designationName).appendTo('#designationId');
-	});
+	var desgId = "${overtime.designationId}";
+	var deptId = "${overtime.departmentId}";
+	var headId = "${overtime.headId}";
+	$('#departmentId').val(deptId);
+	if(deptId !=0) {
+		getHeadsByDept(deptId, headId);		
+	}
+	if(headId != 0) {
+		loadDesgByHead(headId, desgId);
+	}
+	
+	var empId = "${overtime.employeeId}";
+	if(empId != 0){
+		getEmployeesByIds(deptId, desgId, empId);
+	}
+	
 	$('#overtimeDate').datepick({dateFormat: 'dd/mm/yyyy'});
 	$('#inlineDatepicker').datepick({onSelect: showDate});	
 	
 	$('#addOtimeBtn').click(function(event) {
 		
 			var overtimeAmount = "${overtime.overtimeAmount}";
-			var designationId = "${overtime.designationId}";
-			var departmentId = "${overtime.departmentId}";
 			var overtimeDate = "${overtime.overtimeDate}";
-			var employeeId = "${overtime.empId}";
-			if(overtimeAmount == $('#overtimeAmount').val() && designationId == $('#designationId').val() && 
-					departmentId == $('#departmentId').val() && overtimeDate == $('#overtimeDate').val() && 
-					employeeId == $('#employeeId').val()){
-				alert('Nothing was changed');
-				$('#departmentId').focus();
-				return false;
+			var overtimeOrder = "${overtime.overtimeOrder}";
+			var overtimeHours = "${overtime.overtimeHours}";
+			var overtimeId = "${overtime.overtimeId}";
+			if(overtimeId !=0){
+				if(overtimeAmount == $('#overtimeAmount').val() && overtimeOrder == $('#overtimeOrder').val() && 
+						overtimeHours == $('#overtimeHours').val() && overtimeDate == $('#overtimeDate').val()){
+					alert('Nothing was changed');
+					$('#overtimeOrder').focus();
+					return false;
+				}
 			}
-		
 		if($('#departmentId').val() == 0){
 			alert("Department must be selected!");
 			$('#departmentId').focus();
+			return false;
+		}
+		if($('#headId').val() == 0){
+			alert("Cost Head must be selected!");
+			$('#headId').focus();
 			return false;
 		}
 		if($('#designationId').val() == 0){
@@ -57,31 +74,55 @@ $(document).ready(function() {
 			$('#employeeId').focus();
 			return false;
 		}
-		
+		if($('#overtimeOrder').val() == 0){
+			alert("Overtime Order must be provided!");
+			$('#overtimeOrder').focus();
+			return false;
+		}
 		if($('#overtimeDate').val() == 0){
 			alert("Overtime Date must be provided!");
 			$('#overtimeDate').focus();
 			return false;
 		}
-		if($('#overtimeAmount').val() == 0){
+		var oHoursVal = $('#overtimeHours').val();
+		if(oHoursVal){
+			if(!checkAmount(oHoursVal)){
+				alert("Invalid Overtime Hours!");
+				$('#overtimeHours').focus();
+				return false;
+			}
+		}else {
+			alert("Overtime Hours must be provided!");
+			$('#overtimeHours').focus();
+			return false;
+		}
+		var oAmountVal = $('#overtimeAmount').val();
+		if(oAmountVal){
+			if(!checkAmount(oAmountVal)){
+				alert("Invalid Overtime Amount!");
+				$('#overtimeAmount').focus();
+				return false;
+			}
+		}else {
 			alert("Overtime Amount must be provided!");
 			$('#overtimeAmount').focus();
 			return false;
 		}
-		var inputJson = { "overtimeAmount" : $('#overtimeAmount').val(), "departmentId" : $('#departmentId').val(),  
-				"designationId" : $('#designationId').val(), "empId" : $('#employeeId').val(), "overtimeDate": $('#overtimeDate').val()};
-		alert('inputJson:'+inputJson);
-	    $.ajax({
+		
+		var inputJson = { "overtimeAmount" : $('#overtimeAmount').val(), "overtimeHours" : $('#overtimeHours').val(),  
+				"overtimeOrder" : $('#overtimeOrder').val(), "employeeId" : $('#employeeId').val(), 
+				"overtimeDate": $('#overtimeDate').val(), "overtimeId" : $('#overtimeId').val()};
+		$.ajax({
 	        url: '../Payroll/addOvertime',
 	        data: JSON.stringify(inputJson),
 	        type: "POST",           
-	        beforeSend: function(xhr) {
-	            xhr.setRequestHeader("Accept", "application/json");
-	            xhr.setRequestHeader("Content-Type", "application/json");
-	        },
+	        contentType: "application/json;charset=utf-8",
 	        success: function(data){ 
 	            if(data == "Yes"){
 	            	window.location = "../Payroll/viewOvertime";
+	            }else {
+	            	$("#errMsgDiv").text(data);
+		        	$("#errMsgDiv").show();
 	            }
 	        }
 	    });
@@ -89,48 +130,27 @@ $(document).ready(function() {
 	});
 });
 
-function getEmployees() {
-	if($('#designationId').val() == 0 || $('#designationId').val() == 0){
-		alert("Department and Designation must be selected!");
-		$('#departmentId').focus();
-		return false;
-	}
-	var inputJson = { "departmentId" : $('#departmentId').val(),"designationId" : $('#designationId').val()};
-		  $.ajax({
-	        url: '../Payroll/loadEmployees',
-	        data: JSON.stringify(inputJson),
-	        type: "POST",           
-	        beforeSend: function(xhr) {
-	            xhr.setRequestHeader("Accept", "application/json");
-	            xhr.setRequestHeader("Content-Type", "application/json");
-	        },
-	        success: function(data){ 
-	        	$('#employeeId').empty();
-	        	$('<option>').val(0).text("-- Select Employee --").appendTo('#employeeId');
-	        	$(data).each(function(i, employee){
-	        		$('<option>').val(employee.employeeId).text(employee.fullName).appendTo('#employeeId');
-            	});
-	        },
-	        failure: function (){
-	        	alert('Unable to load Employees');
-	        }
-	    });
-	    event.preventDefault();
-	
-}
 function showDate(date) {
 	alert('The date chosen is ' + date);
 }
-
+function checkAmount(value){
+	var decimal=  /^\d+(\.\d{2,2})?$/;   
+	if(value.match(decimal)) {   
+		return true;  
+	}
+	return false;
+}
      
 </script>
+<jsp:include page="../jsp/public/master.jsp" />
 </head>
 <body>
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
+		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:14px; background-color: #8B9DC3; text-transform: none;">
-				<c:if test="${overtime.empId != '0'}" >	Update</c:if><c:if test="${overtime.empId == '0'}">Add</c:if> Overtime Amount
+				<c:if test="${overtime.overtimeId != '0'}" >	Update</c:if><c:if test="${overtime.overtimeId == '0'}">Add</c:if> Overtime Amount
 			</h4>
 
 		<div class="col-lg-12 card-block bg-faded" style="margin-bottom: 10px;">
@@ -140,41 +160,55 @@ function showDate(date) {
 						<div class="row">
 							<div class="col-sm-6 form-group">
 								<label>Department</label>
-								<select id="departmentId" class="form-control" onchange="getEmployees()">
+								<select id="departmentId" class="form-control" onchange="getHeads()"
+								<c:if test="${overtime.overtimeId != '0'}" >disabled = "disabled" </c:if>>
 									<option value="0">-- Select Department --</option>
 								</select>
 							</div>
-							
 							<div class="col-sm-6 form-group">
-								<label>Designation:</label>
-								<select id="designationId" class="form-control" onchange="getEmployees()">
-									<option value="0">-- Select Designation --</option>
-								</select>
+								<label>Head:</label>
+								<select id="headId" class="form-control" onchange="loadDesignations()"
+								<c:if test="${overtime.overtimeId != '0'}" > disabled= "disabled" </c:if>>
+								<option value="0">-- Select Head --</option></select>
 							</div>
+							
+							
 							</div>
 							<div class="row">
 								<div class="col-sm-6 form-group">
-									<label>Employee:</label>
-									<select id="employeeId" class="form-control">
-										<option value="0">-- Select Employee --</option>
+									<label>Designation:</label>
+									<select id="designationId" class="form-control" onchange="getEmployees()"
+									<c:if test="${overtime.overtimeId != '0'}" >disabled = "disabled" </c:if>>
+										<option value="0">-- Select Designation --</option>
 									</select>
 								</div>
 								<div class="col-sm-6 form-group">
-									<label>Overtime Date:</label>
-									<form:input path="overtimeDate" placeholder="Date (DD/MM/YYYY)"  id="overtimeDate" class="form-control" value=""/>
+									<label>Employee:</label>
+									<select id="employeeId" class="form-control"
+									<c:if test="${overtime.overtimeId != '0'}" >disabled = "disabled" </c:if>>
+										<option value="0">-- Select Employee --</option>
+									</select>
 								</div>
-							
+							</div>
+							<div class="row">
+								<div class="col-sm-6 form-group">
+									<label>Overtime Order:</label>
+									<form:input path="overtimeOrder" placeholder="Enter Overtime Order"  id="overtimeOrder" class="form-control" value=""/>
+								</div>
+								<div class="col-sm-6 form-group">
+									<label>Overtime Date:</label>
+									<form:input path="overtimeDate" placeholder="Enter Ovetime Date (DD/MM/YYYY)"  id="overtimeDate" class="form-control" value=""/>
+								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-6 form-group">
 									<label>Overtime hours:</label>
-									<form:input path="overtimeAmount"  id="overtimeAmount" class="form-control"/>
-									<%-- <form:input type="hidden" path="empId" id="empId" />--%>
+									<form:input path="overtimeHours" id="overtimeHours" placeholder="Enter Ovetime Hours (HH.MM)" class="form-control"/>
 								</div>
 								<div class="col-sm-6 form-group">
 									<label>Overtime Amount:</label>
-									<form:input path="overtimeAmount"  id="overtimeAmount" class="form-control"/>
-									<%-- <form:input type="hidden" path="empId" id="empId" />--%>
+									<form:input path="overtimeAmount"  id="overtimeAmount" placeholder="Enter Ovetime Amount" class="form-control"/>
+									<form:input type="hidden" path="overtimeId" id="overtimeId" />
 								</div>
 						</div>
 						<div class="row">	

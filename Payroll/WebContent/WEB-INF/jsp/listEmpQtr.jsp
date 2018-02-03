@@ -15,7 +15,7 @@
                 	  $('<tr/>').appendTo(qtrTab)
                 	  		.append($('<td/>').text(empQtr.fullName))
                 			.append($('<td/>').text(empQtr.afkQtr))
-                			.append($('<td/>').append('<a href="#" onclick=viewQtr('+empQtr.empId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteQtr('+empQtr.empId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
+                			.append($('<td/>').append('<a href="#" onclick=viewQtr('+empQtr.employeeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteQtr('+empQtr.employeeId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                 	  
                   });
                   
@@ -23,8 +23,8 @@
           });
       }
       function viewQtr(id){
-    	  var f = document.forms[0];
-		  f.empId.value=id;
+    	  var f = document.forms['editForm'];
+		  f.employeeId.value=id;
 		  f.action="../Payroll/inputEmpQtr";
 		  f.submit();
 	  }
@@ -35,8 +35,8 @@
 	  }
       function deleteQtr(id){
     	  if(confirm("Are you sure want to delete Employee Quarters?")){
-    		  var f = document.forms[0];
-    		  f.empId.value=id;
+    		  var f = document.forms['editForm'];
+    		  f.employeeId.value=id;
     		  f.action="../Payroll/deleteQtr";
     		  f.submit();
     	  }
@@ -83,7 +83,7 @@
 	<form action="" name="editForm" method="post">
 		<%--<input type="hidden" name="designationId" value="0">
 		<input type="hidden" name="departmentId" value="0"> --%>
-		<input type="hidden" name="empId" value="0">
+		<input type="hidden" name="employeeId" value="0">
 		
 	</form>
 	<jsp:include page="../jsp/public/postFooter.jsp" />

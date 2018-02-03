@@ -4,22 +4,26 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import com.payroll.employee.dataobjects.Employee;
+
 public class EmpLic implements Serializable {
 
-	private int empId;
+	private int employeeId;
 	private double instlmtAmt;
+	private double paymentAmount;
 	private String policyNo;
 	private Date paymentDate;
 	private String status;
 	private Timestamp rowUpdDate;
 	private short addUpdate; // 0 - Add / 1 - update
+	private Employee employee;
 
-	public int getEmpId() {
-		return empId;
+	public int getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setEmpId(int empId) {
-		this.empId = empId;
+	public void setEmployeeId(int empId) {
+		this.employeeId = empId;
 	}
 
 	public double getInstlmtAmt() {
@@ -68,5 +72,21 @@ public class EmpLic implements Serializable {
 
 	public void setAddUpdate(short addUpdate) {
 		this.addUpdate = addUpdate;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public double getPaymentAmount() {
+		return paymentAmount;
+	}
+
+	public void setPaymentAmount(double paymentAmount) {
+		this.paymentAmount = paymentAmount;
 	}
 }

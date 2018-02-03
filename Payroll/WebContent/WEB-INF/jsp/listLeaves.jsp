@@ -99,10 +99,14 @@ $(document).ready(function() {
 				<table>
 				<tr>
 					<th>Employee</th>
-					<th>Sick Leaves</th>
-					<th>Casual Leaves</th>
-					<th>Paid Vacation</th>
-					<th>Available Balance</th>
+					<th>Medical </th>
+					<th>Casual</th>
+					<th>Half Paid</th>
+					<th>Earned </th>
+					<th>Maternity</th>
+					<th>Paternity</th>
+					<th>Extraordinary</th>
+					<th>Avl. Leave Bal</th>
 					<th><a href="#" onclick="inputPage()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
 					</th>
@@ -113,6 +117,10 @@ $(document).ready(function() {
 					<td> ${leave.sickLeaves}</td>
 					<td> ${leave.casualLeaves}</td>
 					<td> ${leave.paidLeaves}</td>
+					<td> ${leave.earnLeave} </td>
+					<td> ${leave.maternityLeave}</td>
+					<td> ${leave.paternityLeave}</td>
+					<td> ${leave.extraLeave}</td>
 					<td> ${leave.leaveBalance} </td>
 					<td><a href="#" onclick="viewLeave('${leave.employeeId}')" title="Edit">
 							<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/>

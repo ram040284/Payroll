@@ -16,23 +16,29 @@ td, th {
 
 <script type="text/javascript">
 $(document).ready(function() {
-	var designationList = ${designations};
+	<%--var designationList = ${designations};--%>
 	var departmentList = ${departments};
 	$.each(departmentList, function( index, value ) {
 		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#departmentId');
 	});
-	$.each(designationList, function( index, value ) {
+	<%--$.each(designationList, function( index, value ) {
 		$('<option>').val(value.designationId).text(value.designationName).appendTo('#designationId');
-	});
+	});--%>
 	
 	var deptId = "${empPf.departmentId}";
+	var headId = "${empPf.headId}";
 	var desgId = "${empPf.designationId}";
 	$('#departmentId').val(deptId);
-	$('#designationId').val(desgId);
+	if(deptId !=0) {
+		getHeadsByDept(deptId, headId);		
+	}
+	if(headId != 0) {
+		loadDesgByHead(headId, desgId);
+	}
 	
-	var empId = "${empPf.empId}";
+	var empId = "${empPf.employeeId}";
 	if(empId != 0){
-		getEmployeesByIds(deptId, desgId);
+		getEmployeesByIds(deptId, desgId, empId);
 	}
 	
 	$('#pfDate').datepick({dateFormat: 'dd/mm/yyyy'});
@@ -60,6 +66,12 @@ $(document).ready(function() {
 			$('#departmentId').focus();
 			return false;
 		}
+		if($('#headId').val() == 0){
+			alert("Cost Head must be selected!");
+			$('#headId').focus();
+			return false;
+		}
+	
 		if($('#designationId').val() == 0){
 			alert("Designation must be selected!");
 			$('#designationId').focus();
@@ -76,7 +88,7 @@ $(document).ready(function() {
 			$('#pfDate').focus();
 			return false;
 		}
-		if($('#pfsCpfCntrbn').val() < 1){
+		<%--if($('#pfsCpfCntrbn').val() < 1){
 			alert("PF - CPF Contribution must be provided!");
 			$('#pfsCpfCntrbn').focus();
 			return false;
@@ -85,6 +97,46 @@ $(document).ready(function() {
 			alert("APF - ACPF Contribution must be provided!");
 			$('#apfAcpfCntrbn').focus();
 			return false;
+		}--%>
+		var pfsCpfCntrbnVal = $('#pfsCpfCntrbn').val().trim();
+		if(pfsCpfCntrbnVal){
+			if(!checkAmount(pfsCpfCntrbnVal)){
+				alert("Invalid PF - CPF Contribution amount!");
+				$('#pfsCpfCntrbn').focus();
+				return false;
+			}
+		}else {
+			alert("PF - CPF Contribution must be provided!");
+			$('#pfsCpfCntrbn').focus();
+			return false;
+		}
+		var apfAcpfCntrbnVal = $('#apfAcpfCntrbn').val().trim();
+		if(apfAcpfCntrbnVal){
+			if(!checkAmount(apfAcpfCntrbnVal)){
+				alert("Invalid APF - ACPF Contribution amount!");
+				$('#apfAcpfCntrbn').focus();
+				return false;
+			}
+		}else {
+			alert("APF - ACPF Contribution must be provided!");
+			$('#apfAcpfCntrbn').focus();
+			return false;
+		}
+		var pfLoneRecAmtVal = $('#pfLoneRecAmt').val().trim();
+		if(pfLoneRecAmtVal){
+			if(!checkAmount(pfLoneRecAmtVal)){
+				alert("Invalid PF LOAN amount!");
+				$('#pfLoneRecAmt').focus();
+				return false;
+			}
+		}
+		var cfLoneRecAmtVal = $('#cfLoneRecAmt').val().trim();
+		if(cfLoneRecAmtVal){
+			if(!checkAmount(cfLoneRecAmtVal)){
+				alert("Invalid APF - ACPF Contribution amount!");
+				$('#cfLoneRecAmt').focus();
+				return false;
+			}
 		}
 		<%--if($('#pfLoneRecAmt').val() == ''){
 			alert("PF Loan Amount must be provided!");
@@ -96,7 +148,7 @@ $(document).ready(function() {
 			$('#cfLoneRecAmt').focus();
 			return false;
 		}--%>
-		var inputJson = { "empId" : $('#employeeId').val(), "pfDate" : $('#pfDate').val(),  
+		var inputJson = { "employeeId" : $('#employeeId').val(), "pfDate" : $('#pfDate').val(),  
 				"pfsCpfCntrbn" : $('#pfsCpfCntrbn').val(), "apfAcpfCntrbn" : $('#apfAcpfCntrbn').val(), 
 				"pfLoneRecAmt" : $('#pfLoneRecAmt').val(), "cfLoneRecAmt" : $('#cfLoneRecAmt').val(), "addUpdate": $('#addUpdate').val()};
 		$.ajax({
@@ -108,7 +160,8 @@ $(document).ready(function() {
 	            if(data == "Yes"){
 	            	window.location = "../Payroll/viewEmpPf";
 	            }else {
-	            	alert(data);
+	            	$("#errMsgDiv").text(data);
+		        	$("#errMsgDiv").show();
 	            }
 	        }
 	    });
@@ -116,56 +169,27 @@ $(document).ready(function() {
 	});
 });
 
-function getEmployeesByIds(deptId, desgId){
-	var inputJson = { "departmentId" : deptId,"designationId" : desgId};
-	  $.ajax({
-      url: '../Payroll/loadEmployees',
-      data: JSON.stringify(inputJson),
-      type: "POST",           
-      beforeSend: function(xhr) {
-          xhr.setRequestHeader("Accept", "application/json");
-          xhr.setRequestHeader("Content-Type", "application/json");
-      },
-      success: function(data){ 
-      	$('#employeeId').empty();
-      	$('<option>').val(0).text("-- Select Employee --").appendTo('#employeeId');
-      	$(data).each(function(i, employee){
-      		$('<option>').val(employee.employeeId).text(employee.fullName).appendTo('#employeeId');
-      	});
-      	var empId = "${empPf.empId}";
-      	if(empId !=0) {
-    		$('#employeeId').val(empId);
-    		
-    	}
-      },
-      failure: function (){
-      	alert('Unable to load Employees');
-      }
-  });
-}
-
-function getEmployees() {
-	if($('#departmentId').val() == 0 || $('#designationId').val() == 0){
-		alert("Department and Designation must be selected to get Employees!");
-		$('#departmentId').focus();
-		return false;
-	}
-	var deptId = $('#departmentId').val();
-	var desgId = $('#designationId').val();
-	getEmployeesByIds(deptId, desgId);
-}
 function showDate(date) {
 	alert('The date chosen is ' + date);
 }
      
+function checkAmount(value){
+	var decimal=  /^\d+(\.\d{2,2})?$/;   
+	if(value.match(decimal)) {   
+		return true;  
+	}
+	return false;
+}     
 </script>
+<jsp:include page="../jsp/public/master.jsp" />
 </head>
 <body>
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
+		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:14px; background-color: #8B9DC3; text-transform: none;">
-				<c:if test="${empPf.empId != '0'}" >	Update</c:if><c:if test="${empPf.empId == '0'}">Add</c:if> Employee Provident Fund
+				<c:if test="${empPf.employeeId != '0'}" >	Update</c:if><c:if test="${empPf.employeeId == '0'}">Add</c:if> Employee Provident Fund
 			</h4>
 
 		<div class="col-lg-12 card-block bg-faded" style="margin-bottom: 10px;">
@@ -173,18 +197,24 @@ function showDate(date) {
 				<form:form method = "POST" action = "">
 					<div class="col-sm-12">
 						<div class="row">
-							<div class="col-sm-6 form-group">
+							<div class="col-sm-4 form-group">
 								<label>Department</label>
-								<select id="departmentId" class="form-control" onchange="getEmployees()"
-								<c:if test="${empPf.empId != '0'}" >disabled = "disabled" </c:if>>
+								<select id="departmentId" class="form-control" onchange="getHeads()"
+								<c:if test="${empPf.employeeId != '0'}" >disabled = "disabled" </c:if>>
 									<option value="0">-- Select Department --</option>
 								</select>
 							</div>
+							<div class="col-sm-4 form-group">
+								<label>Head:</label>
+								<select id="headId" class="form-control" onchange="loadDesignations()"
+								<c:if test="${empPf.employeeId != '0'}" > disabled= "disabled" </c:if>>
+								<option value="0">-- Select Head --</option></select>
+							</div>
 							
-							<div class="col-sm-6 form-group">
+							<div class="col-sm-4 form-group">
 								<label>Designation:</label>
 								<select id="designationId" class="form-control" onchange="getEmployees()"
-								<c:if test="${empPf.empId != '0'}" >disabled = "disabled" </c:if>>
+								<c:if test="${empPf.employeeId != '0'}" >disabled = "disabled" </c:if>>
 									<option value="0">-- Select Designation --</option>
 								</select>
 							</div>
@@ -193,7 +223,7 @@ function showDate(date) {
 								<div class="col-sm-6 form-group">
 									<label>Employee:</label>
 									<select id="employeeId" class="form-control"
-									<c:if test="${empPf.empId != '0'}" >disabled = "disabled" </c:if>>
+									<c:if test="${empPf.employeeId != '0'}" >disabled = "disabled" </c:if>>
 										<option value="0">-- Select Employee --</option>
 									</select>
 								</div>
@@ -224,7 +254,7 @@ function showDate(date) {
 								<div class="col-sm-6 form-group">
 									<label>CF Loan Amount:</label>
 									<form:input path="cfLoneRecAmt"  id="cfLoneRecAmt" placeholder="Enter CF Loan Amount" class="form-control"/>
-									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empPf.empId != '0'}" > value="1" </c:if>/>
+									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empPf.employeeId != '0'}" > value="1" </c:if>/>
 								</div>
 							</div>
 							

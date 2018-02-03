@@ -7,9 +7,11 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
 import com.payroll.employee.bank.dataobjects.EmpBank;
+import com.payroll.employee.dataobjects.Employee;
 import com.payroll.employee.pf.vo.EmpPfVO;
 
 public class EmpPfDAO {
@@ -19,8 +21,10 @@ public class EmpPfDAO {
 			Session session = null;
 			
 			try{
-				String queryString = " select new com.payroll.employee.pf.vo.EmpPfVO(p.empId, (select e.firstName from Employee e where e.employeeId = p.empId),"
-						+ " (select e.lastName from Employee e where e.employeeId = p.empId), "
+				String queryString = " select new com.payroll.employee.pf.vo.EmpPfVO(p.employee.employeeId, "
+						/*+ "(select e.firstName from Employee e where e.employeeId = p.empId),"
+						+ " (select e.lastName from Employee e where e.employeeId = p.empId), "*/
+						+"p.employee.firstName, p.employee.lastName, "
 						+ "p.pfDate, p.pfsCpfCntrbn, p.pfLoneRecAmt, p.cfLoneRecAmt, p.apfAcpfCntrbn) from EmpPf p where p.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
@@ -41,12 +45,14 @@ public class EmpPfDAO {
 		Session session = null;
 			
 			try{
-				String queryString = " select new com.payroll.employee.pf.vo.EmpPfVO(p.empId, "
-						+ "(select dept.departmentId from Department dept where dept.departmentId = (select eDept.departmentId "
-						+ "from EmpDepartment eDept where eDept.empId = p.empId)), (select desg.designationId "
-						+ "from Designation desg where desg.designationId = (select eDesg.designationId from EmpDesignation eDesg "
-						+ "where eDesg.empId = p.empId and eDesg.lastWokingDate is null)), p.pfDate, p.pfsCpfCntrbn, p.pfLoneRecAmt, "
-						+ "p.cfLoneRecAmt, p.apfAcpfCntrbn) from EmpPf p where p.empId = ? and p.status = ? ";		
+				String queryString = " select new com.payroll.employee.pf.vo.EmpPfVO(p.employee.employeeId, "
+						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = p.employee.employeeId and dept.status = 'A'), "
+						//+ "from EmpDepartment eDept where eDept.empId = b.empId)), (select desg.designationId "
+						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = p.employee.employeeId and desg.lastWokingDate is null and desg.status='A'), "
+						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = p.employee.employeeId and dh.lastWokingDate is null and dh.status = 'A'), "
+						//+ "(select eDesg.designationId from EmpDesignation eDesg where eDesg.empId = b.empId and eDesg.lastWokingDate is null)), "
+						+" p.pfDate, p.pfsCpfCntrbn, p.pfLoneRecAmt, "
+						+ "p.cfLoneRecAmt, p.apfAcpfCntrbn) from EmpPf p where p.employee.employeeId = ? and p.status = ? ";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -67,9 +73,9 @@ public class EmpPfDAO {
 		Session session = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
-			Query query = session.createQuery("update EmpPf p set p.status = ?, p.rowUpdDate = ? where p.empId = ?");
+			Query query = session.createQuery("update EmpPf p set p.status = ?, p.rowUpdDate = ? where p.employee.employeeId = ?");
 			query.setParameter(0, "S");
-			query.setParameter(1, new Date());
+			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 			query.setParameter(2, empId);
 			int updated = query.executeUpdate();
 			if(updated > 0)
@@ -90,8 +96,9 @@ public class EmpPfDAO {
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			EmpPf empPfDB = checkEmpPf(empPf.getEmpId(), session);
-			if(empPfDB != null){
+			//EmpPf empPfDB = checkEmpPf(empPf.getEmployeeId(), session);
+			Employee employee = (Employee)session.load(Employee.class, empPf.getEmployeeId());
+			/*if(empPfDB != null){
 				if(empPf.getAddUpdate() ==0){
 					result = "Provident details for Employee are exit!";
 					return result;
@@ -104,13 +111,21 @@ public class EmpPfDAO {
 				empPfDB.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 				session.update(empPfDB);
 			}
-			else {
+			else {*/
+				empPf.setEmployee(employee);
 				empPf.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 				empPf.setStatus("A");
-				session.save(empPf);
-			}
+				if(empPf.getAddUpdate() ==0)
+					session.save(empPf);
+				else
+					session.update(empPf);
+			//}
 			transaction.commit();
 			result = "Yes";
+		}catch(ConstraintViolationException cv){
+			cv.printStackTrace();
+			transaction.rollback();
+			result = "PF details are already exist for selected Employee!";
 		}catch(Exception e){
 			e.printStackTrace();
 			transaction.rollback();

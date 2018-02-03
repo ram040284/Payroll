@@ -18,15 +18,15 @@ import com.payroll.designation.dataobjects.Designation;
 import com.payroll.employee.business.EmployeeService;
 import com.payroll.employee.vo.EmployeeVO;
 import com.payroll.overtime.business.OvertimeService;
-import com.payroll.overtime.vo.Overtime;
+import com.payroll.overtime.vo.OvertimeVO;
 
 @Controller
 public class OvertimeController {
 	
 	@RequestMapping(value="/listOvertimes", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<Overtime> getOvertimes(){
+    public @ResponseBody List<OvertimeVO> getOvertimes(){
 		System.out.println("listOvertimes-- getOvertimes");
-	   List<Overtime> overtimes = new OvertimeService().getOvertimeList();
+	   List<OvertimeVO> overtimes = new OvertimeService().getOvertimeList();
 	   return overtimes;
     }
 	
@@ -36,53 +36,49 @@ public class OvertimeController {
 	}
 	
 	@RequestMapping(value = "/inputOvertime", method = RequestMethod.POST)
-	public ModelAndView inputOvertime(Overtime overtime) {
+	public ModelAndView inputOvertime(OvertimeVO overtime) {
 		ObjectMapper mapper = new ObjectMapper();
 		System.out.println("inputOvertime -- overtime:"+overtime);
-		List<Designation> desigList = new DesignationService().getDesignationList();
 		List<Department> deptList = new DepartmentService().getDepartments();
-		String desigJSON = "";
 		String depJSON = "";
 		try {
 			depJSON = mapper.writeValueAsString(deptList);
-			desigJSON = mapper.writeValueAsString(desigList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(overtime.getOvertimeDate() !=null)
-			overtime.setOvertimeDate(null);
+		/*if(overtime.getOvertimeDate() !=null)
+			overtime.setOvertimeDate(null);*/
+		if(overtime.getOvertimeId()!=0)
+			overtime = new OvertimeService().getOvertimeById(overtime.getOvertimeId());
 		ModelAndView model = new ModelAndView("overtime", "command", overtime);
 		model.addObject("overtime", overtime);
 		model.addObject("departments", depJSON);
-		model.addObject("designations", desigJSON);
 		return model;
 	}
 	   
 	@RequestMapping(value="/addOvertime",method=RequestMethod.POST)
 	public @ResponseBody
-	String addOvertime(@RequestBody Overtime overtime){
+	String addOvertime(@RequestBody OvertimeVO overtime){
 	   System.out.println("addOvertime -- overtime:"+overtime);
-	   boolean addedOvertime = new OvertimeService().addUpdateOvertime(overtime);
-	   if(addedOvertime)
-		   return "Yes";
-	   else
-		   return "No";
+	   String result = new OvertimeService().addUpdateOvertime(overtime);
+	   System.out.println("Add Overtime - Result:"+result);
+	   return result;
 	}
 	
 	@RequestMapping(value="/loadEmployees",method=RequestMethod.POST, produces = "application/json")
-	public @ResponseBody List<EmployeeVO> loadEmployees(@RequestBody Overtime overtime){
+	public @ResponseBody List<EmployeeVO> loadEmployees(@RequestBody OvertimeVO overtime){
 	   System.out.println("overtime:"+overtime);
 	   List<EmployeeVO> employees = new EmployeeService().getEmployees(overtime.getDesignationId());
 	   return employees;
 	}
 	
 	@RequestMapping(value="/deleteOvertime",method=RequestMethod.POST)
-	public String deleteOvertime(Overtime overtime){
+	public String deleteOvertime(OvertimeVO overtime){
 	   System.out.println("deleteOvertime -- overtime:"+overtime);
-	   if(new OvertimeService().deleteOvertime(overtime.getEmpId(), overtime.getOvertimeDate()))
+	   if(new OvertimeService().deleteOvertime(overtime.getOvertimeId()))
 		   System.out.println("Successfully deleted Overtime!!");
 	   else
 		   System.out.println("Failed to deleted Overtime!!");
-	   return "listOvertime";
+	   return "listOvertimes";
 	}
 }

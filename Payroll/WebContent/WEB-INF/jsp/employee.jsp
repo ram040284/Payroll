@@ -4,9 +4,9 @@
 <html>
 <head>
 <title>Add Employee</title>
-
+<%-- <link href="../Payroll/resources/css/jquery.datepick.css" rel="stylesheet">--%>
 <jsp:include page="../jsp/public/postHeader.jsp" />
-<jsp:include page="../jsp/public/jquery.datepick.css.jsp" />
+<jsp:include page="../jsp/public/jquery.datepick.css.jsp" /> 
 <jsp:include page="../jsp/public/jqueryPluginMin.jsp"/>
 <jsp:include page="../jsp/public/jdatePicker.jsp"/>
 <style type="text/css">
@@ -53,6 +53,7 @@ $(document).ready(function() {
 	
 	$('#dob').datepick({dateFormat: 'dd/mm/yyyy'});
 	$('#joiningDate').datepick({dateFormat: 'dd/mm/yyyy'});
+	$('#retirementDate').datepick({dateFormat: 'dd/mm/yyyy'});
 	$('#inlineDatepicker').datepick({onSelect: showDate});	
 	
 	$('#addEmpBtn').click(function(event) {
@@ -69,12 +70,14 @@ $(document).ready(function() {
 			var email = "${employee.email}";
 			var adharNo = "${employee.adharNo}";
 			var pan = "${employee.pan}";
+			var retirementDate = "${employee.retirementDate}";
 						
 		if(desgId == $('#designationId').val() && deptId == $('#departmentId').val() && genderId == $('#gender').val().trim() && 
 			fname == $('#fname').val().trim() && lname == $('#lname').val().trim() && mname==$('#mname').val().trim() &&
 			address1 == $('#addressLine1').val().trim() && address2 == $('#addressLine2').val().trim() && address3 ==$('#addressLine3').val().trim() && 
 			dob == $('#dob').val().trim() && joiningDate == $('#joiningDate').val().trim() && phone == $('#phone').val().trim() && 
-			email == $('#email').val().trim() && adharNo == $('#aadhar').val().trim() && pan == $('#pan').val().trim()) {
+			email == $('#email').val().trim() && adharNo == $('#aadhar').val().trim() && pan == $('#pan').val().trim() && 
+			retirementDate == $('#retirementDate').val().trim()) {
 				alert('Nothing was changed!');
 				$('#designationId').focus();
 				return false;
@@ -127,17 +130,35 @@ $(document).ready(function() {
 			$('#joiningDate').focus();
 			return false;
 		}
-		if($('#phone').val().trim() == ""){
+		var phoneValue = $('#phone').val().trim();
+		if(phoneValue){
+			if(phoneValue.length!= 10){
+				alert("Phone# must be 10 characters!")  
+				$('#phone').focus();
+			    return false;
+			}
+			if(!allNumeric(phoneValue)){
+				alert("Phone# must be only Numbers!");
+				$('#phone').focus();
+				return false;
+			}	
+		}else {
+			alert("Phone# must be provided!");
+			$('#phone').focus();
+			return false;
+		}
+		
+		<%--if($('#phone').val().trim() == ""){
 			alert("Phone# must be provided!");
 			$('#phone').focus();
 			return false;
 		}else{
 			if(!allNumeric($('#phone').val().trim())){
-				alert("Phone# must be only numbers!");
+				alert("Phone# must be only Numbers!");
 				$('#phone').focus();
 				return false;
 			}			
-		}
+		}--%>
 		if($('#email').val().trim() != ""){
 			if(!emailValid($('#email').val())){
 				alert("You have entered an invalid email address!")  
@@ -145,11 +166,38 @@ $(document).ready(function() {
 			    return false;  
 			}		
 		}
+		var adharValue = $('#aadhar').val().trim();
+		if(adharValue){
+			if(adharValue.length!= 12){
+				alert("Aadhar# must be 12 characters!")  
+				$('#aadhar').focus();
+			    return false;
+			}
+			if(!allNumeric(adharValue)){
+				alert("Aadhar# must be only Numbers!")  
+				$('#aadhar').focus();
+			    return false;
+			}
+		}
+	
+		var panValue = $('#pan').val().trim();
+		if(panValue){
+			if(panValue.length!= 10){
+				alert("PAN# must be 10 characters!")  
+				$('#pan').focus();
+			    return false;
+			}
+			if(!alphaNumeric(panValue)){
+				alert("PAN# must be only Alpha Numeric characters!")  
+				$('#pan').focus();
+			    return false;
+			}
+		}
 		var inputJson = { "firstName" : $('#fname').val(), "middleName" : $('#mname').val(), "lastName" : $('#lname').val(),"designationId" : $('#designationId').val(), 
-				"departmentId": $('#departmentId').val(), "email": $('#email').val(), "phone":$('#phone').val(), "pan":$('#pan').val(),
+				"departmentId": $('#departmentId').val(), "email": $('#email').val(), "phone":phoneValue, "pan":panValue,
 				"addressLine1":$('#addressLine1').val(),"addressLine2":$('#addressLine2').val(),"addressLine3":$('#addressLine3').val(),
 				"adharNo":$('#aadhar').val(),"dob":$('#dob').val(), "employeeId":$('#employeeId').val(), "gender":$('#gender').val(),
-				"joiningDate":$('#joiningDate').val(), "headId":$('#headId').val()};
+				"joiningDate":$('#joiningDate').val(), "headId":$('#headId').val(), "retirementDate":$('#retirementDate').val()};
 	    $.ajax({
 	        url: '../Payroll/addEmp',
 	        data: JSON.stringify(inputJson),
@@ -162,7 +210,8 @@ $(document).ready(function() {
 	            	f.action="../Payroll/employee";
 	            	f.submit();
 	            }else {
-	            	alert(data);
+	            	$("#errMsgDiv").text(data);
+		        	$("#errMsgDiv").show();
 	            }
 	        }
 	    });
@@ -189,6 +238,13 @@ function allNumeric(numberTxt) {
 	return false;
 }
 
+function alphaNumeric(value){
+	var letters = /^[0-9a-zA-Z]+$/;
+	if(value.match(letters)){
+	   return true;
+	}
+	return false;
+}
 function emailValid(emailTxt){
     var re = /\S+@\S+/;
     return re.test(emailTxt);
@@ -276,13 +332,10 @@ function loadDesgByHead(headId) {
 
       </script>
 </head>
-<body ><%--style="background-color:#A4A4A4"> --%>
-	<%--<jsp:include page="../jsp/public/postHeader.jsp"/> --%>
-	<div class="contain-wrapp bodyDivCss">	
+<body >
+<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
-	
-	<%--<div style="margin-top: 2px; float: left; width: 98%; background-color: #dfe3ee;">
-	<h4 style="color: #0101DF; margin-top: 10px; margin-left: 10px;">--%>
+		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:14px; background-color: #8B9DC3; text-transform: none;">
 				<c:if test="${employee.employeeId != '0'}" > Update </c:if><c:if test="${employee.employeeId == '0'}">	Add	</c:if> Employee
@@ -368,12 +421,16 @@ function loadDesgByHead(headId) {
 								<form:input type="text" id="joiningDate" path="joiningDate" placeholder="Enter Joing Date (DD/MM/YYYY)" class="form-control"/>
 							</div>
 						</div>
-						<div class="row">	
-							<div class="col-sm-6 form-group">
+						<div class="row">
+							<div class="col-sm-4 form-group">
+								<label>Retirement Date</label>
+								<form:input type="text" id="retirementDate" path="retirementDate" placeholder="Enter Retmt Date (DD/MM/YYYY)" class="form-control"/>
+							</div>	
+							<div class="col-sm-4 form-group">
 								<label>Phone Number</label>
 								<form:input type="text" id="phone" path="phone" placeholder="Enter Phone Number" class="form-control"/>
 							</div>
-							<div class="col-sm-6 form-group">
+							<div class="col-sm-4 form-group">
 								<label>Email</label>
 								<form:input type="text" id="email" path="email" placeholder="Enter Email Address" class="form-control"/>
 							</div>	

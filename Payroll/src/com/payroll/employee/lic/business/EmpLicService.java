@@ -28,7 +28,7 @@ public class EmpLicService {
 		EmpLic empLic = new EmpLic();
 		try{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			empLic.setEmpId(licVO.getEmpId());
+			empLic.setEmployeeId(licVO.getEmpId());
 			empLic.setInstlmtAmt(licVO.getInstlmtAmt());
 			empLic.setPolicyNo(licVO.getPolicyNo());
 			empLic.setAddUpdate(licVO.getAddUpdate());

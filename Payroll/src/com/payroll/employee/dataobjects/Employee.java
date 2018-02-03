@@ -29,7 +29,17 @@ public class Employee implements Serializable{
 	private int designationId;
 	private int employeeId;
 	private int headId;
+	private Date retirementDate;
 	
+	
+	public Date getRetirementDate() {
+		return retirementDate;
+	}
+
+	public void setRetirementDate(Date retirementDate) {
+		this.retirementDate = retirementDate;
+	}
+
 	public int getEmployeeId() {
 		return employeeId;
 	}

@@ -90,18 +90,14 @@ $(document).ready(function() {
 	    });
 	    
 	    $('#editUserBtn').click(function(event) {
-	    	if (isEditForm()) {
-	    		alert("No changes found!");
-	    		$('#roleId').focus();
-	    		return false;
-	    	}
+	    	
 	    	if($('#roleId').val() == 0){
 	    		alert("Role must be selected!");
 	    		$('#roleId').focus();
 	    		return false;
 	    	}
 	    	
-	    	/*if($('#password').val() == ''){
+	    	if($('#password').val() == ''){
 	    		alert("Password must be entered");
 	    		$('#Password').focus();
 	    		return false;
@@ -110,9 +106,7 @@ $(document).ready(function() {
 	    		alert("Confirm Password must be entered");
 	    		$('#confirmPassword').focus();
 	    		return false;
-	    	}*/
-	    	
-	    	if ($('#password').val()!='' || $('#confirmPassword').val()!='') {
+	    	}
 	    	if($('#password').val() != $('#confirmPassword').val()){
 	    		alert("Password & Confirm Password are not same");
 	    		$('#Password').focus();
@@ -132,28 +126,13 @@ $(document).ready(function() {
 	    		return false;
 	    		
 	    	}
-	    	}
+	    	
 	    	$("#userForm").attr("action", "../Payroll/editUserConfirm");
 			$("#userForm").submit();
 	    });
 	    
 });
   
-function isEditForm() {
-	var noChange = true;
-
-	var roleId = '${user.roleId}';
-	if ($('#roleId').val() != roleId) {
-		noChange = false;
-	}
-	
-	if($('#password').val().length > 0 || $('#confirmPassword').val() > 0) {
-		noChange = false;
-	}
-	
-	return noChange;
-}
-
 function roleSelection() {
 	var roleId = $('#roleId').val();
 	$('#roleDesc').html('');
@@ -221,11 +200,11 @@ function roleSelection() {
 						</div>	
 						<div class="row">
 							<div class="col-sm-6 form-group">
-								<label>Password (optional)</label>
+								<label>Password</label>
 								<form:input type="password" id="password" path="password" placeholder="Enter Password" class="form-control"/>
 							</div>	
 							<div class="col-sm-6 form-group">
-								<label>Confirm Password (optional)</label>
+								<label>Confirm Password</label>
 								<form:input type="password" id="confirmPassword" path="confirmPassword" placeholder="Enter Confirm Password" class="form-control"/>
 							</div>		
 						</div>			

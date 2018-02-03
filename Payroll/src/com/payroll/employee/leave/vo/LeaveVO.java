@@ -23,6 +23,16 @@ public class LeaveVO extends SearchCriteria{
 	private int paidLeaveInp;
 	private int sickLeaveInp;
 	
+	private int earnLeaveInp;
+	private int maternityLeaveInp;
+	private int paternityLeaveInp;
+	private int extraLeaveInp;
+	
+	private int earnLeave;
+	private int maternityLeave;
+	private int paternityLeave;
+	private int extraLeave;
+	
 	public LeaveVO(){
 		super();
 	}
@@ -53,18 +63,23 @@ public class LeaveVO extends SearchCriteria{
 		
 	}
 	
-	public LeaveVO(int empId, String empName, int cLeave, int pLeave, int sLeave, String leaveIds){
+	public LeaveVO(int empId, String empName, int cLeave, int pLeave, int sLeave, int eLeave, 
+			int mLeave, int ptLeave, int xLeave, String leaveIds){
 		this.casualLeaves = cLeave;
 		this.sickLeaves = sLeave;
 		this.paidLeaves = pLeave;
 		this.employeeId =empId;
 		this.fullName = empName;
-		this.leaveBalance = casualLeaves + sickLeaves + paidLeaves;
+		this.earnLeave = eLeave;
+		this.maternityLeave = mLeave;
+		this.paternityLeave = ptLeave;
+		this.extraLeave = xLeave;
+		this.leaveBalance = casualLeaves + sickLeaves + paidLeaves + earnLeave + maternityLeave + paternityLeave + extraLeave;
 		this.leaveIds = leaveIds;
 		
 	}
 	public LeaveVO (int empId, int deptId, int desgId, int headId, int sLeave, int cLeave, int pLeave,
-			int leaveBalance, String leaveIds){
+			int eLeave, int mLeave, int ptLeave, int xLeave,int leaveBalance, String leaveIds){
 		super(deptId, headId);
 		this.employeeId = empId;
 		//this.departmentId = deptId;
@@ -75,6 +90,10 @@ public class LeaveVO extends SearchCriteria{
 		this.sickLeaves = sLeave;
 		this.paidLeaves = pLeave;
 		this.leaveIds = leaveIds;
+		this.earnLeave = eLeave;
+		this.maternityLeave = mLeave;
+		this.paternityLeave = ptLeave;
+		this.extraLeave = xLeave;
 	}
 	
 
@@ -189,5 +208,69 @@ public class LeaveVO extends SearchCriteria{
 
 	public void setSickLeaveInp(int sickLeaveInp) {
 		this.sickLeaveInp = sickLeaveInp;
+	}
+
+	public int getEarnLeaveInp() {
+		return earnLeaveInp;
+	}
+
+	public void setEarnLeaveInp(int earnLeaveInp) {
+		this.earnLeaveInp = earnLeaveInp;
+	}
+
+	public int getMaternityLeaveInp() {
+		return maternityLeaveInp;
+	}
+
+	public void setMaternityLeaveInp(int maternityLeaveInp) {
+		this.maternityLeaveInp = maternityLeaveInp;
+	}
+
+	public int getPaternityLeaveInp() {
+		return paternityLeaveInp;
+	}
+
+	public void setPaternityLeaveInp(int paternityLeaveInp) {
+		this.paternityLeaveInp = paternityLeaveInp;
+	}
+
+	public int getExtraLeaveInp() {
+		return extraLeaveInp;
+	}
+
+	public void setExtraLeaveInp(int extraLeaveInp) {
+		this.extraLeaveInp = extraLeaveInp;
+	}
+
+	public int getEarnLeave() {
+		return earnLeave;
+	}
+
+	public void setEarnLeave(int earnLeave) {
+		this.earnLeave = earnLeave;
+	}
+
+	public int getMaternityLeave() {
+		return maternityLeave;
+	}
+
+	public void setMaternityLeave(int maternityLeave) {
+		this.maternityLeave = maternityLeave;
+	}
+
+	public int getPaternityLeave() {
+		return paternityLeave;
+	}
+
+	public void setPaternityLeave(int paternityLeave) {
+		this.paternityLeave = paternityLeave;
+	}
+
+	public int getExtraLeave() {
+		return extraLeave;
+	}
+
+	public void setExtraLeave(int extraLeave) {
+		this.extraLeave = extraLeave;
 	}
 }

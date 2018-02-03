@@ -64,6 +64,27 @@ public class EmpDeductionsDAO {
 		return empDeductionsVO;
 	}
 	
+	public EmpDeductions getEmpDeductionsByEmpId(int empId){
+		EmpDeductions empDeductions = null;
+		Session session = null;
+			
+			try{
+				String queryString = " from EmpDeductions d where d.employee.employeeId = ? and d.status = ? ";		
+				
+				session = HibernateConnection.getSessionFactory().openSession();
+				Query query = session.createQuery(queryString);
+				query.setParameter(0, empId);
+				query.setParameter(1, "A");
+				empDeductions = (EmpDeductions)(!(query.list().isEmpty())?query.list().get(0):null);
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				HibernateConnection.closeSession(session);
+			}
+		
+		return empDeductions;
+	}
+	
 	public String deleteEmpDeductions(int empId){
 		String result = null;
 		Session session = null;

@@ -4,14 +4,21 @@
  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
   
  <hibernate-mapping>  
-  <class name="com.payroll.overtime.dataobjects.Overtime" table="OVERTIME">  
-    <composite-id>
-		<key-property name="empId" column="EMP_ID"  />
-		<key-property name="departmentId" column="DEPT_ID" />
-		<key-property name="designationId" column="DESG_ID" />
-		<key-property name="overtimeDate" column="OTIME_DATE" />
-	</composite-id>
-    <property name="overtimeAmount" column="OTIME_AMT" not-null="true"></property>  
-    
+  <class name="com.payroll.overtime.dataobjects.Overtime" table="EMP_OT_DETAIL">
+  <id name="overtimeId" type="integer" >  
+     <column name="OVR_TIM_ID" sql-type="integer" not-null="true"/>  
+     <generator class="increment"/>
+    </id>  
+      <many-to-one name="employee" fetch="select" 
+             class="com.payroll.employee.dataobjects.Employee"
+             column="EMP_ID"
+             cascade="all">
+	</many-to-one>
+    <property name="overtimeAmount" column="OTIME_AMT" not-null="true"></property>
+    <property name="overtimeOrder" column="OTIME_ORDER" not-null="true"></property>
+    <property name="overtimeDate" column="OTIME_DATE" not-null="true"></property>
+    <property name="overtimeHours" column="OTIME_HRS" not-null="true"></property>
+    <property name="status" column="STATUS" not-null="true"></property>  
+    <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"></property>
   </class>  
  </hibernate-mapping> 

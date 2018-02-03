@@ -27,13 +27,19 @@ $(document).ready(function() {
 				return false;
 			}
 		}
-		if($('#departmantName').val().trim() == ""){
+		var deptName = $('#departmantName').val().trim();
+		if(deptName == ""){
 			alert("Department name must be provided!");
 			$('#departmantName').focus();
 			return false;
 		}
+		<%--if(!alphaOnly(deptName)){
+			alert("Department name must allow only letters and space!");
+			$('#departmantName').focus();
+			return false;
+		}--%>
 		var inputJson = { "departmantName" : $('#departmantName').val(), "departmentId" : $('#departmentId').val()};
-	   $.ajax({
+	   	$.ajax({
 	        url: '../Payroll/addDept',
 	        data: JSON.stringify(inputJson),
 	        type: "POST", 
@@ -42,28 +48,31 @@ $(document).ready(function() {
 		        if(data == "Yes"){
 		           	window.location = "../Payroll/viewDept";
 		        }else {
-		        	alert(data);
-		        	<%--$("errMsgDiv").append(data);
-		        	$("errMsgDiv").show();--%>
-		        }
+		        	$("#errMsgDiv").text(data);
+		        	$("#errMsgDiv").show();
+		       }
 	        }
 	    });
 	    event.preventDefault();
 	});
 });
-     
+function alphaOnly(value){
+	if (!/^[a-zA-Z\s]+$/.test(value)) {
+        return false;
+    }
+}     
       </script>
 </head>
 <body>
-<div class="errMsg" id="errMsgDiv"></div>
+
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
-				
+			<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>			
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:14px; background-color: #8B9DC3; text-transform: none;">
 				<c:if test="${department.departmentId != '0'}" >Update</c:if><c:if test="${department.departmentId == '0'}">Add</c:if> Department
 			</h4>
-
+			
 		<div class="col-lg-12 card-block bg-faded" style="padding-bottom: 5px;">
 		<div class="row">
 		<form:form method = "POST" action = "">

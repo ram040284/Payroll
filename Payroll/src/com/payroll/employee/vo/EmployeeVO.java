@@ -36,6 +36,8 @@ public class EmployeeVO implements Serializable{
 	private Date rowUpdatedDate;
 	private String headName;
 	private int headId;
+	private String retirementDate;
+	
 	
 	public EmployeeVO(){
 		
@@ -48,6 +50,20 @@ public class EmployeeVO implements Serializable{
 	public EmployeeVO (int employeeId, String firstName, String lastName, String middleName){
 		this.employeeId = employeeId;
 		this.fullName = getName(firstName, middleName, lastName);
+	}
+	
+	public EmployeeVO(int employeeId, String firstName, String lastName, String middleName,
+			String pan, Date dob, Date retirementDate, String department,
+			String headName, String designation,  Date joiningDate){
+		this.employeeId = employeeId;
+		this.fullName = getName(firstName, middleName, lastName);
+		this.pan = pan;
+		this.designation = designation;
+		this.department = department; 
+		this.dob = (dob != null) ? dateFormat.format(dob) : "";
+		this.joiningDate = (joiningDate != null) ? dateFormat.format(joiningDate) : "";
+		this.retirementDate = (retirementDate != null) ? dateFormat.format(retirementDate) : "";
+		this.headName = headName;
 	}
 	
 	public EmployeeVO(int employeeId, String firstName, String lastName, String middleName,
@@ -224,5 +240,8 @@ public class EmployeeVO implements Serializable{
 	}
 	public int getHeadId() {
 		return headId;
+	}
+	public String getRetirementDate() {
+		return retirementDate;
 	}
 }

@@ -31,6 +31,12 @@ public class BankVO {
 		this.bankId = bankId;
 	}
 	
+	public BankVO(int bankId, String bankName, String accountNo) {
+		this.bankName = bankName;
+		this.accountNo = accountNo;
+		this.bankId = bankId;
+	}
+	
 	public BankVO(int empId, int deptId, int desgId, int headId, int bankId, String bankName , String ifscCode, String accountNo) {
 		this.employeeId = empId;
 		this.ifscCode = ifscCode;

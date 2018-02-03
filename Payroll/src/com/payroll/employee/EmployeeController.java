@@ -52,7 +52,7 @@ public class EmployeeController {
 		   String depJSON = "";
 		   String desigJSON = "";
 			try {
-				depJSON = mapper.writeValueAsString(deptList);
+				//depJSON = mapper.writeValueAsString(deptList);
 				//desigJSON = mapper.writeValueAsString(desigList);
 			} catch (Exception e) {
 				e.printStackTrace();
