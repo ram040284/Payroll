@@ -65,8 +65,10 @@ public class PaybillService {
 			HeadInfoVO headInfoVO = (HeadInfoVO) iterator.next();
 			this.headId = headInfoVO.getHeadId();
 			pbDetails = getPayBills();
-			pbDetails.setHeadName(headInfoVO.getHeadName());
-			pbDetailsList.add(pbDetails);
+			if(pbDetails != null){
+				pbDetails.setHeadName(headInfoVO.getHeadName());
+				pbDetailsList.add(pbDetails);
+			}
 		}
 		return pbDetailsList;
 	}
@@ -122,12 +124,15 @@ public class PaybillService {
 	 * @return
 	 */
 	public PaybillDetails getPayBills(){
+		PaybillDetails details = null;
 		if(checkPayBills(deptId))
-			return getPaybillDetails();
-		EmployeePayrollService payroll = new EmployeePayrollService(empList);
+			details = getPaybillDetails();
+		
+		/*EmployeePayrollService payroll = new EmployeePayrollService(empList);
 		payroll.createPaybills(deptId, startDate);
 		checkPayBills(deptId);
-		return getPaybillDetails();
+		return getPaybillDetails();*/
+		return details;
 	}
 	private boolean checkPayBills(int deptId){
 		boolean billsExist = false;

@@ -1,6 +1,7 @@
 package com.payroll.rest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -86,9 +87,11 @@ public class PaybillController {
 	
 	@RequestMapping(value = "/generatePaybills", method = RequestMethod.POST)
     public ModelAndView generatePaybills(PaybillVO paybill) {
+		ModelAndView model = null;
+		try{
 		int result = new PaybillService(paybill.getDepartmentId(), 
- 			paybill.getMonthDate()).generatePayBills(paybill.getBillType());
- 		ModelAndView model = new ModelAndView("paybillsResp", "command", paybill);
+				paybill.getMonthDate()).generatePayBills(paybill.getBillType());
+ 		model = new ModelAndView("paybillsResp", "command", paybill);
  		model.addObject("result", result);
  		/*String result = "";
  		switch (billType) {
@@ -106,37 +109,80 @@ public class PaybillController {
 			break;
 		}*/
         //return new ModelAndView("pdfView", "monthlyDetails", monthlyDetails);
+		}catch(Exception e){
+			throw new AppException(new Date(), "Failed to generate Paybills!");
+		}
  	return model;
 	}
 	
 	@RequestMapping(value = "/downloadPDF", method = RequestMethod.POST)
-	    public ModelAndView downloadExcel(PaybillVO paybill) {
-	 	List<PaybillDetails> monthlyDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getMonthlyBills();
-	        return new ModelAndView("pdfView", "monthlyDetails", monthlyDetails);
+		public ModelAndView downloadExcel(PaybillVO paybill) {
+			List<PaybillDetails> monthlyDetails = null;
+			try{
+				monthlyDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getMonthlyBills();
+				if(monthlyDetails == null){
+					return new ModelAndView("noActivity", "", monthlyDetails);
+				}
+			}catch(Exception e){
+				throw new AppException(new Date(), "Failed to get Monthly Report!");
+			}
+		    return new ModelAndView("pdfView", "monthlyDetails", monthlyDetails);
 		}
 	
 	@RequestMapping(value = "/downloadPaybill", method = RequestMethod.POST)
     public ModelAndView downloadPaybill(PaybillVO paybill) {
-		PaybillDetails paybillDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getPayBills();
+		PaybillDetails paybillDetails = null;
+		try{
+			paybillDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getPayBills();
+			if(paybillDetails == null){
+				return new ModelAndView("noActivity", "", paybillDetails);
+			}
+		
+		}catch(Exception e){
+			throw new AppException(new Date(), "Failed to get Paybills Report!");
+		}
         return new ModelAndView("pdfView", "paybillDetails", paybillDetails);
     }
 	
 	@RequestMapping(value = "/headwiseReport", method = RequestMethod.POST)
     public ModelAndView headwiseReport(PaybillVO paybill) {
-		System.out.println("paybill:"+paybill);
-		List<PaybillDetails> headwiseDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getHeadsPayBills();
+		List<PaybillDetails> headwiseDetails = null;
+		try{
+			headwiseDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getHeadsPayBills();
+			if(headwiseDetails == null || headwiseDetails.isEmpty()){
+				return new ModelAndView("noActivity", "", headwiseDetails);
+			}
+		}catch(Exception e){
+			throw new AppException(new Date(), "Failed to get Head Wise Report!");
+		}
         return new ModelAndView("pdfView", "headwiseDetails", headwiseDetails);
     }
 	
 	@RequestMapping(value = "/bankwiseReport", method = RequestMethod.POST)
     public ModelAndView bankwiseReport(PaybillVO paybill) {
-		List<PaybillDetails>  bankwiseDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getBankWisePayBills();
+		List<PaybillDetails>  bankwiseDetails = null;
+		try{
+			bankwiseDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getBankWisePayBills();
+			if(bankwiseDetails == null || bankwiseDetails.isEmpty()){
+				return new ModelAndView("noActivity", "", bankwiseDetails);
+			}
+		}catch(Exception e){
+			throw new AppException(new Date(), "Failed to get Bank Wise Report!");
+		}
         return new ModelAndView("pdfView", "bankwiseDetails", bankwiseDetails);
     }
 	
 	@RequestMapping(value = "/payslip", method = RequestMethod.POST)
     public ModelAndView payslip(PaybillVO paybill) {
-		PaybillDetails  payslip = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getPaySlip(paybill.getEmployeeId());
+		PaybillDetails  payslip = null;
+		try{
+			payslip = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getPaySlip(paybill.getEmployeeId());
+			if(payslip == null){
+				return new ModelAndView("noActivity", "", payslip);
+			}
+		}catch(Exception e){
+			throw new AppException(new Date(), "Failed to get get Payslip!");
+		}
         return new ModelAndView("pdfView", "payslip", payslip);
     }
 }
