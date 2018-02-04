@@ -57,6 +57,12 @@ public class PaybillController {
 		return getInputForm(paybill, "paycheckRep");
 	}
 	
+	@RequestMapping(value = "/generateBills", method = RequestMethod.POST)
+	public ModelAndView generateBills(PaybillVO paybill) {
+		return getInputForm(paybill, "generateBills");
+	}
+	
+	
 	private ModelAndView getInputForm(PaybillVO paybill, String jspName){
 		ObjectMapper mapper = new ObjectMapper();
 		List<Department> deptList = new DepartmentService().getDepartments();
@@ -75,6 +81,32 @@ public class PaybillController {
 	@RequestMapping(value = "/generatePaybill", method = RequestMethod.POST)
 	public String inputHead(PaybillVO paybill) {
 		return null;
+	}
+	
+	
+	@RequestMapping(value = "/generatePaybills", method = RequestMethod.POST)
+    public ModelAndView generatePaybills(PaybillVO paybill) {
+		int result = new PaybillService(paybill.getDepartmentId(), 
+ 			paybill.getMonthDate()).generatePayBills(paybill.getBillType());
+ 		ModelAndView model = new ModelAndView("paybillsResp", "command", paybill);
+ 		model.addObject("result", result);
+ 		/*String result = "";
+ 		switch (billType) {
+		case 1:
+			result = "Paybills are exist for selected Department and Month!";
+			break;
+		case 2:
+			result = "Paybills are generated for selected Department and Month!";
+			break;
+		case 3:
+			result = "Unable to generate Paybills for selected Department and Month!";
+			break;
+			
+		default:
+			break;
+		}*/
+        //return new ModelAndView("pdfView", "monthlyDetails", monthlyDetails);
+ 	return model;
 	}
 	
 	@RequestMapping(value = "/downloadPDF", method = RequestMethod.POST)
@@ -100,5 +132,11 @@ public class PaybillController {
     public ModelAndView bankwiseReport(PaybillVO paybill) {
 		List<PaybillDetails>  bankwiseDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getBankWisePayBills();
         return new ModelAndView("pdfView", "bankwiseDetails", bankwiseDetails);
+    }
+	
+	@RequestMapping(value = "/payslip", method = RequestMethod.POST)
+    public ModelAndView payslip(PaybillVO paybill) {
+		PaybillDetails  payslip = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getPaySlip(paybill.getEmployeeId());
+        return new ModelAndView("pdfView", "payslip", payslip);
     }
 }

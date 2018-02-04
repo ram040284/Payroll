@@ -99,5 +99,26 @@ public class PaybillDAO {
 		return paybills;
 	}
 	
+	public Paybill getPaybillByEmp(int empId){
+		Paybill paybill = null;
+		Session session = null;
+		try{
+			StringBuffer queryString = new StringBuffer(" from Paybill p where p.employee.employeeId = ? ");
+			queryString.append("and p.month >= :startDate and p.month <= :endDate");
+			session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString.toString());
+			query.setParameter(0, empId);
+			query.setTimestamp("startDate", startDate);
+			query.setTimestamp("endDate", endDate);
+			paybill = (query.list() !=null && !query.list().isEmpty()) ? (Paybill)query.list().get(0): null;
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return paybill;
+	}
+
+	
 
 }

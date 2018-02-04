@@ -17,6 +17,7 @@ import com.payroll.pdf.business.PdfUtils;
 public class BankwiseReport extends PaybillPdfRep{
 	
 	public void bankwireReport(Document doc, List<PaybillDetails> paybillDetails, String imgPath){
+		PaybillDetails totPBDetails = new PaybillDetails();
 		try{
 			String watermarkImg = imgPath+"\\CBK_Logo.png";
 	        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
@@ -64,6 +65,7 @@ public class BankwiseReport extends PaybillPdfRep{
 		        addDeductionTotals(pbDtlsTab, pbDetails, frtHdFont);
 		        doc.add(pbDtlsTab);
 		        doc.add(dottedline);
+		        totPBDetails.addTotals(pbDetails);
 /*		        float pbTotDtlsTabW[] = {2.5f, 2.5f, 2.5f};
 		        pbDtlsTab = createPdfPTable(3, 5, pbTotDtlsTabW);
 		        pbDtlsTab.addCell(addToCell(PdfUtils.GROSS+" "+pbDetails.getTotalGrossPay(), headHdFont, true));
@@ -72,6 +74,21 @@ public class BankwiseReport extends PaybillPdfRep{
 		        doc.add(pbDtlsTab);
 		        doc.add(dottedline);*/
 		    }
+	        pbDtlsTab = createPdfPTable(1, 3, pbDtlsTabW);
+	        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
+	        pbDtlsTab.addCell(addToCell(PdfUtils.EARNINGSTOT, headHdFont));
+	        doc.add(pbDtlsTab);
+	        pbDtlsTab = createPdfPTable(14, 3, pbDtls1TabW);
+	        addTotalDetails(pbDtlsTab, totPBDetails, frtHdFont);
+	        doc.add(pbDtlsTab);
+	        pbDtlsTab = createPdfPTable(1, 3, pbDtlsTabW);
+	        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
+	        pbDtlsTab.addCell(addToCell(PdfUtils.DEDUCTIONSTOT, headHdFont));
+	        doc.add(pbDtlsTab);
+	        pbDtlsTab = createPdfPTable(14, 3, pbDtls1TabW);
+	        addDeductionTotals(pbDtlsTab, totPBDetails, frtHdFont);
+	        doc.add(pbDtlsTab);
+	        doc.add(dottedline);
 	   }catch(Exception e){
 			e.printStackTrace();
 		}

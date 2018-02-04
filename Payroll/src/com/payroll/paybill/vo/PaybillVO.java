@@ -3,7 +3,21 @@ package com.payroll.paybill.vo;
 public class PaybillVO {
 	private int departmentId;
 	private String monthDate;
+	private int employeeId;
+	private int billType;
 	
+	public int getBillType() {
+		return billType;
+	}
+	public void setBillType(int billType) {
+		this.billType = billType;
+	}
+	public int getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
 	public int getDepartmentId() {
 		return departmentId;
 	}

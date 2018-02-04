@@ -30,6 +30,7 @@ import com.payroll.pdf.report.BankwiseReport;
 import com.payroll.pdf.report.HeadwiseReport;
 import com.payroll.pdf.report.MonthlyPdfRep;
 import com.payroll.pdf.report.PaybillPdfRep;
+import com.payroll.pdf.report.PayslipReport;
  
 /**
  * This view class generates a PDF document 'on the fly' based on the data
@@ -67,6 +68,12 @@ public class PdfBuilder extends AbstractITextPdfView {
         	List<PaybillDetails> bankwiseDetails = (List<PaybillDetails>) model.get("bankwiseDetails");
         	if(bankwiseDetails != null && !bankwiseDetails.isEmpty())
         		new BankwiseReport().bankwireReport(doc, bankwiseDetails, imgPath);
+        }
+        
+        if(model.get("payslip") !=null){
+        	PaybillDetails payslip = (PaybillDetails) model.get("payslip");
+        	if(payslip != null)
+        		new PayslipReport().getPayslip(doc, payslip, imgPath);
         }
         
     }

@@ -52,9 +52,68 @@ public class PaybillDetails {
 	private double netPay;
 	private Date month;
 	private int noOfEmployees;
+	//private String gender;
+	//private String pfNumber;
+	//private String employeeNumber;
 	
+	
+	/*public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getPfNumber() {
+		return pfNumber;
+	}
+	public void setPfNumber(String pfNumber) {
+		this.pfNumber = pfNumber;
+	}
+	public String getEmployeeNumber() {
+		return employeeNumber;
+	}
+	public void setEmployeeNumber(String employeeNumber) {
+		this.employeeNumber = employeeNumber;
+	}*/
+
 	private List<ReportDetails> payrollList;
 	
+	public void addTotals(PaybillDetails payroll){
+		gradePay+=payroll.getGradePay();
+		basicPay +=payroll.getBasicPay();
+		da += payroll.getDa();
+		hra+= payroll.getHra();
+		cca+= payroll.getCca();
+		ta+= payroll.getTa();
+		npa+= payroll.getNpa();
+		wa+= payroll.getWa();
+		ca+= payroll.getCa();
+		uniformAlw+=payroll.getUniformAlw();
+		familyPlaningAlw+= payroll.getFamilyPlaningAlw();
+		totallw += payroll.getTotallw();
+		otAmt += payroll.getOtAmt();
+		others += payroll.getOthers();
+		rent+= payroll.getRent();
+		afkRent += payroll.getAfkRent();
+		absentDed+= payroll.getAbsentDed();
+		festAdvRcry += payroll.getFestAdvRcry();
+		pt += payroll.getPt();
+		lic+= payroll.getLic();
+		socity += payroll.getSocity();
+		gis+= payroll.getGis();
+		bankLoanRcry += payroll.getBankLoanRcry();
+		vlr += payroll.getVlr();
+		pfsCpf +=payroll.getPfsCpf();
+		apfAcf+= payroll.getApfAcf();
+		pfLoanRcry+= payroll.getPfLoanRcry();
+		cpfRcry+= payroll.getCpfRcry();
+		incomTax += payroll.getIncomTax();
+		unionFee += payroll.getUnionFee();
+		elecRcry += payroll.getElecRcry();
+		courtRcry += payroll.getCourtRcry();
+		otherDeducs += payroll.getOtherDeducs();
+		misc += payroll.getMisc();
+	}
 	public void addEmployeePayroll(ReportDetails payroll){
 		if(Utils.isEmpty(deptName))
 			deptName = payroll.getDepartment();

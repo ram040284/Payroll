@@ -61,7 +61,28 @@ public class ReportDetails {
 	private String scale;
 	private double incrementAmt;
 	private String incrementDate;
+	private String gender;
+	private String pfNumber;
+	private String employeeNumber;
 	
+	public String getEmployeeNumber() {
+		return employeeNumber;
+	}
+	public void setEmployeeNumber(String employeeNumber) {
+		this.employeeNumber = employeeNumber;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getPfNumber() {
+		return pfNumber;
+	}
+	public void setPfNumber(String pfNumber) {
+		this.pfNumber = pfNumber;
+	}
 	public double getGradePay() {
 		return gradePay;
 	}

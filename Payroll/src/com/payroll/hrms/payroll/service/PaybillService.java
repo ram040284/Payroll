@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 
 import com.payroll.Utils;
+import com.payroll.employee.dataobjects.EmployeeDAO;
 import com.payroll.employee.vo.EmployeeVO;
 import com.payroll.headInfo.dataobjects.HeadInfo;
 import com.payroll.headInfo.dataobjects.HeadInfoDAO;
@@ -18,6 +19,7 @@ import com.payroll.hrms.payroll.dataobjects.Paybill;
 import com.payroll.hrms.payroll.dataobjects.PaybillDAO;
 import com.payroll.hrms.payroll.dataobjects.PaybillDetails;
 import com.payroll.hrms.payroll.dataobjects.ReportDetails;
+import com.payroll.pdf.business.Payslip;
 
 public class PaybillService {
 	List<Paybill> paybillList = null;
@@ -79,6 +81,43 @@ public class PaybillService {
 	}
 	
 	/**
+	 * 
+	 * @param empId
+	 * @return
+	 */
+	public PaybillDetails getPaySlip(int empId){
+		EmployeeVO empVO = new EmployeeDAO().getEmployeeById(empId);
+		Paybill paybill = new PaybillDAO(startDate, endDate, 0).getPaybillByEmp(empId);
+		//Payslip payslip = new Payslip(empVO, paybill, startDate);
+		if(paybillList == null)
+			paybillList = new ArrayList();
+		if(empList == null)
+			empList = new ArrayList<>();
+		empList.add(empVO);
+		paybillList.add(paybill);
+		PaybillDetails details = getPaybillDetails();
+		details.setMonth(startDate);
+		return details;
+	}
+	
+	/**
+	 * Getting Pay Bills
+	 * @return
+	 */
+	public int generatePayBills(int billType){
+		int success = 0;
+		if(checkPayBills(deptId)){
+			success = 1;
+			return success;
+		}
+		EmployeePayrollService payroll = new EmployeePayrollService(empList);
+		boolean result = payroll.createPaybills(deptId, startDate);
+		success = (result) ? 2 :3;
+		//checkPayBills(deptId);
+		return success;
+	}
+	
+	/**
 	 * Getting Pay Bills
 	 * @return
 	 */
@@ -103,7 +142,7 @@ public class PaybillService {
     	PaybillDetails payrollTotals = new PaybillDetails();
     	try {
 		for (Paybill paybill : paybillList) {
-			System.out.println("bankId:"+paybill.getBankId() +", Name:"+paybill.getBankName());
+			//System.out.println("bankId:"+paybill.getBankId() +", Name:"+paybill.getBankName());
     		ReportDetails empPayroll = new ReportDetails(); 
     		org.apache.commons.beanutils.BeanUtils.copyProperties(empPayroll, paybill);
     		if(headId == 0){
@@ -114,6 +153,9 @@ public class PaybillService {
 			    		empPayroll.setDob(employee.getDob());
 			    		empPayroll.setJoiningDate(employee.getJoiningDate());
 			    		empPayroll.setRetirementDate(employee.getRetirementDate());
+			    		empPayroll.setGender(employee.getGender());
+			    		empPayroll.setPfNumber("");
+			    		empPayroll.setEmployeeNumber(employee.getEmployeeId()+"");
 			    		break;
 					}
 				}

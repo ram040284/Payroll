@@ -226,7 +226,7 @@ h3 {font-size:16pt;}
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Payroll <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="portfolio-alt1.html">Salary Structure</a></li>
+							<li><a href="#" onclick="getList('../Payroll/generateBills')">Generate Bills</a></li>
 							<li><a href="portfolio-alt1.html">Employee Salary</a></li>
 							<%---<li><a href="portfolio-alt2.html">Option-02</a></li>
 							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
@@ -241,7 +241,7 @@ h3 {font-size:16pt;}
 							<li><a href="#" onclick="getList('../Payroll/monthlyRep')">Monthly Report</a></li>
 							<li><a href="#" onclick="getList('../Payroll/headwiseRep')">Headwise Report</a></li>
 							<li><a href="#" onclick="getList('../Payroll/bankwiseRep')">Bankwise Report</a></li>
-							<li><a href="#" onclick="getList('../Payroll/paycheckRep')">Paycheck</a></li>
+							<li><a href="#" onclick="getList('../Payroll/paycheckRep')">Employee Payslip</a></li>
 							<%--<li><a href="portfolio-alt2.html">Option-02</a></li>
 							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
 						</ul>

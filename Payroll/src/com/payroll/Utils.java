@@ -71,6 +71,7 @@ public class Utils {
 	}
 	public static Date getPrevMonth(Date date){
 		Calendar c = new GregorianCalendar();
+		c.setTime(date);
 		c.add(Calendar.MONTH, -1); 	
 		return c.getTime();
 	}

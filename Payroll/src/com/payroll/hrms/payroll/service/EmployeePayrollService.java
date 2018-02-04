@@ -45,17 +45,25 @@ public class EmployeePayrollService {
 		}
 		return result;
 	}
-	public void createPaybills(int deptId, Date date){
+	public boolean createPaybills(int deptId, Date date){
+		boolean success = false;
 		System.out.println("retreiveEmpsForPayroll");
-		EmployeePayrollDAO payrollDAO = new EmployeePayrollDAO();
-		incTaxservice= new IncomeTaxCalculatorService();
-		for (Iterator iterator = empList.iterator(); iterator.hasNext();) {
-			EmployeeVO employee = (EmployeeVO) iterator.next();
-			EmployeePayroll empPayroll = payrollDAO.loadPayrollInfo(employee.getEmployeeId(), date);
-			empPayroll.setEmployee(employee);
-			empPayroll.setIncomeTax(incTaxservice.getIncomeTax(employee.getEmployeeId(), date, empPayroll.getGrossPay()));
-			addPaybill(empPayroll, date);
+		try{
+			EmployeePayrollDAO payrollDAO = new EmployeePayrollDAO();
+			incTaxservice= new IncomeTaxCalculatorService();
+			for (Iterator iterator = empList.iterator(); iterator.hasNext();) {
+				EmployeeVO employee = (EmployeeVO) iterator.next();
+				EmployeePayroll empPayroll = payrollDAO.loadPayrollInfo(employee.getEmployeeId(), date);
+				empPayroll.setEmployee(employee);
+				empPayroll.setIncomeTax(incTaxservice.getIncomeTax(employee.getEmployeeId(), date, empPayroll.getGrossPay()));
+				addPaybill(empPayroll, date);
+			}
+			success = true;
+		}catch(Exception e){
+			e.printStackTrace();
+			success = false;
 		}
+		return success;
 	}
 	
     

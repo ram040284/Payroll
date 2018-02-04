@@ -80,6 +80,16 @@ public class PdfUtils {
 	
 	public static final String DEDUCTIONS = "Deductions:";
 	public static final String EARNINGS = "Earnings:";
+	public static final String EARNINGSTOT = "Earnings Totals:";
+	public static final String DEDUCTIONSTOT = "Deductions Totals:";
+	
+	public static final String EMPNO = "Employee#:";
+	public static final String EMPNAME = "Name:";
+	public static final String GENDER = "Gender:";
+	public static final String DEPARTMENT = "Department:";
+	public static final String PF_NO = "PF No:";
+	public static final String IN_WORDS = "In Words - Rupees:";
+	
 	
 	public static final String COMP_NAME = "KHADKI CANTONMENT BOARD";
 	public static final String ADD_LINE1 = "Golibar Maidan, Pune - Solapur Road,";
