@@ -1,0 +1,22 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.employee.leave.dataobjects.LeaveRequest" table="EMP_LEAVE_REQUEST">
+  <id name="leaveId" type="integer" >  
+     <column name="LEAVE_REQ_ID" sql-type="integer" not-null="true"/>  
+     <generator class="increment"/>
+    </id>  
+   <many-to-one name="leave"   
+        class="com.payroll.employee.leave.dataobjects.Leave" column="LEAVE_ID" cascade="all">
+	</many-to-one>
+	
+    <property name="noOfLeaves" column="NO_OF_LEAVES" not-null="true"/>
+    <property name="fromDate" column="FROM_DATE" />
+    <property name="toDate" column="TO_DATE" />  
+    <property name="reason" column="REASON" not-null="true"/>    
+    <property name="status" column="STATUS" not-null="true"/>  
+    <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/>
+  </class>  
+ </hibernate-mapping>

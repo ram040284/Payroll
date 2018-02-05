@@ -1,3 +1,25 @@
+<link href="../Payroll/resources/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
+<script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
+<script src="../Payroll/resources/js/dataTables.bootstrap.min.js"></script>
+
+<style type="text/css">
+table.dataTable thead .sorting_asc { 
+background: url('../Payroll/resources/images/uparrow.png') no-repeat right bottom 8px; 
+background-size: 25px; 
+background-color: #8B9DC3;
+color: white;
+}
+table.dataTable thead .sorting_desc { 
+background: url('../Payroll/resources/images/downarrow.png') no-repeat right bottom 8px; 
+background-size: 25px; 
+background-color: #8B9DC3;
+color: white;
+}
+
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
+display: none;
+}
+</style>
 <script>
 function getHeads(){
 	if($('#departmentId').val() == 0){
@@ -67,7 +89,7 @@ function getHeadsByDept(deptId, headId) {
 		
 		<button type="button" id="searchBtn"  class="btn" onclick="searchEmps()">Search</button>
 		<%--<button type="reset"  class="btn">Reset</button> --%>
-		<button type="button" id="searchBtn"  class="btn" onclick="inputPage()" style="margin-left: 15px;">Add</button>	
+		<button type="button" id="addBtn"  class="btn" onclick="inputPage()" style="margin-left: 15px;">Add</button>	
 	</div>
 	
 	</div>

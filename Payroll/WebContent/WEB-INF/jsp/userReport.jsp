@@ -127,6 +127,11 @@ function deleteUser(id){
     }
 }
 
+function inputPage() {
+	$("#formSearch").attr("action", "../Payroll/addUser");
+	$("#formSearch").submit();
+}
+
 function editUser(id){
 	var f = document.forms['editForm'];
 	f.userIdPk.value=id;

@@ -216,7 +216,7 @@ h3 {font-size:16pt;}
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Leave <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="../Payroll/viewLeave">Apply Leave</a></li>
+							<li><a href="../Payroll/empLeaveReport">Apply Leave</a></li>
 							<li><a href="../Payroll/viewLeave">Leave Report</a></li>
 							<%--<li><a href="portfolio-alt1.html">Option-01</a></li>
 							<li><a href="portfolio-alt2.html">Option-02</a></li>

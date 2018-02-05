@@ -4,188 +4,153 @@
 <html>
 <head>
 <title>Apply Leave</title>
+
 <jsp:include page="../jsp/public/postHeader.jsp" />
+<jsp:include page="../jsp/public/jquery.datepick.css.jsp" />
+<jsp:include page="../jsp/public/jqueryPluginMin.jsp"/>
+<jsp:include page="../jsp/public/jdatePicker.jsp"/>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<style type="text/css">
+select {
+	min-width: 200px;
+	min-height: 30px;
+}
+
+td, th {
+	padding: 3px;
+}
+
+.buttonPadding {
+	padding: 5px;
+}
+.btn-color{
+	background-color: #0101DF;
+}
+
+.custom-combobox {
+	font-family:inherit;
+    position: relative;
+    display: inline-block;
+    width:100%;
+  }
+   .custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+    border-radius:2px;
+	border:1px solid #aeaeae;
+	border-left:0px;
+    background:rgba(255, 255, 255, 0.6);
+  }
+  .custom-combobox-input {
+  	font-family:inherit;
+    padding:10px 15px;
+	height:48px;
+	border-radius:2px;
+	border:1px solid #aeaeae;
+	border-right:0px;
+	font-size:13px;
+	font-style:italic;
+	color:#616161;
+	background:rgba(255, 255, 255, 0.6);
+	width:93%;
+  }
+ .custom-combobox-input:focus{
+    outline: 0px;
+ 	border-radius:2px;
+ 	border:1px solid #00913e;
+ }
+ 
+</style>
 <script type="text/javascript">
+var rolesList ;
 $(document).ready(function() {
-	
-	var departmentList = ${departments};
-	$.each(departmentList, function( index, value ) {
-		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#departmentId');
-	});
-	<%--$.each(designationList, function( index, value ) {
-		$('<option>').val(value.designationId).text(value.designationName).appendTo('#designationId');
-	});--%>
-	var deptId = "${leave.departmentId}";
-	var desgId = "${leave.designationId}";
-	var headId = "${leave.headId}";
-	if(deptId !=0) {
-		getHeadsByDept(deptId);		
-	}
-	if(headId != 0) {
-		loadDesgByHead(headId);
-	}
-	var empId = "${leave.empId}";
-	$('#departmentId').val(deptId);
-	if(empId != 0){
-		getEmployeesByIds(deptId, desgId);
-	}
-	
-	$('#applyBtn').click(function(event) {
-			
-			
-		if($('#leaveType').val() == 0){
-			alert("Leave Type must be selected!");
-			$('#leaveType').focus();
-			return false;
-		}
-		if($('#noOfLeaves').val() < 1){
-			alert("No. Of Leaves must be provided!");
-			$('#noOfLeaves').focus();
-			return false;
-		}
-		<%--if($('#leaveBalance').val() == ''){
-			alert("Leave Balance must be provided!");
-			$('#leaveBalance').focus();
-			return false;
-		}--%>
-		var empIdInput = 0;
-		if(empId !=0)
-			empIdInput = empId;
-		else
-			empIdInput = $('#employeeId').val();
-		
-		var inputJson = { "empId" : empIdInput, "leaveType" : $('#leaveType').val(),  
-				"noOfLeaves" : $('#noOfLeaves').val(), "leaveId" : $('#leaveId').val()};
-		$.ajax({
-	        url: '../Payroll/addLeave',
-	        data: JSON.stringify(inputJson),
-	        type: "POST",
-	        contentType: "application/json;charset=utf-8",
-	        success: function(data){ 
-	            if(data == "Yes"){
-	            	window.location = "../Payroll/viewLeave";
-	            }else {
-	            	alert(data);
-	            }
-	        }
+		$('#fromDate').datepick({dateFormat: 'dd/mm/yyyy'});
+		$('#toDate').datepick({dateFormat: 'dd/mm/yyyy'});
+	    $("#resetBtn").click(function() {    
+	    	$("#leaveBalance").html(leaveBalance);
+	        this.form.reset();   
+	        return false;                        
 	    });
-	    event.preventDefault();
-	});
+	    
+	    $('#usersListBtn').click(function(event) {
+	    	$("#listForm").attr("action", "../Payroll/usersListFilter");
+			$("#listForm").submit();
+	    });
+	    
+	    $('#leaveListBtn').click(function(event) {
+	    	$("#listForm").attr("action", "../Payroll/empLeaveList");
+			$("#listForm").submit();
+	    });
+	    
+	    $('#applyLeaveBtn').click(function(event) {
+	    	
+	    	if($('#leaveType').val() == ''){
+	    		alert("Leave Type must be selected!");
+	    		$('#leaveType').focus();
+	    		return false;
+	    	}
+	    	
+	    	if($('#fromDate').val() == ''){
+	    		alert("From Date must be entered");
+	    		$('#fromDate').focus();
+	    		return false;
+	    	}
+	    	if($('#toDate').val() == ''){
+	    		alert("To Date must be entered");
+	    		$('#toDate').focus();
+	    		return false;
+	    	}
+	    	
+	    	var fromDate = dateConversion($('#fromDate').val());
+	    	var toDate = dateConversion($('#toDate').val());
+	    	
+	    	if (fromDate > toDate) {
+	    		alert("From Date must be less than To Date");
+	    		$('#fromDate').focus();
+	    		return false;
+	    	}
+	    	
+	    	if($('#noOfLeaves').val() == '' || $('#noOfLeaves').val() == '0'){
+	    		alert("Number of leaves must be entered");
+	    		$('#noOfLeaves').focus();
+	    		return false;
+	    	}
+	    	if($('#reason').val() == ''){
+	    		alert("Reason must be entered");
+	    		$('#reason').focus();
+	    		return false;
+	    	}
+	    	
+	    	$("#userForm").attr("action", "../Payroll/applyLeave");
+			$("#userForm").submit();
+	    });
+	    
 });
-function getEmployeesByIds(deptId, desgId){
-	var inputJson = { "departmentId" : deptId,"designationId" : desgId};
-	  $.ajax({
-      url: '../Payroll/loadEmployees',
-      data: JSON.stringify(inputJson),
-      type: "POST",           
-      beforeSend: function(xhr) {
-          xhr.setRequestHeader("Accept", "application/json");
-          xhr.setRequestHeader("Content-Type", "application/json");
-      },
-      success: function(data){ 
-      	$('#employeeId').empty();
-      	$('<option>').val(0).text("-- Select Employee --").appendTo('#employeeId');
-      	$(data).each(function(i, employee){
-      		$('<option>').val(employee.employeeId).text(employee.fullName).appendTo('#employeeId');
-      	});
-      	var empId = "${leave.empId}";
-      	if(empId !=0) {
-    		$('#employeeId').val(empId);
-    	}
-      },
-      failure: function (){
-      	alert('Unable to load Employees');
-      }
-  });
-  
+
+function dateConversion(dateString) {
+	var dateArray =  dateString.split("/"); 
+	var dateObj = new Date("'" + dateArray[2] + "-" + dateArray[1] + "-" +dateArray[0] + "'");
+	return dateObj;
 }
-function getEmployees() {
-	if($('#designationId').val() == 0 || $('#designationId').val() == 0){
-		alert("Department and Designation must be selected to get employees!");
-		$('#departmentId').focus();
-		return false;
+function getLeaveBalance() {
+	var leaveType = $("#leaveType").val();
+	var leaveBalance = "";
+	switch(leaveType) {
+	<c:forEach var="leaveBal" items="${leaveBalance}">
+    case "${leaveBal.key}":
+    	leaveBalance = "${leaveBal.value}";
+        break;
+        </c:forEach>
+    default:
+    	leaveBalance = "";
 	}
-	var deptId = $('#departmentId').val();
-	var desgId = $('#designationId').val();
-	getEmployeesByIds(deptId, desgId);
-}
-function getHeads(){
-	if($('#departmentId').val() == 0){
-		alert("Department must be selected to get Heads!");
-		$('#departmentId').focus();
-		return false;
-	}
-	var deptId = $('#departmentId').val();
-	getHeadsByDept(deptId);
-}
-
-function getHeadsByDept(deptId) {
-	var inputJson = { "departmentId" : deptId};
-	  $.ajax({
-	    url: '../Payroll/loadHeads',
-	    data: JSON.stringify(inputJson),
-	    type: "POST",           
-	    beforeSend: function(xhr) {
-	        xhr.setRequestHeader("Accept", "application/json");
-	        xhr.setRequestHeader("Content-Type", "application/json");
-	    },
-	    success: function(data){ 
-	    	$('#headId').empty();
-	    	$('<option>').val(0).text("-- Select Head --").appendTo('#headId');
-	    	$('#designationId').empty();
-	    	$('<option>').val(0).text("-- Select Designation --").appendTo('#designationId');
-	    	$(data).each(function(i, headInfo){
-	    		$('<option>').val(headInfo.headId).text(headInfo.headName).appendTo('#headId');
-	    	});
-	    	var headId = "${leave.headId}";
-	    	if(headId !=0) {
-	  		$('#headId').val(headId);
-	  		
-	  	}
-	    },
-	    failure: function (){
-	    	alert('Unable to load Heads');
-	    }
-	});
-
-}
-
-function loadDesignations(){
-	if($('#headId').val() == 0){
-		alert("Head must be selected to get Designations!");
-		$('#headId').focus();
-		return false;
-	}
-	var headId = $('#headId').val();
-	loadDesgByHead(headId);
-}
-
-function loadDesgByHead(headId) {
-	var inputJson = { "headId" : headId};
-	  $.ajax({
-	    url: '../Payroll/loadDesignations',
-	    data: JSON.stringify(inputJson),
-	    type: "POST",           
-	    beforeSend: function(xhr) {
-	        xhr.setRequestHeader("Accept", "application/json");
-	        xhr.setRequestHeader("Content-Type", "application/json");
-	    },
-	    success: function(data){ 
-	    	$('#designationId').empty();
-	    	$('<option>').val(0).text("-- Select Designation --").appendTo('#designationId');
-	    	$(data).each(function(i, designation){
-	    		$('<option>').val(designation.designationId).text(designation.designationName).appendTo('#designationId');
-	    	});
-	    	var designationId = "${leave.designationId}";
-	    	if(designationId !=0) {
-	  			$('#designationId').val(designationId);
-	  		}
-	    },
-	    failure: function (){
-	    	alert('Unable to load Heads');
-	    }
-	});
+	
+	$("#leaveBalance").html(leaveBalance);
 }
 
 </script>
@@ -194,81 +159,120 @@ function loadDesgByHead(headId) {
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
 		<div class="formDiv">
-			<h6 style="color: #fff; padding:14px; background-color: #8B9DC3; text-transform: none;">
-				Search Employee
-			</h6>
-
-		<div class="col-lg-12 card-block bg-faded" style="margin-bottom: 10px;">
+			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;font-size:12pt;">
+				Apply Leave Request
+			</h4>
+			
+			<div class="col-lg-12 card-block bg-faded" style="padding-bottom: 5px;">
 			<div class="row">
-				<form:form method = "POST" action = "">
-					<div class="col-sm-12">
-						<div class="row">
-							<div class="col-sm-8 form-group">
+			<form:form method = "POST" action = "" id="userForm" autocomplete="off">
+				<div class="col-sm-12">
+						<div class="row">	
+							
+							<div class="col-sm-6 form-group">
+								<label>Employee</label>
+								<div class="ui-widget">
+								${leave.employee.fullName}
+								<form:input type="hidden" path="employeeId"/>
+								</div>
+							</div>
+							<div class="col-sm-6 form-group">
 								<label>Department</label>
-								<select id="departmentId" class="form-control" onchange="getHeads()"
-								<c:if test="${leave.empId != '0'}" >disabled = "disabled" </c:if>>
-									<option value="0">-- Select Department --</option>
+								<div class="ui-widget">
+								${leave.employee.department}
+								</div>
+							</div>
+						</div>	
+						
+						<div class="row">
+							<div class="col-sm-6 form-group">
+								<label>Head</label>
+								<div class="ui-widget">
+								${leave.employee.headName}
+								</div>
+							</div>
+							<div class="col-sm-6 form-group">
+								<label>Designation</label>
+								<div class="ui-widget">
+								${leave.employee.designation}
+								</div>
+							</div>
+						</div>	
+						
+						<div class="row">
+							<div class="col-sm-6 form-group">
+								<label>Leave Type</label>
+								<div class="ui-widget">
+								<select id="leaveType" class="form-control" name="leaveType" onchange="getLeaveBalance()">
+								<option value="">-- Select Leave Type --</option>
+								<c:forEach var="leaveType" items="${leaveBalance}">
+								<option value="${leaveType.key}">${leaveType.key}</option>
+								</c:forEach>
 								</select>
-							</div>
-							<div class="col-sm-8 form-group">
-								<label>Head:</label>
-								<select id="headId" class="form-control" onchange="loadDesignations()"
-								<c:if test="${leave.empId != '0'}" > disabled= "disabled" </c:if>>
-								<option value="0">-- Select Head --</option></select>
-							</div>
-							<div class="col-sm-8 form-group">
-								<label>Designation:</label>
-								<select id="designationId" class="form-control" onchange="getEmployees()"
-								<c:if test="${leave.empId != '0'}" >disabled = "disabled" </c:if>>
-									<option value="0">-- Select Designation --</option>
-								</select>
-							</div>
-							<div class="col-sm-8 form-group">
-								<label>Employee:</label>
-									<select id="employeeId" class="form-control" <c:if test="${leave.empId != '0'}" >disabled = "disabled" </c:if>>
-										<option value="0">-- Select Employee --</option>
-									</select>
 								</div>
 							</div>
-							<div class="row">
-							
-							</div>
-							<div class="row">
-									<div class="col-sm-6 form-group">
-									<label>Leave Type:</label>
-									<select id="leaveType" class="form-control" <c:if test="${leave.empId != '0'}" >disabled = "disabled" </c:if>>
-										<option value="">-- Select Employee --</option>
-										<option value="Sick Leave">Sick Leave</option>
-										<option value="Casual Leave">Casual Leave</option>
-										<option value="Paid Vacation">Paid Vacation</option>
-									</select>
+							<div class="col-sm-6 form-group">
+								<label>Available Balance</label>
+								<div class="ui-widget" id="leaveBalance">
+								
 								</div>
-							
-								<div class="col-sm-6 form-group">
-									<label>No.of Leaves:</label>
-									<form:input path="noOfLeaves"  id="noOfLeaves" placeholder="Enter No. Of Leaves" class="form-control"/>
-									
-								</div>
-								<%--<div class="col-sm-6 form-group">
-									<label>Leave Balance:</label>
-									<form:input path="leaveBalance"  id="leaveBalance" placeholder="Enter Grade Pay" class="form-control"/>
-								</div> --%>
 							</div>
+						</div>	
+						<div class="row">
+						<div class="col-sm-6 form-group">
+							<label>from Date</label>
+							<form:input type="text" id="fromDate" path="fromDate" placeholder="Enter From (DD/MM/YYYY)" class="form-control"/>
+						</div>
 							
-							<div class="row">	
-								<div class="text-right">
-									<button type="button" id="addLeaveBtn" class="btn">Submit</button>
-									<button type="reset" class="btn">Reset</button>	
-								</div>	
-							</div>
-					</div>
-					<input type="hidden" name = "leaveId" id="leaveId" />				
-				</form:form>
-			</div>
+						<div class="col-sm-6 form-group">
+							<label>To Date</label>
+							<form:input type="text" id="toDate" path="toDate" placeholder="Enter To Date (DD/MM/YYYY)" class="form-control"/>
+						</div>
+						</div>
+						
+						<div class="row">
+						<div class="col-sm-6 form-group">
+							<label>Number of Days</label>
+							<form:input type="text" id="noOfLeaves" path="noOfLeaves" placeholder="Enter Number of Leaves" class="form-control"/>
+						</div>
+							
+						<div class="col-sm-6 form-group">
+							<label>Reason</label>
+							<form:textarea id="reason" path="reason" placeholder="Enter Reason" class="form-control"/>
+						</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-12 form-group text-right">
+							<button type="button" id="applyLeaveBtn" class="btn">Apply Leave</button>
+							<button type="reset" class="btn" id="resetBtn">Reset</button>	
+							<button type="button" id="leaveListBtn"  class="btn">Employee Leave List</button>	
+						</div>	
+						</div>			
+					</div>	
+					
+					<input type="hidden" name="departmentId" value="${employee.departmentId}"/>
+					<input type="hidden" name="headId" value="${employee.headId}"/>
+					<input type="hidden" name="firstName" value="${employee.firstName}"/>
+					<input type="hidden" name="listDeptId" value="${employee.listDeptId}"/>
+					<input type="hidden" name="listHeadId" value="${employee.listHeadId}"/>
+					<input type="hidden" name="listName" value="${employee.listName}"/>
+			</form:form> 
 		</div>
 	</div>
 	</div>
 	</div>
+	</div>
+	
+	<form:form  action="" id="listForm" method="post">
+		<form:input type="hidden" path="departmentId"/>
+		<form:input type="hidden" path="headId"/>
+		<form:input type="hidden" path="firstName"/>
+		<form:input type="hidden" path="listDeptId"/>
+		<form:input type="hidden" path="listHeadId"/>
+		<form:input type="hidden" path="listName"/>
+	</form:form >
+	
 	<jsp:include page="../jsp/public/postFooter.jsp" />
 </body>
 </html>

@@ -12,9 +12,9 @@
 			<div class="row">
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-					<a href="../Payroll/viewLeave"><img src="../Payroll/resources/images/applyleave.png" class="img-responsive imageMenuItem" 
+					<a href="../Payroll/empLeaveReport"><img src="../Payroll/resources/images/applyleave.png" class="img-responsive imageMenuItem" 
 					alt="theme logo" /></a>
-					<h3><a href="../Payroll/viewLeave">Apply Leave</a></h3>
+					<h3><a href="../Payroll/empLeaveReport">Apply Leave</a></h3>
 					</div>
 				</div>
 				

@@ -2,17 +2,64 @@ package com.payroll.employee.leave.business;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.payroll.Utils;
+import com.payroll.employee.dataobjects.EmployeeDAO;
 import com.payroll.employee.leave.dataobjects.Leave;
 import com.payroll.employee.leave.dataobjects.LeaveDAO;
+import com.payroll.employee.leave.dataobjects.LeaveRequest;
 import com.payroll.employee.leave.vo.LeaveVO;
 public class LeaveService {
 	public static final String LEAVE_TYPES[] = {"Casual Leave", "Sick Leave", "Half Paid Leave", 
 			"Earned Leave", "Maternity Leave", "Paternity Leave", "Extraordinary Leave"};
 	public static final String SHORT_LEAVE_TYPES[] = {"CL", "SL", "PL", "EL", "MTL", "PTL", "EXL"};
 	int empId;
+	
+	public Map getLeaveTypes(String gender) {
+		Map leaveMap = new LinkedHashMap();
+		for (int i=0; i < LEAVE_TYPES.length; i++) {
+			if (gender.equalsIgnoreCase("female")) {
+				if (SHORT_LEAVE_TYPES[i].equalsIgnoreCase("PL")) {
+					continue;
+				}
+			} else if (gender.equalsIgnoreCase("male")) {
+				if (SHORT_LEAVE_TYPES[i].equalsIgnoreCase("MTL")) {
+					continue;
+				}
+			}
+			leaveMap.put(SHORT_LEAVE_TYPES[i], LEAVE_TYPES[i]);
+		}
+		return leaveMap;
+	}
+	
+	public Map getLeaveBalance(LeaveVO leave) {
+		Map leaveBalanceMap = new LinkedHashMap();
+		for (int i=0; i < LEAVE_TYPES.length; i++) {
+			if (leave.getEmployee().getGender().equalsIgnoreCase("female")) {
+				if (SHORT_LEAVE_TYPES[i].equalsIgnoreCase("PL")) {
+					continue;
+				}
+			} else if (leave.getEmployee().getGender().equalsIgnoreCase("male")) {
+				if (SHORT_LEAVE_TYPES[i].equalsIgnoreCase("MTL")) {
+					continue;
+				}
+			}
+
+			switch (SHORT_LEAVE_TYPES[i]) {
+			case "CL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getCasualLeaves()); break;
+			case "SL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getSickLeaves()); break;
+			case "PL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getPaidLeaves()); break; 
+			case "EL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getEarnLeave()); break; 
+			case "MTL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getMaternityLeave()); break; 
+			case "PTL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getPaternityLeave()); break;
+			case "EXL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getExtraLeave()); break; 
+			}
+		}
+		return leaveBalanceMap;
+	}
 	public List<LeaveVO> getLeaves(){
 		return getEmpLeaves(new LeaveDAO().getLeaves());
 	}
@@ -23,6 +70,10 @@ public class LeaveService {
 	
 	public String addUpdateLeave(LeaveVO leaveVO){
 		return new LeaveDAO().addUpdateLeave(copyProperties(leaveVO));
+	}
+	
+	public String addLeaveRequest(LeaveRequest leaveRequest){
+		return new LeaveDAO().addLeaveRequest(leaveRequest);
 	}
 	
 	public LeaveVO getLeaveByIde(int empId){
@@ -42,6 +93,31 @@ public class LeaveService {
 		return empLeave;
 	}
 	
+	public LeaveVO getLeaveDetailsById(int empId){
+		LeaveVO empLeave = null;
+		List<LeaveVO> listVO = new LeaveDAO().getEmpLeave(empId);
+		LeaveVO leaveDBVO = null;
+		if(!listVO.isEmpty())
+		leaveDBVO = listVO.get(0);
+		List<LeaveVO> leaveList = getEmpLeaves(new LeaveDAO().getEmpLeave(empId));
+		if(!leaveList.isEmpty() && leaveDBVO !=null){
+			LeaveVO empLeaveVO = leaveList.get(0);
+			empLeave = new LeaveVO(leaveDBVO.getEmployeeId(), leaveDBVO.getDepartmentId(), leaveDBVO.getDesignationId(), 
+					leaveDBVO.getHeadId(), empLeaveVO.getSickLeaves(), empLeaveVO.getCasualLeaves(), 
+					empLeaveVO.getPaidLeaves(), empLeaveVO.getEarnLeave(), empLeaveVO.getMaternityLeave(), 
+					empLeaveVO.getPaternityLeave(), empLeaveVO.getExtraLeave(), empLeaveVO.getLeaveBalance(), empLeaveVO.getLeaveIds());
+		}
+		
+		if (empLeave != null) {
+			empLeave.setEmployee(new EmployeeDAO().getEmployeeDetailsById(empLeave.getEmployeeId(), 0));
+		}
+		return empLeave;
+	}
+	
+	public Leave getLeaveDetailsByLeaveType(int empId, String leaveType){
+		Leave listVO = new LeaveDAO().getEmpLeave(empId, leaveType);
+		return listVO;
+	}
 	private List<Leave> copyProperties(LeaveVO leaveVO){
 		this.empId = leaveVO.getEmployeeId();
 		List<Leave> leaveList = new ArrayList<Leave>();

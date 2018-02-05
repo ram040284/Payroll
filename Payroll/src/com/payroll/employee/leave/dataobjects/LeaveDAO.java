@@ -98,6 +98,29 @@ public class LeaveDAO {
 		return leaveVOList;
 	}
 	
+	public Leave getEmpLeave(int empId, String leaveType){
+		List<Leave> leaveVOList = null;
+		Session session = null;
+		try{
+			String queryString = "from Leave l where l.employee.employeeId = ? and l.status = ? and l.leaveType = ?";		
+			
+			session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, empId);
+			query.setParameter(1, "A");
+			query.setParameter(2, leaveType);
+			//leaveVO = (LeaveVO)(!(query.list().isEmpty()) ? query.list().get(0) : null);
+			leaveVOList = query.list();
+			
+			leaveVOList.get(0);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return (leaveVOList.size() > 0) ?leaveVOList.get(0) : null;
+	}
+	
 		private Leave getLeaveById(int leaveId, Session session){
 			Leave leave = null;
 			try{
@@ -111,6 +134,34 @@ public class LeaveDAO {
 			}
 			return leave;
 		}
+		
+		public String addLeaveRequest(LeaveRequest leaveRequest) {
+			String result = null;
+			Session session = null;
+			Transaction transaction = null;
+			try{
+				session = HibernateConnection.getSessionFactory().openSession();
+				transaction = session.beginTransaction();
+				Employee employee = null;
+						leaveRequest.setStatus("A");
+						leaveRequest.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+						session.save(leaveRequest);
+				transaction.commit();
+				result = "Yes";
+			}catch(ConstraintViolationException cv){
+				cv.printStackTrace();
+				transaction.rollback();
+				result = "Selected Leave details are already exist for Employee!";
+			}catch(Exception e){
+				e.printStackTrace();
+				transaction.rollback();
+				result = "Unable to Add/Update leave for selected Employee!";
+			}finally {
+				HibernateConnection.closeSession(session);
+			}
+			return result;
+		}
+		
 		public String addUpdateLeave(List<Leave> leaves){
 			String result = null;
 			Session session = null;

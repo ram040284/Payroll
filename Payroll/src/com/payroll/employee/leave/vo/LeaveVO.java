@@ -1,9 +1,12 @@
 package com.payroll.employee.leave.vo;
 
+import java.io.Serializable;
+
 import com.payroll.Utils;
 import com.payroll.employee.SearchCriteria;
+import com.payroll.employee.vo.EmployeeVO;
 
-public class LeaveVO extends SearchCriteria{
+public class LeaveVO extends SearchCriteria implements Serializable{
 	
 	private int employeeId;
 	private int leaveId;
@@ -32,6 +35,7 @@ public class LeaveVO extends SearchCriteria{
 	private int maternityLeave;
 	private int paternityLeave;
 	private int extraLeave;
+	private EmployeeVO employee;
 	
 	public LeaveVO(){
 		super();
@@ -272,5 +276,13 @@ public class LeaveVO extends SearchCriteria{
 
 	public void setExtraLeave(int extraLeave) {
 		this.extraLeave = extraLeave;
+	}
+
+	public EmployeeVO getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(EmployeeVO employee) {
+		this.employee = employee;
 	}
 }

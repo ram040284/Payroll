@@ -1,10 +1,13 @@
 package com.payroll.rest;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,34 +17,101 @@ import org.springframework.web.servlet.ModelAndView;
 import com.payroll.Utils;
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
-import com.payroll.designation.business.DesignationService;
-import com.payroll.designation.dataobjects.Designation;
-import com.payroll.employee.Employee;
-import com.payroll.employee.business.EmployeeService;
 import com.payroll.employee.leave.business.LeaveService;
 import com.payroll.employee.leave.dataobjects.Leave;
+import com.payroll.employee.leave.dataobjects.LeaveRequest;
 import com.payroll.employee.leave.vo.LeaveVO;
-import com.payroll.employee.salary.business.SalaryService;
-import com.payroll.employee.vo.EmployeeVO;
-import com.payroll.overtime.business.OvertimeService;
-import com.payroll.overtime.vo.Overtime;
 
 @Controller
 public class EmpLeaveController {
-	
 	@RequestMapping(value="/listLeaves", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<LeaveVO> getEmpLeaves(){
-		System.out.println("listLeaves-- getEmpLeaves");
 	   List<LeaveVO> overtimes = new LeaveService().getLeaves();
 	   return overtimes;
+    }
+	
+	@RequestMapping(value="/empLeaveReport", method = RequestMethod.GET)
+    public ModelAndView getEmpLeaveReport(HttpServletRequest request){
+		  ObjectMapper mapper = new ObjectMapper();
+		   List<Department> deptList = new DepartmentService().getDepartments();
+		   String depJSON = "";
+		   try {
+			   depJSON = mapper.writeValueAsString(deptList);
+		   }catch (Exception e) {
+			   e.printStackTrace();
+		   }
+		  
+		   LeaveRequest leaveReauest = new LeaveRequest();
+		   ModelAndView model = new ModelAndView("empLeaveList", "command", leaveReauest);
+		   model.addObject("employee", leaveReauest);
+		   request.getSession().setAttribute("departments", depJSON);
+		   request.getSession().setAttribute("empLeaveList", new ArrayList<LeaveVO>());
+		   return model;
+    }
+	
+	@RequestMapping(value="/empLeaveSearch", method = RequestMethod.POST)
+    public ModelAndView getEmpLeaveSearch(HttpServletRequest request, LeaveRequest leaveReauest){
+		  ObjectMapper mapper = new ObjectMapper();
+		  List<LeaveVO> empLeaveList = new LeaveService().getLeaves(leaveReauest.getDepartmentId(), leaveReauest.getHeadId(), leaveReauest.getFirstName());
+		  request.getSession().setAttribute("empLeaveList", empLeaveList);
+		   ModelAndView model = new ModelAndView("empLeaveList", "command", leaveReauest);
+		   model.addObject("employee", leaveReauest);
+		   return model;
+    }
+	
+	@RequestMapping(value="/empLeaveList", method = RequestMethod.POST)
+    public ModelAndView getEmpLeaveList(HttpServletRequest request, LeaveRequest leaveReauest){
+		  ObjectMapper mapper = new ObjectMapper();
+		  List<LeaveVO> empLeaveList = new LeaveService().getLeaves(leaveReauest.getListDeptId(), leaveReauest.getListHeadId(), leaveReauest.getListName());
+		  request.getSession().setAttribute("empLeaveList", empLeaveList);
+		   ModelAndView model = new ModelAndView("empLeaveList", "command", leaveReauest);
+		   model.addObject("employee", leaveReauest);
+		   return model;
     }
 	
 	//@RequestMapping(value = "/viewLeave", method = RequestMethod.GET)
 	//public String viewLeave(ModelMap model) {
 	@RequestMapping(value = "/viewLeave", method = RequestMethod.POST)
-	public ModelAndView viewLeave(LeaveVO leaveVO) {
+	public ModelAndView viewLeave(LeaveRequest leaveReauest) {
 		//return "listLeaves";
-		return listResult(leaveVO);
+		LeaveService service = new LeaveService();
+		LeaveVO  leaveVoDb = service.getLeaveDetailsById(leaveReauest.getEmployeeId());
+		//Map<String, String> leaveTypes = service.getLeaveTypes(leaveVoDb.getEmployee().getGender());
+		Map<String, String> leaveBalance = service.getLeaveBalance(leaveVoDb);
+		ModelAndView model = new ModelAndView("applyLeave", "command", leaveReauest);
+		model.addObject("employee", leaveReauest);
+		model.addObject("leave", leaveVoDb);
+		model.addObject("leaveBalance", leaveBalance);
+		//model.addObject("leaveTypes", leaveTypes);
+  	    return model;
+	}
+	
+	@RequestMapping(value = "/applyLeave", method = RequestMethod.POST)
+	public ModelAndView applyLeave(LeaveRequest leaveRequest) {
+		//return "listLeaves";
+		LeaveService service = new LeaveService();
+		Leave leave = service.getLeaveDetailsByLeaveType(leaveRequest.getEmployeeId(), leaveRequest.getLeaveType());
+		int noOfLeaves = leave.getLeaveBalance();
+		if (noOfLeaves > leaveRequest.getNoOfLeaves())
+		leave.setLeaveBalance(noOfLeaves - leaveRequest.getNoOfLeaves());
+		leaveRequest.setLeave(leave);
+		String result = service.addLeaveRequest(leaveRequest);
+		
+		LeaveRequest request = new LeaveRequest();
+		request.setDepartmentId(leaveRequest.getDepartmentId());
+		request.setHeadId(leaveRequest.getHeadId());
+		request.setFirstName(leaveRequest.getFirstName());
+		request.setListDeptId(leaveRequest.getListDeptId());
+		request.setListHeadId(leaveRequest.getListHeadId());
+		request.setListName(leaveRequest.getListName());
+		ModelAndView model = new ModelAndView("empLeaveList", "command", request);
+		
+		if (result!= null && result.equalsIgnoreCase("YES")) 
+			model.addObject("message", "Leave request successfully submitted");
+		else
+			model.addObject("message", "Leave request submition failed");
+		model.addObject("employee", request);
+  	    return model;
 	}
 	
 	@RequestMapping(value = "/inputLeave", method = RequestMethod.POST)
