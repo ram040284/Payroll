@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
+<title>No Activity</title>
 
 <jsp:include page="../jsp/public/preHeader.jsp" />
 <style type="text/css">

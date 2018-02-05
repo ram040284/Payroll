@@ -4,19 +4,22 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import com.payroll.employee.dataobjects.Employee;
+
 public class EmpQuarters implements Serializable{
 	
-	private int empId;
+	private int employeeId;
 	private Boolean afkQtr;
 	private short addUpdate; // 0 - Add / 1 - update
 	private String status;
 	private Timestamp rowUpdDate;
+	private Employee employee;
 	
-	public int getEmpId() {
-		return empId;
+	public int getEmployeeId() {
+		return employeeId;
 	}
-	public void setEmpId(int empId) {
-		this.empId = empId;
+	public void setEmployeeId(int empId) {
+		this.employeeId = empId;
 	}
 	public Boolean getAfkQtr() {
 		return afkQtr;
@@ -41,6 +44,12 @@ public class EmpQuarters implements Serializable{
 	}
 	public void setRowUpdDate(Timestamp rowUpdDate) {
 		this.rowUpdDate = rowUpdDate;
+	}
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 	
 

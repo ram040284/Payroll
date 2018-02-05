@@ -78,7 +78,7 @@ $(document).ready(function() {
     			return false;
     	  }
     		var f = document.forms['empSearch'];
-    		f.action="../Payroll/viewLeave";
+    		f.action="../Payroll/viewLeave_1";
     		f.submit();
     	}
 

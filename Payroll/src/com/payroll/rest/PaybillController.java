@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.payroll.Utils;
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.hrms.payroll.dataobjects.PaybillDetails;
@@ -120,8 +121,12 @@ public class PaybillController {
 			List<PaybillDetails> monthlyDetails = null;
 			try{
 				monthlyDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getMonthlyBills();
-				if(monthlyDetails == null){
+				System.out.println("monthlyDetails:"+monthlyDetails+", monthlyDetails:"+monthlyDetails.isEmpty());
+				if(monthlyDetails == null || monthlyDetails.isEmpty()){
 					return new ModelAndView("noActivity", "", monthlyDetails);
+				}else{
+					if(monthlyDetails.get(0) == null)
+						return new ModelAndView("noActivity", "", monthlyDetails);
 				}
 			}catch(Exception e){
 				throw new AppException(new Date(), "Failed to get Monthly Report!");
@@ -177,11 +182,14 @@ public class PaybillController {
 		PaybillDetails  payslip = null;
 		try{
 			payslip = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getPaySlip(paybill.getEmployeeId());
-			if(payslip == null){
+			if(payslip == null || payslip.getPayrollList()== null || payslip.getPayrollList().isEmpty()){
 				return new ModelAndView("noActivity", "", payslip);
 			}
 		}catch(Exception e){
-			throw new AppException(new Date(), "Failed to get get Payslip!");
+			//throw new AppException(new Date(), "Failed to get get Payslip!");
+			StringBuffer errorTxt = new StringBuffer("Failed to get get Payslip for selected month:");
+			errorTxt.append(Utils.getMonthYear(Utils.getAsDate(paybill.getMonthDate(), Utils.DDMMYYYY)));
+			throw new AppException(new Date(), errorTxt.toString());
 		}
         return new ModelAndView("pdfView", "payslip", payslip);
     }

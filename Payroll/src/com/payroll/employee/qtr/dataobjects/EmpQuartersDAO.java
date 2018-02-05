@@ -7,8 +7,10 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
+import com.payroll.employee.dataobjects.Employee;
 import com.payroll.employee.qtr.vo.EmpQuartersVO;
 
 public class EmpQuartersDAO {
@@ -17,8 +19,10 @@ public class EmpQuartersDAO {
 			Session session = null;
 			
 			try{
-				String queryString = " select new com.payroll.employee.qtr.vo.EmpQuartersVO(q.empId, (select e.firstName from Employee e where e.employeeId = q.empId),"
-						+ " (select e.lastName from Employee e where e.employeeId = q.empId), "
+				String queryString = " select new com.payroll.employee.qtr.vo.EmpQuartersVO(q.employee.employeeId, "
+						/*+ "(select e.firstName from Employee e where e.employeeId = q.empId),"
+						+ " (select e.lastName from Employee e where e.employeeId = q.empId), "*/
+						+ "q.employee.firstName, q.employee.lastName, "
 						+ "q.afkQtr) from EmpQuarters q where q.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
@@ -39,12 +43,12 @@ public class EmpQuartersDAO {
 		Session session = null;
 			
 			try{
-				String queryString = " select new com.payroll.employee.qtr.vo.EmpQuartersVO(q.empId, q.afkQtr, "
-						+ "(select dept.departmentId from Department dept where dept.departmentId = (select eDept.departmentId "
-						+ "from EmpDepartment eDept where eDept.empId = q.empId)), (select desg.designationId "
-						+ "from Designation desg where desg.designationId = (select eDesg.designationId from EmpDesignation eDesg "
-						+ "where eDesg.empId = q.empId and eDesg.lastWokingDate is null)))"
-						+ "from EmpQuarters q where q.empId = ? and q.status= ?";		
+				String queryString = " select new com.payroll.employee.qtr.vo.EmpQuartersVO(q.employee.employeeId, q.afkQtr, "
+								+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = q.employee.employeeId and dept.status = 'A'), "
+								//+ "from EmpDepartment eDept where eDept.empId = b.empId)), (select desg.designationId "
+								+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = q.employee.employeeId and desg.lastWokingDate is null and desg.status='A'), "
+								+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = q.employee.employeeId and dh.lastWokingDate is null and dh.status = 'A'))"
+								+ "from EmpQuarters q where q.employee.employeeId = ? and q.status= ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -66,7 +70,8 @@ public class EmpQuartersDAO {
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			EmpQuarters empQtrDB = checkEmpQtr(empQtr.getEmpId(), session);
+			Employee employee = (Employee)session.load(Employee.class, empQtr.getEmployeeId());
+			/*EmpQuarters empQtrDB = checkEmpQtr(empQtr.getEmployeeId(), session);
 			if(empQtrDB != null){
 				if(empQtr.getAddUpdate() ==0){
 					result = "Quarters for selected employee is already added!";
@@ -76,13 +81,21 @@ public class EmpQuartersDAO {
 				empQtr.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 				session.update(empQtrDB);
 			}
-			else {
+			else {*/
+				empQtr.setEmployee(employee);
 				empQtr.setStatus("A");
 				empQtr.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
-				session.save(empQtr);
-			}
+				if(empQtr.getAddUpdate() ==0)
+					session.save(empQtr);
+				else
+					session.update(empQtr);
+			//}
 			transaction.commit();
 			result = "Yes";
+		}catch(ConstraintViolationException cv){
+			cv.printStackTrace();
+			transaction.rollback();
+			result = "Quarters is already alloted for selected Employee!";
 		}catch(Exception e){
 			e.printStackTrace();
 			transaction.rollback();
@@ -98,7 +111,7 @@ public class EmpQuartersDAO {
 		try{
 			if(session == null)
 				session = HibernateConnection.getSessionFactory().openSession();
-			Query query = session.createQuery(" from EmpQuarters q where q.empId = ? and q.status = ?");
+			Query query = session.createQuery(" from EmpQuarters q where q.employee.employeeId = ? and q.status = ?");
 			//.setMaxResults(1).uniqueResult();
 			query.setParameter(0, empId);
 			query.setParameter(1, "A");
@@ -116,7 +129,7 @@ public class EmpQuartersDAO {
 		Session session = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
-			Query query = session.createQuery("update EmpQuarters q set q.status = ?, q.rowUpdDate = ? where q.empId = ?");
+			Query query = session.createQuery("update EmpQuarters q set q.status = ?, q.rowUpdDate = ? where q.employee.employeeId = ?");
 			query.setParameter(0, "S");
 			query.setParameter(1, new Date());
 			query.setParameter(2, empId);

@@ -45,7 +45,7 @@
 				</div>
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="index.html"><img src="../Payroll/resources/images/Pension.png" class="img-responsive imageMenuItem"
+						<a href="#"><img src="../Payroll/resources/images/Pension.png" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
 						<h3><a href="#">Pension</a></h3>
 					</div>

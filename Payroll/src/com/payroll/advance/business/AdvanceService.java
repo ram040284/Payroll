@@ -10,36 +10,27 @@ import com.payroll.overtime.dataobjects.Overtime;
 
 public class AdvanceService {
 	
-	public List<com.payroll.advance.vo.Advance> getAdvanceList(){
+	public List<com.payroll.advance.vo.AdvanceVO> getAdvanceList(){
 		return new AdvanceDAO().getAdvances();
 	}
 	
-	public boolean addUpdateAdvance(com.payroll.advance.vo.Advance advance){
+	public String addUpdateAdvance(com.payroll.advance.vo.AdvanceVO advance){
 		return new AdvanceDAO().addUpdateAdvance(copyProperties(advance));
 	}
 	public boolean deleteAdvance(int advanceId){
 		return new AdvanceDAO().deleteAdvance(advanceId);
 	}
 	
-	public com.payroll.advance.vo.Advance getAdvanceById(int empId, String paymentDate){
-		com.payroll.advance.vo.Advance advance = null;
-		try{
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			advance = getProperties(new AdvanceDAO().getAdvanceById(empId, dateFormat.parse(paymentDate)), 
-					dateFormat);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return advance;
+	public com.payroll.advance.vo.AdvanceVO getAdvanceById(int adanceId){
+		return new AdvanceDAO().getAdvanceById(adanceId);
 	}
 	
-	private Advance copyProperties(com.payroll.advance.vo.Advance advance){
+	private Advance copyProperties(com.payroll.advance.vo.AdvanceVO advance){
 		Advance advanceDB = new Advance();
 		try{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			advanceDB.setEmpId(advance.getEmpId());
-			advanceDB.setDepartmentId(advance.getDepartmentId());
-			advanceDB.setDesignationId(advance.getDesignationId());
+			advanceDB.setAdvanceId(advance.getAdvanceId());
+			advanceDB.setAdvanceName(advance.getAdvanceName());
 			advanceDB.setAdvanceAmount(advance.getAdvanceAmount());
 			advanceDB.setPaymentDate((advance.getPaymentDate()!= null ? dateFormat.parse(advance.getPaymentDate()): new Date()));
 		}catch(Exception e){
@@ -48,8 +39,8 @@ public class AdvanceService {
 		return advanceDB;
 	}
 	
-	private com.payroll.advance.vo.Advance getProperties(Advance advance, SimpleDateFormat dateFormat){
-		com.payroll.advance.vo.Advance advanceDB = new com.payroll.advance.vo.Advance();
+	/*private com.payroll.advance.vo.AdvanceVO getProperties(Advance advance, SimpleDateFormat dateFormat){
+		com.payroll.advance.vo.AdvanceVO advanceDB = new com.payroll.advance.vo.AdvanceVO();
 		try{
 			
 			advanceDB.setEmpId(advance.getEmpId());
@@ -61,5 +52,5 @@ public class AdvanceService {
 			e.printStackTrace();
 		}
 		return advanceDB;
-	}
+	}*/
 }

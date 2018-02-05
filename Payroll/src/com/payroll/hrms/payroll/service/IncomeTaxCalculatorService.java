@@ -50,8 +50,9 @@ public class IncomeTaxCalculatorService {
     public double getIncomeTax(int empId, Date year, double grossPay){
     	getIncomeTaxSlabs(Utils.getFullYear(year));
     	getIncomeTaxDeductions(empId);
-    	double incomeTax = calculateIncomeTax(grossPay);
     	
+    	double incomeTax = (slab != null) ? calculateIncomeTax(grossPay) : 0;
+    	incomeTax = incomeTax < 0 ? 0 : incomeTax;
     	return incomeTax;
     }
     

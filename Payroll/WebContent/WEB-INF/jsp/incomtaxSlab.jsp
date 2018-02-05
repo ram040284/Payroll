@@ -44,31 +44,40 @@ $(document).ready(function() {
 			return false;
 		}
 		var lowerSlabVal = $('#lowerSlab').val().trim();
-		if(lowerSlabVal && !lowerSlabVal.isNaN() && lowerSlabVal > 0){
+		if(lowerSlabVal == ""){
+		    alert("Lower Slab must be provided!");
+			$('#lowerSlab').focus();
+			return false;
+		}
+		if(isNaN(lowerSlabVal)){
+			alert("Lower Slab must be Number!");
+			$('#lowerSlab').focus();
+			return false;
+		}
+		if(lowerSlabVal > 0){
 			if(!checkAmount(lowerSlabVal)){
 				alert("Invalid Lower Slab!");
 				$('#lowerSlab').focus();
 				return false;
 			}
-		}else {
-			if(lowerSlabVal.isNaN())
-				alert("Invalid Lower Slab!");
-			else
-			    alert("Lower Slab must be provided!");
-			$('#lowerSlab').focus();
-			return false;
 		}
 		var higherSlabVal = $('#higherSlab').val().trim();
-		if(higherSlabVal && !higherSlabVal.isNaN() && higherSlabVal > 0){
+		if(lowerSlabVal == ""){
+		    alert("Higher Slab must be provided!");
+			$('#higherSlab').focus();
+			return false;
+		}
+		if(isNaN(lowerSlabVal)){
+			alert("Higher Slab must be Number!");
+			$('#higherSlab').focus();
+			return false;
+		}
+		if(higherSlabVal > 0){
 			if(!checkAmount(higherSlabVal)){
 				alert("Invalid Higer Slab!");
 				$('#higherSlab').focus();
 				return false;
 			}
-		}else if(higherSlabVal.isNaN()){
-			alert("Invalid Higer Slab!");
-			$('#higherSlab').focus();
-			return false;
 		}
 		var incomtaxPercentVal = $('#incomtaxPercent').val().trim();
 		
@@ -125,12 +134,10 @@ $(document).ready(function() {
 	});
 });
 function checkAmount(value){
-	alert('value:'+value);
 	if(value.indexOf(".")!= -1){
 		if(value.split(".")[1].length == 1)
 			value = value + "0";
 	}
-	alert('value:'+value);
 	var decimal=  /^\d+(\.\d{2,2})?$/;   
 	if(value.match(decimal)) {   
 		return true;  

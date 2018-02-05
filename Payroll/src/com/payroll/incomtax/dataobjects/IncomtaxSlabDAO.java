@@ -97,7 +97,7 @@ public class IncomtaxSlabDAO {
 		Session session = null;
 		
 		try{
-			String queryString = " from IncomtaxSlab i where i.incomtaxId = ? and i.status =";
+			String queryString = " from IncomtaxSlab i where i.incomtaxId = ? and i.status = ?";
 					
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);

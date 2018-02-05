@@ -69,6 +69,13 @@ public class EmpLeaveController {
 		   return model;
     }
 	
+	@RequestMapping(value = "/viewLeave_1", method = RequestMethod.POST)
+	public ModelAndView viewLeave_1(LeaveVO leaveVO) {
+		//return "listLeaves";
+		return listResult(leaveVO);
+	}
+	
+	
 	//@RequestMapping(value = "/viewLeave", method = RequestMethod.GET)
 	//public String viewLeave(ModelMap model) {
 	@RequestMapping(value = "/viewLeave", method = RequestMethod.POST)

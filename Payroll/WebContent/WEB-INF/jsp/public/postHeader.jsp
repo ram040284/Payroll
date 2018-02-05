@@ -204,7 +204,7 @@ h3 {font-size:16pt;}
 							<li><a href="#" onclick="getList('../Payroll/employee')">Employee Master</a></li>
 							<li><a href="../Payroll/viewBank">Employee Bank</a></li>
 							<li><a href="../Payroll/viewSalary">Employee Salary</a></li>
-							<li><a href="#" onclick="getList('../Payroll/viewLeave')">Employee Leave</a></li>
+							<li><a href="#" onclick="getList('../Payroll/viewLeave_1')">Employee Leave</a></li>
 							<li><a href="../Payroll/viewEmpPf">Employee PF</a></li>
 							<li><a href="../Payroll/viewEmpQtr">Employee Quarters</a></li>
 							<li><a href="../Payroll/viewEmpLic">Employee LIC</a></li>
@@ -217,8 +217,8 @@ h3 {font-size:16pt;}
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Leave <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="../Payroll/empLeaveReport">Apply Leave</a></li>
-							<li><a href="../Payroll/viewLeave">Leave Report</a></li>
-							<%--<li><a href="portfolio-alt1.html">Option-01</a></li>
+							<%--<li><a href="../Payroll/viewLeave">Leave Report</a></li>
+							<li><a href="portfolio-alt1.html">Option-01</a></li>
 							<li><a href="portfolio-alt2.html">Option-02</a></li>
 							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
 						</ul>
@@ -227,8 +227,8 @@ h3 {font-size:16pt;}
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Payroll <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="#" onclick="getList('../Payroll/generateBills')">Generate Bills</a></li>
-							<li><a href="portfolio-alt1.html">Employee Salary</a></li>
-							<%---<li><a href="portfolio-alt2.html">Option-02</a></li>
+							<%---<li><a href="portfolio-alt1.html">Employee Salary</a></li>
+							<li><a href="portfolio-alt2.html">Option-02</a></li>
 							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
 						</ul>
 					</li>

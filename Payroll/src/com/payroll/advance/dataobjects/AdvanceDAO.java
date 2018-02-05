@@ -1,31 +1,32 @@
 package com.payroll.advance.dataobjects;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
+import com.payroll.advance.vo.AdvanceVO;
 import com.payroll.overtime.dataobjects.Overtime;
 
 public class AdvanceDAO {
 	
-	public List<com.payroll.advance.vo.Advance> getAdvances(){
-		List<com.payroll.advance.vo.Advance> advanceList = null;
+	public List<com.payroll.advance.vo.AdvanceVO> getAdvances(){
+		List<com.payroll.advance.vo.AdvanceVO> advanceList = null;
 		Session session = null;
 		
 		try{
 			//String queryString = " from Advance";
-			String queryString = " select new com.payroll.advance.vo.Advance(a.empId, (select e.firstName from Employee e where e.employeeId = a.empId),"
-					+ " (select e.firstName from Employee e where e.employeeId = a.empId), a.departmentId, (select d.departmantName from Department d where d.departmentId = a.departmentId),"
-					+ "a.designationId, (select desg.designationName from Designation desg where desg.designationId = a.designationId),"
-					+ "a.paymentDate, a.advanceAmount) from Advance a ";		
+			String queryString = " select new com.payroll.advance.vo.AdvanceVO(a.advanceId, a.advanceName, "
+					+ "a.paymentDate, a.advanceAmount) from Advance a where a.status = ?";		
 			
-					
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
+			query.setParameter(0, "A");
 			advanceList = query.list();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -43,8 +44,10 @@ public class AdvanceDAO {
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			if(advanceId != 0){
-				Query query = session.createQuery("delete from Advance a where a.advanceId = ?");
-				query.setParameter(0, advanceId);
+				Query query = session.createQuery("update Advance a set a.status = ?, a.rowUpdDate = ? where a.advanceId = ?");
+				query.setParameter(0, "S");
+				query.setParameter(1, new Timestamp(System.currentTimeMillis()));
+				query.setParameter(2, advanceId);
 				int updated = query.executeUpdate();
 				System.out.println("Deleted:"+updated);
 				if(updated == 1){
@@ -52,7 +55,6 @@ public class AdvanceDAO {
 					success = true;
 				}
 			}
-			
 		}catch(Exception e){
 			e.printStackTrace();
 			transaction.rollback();
@@ -63,48 +65,65 @@ public class AdvanceDAO {
 		return success;
 	}
 	
-	public Advance getAdvanceById(int empId, Date paymentDate){
-		Advance advDB = null;
+	public AdvanceVO getAdvanceById(int advanceId){
+		AdvanceVO advDB = null;
 		Session session = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
-			advDB = checkAdvance(empId, paymentDate, session);
-			
+			String queryString = " select new com.payroll.advance.vo.AdvanceVO(a.advanceId, a.advanceName, "
+					+ "a.paymentDate, a.advanceAmount) from Advance a where a.advanceId = ? and status=?";		
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, advanceId);
+			query.setParameter(1, "A");
+			advDB = (AdvanceVO)(!(query.list().isEmpty()) ? query.list().get(0) : null);
 		}catch(Exception e){
 			e.printStackTrace();
-			
 		}finally {
 			HibernateConnection.closeSession(session);
 		}
 		return advDB;
 	}
-	public boolean addUpdateAdvance(Advance advance){
-		boolean success = false;
+	public String addUpdateAdvance(Advance advance){
+		String result = "";
 		Session session = null;
 		Transaction transaction = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Advance advanceDB = checkAdvance(advance.getEmpId(), advance.getPaymentDate(), session);
+			/*Advance advanceDB = checkAdvance(advance.getEmpId(), advance.getPaymentDate(), session);
 			if(advanceDB !=null)
 				session.update(advanceDB);
 			else {
 				//advance.setAdvanceId(getMaxEmpId(session));
 				session.save(advance);
+			}*/
+			if(advance.getAdvanceId() != 0){
+				advance.setStatus("A");
+				advance.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+				session.update(advance);
+			}else {
+				//dept.setDepartmentId(getMaxDeptId(session));
+				advance.setStatus("A");
+				advance.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+				session.save(advance);
 			}
 			transaction.commit();
-			success = true;
+			result = "Yes";
+		}catch(ConstraintViolationException cv){
+			cv.printStackTrace();
+			transaction.rollback();
+			result = "Adnace is already exist!";
 		}catch(Exception e){
 			e.printStackTrace();
 			transaction.rollback();
-			success = false;
+			result = "Unable to Add/Update Advance!";
 		}finally {
 			HibernateConnection.closeSession(session);
 		}
-		return success;
+		return result;
 	}
 	
-	private Advance checkAdvance(int empId, Date paymentDate, Session session){
+	/*private Advance checkAdvance(int empId, Date paymentDate, Session session){
 		Advance advance = null;
 		try{
 			if(session == null)
@@ -120,10 +139,10 @@ public class AdvanceDAO {
 		
 		}
 		return advance;
-	}
+	}*/
 	
 	
-	private int getMaxEmpId(Session session){
+	/*private int getMaxEmpId(Session session){
 		int maxDesgId = 0;
 		//Session session = null;
 		try{
@@ -139,8 +158,8 @@ public class AdvanceDAO {
 		}/*finally {
 			HibernateConnection.closeSession(session);
 		}*/
-		return maxDesgId;
-	}
+		/*return maxDesgId;
+	}*/
 
 
 }

@@ -22,8 +22,8 @@ import com.payroll.designation.dataobjects.Designation;
 public class AdvanceController {
 	
 	@RequestMapping(value="/listAdvance", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<com.payroll.advance.vo.Advance> getAdvances(){
-	   List<com.payroll.advance.vo.Advance> conveyances = new AdvanceService().getAdvanceList();
+    public @ResponseBody List<com.payroll.advance.vo.AdvanceVO> getAdvances(){
+	   List<com.payroll.advance.vo.AdvanceVO> conveyances = new AdvanceService().getAdvanceList();
 	   return conveyances;
     }
 	
@@ -33,10 +33,9 @@ public class AdvanceController {
 	}
 	
 	@RequestMapping(value = "/inputAdvance", method = RequestMethod.POST)
-	public ModelAndView inputAdvance(com.payroll.advance.vo.Advance advance) {
-		ObjectMapper mapper = new ObjectMapper();
+	public ModelAndView inputAdvance(com.payroll.advance.vo.AdvanceVO advance) {
 		System.out.println("Advance:"+advance);
-		List<Designation> desigList = new DesignationService().getDesignationList();
+		/*List<Designation> desigList = new DesignationService().getDesignationList();
 		List<Department> deptList = new DepartmentService().getDepartments();
 		String desigJSON = "";
 		String depJSON = "";
@@ -45,28 +44,27 @@ public class AdvanceController {
 			desigJSON = mapper.writeValueAsString(desigList);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		com.payroll.advance.vo.Advance newAdvance = new AdvanceService().getAdvanceById(advance.getEmpId(), advance.getPaymentDate());
-		ModelAndView model = new ModelAndView("advance", "command", newAdvance);
-		model.addObject("advance", newAdvance);
-		model.addObject("departments", depJSON);
-		model.addObject("designations", desigJSON);
+		}*/
+		if(advance.getAdvanceId() != 0)
+			advance = new AdvanceService().getAdvanceById(advance.getAdvanceId());
+		ModelAndView model = new ModelAndView("advance", "command", advance);
+		model.addObject("advance", advance);
+		//model.addObject("departments", depJSON);
+		//model.addObject("designations", desigJSON);
 		return model;
 	}
 	   
 	@RequestMapping(value="/addAdvance",method=RequestMethod.POST)
 	public @ResponseBody
-	String addAdvance(@RequestBody com.payroll.advance.vo.Advance advance){
+	String addAdvance(@RequestBody com.payroll.advance.vo.AdvanceVO advance){
 	   System.out.println("advance:"+advance);
-	   boolean addedDesg = new AdvanceService().addUpdateAdvance(advance);
-	   if(addedDesg)
-		   return "Yes";
-	   else
-		   return "No";
+	   String result = new AdvanceService().addUpdateAdvance(advance);
+	   System.out.println("result:"+result);
+	   return result;
 	}
 	
 	@RequestMapping(value="/deleteAdvance",method=RequestMethod.POST)
-	public String deleteAdvance(com.payroll.advance.vo.Advance advance){
+	public String deleteAdvance(com.payroll.advance.vo.AdvanceVO advance){
 	   System.out.println("advance:"+advance);
 	   if(new AdvanceService().deleteAdvance(advance.getAdvanceId()))
 		   System.out.println("Successfully deleted Advance!!");

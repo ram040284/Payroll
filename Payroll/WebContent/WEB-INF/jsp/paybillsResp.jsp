@@ -28,7 +28,7 @@
 <div class="row">
 <div class="col-md-12 text-center">
 
-<span style="margin-top: 20px; font-size: 1.4em;"><a href="#" onclick="getList('../Payroll/generateBills')">See Report</a></span>
+<span style="margin-top: 20px; font-size: 1.4em;"><a href="#" onclick="getList('../Payroll/inputPaybill')">See Report</a></span>
 </div> 
 </div></div></div>
 <jsp:include page="../jsp/public/postFooter.jsp" />

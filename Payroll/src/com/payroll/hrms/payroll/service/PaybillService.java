@@ -96,7 +96,12 @@ public class PaybillService {
 		if(empList == null)
 			empList = new ArrayList<>();
 		empList.add(empVO);
-		paybillList.add(paybill);
+		System.out.println("paybill:"+paybill);
+		if(paybill!=null){
+			if(paybillList == null)
+				paybillList = new ArrayList();
+			paybillList.add(paybill);
+		}
 		PaybillDetails details = getPaybillDetails();
 		details.setMonth(startDate);
 		return details;
@@ -178,9 +183,10 @@ public class PaybillService {
     	PaybillDetails payrollTotals = new PaybillDetails();
     	List<PaybillDetails> pbDetailsList = new ArrayList<PaybillDetails>();
     	int bankId = 0;
+    	boolean reportExist = false;
     	try {
 			for (Paybill paybill : paybillList) {
-	    		ReportDetails empPayroll = new ReportDetails();
+				ReportDetails empPayroll = new ReportDetails();
 	    		System.out.println("bankId:"+paybill.getBankId() +", Name:"+paybill.getBankName());
 	    		org.apache.commons.beanutils.BeanUtils.copyProperties(empPayroll, paybill);
 	    		if(bankId == 0){
@@ -196,19 +202,12 @@ public class PaybillService {
 	    				bankId = paybill.getBankId();
 	    			}
 	    		}
-	    		/*for (EmployeeVO employee : empList) {
-					if(employee.getEmployeeId() == paybill.getEmployeeId()){
-						empPayroll.setEmployeeName(employee.getFullName());
-				   		empPayroll.setPanNo(employee.getPan());
-				   		empPayroll.setDob(employee.getDob());
-				   		empPayroll.setJoiningDate(employee.getJoiningDate());
-				   		empPayroll.setRetirementDate(employee.getRetirementDate());
-				   		break;
-					}
-				}*/
 	    		payrollTotals.addEmployeePayroll(empPayroll);
-			}
-			pbDetailsList.add(payrollTotals);
+	    		if(!reportExist)
+					reportExist = true;
+	    	}
+			if(reportExist)
+				pbDetailsList.add(payrollTotals);
     	}catch(Exception e){
     		e.printStackTrace();
     	}
