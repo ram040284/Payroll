@@ -96,7 +96,7 @@ $(document).ready(function() {
 	            	var submittedForm = document.forms['leaveForm'];
 	            	f.departmentId.value = submittedForm.departmentId.value;
 	            	f.headId.value = submittedForm.headId.value;
-	            	f.action="../Payroll/viewLeave";
+	            	f.action="../Payroll/viewLeave_1";
 	            	f.submit();
 	            }else {
 	            	$("#errMsgDiv").text(data);
@@ -191,7 +191,7 @@ $(document).ready(function() {
 							</div>	
 							<div class="row">
 								<div class="text-right">
-									<button type="button" id="backBtn" class="btn text-left" style="margin-left: 10px; float: left;" onclick="getList('../Payroll/viewLeave')">Back</button>
+									<button type="button" id="backBtn" class="btn text-left" style="margin-left: 10px; float: left;" onclick="getList('../Payroll/viewLeave_1')">Back</button>
 									<button type="button" id="addLeaveBtn" class="btn">Submit</button>
 									<button type="reset" class="btn">Reset</button>	
 								</div>	
