@@ -126,6 +126,7 @@ public class LeaveService {
 		this.empId = leaveVO.getEmployeeId();
 		List<Leave> leaveList = new ArrayList<Leave>();
 		int slId =0, plId=0, clId = 0, elId=0, ptlId =0, mtlId=0, exlId = 0;
+		System.out.println("In copy properties- leaveIds:"+leaveVO.getLeaveIds());
 		if(!Utils.isEmpty(leaveVO.getLeaveIds())){
 			String[] ids = leaveVO.getLeaveIds().split(",");
 			if(ids.length > 0){
@@ -254,6 +255,7 @@ public class LeaveService {
 	
 	private void addLeaveIds(StringBuffer leaveIds, String slType, int leaveId){
 		leaveIds.append(slType);
+		leaveIds.append(":");
 		leaveIds.append(leaveId);
 		leaveIds.append(",");
 	}

@@ -6,7 +6,32 @@
 <title>Leave Details</title>
 <jsp:include page="../jsp/public/postHeader.jsp" />
 <jsp:include page="../jsp/public/jqueryPluginMin.jsp"/>
+<style type="text/css">
+	.rptTblClass table {
+	border-collapse: collapse;
+	width: 100%;
+	float: left;
+	margin: 0;
+  	padding: 0;
+	border: 1px solid #aaa;
+	table-layout: auto;
+}
 
+.rptTblClass th, td {
+	text-align: left;
+	padding: 5px;
+}
+
+.rptTblClass tr:nth-child(odd) {
+	background-color: #f2f2f2;
+}
+
+.rptTblClass th {
+	background-color: #8B9DC3;
+	color: white;
+}
+	
+</style>
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#collapse").hide();
@@ -28,30 +53,24 @@ $(document).ready(function() {
 		   $("#collapse").toggle();
 		   $("#expand").toggle();
 	});
+	
+	$('#empLeaveTable').DataTable({
+		"info" : false,
+		"sort":$('#empLeaveTable tbody tr').length>1,
+		"paging" : $('#empLeaveTable tbody tr').length>10,
+		"displayLength": 10,
+	  	"filter" : false,
+	  	"lengthChange" : false,
+	  	"autoWidth" : false,
+	  	"pagingType" : "full_numbers",
+	  	"scrollX": true,
+	  	"scrollY": "300px",
+	  	"scrollCollapse": true,
+	  	"language": {
+	        "emptyTable": "No matching records found"
+	    }
+ 	});
 });
-
-      <%--function getLeavesList() {
-    	  $.ajax({
-              url : '../Payroll/listLeaves',
-              type:"GET",
-              contentType: "application/json;charset=utf-8",
-              success : function(data) {
-                 
-                 var leaveTab = $('<table style="margin-bottom: 10px;"/>').appendTo($('#leaveListDiv'));
-                  $(data).each(function(i, leave){
-                	  $('<tr/>').appendTo(leaveTab)
-                	  		.append($('<td/>').text(leave.fullName))
-                			.append($('<td/>').text(leave.sickLeaves))
-                			.append($('<td/>').text(leave.casualLeaves))
-                			.append($('<td/>').text(leave.paidLeaves))
-                			.append($('<td/>').text(leave.leaveBalance))
-                			.append($('<td/>').append('<a href="#" onclick=viewLeave('+leave.empId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteLeave('+leave.empId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
-                	  
-                  });
-                  
-              }
-          });
-      }--%>
       function viewLeave(empId){
     	  var f = document.forms['empSearch'];
 		  f.employeeId.value=empId;
@@ -84,19 +103,16 @@ $(document).ready(function() {
 
       </script>
 </head>
-<body><%--  onload="getLeavesList()">--%>
-	<%--<jsp:include page="../jsp/public/postHeader.jsp" /> --%>
-	<div class="contain-wrapp bodyDivCss">	
-		<div class="container">
+<body>
+<div class="contain-wrapp bodyDivCss">	
+	<div class="container">
 	<h5 style="color: #0101DF;">Leave Details</h5>
 		<jsp:include page="../jsp/public/searchCriteria.jsp" />
 	<c:if test="${leaveVOList.size() gt 0}">	
-	<div style="margin-top: 6px; float: left; width: 100%;">
-			<%--<h4 style="color: #0101DF;">Leave Details</h4> --%>
-		<div>
-			
-				<div class="tblClass" id="leaveListDiv">
-				<table>
+		<div style="margin-top: 6px; float: left; width: 100%;">
+			<div id="leaveListDiv" class="rptTblClass" style="width: 100%;">
+				<table id="empLeaveTable" class="table table-striped table-bordered table-hover table-responsive">
+				<thead>
 				<tr>
 					<th>Employee</th>
 					<th>Medical </th>
@@ -111,6 +127,7 @@ $(document).ready(function() {
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
 					</th>
 				</tr>
+				</thead>
 				<c:forEach var="leave" items="${leaveVOList}">
 				<tr>
 					<td> ${leave.fullName} </td>
@@ -134,17 +151,13 @@ $(document).ready(function() {
 				</table>
 				</div>
 		</div>
-	</div>
+	
 	</c:if>
 	</div>
 	</div>
 	<form action="" name="editForm" method="post">
-		<%--<input type="hidden" name="designationId" value="0">
-		<input type="hidden" name="departmentId" value="0"> --%>
 		<input type="hidden" name="employeeId" value="0">
 		<input type="hidden" name="leaveId" value="0">
-		
-		
 	</form>
 	<jsp:include page="../jsp/public/postFooter.jsp" />
 </body>

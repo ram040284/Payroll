@@ -96,7 +96,7 @@ $(document).ready(function() {
 	            	var submittedForm = document.forms['leaveForm'];
 	            	f.departmentId.value = submittedForm.departmentId.value;
 	            	f.headId.value = submittedForm.headId.value;
-	            	f.action="../Payroll/viewLeave";
+	            	f.action="../Payroll/viewLeave_1";
 	            	f.submit();
 	            }else {
 	            	$("#errMsgDiv").text(data);
