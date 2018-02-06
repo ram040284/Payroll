@@ -3,12 +3,14 @@ package com.payroll.employee.leave.dataobjects;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import com.payroll.employee.dataobjects.Employee;
+
 public class LeaveRequest {
 
 	private int employeeId;
 	private int departmentId;
 	private int headId;
-	private int leaveId;
+	private int leaveReqId;
 	private String leaveType;
 	private int noOfLeaves;
 	private int leaveBalance;
@@ -22,6 +24,7 @@ public class LeaveRequest {
 	private Leave leave;
 	private String status;
 	private Timestamp rowUpdDate;
+	private Employee employee;
 
 	public int getEmployeeId() {
 		return employeeId;
@@ -31,12 +34,12 @@ public class LeaveRequest {
 		this.employeeId = employeeId;
 	}
 
-	public int getLeaveId() {
-		return leaveId;
+	public int getLeaveReqId() {
+		return leaveReqId;
 	}
 
-	public void setLeaveId(int leaveId) {
-		this.leaveId = leaveId;
+	public void setLeaveReqId(int leaveId) {
+		this.leaveReqId = leaveId;
 	}
 
 	public String getLeaveType() {
@@ -159,13 +162,12 @@ public class LeaveRequest {
 		this.rowUpdDate = rowUpdDate;
 	}
 
-	@Override
-	public String toString() {
-		return "LeaveRequest [employeeId=" + employeeId + ", departmentId=" + departmentId + ", headId=" + headId
-				+ ", leaveId=" + leaveId + ", leaveType=" + leaveType + ", noOfLeaves=" + noOfLeaves + ", leaveBalance="
-				+ leaveBalance + ", fromDate=" + fromDate + ", toDate=" + toDate + ", reason=" + reason
-				+ ", listDeptId=" + listDeptId + ", listHeadId=" + listHeadId + ", listName=" + listName
-				+ ", firstName=" + firstName + ", leave=" + leave + ", status=" + status + ", rowUpdDate=" + rowUpdDate
-				+ "]";
+	public Employee getEmployee() {
+		return employee;
 	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
 }

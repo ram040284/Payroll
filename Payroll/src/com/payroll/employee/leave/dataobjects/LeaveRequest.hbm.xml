@@ -4,14 +4,16 @@
   
  <hibernate-mapping>  
   <class name="com.payroll.employee.leave.dataobjects.LeaveRequest" table="EMP_LEAVE_REQUEST">
-  <id name="leaveId" type="integer" >  
+  <id name="leaveReqId" type="integer" >  
      <column name="LEAVE_REQ_ID" sql-type="integer" not-null="true"/>  
      <generator class="increment"/>
     </id>  
-   <many-to-one name="leave"   
-        class="com.payroll.employee.leave.dataobjects.Leave" column="LEAVE_ID" cascade="all">
+    <many-to-one name="leave"   
+        class="com.payroll.employee.leave.dataobjects.Leave" column="LEAVE_ID" cascade="all" lazy="false">
 	</many-to-one>
-	
+	<many-to-one name="employee"   
+        class="com.payroll.employee.dataobjects.Employee" column="EMP_ID" cascade="all" lazy="false">
+	</many-to-one>
     <property name="noOfLeaves" column="NO_OF_LEAVES" not-null="true"/>
     <property name="fromDate" column="FROM_DATE" />
     <property name="toDate" column="TO_DATE" />  

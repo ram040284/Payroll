@@ -20,7 +20,7 @@ import com.payroll.employee.salary.vo.SalaryVO;
 import com.payroll.headInfo.dataobjects.HeadInfo;
 
 public class LeaveDAO {
-	private int deptId;
+	private int deptId = 0;
 	private int headId = 0;
 	private String name; 
 	public List<com.payroll.employee.leave.vo.LeaveVO> getLeaves(int deptId, int headId, String name){
@@ -73,6 +73,54 @@ public class LeaveDAO {
 			
 			return leaves;
 		}
+	
+	public List<LeaveRequest> getLeaveRequests(int deptId, int headId, String name){
+		this.deptId = deptId;
+		this.headId = headId;
+		this.name = name;
+		return getLeaveRequests();
+	}
+	public List<LeaveRequest> getLeaveRequests(){
+			List<LeaveRequest> leaves = null;
+				Session session = null;
+				StringBuffer searchCriteria = new StringBuffer("");
+				try{
+					//String queryString
+					searchCriteria.append(" from LeaveRequest l where l.status = ?");
+					if(deptId != 0)
+						searchCriteria.append(" and l.employee.employeeId = (select eDept.employee.employeeId from EmpDepartment eDept where l.employee.employeeId = eDept.employee.employeeId and eDept.department.departmentId = ? and eDept.status = 'A')");
+					if(headId != 0){
+						//searchCriteria.append(" and e.employeeId = (select eMas.empId from EmployeeMaster eMas where e.employeeId = eMas.empId and eMas.headId = ?)");
+						searchCriteria.append(" and l.employee.employeeId = (select eMas.employee.employeeId from EmpHeadInfo eMas where l.employee.employeeId = eMas.employee.employeeId and eMas.headInfo.headId = ? and eMas.status = 'A')");
+					}
+					if(!Utils.isEmpty(name))
+						//searchCriteria.append(" and l.employee.employeeId = (select e.employeeId from Employee where e.employeeId = l.empId and (e.firstName like :fname or e.middleName like :mname or e.lastName like :lname))");
+						searchCriteria.append(" and l.employee.firstName like :fname or l.employee.middleName like :mname or l.employee.lastName like :lname))");
+					
+					searchCriteria.append(" order by l.employee.employeeId");
+					session = HibernateConnection.getSessionFactory().openSession();
+					Query query = session.createQuery(searchCriteria.toString());
+					int i=0;
+					query.setParameter(i++, "A");
+					if(deptId != 0)
+						query.setParameter(i++, deptId);
+					if(headId != 0)
+						query.setParameter(i++, headId);
+					if(!Utils.isEmpty(name)){
+						query.setParameter("fname", "%"+name+"%");
+						query.setParameter("mname", "%"+name+"%");
+						query.setParameter("lname", "%"+name+"%");
+					}
+					leaves = query.list();
+				}catch(Exception e){
+					e.printStackTrace();
+				}finally{
+					HibernateConnection.closeSession(session);
+				}
+			
+			return leaves;
+		}
+	
 	public List<LeaveVO> getEmpLeave(int empId){
 		List<LeaveVO> leaveVOList = null;
 		Session session = null;

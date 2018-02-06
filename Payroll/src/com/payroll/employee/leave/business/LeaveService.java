@@ -49,13 +49,13 @@ public class LeaveService {
 			}
 
 			switch (SHORT_LEAVE_TYPES[i]) {
-			case "CL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getCasualLeaves()); break;
-			case "SL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getSickLeaves()); break;
-			case "PL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getPaidLeaves()); break; 
-			case "EL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getEarnLeave()); break; 
-			case "MTL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getMaternityLeave()); break; 
-			case "PTL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getPaternityLeave()); break;
-			case "EXL": leaveBalanceMap.put(LEAVE_TYPES[i], leave.getExtraLeave()); break; 
+			case "CL": if (leave.getCasualLeaves()!=0) leaveBalanceMap.put(LEAVE_TYPES[i], leave.getCasualLeaves()); break;
+			case "SL": if (leave.getSickLeaves()!=0) leaveBalanceMap.put(LEAVE_TYPES[i], leave.getSickLeaves()); break;
+			case "PL": if (leave.getPaidLeaves()!=0) leaveBalanceMap.put(LEAVE_TYPES[i], leave.getPaidLeaves()); break; 
+			case "EL": if (leave.getEarnLeave()!=0) leaveBalanceMap.put(LEAVE_TYPES[i], leave.getEarnLeave()); break; 
+			case "MTL": if (leave.getMaternityLeave()!=0) leaveBalanceMap.put(LEAVE_TYPES[i], leave.getMaternityLeave()); break; 
+			case "PTL": if (leave.getPaternityLeave()!=0) leaveBalanceMap.put(LEAVE_TYPES[i], leave.getPaternityLeave()); break;
+			case "EXL": if (leave.getExtraLeave()!=0) leaveBalanceMap.put(LEAVE_TYPES[i], leave.getExtraLeave()); break; 
 			}
 		}
 		return leaveBalanceMap;
@@ -66,6 +66,10 @@ public class LeaveService {
 	
 	public List<LeaveVO> getLeaves(int deptId, int headId, String empName){
 		return getEmpLeaves(new LeaveDAO().getLeaves(deptId, headId, empName));
+	}
+	
+	public List<LeaveRequest> getLeaveRequests(int deptId, int headId, String empName){
+		return new LeaveDAO().getLeaveRequests(deptId, headId, empName);
 	}
 	
 	public String addUpdateLeave(LeaveVO leaveVO){

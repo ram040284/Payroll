@@ -83,7 +83,7 @@ $(document).ready(function() {
 	    });
 	    
 	    $('#leaveListBtn').click(function(event) {
-	    	$("#listForm").attr("action", "../Payroll/empLeaveList");
+	    	$("#listForm").attr("action", "../Payroll/empLeaveListApply");
 			$("#listForm").submit();
 	    });
 	    
@@ -120,6 +120,14 @@ $(document).ready(function() {
 	    		$('#noOfLeaves').focus();
 	    		return false;
 	    	}
+	    	
+	    	var leaveBal = parseInt($("#leaveBalance").html());
+	    	if(leaveBal < $('#noOfLeaves').val()) {
+	    		alert("Number of Days leave should not more than leave balance");
+	    		$('#noOfLeaves').focus();
+	    		return false;
+	    	}
+	    	
 	    	if($('#reason').val() == ''){
 	    		alert("Reason must be entered");
 	    		$('#reason').focus();
