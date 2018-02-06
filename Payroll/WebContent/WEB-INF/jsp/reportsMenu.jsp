@@ -20,7 +20,7 @@
 				
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="../Payroll/empSalarySearch"><img src="../Payroll/resources/images/costhead1.png" class="img-responsive imageMenuItem"
+						<a href="../Payroll/empAllowanceSearch"><img src="../Payroll/resources/images/costhead1.png" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
 					<h3><a href="../Payroll/empAllowanceSearch">Employee Allowances</a></h3>
 					</div>
