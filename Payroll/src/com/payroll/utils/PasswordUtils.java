@@ -9,24 +9,18 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
 public class PasswordUtils {
-	
-	 public static void main(String[] args) throws Exception {
-		 PasswordUtils pwdUtis = new PasswordUtils();
-		 String plainText = "Srini123";
-		 String encrypted = getEncryptedPassword(plainText);
-		 
-		 boolean match = isValidPassword(plainText, encrypted);
-		// System.out.println("match:" + match);
-		 
-	 }
 	 
 	 public static String getEncryptedPassword(String pwdText) {
 		 String encryped = "";
 		 try {
 			 PasswordUtils pwdUtis = new PasswordUtils();
 			 SecretKeySpec  secKey = pwdUtis.getSecretEncryptionKey();
+			 if(pwdText.length() < 8) {
+				 String tempPwd = "00000000";
+				 pwdText += tempPwd.substring(pwdText.length(), tempPwd.length());
+			 }
 			 byte[] cipherText = pwdUtis.encryptText(pwdText.trim(), secKey);
-			 encryped = new String(cipherText);
+			 encryped = bytesToHex(cipherText);
 		 } catch(Exception e) {
 			 e.printStackTrace();
 		 }
@@ -38,8 +32,14 @@ public class PasswordUtils {
 		 try {
 			 PasswordUtils pwdUtis = new PasswordUtils();
 			 SecretKeySpec  secKey = pwdUtis.getSecretEncryptionKey();
-			 String decryptedText = pwdUtis.decryptText(encrypted.getBytes(), secKey);
-			 //System.out.print("pwdText:" + pwdText + " :: decryptedText :" + decryptedText);
+			
+			 byte[] encByte = hexToBinary(encrypted);
+			 String decryptedText = pwdUtis.decryptText(encByte, secKey);
+			 
+			 if(pwdText.length() < 8) {
+				 String tempPwd = "00000000";
+				 pwdText += tempPwd.substring(pwdText.length(), tempPwd.length());
+			 }
 			 if (pwdText.trim().equals(decryptedText)) {
 				 pwdMatch = true;
 			 }
@@ -91,7 +91,7 @@ public class PasswordUtils {
 	         Cipher aesCipher = Cipher.getInstance("AES");
 	         aesCipher.init(Cipher.DECRYPT_MODE, secKey);
 	         byte[] bytePlainText = aesCipher.doFinal(byteCipherText);
-	         return new String(bytePlainText);
+	         return new String (bytePlainText);
 	     }
 	      
 	     /**
@@ -101,5 +101,9 @@ public class PasswordUtils {
 	      */
 	     private static String  bytesToHex(byte[] hash) {
 	         return DatatypeConverter.printHexBinary(hash);
+	     }
+	     
+	     private static byte[] hexToBinary(String hashString) {
+	         return DatatypeConverter.parseHexBinary(hashString);
 	     }
 }
