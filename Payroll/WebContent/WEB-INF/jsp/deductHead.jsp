@@ -60,7 +60,7 @@ $(document).ready(function() {
 <body>
 	<div class="wrapper">
 		<div style="margin-top: 10px; float: left; width: 70%; border: 1px solid #8B9DC3;">
-			<h4 style="color: #fff; padding:14px; background-color: #8B9DC3; text-transform: none;">
+			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">
 				<c:if test="${headInfo.headId != '0'}" >Update</c:if><c:if test="${headInfo.headId == '0'}">Add</c:if> Deduction-Head Amount
 			</h4>
 

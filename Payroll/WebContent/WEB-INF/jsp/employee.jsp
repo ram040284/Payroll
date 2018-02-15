@@ -337,7 +337,7 @@ function loadDesgByHead(headId) {
 		<div class="container">
 		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
-			<h4 style="color: #fff; padding:14px; background-color: #8B9DC3; text-transform: none;">
+			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">
 				<c:if test="${employee.employeeId != '0'}" > Update </c:if><c:if test="${employee.employeeId == '0'}">	Add	</c:if> Employee
 			</h4>
 			<div class="col-lg-12 card-block bg-faded" style="padding-bottom: 5px;">

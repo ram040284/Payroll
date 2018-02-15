@@ -114,8 +114,8 @@ h3{
 }
 
 h4{
-	font-size:24px;
-	line-height:30px;
+	font-size:18px;
+	line-height:24px;
 }
 
 h5{
@@ -1427,7 +1427,7 @@ Button
 	border-radius:2px;
 	padding: 15px 25px;
 	font-size: 14px;
-	line-height:14px;
+	line-height:5px;
 	text-transform:uppercase;
 	font-weight:700;
 	border: 2px solid transparent;
@@ -2036,7 +2036,7 @@ Form
 =========================== */
 .form-control {
 	padding:10px 15px;
-	height:48px;
+	height:35px;
 	border-radius:2px;
 	border:1px solid #aeaeae;
 	font-size:13px;
