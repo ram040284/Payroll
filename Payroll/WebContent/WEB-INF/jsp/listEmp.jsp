@@ -82,7 +82,7 @@ function searchEmps(){
 					<th>DOB</th>
 					<th>Gender</th>
 					<th>Joining Date</th>
-					<th>Phone#</th>
+					<%-- <th>Phone#</th> --%>
 					<th><a href="#" onclick="inputPage()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/>
 					</a></th>
@@ -96,7 +96,7 @@ function searchEmps(){
 					<td> ${employee.dob} </td>
 					<td> ${employee.gender}</td>
 					<td> ${employee.joiningDate}</td>
-					<td> ${employee.phone}</td>
+					<%-- <td> ${employee.phone}</td> --%>
 					<td><a href="#" onclick="viewEmp('${employee.employeeId}')" title="Edit">
 							<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/>
 						</a>

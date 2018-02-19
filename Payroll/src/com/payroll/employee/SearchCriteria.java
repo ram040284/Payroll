@@ -5,6 +5,10 @@ public class SearchCriteria {
 	private int departmentId;
 	private int headId;
 	private String firstName;
+	private int listDeptId;
+	private int listHeadId;
+	private String listName;
+	private int employeeId;
 	
 	public SearchCriteria(){
 		
@@ -37,6 +41,30 @@ public class SearchCriteria {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "departmentId:"+departmentId+" |  headId:"+this.headId;
+	}
+	public int getListDeptId() {
+		return listDeptId;
+	}
+	public void setListDeptId(int listDeptId) {
+		this.listDeptId = listDeptId;
+	}
+	public int getListHeadId() {
+		return listHeadId;
+	}
+	public void setListHeadId(int listHeadId) {
+		this.listHeadId = listHeadId;
+	}
+	public String getListName() {
+		return listName;
+	}
+	public void setListName(String listName) {
+		this.listName = listName;
+	}
+	public int getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
 	}
 
 	

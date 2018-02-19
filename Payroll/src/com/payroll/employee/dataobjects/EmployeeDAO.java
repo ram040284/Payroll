@@ -7,16 +7,17 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
 import com.payroll.Utils;
 import com.payroll.department.dataobjects.Department;
-import com.payroll.department.dataobjects.DepartmentDAO;
 import com.payroll.designation.dataobjects.Designation;
-import com.payroll.designation.dataobjects.DesignationDAO;
+import com.payroll.employee.vo.EmpContactVO;
 import com.payroll.employee.vo.EmployeeVO;
 import com.payroll.headInfo.dataobjects.HeadInfo;
-import com.payroll.headInfo.dataobjects.HeadInfoDAO;
+import com.payroll.employee.dataobjects.EmpContact;
+import com.payroll.employee.leave.dataobjects.LeaveRequest;
 
 public class EmployeeDAO {
 
@@ -410,5 +411,73 @@ public class EmployeeDAO {
 			HibernateConnection.closeSession(session);
 		}
 		return employee;
+	}
+	
+	public EmpContactVO getEmployeeContactDetailsById(int empId){
+		Session session = null;
+		EmpContactVO empContact = null;
+		try{
+			EmployeeVO emp = this.getEmployeeDetailsById(empId, 0);
+			session = HibernateConnection.getSessionFactory().openSession();
+			/*String queryString = " select new com.payroll.employee.vo.EmpContactVO(e.employeeId, ec.empContactId, e.firstName, e.lastName, e.middleName,"
+					+ "(select eDept.department.departmantName from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), "
+					+ "(select dh.headInfo.headName from EmpHeadInfo dh where dh.employee.employeeId = e.employeeId), "
+					+ "(select eDesg.designation.designationName from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId and eDesg.lastWokingDate is null), "
+					+ " ec.email, ec.phone, ec.addressLine1, ec.addressLine2, ec.addressLine3, ec.secEmail, ec.secPhone, ec.secAddressLine1, ec.secAddressLine2, ec.secAddressLine3)"
+					+ " from EmpContact ec JOIN ec.employee e with e.employeeId = ec.employee.employeeId where e.employeeId = ? and e.status = ? ";	*/	
+			
+			String queryString = " select new com.payroll.employee.vo.EmpContactVO(ec.employee.employeeId, ec.empContactId, "
+					+ " ec.email, ec.phone, ec.addressLine1, ec.addressLine2, ec.addressLine3, ec.secEmail, ec.secPhone, "
+					+ " ec.secAddressLine1, ec.secAddressLine2, ec.secAddressLine3, ec.city, ec.state, ec.pin,"
+					+ " ec.secCity, ec.secState, ec.secPin)"
+					+ " from EmpContact ec where ec.employee.employeeId = ? ";
+			
+			if(session == null || !session.isOpen()) 
+				session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			
+			query.setParameter(0, empId);
+			//query.setParameter(1, "A");
+			
+			empContact = (EmpContactVO)(!(query.list().isEmpty()) ? query.list().get(0) : null);
+			if (empContact == null)
+				empContact = new EmpContactVO();
+			empContact.setEmployee(emp);
+			empContact.setEmployeeId(emp.getEmployeeId());
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return empContact;
+	}
+	
+	public boolean addUpdateEmpContact(EmpContact empContact) {
+		boolean result = false;
+		Session session = null;
+		Transaction transaction = null;
+		try{
+			Employee employee = this.getById(empContact.getEmployeeId());
+			empContact.setEmployee(employee);
+			
+			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			empContact.setRowUpdatedDate(new Timestamp(System.currentTimeMillis()));
+			if (empContact.getEmpContactId() == 0)
+				session.save(empContact);
+			else 
+				session.update(empContact);
+			transaction.commit();
+			result = true;
+		}catch(ConstraintViolationException cv){
+			cv.printStackTrace();
+			transaction.rollback();
+		}catch(Exception e){
+			e.printStackTrace();
+			transaction.rollback();
+		}finally {
+			HibernateConnection.closeSession(session);
+		}
+		return result;
 	}
 }

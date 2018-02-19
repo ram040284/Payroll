@@ -74,10 +74,11 @@ $(document).ready(function() {
 						
 		if(desgId == $('#designationId').val() && deptId == $('#departmentId').val() && genderId == $('#gender').val().trim() && 
 			fname == $('#fname').val().trim() && lname == $('#lname').val().trim() && mname==$('#mname').val().trim() &&
-			address1 == $('#addressLine1').val().trim() && address2 == $('#addressLine2').val().trim() && address3 ==$('#addressLine3').val().trim() && 
-			dob == $('#dob').val().trim() && joiningDate == $('#joiningDate').val().trim() && phone == $('#phone').val().trim() && 
-			email == $('#email').val().trim() && adharNo == $('#aadhar').val().trim() && pan == $('#pan').val().trim() && 
+			dob == $('#dob').val().trim() && joiningDate == $('#joiningDate').val().trim() && 
+			adharNo == $('#aadhar').val().trim() && pan == $('#pan').val().trim() && 
 			retirementDate == $('#retirementDate').val().trim()) {
+			//address1 == $('#addressLine1').val().trim() && address2 == $('#addressLine2').val().trim() && address3 ==$('#addressLine3').val().trim() &&
+			// phone == $('#phone').val().trim() && email == $('#email').val().trim() &&
 				alert('Nothing was changed!');
 				$('#designationId').focus();
 				return false;
@@ -110,11 +111,11 @@ $(document).ready(function() {
 			return false;
 		}
 		
-		if($('#addressLine1').val().trim() == ""){
+		/*if($('#addressLine1').val().trim() == ""){
 			alert("Address1 must be provided!");
 			$('#addressLine1').focus();
 			return false;
-		}
+		}*/
 		if($('#dob').val().trim() == ""){
 			alert("Date of Birth must be provided!");
 			$('#dob').focus();
@@ -130,7 +131,7 @@ $(document).ready(function() {
 			$('#joiningDate').focus();
 			return false;
 		}
-		var phoneValue = $('#phone').val().trim();
+		/*var phoneValue = $('#phone').val().trim();
 		if(phoneValue){
 			if(phoneValue.length!= 10){
 				alert("Phone# must be 10 characters!")  
@@ -146,7 +147,7 @@ $(document).ready(function() {
 			alert("Phone# must be provided!");
 			$('#phone').focus();
 			return false;
-		}
+		}*/
 		
 		<%--if($('#phone').val().trim() == ""){
 			alert("Phone# must be provided!");
@@ -159,13 +160,13 @@ $(document).ready(function() {
 				return false;
 			}			
 		}--%>
-		if($('#email').val().trim() != ""){
+		/* if($('#email').val().trim() != ""){
 			if(!emailValid($('#email').val())){
 				alert("You have entered an invalid email address!")  
 				$('#email').focus();
 			    return false;  
 			}		
-		}
+		} */
 		var adharValue = $('#aadhar').val().trim();
 		if(adharValue){
 			if(adharValue.length!= 12){
@@ -194,10 +195,11 @@ $(document).ready(function() {
 			}
 		}
 		var inputJson = { "firstName" : $('#fname').val(), "middleName" : $('#mname').val(), "lastName" : $('#lname').val(),"designationId" : $('#designationId').val(), 
-				"departmentId": $('#departmentId').val(), "email": $('#email').val(), "phone":phoneValue, "pan":panValue,
-				"addressLine1":$('#addressLine1').val(),"addressLine2":$('#addressLine2').val(),"addressLine3":$('#addressLine3').val(),
+				"departmentId": $('#departmentId').val(), "pan":panValue,				
 				"adharNo":$('#aadhar').val(),"dob":$('#dob').val(), "employeeId":$('#employeeId').val(), "gender":$('#gender').val(),
 				"joiningDate":$('#joiningDate').val(), "headId":$('#headId').val(), "retirementDate":$('#retirementDate').val()};
+		// "addressLine1":$('#addressLine1').val(),"addressLine2":$('#addressLine2').val(),"addressLine3":$('#addressLine3').val(),
+		//"email": $('#email').val(), "phone":phoneValue,
 	    $.ajax({
 	        url: '../Payroll/addEmp',
 	        data: JSON.stringify(inputJson),
@@ -382,7 +384,7 @@ function loadDesgByHead(headId) {
 							</div>		
 						
 						</div>			
-						<div class="row">
+						<%-- <div class="row">
 							
 							<div class="col-sm-4 form-group">
 								<label>Address1</label>
@@ -397,17 +399,13 @@ function loadDesgByHead(headId) {
 								<form:input type="text" id="addressLine3" path="addressLine3" placeholder="Enter Addrees3" class="form-control"/>
 							</div>		
 						
-						</div>		
+						</div>	--%>	
 						<%--<div class="form-group">
 							<label>Address</label>
 							<form:textarea placeholder="Enter Address" id="address" path="address" rows="3" class="form-control"/>
 						</div>	 --%>
 						<div class="row">
-							<div class="col-sm-4 form-group">
-								<label>Date of Birth</label>
-								<form:input type="text" id="dob" path="dob" placeholder="Enter DOB (DD/MM/YYYY)" class="form-control"/>
-							</div>
-							<div class="col-sm-4 form-group">
+						<div class="col-sm-4 form-group">
 								<label>Gender</label>
 								
 								<select id="gender" class="form-control">
@@ -415,7 +413,12 @@ function loadDesgByHead(headId) {
 								<option value="male">Male</option>
 								<option value="Female">Female</option>
 								</select>
+						</div>
+							<div class="col-sm-4 form-group">
+								<label>Date of Birth</label>
+								<form:input type="text" id="dob" path="dob" placeholder="Enter DOB (DD/MM/YYYY)" class="form-control"/>
 							</div>
+							
 							<div class="col-sm-4 form-group">
 								<label>Joining Date</label>
 								<form:input type="text" id="joiningDate" path="joiningDate" placeholder="Enter Joing Date (DD/MM/YYYY)" class="form-control"/>
@@ -426,25 +429,22 @@ function loadDesgByHead(headId) {
 								<label>Retirement Date</label>
 								<form:input type="text" id="retirementDate" path="retirementDate" placeholder="Enter Retmt Date (DD/MM/YYYY)" class="form-control"/>
 							</div>	
-							<div class="col-sm-4 form-group">
+							<%-- <div class="col-sm-4 form-group">
 								<label>Phone Number</label>
 								<form:input type="text" id="phone" path="phone" placeholder="Enter Phone Number" class="form-control"/>
 							</div>
 							<div class="col-sm-4 form-group">
 								<label>Email</label>
 								<form:input type="text" id="email" path="email" placeholder="Enter Email Address" class="form-control"/>
-							</div>	
-						</div>
-						<div class="row">
-							<div class="col-sm-6 form-group">
+							</div>	--%>
+							<div class="col-sm-4 form-group">
 								<label>Aadhar Number</label>
 								<form:input type="text" id="aadhar" path="adharNo" placeholder="Enter Aadhar Number" class="form-control"/>
 							</div>	
-							<div class="col-sm-6 form-group">
+							<div class="col-sm-4 form-group">
 								<label>PAN</label>
 								<form:input type="text" id="pan" path="pan" placeholder="Enter PAN" class="form-control"/>
 							</div>	
-							
 						</div>
 						
 						<div class="row">	
