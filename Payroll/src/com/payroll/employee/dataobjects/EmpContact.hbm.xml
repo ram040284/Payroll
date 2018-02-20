@@ -1,0 +1,33 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.employee.dataobjects.EmpContact" table="EMP_CONTACT">  
+    <id name="empContactId" type="integer" >  
+     <column name="EMP_CNT_ID" sql-type="integer" not-null="true"/>  
+     <generator class="increment"/>
+    </id> 
+    <many-to-one name="employee"   
+        class="com.payroll.employee.dataobjects.Employee" column="EMP_ID" cascade="all">
+	</many-to-one>  
+    
+    <property name="email" column="EMP_EMAIL" />
+    <property name="phone" column="EMP_PHONE" not-null="true"/>
+    <property name="addressLine1" column="ADDR_LINE1" not-null="true"/>
+    <property name="addressLine2" column="ADDR_LINE2" />
+    <property name="addressLine3" column="ADDR_LINE3" />
+    <property name="city" column="CITY" not-null="true"/>
+    <property name="state" column="STATE" not-null="true"/>
+    <property name="pin" column="PIN" not-null="true"/>
+    <property name="secEmail" column="SEC_EMP_EMAIL" />
+    <property name="secPhone" column="SEC_EMP_PHONE"/>
+    <property name="secAddressLine1" column="SEC_ADDR_LINE1" />
+    <property name="secAddressLine2" column="SEC_ADDR_LINE2" />
+    <property name="secAddressLine3" column="SEC_ADDR_LINE3" />
+    <property name="secCity" column="SEC_CITY"/>
+    <property name="secState" column="SEC_STATE"/>
+    <property name="secPin" column="SEC_PIN"/>
+    <property name="rowUpdatedDate" column="ROW_UPD_DATE" not-null="true"/>
+  </class>  
+ </hibernate-mapping> 

@@ -157,17 +157,6 @@ function roleSelection() {
 			<div class="row">
 			<form:form method = "POST" action = "" id="userForm" autocomplete="off">
 				<div class="col-sm-12">
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<label>Role</label>
-								<select id="roleId" name="roleId" class="form-control" onchange="roleSelection()"> 
-									<option value="0">-- Select Role --</option></select>
-							</div>
-							
-							<div class="col-sm-6 form-group" style="vertical-align: bottom">
-								<span style="color: blue;font-weight:bold;" id="roleDesc"></span>
-							</div>
-						</div>
 						<div class="row">	
 							<div class="col-sm-6 form-group">
 								<label>Department</label>
@@ -198,6 +187,19 @@ function roleSelection() {
 							<label></label>
 							</div>
 						</div>	
+						
+						<div class="row">
+							<div class="col-sm-6 form-group">
+								<label>Role</label>
+								<select id="roleId" name="roleId" class="form-control" onchange="roleSelection()"> 
+									<option value="0">-- Select Role --</option></select>
+							</div>
+							
+							<div class="col-sm-6 form-group" style="vertical-align: bottom">
+								<span style="color: blue;font-weight:bold;" id="roleDesc"></span>
+							</div>
+						</div>
+						
 						<div class="row">
 							<div class="col-sm-6 form-group">
 								<label>Password</label>

@@ -48,7 +48,9 @@ $(document).ready(function() {
 	<form:form id="formLogin" method = "POST" action = "../Payroll/home" autocomplete="off">
 	<div id="searchDiv" class="container" style ="position: relative;">
 	<div class="panel panel-primary" id="login">
-    	<div class="panel-heading" style="margin:0px;padding:5px;background-color: #8B9DC3;"><b>Payroll Login</b></div>
+    	<div class="panel-heading" style="margin:0px;padding:0px;background-color: #8B9DC3;">
+    	<h5 style="color: #fff; padding:5px;margin:0px; background-color: #8B9DC3; text-transform: none;">
+    	Payroll Login</h5></div>
 		<div  class="panel-body formDiv" style="padding:10px;margin:0px;width:100%;">
 			<div class="col-sm-12">
 				<label style="color:red"><c:out value="${errorMsg}"></c:out></label>

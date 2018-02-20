@@ -1,4 +1,4 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+	<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -148,8 +148,11 @@ alert("${message}");
 <body >
 	<div class="contain-wrapp bodyDivCss">	
 	<form:form id="formSearch" method = "POST" action = "" >
-	<div id="searchDiv" class="container" style ="position: relative; padding-left:0px;">
-	<div class="col-sm-12"><h3  style="color:blue;margin:0px;"> User Information </h3></div>
+	<div class="container panel panel-primary">
+      <div class="panel-heading" style="margin:0px;padding:0px;background-color: #8B9DC3;">
+      <h5 style="color: #fff; padding:5px;margin:0px; background-color: #8B9DC3; text-transform: none;">
+      User Information </h5></div>
+<div  class="panel-body" style="padding:10px;margin:0px;border: 1px solid #8B9DC3;">
 	<div class="col-sm-4">
 		<label>Department </label> 
 		<select id="listDeptId" class="form-control" name="listDeptId" >
@@ -166,7 +169,7 @@ alert("${message}");
 		<br>
 		<button type="button" id="searchBtn"  class="btn" style="float:left;">Search</button>
 		<button type="button" id="addBtn"  class="btn" style="float:right;">Add User</button>	
-		</div>
+		</div></div>
 	</div></div>
 	</form:form> 
 	
@@ -181,8 +184,8 @@ alert("${message}");
 			<th>Department</th>
 			<th>Head</th>
 			<th>Designation</th>
-			<%-- <th>Phone</th>
-			<th>Email</th>--%>
+			<th>Email</th>
+			<th>Phone</th>
 			<th><a href="#" onclick="inputPage()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/>
 					</a></th>
@@ -195,8 +198,8 @@ alert("${message}");
 			<td> ${user.employee.department}</td>
 			<td> ${user.employee.headName}</td>
 			<td> ${user.employee.designation}</td>
-			<%-- <td> ${user.employee.phone}</td>
-			<td> ${user.employee.email}</td>--%>
+			<td> ${user.employee.email}</td>
+			<td> ${user.employee.phone}</td>
 			<td><a href="#" onclick="editUser('${user.userIdPk}')" title="Edit">
 					<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a>
 				<a href="#" onclick="deleteUser('${user.userIdPk}')">

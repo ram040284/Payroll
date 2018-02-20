@@ -48,7 +48,7 @@ td, th {
   .custom-combobox-input {
   	font-family:inherit;
     padding:10px 15px;
-	height:48px;
+	height:35px;
 	border-radius:2px;
 	border:1px solid #aeaeae;
 	border-right:0px;
@@ -414,17 +414,6 @@ function userIdAvailability() {
 			<div class="row">
 			<form:form method = "POST" action = "" id="userForm" autocomplete="off">
 				<div class="col-sm-12">
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<label>Role</label>
-								<select id="roleId" name="roleId" class="form-control" onchange="roleSelection()"> 
-									<option value="0">-- Select Role --</option></select>
-							</div>
-							
-							<div class="col-sm-6 form-group" style="vertical-align: bottom">
-								<span style="color: blue;font-weight:bold;" id="roleDesc"></span>
-							</div>
-						</div>
 						<div class="row">	
 							<div class="col-sm-6 form-group">
 								<label>Department</label>
@@ -451,6 +440,17 @@ function userIdAvailability() {
 							<span style="color: blue;font-weight:bold;">Valid characters are A-Z a-z 0-9 . _ -</span>
 							<span style="color: green;font-weight:bold;display:none;" id="available"></span>
 							<span style="color: red;font-weight:bold;display:none;" id="notAvailable"></span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 form-group">
+								<label>Role</label>
+								<select id="roleId" name="roleId" class="form-control" onchange="roleSelection()"> 
+									<option value="0">-- Select Role --</option></select>
+							</div>
+							
+							<div class="col-sm-6 form-group" style="vertical-align: bottom">
+								<span style="color: blue;font-weight:bold;" id="roleDesc"></span>
 							</div>
 						</div>	
 						<div class="row">

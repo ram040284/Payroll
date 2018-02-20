@@ -12,7 +12,7 @@
    	<property name="connection.password">root</property>
    	<property name="show_sql">true</property>
    	
-
+	<mapping resource="com/payroll/employee/dataobjects/EmpContact.hbm.xml"/>
    	<mapping resource="com/payroll/department/dataobjects/Department.hbm.xml"/>
    	<mapping resource="com/payroll/designation/dataobjects/Designation.hbm.xml"/>
    	<mapping resource="com/payroll/employee/dataobjects/Employee.hbm.xml"/>

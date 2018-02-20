@@ -155,7 +155,9 @@ function getHeadsByDept(deptId, headId) {
 	<form:form id="formSearch" method = "POST" action = "" >
 	<div id="searchDiv" class="container" style ="position: relative;">
 	 <div class="panel panel-primary">
-      <div class="panel-heading" style="margin:0px;padding:5px;background-color: #8B9DC3;"><b>${sessionScope.reportName}</b></div>
+      <div class="panel-heading" style="margin:0px;padding:0px;background-color: #8B9DC3;">
+      <h5 style="color: #fff; padding:5px;margin:0px; background-color: #8B9DC3; text-transform: none;">
+${sessionScope.reportName}</h5></div>
 <div  class="panel-body" style="padding:10px;margin:0px;border: 1px solid #8B9DC3;">
 	<div class="col-sm-3">
 		<label>Department </label> 

@@ -1,9 +1,9 @@
 package com.payroll.rest;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
@@ -13,16 +13,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.payroll.department.dataobjects.Department;
 import com.payroll.Utils;
 import com.payroll.department.business.DepartmentService;
-import com.payroll.designation.dataobjects.Designation;
+import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.Employee;
+import com.payroll.employee.SearchCriteria;
 import com.payroll.employee.business.EmployeeService;
+import com.payroll.employee.dataobjects.EmpContact;
+import com.payroll.employee.vo.EmpContactVO;
 import com.payroll.employee.vo.EmployeeVO;
-import com.payroll.designation.business.DesignationService;
-
-import org.springframework.ui.ModelMap;
+import com.payroll.headInfo.dataobjects.HeadInfoDAO;
+import com.payroll.headInfo.vo.HeadInfoVO;
+import com.payroll.report.business.EmployeeReportService;
+import com.payroll.report.vo.EmployeeReportVO;
 
 @Controller
 public class EmployeeController {
@@ -130,5 +133,120 @@ public class EmployeeController {
 		   model.addObject("departments", depJSON);
 		   return model;
 
+	   }
+	   
+	   @RequestMapping(value="/empContactList", method = RequestMethod.GET)
+	    public ModelAndView getEmpContactList(HttpServletRequest request){
+			  ObjectMapper mapper = new ObjectMapper();
+			   List<Department> deptList = new DepartmentService().getDepartments();
+			   String depJSON = "";
+			   try {
+				   depJSON = mapper.writeValueAsString(deptList);
+			   }catch (Exception e) {
+				   e.printStackTrace();
+			   }
+			  
+			   SearchCriteria employee = new SearchCriteria();
+			   ModelAndView model = new ModelAndView("empContactList", "command", employee);
+			   model.addObject("employee", employee);
+			   request.getSession().setAttribute("departments", depJSON);
+			   request.getSession().removeAttribute("employees");
+			   return model;
+	    }
+	   
+	   @RequestMapping(value={"/empContactListSearch"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	   public ModelAndView getEmpContactListSearch(HttpServletRequest request, SearchCriteria search)
+	   {
+	     List<EmployeeReportVO> employeesList = new EmployeeReportService().getEmployees(search.getDepartmentId(), search.getHeadId());
+	     
+	     List<EmployeeReportVO> employees = new ArrayList();
+	     String name = search.getFirstName() != null ? search.getFirstName().trim() : "";
+	     if ((!name.equals("")) && (employeesList != null) && (employeesList.size() != 0)) {
+	       for (EmployeeReportVO empVO : employeesList) {
+	         if (empVO.getFullName().toUpperCase().contains(name.toUpperCase())) {
+	           employees.add(empVO);
+	         }
+	       }
+	     } else {
+	       employees = employeesList;
+	     }
+	     
+	     request.getSession().setAttribute("employees", employees);
+	     ModelAndView model = new ModelAndView("empContactList", "command", search);
+	     model.addObject("employee", search);
+	     if (search.getDepartmentId() != 0)
+	     {
+	       HeadInfoDAO dao = new HeadInfoDAO();
+	       List<HeadInfoVO> headList = dao.getHeadInfoList(search.getDepartmentId());
+	       String headJSON = "";
+	       try
+	       {
+	         ObjectMapper mapper = new ObjectMapper();
+	         headJSON = mapper.writeValueAsString(headList);
+	       }
+	       catch (Exception e)
+	       {
+	         e.printStackTrace();
+	       }
+	       model.addObject("headDetails", headJSON);
+	     }
+	     return model;
+	   }
+	   
+	   @RequestMapping(value = "/viewEmpContact", method = RequestMethod.POST)
+	   public ModelAndView  viewEmpContact(HttpServletRequest request, SearchCriteria employee) {
+		   EmpContactVO empContactVO = null;
+			if(employee.getEmployeeId() !=0){
+				empContactVO = new EmployeeService().getEmployeeContactDetailsById(employee.getEmployeeId());
+			} 
+			if (empContactVO == null){
+				empContactVO = new EmpContactVO();
+			}
+			System.out.println("empContactVO:"+empContactVO);
+			request.getSession().setAttribute("states", new EmployeeService().getIndianStates());
+			ModelAndView model = new ModelAndView("empContact", "command", empContactVO);
+			model.addObject("empContact", empContactVO);
+		 
+			return model;
+	   }
+	   
+	   @RequestMapping(value = "/addUpdateEmpContact", method = RequestMethod.POST)
+	   public ModelAndView  addUpdateEmpContact(EmpContact empContact, SearchCriteria employee) {
+		   boolean result = false;
+			if(empContact.getEmployeeId() !=0){
+				result = new EmployeeService().addUpdateEmpContact(empContact);
+			} 
+			System.out.println(empContact.getEmployeeId() +" :result:"+result);
+			
+			//SearchCriteria employee = new SearchCriteria();
+			
+			ModelAndView model = new ModelAndView("empContactList", "command", employee);
+			model.addObject("employee", employee);
+		 
+			return model;
+	   }
+	   
+	   @RequestMapping(value={"/empContactListBack"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	   public ModelAndView getEmpContactListBack(HttpServletRequest request, SearchCriteria search)
+	   {
+	     ModelAndView model = new ModelAndView("empContactList", "command", search);
+	     model.addObject("employee", search);
+	     if (search.getDepartmentId() != 0)
+	     {
+	       HeadInfoDAO dao = new HeadInfoDAO();
+	       List<HeadInfoVO> headList = dao.getHeadInfoList(search.getDepartmentId());
+	       String headJSON = "";
+	       try
+	       {
+	         ObjectMapper mapper = new ObjectMapper();
+	         headJSON = mapper.writeValueAsString(headList);
+	       }
+	       catch (Exception e)
+	       {
+	         e.printStackTrace();
+	       }
+	       model.addObject("headDetails", headJSON);
+	     }
+	     return model;
 	   }
 }	

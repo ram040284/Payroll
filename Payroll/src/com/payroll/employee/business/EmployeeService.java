@@ -3,14 +3,58 @@ package com.payroll.employee.business;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.payroll.Utils;
+import com.payroll.employee.dataobjects.EmpContact;
 import com.payroll.employee.dataobjects.Employee;
 import com.payroll.employee.dataobjects.EmployeeDAO;
+import com.payroll.employee.vo.EmpContactVO;
 import com.payroll.employee.vo.EmployeeVO;
 
 public class EmployeeService {
-	
+	public Map getIndianStates() {
+		Map states = new TreeMap<String, String>();
+		states.put("AP", "Andhra Pradesh");
+		states.put("AR", "Arunachal Pradesh");
+		states.put("AS", "Assam");
+		states.put("BR", "Bihar");
+		states.put("CT", "Chhattisgarh");
+		states.put("GA", "Goa");
+		states.put("GJ", "Gujarat");
+		states.put("HR", "Haryana");
+		states.put("HP", "Himachal Pradesh");
+		states.put("JK", "Jammu and Kashmir");
+		states.put("JH", "Jharkhand");
+		states.put("KA", "Karnataka");
+		states.put("KL", "Kerala");
+		states.put("MP", "Madhya Pradesh");
+		states.put("MH", "Maharashtra");
+		states.put("MN", "Manipur");
+		states.put("ML", "Meghalaya");
+		states.put("MZ", "Mizoram");
+		states.put("NL", "Nagaland");
+		states.put("OR", "Odisha");
+		states.put("PB", "Punjab");
+		states.put("RJ", "Rajasthan");
+		states.put("SK", "Sikkim");
+		states.put("TN", "Tamil Nadu");
+		states.put("TG", "Telangana");
+		states.put("TR", "Tripura");
+		states.put("UT", "Uttarakhand");
+		states.put("UP", "Uttar Pradesh");
+		states.put("WB", "West Bengal");
+		states.put("AN", "Andaman and Nicobar Islands");
+		states.put("CH", "Chandigarh");
+		states.put("DN", "Dadra and Nagar Haveli");
+		states.put("DD", "Daman and Diu");
+		states.put("DL", "Delhi");
+		states.put("LD", "Lakshadweep");
+		states.put("PY", "Puducherry");
+		
+		return states;
+	}
 	public List<EmployeeVO> getEmployees(int deptId, int headId, String name){
 		return new EmployeeDAO().getEmployees(deptId, headId, name);
 	}
@@ -27,6 +71,13 @@ public class EmployeeService {
 	}
 	public com.payroll.employee.Employee getEmployeeById(int empId){
 		return copyDBEmp(new EmployeeDAO().getEmployeeById(empId));
+	}
+	public EmpContactVO getEmployeeContactDetailsById(int empId){
+		return new EmployeeDAO().getEmployeeContactDetailsById(empId);
+	}
+	
+	public boolean addUpdateEmpContact(EmpContact empContact){
+		return new EmployeeDAO().addUpdateEmpContact(empContact);
 	}
 	public boolean deleteEmp(int empId){
 		return new EmployeeDAO().deleteEmp(empId);

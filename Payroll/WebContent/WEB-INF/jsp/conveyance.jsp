@@ -65,7 +65,7 @@ $(document).ready(function() {
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
 		<div class="formDiv">
-			<h4 style="color: #fff; padding:14px; background-color: #8B9DC3; text-transform: none;">
+			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">
 				<c:if test="${conveyance.conveyanceId != '0'}" > Update	</c:if><c:if test="${conveyance.conveyanceId == '0'}">	Add	</c:if>Conveyance Allowances
 			</h4>
 
