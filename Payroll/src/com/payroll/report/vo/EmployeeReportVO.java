@@ -1,10 +1,14 @@
 package com.payroll.report.vo;
 
-import com.payroll.Utils;
-import com.payroll.employee.salary.vo.SalaryVO;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
+
+import com.payroll.Utils;
+import com.payroll.employee.business.EmployeeService;
+import com.payroll.employee.salary.vo.SalaryVO;
+import com.payroll.employee.vo.EmpContactVO;
 
 public class EmployeeReportVO implements Serializable {
   private String firstName;
@@ -16,6 +20,7 @@ public class EmployeeReportVO implements Serializable {
   private String joiningDate;
   private String lastWorkingDate;
   private String address;
+  private String secAddress;
   private String dob;
   private String contactNo;
   private String pan;
@@ -34,6 +39,7 @@ public class EmployeeReportVO implements Serializable {
   private String headName;
   private Date rowUpdatedDate;
   private SalaryVO salaryVo;
+  private EmpContactVO empContact;
   
   public EmployeeReportVO() {}
   
@@ -50,7 +56,35 @@ public class EmployeeReportVO implements Serializable {
     this.fullName = getName(firstName, middleName, lastName);
   }
   
-  public EmployeeReportVO(int employeeId, String firstName, String lastName, String middleName, String email, String phone, String pan, String aadhar, Date dob, String department, String head, String designation, String addressLine1, String addressLine2, String addressLine3, String gender, Date joiningDate)
+  public EmployeeReportVO(int employeeId, String firstName, String lastName, String middleName, 
+		  String pan, String aadhar, Date dob, String department, String head, String designation, 
+		  String gender, Date joiningDate)
+  {
+    this.employeeId = employeeId;
+   // this.email = Utils.safeTrim(email);
+    this.pan = Utils.safeTrim(pan);
+    this.adharNo = Utils.safeTrim(aadhar);
+ //   this.phone = Utils.safeTrim(phone);
+    this.firstName = Utils.safeTrim(firstName);
+    this.middleName = Utils.safeTrim(middleName);
+    this.lastName = Utils.safeTrim(lastName);
+    this.designation = Utils.safeTrim(designation);
+    this.department = Utils.safeTrim(department);
+    this.dob = (dob != null ? this.dateFormat.format(dob) : "");
+    /*this.addressLine1 = Utils.safeTrim(addressLine1);
+    this.addressLine2 = Utils.safeTrim(addressLine2);
+    this.addressLine3 = Utils.safeTrim(addressLine3);*/
+   
+    this.gender = Utils.safeTrim(gender);
+    this.fullName = getName(firstName, middleName, lastName);
+    this.joiningDate = (joiningDate != null ? this.dateFormat.format(joiningDate) : "");
+    this.headName = Utils.safeTrim(head);
+  }
+  
+  public EmployeeReportVO(int employeeId, String firstName, String lastName, String middleName, 
+		  String email, String phone, String pan, String aadhar, Date dob, String department, 
+		  String head, String designation, String addressLine1, String addressLine2, String addressLine3, 
+		  String gender, Date joiningDate)
   {
     this.employeeId = employeeId;
     
@@ -74,7 +108,9 @@ public class EmployeeReportVO implements Serializable {
     this.headName = Utils.safeTrim(head);
   }
   
-  public EmployeeReportVO(int employeeId, String firstName, String lastName, String middleName, String email, String phone, String pan, String aadhar, Date dob, String department, String designation, String addressLine1, String addressLine2, String addressLine3, String gender, Date joiningDate, SalaryVO salVo)
+  public EmployeeReportVO(int employeeId, String firstName, String lastName, String middleName, String email, String phone, 
+		  String pan, String aadhar, Date dob, String department, String designation, String addressLine1, String addressLine2, 
+		  String addressLine3, String gender, Date joiningDate, SalaryVO salVo)
   {
     this.employeeId = employeeId;
     
@@ -253,4 +289,40 @@ public class EmployeeReportVO implements Serializable {
   {
     this.headName = headName;
   }
+
+public EmpContactVO getEmpContact() {
+	return empContact;
+}
+
+public void setEmpContact(EmpContactVO empContact) {
+	if (empContact == null) {
+		this.address = "";
+		this.secAddress = "";
+		empContact = new EmpContactVO();
+	} else {
+		this.empContact = empContact;
+		Map<String, String> statesMap = new EmployeeService().getIndianStates();
+		this.address = Utils.safeTrim(empContact.getAddressLine1()) + ", " ;
+		this.address += Utils.isEmpty(empContact.getAddressLine2())? "" : Utils.safeTrim(empContact.getAddressLine2()) + ", "; 
+		this.address += Utils.isEmpty(empContact.getAddressLine3())? "" : Utils.safeTrim(empContact.getAddressLine3()) + ", ";
+		this.address += Utils.isEmpty(empContact.getCity())? "" : Utils.safeTrim(empContact.getCity())+ ", ";
+		this.address += Utils.isEmpty(empContact.getState())? "" : statesMap.get(Utils.safeTrim(empContact.getState())) + ", ";
+		this.address += Utils.isEmpty(empContact.getPin())? "" : Utils.safeTrim(empContact.getPin());
+		 
+		this.secAddress = Utils.safeTrim(empContact.getSecAddressLine1()) + ", " ;
+		this.secAddress += Utils.isEmpty(empContact.getSecAddressLine2())? "" : Utils.safeTrim(empContact.getSecAddressLine2()) + ", "; 
+		this.secAddress += Utils.isEmpty(empContact.getSecAddressLine3())? "" : Utils.safeTrim(empContact.getSecAddressLine3()) + ", ";
+		this.secAddress += Utils.isEmpty(empContact.getSecCity())? "" : Utils.safeTrim(empContact.getSecCity())+ ", ";
+		this.secAddress += Utils.isEmpty(empContact.getSecState())? "" : Utils.safeTrim(empContact.getSecState()) + ", ";
+		this.secAddress += Utils.isEmpty(empContact.getSecPin())? "" : Utils.safeTrim(empContact.getSecPin());
+	}
+}
+
+public String getSecAddress() {
+	return secAddress;
+}
+
+public void setSecAddress(String secAddress) {
+	this.secAddress = secAddress;
+}
 }

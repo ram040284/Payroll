@@ -1,5 +1,24 @@
 package com.payroll.rest;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.payroll.Utils;
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.SearchCriteria;
@@ -8,21 +27,6 @@ import com.payroll.headInfo.vo.HeadInfoVO;
 import com.payroll.report.business.EmployeeReportService;
 import com.payroll.report.vo.EmpAllowanceReportVO;
 import com.payroll.report.vo.EmployeeReportVO;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class EmployeeReportController
@@ -175,21 +179,24 @@ public class EmployeeReportController
     String csvFileName = "EmployeeReport_" + format.format(new Date()) + ".csv";
     
     List<EmployeeReportVO> employeesList = (List)request.getSession().getAttribute("employees");
-    StringBuilder fileContent = new StringBuilder("Name, Department, Head, Designation, Gender, Date of Birth, Joining Date, Phone, Email, Address, PAN, Aadhar,").append("\n");
+    StringBuilder fileContent = new StringBuilder("Name, Department, Head, Designation, Date of Birth, Gender, Joining Date, PAN, Aadhar, Primary Phone, Primary Email, Primary Address, Secondary Phone, Secondary Email, Secondary Address,").append("\n");
     for (EmployeeReportVO employeeVO : employeesList)
     {
       fileContent.append(employeeVO.getFullName()).append(", ");
       fileContent.append(employeeVO.getDepartment()).append(", ");
       fileContent.append(employeeVO.getHeadName()).append(", ");
       fileContent.append(employeeVO.getDesignation()).append(", ");
-      fileContent.append(employeeVO.getAddress()).append(", ");
       fileContent.append(employeeVO.getDob()).append(", ");
       fileContent.append(employeeVO.getGender()).append(", ");
       fileContent.append(employeeVO.getJoiningDate()).append(", ");
-      fileContent.append(employeeVO.getPhone()).append(", ");
-      fileContent.append(employeeVO.getEmail()).append(", ");
-      fileContent.append(employeeVO.getAdharNo()).append(", ");
-      fileContent.append(employeeVO.getPan()).append(", ");
+      fileContent.append(Utils.safeTrim(employeeVO.getAdharNo())).append(", ");
+      fileContent.append(Utils.safeTrim(employeeVO.getPan())).append(", ");
+      fileContent.append(Utils.safeTrim(employeeVO.getEmpContact().getPhone())).append(", ");
+      fileContent.append(Utils.safeTrim(employeeVO.getEmpContact().getEmail())).append(", ");
+      fileContent.append(Utils.safeTrim(employeeVO.getAddress())).append(", ");
+      fileContent.append(Utils.safeTrim(employeeVO.getEmpContact().getSecPhone())).append(", ");
+      fileContent.append(Utils.safeTrim(employeeVO.getEmpContact().getSecEmail())).append(", ");
+      fileContent.append(Utils.safeTrim(employeeVO.getSecAddress())).append(", ");
       fileContent.append("\n");
     }
     response.setContentType("text/csv");

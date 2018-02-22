@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,7 +103,7 @@ function inputPage(){
 		<div style="margin-top: 6px; float: left; width: 100%;">
 			
 			<div id="empListDiv" class="rptTblClass" style="width: 100%;">
-			<table id="empLeaveTable" class="table table-striped table-bordered table-hover table-responsive">
+			<table id="empLeaveTable" class="table table-striped table-bordered table-responsive">
 			<thead>
 				<tr>
 					<th>Employee</th>
@@ -118,8 +119,8 @@ function inputPage(){
 					<td> ${leave.employee.firstName} ${leave.employee.middleName} ${leave.employee.lastName}</td>
 					<td> ${leave.leave.leaveType}</td>
 					<td> ${leave.leave.leaveBalance}</td>
-					<td> ${leave.fromDate}</td>
-					<td> ${leave.toDate}</td>
+					<td> <fmt:formatDate pattern = "dd/MM/yyyy" value = "${leave.fromDate}"/></td>
+					<td> <fmt:formatDate pattern = "dd/MM/yyyy" value = "${leave.toDate}"/></td>
 					<td> ${leave.noOfLeaves} </td>
 					<td> ${leave.reason}</td>
 				</tr>

@@ -1,6 +1,5 @@
 package com.payroll.report.dataobjects;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,14 +9,10 @@ import org.hibernate.Session;
 
 import com.payroll.HibernateConnection;
 import com.payroll.Utils;
-import com.payroll.employee.salary.dataobjects.SalaryDAO;
+import com.payroll.employee.dataobjects.EmployeeDAO;
 import com.payroll.employee.salary.vo.SalaryVO;
 import com.payroll.report.vo.EmpAllowanceReportVO;
 import com.payroll.report.vo.EmployeeReportVO;
-
-// Referenced classes of package com.payroll.report.vo:
-//            EmployeeReportVO, EmpAllowanceReportVO
-
 public class EmployeeReportDAO
 {
 
@@ -29,6 +24,64 @@ public class EmployeeReportDAO
     }
 
     public List getEmployees(int deptId, int headId, String name)
+    {
+        List employeeList;
+        Session session;
+        employeeList = null;
+        session = null;
+        try
+        {
+            StringBuffer searchCriteria = new StringBuffer("");
+            searchCriteria.append(" select new com.payroll.report.vo.EmployeeReportVO(e.employeeId, e.firstName, e.lastName, e.middleName," +
+            " e.pan, e.adharNo, e.dob,(select dept.departmantName from Department dept where dept.departmentId = " +
+            "(select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId)),"+
+            "(select h.headName from HeadInfo h where h.headId = (select eMas.headInfo.headId from EmpHeadInfo eMas "+
+            " where eMas.employee.employeeId = e.employeeId)),(select desg.designationName from Designation desg where desg.designationId " +
+			" = (select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId)), " +
+            " e.gender, e.joiningDate) from Employee e where e.status= ?");
+            
+            if(deptId != 0)
+            {
+                searchCriteria.append(" and e.employeeId = (select eDept.employee.employeeId from EmpDepartment eDept where " +
+                		"e.employeeId = eDept.employee.employeeId and eDept.department.departmentId = ?)");
+            }
+            if(headId != 0)
+            {
+                searchCriteria.append(" and e.employeeId = (select eMas.employee.employeeId from EmpHeadInfo eMas where" +
+                		" e.employeeId = eMas.employee.employeeId and eMas.headInfo.headId = ?)");
+            }
+            if(!Utils.isEmpty(name))
+            {
+                searchCriteria.append(" and (e.firstName like :fname or e.middleName like :mname or e.lastName like :lname)");
+            }
+            session = HibernateConnection.getSessionFactory().openSession();
+            Query query = session.createQuery(searchCriteria.toString());
+            int i = 0;
+            query.setParameter(i++, "A");
+            if(deptId != 0)
+            {
+                query.setParameter(i++, Integer.valueOf(deptId));
+            }
+            if(headId != 0)
+            {
+                query.setParameter(i++, Integer.valueOf(headId));
+            }
+            employeeList = query.list();
+            
+            for (EmployeeReportVO emp : (List<EmployeeReportVO>)employeeList) {
+            	emp.setEmpContact(new EmployeeDAO().getEmployeeContactDetailsById(emp.getEmployeeId()));
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+        HibernateConnection.closeSession(session);
+        return employeeList;
+    }
+    
+   /* public List getEmployees(int deptId, int headId, String name)
     {
         List employeeList;
         Session session;
@@ -101,7 +154,7 @@ public class EmployeeReportDAO
         
         HibernateConnection.closeSession(session);
         return employeeList;
-    }
+    } */
 
     public SalaryVO getEmpSalary(int empId)
     {

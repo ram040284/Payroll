@@ -66,7 +66,7 @@ function getHeadsByDept(deptId, headId) {
 </div>  
 <div id="searchDiv" style="width:100%;margin-top:0px;" class="formDiv">
 	<form method = "POST" action = "../Payroll/employee" name="empSearch">
-	<div  class="col-sm-12" style="margin-top:0px; margin-bottom:10px; padding-top:5px; padding-bottom:10px;float: left;">
+	<div  class="col-sm-12" style="width:100%;margin-top:0px; margin-bottom:10px; padding-top:5px; padding-bottom:10px;float: left;">
 	<div class="row">
 	<div class="col-sm-3">
 		<label>Department </label> 
