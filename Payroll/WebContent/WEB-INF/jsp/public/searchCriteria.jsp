@@ -1,7 +1,6 @@
 <link href="../Payroll/resources/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
 <script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
 <script src="../Payroll/resources/js/dataTables.bootstrap.min.js"></script>
-
 <style type="text/css">
 table.dataTable thead .sorting_asc { 
 background: url('../Payroll/resources/images/uparrow.png') no-repeat right bottom 8px; 

@@ -11,7 +11,8 @@ import com.payroll.employee.salary.vo.SalaryVO;
 import com.payroll.employee.vo.EmpContactVO;
 
 public class EmployeeReportVO implements Serializable {
-  private String firstName;
+
+	private String firstName;
   private String lastName;
   private String middleName;
   private String designation;

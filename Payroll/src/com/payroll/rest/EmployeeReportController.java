@@ -31,6 +31,7 @@ import com.payroll.report.vo.EmployeeReportVO;
 @Controller
 public class EmployeeReportController
 {
+	
   @RequestMapping(value={"/employeeSearch"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public ModelAndView getEmployeesSearch(HttpServletRequest request, ModelMap modelMap)
   {

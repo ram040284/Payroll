@@ -115,7 +115,6 @@ alert("${message}");
 		<jsp:include page="../jsp/public/searchCriteria.jsp" />
 		<c:if test="${sessionScope.empLeaveList.size() gt 0}">
 		<div style="margin-top: 6px; float: left; width: 100%;">
-			
 			<div id="empListDiv" class="rptTblClass" style="width: 100%;">
 			<table id="empLeaveTable" class="table table-striped table-bordered table-responsive">
 			<thead>
