@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +40,7 @@ $(document).ready(function() {
 	<c:if test="${sessionScope.empSalaryReport.size() gt 0}">
 	<div  class="container" class="row" style ="position: relative;">
 	<div id="empListDiv" style ="width:100%;overflow-x: auto;overflow-y: auto;min-height:10px;max-height:380px;">
-		<table id="empRptTable" class="rptTblClass table table-striped table-bordered table-hover table-responsive">
+		<table id="empRptTable" class="rptTblClass table table-striped table-bordered table-responsive">
 		<thead>
 			<tr>
 			<th>Name</th>

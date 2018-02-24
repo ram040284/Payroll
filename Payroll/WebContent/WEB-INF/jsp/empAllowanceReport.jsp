@@ -1,5 +1,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,7 +79,7 @@ $(document).ready(function() {
 	<c:if test="${sessionScope.empAllowanceReport.size() ge 0}">
 	<div  class="container" class="row" style ="position: relative;">
 	<div id="empListDiv" class="rptTblClass" style ="width:100%;">
-		<table id="empRptTable" class="table table-striped table-bordered table-hover table-responsive">
+		<table id="empRptTable" class="table table-striped table-bordered table-responsive">
 		<thead>
 			<tr>
 			<th>Name</th>
@@ -95,16 +97,16 @@ $(document).ready(function() {
 			<c:forEach var="employee" items="${sessionScope.empAllowanceReport}">
 			<tr>
 			<td> ${employee.fullName} </td>
-			<td> ${employee.department}</td>
-			<td> ${employee.headName}</td>
-			<td> ${employee.cca}</td>
-			<td> ${employee.washingAllowance}</td>
-			<td> ${employee.convAllowance}</td>
-			<td> ${employee.nonPractAllowance}</td>
-			<td> ${employee.uniformAllowance} </td>
-			<td> ${employee.familyPlanAllowance}</td>
-			<td> ${employee.cycleAllowance}</td>
-			<td> ${employee.hraFlag? "Yes":"No"}</td>
+			<td> ${employee.department} </td>
+			<td> ${employee.headName} </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.cca}"  pattern="#,##,##,##,##0.00"/> </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.washingAllowance}"  pattern="#,##,##,##,##0.00"/> </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.convAllowance}"  pattern="#,##,##,##,##0.00"/> </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.nonPractAllowance}" pattern="#,##,##,##,##0.00"/> </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.uniformAllowance}" pattern="#,##,##,##,##0.00"/> </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.familyPlanAllowance}" pattern="#,##,##,##,##0.00"/> </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.cycleAllowance}" pattern="#,##,##,##,##0.00"/> </td>
+			<td> ${employee.hraFlag? "Yes":"No"} </td>
 			</tr>
 			</c:forEach>
 			
@@ -115,7 +117,7 @@ $(document).ready(function() {
 
 <c:if test="${sessionScope.empAllowanceReport.size() gt 0}">
 	<div id="empListPrintDiv" class="rptTblClass" style ="width:100%;overflow-x: auto;overflow-y: auto;min-height:10px;max-height:380px;display:none;" >
-		<table id="empRptPrintTable" class="table table-striped table-bordered table-hover table-responsive">
+		<table id="empRptPrintTable" class="table table-striped table-bordered table-responsive">
 		<thead>
 			<tr>
 			<th>Name</th>
@@ -133,16 +135,16 @@ $(document).ready(function() {
 			<c:forEach var="employee" items="${sessionScope.empAllowanceReport}">
 			<tr>
 			<td> ${employee.fullName} </td>
-			<td> ${employee.department}</td>
-			<td> ${employee.headName}</td>
-			<td> ${employee.cca}</td>
-			<td> ${employee.washingAllowance}</td>
-			<td> ${employee.convAllowance}</td>
-			<td> ${employee.nonPractAllowance}</td>
-			<td> ${employee.uniformAllowance} </td>
-			<td> ${employee.familyPlanAllowance}</td>
-			<td> ${employee.cycleAllowance}</td>
-			<td> ${employee.hraFlag? "Yes":"No"}</td>
+			<td> ${employee.department} </td>
+			<td> ${employee.headName} </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.cca}"  pattern="#,##,##,##,##0.00"/> </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.washingAllowance}"  pattern="#,##,##,##,##0.00"/> </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.convAllowance}"  pattern="#,##,##,##,##0.00"/> </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.nonPractAllowance}" pattern="#,##,##,##,##0.00"/> </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.uniformAllowance}" pattern="#,##,##,##,##0.00"/> </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.familyPlanAllowance}" pattern="#,##,##,##,##0.00"/> </td>
+			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.cycleAllowance}" pattern="#,##,##,##,##0.00"/> </td>
+			<td> ${employee.hraFlag? "Yes":"No"} </td>
 			</tr>
 			</c:forEach>
 		</table>

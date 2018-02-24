@@ -115,9 +115,8 @@ alert("${message}");
 		<jsp:include page="../jsp/public/searchCriteria.jsp" />
 		<c:if test="${sessionScope.employees.size() gt 0}">
 		<div style="margin-top: 6px; float: left; width: 100%;">
-			
 			<div id="empListDiv" class="rptTblClass" style="width: 100%;">
-			<table id="empContactTable" class="table table-striped table-bordered table-hover table-responsive">
+			<table id="empContactTable" class="table table-striped table-bordered table-responsive">
 			<thead>
 				<tr>
 					<th>Name</th>

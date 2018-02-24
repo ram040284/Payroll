@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -162,10 +163,10 @@ h3 {font-size:16pt;}
 		</div>
 		<%--<c:if test="${not empty sessionScope.user}"> --%>
 		<div class="wrapper" style="background:#3b589a;">
-		<div class="container" style="height:35px;">
+		<div class="container">
 			<!-- End Form Search -->
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" style="float: left;margin:2px;">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" style="float: left;">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -173,14 +174,14 @@ h3 {font-size:16pt;}
 				</button>
 			</div>
 			<div class="navlink-right">
-						<div class="dropdown shopping-cart" style="margin:1px;">
+						<div class="dropdown shopping-cart">
 							<button class="btn-navlink" type="button" data-toggle="dropdown" id="logoutBtn" onclick="logoutEvent();">
-								<i class="fa fa-sign-out fa-4" style="color:#ffff; float:right;font-size:30px;"></i>
+								<i class="fa fa-sign-out fa-4" style="color:#ffff; float:right;font-size:30px;padding:5px;"></i>
 							</button>
 						</div>
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav navbar-left" style="margin:2px;">
+				<ul class="nav navbar-nav navbar-left">
 					<li><a href="../Payroll/dashboard">Home</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Masters <span class="caret"></span></a>

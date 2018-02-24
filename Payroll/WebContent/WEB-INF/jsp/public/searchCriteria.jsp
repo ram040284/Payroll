@@ -1,7 +1,6 @@
 <link href="../Payroll/resources/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
 <script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
 <script src="../Payroll/resources/js/dataTables.bootstrap.min.js"></script>
-
 <style type="text/css">
 table.dataTable thead .sorting_asc { 
 background: url('../Payroll/resources/images/uparrow.png') no-repeat right bottom 8px; 
@@ -66,7 +65,7 @@ function getHeadsByDept(deptId, headId) {
 </div>  
 <div id="searchDiv" style="width:100%;margin-top:0px;" class="formDiv">
 	<form method = "POST" action = "../Payroll/employee" name="empSearch">
-	<div  class="col-sm-12" style="margin-top:0px; margin-bottom:10px; padding-top:5px; padding-bottom:10px;float: left;">
+	<div  class="col-sm-12" style="width:100%;margin-top:0px; margin-bottom:10px; padding-top:5px; padding-bottom:10px;float: left;">
 	<div class="row">
 	<div class="col-sm-3">
 		<label>Department </label> 
