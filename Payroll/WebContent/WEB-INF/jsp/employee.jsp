@@ -410,8 +410,8 @@ function loadDesgByHead(headId) {
 								
 								<select id="gender" class="form-control">
 								<option value="">-- Select Gender --</option>
-								<option value="male">Male</option>
-								<option value="Female">Female</option>
+								<option value="MALE">Male</option>
+								<option value="FEMALE">Female</option>
 								</select>
 						</div>
 							<div class="col-sm-4 form-group">

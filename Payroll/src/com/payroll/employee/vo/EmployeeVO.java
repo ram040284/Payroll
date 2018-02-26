@@ -67,9 +67,11 @@ public class EmployeeVO implements Serializable{
 	}
 	
 	public EmployeeVO(int employeeId, String firstName, String lastName, String middleName,
-			String email, String phone, String pan, String aadhar, Date dob, String department,
-			String headName, String designation, String addressLine1, String addressLine2, 
-			String addressLine3, String gender, Date joiningDate){
+			//String email, String phone, 
+			String pan, String aadhar, Date dob, String department,
+			String headName, String designation, 
+			//String addressLine1, String addressLine2, String addressLine3, 
+			String gender, Date joiningDate){
 		this.employeeId = employeeId;
 		
 		this.email = email;
@@ -82,19 +84,21 @@ public class EmployeeVO implements Serializable{
 		this.designation = designation;
 		this.department = department;
 		this.dob = (dob != null) ? dateFormat.format(dob) : "";
-		this.addressLine1 = addressLine1;
+		/*this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
-		this.addressLine3 = addressLine3;
+		this.addressLine3 = addressLine3;*/
 		this.gender = gender; 
 		this.fullName = getName(firstName, middleName, lastName);
 		this.headName = headName;
 		this.joiningDate = (joiningDate != null) ? dateFormat.format(joiningDate) : "";
 	}
 	
-	public EmployeeVO(int employeeId, String firstName, String lastName, String middleName,
-			String email, String phone, String pan, String aadhar, Date dob, int departmentId,
-			int headId, int designationId, String addressLine1, String addressLine2, String addressLine3, 
-			String gender, Date joiningDate){
+	public EmployeeVO(Integer employeeId, String firstName, String lastName, String middleName,
+			//String email, String phone, 
+			String pan, String aadhar, Date dob, Integer departmentId,
+			Integer headId, Integer designationId, 
+			//String addressLine1, String addressLine2, String addressLine3, 
+			String gender, Date joiningDate, Date retirementDate){
 		this.employeeId = employeeId;
 		
 		this.email = email;
@@ -117,12 +121,15 @@ public class EmployeeVO implements Serializable{
 		this.middleName = middleName;
 		this.headId = headId;
 		this.joiningDate = (joiningDate != null) ? dateFormat.format(joiningDate) : "";
+		this.retirementDate = (retirementDate != null) ? dateFormat.format(retirementDate) : "";
 	}
 	
 	public EmployeeVO(int employeeId, String firstName, String lastName, String middleName,
-			String email, String phone, String pan, String aadhar, Date dob, int deptId, String department,
-			String headName, String designation, String addressLine1, String addressLine2, 
-			String addressLine3, String gender, Date joiningDate){
+			//String email, String phone, 
+			String pan, String aadhar, Date dob, int deptId, String department,
+			String headName, String designation, 
+			//String addressLine1, String addressLine2, String addressLine3, 
+			String gender, Date joiningDate){
 		this.employeeId = employeeId;
 		
 		this.email = email;

@@ -29,12 +29,14 @@ public class EmployeeDAO {
 			//String queryString = " from Employee";
 			StringBuffer searchCriteria = new StringBuffer("");
 			searchCriteria.append(" select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName,"
-					+ " e.email, e.phone, e.pan, e.adharNo, e.dob,"
+					//+ " e.email, e.phone, "
+					+ " e.pan, e.adharNo, e.dob,"
 					+ "(select dept.departmantName from Department dept where dept.departmentId = (select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId)),"
 					+ "(select h.headName from HeadInfo h where h.headId = (select eMas.headInfo.headId from EmpHeadInfo eMas where eMas.employee.employeeId = e.employeeId)),"
 					+ "(select desg.designationName from Designation desg where desg.designationId = "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId)), "
-					+ "e.addressLine1, e.addressLine2, e.addressLine3, e.gender, e.joiningDate) from Employee e where e.status= ?");		
+					//+ "e.addressLine1, e.addressLine2, e.addressLine3, e.gender, e.joiningDate) from Employee e where e.status= ?");
+					+ "e.gender, e.joiningDate) from Employee e where e.status= ?");
 			
 			if(deptId != 0)
 				searchCriteria.append(" and e.employeeId = (select eDept.employee.employeeId from EmpDepartment eDept where e.employeeId = eDept.employee.employeeId and eDept.department.departmentId = ?)");
@@ -116,17 +118,19 @@ public class EmployeeDAO {
 		try{
 			//String queryString = " from Employee e where e.employeeId = ?";
 			String queryString = " select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName,"
-					+ " e.email, e.phone, e.pan, e.adharNo, e.dob, (select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), "
+					//+ " e.email, e.phone, "
+					+ " e.pan, e.adharNo, e.dob, (select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), "
 					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = e.employeeId), "
-					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId and eDesg.lastWokingDate is null), "
-					+ "e.addressLine1, e.addressLine2, e.addressLine3, e.gender, e.joiningDate) from Employee e where e.employeeId = ? and e.status = ?";		
+					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId), "
+					//+ "e.addressLine1, e.addressLine2, e.addressLine3, "
+					+ "e.gender, e.joiningDate, e.retirementDate) from Employee e where e.employeeId = ? and e.status = ?";		
 			if(session == null || !session.isOpen()) 
 				session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
 			query.setParameter(0, empId);
 			query.setParameter(1, "A");
 			employee = (EmployeeVO)(!(query.list().isEmpty()) ? query.list().get(0) : null);
-			
+			System.out.println("employee:"+employee);
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
@@ -386,11 +390,13 @@ public class EmployeeDAO {
 		EmployeeVO employee = null;
 		try{
 			String queryString = " select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName,"
-					+ " e.email, e.phone, e.pan, e.adharNo, e.dob, (select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), " 
+					//+ " e.email, e.phone, "
+					+ "e.pan, e.adharNo, e.dob, (select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), " 
 					+ "(select eDept.department.departmantName from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), "
 					+ "(select dh.headInfo.headName from EmpHeadInfo dh where dh.employee.employeeId = e.employeeId), "
 					+ "(select eDesg.designation.designationName from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId and eDesg.lastWokingDate is null), "
-					+ "e.addressLine1, e.addressLine2, e.addressLine3, e.gender, e.joiningDate) from Employee e where e.employeeId = ? and e.status = ? ";		
+					//+ "e.addressLine1, e.addressLine2, e.addressLine3, "
+					+ "e.gender, e.joiningDate) from Employee e where e.employeeId = ? and e.status = ? ";		
 			if (deptId != 0) {
 				queryString += " and e.employeeId = (select eDept1.employee.employeeId from EmpDepartment eDept1 where eDept1.employee.employeeId=e.employeeId and eDept1.department.departmentId = ? )";	
 			}
