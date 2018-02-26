@@ -106,6 +106,9 @@ public class EmployeeService {
 			dbEmp.setDesignationId(emp.getDesignationId());
 			dbEmp.setGender(emp.getGender());
 			dbEmp.setHeadId(emp.getHeadId());
+			if(!Utils.isEmpty(emp.getRetirementDate()))
+				dbEmp.setRetirementDate(dateFormat.parse(emp.getRetirementDate()));
+			
 			//dbEmp.setRowUpdatedDate(new Date());
 		}catch(Exception e){
 			e.printStackTrace();
@@ -137,6 +140,7 @@ public class EmployeeService {
 			dbEmp.setGender(emp.getGender());
 			System.out.println("headId:"+emp.getHeadId());
 			dbEmp.setHeadId(emp.getHeadId());
+			dbEmp.setRetirementDate(emp.getRetirementDate());
 		}catch(Exception e){
 			e.printStackTrace();
 		}
