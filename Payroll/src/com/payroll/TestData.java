@@ -11,6 +11,7 @@ import com.payroll.employee.salary.dataobjects.Salary;
 
 public class TestData {
 	
+	
 	public static Salary getSalary(int empId){
 		Salary sal = new Salary();
 		sal.setBasic(1000);
