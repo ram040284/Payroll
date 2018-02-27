@@ -79,7 +79,7 @@ public class EmployeeDAO {
 					+ "e.lastName, e.middleName) from Employee e where e.status = ? and e.employeeId = "
 					+ "(select eDept.employeeId from EmpDepartment eDept where eDept.employee.employeeId=e.employeeId and eDept.department.departmentId = ? ) and "
 					+ "e.employeeId = (select eDesg.employee.employeeId from EmpDesignation eDesg where eDesg.employeeId=e.employeeId and "
-					+ " eDesg.designationId = ? and eDesg.lastWokingDate is null)";		
+					+ " eDesg.designationId = ?)";		
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
 			query.setParameter(0, "A");
@@ -394,7 +394,7 @@ public class EmployeeDAO {
 					+ "e.pan, e.adharNo, e.dob, (select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), " 
 					+ "(select eDept.department.departmantName from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), "
 					+ "(select dh.headInfo.headName from EmpHeadInfo dh where dh.employee.employeeId = e.employeeId), "
-					+ "(select eDesg.designation.designationName from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId and eDesg.lastWokingDate is null), "
+					+ "(select eDesg.designation.designationName from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId), "
 					//+ "e.addressLine1, e.addressLine2, e.addressLine3, "
 					+ "e.gender, e.joiningDate) from Employee e where e.employeeId = ? and e.status = ? ";		
 			if (deptId != 0) {
@@ -428,7 +428,7 @@ public class EmployeeDAO {
 			/*String queryString = " select new com.payroll.employee.vo.EmpContactVO(e.employeeId, ec.empContactId, e.firstName, e.lastName, e.middleName,"
 					+ "(select eDept.department.departmantName from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), "
 					+ "(select dh.headInfo.headName from EmpHeadInfo dh where dh.employee.employeeId = e.employeeId), "
-					+ "(select eDesg.designation.designationName from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId and eDesg.lastWokingDate is null), "
+					+ "(select eDesg.designation.designationName from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId), "
 					+ " ec.email, ec.phone, ec.addressLine1, ec.addressLine2, ec.addressLine3, ec.secEmail, ec.secPhone, ec.secAddressLine1, ec.secAddressLine2, ec.secAddressLine3)"
 					+ " from EmpContact ec JOIN ec.employee e with e.employeeId = ec.employee.employeeId where e.employeeId = ? and e.status = ? ";	*/	
 			

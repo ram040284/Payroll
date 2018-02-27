@@ -48,9 +48,8 @@ public class EmpPfDAO {
 				String queryString = " select new com.payroll.employee.pf.vo.EmpPfVO(p.employee.employeeId, "
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = p.employee.employeeId and dept.status = 'A'), "
 						//+ "from EmpDepartment eDept where eDept.empId = b.empId)), (select desg.designationId "
-						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = p.employee.employeeId and desg.lastWokingDate is null and desg.status='A'), "
-						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = p.employee.employeeId and dh.lastWokingDate is null and dh.status = 'A'), "
-						//+ "(select eDesg.designationId from EmpDesignation eDesg where eDesg.empId = b.empId and eDesg.lastWokingDate is null)), "
+						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = p.employee.employeeId and desg.status='A'), "
+						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = p.employee.employeeId and dh.status = 'A'), "
 						+" p.pfDate, p.pfsCpfCntrbn, p.pfLoneRecAmt, "
 						+ "p.cfLoneRecAmt, p.apfAcpfCntrbn) from EmpPf p where p.employee.employeeId = ? and p.status = ? ";		
 				

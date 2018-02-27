@@ -75,26 +75,26 @@ $(document).ready(function() {
 			return false;
 		}
 		var basicVal = $('#basic').val().trim();
-		if(basicVal){
-			if(!checkAmount(basicVal)){
+		if(basicVal != ""){
+			if(isNaN(basicVal)){
 				alert("Invalid Basic Pay!");
 				$('#basic').focus();
 				return false;
 			}
 		}else {
-			alert("Basic Pay must be valid!");
+			alert("Basic Pay must be provided!");
 			$('#basic').focus();
 			return false;
 		}
 		var gradePayVal = $('#gradePay').val().trim();
 		if(gradePayVal){
-			if(!checkAmount(gradePayVal)){
-				alert("Invalid Basic Pay!");
+			if(isNaN(gradePayVal)){
+				alert("Invalid Grade Pay!");
 				$('#gradePay').focus();
 				return false;
 			}
 		}else {
-			alert("Grade Pay must be valid!");
+			alert("Grade Pay must be provided!");
 			$('#gradePay').focus();
 			return false;
 		}
@@ -108,8 +108,8 @@ $(document).ready(function() {
 			$('#gradePay').focus();
 			return false;
 		}--%>
-		if($('#scalePay').val() < 1){
-			alert("Scale Pay must be valid!");
+		if($('#scalePay').val().trim() == ""){
+			alert("Scale Pay must be provided!");
 			$('#scalePay').focus();
 			return false;
 		}
@@ -202,22 +202,23 @@ function checkAmount(value){
 							
 							</div>
 							<div class="row">
-								<div class="col-sm-6 form-group">
+								<div class="col-sm-4 form-group">
 									<label>Basic Pay:</label>
 									<form:input path="basic"  id="basic" placeholder="Enter Basic Pay" class="form-control"/>
 									
 								</div>
-								<div class="col-sm-6 form-group">
+								<div class="col-sm-4 form-group">
 									<label>Grade Pay:</label>
 									<form:input path="gradePay"  id="gradePay" placeholder="Enter Grade Pay" class="form-control"/>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-6 form-group">
+								<div class="col-sm-4 form-group">
 									<label>Scale Pay:</label>
 									<form:input path="scalePay"  id="scalePay" placeholder="Enter Scale Pay" class="form-control"/>
-									
+									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${salary.employeeId != '0'}" > value="1" </c:if>/>
 								</div>
+								
+							</div>
+							<%--<div class="row">
 								<div class="col-sm-6 form-group">
 									<label>Scale Increment:</label>
 									<form:input path="scaleInc"  id="scaleInc" placeholder="Enter Scale Inc" class="form-control"/>
@@ -225,7 +226,7 @@ function checkAmount(value){
 									
 								</div>
 							</div>
-							
+							 --%>
 							<div class="row">	
 								<div class="text-right">
 									<button type="button" id="addSalaryBtn" class="btn">Submit</button>

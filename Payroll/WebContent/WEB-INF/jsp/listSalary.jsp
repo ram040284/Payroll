@@ -18,7 +18,7 @@
                 			.append($('<td/>').text(salary.basic))
                 			.append($('<td/>').text(salary.gradePay))
                 			.append($('<td/>').text(salary.scalePay))
-                			.append($('<td/>').text(salary.scaleInc))
+                			<%--.append($('<td/>').text(salary.scaleInc))--%>
                 			.append($('<td/>').append('<a href="#" onclick=viewSalary('+salary.employeeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteSalary('+salary.employeeId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                 	  
                   });
@@ -66,7 +66,7 @@
 					<th>Basic Pay</th>
 					<th>Grade Pay</th>
 					<th>Scale Pay</th>
-					<th>Scale Increment</th>
+					<%--<th>Scale Increment</th>--%>
 					<th><a href="#" onclick="inputSalary()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
 					</th>

@@ -48,10 +48,10 @@ public class EmpLicDAO {
 						/*+ "(select dept.departmentId from Department dept where dept.departmentId = (select eDept.departmentId "
 						+ "from EmpDepartment eDept where eDept.empId = l.empId)), (select desg.designationId "
 						+ "from Designation desg where desg.designationId = (select eDesg.designationId from EmpDesignation eDesg "
-						+ "where eDesg.empId = l.empId and eDesg.lastWokingDate is null)), "*/
+						+ "where eDesg.empId = l.empId)), "*/
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = l.employee.employeeId and dept.status = 'A'), "
-						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = l.employee.employeeId and desg.lastWokingDate is null and desg.status='A'), "
-						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = l.employee.employeeId and dh.lastWokingDate is null and dh.status = 'A'), "
+						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = l.employee.employeeId and desg.status='A'), "
+						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = l.employee.employeeId and dh.status = 'A'), "
 						+ "l.policyNo, l.paymentDate, l.paymentAmount) from EmpLic l where l.status = ? and l.employee.employeeId = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();

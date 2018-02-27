@@ -45,8 +45,8 @@ public class EmpDeductionsDAO {
 			try{
 				String queryString = " select new com.payroll.employee.deductions.vo.EmpDeductionsVO(d.employee.employeeId, "
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = d.employee.employeeId and dept.status = 'A'), "
-						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = d.employee.employeeId and desg.lastWokingDate is null and desg.status='A'), "
-						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = d.employee.employeeId and dh.lastWokingDate is null and dh.status = 'A'), "
+						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = d.employee.employeeId and desg.status='A'), "
+						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = d.employee.employeeId and dh.status = 'A'), "
 						+" d.section80C, d.cess, d.homeLoanIntrst88EE, d.selfDisable80U)"
 						+ " from EmpDeductions d where d.employee.employeeId = ? and d.status = ? ";		
 				

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.payroll.employee.allowance.dataobjects.EmpAllowance;
 import com.payroll.employee.bank.vo.BankVO;
+import com.payroll.employee.deductions.dataobjects.EmpDeductions;
 import com.payroll.employee.lic.dataobjects.EmpLic;
 import com.payroll.employee.pf.dataobjects.EmpPf;
 import com.payroll.employee.salary.dataobjects.Salary;
@@ -16,7 +17,7 @@ public class TestData {
 		sal.setGradePay(1000);
 		sal.setEmployeeId(empId);
 		sal.setScaleInc(10);
-		sal.setScalePay(1000);
+		sal.setScalePay("1000-5000");
 		return sal;
 	}
 	
@@ -53,6 +54,15 @@ public class TestData {
 		alw.setUniformAlwance(400);
 		alw.setWashingAlwance(600);
 		return alw;
+	}
+	
+	public static EmpDeductions getEmpDeductions(int empId){
+		EmpDeductions empDeductions = new EmpDeductions();
+		empDeductions.setHomeLoanIntrst88EE(1000);
+		empDeductions.setSection80C(20000);
+		empDeductions.setSelfDisable80U(2000);
+		empDeductions.setEmployeeId(empId);
+		return empDeductions;
 	}
 	
 	public static BankVO getBAnkDetails(int empId){

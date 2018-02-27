@@ -45,9 +45,8 @@ public class EmpQuartersDAO {
 			try{
 				String queryString = " select new com.payroll.employee.qtr.vo.EmpQuartersVO(q.employee.employeeId, q.afkQtr, "
 								+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = q.employee.employeeId and dept.status = 'A'), "
-								//+ "from EmpDepartment eDept where eDept.empId = b.empId)), (select desg.designationId "
-								+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = q.employee.employeeId and desg.lastWokingDate is null and desg.status='A'), "
-								+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = q.employee.employeeId and dh.lastWokingDate is null and dh.status = 'A'))"
+								+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = q.employee.employeeId and desg.status='A'), "
+								+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = q.employee.employeeId and dh.status = 'A'))"
 								+ "from EmpQuarters q where q.employee.employeeId = ? and q.status= ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();

@@ -30,6 +30,11 @@ function generatePaybill(){
 		$('#departmentId').focus();
 		return false;
 	}
+	if($('#monthDate').val().trim()== ""){
+		alert('Date must be provided!');
+		$('#monthDate').focus();
+		return false;
+	}
 	
 	var f = document.forms['paybillForm'];
 	f.action="../Payroll/generatePaybills";

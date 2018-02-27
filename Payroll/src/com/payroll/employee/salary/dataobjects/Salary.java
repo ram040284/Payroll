@@ -12,7 +12,7 @@ public class Salary implements Serializable{
 	private int year;
 	private double basic;
 	private double gradePay;
-	private double scalePay;
+	private String scalePay;
 	private double scaleInc;
 	private short addUpdate; // 0 - Add / 1 - update
 	private String status;
@@ -44,10 +44,10 @@ public class Salary implements Serializable{
 	public void setGradePay(double gradePay) {
 		this.gradePay = gradePay;
 	}
-	public double getScalePay() {
+	public String getScalePay() {
 		return scalePay;
 	}
-	public void setScalePay(double scalePay) {
+	public void setScalePay(String scalePay) {
 		this.scalePay = scalePay;
 	}
 	public double getScaleInc() {

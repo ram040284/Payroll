@@ -9,7 +9,7 @@ public class SalaryVO implements Serializable{
 	private int year;
 	private double basic;
 	private double gradePay;
-	private double scalePay;
+	private String scalePay;
 	private double scaleInc;
 	private String fullName;
 	private int departmentId;
@@ -19,12 +19,12 @@ public class SalaryVO implements Serializable{
 		
 	}
 	public SalaryVO (int empId, String fName, String lName, int year, double basic, 
-			double gradePay, double scalePay, double scaleInc){
+			double gradePay, String scalePay){
 		this.employeeId = empId;
 		this.year = year;
 		this.basic = basic;
 		this.gradePay = gradePay;
-		this.scaleInc = scaleInc;
+		//this.scaleInc = scaleInc;
 		this.scalePay = scalePay;
 		StringBuffer fullNameSB = new StringBuffer(fName);
 		fullNameSB.append(" ");
@@ -34,14 +34,14 @@ public class SalaryVO implements Serializable{
 	}
 	
 	public SalaryVO (int empId, int deptId, int desgId, int headId, int year, double basic, 
-			double gradePay, double scalePay, double scaleInc){
+			double gradePay, String scalePay){
 		this.employeeId = empId;
 		this.departmentId = deptId;
 		this.designationId = desgId;
 		this.year = year;
 		this.basic = basic;
 		this.gradePay = gradePay;
-		this.scaleInc = scaleInc;
+		//this.scaleInc = scaleInc;
 		this.scalePay = scalePay;
 		this.headId = headId;
 	}
@@ -58,7 +58,7 @@ public class SalaryVO implements Serializable{
 	public double getGradePay() {
 		return gradePay;
 	}
-	public double getScalePay() {
+	public String getScalePay() {
 		return scalePay;
 	}
 	public double getScaleInc() {
@@ -88,7 +88,7 @@ public class SalaryVO implements Serializable{
 	public void setGradePay(double gradePay) {
 		this.gradePay = gradePay;
 	}
-	public void setScalePay(double scalePay) {
+	public void setScalePay(String scalePay) {
 		this.scalePay = scalePay;
 	}
 	public void setScaleInc(double scaleInc) {

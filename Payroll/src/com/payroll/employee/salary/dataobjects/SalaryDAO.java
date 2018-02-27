@@ -25,7 +25,7 @@ public class SalaryDAO {
 						//+ "(select e.firstName from Employee e where e.employeeId = s.empId),"
 						//+ " (select e.lastName from Employee e where e.employeeId = s.empId), "
 						+"s.employee.firstName, s.employee.lastName, "
-						+ "s.year, s.basic, s.gradePay, s.scalePay, s.scaleInc) from Salary s where s.status = ?";		
+						+ "s.year, s.basic, s.gradePay, s.scalePay) from Salary s where s.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -67,12 +67,16 @@ public class SalaryDAO {
 				salary.setEmployee(employee);
 				salary.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 				salary.setStatus("A");
-				if(salary.getAddUpdate() == 0)
+				if(salary.getAddUpdate() == 0){
 					session.save(salary);
-				else
+					session.flush();
+				}
+				else{
 					session.update(salary);
-				
+					session.flush();
+				}
 			//}
+			session.flush();	
 			transaction.commit();
 			result = "Yes";
 		}catch(ConstraintViolationException cv){
@@ -95,12 +99,9 @@ public class SalaryDAO {
 		try{
 			String queryString = " select new com.payroll.employee.salary.vo.SalaryVO(s.employee.employeeId, "+
 					"(select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = s.employee.employeeId), "
-					//+ "from EmpDepartment eDept where eDept.employee.employeeId = s.employee.employeeId)), "
-					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = s.employee.employeeId and eDesg.lastWokingDate is null), "
-					//+ "where eDesg.employee.employeeId = s.employee.employeeId and eDesg.lastWokingDate is null)), "
-					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = s.employee.employeeId and dh.lastWokingDate is null), "
-					//+ "(select eDesg.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = s.employee.employeeId and eDesg.lastWokingDate is null)), "
-					+ "s.year, s.basic, s.gradePay, s.scalePay, s.scaleInc) from Salary s where s.employee.employeeId = ? and s.status = ?";		
+					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = s.employee.employeeId), "
+					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = s.employee.employeeId), "
+					+ "s.year, s.basic, s.gradePay, s.scalePay) from Salary s where s.employee.employeeId = ? and s.status = ?";		
 			
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);

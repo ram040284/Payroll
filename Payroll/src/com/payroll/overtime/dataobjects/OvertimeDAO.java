@@ -43,8 +43,8 @@ public class OvertimeDAO {
 		try{
 			String queryString ="select new com.payroll.overtime.vo.OvertimeVO(o.overtimeId, o.employee.employeeId,"
 				+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = o.employee.employeeId and dept.status = 'A'), "
-				+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = o.employee.employeeId and desg.lastWokingDate is null and desg.status='A'), "
-				+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = o.employee.employeeId and dh.lastWokingDate is null and dh.status = 'A'), "
+				+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = o.employee.employeeId and desg.status='A'), "
+				+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = o.employee.employeeId and dh.status = 'A'), "
 				+ "o.overtimeOrder, o.overtimeHours, o.overtimeDate, o.overtimeAmount) from Overtime o where o.status = ? and o.overtimeId = ?";
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);

@@ -45,8 +45,8 @@ public class EmpAllowanceDAO {
 			try{
 				String queryString = " select new com.payroll.employee.allowance.vo.EmpAllowanceVO(a.employee.employeeId, "
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = a.employee.employeeId and dept.status = 'A'), "
-						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = a.employee.employeeId and desg.lastWokingDate is null and desg.status='A'), "
-						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = a.employee.employeeId and dh.lastWokingDate is null and dh.status = 'A'), "
+						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = a.employee.employeeId and desg.status='A'), "
+						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = a.employee.employeeId and dh.status = 'A'), "
 						+ "a.cca, a.washingAlwance, a.convAlwance, a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag) from EmpAllowance a "
 						+ "where a.status = ? and a.employee.employeeId = ?";		
 				

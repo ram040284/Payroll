@@ -51,9 +51,8 @@ public class EmpBankDAO {
 			String queryString = " select new com.payroll.employee.bank.vo.BankVO(b.employee.employeeId, "
 					+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = b.employee.employeeId), "
 					//+ "from EmpDepartment eDept where eDept.empId = b.empId)), (select desg.designationId "
-					+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = b.employee.employeeId and desg.lastWokingDate is null), "
-					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = b.employee.employeeId and dh.lastWokingDate is null), "
-					//+ "(select eDesg.designationId from EmpDesignation eDesg where eDesg.empId = b.empId and eDesg.lastWokingDate is null)), "
+					+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = b.employee.employeeId), "
+					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = b.employee.employeeId), "
 					+ "b.bankDetails.bankId, b.bankDetails.bankName, b.bankDetails.ifscCode, b.accountNo) from EmpBank b "
 					+ "where b.status = ? and b.employee.employeeId = ?";		
 			

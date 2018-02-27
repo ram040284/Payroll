@@ -1,5 +1,6 @@
 package com.payroll.hrms.payroll.service;
 
+import com.payroll.TestData;
 import com.payroll.Utils;
 import com.payroll.employee.deductions.dataobjects.EmpDeductions;
 import com.payroll.employee.deductions.dataobjects.EmpDeductionsDAO;
@@ -39,6 +40,8 @@ public class IncomeTaxCalculatorService {
      */
     public void getIncomeTaxDeductions(int empId){
     	EmpDeductions empDeductions = new EmpDeductionsDAO().getEmpDeductionsByEmpId(empId);  
+    	if(empDeductions == null)
+    		empDeductions = TestData.getEmpDeductions(empId);
     	itDeductions = new EMPITDecutions();
     	itDeductions.setSection80C(empDeductions.getSection80C());
     	itDeductions.setHomeLoanInterest80E(empDeductions.getHomeLoanIntrst88EE());

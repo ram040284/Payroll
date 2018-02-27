@@ -20,8 +20,13 @@ $(document).ready(function() {
 });
 function generatePaybill(){
 	if($('#departmentId').val() == 0){
-		alert('Department must be provided generate Bill!');
+		alert('Department must be provided to generate Bill!');
 		$('#departmentId').focus();
+		return false;
+	}
+	if($('#monthDate').val().trim()== ""){
+		alert('Date must be provided!');
+		$('#monthDate').focus();
 		return false;
 	}
 	var f = document.forms['paybillForm'];

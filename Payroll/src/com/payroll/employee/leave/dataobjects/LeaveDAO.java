@@ -128,8 +128,8 @@ public class LeaveDAO {
 			String queryString = " select new com.payroll.employee.leave.vo.LeaveVO(l.employee.employeeId, "+
 					"(select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = l.employee.employeeId and eDept.status='A'), "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = l.employee.employeeId "
-					+ "and eDesg.status = 'A' and eDesg.lastWokingDate is null), "
-					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = l.employee.employeeId and dh.status='A' and dh.lastWokingDate is null), "
+					+ "and eDesg.status = 'A'), "
+					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = l.employee.employeeId and dh.status='A'), "
 					+ "l.leaveId, l.leaveType, l.noOfLeaves, l.leaveBalance) from Leave l where l.employee.employeeId = ? and l.status = ?";		
 			
 			session = HibernateConnection.getSessionFactory().openSession();

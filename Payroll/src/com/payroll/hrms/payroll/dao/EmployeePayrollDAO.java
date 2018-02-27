@@ -81,7 +81,7 @@ public class EmployeePayrollDAO {
 		EmpQuarters empQtr = null;
 		EmpAllowance alowances = null;
 		EmpDeductions empDeductions = null;
-		//EmpDeductionDetails empDeductDetails = null;
+		EmpDeductionDetails empDeductDetails = null;
 		EmpAdvances empAdvances = null;
 		EmpLic empLic = null;
 		List<Overtime> overtimeList = null;
@@ -102,7 +102,7 @@ public class EmployeePayrollDAO {
 			leaves = (List)getObjectsByEmpId(" from Leave l where l.employee.employeeId = ? and l.status = ?");
 			empLic = (EmpLic)getObjectByEmpId(" from EmpLic l where l.employee.employeeId = ? and l.status = ?");
    			empAdvances = (EmpAdvances)getObjectByEmpId(" from EmpAdvances a where a.employee.employeeId = ? and a.status = ?");
-   			//empDeductDetails = (EmpDeductionDetails)getObjectByEmpId(" from EmpDeductionDetails d where d.employee.employeeId = ? and d.status = ?");
+   			empDeductDetails = (EmpDeductionDetails)getObjectByEmpId(" from EmpDeductionDetails d where d.employee.employeeId = ? and d.status = ?");
    			bankVo = (BankVO)getObjectByEmpId("select new com.payroll.employee.bank.vo.BankVO(b.bankDetails.bankId, b.bankDetails.bankName, b.accountNo) "
    					+ "from EmpBank b where b.employee.employeeId = ? and b.status = ?");		
 			
