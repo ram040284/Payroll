@@ -13,54 +13,54 @@ public class TestData {
 		
 	public static Salary getSalary(int empId){
 		Salary sal = new Salary();
-		sal.setBasic(1000);
-		sal.setGradePay(1000);
+		sal.setBasic(0);
+		sal.setGradePay(0);
 		sal.setEmployeeId(empId);
-		sal.setScaleInc(10);
-		sal.setScalePay("1000-5000");
+		sal.setScaleInc(0);
+		sal.setScalePay("");
 		return sal;
 	}
 	
 	public static EmpPf getEmpPf(int empId){
 		EmpPf pf = new EmpPf();
 		pf.setEmployeeId(empId);
-		pf.setApfAcpfCntrbn(1000);
-		pf.setCfLoneRecAmt(1200);
+		pf.setApfAcpfCntrbn(0);
+		pf.setCfLoneRecAmt(0);
 		pf.setPfDate(new Date());
-		pf.setPfLoneRecAmt(500);
-		pf.setPfsCpfCntrbn(600);
+		pf.setPfLoneRecAmt(0);
+		pf.setPfsCpfCntrbn(0);
 		return pf;
 	}
 	
 	public static EmpLic getEmpLic(int empId){
 		EmpLic empLic = new EmpLic();
 		empLic.setEmployeeId(empId);
-		empLic.setInstlmtAmt(1000);
-		empLic.setPaymentAmount(1200);
+		empLic.setInstlmtAmt(0);
+		empLic.setPaymentAmount(0);
 		empLic.setPaymentDate(new Date());
-		empLic.setPolicyNo("98798798hhg");
+		empLic.setPolicyNo("");
 		return empLic;
 	}
 	
 	public static EmpAllowance getAllowance(int empId){
 		EmpAllowance alw = new EmpAllowance();
-		alw.setCca(200);
-		alw.setConvAlwance(400);
-		alw.setCycleAlwance(100);
+		alw.setCca(0);
+		alw.setConvAlwance(0);
+		alw.setCycleAlwance(0);
 		alw.setEmployeeId(empId);
-		alw.setFamilyPlanAlwance(300);
-		alw.setHraFlag(true);
-		alw.setNonPracAwance(200);
-		alw.setUniformAlwance(400);
-		alw.setWashingAlwance(600);
+		alw.setFamilyPlanAlwance(0);
+		alw.setHraFlag(false);
+		alw.setNonPracAwance(0);
+		alw.setUniformAlwance(0);
+		alw.setWashingAlwance(0);
 		return alw;
 	}
 	
 	public static EmpDeductions getEmpDeductions(int empId){
 		EmpDeductions empDeductions = new EmpDeductions();
-		empDeductions.setHomeLoanIntrst88EE(1000);
-		empDeductions.setSection80C(20000);
-		empDeductions.setSelfDisable80U(2000);
+		empDeductions.setHomeLoanIntrst88EE(0);
+		empDeductions.setSection80C(0);
+		empDeductions.setSelfDisable80U(0);
 		empDeductions.setEmployeeId(empId);
 		return empDeductions;
 	}
