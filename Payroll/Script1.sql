@@ -337,7 +337,7 @@ CONSTRAINT UNIQUE(EMP_ID, MONTH_DATE)
 
 
 -- 01-2018 Tables realted to USER
-CREATE TABLE user_roles (
+CREATE TABLE USER_ROLES (
   ROLE_ID INT,
   ROLE_NAME VARCHAR(64),
   ROLE_DESC VARCHAR(256),
@@ -346,7 +346,7 @@ CREATE TABLE user_roles (
   PRIMARY KEY (ROLE_ID)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
  
- CREATE TABLE user_master (
+ CREATE TABLE USER_MASTER (
   USR_ID_PK INT,
   EMP_ID INT,
   ROLE_ID INT,
@@ -359,15 +359,15 @@ CREATE TABLE user_roles (
   FOREIGN KEY (ROLE_ID) REFERENCES USER_ROLES (ROLE_ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO user_roles
+INSERT INTO USER_ROLES
 (`ROLE_ID`, `ROLE_NAME`, `ROLE_DESC`, `STATUS`, `ROW_UPD_DATE`)
 VALUES (1, 'ADMIN', 'User can access Master section links', 'A', current_timestamp());
 
-INSERT INTO user_roles
+INSERT INTO USER_ROLES
 (`ROLE_ID`, `ROLE_NAME`, `ROLE_DESC`, `STATUS`, `ROW_UPD_DATE`)
 VALUES (2, 'EMPLOYEE', 'User can access Employee specific links', 'A', current_timestamp());
 
-INSERT INTO user_roles
+INSERT INTO USER_ROLES
 (`ROLE_ID`, `ROLE_NAME`, `ROLE_DESC`, `STATUS`, `ROW_UPD_DATE`)
 VALUES (3, 'REPORT', 'User can access Report specific links', 'A', current_timestamp());
 
