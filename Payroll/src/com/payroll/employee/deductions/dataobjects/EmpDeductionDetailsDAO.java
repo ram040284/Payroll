@@ -10,22 +10,20 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
 import com.payroll.employee.dataobjects.Employee;
+import com.payroll.employee.deductions.vo.EmpDeductionsDetailsVO;
 import com.payroll.employee.deductions.vo.EmpDeductionsVO;
-import com.payroll.employee.pf.dataobjects.EmpPf;
-import com.payroll.employee.pf.vo.EmpPfVO;
 
-public class EmpDeductionsDAO {
+public class EmpDeductionDetailsDAO {
 	
-	public List<EmpDeductionsVO> getEmpDeductionsList(){
-		List<EmpDeductionsVO> deductionsList = null;
+	public List<EmpDeductionsDetailsVO> getEmpDeductionsList(){
+		List<EmpDeductionsDetailsVO> deductionsList = null;
 			Session session = null;
 			
 			try{
-				String queryString = " select new com.payroll.employee.deductions.vo.EmpDeductionsVO(d.employee.employeeId, "
-						+"d.employee.firstName, d.employee.lastName, d.section80C, d.cess, d.homeLoanIntrst88EE, "
-						+ "d.selfDisable80U, d.loanPrincipal, d.schoolFees, d.lic, d.mutualFund, d.section80D, "
-						+ "d.section80E , d.nsc, d.ppf, d.donation,	d.section80DD) from EmpDeductions d "
-						+ "where d.status = ? ";		
+				String queryString = " select new com.payroll.employee.deductions.vo.EmpDeductionsDetailsVO(d.employee.employeeId, "
+						+"d.employee.firstName, d.employee.lastName, d.afkRent, d.society, d.electRecovery, d.courtRecovery, d.unionFee, d.otherDeductions, "
+						+ "d.miscRecovery, d.kssUnionRecovery)"
+						+ " from EmpDeductionDetails d where d.status = ? ";		
 						
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -40,24 +38,24 @@ public class EmpDeductionsDAO {
 		return deductionsList;
 	}
 	
-	public EmpDeductionsVO getEmpDeductionsById(int empId){
-		EmpDeductionsVO empDeductionsVO = null;
+	public EmpDeductionsDetailsVO getEmpDeductionsById(int empId){
+		EmpDeductionsDetailsVO empDeductionsVO = null;
 		Session session = null;
 			
 			try{
-				String queryString = " select new com.payroll.employee.deductions.vo.EmpDeductionsVO(d.employee.employeeId, "
+				String queryString = " select new com.payroll.employee.deductions.vo.EmpDeductionsDetailsVO(d.employee.employeeId, "
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = d.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = d.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = d.employee.employeeId and dh.status = 'A'), "
-						+" d.section80C, d.cess, d.homeLoanIntrst88EE, d.selfDisable80U, d.loanPrincipal, d.schoolFees, d.lic, d.mutualFund, d.section80D, "
-						+ "d.section80E , d.nsc, d.ppf, d.donation,	d.section80DD)"
-						+ " from EmpDeductions d where d.employee.employeeId = ? and d.status = ? ";		
+						+" d.afkRent, d.society, d.electRecovery, d.courtRecovery, d.unionFee, d.otherDeductions, "
+						+ "d.miscRecovery, d.kssUnionRecovery)"
+						+ " from EmpDeductionDetails d where d.employee.employeeId = ? and d.status = ? ";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, empId);
 				query.setParameter(1, "A");
-				empDeductionsVO = (EmpDeductionsVO)(!(query.list().isEmpty())?query.list().get(0):null);
+				empDeductionsVO = (EmpDeductionsDetailsVO)(!(query.list().isEmpty())?query.list().get(0):null);
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally{
@@ -67,18 +65,18 @@ public class EmpDeductionsDAO {
 		return empDeductionsVO;
 	}
 	
-	public EmpDeductions getEmpDeductionsByEmpId(int empId){
-		EmpDeductions empDeductions = null;
+	public EmpDeductionDetails getEmpDeductionsByEmpId(int empId){
+		EmpDeductionDetails empDeductions = null;
 		Session session = null;
 			
 			try{
-				String queryString = " from EmpDeductions d where d.employee.employeeId = ? and d.status = ? ";		
+				String queryString = " from EmpDeductionDetails d where d.employee.employeeId = ? and d.status = ? ";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, empId);
 				query.setParameter(1, "A");
-				empDeductions = (EmpDeductions)(!(query.list().isEmpty())?query.list().get(0):null);
+				empDeductions = (EmpDeductionDetails)(!(query.list().isEmpty())?query.list().get(0):null);
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally{
@@ -93,23 +91,23 @@ public class EmpDeductionsDAO {
 		Session session = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
-			Query query = session.createQuery("update EmpDeductions d set d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ?");
+			Query query = session.createQuery("update EmpDeductionDetails d set d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ?");
 			query.setParameter(0, "S");
 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 			query.setParameter(2, empId);
 			int updated = query.executeUpdate();
 			if(updated > 0)
-				result = "Successfully deleted Employee Deductions!";
+				result = "Successfully deleted Employee Deduction details!";
 		}catch(Exception e){
 			e.printStackTrace();
-			result = "Failed to delete Employee Deductions!";
+			result = "Failed to delete Employee Deduction details!";
 		}finally{
 			HibernateConnection.closeSession(session);
 		}
 		return result;
 	}
 	
-	public String addUpdateEmpDeductions(EmpDeductions empDeduct){
+	public String addUpdateEmpDeductions(EmpDeductionDetails empDeduct){
 		String result = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -140,5 +138,5 @@ public class EmpDeductionsDAO {
 		return result;
 	}
 
-
+	
 }

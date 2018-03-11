@@ -18,5 +18,16 @@
     <property name="cess" column="CESS"/>  
     <property name="status" column="STATUS" not-null="true"/>  
     <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/>
+    <property name="schoolFees" column="SCHOOL_FEE" />  
+    <property name="lic" column="LIC" />
+    <property name="mutualFund" column="MUTUAL_FUND" />  
+    <property name="section80D" column="SEC_80D"/> 
+    <property name="loanPrincipal" column="LOAN_PRINCIPAL"/>
+    <property name="section80E" column="SEC_80E"/>
+    <property name="nsc" column="NSC" />  
+   	<property name="ppf" column="PPF"/> 
+    <property name="donation" column="DONATION"/>
+    <property name="section80DD" column="SEC_80DD"/>
+  
   </class>  
  </hibernate-mapping> 

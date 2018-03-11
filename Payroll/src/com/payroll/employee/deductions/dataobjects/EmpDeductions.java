@@ -11,6 +11,16 @@ public class EmpDeductions implements Serializable{
 	private double cess;
 	private double homeLoanIntrst88EE;
 	private double selfDisable80U;
+	private double loanPrincipal;
+	private double schoolFees; 
+	private double lic; 
+	private double mutualFund;
+	private double section80D;
+	private double section80E;
+	private double nsc;
+	private double ppf; 
+	private double donation;
+	private double section80DD;
 	private String status;
 	private short addUpdate; // 0 - Add / 1 - update
 	private Timestamp rowUpdDate;
@@ -68,6 +78,67 @@ public class EmpDeductions implements Serializable{
 	}
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+	
+	public double getLoanPrincipal() {
+		return loanPrincipal;
+	}
+	public void setLoanPrincipal(double loanPrincipal) {
+		this.loanPrincipal = loanPrincipal;
+	}
+	public double getSchoolFees() {
+		return schoolFees;
+	}
+	public void setSchoolFees(double schoolFees) {
+		this.schoolFees = schoolFees;
+	}
+	public double getLic() {
+		return lic;
+	}
+	public void setLic(double lic) {
+		this.lic = lic;
+	}
+	public double getMutualFund() {
+		return mutualFund;
+	}
+	public void setMutualFund(double mutualFund) {
+		this.mutualFund = mutualFund;
+	}
+	public double getSection80D() {
+		return section80D;
+	}
+	public void setSection80D(double section80d) {
+		section80D = section80d;
+	}
+	public double getSection80E() {
+		return section80E;
+	}
+	public void setSection80E(double section80e) {
+		section80E = section80e;
+	}
+	public double getNsc() {
+		return nsc;
+	}
+	public void setNsc(double nsc) {
+		this.nsc = nsc;
+	}
+	public double getPpf() {
+		return ppf;
+	}
+	public void setPpf(double ppf) {
+		this.ppf = ppf;
+	}
+	public double getDonation() {
+		return donation;
+	}
+	public void setDonation(double donation) {
+		this.donation = donation;
+	}
+	public double getSection80DD() {
+		return section80DD;
+	}
+	public void setSection80DD(double section80dd) {
+		section80DD = section80dd;
 	}
 	
 }

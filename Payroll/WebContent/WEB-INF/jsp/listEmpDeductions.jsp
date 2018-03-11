@@ -18,6 +18,16 @@
                 			.append($('<td/>').text(empDeductions.homeLoanIntrst88EE))
                 			.append($('<td/>').text(empDeductions.cess))
                 			.append($('<td/>').text(empDeductions.selfDisable80U))
+                			.append($('<td/>').text(empDeductions.loanPrincipal))
+                			.append($('<td/>').text(empDeductions.schoolFees))
+                			.append($('<td/>').text(empDeductions.lic))
+                			.append($('<td/>').text(empDeductions.mutualFund))
+                			.append($('<td/>').text(empDeductions.section80D))
+                			.append($('<td/>').text(empDeductions.section80E))
+                			.append($('<td/>').text(empDeductions.nsc))
+                			.append($('<td/>').text(empDeductions.ppf))
+                			.append($('<td/>').text(empDeductions.donation))
+                			.append($('<td/>').text(empDeductions.section80DD))
                 			.append($('<td/>').append('<a href="#" onclick=viewDeductions('+empDeductions.employeeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDeductions('+empDeductions.employeeId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                 	  
                   });
@@ -62,6 +72,16 @@
 					<th>Home Loan Interest 88EE</th>
 					<th>Cess</th>
 					<th>Self Disable 80U</th>
+					<th>Loan Principal</th>
+					<th>School Fees</th>
+					<th>LIC</th>
+					<th>MutualFund</th>
+					<th>Section 80D</th>
+					<th>Section 80E</th>
+					<th>NSC</th>
+					<th>PPF</th>
+					<th>Donation</th>
+					<th>Section 80DD</th>
 					<th><a href="#" onclick="inputDeductions()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
 					</th>

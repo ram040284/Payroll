@@ -41,7 +41,6 @@ public class EmpDeductionsController {
 		String depJSON = "";
 		try {
 			depJSON = mapper.writeValueAsString(deptList);
-			//desigJSON = mapper.writeValueAsString(desigList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -63,9 +62,9 @@ public class EmpDeductionsController {
 	}
 	
 	@RequestMapping(value="/deleteEmpDeductions",method=RequestMethod.POST)
-	public String deleteQtr(EmpDeductions empDeductions){
+	public String deleteEmpDeductions(EmpDeductions empDeductions){
 	   System.out.println("deleteEmpDeductions -- empDeductions:"+empDeductions.getEmployeeId());
-	   String result = new EmpQuartersService().deleteEmpQtr(empDeductions.getEmployeeId());
+	   String result = new EmpDeductionsService().deleteEmpDeductions(empDeductions.getEmployeeId());
 	   System.out.println("Result:"+result);
 	   return "listEmpDeductions";
 	}
