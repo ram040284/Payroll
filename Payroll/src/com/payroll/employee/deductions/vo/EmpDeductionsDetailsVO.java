@@ -19,6 +19,9 @@ public class EmpDeductionsDetailsVO {
 	private int designationId;
 	private String fullName;
 	
+	public EmpDeductionsDetailsVO() {
+		
+	}
 	
 	public EmpDeductionsDetailsVO(int employeeId, String firstName, String lastName, double afkRent, double society, 
 			double electRecovery, double courtRecovery, double unionFee, double otherDeductions, 
@@ -45,6 +48,7 @@ public class EmpDeductionsDetailsVO {
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
+		this.headId = headId;
 		this.afkRent = afkRent;
 		this.society = society;
 		this.electRecovery = electRecovery;
@@ -97,6 +101,9 @@ public class EmpDeductionsDetailsVO {
 	}
 	public String getFullName() {
 		return fullName;
+	}
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
 	}
 	
 }

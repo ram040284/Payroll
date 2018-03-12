@@ -155,7 +155,7 @@ $(document).ready(function() {
 		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">
-				<c:if test="${empDeductions.employeeId != '0'}" >	Update</c:if><c:if test="${empDeductions.employeeId == '0'}">Add</c:if> Employee Deductions</h4>
+				<c:if test="${empDeductions.employeeId != '0'}" >	Update</c:if><c:if test="${empDeductions.employeeId == '0'}">Add</c:if> Employee Deduction Details</h4>
 
 		<div class="col-lg-12 card-block bg-faded" style="margin-bottom: 10px;">
 			<div class="row">
