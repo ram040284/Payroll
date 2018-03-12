@@ -14,12 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.deductions.business.EmpDeductionDetailsService;
-import com.payroll.employee.deductions.business.EmpDeductionsService;
 import com.payroll.employee.deductions.dataobjects.EmpDeductionDetails;
-import com.payroll.employee.deductions.dataobjects.EmpDeductions;
 import com.payroll.employee.deductions.vo.EmpDeductionsDetailsVO;
-import com.payroll.employee.deductions.vo.EmpDeductionsVO;
-import com.payroll.employee.qtr.business.EmpQuartersService;
 
 @Controller
 public class EmpDeductDetailsController {
@@ -51,7 +47,7 @@ public class EmpDeductDetailsController {
 		if(empDeductions.getEmployeeId() != 0)
 			empDeductions = new EmpDeductionDetailsService().getEmpDeductionsById(empDeductions.getEmployeeId());
 		ModelAndView model = new ModelAndView("empDeductDtls", "command", empDeductions);
-		model.addObject("empDeductDtls", empDeductions);
+		model.addObject("empDeductions", empDeductions);
 		model.addObject("departments", depJSON);
 		return model;
 	}
