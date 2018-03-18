@@ -48,6 +48,10 @@ $(document).ready(function() {
 		var ppfVal = $('#ppf').val().trim();
 		var donationVal = $('#donation').val().trim();
 		var section80DDVal = $('#section80DD').val().trim();
+		var arrearsVal = $('#arrears').val().trim();
+		var bonusVal = $('#bonus').val().trim();
+		var otAmountVal = $('#otAmount').val().trim();
+		var otWagesVal = $('#otWages').val().trim();
 		if(empId !=0){
 			var section80C = "${empDeductions.section80C}";
 			var cess = "${empDeductions.cess}";
@@ -63,10 +67,15 @@ $(document).ready(function() {
 			var ppf = "${empDeductions.ppf}";
 			var donation = "${empDeductions.donation}";
 			var section80DD = "${empDeductions.section80DD}";
+			var bonus = "${empDeductions.bonus}";
+			var arrears = "${empDeductions.arrears}";
+			var otAmount = "${empDeductions.otAmount}";
+			var otWages = "${empDeductions.otWages}";
 			if(section80C == section80CVal && cess == cessVal && homeLoanIntrst88EE == homeLoanIntrst88EEVal &&  
 					selfDisable80U == selfDisable80UVal && loanPrincipal == loanPrincipalVal && schoolFees == schoolFeesVal &&
 					lic == licVal && mutualFund == mutualFundVal && section80D == section80DVal && section80E == section80EVal && 
-					nsc == nscVal && ppf == ppfVal && donation == donationVal && section80DD == section80DDVal){
+					nsc == nscVal && ppf == ppfVal && donation == donationVal && section80DD == section80DDVal && 
+					bonus == bonusVal && arrears == arrearsVal && otAmount == otAmountVal && otWages == otWagesVal){
 				alert('Nothing was changed');
 				$('#section80C').focus();
 				return false;
@@ -185,11 +194,35 @@ $(document).ready(function() {
 			return false;
 		}
 		
+		if(bonusVal && isNaN(bonusVal)){
+			alert("Please enter valid Bonus Value!");
+			$('#bonus').focus();
+			return false;
+		}
+		
+		if(arrearsVal && isNaN(arrearsVal)){
+			alert("Please enter valid Arears Value!");
+			$('#arrears').focus();
+			return false;
+		}
+		
+		if(otAmountVal && isNaN(otAmountVal)){
+			alert("Please enter valid OT Amount!");
+			$('#otAmount').focus();
+			return false;
+		}
+		if(otWagesVal && isNaN(otWagesVal)){
+			alert("Please enter valid OT Wages!");
+			$('#otWages').focus();
+			return false;
+		}
+		
 		var inputJson = { "employeeId" : $('#employeeId').val(), "section80C" : section80CVal, "addUpdate": $('#addUpdate').val(), 
 				"cess" : cessVal, "homeLoanIntrst88EE" : homeLoanIntrst88EEVal, "selfDisable80U" : selfDisable80UVal, 
 				"loanPrincipal" : loanPrincipalVal, "schoolFees" : schoolFeesVal, "lic" : licVal, "mutualFund" : mutualFundVal,
 				"section80D" : section80DVal, "section80E" : section80EVal, "nsc" : nscVal, "ppf" : ppfVal, 
-				"donation" : donationVal, "section80DD" : section80DDVal};
+				"donation" : donationVal, "section80DD" : section80DDVal, "bonus" : bonusVal, "arrears" : arrearsVal, 
+				"otAmount" : otAmountVal, "otWages" : otWagesVal};
 		$.ajax({
 	        url: '../Payroll/addEmpDeductions',
 	        data: JSON.stringify(inputJson),
@@ -314,6 +347,7 @@ function checkAmount(value){
 									<form:input path="lic"  id="lic" placeholder="Enter LIC" class="form-control"/>
 									
 								</div>
+								</div>
 								<div class="row">
 								<div class="col-sm-3 form-group">
 									<label>Mutual Fund:</label>
@@ -332,8 +366,28 @@ function checkAmount(value){
 									<label>Donation:</label>
 									<form:input path="donation"  id="donation" placeholder="Enter donation" class="form-control"/>
 								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3 form-group">
+									<label>Bonus:</label>
+									<form:input path="bonus"  id="bonus" placeholder="Enter Bonus" class="form-control"/>
+									
+								</div>
+								<div class="col-sm-3 form-group">
+									<label>Arrears:</label>
+									<form:input path="arrears"  id="arrears" placeholder="Enter Arrears" class="form-control"/>
+								</div>
+								<div class="col-sm-3 form-group">
+									<label>OT Amount:</label>
+									<form:input path="otAmount"  id="otAmount" placeholder="Enter OT Amount" class="form-control"/>
+								</div>
+								<div class="col-sm-3 form-group">
+									<label>OT Wages:</label>
+									<form:input path="otWages"  id="otWages" placeholder="Enter OT Wages" class="form-control"/>
+								</div>
 							
 							</div>
+							
 							<div class="row">	
 								<div class="text-right">
 									<button type="button" id="addQtrBtn" class="btn">Submit</button>

@@ -28,6 +28,10 @@
                 			.append($('<td/>').text(empDeductions.ppf))
                 			.append($('<td/>').text(empDeductions.donation))
                 			.append($('<td/>').text(empDeductions.section80DD))
+                			.append($('<td/>').text(empDeductions.bonus))
+                			.append($('<td/>').text(empDeductions.arrears))
+                			.append($('<td/>').text(empDeductions.otAmount))
+                			.append($('<td/>').text(empDeductions.otWages))
                 			.append($('<td/>').append('<a href="#" onclick=viewDeductions('+empDeductions.employeeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDeductions('+empDeductions.employeeId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                 	  
                   });
@@ -82,6 +86,11 @@
 					<th>PPF</th>
 					<th>Donation</th>
 					<th>Section 80DD</th>
+					<th>Bonus</th>
+					<th>Arrears</th>
+					<th>OT Amount</th>
+					<th>OT Wages</th>
+					
 					<th><a href="#" onclick="inputDeductions()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
 					</th>

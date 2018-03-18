@@ -28,6 +28,9 @@
    	<property name="ppf" column="PPF"/> 
     <property name="donation" column="DONATION"/>
     <property name="section80DD" column="SEC_80DD"/>
-  
+	<property name="bonus" column="BONUS" />  
+   	<property name="arrears" column="ARREARS"/> 
+    <property name="otAmount" column="OT_AMOUNT"/>
+    <property name="otWages" column="OT_WAGES"/>
   </class>  
  </hibernate-mapping> 

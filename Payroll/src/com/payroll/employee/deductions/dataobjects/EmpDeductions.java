@@ -21,6 +21,10 @@ public class EmpDeductions implements Serializable{
 	private double ppf; 
 	private double donation;
 	private double section80DD;
+	private Double bonus;
+	private Double otWages;
+	private Double arrears;
+	private Double otAmount;
 	private String status;
 	private short addUpdate; // 0 - Add / 1 - update
 	private Timestamp rowUpdDate;
@@ -140,5 +144,28 @@ public class EmpDeductions implements Serializable{
 	public void setSection80DD(double section80dd) {
 		section80DD = section80dd;
 	}
-	
+	public Double getBonus() {
+		return bonus;
+	}
+	public void setBonus(Double bonus) {
+		this.bonus = bonus;
+	}
+	public Double getOtWages() {
+		return otWages;
+	}
+	public void setOtWages(Double otWages) {
+		this.otWages = otWages;
+	}
+	public Double getArrears() {
+		return arrears;
+	}
+	public void setArrears(Double arrears) {
+		this.arrears = arrears;
+	}
+	public Double getOtAmount() {
+		return otAmount;
+	}
+	public void setOtAmount(Double otAmount) {
+		this.otAmount = otAmount;
+	}
 }

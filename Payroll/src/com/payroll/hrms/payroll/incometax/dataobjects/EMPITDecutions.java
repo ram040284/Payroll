@@ -13,7 +13,8 @@ public class EMPITDecutions {
     private double medicalInsurance80D; // Self Spouse : 25k Uninsured Parents >80 yes
     private double selfDisability80U; // Self Spouse : 25k Uninsured Parents >80 yes
     private double section891; // Arrears relief
-    private double section24B; // Home Loan interest
+   
+	private double section24B; // Home Loan interest
     private double section1014; // children Education allowance, tranport allowance
     private double section87A; // Rebate for income under 5 Lakh
     private double section1013A; // HRA Exemption
@@ -72,4 +73,13 @@ public class EMPITDecutions {
     public void setSelfDisability80U(double selfDisability80U) {
         this.selfDisability80U = selfDisability80U;
     }
+    
+    public double getSection891() {
+		return section891;
+	}
+
+	public void setSection891(double section891) {
+		this.section891 = section891;
+	}
+
 }

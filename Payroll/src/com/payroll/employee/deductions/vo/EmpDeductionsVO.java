@@ -22,9 +22,28 @@ public class EmpDeductionsVO {
 	private double ppf; 
 	private double donation;
 	private double section80DD;
+	private double bonus;
+	private double otWages;
+	private double arrears;
+	private double otAmount;
 	
 	
-	
+	public double getBonus() {
+		return bonus;
+	}
+
+	public double getOtWages() {
+		return otWages;
+	}
+
+	public double getArrears() {
+		return arrears;
+	}
+
+	public double getOtAmount() {
+		return otAmount;
+	}
+
 	public EmpDeductionsVO(){
 		
 	}
@@ -32,7 +51,7 @@ public class EmpDeductionsVO {
 	public EmpDeductionsVO(int employeeId, String firstName, String lastName, double section80C, double cess, 
 			double homeLoanIntrst88EE, double selfDisable80U, double loanPrincipal, double schoolFees, double lic, 
 			double mutualFund, double section80D, double section80E , double nsc, double ppf, double donation,
-			double section80DD){
+			double section80DD, Double arrears, Double bonus, Double otAmount, Double otWages){
 		this.employeeId = employeeId;
 		this.section80C = section80C;
 		this.cess = cess;
@@ -52,12 +71,20 @@ public class EmpDeductionsVO {
 		this.ppf = ppf; 
 		this.donation = donation;
 		this.section80DD = section80DD;
+		if(arrears != null)
+		this.arrears = arrears;
+		if(otAmount != null)
+		this.otAmount = otAmount;
+		if(otWages != null)
+		this.otWages = otWages;
+		if(bonus != null)
+		this.bonus = bonus;
 	}
 	
 	public EmpDeductionsVO(int employeeId, int deptId, int desgId, int headId, double section80C, double cess, 
 			double homeLoanIntrst88EE, double selfDisable80U, double loanPrincipal, double schoolFees, double lic, 
 			double mutualFund, double section80D, double section80E , double nsc, double ppf, double donation,
-			double section80DD){
+			double section80DD, Double arrears, Double bonus, Double otAmount, Double otWages){
 		this.employeeId = employeeId;
 		this.departmentId = deptId;
 		this.headId = headId;
@@ -76,6 +103,14 @@ public class EmpDeductionsVO {
 		this.ppf = ppf; 
 		this.donation = donation;
 		this.section80DD = section80DD;
+		if(arrears != null)
+			this.arrears = arrears;
+			if(otAmount != null)
+			this.otAmount = otAmount;
+			if(otWages != null)
+			this.otWages = otWages;
+			if(bonus != null)
+			this.bonus = bonus;
 	}
 	
 	public int getEmployeeId() {

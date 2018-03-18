@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.payroll.employee.allowance.dataobjects.EmpAllowance;
 import com.payroll.employee.bank.vo.BankVO;
+import com.payroll.employee.deductions.dataobjects.EmpDeductionDetails;
 import com.payroll.employee.deductions.dataobjects.EmpDeductions;
 import com.payroll.employee.lic.dataobjects.EmpLic;
 import com.payroll.employee.pf.dataobjects.EmpPf;
@@ -65,8 +66,20 @@ public class TestData {
 		return empDeductions;
 	}
 	
+	public static EmpDeductionDetails getEmpDeductDtls(int empId){
+		EmpDeductionDetails empDeductions = new EmpDeductionDetails();
+		empDeductions.setAfkRent(0);
+		empDeductions.setCourtRecovery(0);
+		empDeductions.setSociety(0);
+		empDeductions.setElectRecovery(0);
+		empDeductions.setUnionFee(0);
+		empDeductions.setOtherDeductions(0);
+		empDeductions.setEmployeeId(empId);
+		return empDeductions;
+	}
+	
 	public static BankVO getBAnkDetails(int empId){
-		return new BankVO(1, "Indian Bank", "767867869869"); 
+		return new BankVO(0, "", ""); 
 				
 	}
 }

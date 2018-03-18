@@ -95,9 +95,9 @@
 				</div>
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="../Payroll/viewEmpDeductDtls"><img src="../Payroll/resources/images/empLeave.png" class="img-responsive imageMenuItem"
+						<a href="../Payroll/listEmpDeductDtls"><img src="../Payroll/resources/images/empLeave.png" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
-						<h3><a href="../Payroll/viewEmpDeductDtls">Employee Deduction Details</a></h3>
+						<h3><a href="../Payroll/listEmpDeductDtls">Employee Deduction Details</a></h3>
 					</div>
 				</div>
 			</div>

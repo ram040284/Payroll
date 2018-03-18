@@ -24,8 +24,8 @@ public class EmpDeductionsDAO {
 				String queryString = " select new com.payroll.employee.deductions.vo.EmpDeductionsVO(d.employee.employeeId, "
 						+"d.employee.firstName, d.employee.lastName, d.section80C, d.cess, d.homeLoanIntrst88EE, "
 						+ "d.selfDisable80U, d.loanPrincipal, d.schoolFees, d.lic, d.mutualFund, d.section80D, "
-						+ "d.section80E , d.nsc, d.ppf, d.donation,	d.section80DD) from EmpDeductions d "
-						+ "where d.status = ? ";		
+						+ "d.section80E , d.nsc, d.ppf, d.donation,	d.section80DD, d.arrears, d.bonus, d.otAmount, "
+						+ "d.otWages) from EmpDeductions d where d.status = ? ";		
 						
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -50,8 +50,8 @@ public class EmpDeductionsDAO {
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = d.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = d.employee.employeeId and dh.status = 'A'), "
 						+" d.section80C, d.cess, d.homeLoanIntrst88EE, d.selfDisable80U, d.loanPrincipal, d.schoolFees, d.lic, d.mutualFund, d.section80D, "
-						+ "d.section80E , d.nsc, d.ppf, d.donation,	d.section80DD)"
-						+ " from EmpDeductions d where d.employee.employeeId = ? and d.status = ? ";		
+						+ "d.section80E , d.nsc, d.ppf, d.donation,	d.section80DD, d.arrears, d.bonus, d.otAmount, "
+						+ "d.otWages) from EmpDeductions d where d.employee.employeeId = ? and d.status = ? ";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);

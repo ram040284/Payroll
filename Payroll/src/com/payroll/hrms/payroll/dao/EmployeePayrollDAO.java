@@ -117,8 +117,12 @@ public class EmployeePayrollDAO {
    				alowances = TestData.getAllowance(employeeId);
    			if(bankVo == null)
    				bankVo = TestData.getBAnkDetails(employeeId);
+   			if(empDeductDetails == null)
+   				empDeductDetails = TestData.getEmpDeductDtls(employeeId);
+   			
    			empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay()+"", salary.getScaleInc(),
-   					1000, empPf.getPfLoneRecAmt(), 1100, 1200, 1300, 1400, 1500,
+   					empDeductDetails.getAfkRent(), empPf.getPfLoneRecAmt(), empDeductDetails.getUnionFee(),empDeductDetails.getElectRecovery(),
+   					empDeductDetails.getCourtRecovery(),empDeductDetails.getOtherDeductions(), empDeductDetails.getSociety(),
 					alowances.getCca(), empLic.getInstlmtAmt(), alowances.getConvAlwance(), 
 					alowances.getFamilyPlanAlwance(), alowances.getNonPracAwance(), alowances.getWashingAlwance(), alowances.getUniformAlwance(), 
 					alowances.getHraFlag(), 0, 0, 0, 0, empPf.getPfsCpfCntrbn(), EmployeePayrollService.getAbsenties(leaves),
