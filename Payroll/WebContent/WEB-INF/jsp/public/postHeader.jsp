@@ -190,7 +190,7 @@ h3 {font-size:16pt;}
 							<li><a href="portfolio-alt2.html">Option-02</a></li>
 							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
 							<li><a href="../Payroll/viewDept"> Department</a></li>
-				            <li><a href="../Payroll/viewHeads">Cost Heads</a></li>
+				            <li><a href="../Payroll/viewHeads">Budget Heads</a></li>
 				            <li><a href="../Payroll/viewDesg">Designation</a></li>
 				            <li><a href="../Payroll/viewBankDetails">Bank Details</a></li>
 				           <li><a href="../Payroll/viewAdvance">Advances </a></li>
