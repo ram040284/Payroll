@@ -60,7 +60,7 @@ $(document).ready(function() {
 			return false;
 		}
 		if($('#headId').val() == 0){
-			alert("Cost Head must be selected!");
+			alert("Budget Head must be selected!");
 			$('#headId').focus();
 			return false;
 		}
