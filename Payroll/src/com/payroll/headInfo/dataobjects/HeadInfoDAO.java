@@ -146,7 +146,7 @@ public class HeadInfoDAO {
 		}catch(ConstraintViolationException cv){
 			cv.printStackTrace();
 			transaction.rollback();
-			result = "The Cost Head is already exist in selected Department!";
+			result = "The Budget Head is already exist in selected Department!";
 		}catch(Exception e){
 			e.printStackTrace();
 			transaction.rollback();
