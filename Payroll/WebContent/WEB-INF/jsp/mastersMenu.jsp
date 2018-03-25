@@ -22,7 +22,7 @@
 					<div class="precess-column">
 						<a href="../Payroll/viewHeads"><img src="../Payroll/resources/images/costhead1.png" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
-					<h3><a href="../Payroll/viewHeads">Cost Heads</a></h3>
+					<h3><a href="../Payroll/viewHeads">Budget Heads</a></h3>
 					</div>
 				</div>
 				
