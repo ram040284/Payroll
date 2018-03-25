@@ -164,7 +164,7 @@ public class DesignationDAO {
 		}catch(ConstraintViolationException cv){
 			cv.printStackTrace();
 			transaction.rollback();
-			result = "The Designation is already exist in selected Cost Head!";
+			result = "The Designation is already exist in selected Budget Head!";
 		}catch(Exception e){
 			e.printStackTrace();
 			transaction.rollback();
