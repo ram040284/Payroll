@@ -2,6 +2,7 @@ package com.payroll.login.dataobjects;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.payroll.employee.vo.EmployeeVO;
 
@@ -17,10 +18,15 @@ public class User implements Serializable
 	private int listRoleId;
 	private int listDeptId;
 	private String status;
+	private String deptIds;
+	private String deptNames;
 	private Timestamp rowUpdatedDate;
 	private boolean userNameAvailabe;
 	private EmployeeVO employee;
-	private UserRoles role;
+	private Integer[] roles;
+	private List<Integer> rolesList;
+	private String[] deptIdsArray;
+	private String roleNames;
 	
 	public String getPassword() {
 		return password;
@@ -88,12 +94,6 @@ public class User implements Serializable
 	public void setEmployee(EmployeeVO employee) {
 		this.employee = employee;
 	}
-	public UserRoles getRole() {
-		return role;
-	}
-	public void setRole(UserRoles role) {
-		this.role = role;
-	}
 	public int getListRoleId() {
 		return listRoleId;
 	}
@@ -105,5 +105,49 @@ public class User implements Serializable
 	}
 	public void setListDeptId(int listDeptId) {
 		this.listDeptId = listDeptId;
+	}
+	public String getDeptIds() {
+		return deptIds;
+	}
+	public void setDeptIds(String deptIds) {
+		this.deptIds = deptIds;
+	}
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", password=" + password + ", confirmPassword=" + confirmPassword
+				+ ", userIdPk=" + userIdPk + ", empId=" + empId + ", roleId=" + roleId + ", deptId=" + deptId
+				+ ", listRoleId=" + listRoleId + ", listDeptId=" + listDeptId + ", status=" + status + ", deptIds="
+				+ deptIds + ", rowUpdatedDate=" + rowUpdatedDate + ", userNameAvailabe=" + userNameAvailabe
+				+ ", employee=" + employee + ", roles=" + roles + " Depts =" + deptNames + "]";
+	}
+	public Integer[] getRoles() {
+		return roles;
+	}
+	public void setRoles(Integer[] roles) {
+		this.roles = roles;
+	}
+	public String getDeptNames() {
+		return deptNames;
+	}
+	public void setDeptNames(String depts) {
+		this.deptNames = depts;
+	}
+	public String getRoleNames() {
+		return roleNames;
+	}
+	public void setRoleNames(String roleNames) {
+		this.roleNames = roleNames;
+	}
+	public String[] getDeptIdsArray() {
+		return deptIdsArray;
+	}
+	public void setDeptIdsArray(String[] deptIdsArray) {
+		this.deptIdsArray = deptIdsArray;
+	}
+	public List<Integer> getRolesList() {
+		return rolesList;
+	}
+	public void setRolesList(List<Integer> rolesList) {
+		this.rolesList = rolesList;
 	}
 }

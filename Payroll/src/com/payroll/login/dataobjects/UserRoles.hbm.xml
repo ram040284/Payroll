@@ -3,12 +3,25 @@
  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
   
  <hibernate-mapping>  
-  <class name="com.payroll.login.dataobjects.UserRoles" table="USER_ROLES">  
-    <id name="roleId" type="integer" >  
-     <column name="ROLE_ID" sql-type="integer" not-null="true"/>  
+  <class name="com.payroll.login.dataobjects.UserRoles" table="USER_ROLES"> 
+   <id name="userRoleId" type="integer" >  
+     <column name="USR_ROLE_ID" sql-type="integer" not-null="true"/>  
      <generator class="increment"/>
-    </id>  
-    <property name="roleName" column="ROLE_NAME"  not-null="true" />
-    <property name="roleDesc" column="ROLE_DESC"/>
+   </id> 
+   <many-to-one name="role" fetch="select" 
+             class="com.payroll.login.dataobjects.Roles"
+             column="ROLE_ID"
+             cascade="all" lazy="false">
+	</many-to-one>
+	
+	<many-to-one name="user" fetch="select" 
+             class="com.payroll.login.dataobjects.User"
+             column="USR_ID"
+             cascade="all" lazy="false">
+	</many-to-one>
+	<property name="rowUpdatedDate" column="ROW_UPD_DATE" not-null="true"/>
+    <property name="status" column="STATUS" />
+   <!--  <property name="roleId" column="ROLE_ID" not-null="true"/>
+   <property name="userId" column="USER_ID" not-null="true"/> -->
   </class>  
  </hibernate-mapping> 

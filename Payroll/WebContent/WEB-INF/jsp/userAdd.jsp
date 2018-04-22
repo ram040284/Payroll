@@ -442,17 +442,7 @@ function userIdAvailability() {
 							<span style="color: red;font-weight:bold;display:none;" id="notAvailable"></span>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-sm-6 form-group">
-								<label>Role</label>
-								<select id="roleId" name="roleId" class="form-control" onchange="roleSelection()"> 
-									<option value="0">-- Select Role --</option></select>
-							</div>
-							
-							<div class="col-sm-6 form-group" style="vertical-align: bottom">
-								<span style="color: blue;font-weight:bold;" id="roleDesc"></span>
-							</div>
-						</div>	
+						
 						<div class="row">
 							<div class="col-sm-6 form-group">
 								<label>Password</label>
@@ -462,7 +452,24 @@ function userIdAvailability() {
 								<label>Confirm Password</label>
 								<form:input type="password" id="confirmPassword" path="confirmPassword" placeholder="Enter Confirm Password" class="form-control"/>
 							</div>		
-						</div>			
+						</div>	
+						<div class="row">
+							<div class="col-sm-12 form-group">
+								<label>Roles </label>
+								<c:forEach items="${sessionScope.userRoles}" var="item">
+								   <input type="checkbox" name="roles"  multiple="multiple" value="${item.roleId}"> <c:out value="${item.roleName}"/> &nbsp;&nbsp;&nbsp;
+								</c:forEach>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-12 form-group">
+								<label>Departments </label>
+								<c:forEach items="${sessionScope.deptList}" var="item">
+								   <input type="checkbox" name="deptIds"  multiple="multiple" value="${item.departmentId}"> <c:out value="${item.departmantName}"/> &nbsp;&nbsp;&nbsp;
+								</c:forEach>
+							</div>
+						</div>	
 						
 						<div class="row">
 							<div class="col-sm-12 form-group text-right">

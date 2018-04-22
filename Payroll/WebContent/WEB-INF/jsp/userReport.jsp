@@ -180,12 +180,11 @@ alert("${message}");
 			<tr>
 			<th>Name</th>
 			<th>User ID</th>
-			<th>Role</th>
+			<th>Roles</th>
+			<th>Depts Access</th>
 			<th>Department</th>
 			<th>Head</th>
 			<th>Designation</th>
-			<th>Email</th>
-			<th>Phone</th>
 			<th><a href="#" onclick="inputPage()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/>
 					</a></th>
@@ -194,12 +193,11 @@ alert("${message}");
 			<tr>
 			<td> ${user.employee.fullName} </td>
 			<td> ${user.userId}</td>
-			<td> ${user.role.roleName} </td>
+			<td> ${user.roleNames} </td>
+			<td> ${user.deptNames} </td>
 			<td> ${user.employee.department}</td>
 			<td> ${user.employee.headName}</td>
 			<td> ${user.employee.designation}</td>
-			<td> ${user.employee.email}</td>
-			<td> ${user.employee.phone}</td>
 			<td><a href="#" onclick="editUser('${user.userIdPk}')" title="Edit">
 					<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a>
 				<a href="#" onclick="deleteUser('${user.userIdPk}')">

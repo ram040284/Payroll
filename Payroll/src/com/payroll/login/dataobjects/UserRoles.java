@@ -5,31 +5,43 @@ import java.sql.Timestamp;
 
 public class UserRoles implements Serializable
 {
-	private Integer roleId;
-	private String roleName;
-	private String roleDesc;
+	/*private Integer roleId;
+	private Integer userId;*/
+	private Integer userRoleId;
+	private Roles role;
+	private User user;
+	private String status;
+	private Timestamp rowUpdatedDate;
 	
-	public String getRoleDesc() {
-		return roleDesc;
+	public Integer getUserRoleId() {
+		return userRoleId;
 	}
-	public void setRoleDesc(String roleDesc) {
-		this.roleDesc = roleDesc;
+	public void setUserRoleId(Integer userRoleId) {
+		this.userRoleId = userRoleId;
 	}
-	public Integer getRoleId() {
-		return roleId;
+	public User getUser() {
+		return user;
 	}
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
+	public void setUser(User user) {
+		this.user = user;
 	}
-	public String getRoleName() {
-		return roleName;
+	public Roles getRole() {
+		return role;
 	}
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setRole(Roles role) {
+		this.role = role;
 	}
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return "roleName:"+this.roleName+", roleId:"+this.roleId+",roleDesc:" +roleDesc;
+	public String getStatus() {
+		return status;
 	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Timestamp getRowUpdatedDate() {
+		return rowUpdatedDate;
+	}
+	public void setRowUpdatedDate(Timestamp rowUpdatedDate) {
+		this.rowUpdatedDate = rowUpdatedDate;
+	}
+	
 }

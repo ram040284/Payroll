@@ -1,5 +1,6 @@
 package com.payroll.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +17,9 @@ import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.dataobjects.EmployeeDAO;
 import com.payroll.employee.vo.EmployeeVO;
+import com.payroll.login.dataobjects.Roles;
 import com.payroll.login.dataobjects.User;
 import com.payroll.login.dataobjects.UserDAO;
-import com.payroll.login.dataobjects.UserRoles;
 import com.payroll.utils.PasswordUtils;
 
 @Controller
@@ -30,14 +31,14 @@ public class UserController
 		 ObjectMapper mapper = new ObjectMapper();
 		    List<Department> deptList = new DepartmentService().getDepartments();
 		    List<User> usersList = new UserDAO().getUsersList(0, 0);
-		    List<UserRoles> userRoles = new UserDAO().getUserRoles();
+		    List<Roles> roles = new UserDAO().getRoles();
 
 		    String depJSON = "";
 		    String rolesJSON = "";
 		    try
 		    {
 		      depJSON = mapper.writeValueAsString(deptList);
-		      rolesJSON = mapper.writeValueAsString(userRoles);
+		      rolesJSON = mapper.writeValueAsString(roles);
 		    }
 		    catch (Exception e)
 		    {
@@ -45,6 +46,8 @@ public class UserController
 		    }
 		    request.getSession().setAttribute("departments", depJSON);
 		    request.getSession().setAttribute("roles", rolesJSON);
+		    request.getSession().setAttribute("userRoles", roles);
+		    request.getSession().setAttribute("deptList", deptList);
 		    
 		    User user = new User();
 		    ModelAndView model = new ModelAndView("userReport", "command", user);
@@ -88,23 +91,34 @@ public class UserController
 		  	user.setListRoleId(userVo.getListRoleId());
 		    ModelAndView model = new ModelAndView("userEdit", "command", user);
 		    model.addObject("user", user);
+		    request.setAttribute("roleIds", user.getRolesList().toArray());
+		    request.setAttribute("deptIds", user.getDeptIdsArray());
 		    return model;
 	  }
   
 	  @RequestMapping(value={"/addUserConfirm"}, method={RequestMethod.POST})
 	  public ModelAndView addUserConfirm(HttpServletRequest request, User userVo)
 	  {
-		  	userVo.setPassword(PasswordUtils.getEncryptedPassword(userVo.getPassword()));
-		  	boolean result = new UserDAO().addUser(userVo);
-	
+		  	UserDAO dao = new UserDAO();
+		  	User userExist = dao.getUserByEmpId(userVo);
+		  	boolean result = false;
+		  	boolean userExt = false;
+		  	if (userExist == null) {
+			  	userVo.setPassword(PasswordUtils.getEncryptedPassword(userVo.getPassword()));
+			  	result = new UserDAO().addUser(userVo);
+		  	} else {
+		  		userExt = true;
+		  	}
 			User user = new User();
 		    user.setListDeptId(userVo.getListDeptId());
 		  	user.setListRoleId(userVo.getListRoleId());
 		    List<User> usersList = new UserDAO().getUsersList(user.getListDeptId(), user.getListRoleId());
-		    
+		  	
 		    ModelAndView model = new ModelAndView("userReport", "command", user);
 		    model.addObject("users", usersList);
-		    if (result) {
+		    if (userExt) {
+		    	model.addObject("message", "User already created for this employee");
+		    } else if (result) {
 		    	model.addObject("message", "User created successfully");
 		    } else {
 		    	model.addObject("message", "User creation failed");
@@ -115,7 +129,7 @@ public class UserController
   @RequestMapping(value={"/editUserConfirm"}, method={RequestMethod.POST})
   public ModelAndView editUserConfirm(HttpServletRequest request, User userVo)
   {
-	  	userVo.setPassword(PasswordUtils.getEncryptedPassword(userVo.getPassword()));
+	  	//userVo.setPassword(PasswordUtils.getEncryptedPassword(userVo.getPassword()));
 	  	boolean result = new UserDAO().updateUser(userVo);
 
 	  	User user = new User();

@@ -80,7 +80,8 @@ $(document).ready(function() {
 	if (roleId != 0) roleSelection();
 	
 	    $("#resetBtn").click(function() {       // apply to reset button's click event
-	        this.form.reset();   
+	        this.form.reset();  
+	        selectCheckBoxes();
 	        return false;                         // prevent reset button from resetting again
 	    });
 	    
@@ -91,7 +92,7 @@ $(document).ready(function() {
 	    
 	    $('#editUserBtn').click(function(event) {
 	    	
-	    	if($('#roleId').val() == 0){
+	    	<%--if($('#roleId').val() == 0){
 	    		alert("Role must be selected!");
 	    		$('#roleId').focus();
 	    		return false;
@@ -125,14 +126,43 @@ $(document).ready(function() {
 	    		$('#Password').focus();
 	    		return false;
 	    		
-	    	}
+	    	}--%>
 	    	
 	    	$("#userForm").attr("action", "../Payroll/editUserConfirm");
 			$("#userForm").submit();
 	    });
-	    
+	    selectCheckBoxes();
 });
   
+ function selectCheckBoxes() {
+	var roleIdsCB = document.getElementsByName("roles");
+	var roleIds = new Array();
+	<c:forEach items="${requestScope.roleIds}" var="item" varStatus="loop">
+	roleIds[${loop.index}] = '${item}';
+	</c:forEach>
+	
+ 	for (var i=0; i < roleIdsCB.length; i++) {
+ 		for (var j=0; j < roleIds.length; j++) {
+ 			if (roleIdsCB[i].value == roleIds[j]) 
+ 				roleIdsCB[i].checked = true;
+ 		}
+ 	
+ 	}
+ 	
+ 	var deptsCB = document.getElementsByName("deptIds");
+	var deptIds = new Array();
+	<c:forEach items="${requestScope.deptIds}" var="item" varStatus="loop">
+	deptIds[${loop.index}] = '${item}';
+	</c:forEach>
+	
+ 	for (var i=0; i < deptsCB.length; i++) {
+ 		for (var j=0; j < deptIds.length; j++) {
+ 			if (deptsCB[i].value == deptIds[j]) 
+ 				deptsCB[i].checked = true;
+ 		}
+ 	
+ 	}
+ }
 function roleSelection() {
 	var roleId = $('#roleId').val();
 	$('#roleDesc').html('');
@@ -145,7 +175,7 @@ function roleSelection() {
 
 </script>
 </head>
-<body>
+<body >
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
 		<div class="formDiv">
@@ -189,32 +219,26 @@ function roleSelection() {
 						</div>	
 						
 						<div class="row">
-							<div class="col-sm-6 form-group">
-								<label>Role</label>
-								<select id="roleId" name="roleId" class="form-control" onchange="roleSelection()"> 
-									<option value="0">-- Select Role --</option></select>
-							</div>
-							
-							<div class="col-sm-6 form-group" style="vertical-align: bottom">
-								<span style="color: blue;font-weight:bold;" id="roleDesc"></span>
+							<div class="col-sm-12 form-group">
+								<label>Roles </label>
+								<c:forEach items="${sessionScope.userRoles}" var="item">
+								   <input type="checkbox" name="roles"  multiple="multiple" value="${item.roleId}"> <c:out value="${item.roleName}"/> &nbsp;&nbsp;&nbsp;
+								</c:forEach>
 							</div>
 						</div>
 						
 						<div class="row">
-							<div class="col-sm-6 form-group">
-								<label>Password</label>
-								<form:input type="password" id="password" path="password" placeholder="Enter Password" class="form-control"/>
+							<div class="col-sm-12 form-group">
+								<label>Departments </label>
+								<c:forEach items="${sessionScope.deptList}" var="item">
+								   <input type="checkbox" name="deptIds"  multiple="multiple" value="${item.departmentId}"> <c:out value="${item.departmantName}"/> &nbsp;&nbsp;&nbsp;
+								</c:forEach>
+							</div>
 							</div>	
-							<div class="col-sm-6 form-group">
-								<label>Confirm Password</label>
-								<form:input type="password" id="confirmPassword" path="confirmPassword" placeholder="Enter Confirm Password" class="form-control"/>
-							</div>		
-						</div>			
-						
-						<div class="row">
-							<div class="col-sm-12 form-group text-right">
-							<button type="button" id="editUserBtn" class="btn">Update</button>
-							<button type="reset" class="btn" id="resetBtn">Reset</button>	
+							<div class="row">
+								<div class="col-sm-12 form-group text-right">
+								<button type="button" id="editUserBtn" class="btn">Update</button>
+								<button type="reset" class="btn" id="resetBtn">Reset</button>	
 							<button type="button" id="usersListBtn"  class="btn">Users List</button>	
 						</div>	
 						</div>			

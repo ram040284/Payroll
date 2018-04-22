@@ -11,13 +11,13 @@
     <property name="userId" column="USR_ID"  not-null="true" />
     <property name="password" column="USR_PWD" not-null="true"/>
     <property name="empId" column="EMP_ID" type="integer" />
-   <!-- <property name="roleId" column="ROLE_ID" type="integer" />  --> 
+    <property name="deptIds" column="DEPT_IDS"/>
     <property name="rowUpdatedDate" column="ROW_UPD_DATE" not-null="true"/>
     <property name="status" column="STATUS" />
-	<many-to-one name="role" fetch="select" 
+	<!-- <many-to-one name="role" fetch="select" 
              class="com.payroll.login.dataobjects.UserRoles"
              column="ROLE_ID"
              cascade="all" lazy="false">
-	</many-to-one>
+	</many-to-one> -->
   </class>  
  </hibernate-mapping> 
