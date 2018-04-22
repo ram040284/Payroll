@@ -10,22 +10,6 @@
 <script src="../Payroll/resources/js/dataTables.bootstrap.min.js"></script>
 
 <style>
-table.dataTable thead .sorting_asc { 
-background: url('../Payroll/resources/images/uparrow.png') no-repeat right bottom 8px; 
-background-size: 25px; 
-background-color: #8B9DC3;
-color: white;
-}
-table.dataTable thead .sorting_desc { 
-background: url('../Payroll/resources/images/downarrow.png') no-repeat right bottom 8px; 
-background-size: 25px; 
-background-color: #8B9DC3;
-color: white;
-}
-
-table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
-display: none;
-}
 .tblClass_1 table {
 	border-collapse: collapse;
 	width: 100%;
@@ -35,8 +19,8 @@ display: none;
 
 .tblClass_1 th, td {
 	text-align: left;
-	padding: 5px;
-	min-width: 100px;
+	padding: 3px;
+	
 }
 
 .tblClass_1 tr:nth-child(even) {
@@ -64,9 +48,9 @@ display: none;
               contentType: "application/json;charset=utf-8",
               success : function(data) {
                  
-                  var qtrTab = $('<table style="margin-bottom: 10px;"/>').appendTo($('#deductDtlsListDiv'));
+                 <%-- var qtrTab = $('<table style="margin-bottom: 10px;"/>').appendTo($('#deductDtlsListDiv'));--%>
                   $(data).each(function(i, empDeductions){
-                	  $('<tr/>').appendTo(qtrTab)
+                	  $('<tr/>').appendTo($('#myTable').find('tbody:last'))
                 	  		.append($('<td/>').text(empDeductions.fullName))
                 			.append($('<td/>').text(empDeductions.afkRent))
                 			.append($('<td/>').text(empDeductions.society))
@@ -86,14 +70,13 @@ display: none;
       }
       function viewDeductions(id){
     	  var f = document.forms['editForm'];
-    	  alert('id:'+id);
-		  f.employeeId.value=id;
-		  f.action="../Payroll/inputEmpDedDtls";
+    	  f.employeeId.value=id;
+		  f.action="../Payroll/inputEmpDeductDtls";
 		  f.submit();
 	  }
       function inputDeductDtls(){
     	  var f = document.forms['editForm'];
-		  f.action="../Payroll/inputEmpDedDtls";
+		  f.action="../Payroll/inputEmpDeductDtls";
 		  f.submit();
 	  }
       function deleteDeductions(id){
@@ -106,21 +89,22 @@ display: none;
       }
       </script>
 </head>
-<body <%--onload="getDeductionsList()" --%>>
+<body onload="getDeductionsList()" >
 	<jsp:include page="../jsp/public/postHeader.jsp" />
-	<div class="contain-wrapp bodyDivCss">	
-		<div class="container">
+	<div>	
+		<div>
 	
 		<%--<div style="margin-top: 12px; float: left; width: 98%;">--%>
 		<h4 style="color: #0101DF;">Employee Deduction Details</h4>
 			<div style="width: 100%;">
 			<div style="margin-top: 6px; float: left; max-width: 100%;">
 			
-			<div id="deductDtlsListDiv" class="tblClass_1" style="max-width: 100%;">
+			<div id="deductDtlsListDiv" class="tblClass_1" style="overflow-x:auto;">
 	
 		<%--<div>
 			<div class="tblClass" id="deductDtlsListDiv"> --%>
-				<table>
+				<table id="myTable" style="">
+				<tbody>
 				<tr>
 					<th>Employee</th>
 					<th>AFK Rent</th>
@@ -136,7 +120,8 @@ display: none;
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
 					</th>
 				</tr>
-				<c:forEach var="empDeductions" items="${empDeductions}">
+				</tbody>
+				<%--<c:forEach var="empDeductions" items="${empDeductions}">
 					<tr>
 					<td> ${empDeductions.fullName} </td>
 					<td> ${empDeductions.afkRent} </td>
@@ -155,7 +140,7 @@ display: none;
 						</a>
 					</td>
 					</tr>
-				</c:forEach>
+				</c:forEach> --%>
 				</table>
 				</div>
 		</div>

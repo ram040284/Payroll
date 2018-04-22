@@ -61,7 +61,18 @@ public class PaybillController {
 	
 	@RequestMapping(value = "/generateBills", method = RequestMethod.POST)
 	public ModelAndView generateBills(PaybillVO paybill) {
-		return getInputForm(paybill, "generateBills");
+		ObjectMapper mapper = new ObjectMapper();
+		List<Department> deptList = new DepartmentService().getDeptSections();
+		String depJSON = "";
+		try {
+			depJSON = mapper.writeValueAsString(deptList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		ModelAndView model = new ModelAndView("generateBills", "command", paybill);
+		model.addObject(paybill);
+		model.addObject("departments", depJSON);
+		return model;
 	}
 	
 	
@@ -90,8 +101,10 @@ public class PaybillController {
     public ModelAndView generatePaybills(PaybillVO paybill) {
 		ModelAndView model = null;
 		try{
-		int result = new PaybillService(paybill.getDepartmentId(), 
-				paybill.getMonthDate()).generatePayBills(paybill.getBillType());
+			String month = Utils.getDateByMonth(Integer.parseInt(paybill.getMonthDate()));
+			System.out.println("month:"+month);
+		int result = new PaybillService(paybill.getSection(), 
+				month).generatePayBills(paybill.getBillType());
  		model = new ModelAndView("paybillsResp", "command", paybill);
  		model.addObject("result", result);
  		/*String result = "";
@@ -120,7 +133,8 @@ public class PaybillController {
 		public ModelAndView downloadExcel(PaybillVO paybill) {
 			List<PaybillDetails> monthlyDetails = null;
 			try{
-				monthlyDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getMonthlyBills();
+				String month = Utils.getDateByMonth(Integer.parseInt(paybill.getMonthDate()));
+				monthlyDetails = new PaybillService(paybill.getDepartmentId(), month).getMonthlyBills();
 				System.out.println("monthlyDetails:"+monthlyDetails+", monthlyDetails:"+monthlyDetails.isEmpty());
 				if(monthlyDetails == null || monthlyDetails.isEmpty()){
 					return new ModelAndView("noActivity", "", monthlyDetails);
@@ -138,7 +152,8 @@ public class PaybillController {
     public ModelAndView downloadPaybill(PaybillVO paybill) {
 		PaybillDetails paybillDetails = null;
 		try{
-			paybillDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getPayBills();
+			String month = Utils.getDateByMonth(Integer.parseInt(paybill.getMonthDate()));
+			paybillDetails = new PaybillService(paybill.getDepartmentId(), month).getPayBills();
 			if(paybillDetails == null){
 				return new ModelAndView("noActivity", "", paybillDetails);
 			}
@@ -153,7 +168,8 @@ public class PaybillController {
     public ModelAndView headwiseReport(PaybillVO paybill) {
 		List<PaybillDetails> headwiseDetails = null;
 		try{
-			headwiseDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getHeadsPayBills();
+			String month = Utils.getDateByMonth(Integer.parseInt(paybill.getMonthDate()));
+			headwiseDetails = new PaybillService(paybill.getDepartmentId(), month).getHeadsPayBills();
 			if(headwiseDetails == null || headwiseDetails.isEmpty()){
 				return new ModelAndView("noActivity", "", headwiseDetails);
 			}
@@ -167,7 +183,9 @@ public class PaybillController {
     public ModelAndView bankwiseReport(PaybillVO paybill) {
 		List<PaybillDetails>  bankwiseDetails = null;
 		try{
-			bankwiseDetails = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getBankWisePayBills();
+			String month = Utils.getDateByMonth(Integer.parseInt(paybill.getMonthDate()));
+			
+			bankwiseDetails = new PaybillService(paybill.getDepartmentId(), month).getBankWisePayBills();
 			if(bankwiseDetails == null || bankwiseDetails.isEmpty()){
 				return new ModelAndView("noActivity", "", bankwiseDetails);
 			}
@@ -181,7 +199,8 @@ public class PaybillController {
     public ModelAndView payslip(PaybillVO paybill) {
 		PaybillDetails  payslip = null;
 		try{
-			payslip = new PaybillService(paybill.getDepartmentId(), paybill.getMonthDate()).getPaySlip(paybill.getEmployeeId());
+			String month = Utils.getDateByMonth(Integer.parseInt(paybill.getMonthDate()));
+			payslip = new PaybillService(paybill.getDepartmentId(), month).getPaySlip(paybill.getEmployeeId());
 			if(payslip == null || payslip.getPayrollList()== null || payslip.getPayrollList().isEmpty()){
 				return new ModelAndView("noActivity", "", payslip);
 			}

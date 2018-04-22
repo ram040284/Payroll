@@ -14,9 +14,9 @@
 $(document).ready(function() {
 	var departmentList = ${departments};
 	$.each(departmentList, function( index, value ) {
-		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#departmentId');
+		$('<option>').val(value.section).text(value.section).appendTo('#departmentId');
 	});
-	$('#monthDate').datepick({dateFormat: 'dd/mm/yyyy'});
+	<%--$('#monthDate').datepick({dateFormat: 'dd/mm/yyyy'});--%>
 });
 function generatePaybill(){
 	var radioChecked = $("input[name='billType']:checked").val();
@@ -25,13 +25,13 @@ function generatePaybill(){
 		$("input[name='billType']").focus();
 		return false;
 	}
-	if($('#departmentId').val() == 0){
-		alert('Department must be provided generate Bill!');
+	if($('#section').val() == ""){
+		alert('Department Section must be provided generate Bill!');
 		$('#departmentId').focus();
 		return false;
 	}
-	if($('#monthDate').val().trim()== ""){
-		alert('Date must be provided!');
+	if($('#monthDate').val() == "0"){
+		alert('Month must be selected!');
 		$('#monthDate').focus();
 		return false;
 	}
@@ -65,15 +65,30 @@ function generatePaybill(){
 		</div>
 	<div class="row">
 		<div class="col-sm-6 form-group">
-			<label>Department: </label> 
-			<select id="departmentId" class="form-control" name="departmentId"><%-- onchange="getHeads()"> --%>
-			<option value="0">-- Select Department --</option></select>
+			<label>Department Section: </label> 
+			<select id="departmentId" class="form-control" name="section"><%-- onchange="getHeads()"> --%>
+			<option value="">-- Select Section --</option></select>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-6 form-group">
-			<label>Date:</label>
-			<input type="text" id="monthDate" name="monthDate" placeholder="Select 1st Date of Month" class="form-control"/>
+			<label>Month:</label>
+			<select id="monthDate" class="form-control" name="monthDate"><%-- onchange="getHeads()"> --%>
+			<option value="0">-- Select Month --</option>
+			<option value="1">January</option>
+			<option value="2">February</option>
+			<option value="3">March</option>
+			<option value="4">April</option>
+			<option value="5">May</option>
+			<option value="6">June</option>
+			<option value="7">July</option>
+			<option value="8">August</option>
+			<option value="9">September</option>
+			<option value="10">October</option>
+			<option value="11">November</option>
+			<option value="12">December</option>
+			</select>
+		<%--	<input type="text" id="monthDate" name="monthDate" placeholder="Select Month" class="form-control"/> --%>
 		</div>
 	</div>			
 		

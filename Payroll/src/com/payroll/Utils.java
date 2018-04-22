@@ -85,4 +85,10 @@ public class Utils {
 		daysInMonth += numDays;
 		return daysInMonth;
 	}
+	public static String getDateByMonth(int month){
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.MONTH, month-1);
+		return getSimpleDate(c.getTime());
+	}
+	
 }

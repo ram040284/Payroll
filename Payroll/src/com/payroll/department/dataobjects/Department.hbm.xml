@@ -8,9 +8,12 @@
      <column name="DEPT_ID" sql-type="integer" not-null="true"/>  
      <generator class="increment"/>
     </id>  
-    <property name="departmantName" column="DEPT_NAME" not-null="true"/> 
+    <property name="departmantName" column="DEPT_NAME" not-null="true"/>
+    <property name="section" column="SECTION" not-null="true"/>
+    <property name="description" column="DESCRIPTION" not-null="true"/> 
     <property name="status" column="STATUS" not-null="true"/>  
-    <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/> 
+    <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/>
+     
     <!-- <set name="costHeads" inverse="true" fetch="select" lazy="true" cascade="save-update">
     	<key column="HEAD_ID" not-null="true" />
     	<one-to-many class="com.payroll.headInfo.dataobjects.HeadInfo"/>

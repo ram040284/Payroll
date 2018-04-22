@@ -10,9 +10,9 @@
               contentType: "application/json;charset=utf-8",
               success : function(data) {
                  
-                  var qtrTab = $('<table style="margin-bottom: 10px;"/>').appendTo($('#deductionListDiv'));
+                 <%-- var qtrTab = $('<table style="margin-bottom: 10px;"/>').appendTo($('#deductionListDiv'));--%>
                   $(data).each(function(i, empDeductions){
-                	  $('<tr/>').appendTo(qtrTab)
+                	  $('<tr/>').appendTo($('#myTable').find('tbody:last'))
                 	  		.append($('<td/>').text(empDeductions.fullName))
                 			.append($('<td/>').text(empDeductions.section80C))
                 			.append($('<td/>').text(empDeductions.homeLoanIntrst88EE))
@@ -65,11 +65,15 @@
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
 	
-	<div style="margin-top: 12px; float: left; width: 98%;">
+	<%--<div style="margin-top: 12px; float: left;"> --%>
 			<h4 style="color: #0101DF;">Employee Deduction Details</h4>
-		<div>
-			<div class="tblClass" id="deductionListDiv">
-				<table>
+		<%--<div>
+			<div class="tblClass" id="deductionListDiv" style="overflow-x:auto;"> --%>
+			<div style="width: 100%;">
+			<div style="margin-top: 6px; float: left; max-width: 100%;">
+			
+			<div id="deductionListDiv" class="tblClass" style="overflow-x:auto;">
+				<table id="myTable">
 				<tr>
 					<th>Employee</th>
 					<th>Section 80C</th>

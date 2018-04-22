@@ -14,7 +14,7 @@
     <property name="joiningDate" column="EMP_JOINING_DATE" not-null="true"/>
     <property name="dob" column="BIRTH_DATE" not-null="true"/>
     <property name="rowUpdatedDate" column="ROW_UPD_DATE" not-null="true"/>
-    <property name="contactNo" column="EMP_CONTACTNO" />
+   <!--  <property name="contactNo" column="EMP_CONTACTNO" /> -->
     <property name="pan" column="EMP_PAN" />
     <property name="adharNo" column="EMP_AADHAR" />
     <property name="lastPromotionDate" column="EMP_LST_PROMO_DT" />

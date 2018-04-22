@@ -16,7 +16,7 @@ $(document).ready(function() {
 	$.each(departmentList, function( index, value ) {
 		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#departmentId');
 	});
-	$('#monthDate').datepick({dateFormat: 'dd/mm/yyyy'});
+	<%--$('#monthDate').datepick({dateFormat: 'dd/mm/yyyy'});--%>
 });
 function headwiseRpt(){
 	if($('#departmentId').val() == 0){
@@ -51,8 +51,23 @@ function headwiseRpt(){
 	</div>
 	<div class="row">
 		<div class="col-sm-6 form-group">
-			<label>Date:</label>
-			<input type="text" id="monthDate" name="monthDate" placeholder="Select 1st Date of Month" class="form-control"/>
+			<label>Month:</label>
+			<select id="monthDate" class="form-control" name="monthDate"><%-- onchange="getHeads()"> --%>
+			<option value="0">-- Select Month --</option>
+			<option value="1">January</option>
+			<option value="2">February</option>
+			<option value="3">March</option>
+			<option value="4">April</option>
+			<option value="5">May</option>
+			<option value="6">June</option>
+			<option value="7">July</option>
+			<option value="8">August</option>
+			<option value="9">September</option>
+			<option value="10">October</option>
+			<option value="11">November</option>
+			<option value="12">December</option>
+			</select>
+		<%--	<input type="text" id="monthDate" name="monthDate" placeholder="Select Month" class="form-control"/> --%>
 		</div>
 	</div>			
 		

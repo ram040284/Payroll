@@ -9,6 +9,21 @@ import java.util.Set;
 import com.payroll.headInfo.dataobjects.HeadInfo;
 
 public class Department implements Serializable{
+	public String getSection() {
+		return section;
+	}
+
+	public void setSection(String section) {
+		this.section = section;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	/**
 	 * 
 	 */
@@ -18,6 +33,8 @@ public class Department implements Serializable{
 	private String status;
 	private Timestamp rowUpdDate;
 	private Set<HeadInfo> costHeads = new HashSet<HeadInfo>();
+	private String section;
+	private String description;
 	
 	public Department(){
 		

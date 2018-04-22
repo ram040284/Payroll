@@ -16,6 +16,8 @@
                 	  $('<tr/>').appendTo(deptTab)
                 	  		.append($('<td/>').text(department.departmentId))
                 			  .append($('<td/>').text(department.departmantName))
+                			  .append($('<td/>').text(department.section))
+                			  .append($('<td/>').text(department.description))
                 			  .append($('<td/>').append('<a href="#" onclick=viewDept('+department.departmentId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDept('+department.departmentId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                   });
                   
@@ -74,6 +76,9 @@
 				<tr>
 					<th>ID</th>
 					<th>Name</th>
+					<th>Section</th>
+					<th>Description</th>
+					
 					<th><a href="#" onclick="inputDept()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
 					</th>

@@ -8,6 +8,8 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 
 import com.payroll.Utils;
+import com.payroll.department.business.DepartmentService;
+import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.dataobjects.EmployeeDAO;
 import com.payroll.employee.vo.EmployeeVO;
 import com.payroll.headInfo.dataobjects.HeadInfo;
@@ -26,11 +28,19 @@ public class PaybillService {
 	List<EmployeeVO> empList = null;
 	int headId;
 	private int deptId;
+	private String section;
 	private Date startDate;
 	private Date endDate;
 	private boolean bankWise;
+	
 	public PaybillService(int deptId, String date){
 		this.deptId = deptId;
+		this.startDate = Utils.getStartDateOfMonth(date);
+		this.endDate = Utils.getEndDateOfMonth(date);
+	}
+	
+	public PaybillService(String section, String date){
+		this.section = section;
 		this.startDate = Utils.getStartDateOfMonth(date);
 		this.endDate = Utils.getEndDateOfMonth(date);
 	}
@@ -113,13 +123,23 @@ public class PaybillService {
 	 */
 	public int generatePayBills(int billType){
 		int success = 0;
-		if(checkPayBills(deptId)){
-			success = 1;
-			return success;
+		
+		List<Department> departments = new DepartmentService().getDepartmentsBySection(section);
+		System.out.println(""+departments.size());
+		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
+			Department department = (Department) iterator.next();
+			if(checkPayBills(department.getDepartmentId())){
+				success = 1;
+				continue;
+			}
+			EmployeePayrollService payroll = new EmployeePayrollService(empList);
+			boolean result = payroll.createPaybills(department.getDepartmentId(), startDate);
+			success = (result) ? 2 :3;
 		}
-		EmployeePayrollService payroll = new EmployeePayrollService(empList);
+		
+		/*EmployeePayrollService payroll = new EmployeePayrollService(empList);
 		boolean result = payroll.createPaybills(deptId, startDate);
-		success = (result) ? 2 :3;
+		success = (result) ? 2 :3;*/
 		//checkPayBills(deptId);
 		return success;
 	}

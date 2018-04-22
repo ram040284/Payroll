@@ -121,6 +121,46 @@ public class DepartmentDAO {
 		return departmentList;
 	}
 	
+	public List<Department> getDeptSections(){
+		List<Department> departmentList = null;
+		Session session = null;
+		
+		try{
+			String queryString = " from Department d where d.status = ? order by d.section";
+					
+			session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, "A");
+			departmentList = query.list();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return departmentList;
+	}
+	
+	public List<Department> getDepartmentsBySection(String section){
+		List<Department> departmentList = null;
+		Session session = null;
+		
+		try{
+			String queryString = " from Department d where d.status = ? and s.section = ? ";
+					
+			session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, "A");
+			query.setParameter(1, section);
+			departmentList = query.list();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return departmentList;
+	}
+	
+	
 	public Department getDepartmentById(int deptId){
 		Department department = null;
 		Session session = null;

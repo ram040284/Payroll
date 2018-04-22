@@ -19,26 +19,37 @@ td, th {
 $(document).ready(function() {
 
 	$('#addDeptBtn').click(function(event) { 
+		var deptNameInp = $('#departmantName').val().trim();
+		var sectionInp = $('#section').val().trim();
+		var descriptionInp = $('#description').val().trim();
 		if($('#departmentId').val()!= "0"){
 			var deptName = "${department.departmantName}";
-			if(deptName == $('#departmantName').val()){
+			var section = "${department.section}";
+			var description = "${department.description}";
+			if(deptName == deptNameInp && section == sectionInp && description == descriptionInp){
 				alert('Nothing was changed');
 				$('#departmantName').focus();
 				return false;
 			}
 		}
-		var deptName = $('#departmantName').val().trim();
-		if(deptName == ""){
+		
+		if(deptNameInp == ""){
 			alert("Department name must be provided!");
 			$('#departmantName').focus();
 			return false;
 		}
+		if(sectionInp == ""){
+			alert("Section name must be provided!");
+			$('#section').focus();
+			return false;
+		}
+		
 		<%--if(!alphaOnly(deptName)){
 			alert("Department name must allow only letters and space!");
 			$('#departmantName').focus();
 			return false;
 		}--%>
-		var inputJson = { "departmantName" : $('#departmantName').val(), "departmentId" : $('#departmentId').val()};
+		var inputJson = { "departmantName" : $('#departmantName').val(), "departmentId" : $('#departmentId').val(), "section" : sectionInp, "description" : descriptionInp};
 	   	$.ajax({
 	        url: '../Payroll/addDept',
 	        data: JSON.stringify(inputJson),
@@ -77,10 +88,18 @@ function alphaOnly(value){
 		<div class="row">
 		<form:form method = "POST" action = "">
 		<div class="col-sm-12">
-			<div class="form-group">
+			<div class="col-sm-6 form-group">
 				<label>Department Name</label>
 				<form:input path="departmantName" id="departmantName" class="form-control"/>
 				<form:input type="hidden" path="departmentId" id="departmentId" />
+			</div>
+			<div class="col-sm-6 form-group">
+				<label>Section</label>
+				<form:input path="section" id="section" class="form-control"/>
+			</div>
+			<div class="form-group">
+				<label>Description</label>
+				<form:input path="description" id="description" class="form-control"/>
 			</div>
 			<div class="row">	
 				<div class="text-right">

@@ -2,6 +2,7 @@ package com.payroll.paybill.vo;
 
 public class PaybillVO {
 	private int departmentId;
+	private String section;
 	private String monthDate;
 	private int employeeId;
 	private int billType;
@@ -17,6 +18,12 @@ public class PaybillVO {
 	}
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
+	}
+	public String getSection() {
+		return section;
+	}
+	public void setSection(String section) {
+		this.section = section;
 	}
 	public int getDepartmentId() {
 		return departmentId;
