@@ -52,10 +52,16 @@
 	<jsp:include page="../jsp/public/postHeader.jsp" />
 	 <div class="contain-wrapp bodyDivCss">	
 		<div class="container">
-	
-	<div style="margin-top: 12px; float: left; width: 98%;">
+			<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/mastersMenu')">Back</button>
+					</div>
+				</div>
+			</div>	
+			<div style="margin-top: 12px; float: left; width: 98%;">
 			<h4 style="color: #0101DF;">Incometax Slabs</h4>
-		<div>
+			<div>
 			
 				<div class="tblClass" id="taxSlabsListDiv">
 				<table>

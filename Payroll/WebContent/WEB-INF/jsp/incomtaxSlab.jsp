@@ -132,6 +132,10 @@ $(document).ready(function() {
 	    });
 	    event.preventDefault();
 	});
+	
+	$('#backBtn').click(function(event) { 
+		window.location = "../Payroll/viewTaxSlab";
+	});
 });
 function checkAmount(value){
 	if(value.indexOf(".")!= -1){
@@ -149,7 +153,14 @@ function checkAmount(value){
 <body>
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
-		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
+		<div style="display: none;color: red; font-weight:bold; height: 15px; margin: 5px;" id="errMsgDiv"></div>
+		<div class="formDiv" style="border: none;">
+			<div class="row">
+				<div class="text-left" style="margin-left: 15px;">
+					<button type="button" id="backBtn" class="btn">Back</button>
+				</div>
+			</div>
+		</div>	
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">
 				<c:if test="${incomtaxSlab.incomtaxId != '0'}" >Update</c:if><c:if test="${incomtaxSlab.incomtaxId == '0'}">Add</c:if> Incometax Slab

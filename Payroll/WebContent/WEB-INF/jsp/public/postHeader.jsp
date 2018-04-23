@@ -123,6 +123,9 @@ h3 {font-size:16pt;}
  		f.action=actionPath;
  		f.submit();
  	}
+ 	function backNav(actionPath){
+ 		window.location = actionPath;
+ 	}
  </script>
 </head>
 <body>

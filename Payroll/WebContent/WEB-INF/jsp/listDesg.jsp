@@ -12,13 +12,7 @@
               contentType: "application/json;charset=utf-8",
               success : function(data) {
                  
-                <%--  $(data).each(function(i, designation){
-                	  var rowClass = (i % 2 ==0) ? "rTableRow" : "rTableRowEven";
-                	  $("<div class='"+rowClass+"'></div>").appendTo($('#desgListDiv')).append($("<div class='rTableCell'></div>").text(designation.designationId))
-                	  .append($("<div class='rTableCell'></div>").text(designation.designationName))
-        			  .append($("<div class='rTableCellLast'></div>").append('<a href="#" onclick="viewDesgMethod('+designation.designationId+',&#34;'+designation.designationName+'&#34;)"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDesg('+designation.designationId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
-                  });--%>
-                  var deptTab = $('<table/>').appendTo($('#desgListDiv'));
+              	  var deptTab = $('<table/>').appendTo($('#desgListDiv'));
                   $(data).each(function(i, designation){
                 	  $('<tr/>').appendTo(deptTab)
                 	  		.append($('<td/>').text(designation.departmentName))
@@ -55,10 +49,16 @@
 	<jsp:include page="../jsp/public/postHeader.jsp" />
 	 <div class="contain-wrapp bodyDivCss">	
 		<div class="container">
-	
-	<div style="margin-top: 12px; float: left; width: 98%;">
+			<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/mastersMenu')">Back</button>
+					</div>
+				</div>
+			</div>	
+			<div style="margin-top: 12px; float: left; width: 98%;">
 			<h4 style="color: #0101DF;">Designation Details</h4>
-		<div>
+			<div>
 			
 				<div class="tblClass" id="desgListDiv">
 				<table>
