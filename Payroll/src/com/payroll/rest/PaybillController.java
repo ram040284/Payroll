@@ -56,12 +56,23 @@ public class PaybillController {
 	
 	@RequestMapping(value = "/paycheckRep", method = RequestMethod.POST)
 	public ModelAndView paycheckRep(PaybillVO paybill) {
-		return getInputForm(paybill, "paycheckRep");
+		ObjectMapper mapper = new ObjectMapper();
+		List<Department> deptList = new DepartmentService().getDepartments();
+		String depJSON = "";
+		try {
+			depJSON = mapper.writeValueAsString(deptList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		ModelAndView model = new ModelAndView("paycheckRep", "command", paybill);
+		model.addObject(paybill);
+		model.addObject("departments", depJSON);
+		return model;
 	}
 	
 	@RequestMapping(value = "/generateBills", method = RequestMethod.POST)
 	public ModelAndView generateBills(PaybillVO paybill) {
-		ObjectMapper mapper = new ObjectMapper();
+		/*ObjectMapper mapper = new ObjectMapper();
 		List<Department> deptList = new DepartmentService().getDeptSections();
 		String depJSON = "";
 		try {
@@ -72,13 +83,15 @@ public class PaybillController {
 		ModelAndView model = new ModelAndView("generateBills", "command", paybill);
 		model.addObject(paybill);
 		model.addObject("departments", depJSON);
-		return model;
+		return model;*/
+		return getInputForm(paybill, "generateBills");
 	}
 	
 	
 	private ModelAndView getInputForm(PaybillVO paybill, String jspName){
 		ObjectMapper mapper = new ObjectMapper();
-		List<Department> deptList = new DepartmentService().getDepartments();
+		//List<Department> deptList = new DepartmentService().getDepartments();
+		List<Department> deptList = new DepartmentService().getDeptSections();
 		String depJSON = "";
 		try {
 			depJSON = mapper.writeValueAsString(deptList);
@@ -96,15 +109,15 @@ public class PaybillController {
 		return null;
 	}
 	
-	
+	/**
+	 * Generating Paybills
+	 */
 	@RequestMapping(value = "/generatePaybills", method = RequestMethod.POST)
     public ModelAndView generatePaybills(PaybillVO paybill) {
 		ModelAndView model = null;
 		try{
 			String month = Utils.getDateByMonth(Integer.parseInt(paybill.getMonthDate()));
-			System.out.println("month:"+month);
-		int result = new PaybillService(paybill.getSection(), 
-				month).generatePayBills(paybill.getBillType());
+		int result = new PaybillService(paybill.getSection(), month).generatePayBills(paybill.getBillType());
  		model = new ModelAndView("paybillsResp", "command", paybill);
  		model.addObject("result", result);
  		/*String result = "";
@@ -128,13 +141,17 @@ public class PaybillController {
 		}
  	return model;
 	}
-	
+	/**
+	 * Monthly Comparison
+	 * @param paybill
+	 * @return
+	 */
 	@RequestMapping(value = "/downloadPDF", method = RequestMethod.POST)
 		public ModelAndView downloadExcel(PaybillVO paybill) {
 			List<PaybillDetails> monthlyDetails = null;
 			try{
 				String month = Utils.getDateByMonth(Integer.parseInt(paybill.getMonthDate()));
-				monthlyDetails = new PaybillService(paybill.getDepartmentId(), month).getMonthlyBills();
+				monthlyDetails = new PaybillService(paybill.getSection(), month).getMonthlyBills();
 				System.out.println("monthlyDetails:"+monthlyDetails+", monthlyDetails:"+monthlyDetails.isEmpty());
 				if(monthlyDetails == null || monthlyDetails.isEmpty()){
 					return new ModelAndView("noActivity", "", monthlyDetails);
@@ -153,8 +170,8 @@ public class PaybillController {
 		PaybillDetails paybillDetails = null;
 		try{
 			String month = Utils.getDateByMonth(Integer.parseInt(paybill.getMonthDate()));
-			paybillDetails = new PaybillService(paybill.getDepartmentId(), month).getPayBills();
-			if(paybillDetails == null){
+			paybillDetails = new PaybillService(paybill.getSection(), month).getPayBills();
+			if(paybillDetails == null || (paybillDetails.getPayrollList() == null || paybillDetails.getPayrollList().isEmpty())){
 				return new ModelAndView("noActivity", "", paybillDetails);
 			}
 		
@@ -169,7 +186,7 @@ public class PaybillController {
 		List<PaybillDetails> headwiseDetails = null;
 		try{
 			String month = Utils.getDateByMonth(Integer.parseInt(paybill.getMonthDate()));
-			headwiseDetails = new PaybillService(paybill.getDepartmentId(), month).getHeadsPayBills();
+			headwiseDetails = new PaybillService(paybill.getSection(), month).getHeadsPayBills();
 			if(headwiseDetails == null || headwiseDetails.isEmpty()){
 				return new ModelAndView("noActivity", "", headwiseDetails);
 			}

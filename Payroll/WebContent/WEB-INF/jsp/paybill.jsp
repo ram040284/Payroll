@@ -14,18 +14,18 @@
 $(document).ready(function() {
 	var departmentList = ${departments};
 	$.each(departmentList, function( index, value ) {
-		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#departmentId');
+		$('<option>').val(value.section).text(value.section).appendTo('#departmentId');
 	});
 	<%--$('#monthDate').datepick({dateFormat: 'dd/mm/yyyy'});--%>
 });
 function generatePaybill(){
-	if($('#departmentId').val() == 0){
-		alert('Department must be provided to generate Bill!');
+	if($('#departmentId').val() == ""){
+		alert('Department Section must be provided to generate Bill!');
 		$('#departmentId').focus();
 		return false;
 	}
-	if($('#monthDate').val().trim()== ""){
-		alert('Date must be provided!');
+	if($('#monthDate').val().trim()== "0"){
+		alert('Month must be provided!');
 		$('#monthDate').focus();
 		return false;
 	}
@@ -59,8 +59,8 @@ function headwiseRpt(){
 	f.submit();
 }
 function bankwiseRpt(){
-	if($('#departmentId').val() == 0){
-		alert('Department must be provided generate Bill!');
+	if($('#departmentId').val() == ""){
+		alert('Section must be provided generate Bill!');
 		$('#departmentId').focus();
 		return false;
 	}
@@ -123,9 +123,9 @@ function getHeadsByDept(deptId) {
 		<div style="margin-left: 10px;">
 	<div class="row">
 		<div class="col-sm-6 form-group">
-			<label>Department </label> 
-			<select id="departmentId" class="form-control" name="departmentId"><%-- onchange="getHeads()"> --%>
-			<option value="0">-- Select Department --</option></select>
+			<label>Department Section: </label> 
+			<select id="departmentId" class="form-control" name="section"><%-- onchange="getHeads()"> --%>
+			<option value="">-- Select Section --</option></select>
 		</div>
 	</div>
 	<div class="row">

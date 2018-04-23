@@ -14,13 +14,13 @@
 $(document).ready(function() {
 	var departmentList = ${departments};
 	$.each(departmentList, function( index, value ) {
-		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#departmentId');
+		$('<option>').val(value.section).text(value.section).appendTo('#departmentId');
 	});
 	<%--$('#monthDate').datepick({dateFormat: 'dd/mm/yyyy'});--%>
 });
 function headwiseRpt(){
-	if($('#departmentId').val() == 0){
-		alert('Department must be provided generate Bill!');
+	if($('#departmentId').val() == ""){
+		alert('Department Section must be provided generate Bill!');
 		$('#departmentId').focus();
 		return false;
 	}
@@ -44,9 +44,9 @@ function headwiseRpt(){
 		<div style="margin-left: 10px;">
 	<div class="row">
 		<div class="col-sm-6 form-group">
-			<label>Department </label> 
-			<select id="departmentId" class="form-control" name="departmentId">
-			<option value="0">-- Select Department --</option></select>
+			<label>Department Section: </label> 
+			<select id="departmentId" class="form-control" name="section">
+			<option value="0">-- Select Section --</option></select>
 		</div>
 	</div>
 	<div class="row">

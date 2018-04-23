@@ -26,6 +26,7 @@ import com.payroll.pdf.business.Payslip;
 public class PaybillService {
 	List<Paybill> paybillList = null;
 	List<EmployeeVO> empList = null;
+	List<EmployeeVO> sectionEmpList = null;
 	int headId;
 	private int deptId;
 	private String section;
@@ -69,7 +70,24 @@ public class PaybillService {
 	public List<PaybillDetails> getHeadsPayBills(){
 		
 		List<PaybillDetails> pbDetailsList = new ArrayList<PaybillDetails>();
-		List<HeadInfoVO> headInfoList= new HeadInfoDAO().getHeadInfoList(deptId);
+		List<Department> departments = new DepartmentService().getDepartmentsBySection(section);
+		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
+			Department department = (Department) iterator.next();
+			//checkPayBills(department.getDepartmentId());
+			List<HeadInfoVO> headInfoList= new HeadInfoDAO().getHeadInfoList(department.getDepartmentId());
+			PaybillDetails pbDetails = null;
+			for (Iterator headIterator = headInfoList.iterator(); headIterator.hasNext();) {
+				HeadInfoVO headInfoVO = (HeadInfoVO) headIterator.next();
+				this.headId = headInfoVO.getHeadId();
+				pbDetails = getPayBills();
+				if(pbDetails != null){
+					pbDetails.setHeadName(headInfoVO.getHeadName());
+					pbDetailsList.add(pbDetails);
+				}
+			}
+		}
+		
+		/*List<HeadInfoVO> headInfoList= new HeadInfoDAO().getHeadInfoList(deptId);
 		PaybillDetails pbDetails = null;
 		for (Iterator iterator = headInfoList.iterator(); iterator.hasNext();) {
 			HeadInfoVO headInfoVO = (HeadInfoVO) iterator.next();
@@ -79,7 +97,7 @@ public class PaybillService {
 				pbDetails.setHeadName(headInfoVO.getHeadName());
 				pbDetailsList.add(pbDetails);
 			}
-		}
+		}*/
 		return pbDetailsList;
 	}
 	/**
@@ -88,7 +106,11 @@ public class PaybillService {
 	 */
 	public List<PaybillDetails> getBankWisePayBills(){
 		this.bankWise = true;
-		checkPayBills(deptId);
+		List<Department> departments = new DepartmentService().getDepartmentsBySection(section);
+		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
+			Department department = (Department) iterator.next();
+			checkPayBills(department.getDepartmentId());
+		}
 		return getBankwiseDetails();
 	}
 	
@@ -150,22 +172,27 @@ public class PaybillService {
 	 */
 	public PaybillDetails getPayBills(){
 		PaybillDetails details = null;
-		if(checkPayBills(deptId))
-			details = getPaybillDetails();
-		
-		/*EmployeePayrollService payroll = new EmployeePayrollService(empList);
-		payroll.createPaybills(deptId, startDate);
-		checkPayBills(deptId);
-		return getPaybillDetails();*/
+		List<Department> departments = new DepartmentService().getDepartmentsBySection(section);
+		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
+			Department department = (Department) iterator.next();
+			checkPayBills(department.getDepartmentId());
+		}
+		details = getPaybillDetails();
 		return details;
 	}
 	private boolean checkPayBills(int deptId){
 		boolean billsExist = false;
 		empList = new EmployeePayrollDAO().getEmployeesByDept(deptId);
-		paybillList = new PaybillDAO(startDate, endDate, deptId).getPaybillsByDept(headId, bankWise);
-		if(paybillList !=null && !paybillList.isEmpty()){
+		List<Paybill> paybillListTemp = new PaybillDAO(startDate, endDate, deptId).getPaybillsByDept(headId, bankWise);
+		if(paybillListTemp !=null && !paybillListTemp.isEmpty()){
 			billsExist = true;
 		}
+		if(sectionEmpList == null)
+			sectionEmpList = new ArrayList<EmployeeVO>();
+		sectionEmpList.addAll(empList);
+		if(paybillList == null)
+			paybillList = new ArrayList<Paybill>();
+		paybillList.addAll(paybillListTemp);
 		return billsExist;
 	}
     private PaybillDetails getPaybillDetails(){
@@ -176,7 +203,7 @@ public class PaybillService {
     		ReportDetails empPayroll = new ReportDetails(); 
     		org.apache.commons.beanutils.BeanUtils.copyProperties(empPayroll, paybill);
     		if(headId == 0){
-	    		for (EmployeeVO employee : empList) {
+	    		for (EmployeeVO employee : sectionEmpList) {
 					if(employee.getEmployeeId() == paybill.getEmployeeId()){
 						empPayroll.setEmployeeName(employee.getFullName());
 			    		empPayroll.setPanNo(employee.getPan());
