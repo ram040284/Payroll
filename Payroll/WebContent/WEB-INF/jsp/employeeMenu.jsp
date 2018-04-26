@@ -90,7 +90,7 @@
 					<div class="precess-column">
 						<a href="../Payroll/viewEmpDeductions"><img src="../Payroll/resources/images/advance.png" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
-						<h3><a href="../Payroll/viewEmpDeductions">Employee Deductions</a></h3>
+						<h3><a href="../Payroll/viewEmpDeductions">Employee ITax Deductions</a></h3>
 					</div>
 				</div>
 				<div class="col-xs-4 text-center">
