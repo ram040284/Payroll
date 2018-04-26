@@ -10,11 +10,12 @@ public class SalaryVO implements Serializable{
 	private double basic;
 	private double gradePay;
 	private String scalePay;
-	private double scaleInc;
+	private double scaleCode;
 	private String fullName;
 	private int departmentId;
 	private int designationId;
 	private int headId;
+	
 	public SalaryVO() {
 		
 	}
@@ -61,8 +62,8 @@ public class SalaryVO implements Serializable{
 	public String getScalePay() {
 		return scalePay;
 	}
-	public double getScaleInc() {
-		return scaleInc;
+	public double getScaleCode() {
+		return scaleCode;
 	}
 
 	public String getFullName() {
@@ -91,8 +92,8 @@ public class SalaryVO implements Serializable{
 	public void setScalePay(String scalePay) {
 		this.scalePay = scalePay;
 	}
-	public void setScaleInc(double scaleInc) {
-		this.scaleInc = scaleInc;
+	public void setScaleCode(double scaleCode) {
+		this.scaleCode = scaleCode;
 	}
 	public void setDepartmentId(int departmentId) {
 		this.departmentId = departmentId;

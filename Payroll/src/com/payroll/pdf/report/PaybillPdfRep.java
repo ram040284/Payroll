@@ -24,9 +24,9 @@ public class PaybillPdfRep extends PdfBuilder{
     
 	public void paybillReport(Document doc, PaybillDetails paybillDetails, String imgPath){
 		try{
-			String watermarkImg = imgPath+"\\CBK_Logo.png";//request.getSession().getServletContext().getRealPath("/resources/images/CBK_Logo.png");
+			String watermarkImg = imgPath+"//CBK_Logo.png";//request.getSession().getServletContext().getRealPath("/resources/images/CBK_Logo.png");
 	        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
-	        String logoImg = imgPath+"\\logo_new.jpg";
+	        String logoImg = imgPath+"//logo_new.jpg";
 	        doc.add(PdfUtils.getMainHeader(logoImg));
 	        
 	        DottedLineSeparator dottedline = new DottedLineSeparator();

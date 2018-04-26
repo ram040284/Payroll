@@ -1,28 +1,24 @@
 //package com.kcb.hrms.payroll.dataobjects;
 package com.payroll.hrms.payroll.dataobjects;
-import com.payroll.employee.allowance.dataobjects.EmpAllowance;
-import com.payroll.employee.leave.dataobjects.Leave;
-import com.payroll.employee.vo.EmployeeVO;
-//import com.kcb.hrms.payroll.dao.EmployeePayrollDAO;
-import com.payroll.hrms.payroll.dao.EmployeePayrollDAO;
-import com.payroll.hrms.payroll.service.IncomeTaxCalculatorService;
-import com.payroll.overtime.dataobjects.Overtime;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import com.payroll.employee.vo.EmployeeVO;
+//import com.kcb.hrms.payroll.dao.EmployeePayrollDAO;
+import com.payroll.hrms.payroll.dao.EmployeePayrollDAO;
 
 /**
  * Created by rajendra on 12/7/17.
  */
 public class EmployeePayroll {
-    public static double DA_PERCENT = 136.00;
+    public static double DA_PERCENT = 139.00;
     public static double HRA_PERCENT = 30.00;
     public static int WORKING_DAYS=22;
     public static double PF_PERCENT=6.0;
     public static double CPF_PERCENT=10.0;
 
-    private String empId;
+  //  private String empId;
     private int employeeId;
     //income
     private String birthDate;
@@ -74,6 +70,7 @@ public class EmployeePayroll {
     private double misc;
     */
     private boolean handicappedFlag;
+    private boolean taFlag; // false if employee leaves within 2km radiu of office
     private double overTimeHours;
     private List<Allowance> listAllowances;
     private String employeeName;
@@ -229,7 +226,7 @@ public class EmployeePayroll {
     }
 
     /**
-     * Calculate Traveling allowance
+     * Calculate Traveling allowance. If person leaves within 2 km TA =0;
      *
      */
     private void calculateTA(){

@@ -13,7 +13,11 @@ import com.payroll.HibernateConnection;
 import com.payroll.employee.dataobjects.Employee;
 
 public class DepartmentDAO {
-	
+	/**
+	 * 
+	 * @param dept
+	 * @return
+	 */
 	public String addUpdateDepartment(Department dept){
 		String result = null;
 		Session session = null;
@@ -82,7 +86,11 @@ public class DepartmentDAO {
 		}
 		return success;
 	}
-	
+	/**
+	 * 
+	 * @param session
+	 * @return
+	 */
 	private int getMaxDeptId(Session session){
 		int maxDeptId = 0;
 		//Session session = null;
@@ -101,7 +109,10 @@ public class DepartmentDAO {
 		}*/
 		return maxDeptId;
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public List<Department> getDepartments(){
 		List<Department> departmentList = null;
 		Session session = null;
@@ -120,7 +131,10 @@ public class DepartmentDAO {
 		}
 		return departmentList;
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public List<Department> getDeptSections(){
 		List<Department> departmentList = null;
 		Session session = null;
@@ -139,7 +153,11 @@ public class DepartmentDAO {
 		}
 		return departmentList;
 	}
-	
+	/**
+	 * 
+	 * @param section
+	 * @return
+	 */
 	public List<Department> getDepartmentsBySection(String section){
 		List<Department> departmentList = null;
 		Session session = null;
@@ -160,7 +178,11 @@ public class DepartmentDAO {
 		return departmentList;
 	}
 	
-	
+	/**
+	 * 
+	 * @param deptId
+	 * @return
+	 */
 	public Department getDepartmentById(int deptId){
 		Department department = null;
 		Session session = null;
@@ -180,7 +202,12 @@ public class DepartmentDAO {
 		}
 		return department;
 	}
-	
+	/**
+	 * 
+	 * @param name
+	 * @param session
+	 * @return
+	 */
 	public boolean nameExist(String name, Session session){
 		boolean exist = false;
 		Department department = null;

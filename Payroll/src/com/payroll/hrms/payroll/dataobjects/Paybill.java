@@ -5,7 +5,11 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import com.payroll.employee.dataobjects.Employee;
-
+/**
+ * 
+ * @author rajendra
+ *
+ */
 public class Paybill implements Serializable{
 
 	private int employeeId;

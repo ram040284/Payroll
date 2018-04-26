@@ -5,23 +5,18 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
-
 import com.payroll.Utils;
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.dataobjects.EmployeeDAO;
 import com.payroll.employee.vo.EmployeeVO;
-import com.payroll.headInfo.dataobjects.HeadInfo;
 import com.payroll.headInfo.dataobjects.HeadInfoDAO;
 import com.payroll.headInfo.vo.HeadInfoVO;
 import com.payroll.hrms.payroll.dao.EmployeePayrollDAO;
-import com.payroll.hrms.payroll.dataobjects.EmployeePayroll;
 import com.payroll.hrms.payroll.dataobjects.Paybill;
 import com.payroll.hrms.payroll.dataobjects.PaybillDAO;
 import com.payroll.hrms.payroll.dataobjects.PaybillDetails;
 import com.payroll.hrms.payroll.dataobjects.ReportDetails;
-import com.payroll.pdf.business.Payslip;
 
 public class PaybillService {
 	List<Paybill> paybillList = null;
@@ -44,8 +39,7 @@ public class PaybillService {
 		this.section = section;
 		this.startDate = Utils.getStartDateOfMonth(date);
 		this.endDate = Utils.getEndDateOfMonth(date);
-	}
-	
+	}	
 	/**
 	 * Getting Pay bills for Monthly comparision 
 	 */

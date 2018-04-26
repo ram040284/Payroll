@@ -1,6 +1,5 @@
 //package com.kcb.hrms.payroll.dao;
 package com.payroll.hrms.payroll.dao;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +12,6 @@ import com.payroll.TestData;
 import com.payroll.employee.advances.dataobjects.EmpAdvances;
 import com.payroll.employee.allowance.dataobjects.EmpAllowance;
 import com.payroll.employee.bank.vo.BankVO;
-import com.payroll.employee.dataobjects.Employee;
 import com.payroll.employee.deductions.dataobjects.EmpDeductionDetails;
 import com.payroll.employee.deductions.dataobjects.EmpDeductions;
 import com.payroll.employee.leave.dataobjects.Leave;
@@ -22,7 +20,6 @@ import com.payroll.employee.pf.dataobjects.EmpPf;
 import com.payroll.employee.qtr.dataobjects.EmpQuarters;
 import com.payroll.employee.salary.dataobjects.Salary;
 import com.payroll.employee.vo.EmployeeVO;
-import com.payroll.hrms.payroll.dataobjects.Allowance;
 /*import com.kcb.hrms.payroll.dataobjects.EmployeePayroll;
 import com.kcb.hrms.payroll.dataobjects.EmployeePayrollDTO;*/
 import com.payroll.hrms.payroll.dataobjects.EmployeePayroll;
@@ -120,7 +117,7 @@ public class EmployeePayrollDAO {
    			if(empDeductDetails == null)
    				empDeductDetails = TestData.getEmpDeductDtls(employeeId);
    			
-   			empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay()+"", salary.getScaleInc(),
+   			empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay()+"", salary.getScaleCode(),
    					empDeductDetails.getAfkRent(), empPf.getPfLoneRecAmt(), empDeductDetails.getUnionFee(),empDeductDetails.getElectRecovery(),
    					empDeductDetails.getCourtRecovery(),empDeductDetails.getOtherDeductions(), empDeductDetails.getSociety(),
 					alowances.getCca(), empLic.getInstlmtAmt(), alowances.getConvAlwance(), 
@@ -276,6 +273,11 @@ public class EmployeePayrollDAO {
 			lic += empLic.getInstlmtAmt();
 		}
     }
+    /**
+     * 
+     * @param deptId
+     * @return
+     */
     public List<EmployeeVO> getEmployeesByDept(int deptId){
     	List<EmployeeVO> employeeList = null;
     	try{
@@ -299,7 +301,11 @@ public class EmployeePayrollDAO {
     	}
     	return employeeList;
     }
-    
+    /**
+     * 
+     * @param deptId
+     * @return
+     */
     public List<Integer> getEmployeeIdsByDept(int deptId){
     	List<Integer> employeeList = null;
     	try{
@@ -317,7 +323,5 @@ public class EmployeePayrollDAO {
     		HibernateConnection.closeSession(session);
     	}
     	return employeeList;
-    }
-    
-   
+    }   
 }

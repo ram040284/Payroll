@@ -13,7 +13,7 @@ public class Salary implements Serializable{
 	private double basic;
 	private double gradePay;
 	private String scalePay;
-	private double scaleInc;
+	private double scaleCode;
 	private short addUpdate; // 0 - Add / 1 - update
 	private String status;
 	private Timestamp rowUpdDate;
@@ -50,12 +50,7 @@ public class Salary implements Serializable{
 	public void setScalePay(String scalePay) {
 		this.scalePay = scalePay;
 	}
-	public double getScaleInc() {
-		return scaleInc;
-	}
-	public void setScaleInc(double scaleInc) {
-		this.scaleInc = scaleInc;
-	}
+
 	public short getAddUpdate() {
 		return addUpdate;
 	}
@@ -66,7 +61,13 @@ public class Salary implements Serializable{
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "employeeId:"+employeeId+" |  year:"+this.year+" | basic:"+this.basic 
-				+" | scalePay:"+scalePay+" | scaleInc:"+scaleInc +" | addUpdate:"+addUpdate;
+				+" | scalePay:"+scalePay+" | scaleCode:"+scaleCode +" | addUpdate:"+addUpdate;
+	}
+	public double getScaleCode() {
+		return scaleCode;
+	}
+	public void setScaleCode(double scaleCode) {
+		this.scaleCode = scaleCode;
 	}
 	public String getStatus() {
 		return status;
