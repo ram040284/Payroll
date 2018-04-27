@@ -19,6 +19,7 @@ import com.payroll.employee.bank.business.BankService;
 import com.payroll.employee.bank.dataobjects.EmpBank;
 import com.payroll.employee.bank.vo.BankVO;
 import com.payroll.employee.lic.business.EmpLicService;
+import com.payroll.employee.lic.vo.EmpLicMasterVO;
 import com.payroll.employee.lic.vo.EmpLicVO;
 import com.payroll.employee.qtr.business.EmpQuartersService;
 import com.payroll.employee.qtr.vo.EmpQuartersVO;
@@ -32,10 +33,23 @@ public class EmpLicController {
 	   List<EmpLicVO> empLics = new EmpLicService().getEmpLicList();
 	   return empLics;
     }
+
+	@RequestMapping(value="/listEmpLicMaster", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<EmpLicMasterVO> getEmpLicListMaster(){
+		System.out.println("listEmpLic-- getEmpLicList Master");
+	   List<EmpLicMasterVO> empLics = new EmpLicService().getEmpLicMasterList();
+	   return empLics;
+    }
 	
 	@RequestMapping(value = "/viewEmpLic", method = RequestMethod.GET)
 	public String viewEmpLic(ModelMap model) {
 		return "listEmpLic";
+	}
+	
+	
+	@RequestMapping(value = "/viewEmpLicMaster", method = RequestMethod.GET)
+	public String viewEmpLicMaster(ModelMap model) {
+		return "listEmpLicMaster";
 	}
 	
 	@RequestMapping(value = "/inputEmpLic", method = RequestMethod.POST)
@@ -60,12 +74,50 @@ public class EmpLicController {
 		model.addObject("designations", desigJSON);
 		return model;
 	}
-	   
+	  
+	
+/**
+ * 
+ * @param empLicVO
+ * @return
+ */
+	@RequestMapping(value = "/inputEmpLicMaster", method = RequestMethod.POST)
+	public ModelAndView inputEmpLicMaster(EmpLicMasterVO empLicMasterVO) {
+		ObjectMapper mapper = new ObjectMapper();
+		System.out.println("inputEmpLic -- EmpLic Master:"+empLicMasterVO);
+		List<Designation> desigList = new DesignationService().getDesignationList();
+		List<Department> deptList = new DepartmentService().getDepartments();
+		String desigJSON = "";
+		String depJSON = "";
+		try {
+			depJSON = mapper.writeValueAsString(deptList);
+			desigJSON = mapper.writeValueAsString(desigList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(empLicMasterVO.getEmployeeId()!=0)
+			empLicMasterVO = new EmpLicService().getEmpLicMasterById(empLicMasterVO.getEmployeeId());
+		ModelAndView model = new ModelAndView("empLicMaster", "command", empLicMasterVO);
+		model.addObject("empLic", empLicMasterVO);
+		model.addObject("departments", depJSON);
+		model.addObject("designations", desigJSON);
+		return model;
+	}
+	
 	@RequestMapping(value="/addEmpLic",method=RequestMethod.POST)
 	public @ResponseBody
 	String addEmpLic(@RequestBody EmpLicVO empLicVO){
 	   System.out.println("addEmpLic -- EmpLic:"+empLicVO);
 	   String result = new EmpLicService().addUpdateEmpLic(empLicVO);
+	   System.out.println("Result:"+result);
+	   return result;
+	}
+	
+	@RequestMapping(value="/addEmpLicMaster",method=RequestMethod.POST)
+	public @ResponseBody
+	String addEmpLicMaster(@RequestBody EmpLicMasterVO empLicMasterVO){
+	   System.out.println("addEmpLic -- EmpLic:"+empLicMasterVO);
+	   String result = new EmpLicService().addUpdateEmpLicMaster(empLicMasterVO);
 	   System.out.println("Result:"+result);
 	   return result;
 	}
@@ -77,5 +129,4 @@ public class EmpLicController {
 	   System.out.println("Result:"+result);
 	   return "listEmpLic";
 	}
-
 }

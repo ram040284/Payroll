@@ -26,6 +26,7 @@
    	<mapping resource="com/payroll/employee/salary/dataobjects/Salary.hbm.xml"/>
    	<mapping resource="com/payroll/employee/bank/dataobjects/EmpBank.hbm.xml"/>
    	<mapping resource="com/payroll/employee/lic/dataobjects/EmpLic.hbm.xml"/>
+   	<mapping resource="com/payroll/employee/lic/dataobjects/EmpLicMaster.hbm.xml"/>
    	<mapping resource="com/payroll/employee/pf/dataobjects/EmpPf.hbm.xml"/>
    	<mapping resource="com/payroll/employee/qtr/dataobjects/EmpQuarters.hbm.xml"/>
    	<mapping resource="com/payroll/headInfo/dataobjects/HeadDepartment.hbm.xml"/>

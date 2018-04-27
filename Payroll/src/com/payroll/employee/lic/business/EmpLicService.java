@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.payroll.employee.lic.dataobjects.EmpLic;
 import com.payroll.employee.lic.dataobjects.EmpLicDAO;
+import com.payroll.employee.lic.dataobjects.EmpLicMaster;
+import com.payroll.employee.lic.vo.EmpLicMasterVO;
 import com.payroll.employee.lic.vo.EmpLicVO;
 
 public class EmpLicService {
@@ -12,8 +14,16 @@ public class EmpLicService {
 		return new EmpLicDAO().getEmpLicList();
 	}
 	
+	public List<EmpLicMasterVO> getEmpLicMasterList(){
+		return new EmpLicDAO().getEmpLicMasterList();
+	}
+	
 	public EmpLicVO getEmpLicById(int empId){
 		return new EmpLicDAO().getEmpLicById(empId);
+	}
+	
+	public EmpLicMasterVO getEmpLicMasterById(int empId){
+		return new EmpLicDAO().getEmpLicMasterById(empId);
 	}
 	
 	public String deleteLic(int empId){
@@ -22,6 +32,11 @@ public class EmpLicService {
 	
 	public String addUpdateEmpLic(EmpLicVO licVO){
 		return new EmpLicDAO().addUpdateEmpLic(copyProperties(licVO));
+	}
+	
+	public String addUpdateEmpLicMaster(EmpLicMasterVO licVO){
+		System.out.println("Installment Amount :"+licVO.getInstlmtAmt());
+		return new EmpLicDAO().addUpdateEmpLicMaster(copyProperties(licVO));
 	}
 	
 	private EmpLic copyProperties(EmpLicVO licVO){
@@ -38,5 +53,19 @@ public class EmpLicService {
 			e.printStackTrace();
 		}
 		return empLic;
+	}
+	
+	
+	private EmpLicMaster copyProperties(EmpLicMasterVO licMasterVO){
+		EmpLicMaster empLicMaster = new EmpLicMaster();
+		try{
+			empLicMaster.setEmployeeId(licMasterVO.getEmployeeId());
+			empLicMaster.setPolicyNo(licMasterVO.getPolicyNo());
+			empLicMaster.setInstlmtAmt(licMasterVO.getInstlmtAmt());
+			empLicMaster.setAddUpdate(licMasterVO.getAddUpdate());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return empLicMaster;
 	}
 }

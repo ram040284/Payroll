@@ -17,7 +17,6 @@ public class EmployeePayroll {
     public static int WORKING_DAYS=22;
     public static double PF_PERCENT=6.0;
     public static double CPF_PERCENT=10.0;
-
   //  private String empId;
     private int employeeId;
     //income

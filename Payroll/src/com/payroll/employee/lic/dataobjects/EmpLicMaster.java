@@ -2,21 +2,26 @@ package com.payroll.employee.lic.dataobjects;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 
 import com.payroll.employee.dataobjects.Employee;
 
-public class EmpLic implements Serializable {
+public class EmpLicMaster implements Serializable {
+
+	@Override
+	public String toString() {
+		return "EmpLicMaster [employeeId=" + employeeId + ", policyNo=" + policyNo + ", instlmtAmt=" + instlmtAmt
+				+ ", status=" + status + ", rowUpdDate=" + rowUpdDate + ", addUpdate=" + addUpdate + ", employee="
+				+ employee + "]";
+	}
+
 	private int employeeId;
-	private double instlmtAmt;
-	private double paymentAmount;
 	private String policyNo;
-	private Date paymentDate;
+	private double instlmtAmt;
 	private String status;
 	private Timestamp rowUpdDate;
 	private short addUpdate; // 0 - Add / 1 - update
 	private Employee employee;
-
+	
 	public int getEmployeeId() {
 		return employeeId;
 	}
@@ -41,13 +46,7 @@ public class EmpLic implements Serializable {
 		this.policyNo = policy_no;
 	}
 
-	public Date getPaymentDate() {
-		return paymentDate;
-	}
 
-	public void setPaymentDate(Date paymentDate) {
-		this.paymentDate = paymentDate;
-	}
 
 	public String getStatus() {
 		return status;
@@ -80,15 +79,4 @@ public class EmpLic implements Serializable {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
-
-	public double getPaymentAmount() {
-		return paymentAmount;
-	}
-
-	public void setPaymentAmount(double paymentAmount) {
-		this.paymentAmount = paymentAmount;
-	}
-
-	
-
 }

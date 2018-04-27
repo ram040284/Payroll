@@ -37,7 +37,7 @@ $(document).ready(function() {
 			var basic = "${salary.basic}";
 			var gradePay = "${salary.gradePay}";
 			var scalePay = "${salary.scalePay}";
-			var scaleInc = "${salary.scaleInc}";
+			var scaleCode = "${salary.scaleCode}";
 			if(empId !=0){
 				if(year == $('#year').val() && 
 						basic == $('#basic').val() && gradePay == $('#gradePay').val() && 

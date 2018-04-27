@@ -11,6 +11,7 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
 import com.payroll.employee.dataobjects.Employee;
+import com.payroll.employee.lic.vo.EmpLicMasterVO;
 import com.payroll.employee.lic.vo.EmpLicVO;
 
 
@@ -26,6 +27,30 @@ public class EmpLicDAO {
 						+ " (select e.lastName from Employee e where e.employeeId = l.empId), "*/
 						+ "l.employee.firstName, l.employee.lastName, "
 						+ "l.policyNo, l.paymentDate, l.paymentAmount) from EmpLic l where l.status = ?";		
+				
+				session = HibernateConnection.getSessionFactory().openSession();
+				Query query = session.createQuery(queryString);
+				query.setParameter(0, "A");
+				instlmtAmt = query.list();
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				HibernateConnection.closeSession(session);
+			}
+		
+		return instlmtAmt;
+	}
+	
+	
+	
+	public List<EmpLicMasterVO> getEmpLicMasterList(){
+		List<EmpLicMasterVO> instlmtAmt = null;
+			Session session = null;
+			
+			try{
+				String queryString = " select new com.payroll.employee.lic.vo.EmpLicMasterVO(l.employee.employeeId, "
+						+ "l.employee.firstName, l.employee.lastName, "
+						+ "l.policyNo, l.instlmtAmt) from EmpLicMaster l where l.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -67,6 +92,36 @@ public class EmpLicDAO {
 		
 		return empLicVO;
 	}
+	
+	
+	public EmpLicMasterVO getEmpLicMasterById(int empId){
+		EmpLicMasterVO empLicMasterVO = null;
+			Session session = null;
+			try{
+				String queryString = " select new com.payroll.employee.lic.vo.EmpLicMasterVO(l.employee.employeeId, "
+						/*+ "(select dept.departmentId from Department dept where dept.departmentId = (select eDept.departmentId "
+						+ "from EmpDepartment eDept where eDept.empId = l.empId)), (select desg.designationId "
+						+ "from Designation desg where desg.designationId = (select eDesg.designationId from EmpDesignation eDesg "
+						+ "where eDesg.empId = l.empId)), "*/
+						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = l.employee.employeeId and dept.status = 'A'), "
+						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = l.employee.employeeId and desg.status='A'), "
+						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = l.employee.employeeId and dh.status = 'A'), "
+						+ "l.policyNo, l.instlmtAmt) from EmpLicMaster l where l.status = ? and l.employee.employeeId = ?";		
+				
+				session = HibernateConnection.getSessionFactory().openSession();
+				Query query = session.createQuery(queryString);
+				query.setParameter(0, "A");
+				query.setParameter(1, empId);
+				empLicMasterVO = (EmpLicMasterVO)(!(query.list().isEmpty()) ? query.list().get(0) : null);
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				HibernateConnection.closeSession(session);
+			}
+		
+		return empLicMasterVO;
+	}
+	
 	
 	public String deleteEmpLic(int empId){
 		String result = null;
@@ -134,6 +189,53 @@ public class EmpLicDAO {
 		return result;
 	}
 
+	
+	public String addUpdateEmpLicMaster(EmpLicMaster empLicMaster){
+		String result = null;
+		Session session = null;
+		Transaction transaction = null;
+		try{
+			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			Employee employee = (Employee)session.load(Employee.class, empLicMaster.getEmployeeId());
+			/*EmpLic licDB = checkEmpLic(empLic.getEmployeeId(), session);
+			if(licDB != null){
+				if(empLic.getAddUpdate() ==0){
+					result ="LIC details are exist for selected Employee!";
+					return result;
+				}
+				licDB.setPolicyNo(empLic.getPolicyNo());
+				licDB.setInstlmtAmt(empLic.getInstlmtAmt());
+				licDB.setPaymentDate(empLic.getPaymentDate());
+				licDB.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+				session.update(licDB);
+			}
+			else {*/
+			System.out.println("empLicMaster.toString()"+ empLicMaster.toString());
+			empLicMaster.setEmployee(employee);
+			empLicMaster.setStatus("A");
+			empLicMaster.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+				if(empLicMaster.getAddUpdate() ==0)
+					session.save(empLicMaster);
+				else
+					session.update(empLicMaster);
+			//}
+			transaction.commit();
+			result = "Yes";
+		}catch(ConstraintViolationException cv){
+			cv.printStackTrace();
+			transaction.rollback();
+			result = "LIC details are exist for selected Employee!";
+		}catch(Exception e){
+			e.printStackTrace();
+			transaction.rollback();
+			result = "Failed to add/update Employee LIC details ";
+		}finally {
+			HibernateConnection.closeSession(session);
+		}
+		return result;
+	}
+	
 	/*private EmpLic checkEmpLic(int empId, Session session){
 		EmpLic empLic = null;
 		try{

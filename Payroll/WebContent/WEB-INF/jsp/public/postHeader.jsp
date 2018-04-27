@@ -212,7 +212,8 @@ h3 {font-size:16pt;}
 							<li><a href="#" onclick="getList('../Payroll/viewLeave_1')">Employee Leave</a></li>
 							<li><a href="../Payroll/viewEmpPf">Employee PF</a></li>
 							<li><a href="../Payroll/viewEmpQtr">Employee Quarters</a></li>
-							<li><a href="../Payroll/viewEmpLic">Employee LIC</a></li>
+							<li><a href="../Payroll/viewEmpLicMaster">Employee LIC Master</a></li>
+							<li><a href="../Payroll/viewEmpLic">Employee LIC Details</a></li>
 							<li><a href="../Payroll/viewEmpAlwnce">Employee Allowances</a></li>
 							<li><a href="../Payroll/viewOvertime">Employee Overtime</a></li>
 							<li><a href="../Payroll/viewEmpDeductions">Employee ITax Deductions</a></li>
