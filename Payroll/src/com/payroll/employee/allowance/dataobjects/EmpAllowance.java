@@ -17,6 +17,27 @@ public class EmpAllowance implements Serializable {
 	private double familyPlanAlwance;
 	private double cycleAlwance;
 	private Boolean hraFlag;
+	private Boolean qtrFlag;
+	private Boolean afkFlag;
+	private Boolean taFlag;
+	public Boolean getQtrFlag() {
+		return qtrFlag;
+	}
+	public void setQtrFlag(Boolean qtrFlag) {
+		this.qtrFlag = qtrFlag;
+	}
+	public Boolean getAfkFlag() {
+		return afkFlag;
+	}
+	public void setAfkFlag(Boolean afkFlag) {
+		this.afkFlag = afkFlag;
+	}
+	public Boolean getTaFlag() {
+		return taFlag;
+	}
+	public void setTaFlag(Boolean taFlag) {
+		this.taFlag = taFlag;
+	}
 	private Timestamp rowUpdDate;
 	private String status;
 	private short addUpdate; // 0 - Add / 1 - update

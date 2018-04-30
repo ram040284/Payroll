@@ -25,6 +25,7 @@ public class EmpAllowanceController {
     public @ResponseBody List<EmpAllowanceVO> listEmpAlwnce(){
 		System.out.println("listEmpLic-- getEmpLicList");
 	   List<EmpAllowanceVO> empAllowances = new EmpAllowanceService().getEmpAllowanceList();
+	   System.out.println("Allowanes List: "+ empAllowances.size());
 	   return empAllowances;
     }
 	

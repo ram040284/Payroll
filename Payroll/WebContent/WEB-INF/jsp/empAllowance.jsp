@@ -38,7 +38,6 @@ $(document).ready(function() {
 	$('#addAllowanceBtn').click(function(event) {
 				var cca = "${empAllowance.cca}";
 				var washingAlwance = "${empAllowance.washingAlwance}";
-				var convAlwance = "${empAllowance.convAlwance}";
 				var nonPracAwance = "${empAllowance.nonPracAwance}";
 				var uniformAlwance = "${empAllowance.uniformAlwance}";
 				var familyPlanAlwance = "${empAllowance.familyPlanAlwance}";
@@ -46,9 +45,8 @@ $(document).ready(function() {
 				
 				if(empId != 0){
 					if(cca == $('#cca').val() && familyPlanAlwance == $('#familyPlanAlwance').val() && cycleAlwance == $('#cycleAlwance').val() &&
-							washingAlwance == $('#washingAlwance').val() && convAlwance == $('#convAlwance').val() &&
-							nonPracAwance == $('#nonPracAwance').val() && uniformAlwance == $('#uniformAlwance').val() && 
-							hraFlag == $('#hraFlag').val()){
+							washingAlwance == $('#washingAlwance').val()  && nonPracAwance == $('#nonPracAwance').val() && uniformAlwance == $('#uniformAlwance').val() && 
+							hraFlag == $('#hraFlag').val() && qtrFlag == $('#qtrFlag').val() && afkFlag == $('#afkFlag').val() && taFlag == $('#taFlag').val()){
 						alert('Nothing was changed');
 						$('#employeeId').focus();
 						return false;
@@ -77,18 +75,17 @@ $(document).ready(function() {
 			return false;
 		}
 		
-		if($('#cca').val() < 1 && $('#washingAlwance').val() < 1 && $('#convAlwance').val() < 1 &&
+		if($('#cca').val() < 1 && $('#washingAlwance').val() < 1  &&
 				$('#familyPlanAlwance').val() < 1 && $('#cycleAlwance').val() < 1 &&
-				 $('#nonPracAwance').val() < 1 && $('#uniformAlwance').val() < 1 && $('#hraFlag').val()=='0') {
+				 $('#nonPracAwance').val() < 1 && $('#uniformAlwance').val() < 1 && $('#hraFlag').val()=='0')  && $('#qtrFlag').val()=='0')  && $('#afkFlag').val()=='0') && $('#taFlag').val()=='0'){
 			alert("Please provide atleast one allowance amount or select HRA!");
 			$('#cca').focus();
 			return false;
 		}
 		var inputJson = { "employeeId" : $('#employeeId').val(), "cca" : $('#cca').val(),  
-				"washingAlwance" : $('#washingAlwance').val(), "convAlwance" : $('#convAlwance').val(),
-				"familyPlanAlwance" : $('#familyPlanAlwance').val(), "cycleAlwance" : $('#cycleAlwance').val(),
+				"washingAlwance" : $('#washingAlwance').val(),"familyPlanAlwance" : $('#familyPlanAlwance').val(), "cycleAlwance" : $('#cycleAlwance').val(),
 				"nonPracAwance" : $('#nonPracAwance').val(), "uniformAlwance" : $('#uniformAlwance').val(), 
-				"hraFlag": $('#hraFlag').val(), "addUpdate": $('#addUpdate').val()};
+				"hraFlag": $('#hraFlag').val(),"qtrFlag": $('#qtrFlag').val(),"afkFlag": $('#afkFlag').val(),"taFlag": $('#taFlag').val(), "addUpdate": $('#addUpdate').val()};
 		$.ajax({
 	        url: '../Payroll/addEmpAllowance',
 	        data: JSON.stringify(inputJson),
@@ -164,10 +161,7 @@ $(document).ready(function() {
 								
 							</div>
 							<div class="row">
-								<div class="col-sm-4 form-group">
-									<label>Conveyance Allowance:</label>
-									<form:input path="convAlwance"  id="convAlwance" placeholder="Enter Conveyance Allowance" class="form-control"/>
-								</div>
+
 								<div class="col-sm-4 form-group">
 									<label>Non-Prac Allowance:</label>
 									<form:input path="nonPracAwance"  id="nonPracAwance" placeholder="Enter Non-Prac Allowance" class="form-control"/>
@@ -194,6 +188,36 @@ $(document).ready(function() {
 									<%-- <form:input path="hraFlag"  id="hraFlag" placeholder="Enter PF Loan Amount" class="form-control"/>--%>
 									<select id="hraFlag" class="form-control">
 										<option value="0">-- Select HRA --</option>
+										<option value="true">TRUE</option>
+										<option value="false">FALSE</option>
+									</select>
+								</div>
+								
+																<div class="col-sm-4 form-group">
+									<label>QTR FLag:</label>
+									<%-- <form:input path="hraFlag"  id="hraFlag" placeholder="Enter PF Loan Amount" class="form-control"/>--%>
+									<select id="qtrFlag" class="form-control">
+										<option value="0">-- Select QTR Flag --</option>
+										<option value="true">TRUE</option>
+										<option value="false">FALSE</option>
+									</select>
+								</div>
+								
+																<div class="col-sm-4 form-group">
+									<label>AFK Flag:</label>
+									<%-- <form:input path="hraFlag"  id="hraFlag" placeholder="Enter PF Loan Amount" class="form-control"/>--%>
+									<select id="afkFlag" class="form-control">
+										<option value="0">-- Select AFK Flag --</option>
+										<option value="true">TRUE</option>
+										<option value="false">FALSE</option>
+									</select>
+								</div>
+								
+																<div class="col-sm-4 form-group">
+									<label>TA Flag</label>
+									<%-- <form:input path="hraFlag"  id="hraFlag" placeholder="Enter PF Loan Amount" class="form-control"/>--%>
+									<select id="taFlag" class="form-control">
+										<option value="0">-- Select TA Flag --</option>
 										<option value="true">TRUE</option>
 										<option value="false">FALSE</option>
 									</select>

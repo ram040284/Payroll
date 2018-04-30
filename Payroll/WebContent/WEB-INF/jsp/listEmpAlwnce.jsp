@@ -16,12 +16,16 @@
                 	  		.append($('<td/>').text(empAllowance.fullName))
                 			.append($('<td/>').text(empAllowance.cca))
                 			.append($('<td/>').text(empAllowance.washingAlwance))
-                			.append($('<td/>').text(empAllowance.convAlwance))
                 			.append($('<td/>').text(empAllowance.nonPracAwance))
                 			.append($('<td/>').text(empAllowance.uniformAlwance))
                 			.append($('<td/>').text(empAllowance.familyPlanAlwance))
                 			.append($('<td/>').text(empAllowance.cycleAlwance))
-                			.append($('<td/>').text(empAllowance.hraFlag))
+							.append($('<td/>').text(empAllowance.hraFlag))
+							.append($('<td/>').text(empAllowance.qtrFlag))
+							.append($('<td/>').text(empAllowance.afkFlag))
+							.append($('<td/>').text(empAllowance.taFlag))
+
+                			
                 			.append($('<td/>').append('<a href="#" onclick=viewAllowance('+empAllowance.employeeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteAllowance('+empAllowance.employeeId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                   });
                   
@@ -63,12 +67,14 @@
 					<th>Employee</th>
 					<th>CCA</th>
 					<th>Washing Alwnce</th>
-					<th>Conveyance Alwnce</th>
 					<th>Non-Prac Alwnce</th>
 					<th>Uniform Alwnce</th>
 					<th>Fmly Plning Alwnce</th>
 					<th>Cycle Alwnce</th>
 					<th>HRA</th>
+					<th>QTR  Flag</th>
+					<th>AFK Flag</th>
+					<th>TA Flag</th>
 					<th><a href="#" onclick="inputAllowance()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
 					</th>

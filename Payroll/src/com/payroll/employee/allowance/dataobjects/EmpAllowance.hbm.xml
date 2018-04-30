@@ -19,6 +19,9 @@
     <property name="familyPlanAlwance" column="FAMILY_PLANNING_ALLOWANCE" />
     <property name="cycleAlwance" column="CYCLE_ALLOWANCE" /> 
     <property name="hraFlag" column="HRA_FLAG" />
+    <property name="qtrFlag" column="QTR_FLAG" />
+    <property name="afkFlag" column="AFK_FLAG" />
+    <property name="taFlag" column="TA_FLAG" />
     <property name="status" column="STATUS" not-null="true"/>  
     <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/> 
   </class>  
