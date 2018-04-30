@@ -54,9 +54,11 @@ public class EmployeePayrollService {
 			for (Iterator iterator = empList.iterator(); iterator.hasNext();) {
 				EmployeeVO employee = (EmployeeVO) iterator.next();
 				EmployeePayroll empPayroll = payrollDAO.loadPayrollInfo(employee.getEmployeeId(), date);
-				empPayroll.setEmployee(employee);
-				empPayroll.setIncomeTax(incTaxservice.getIncomeTax(employee.getEmployeeId(), date, empPayroll.getGrossPay()));
-				addPaybill(empPayroll, date);
+				if(empPayroll!=null){
+					empPayroll.setEmployee(employee);
+					empPayroll.setIncomeTax(incTaxservice.getIncomeTax(employee.getEmployeeId(), date, empPayroll.getGrossPay()));
+					addPaybill(empPayroll, date);
+				}
 			}
 			success = true;
 		}catch(Exception e){

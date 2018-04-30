@@ -14,7 +14,6 @@
 		constrained="true" fetch="select"></one-to-one>
 	<property name="cca" column="CCA" /> 
     <property name="washingAlwance" column="WASHING_ALLOWANCE" /> 
-    <property name="convAlwance" column="CONV_ALLOWANCE" /> 
     <property name="nonPracAwance" column="NON_PRACT_ALLOWANCE" /> 
     <property name="uniformAlwance" column="UNIFORM_ALLOWANCE" /> 
     <property name="familyPlanAlwance" column="FAMILY_PLANNING_ALLOWANCE" />

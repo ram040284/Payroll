@@ -14,7 +14,6 @@ td, th {
 <jsp:include page="../jsp/public/jqueryPluginMin.jsp"/>
 <jsp:include page="../jsp/public/jdatePicker.jsp"/>
 
-
 <script type="text/javascript">
 $(document).ready(function() {
 	var departmentList = ${departments};
@@ -39,7 +38,6 @@ $(document).ready(function() {
 	}
 	
 	$('#addLicBtn').click(function(event) {
-		alert("addLicBtn")
 				var policyNo = "${empLic.policyNo}";
 				var instlmtAmt = "${empLic.instlmtAmt}";
 				if(empId != 0){

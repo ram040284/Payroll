@@ -11,7 +11,20 @@ import com.payroll.employee.leave.dataobjects.Leave;
  */
 public class EmployeePayrollDTO {
 
-    /**
+    @Override
+	public String toString() {
+		return "EmployeePayrollDTO [deptCostHead=" + deptCostHead + ", basic=" + basic + ", gradePay=" + gradePay
+				+ ", handicappedFlag=" + handicappedFlag + ", overTimeHours=" + overTimeHours + ", listAllowances="
+				+ listAllowances + ", listEmpAllowances=" + listEmpAllowances + ", hraFlag=" + hraFlag
+				+ ", noOfAbsentDays=" + noOfAbsentDays + ", pfFlag=" + pfFlag + ", additionalProventFund="
+				+ additionalProventFund + ", afkFlag=" + afkFlag + ", pfRecovery=" + pfRecovery + ", pfLoanRecovery="
+				+ pfLoanRecovery + ", unionFee=" + unionFee + ", electricityRecovery=" + electricityRecovery
+				+ ", courtRecovery=" + courtRecovery + ", otherDeductions=" + otherDeductions + ", leaves=" + leaves
+				+ ", npa=" + npa + ", wa=" + wa + ", ca=" + ca + ", uniformAlw=" + uniformAlw + ", familyPlaningAlw="
+				+ familyPlaningAlw + ", lic=" + lic + ", cca=" + cca + ", society=" + society + "]";
+	}
+
+	/**
      * Transfer Employee Payroll details from DAO to service
      *
      */

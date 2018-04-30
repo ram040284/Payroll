@@ -22,8 +22,8 @@ public class EmpAllowanceDAO {
 			
 			try{
 				String queryString = " select new com.payroll.employee.allowance.vo.EmpAllowanceVO(a.employee.employeeId, "
-						+ "a.employee.firstName, a.employee.lastName, a.cca, a.washingAlwance, a.convAlwance,"
-						+ "a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag) "
+						+ "a.employee.firstName, a.employee.lastName, a.cca, a.washingAlwance, "
+						+ "a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag,a.qtr_flag, a.afk_flag, a.ta_flag) "
 						+ "from EmpAllowance a where a.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();

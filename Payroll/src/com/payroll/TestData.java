@@ -17,7 +17,7 @@ public class TestData {
 		sal.setBasic(0);
 		sal.setGradePay(0);
 		sal.setEmployeeId(empId);
-		sal.setScaleCode(0);
+		sal.setScaleCode("PB");
 		sal.setScalePay("");
 		return sal;
 	}

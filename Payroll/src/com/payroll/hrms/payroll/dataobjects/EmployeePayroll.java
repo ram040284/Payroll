@@ -113,10 +113,10 @@ public class EmployeePayroll {
     	this.employeeId = empVO.getEmployeeId();
     }
     
-    public EmployeePayroll(double basic, double gradePay, String scale, double increment,
+    public EmployeePayroll(double basic, double gradePay, String scale, String scaleCode,double increment,
     		double afkRent, double pfLoanRcry, double unionFee, 
     		double electRcry, double courtRcry, double otherDeduct, double society, double cca, 
-    		double licInstalAmt, double convayAlw, double fmlyPlgAlw, double npa, double wshngAlw, 
+    		double licInstalAmt, double fmlyPlgAlw, double npa, double wshngAlw, 
     		double uniformAlw, Boolean hraFlag, double festAdvRcry, double gis, double bankLoanRcry, 
     		double vlr, double cpfRcry, double overtimeHrs, double absentDays, String bankName, 
     		String bankAcctNo, int bankId){
@@ -131,7 +131,6 @@ public class EmployeePayroll {
     	this.societyInstallment = society;
     	this.cca = cca;
     	this.lic = licInstalAmt;
-    	this.conveyanceAllowance = convayAlw;
     	this.familyPlanningAllowance = fmlyPlgAlw;
     	this.nonPracticingAllowance = npa;
     	this.washingAllowance = wshngAlw;
@@ -179,6 +178,8 @@ public class EmployeePayroll {
         this.courtRecovery = employeePayrollDTO.getCourtRecovery();
         this.otherDeductions = employeePayrollDTO.getOtherDeductions();
         
+        System.out.println("EmployeePayrollDTO : "+ employeePayrollDTO);
+        
         calculateDA();
         calculateHRA();
         calculateTA();
@@ -218,9 +219,13 @@ public class EmployeePayroll {
      * Calculate HRA
      */
     private void calculateHRA(){
+    	System.out.println("******Entered :"+ "calculateHR()*******************************");
+    	
         this.houseRentAllowance = 0.0;
         if (this.basic + this.gradePay >0 && hraFlag)
             this.houseRentAllowance = HRA_PERCENT * (this.basic+ this.gradePay)/100;
+        
+        System.out.println("******Entered :"+ "calculateHR()*******************************"+ houseRentAllowance);
 
     }
 

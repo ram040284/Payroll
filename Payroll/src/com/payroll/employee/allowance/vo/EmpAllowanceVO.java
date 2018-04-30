@@ -3,27 +3,68 @@ package com.payroll.employee.allowance.vo;
 import com.payroll.Utils;
 
 public class EmpAllowanceVO {
-	
 	private int employeeId;
 	private double cca;
 	private double washingAlwance;
-	private double convAlwance;
 	private double nonPracAwance;
 	private double uniformAlwance;
 	private double familyPlanAlwance;
 	private double cycleAlwance;
 	private Boolean hraFlag;
+	private Boolean qtrFlag;
+	private Boolean afkFlag;
+	private Boolean taFlag;
 	private int departmentId;
 	private int headId;
 	private int designationId;
 	private String fullName;
+
+	public Boolean getQtrFlag() {
+		return qtrFlag;
+	}
+
+	public void setQtrFlag(Boolean qtrFlag) {
+		this.qtrFlag = qtrFlag;
+	}
+
+	public Boolean getAfkFlag() {
+		return afkFlag;
+	}
+
+	public void setAfkFlag(Boolean afkFlag) {
+		this.afkFlag = afkFlag;
+	}
+
+	public Boolean getTaFlag() {
+		return taFlag;
+	}
+
+	public void setTaFlag(Boolean taFlag) {
+		this.taFlag = taFlag;
+	}
+
+	public void setDepartmentId(int departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public void setHeadId(int headId) {
+		this.headId = headId;
+	}
+
+	public void setDesignationId(int designationId) {
+		this.designationId = designationId;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
 	
 	public EmpAllowanceVO(){
 		
 	}
 	
-	public EmpAllowanceVO(int employeeId, String firstName, String lastName, double cca, double washingAlwance, double convAlwance,
-			double nonPracAwance, double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag) {
+	public EmpAllowanceVO(int employeeId, String firstName, String lastName, double cca, double washingAlwance,	double nonPracAwance, 
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag) {
 		this.employeeId = employeeId;
 		StringBuffer fullNameSB = new StringBuffer(firstName);
 		fullNameSB.append(" ");
@@ -36,11 +77,14 @@ public class EmpAllowanceVO {
 		this.familyPlanAlwance = familyPlanAlwance;
 		this.cycleAlwance = cycleAlwance;
 		this.hraFlag = hraFlag;
-		this.convAlwance = convAlwance;
+		this.qtrFlag = qtrFlag;
+		this.afkFlag = afkFlag;
+		this.taFlag = taFlag;
+
 	}
 	
-	public EmpAllowanceVO(int employeeId, int departmentId, int designationId, int headId, double cca, double washingAlwance, double convAlwance,
-			double nonPracAwance, double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag) {
+	public EmpAllowanceVO(int employeeId, int departmentId, int designationId, int headId, double cca, double washingAlwance, double nonPracAwance, 
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag) {
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -52,7 +96,9 @@ public class EmpAllowanceVO {
 		this.familyPlanAlwance = familyPlanAlwance;
 		this.cycleAlwance = cycleAlwance;
 		this.hraFlag = hraFlag;
-		this.convAlwance = convAlwance;
+		this.qtrFlag = qtrFlag;
+		this.afkFlag = afkFlag;
+		this.taFlag = taFlag;
 	}
 	
 	public int getEmployeeId() {
@@ -63,9 +109,6 @@ public class EmpAllowanceVO {
 	}
 	public double getWashingAlwance() {
 		return washingAlwance;
-	}
-	public double getConvAlwance() {
-		return convAlwance;
 	}
 	public double getNonPracAwance() {
 		return nonPracAwance;
@@ -108,9 +151,6 @@ public class EmpAllowanceVO {
 		this.washingAlwance = washingAlwance;
 	}
 
-	public void setConvAlwance(double convAlwance) {
-		this.convAlwance = convAlwance;
-	}
 
 	public void setNonPracAwance(double nonPracAwance) {
 		this.nonPracAwance = nonPracAwance;
@@ -131,7 +171,4 @@ public class EmpAllowanceVO {
 	public void setHraFlag(Boolean hraFlag) {
 		this.hraFlag = hraFlag;
 	}
-	
-	
-	
 }
