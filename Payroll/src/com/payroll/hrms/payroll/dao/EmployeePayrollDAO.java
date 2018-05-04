@@ -120,9 +120,9 @@ public class EmployeePayrollDAO {
    			empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay()+"", salary.getScaleCode(),
    					empDeductDetails.getAfkRent(), empPf.getPfLoneRecAmt(), empDeductDetails.getUnionFee(),empDeductDetails.getElectRecovery(),
    					empDeductDetails.getCourtRecovery(),empDeductDetails.getOtherDeductions(), empDeductDetails.getSociety(),
-					alowances.getCca(), empLic.getInstlmtAmt(), alowances.getConvAlwance(), 
-					alowances.getFamilyPlanAlwance(), alowances.getNonPracAwance(), alowances.getWashingAlwance(), alowances.getUniformAlwance(), 
-					alowances.getHraFlag(), 0, 0, 0, 0, empPf.getPfsCpfCntrbn(), EmployeePayrollService.getAbsenties(leaves),
+					alowances.getCca(), empLic.getInstlmtAmt(),alowances.getFamilyPlanAlwance(), alowances.getNonPracAwance(), 
+					alowances.getWashingAlwance(), alowances.getUniformAlwance(), 
+					alowances.getHraFlag(), 0 , 0, 0, 0, empPf.getPfsCpfCntrbn(), EmployeePayrollService.getAbsenties(leaves),
 					EmployeePayrollService.overtimeHours(overtimeList), bankVo.getBankName(), bankVo.getAccountNo(), bankVo.getBankId());
 	
 			//payrollDTO.set
@@ -251,7 +251,6 @@ public class EmployeePayrollDAO {
 			uniformAlw += empAllowance.getUniformAlwance();
 			familyPlaningAlw += empAllowance.getFamilyPlanAlwance();
 			npa += empAllowance.getNonPracAwance();
-			ca += empAllowance.getConvAlwance();
 			wa+=empAllowance.getWashingAlwance();
 			others+= empAllowance.getCycleAlwance();
 		}
