@@ -108,7 +108,7 @@
 							src="../Payroll/resources/images/allowances.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
-							<a href="../Payroll/viewEmpAlwnce">Employee Allowances</a>
+							<a href="../Payroll/viewEmpAlwnce">Employee Fixed Allowances</a>
 						</h3>
 					</div>
 				</div>
