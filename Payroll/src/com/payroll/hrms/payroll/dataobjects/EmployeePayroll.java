@@ -7,6 +7,7 @@ import java.util.List;
 import com.payroll.employee.vo.EmployeeVO;
 //import com.kcb.hrms.payroll.dao.EmployeePayrollDAO;
 import com.payroll.hrms.payroll.dao.EmployeePayrollDAO;
+import com.payroll.hrms.payroll.service.EmployeePayrollService;
 
 /**
  * Created by rajendra on 12/7/17.
@@ -34,7 +35,6 @@ public class EmployeePayroll {
     private double unionFeeKss;
     private double cca;
     private double washingAllowance;
-    private double conveyanceAllowance;
     private double nonPracticingAllowance;
     private double uniformAllowance;
     private double familyPlanningAllowance;
@@ -113,13 +113,15 @@ public class EmployeePayroll {
     	this.employeeId = empVO.getEmployeeId();
     }
     
-    public EmployeePayroll(double basic, double gradePay, String scale, String scaleCode,double increment,
-    		double afkRent, double pfLoanRcry, double unionFee, 
-    		double electRcry, double courtRcry, double otherDeduct, double society, double cca, 
-    		double licInstalAmt, double fmlyPlgAlw, double npa, double wshngAlw, 
-    		double uniformAlw, Boolean hraFlag, double festAdvRcry, double gis, double bankLoanRcry, 
-    		double vlr, double cpfRcry, double overtimeHrs, double absentDays, String bankName, 
-    		String bankAcctNo, int bankId){
+    
+    
+    public EmployeePayroll(double basic, double gradePay, String scalePay, String scaleCode,
+    		double afkRent, double pfLoanRcry, double unionFee, double electRcry,
+    		double courtRcry,double otherDeduct, double society,
+			double cca, double licInstalAmt, double fmlyPlgAlw, double npa, 
+			double wshngAlw, double uniformAlw, 
+			boolean hraFlag, double festAdvRcry, double gis, double bankLoanRcry, double cpfRcry,double pfsCpfCntrb, double absentDays,
+			double overtimeHours, String bankName, String bankAcctNo, int bankId){
     	this.basic = basic;
     	this.gradePay = gradePay;
     	this.afkRent = afkRent;
@@ -161,6 +163,7 @@ public class EmployeePayroll {
          calculateDeductions();
          calculateNetPay();
     }
+    
     
     public EmployeePayroll(EmployeePayrollDTO employeePayrollDTO){
 
@@ -264,7 +267,7 @@ public class EmployeePayroll {
         this.totalAllowance = this.cca 
 				+ this.nonPracticingAllowance 
 				+ this.washingAllowance 
-				+ this.conveyanceAllowance 
+
 				+ this.uniformAllowance
 				+ this.familyPlanningAllowance;
         //this.totalAllowance += this.travelAllowance;
@@ -662,13 +665,6 @@ public class EmployeePayroll {
 		this.washingAllowance = washingAllowance;
 	}
 
-	public double getConveyanceAllowance() {
-		return conveyanceAllowance;
-	}
-
-	public void setConveyanceAllowance(double conveyanceAllowance) {
-		this.conveyanceAllowance = conveyanceAllowance;
-	}
 
 	public double getNonPracticingAllowance() {
 		return nonPracticingAllowance;
