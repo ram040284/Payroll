@@ -11,7 +11,6 @@ public class EmpAllowance implements Serializable {
 	private int employeeId;
 	private double cca;
 	private double washingAlwance;
-	private double convAlwance;
 	private double nonPracAwance;
 	private double uniformAlwance;
 	private double familyPlanAlwance;
@@ -20,6 +19,11 @@ public class EmpAllowance implements Serializable {
 	private Boolean qtrFlag;
 	private Boolean afkFlag;
 	private Boolean taFlag;
+	private Timestamp rowUpdDate;
+	private String status;
+	private short addUpdate; // 0 - Add / 1 - update
+	private Employee employee;
+	
 	public Boolean getQtrFlag() {
 		return qtrFlag;
 	}
@@ -38,10 +42,7 @@ public class EmpAllowance implements Serializable {
 	public void setTaFlag(Boolean taFlag) {
 		this.taFlag = taFlag;
 	}
-	private Timestamp rowUpdDate;
-	private String status;
-	private short addUpdate; // 0 - Add / 1 - update
-	private Employee employee;
+
 	public int getEmployeeId() {
 		return employeeId;
 	}
@@ -60,12 +61,7 @@ public class EmpAllowance implements Serializable {
 	public void setWashingAlwance(double washingAlwance) {
 		this.washingAlwance = washingAlwance;
 	}
-	public double getConvAlwance() {
-		return convAlwance;
-	}
-	public void setConvAlwance(double convAlwance) {
-		this.convAlwance = convAlwance;
-	}
+
 	public double getNonPracAwance() {
 		return nonPracAwance;
 	}
