@@ -46,7 +46,7 @@ public class TestData {
 	public static EmpAllowance getAllowance(int empId){
 		EmpAllowance alw = new EmpAllowance();
 		alw.setCca(0);
-		alw.setConvAlwance(0);
+
 		alw.setCycleAlwance(0);
 		alw.setEmployeeId(empId);
 		alw.setFamilyPlanAlwance(0);
