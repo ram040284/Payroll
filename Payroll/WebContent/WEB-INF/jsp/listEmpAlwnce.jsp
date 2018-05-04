@@ -44,7 +44,7 @@
 		  f.submit();
 	  }
       function deleteAllowance(id){
-    	  if(confirm("Are you sure want to delete Employee Allowances?")){
+    	  if(confirm("Are you sure want to delete Employee Fixed Allowances?")){
     		  var f = document.forms['editForm'];
     		  f.employeeId.value=id;
     		  f.action="../Payroll/deleteEmpAllowance";
@@ -59,7 +59,7 @@
 		<div class="container">
 	
 	<div style="margin-top: 12px; float: left; width: 98%;">
-			<h4 style="color: #0101DF;">Employee Allowances</h4>
+			<h4 style="color: #0101DF;">Employee Fixed Allowances</h4>
 		<div>
 				<div class="tblClass" id="allowanceListDiv">
 				<table>
