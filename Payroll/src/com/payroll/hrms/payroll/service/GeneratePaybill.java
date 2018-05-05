@@ -72,7 +72,7 @@ public class GeneratePaybill {
 			ta+= employeePayroll.getTravelAllowance();
 			npa+= employeePayroll.getNonPracticingAllowance();
 			wa+= employeePayroll.getWashingAllowance();
-			ca+= employeePayroll.getConveyanceAllowance();
+			//ca+= employeePayroll.getConveyanceAllowance();
 			uniformAlw+= employeePayroll.getUniformAllowance();
 			familyPlaningAlw+= employeePayroll.getFamilyPlanningAllowance();
 			otAmt+= employeePayroll.getOverTimeAmount();
