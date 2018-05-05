@@ -99,12 +99,12 @@ public class EmployeePayrollService {
     		allowance.setAllowance(allowances.getCca());
     		allowanceList.add(allowance);
     	}
-    	if(allowances.getConvAlwance()>0){
+/*    	if(allowances.getConvAlwance()>0){
     		allowance = new Allowance();
     		allowance.setAllowanceName("Convayance Allowance");
     		allowance.setAllowance(allowances.getConvAlwance());
     		allowanceList.add(allowance);
-    	}
+    	}*/
     	if(allowances.getCycleAlwance()>0){
     		allowance = new Allowance();
     		allowance.setAllowanceName("Cycle Allowance");
