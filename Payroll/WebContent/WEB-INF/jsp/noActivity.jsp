@@ -36,7 +36,7 @@
 	<div class="row">
 		<div class="col-md-12 text-center">
 		
-			<h4 style="color:red;">Report is not exist for selected Department and Date!</h4>
+			<h4 style="color:red;">Report does not exist for selected Department and Date!</h4>
 </div>		
 	</div>	
 	<div class="row">
