@@ -45,6 +45,7 @@ public class DepartmentService {
 	}
 	
 	public List<Department> getDepartmentsBySection(String section){
+		System.out.println("Getting depts by section");
 		return new DepartmentDAO().getDepartmentsBySection(section);
 	}
 	

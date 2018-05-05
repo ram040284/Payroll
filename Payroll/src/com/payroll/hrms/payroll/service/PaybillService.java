@@ -141,7 +141,6 @@ public class PaybillService {
 		int success = 0;
 		
 		List<Department> departments = new DepartmentService().getDepartmentsBySection(section);
-		System.out.println(""+departments.size());
 		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
 			Department department = (Department) iterator.next();
 			if(checkPayBills(department.getDepartmentId())){
