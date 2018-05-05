@@ -144,15 +144,12 @@ public class PaybillService {
 		System.out.println(""+departments.size());
 		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
 			Department department = (Department) iterator.next();
-			System.out.println("Dept Id:"+department.getDepartmentId());
-			/*if(checkPayBills(department.getDepartmentId())){
+			if(checkPayBills(department.getDepartmentId())){
 				success = 1;
 				continue;
-			}*/
+			}
 			EmployeePayrollService payroll = new EmployeePayrollService(empList);
-			
-			//boolean result = payroll.createPaybills(department.getDepartmentId(), startDate);
-			boolean result = true;
+			boolean result = payroll.createPaybills(department.getDepartmentId(), startDate);
 			success = (result) ? 2 :3;
 		}
 		

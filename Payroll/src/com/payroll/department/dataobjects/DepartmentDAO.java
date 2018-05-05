@@ -163,7 +163,7 @@ public class DepartmentDAO {
 		Session session = null;
 		
 		try{
-			String queryString = " from Department d where d.status = ? and s.section = ? ";
+			String queryString = " from Department d where d.status = ? and d.section = ? ";
 					
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
