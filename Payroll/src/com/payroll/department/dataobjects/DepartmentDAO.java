@@ -159,7 +159,7 @@ public class DepartmentDAO {
 	 * @return
 	 */
 	public List<Department> getDepartmentsBySection(String section){
-		System.out.println("Getting depts by sections");
+		
 		List<Department> departmentList = null;
 		Session session = null;
 		
