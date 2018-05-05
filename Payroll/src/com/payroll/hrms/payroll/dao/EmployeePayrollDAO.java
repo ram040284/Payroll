@@ -133,6 +133,7 @@ public class EmployeePayrollDAO {
 		}
         return empPayroll;
     }
+    
     private StringBuffer getSearchCriteria(String condition){
     	StringBuffer searchCriteria = new StringBuffer("(select eDept.employee.employeeId from EmpDepartment eDept where ");
     	searchCriteria.append(condition);
