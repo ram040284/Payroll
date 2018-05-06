@@ -87,7 +87,6 @@ $(document).ready(function() {
 			<th>Head</th>
 			<th>CCA</th>
 			<th>Washing Allowance</th>
-			<th>Conveyance Allowance</th>
 			<th>Non Practical Allowance</th>
 			<th>Uniform Allowance</th>
 			<th>Family Plan Allowance</th>
@@ -101,7 +100,6 @@ $(document).ready(function() {
 			<td> ${employee.headName} </td>
 			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.cca}"  pattern="#,##,##,##,##0.00"/> </td>
 			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.washingAllowance}"  pattern="#,##,##,##,##0.00"/> </td>
-			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.convAllowance}"  pattern="#,##,##,##,##0.00"/> </td>
 			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.nonPractAllowance}" pattern="#,##,##,##,##0.00"/> </td>
 			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.uniformAllowance}" pattern="#,##,##,##,##0.00"/> </td>
 			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.familyPlanAllowance}" pattern="#,##,##,##,##0.00"/> </td>
@@ -125,7 +123,6 @@ $(document).ready(function() {
 			<th>Head</th>
 			<th>CCA</th>
 			<th>Washing Allowance</th>
-			<th>Conveyance Allowance</th>
 			<th>Non Practical Allowance</th>
 			<th>Uniform Allowance</th>
 			<th>Family Plan Allowance</th>
@@ -139,7 +136,6 @@ $(document).ready(function() {
 			<td> ${employee.headName} </td>
 			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.cca}"  pattern="#,##,##,##,##0.00"/> </td>
 			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.washingAllowance}"  pattern="#,##,##,##,##0.00"/> </td>
-			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.convAllowance}"  pattern="#,##,##,##,##0.00"/> </td>
 			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.nonPractAllowance}" pattern="#,##,##,##,##0.00"/> </td>
 			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.uniformAllowance}" pattern="#,##,##,##,##0.00"/> </td>
 			<td> <fmt:setLocale value="en_IN"/><fmt:formatNumber type="currency" value="${employee.familyPlanAllowance}" pattern="#,##,##,##,##0.00"/> </td>

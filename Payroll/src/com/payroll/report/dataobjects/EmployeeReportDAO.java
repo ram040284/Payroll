@@ -194,7 +194,7 @@ public class EmployeeReportDAO
         empSalList = new ArrayList();
         try
         {
-        	String queryString = "SELECT empMaster.EMP_ID, EMP_FNAME, EMP_MNAME, EMP_LNAME, CCA, WASHING_ALLOWANCE, CONV_ALLOWANCE, NON_PRACT_ALLOWANCE, UNIFORM_ALLOWANCE, " + 
+        	String queryString = "SELECT empMaster.EMP_ID, EMP_FNAME, EMP_MNAME, EMP_LNAME, CCA, WASHING_ALLOWANCE, NON_PRACT_ALLOWANCE, UNIFORM_ALLOWANCE, " + 
         			"FAMILY_PLANNING_ALLOWANCE, CYCLE_ALLOWANCE, HRA_FLAG , (SELECT dept.DEPT_NAME FROM DEPT_MASTER dept " + 
         			"WHERE dept.DEPT_ID = empDept.DEPT_ID) as DeptName,  (SELECT deptHead.HEAD_NAME FROM dept_cost_head_master deptHead " +
         			"WHERE deptHead.HEAD_ID = empHead.HEAD_ID) as HeadName, (SELECT desg.DESG_NAME FROM desg_master desg " +
@@ -216,9 +216,9 @@ public class EmployeeReportDAO
             }
             if(headId != 0)
             {
-                queryString = (new StringBuilder(String.valueOf(queryString))).append(" AND empMaster.EMP_ID =empHead.EMP_ID AND empHead.HEAD_ID = ? ").toString();
+                queryString = (new StringBuilder(String.valueOf(queryString))).append(" AND empMaster.EMP_ID =empHead.EMP_ID AND empHead.HEAD_ID = ?;").toString();
             }
-            queryString = (new StringBuilder(String.valueOf(queryString))).append(" GROUP BY empMaster.EMP_ID;").toString();
+           // queryString = (new StringBuilder(String.valueOf(queryString))).append(" GROUP BY empMaster.EMP_ID;").toString();
             session = HibernateConnection.getSessionFactory().openSession();
             Query query = session.createSQLQuery(queryString);
             if(deptId != 0)
@@ -243,9 +243,8 @@ public class EmployeeReportDAO
                 		row[7] != null ? ((Double)row[7]).doubleValue() : 0.0D, 
                 		row[8] != null ? ((Double)row[8]).doubleValue() : 0.0D, 
                 		row[9] != null ? ((Double)row[9]).doubleValue() : 0.0D, 
-                		row[10] != null ? ((Double)row[10]).doubleValue() : 0.0D, 
-                		row[11] != null ? ((Boolean)row[11]).booleanValue() : false, 
-                		(String)row[12], (String)row[13], (String)row[14]);
+                		row[10] != null ? ((Byte)(row[10])!=0) : false, 
+                		(String)row[11], (String)row[12], (String)row[13]);
             }
 
         }

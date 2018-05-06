@@ -228,7 +228,7 @@ public class EmployeeReportController
       //fileContent.append(employeeVO.getDesignation()).append(", ");
       fileContent.append(employeeVO.getCca()).append(", ");
       fileContent.append(employeeVO.getWashingAllowance()).append(", ");
-      fileContent.append(employeeVO.getConvAllowance()).append(", ");
+      //fileContent.append(employeeVO.getConvAllowance()).append(", ");
       fileContent.append(employeeVO.getNonPractAllowance()).append(", ");
       fileContent.append(employeeVO.getUniformAllowance()).append(", ");
       fileContent.append(employeeVO.getFamilyPlanAllowance()).append(", ");

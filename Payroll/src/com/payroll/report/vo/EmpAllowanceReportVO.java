@@ -18,7 +18,7 @@ public class EmpAllowanceReportVO implements Serializable {
   private String headName;
   private double cca;
   private double washingAllowance;
-  private double convAllowance;
+  //private double convAllowance;
   private double nonPractAllowance;
   private double uniformAllowance;
   private double familyPlanAllowance;
@@ -35,7 +35,7 @@ public class EmpAllowanceReportVO implements Serializable {
   private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
   
   public EmpAllowanceReportVO(int employeeId, String firstName, String lastName, String middleName, 
-		  double cca, double wa, double convAlwance, double npa, double ua, double fpa, double cycleAlwance, boolean hraFlag, 
+		  double cca, double wa,  double npa, double ua, double fpa, double cycleAlwance, boolean hraFlag, 
 		  String deptName, String headName, String designation)
   {
     this.employeeId = employeeId;
@@ -47,7 +47,7 @@ public class EmpAllowanceReportVO implements Serializable {
   	//FAMILY_PLANNING_ALLOWANCE, CYCLE_ALLOWANCE, HRA_FLAG ,
     this.cca = cca;
     this.washingAllowance = wa;
-    this.convAllowance = convAlwance;
+    //this.convAllowance = convAlwance;
     this.nonPractAllowance = npa;
     this.uniformAllowance = ua;
     this.familyPlanAllowance = fpa;
@@ -130,10 +130,6 @@ public double getCca() {
 
 public double getWashingAllowance() {
 	return washingAllowance;
-}
-
-public double getConvAllowance() {
-	return convAllowance;
 }
 
 public double getNonPractAllowance() {
