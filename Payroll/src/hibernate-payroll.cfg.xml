@@ -40,7 +40,7 @@
    	<mapping resource="com/payroll/login/dataobjects/UserRoles.hbm.xml"/>
    	<mapping resource="com/payroll/hrms/payroll/dataobjects/Paybill.hbm.xml"/>
    	<mapping resource="com/payroll/employee/leave/dataobjects/LeaveRequest.hbm.xml"/>
-   	<mapping resource="com/payroll/employee/deductions/dataobjects/EmpDeductionDetails.hbm.xml"/>
+   	<mapping resource="com/payroll/employee/deductions/dataobjects/EmpFixedDeductions.hbm.xml"/>
    	<mapping resource="com/payroll/employee/advances/dataobjects/EmpAdvances.hbm.xml"/>
    	
 </session-factory>
