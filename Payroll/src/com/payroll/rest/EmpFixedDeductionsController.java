@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
+import com.payroll.employee.allowance.vo.EmpAllowanceVO;
 import com.payroll.employee.deductions.business.EmpFixedDeductionsService;
 import com.payroll.employee.deductions.dataobjects.EmpFixedDeductions;
 
@@ -31,8 +32,17 @@ public class EmpFixedDeductionsController {
 		return "listFixedEmpDeductions";
 	}
 	
+	
+	@RequestMapping(value = "/inputEmpFixedDeductions", method = RequestMethod.GET)
+	public void getEmpFixedDeduction() {
+		System.out.println("@RequestMapping(value = /inputEmpFixedDeductions, method = RequestMethod.GET)");
+	
+	}
+//	@RequestMapping(value = "/inputEmpAlwnce", method = RequestMethod.POST)
+//	public ModelAndView inputEmpAlwnce(EmpAllowanceVO empAllowance) {
+	
 	@RequestMapping(value = "/inputEmpFixedDeductions", method = RequestMethod.POST)
-	public ModelAndView inputEmpDeductDtls(EmpFixedDeductions empFixedDeductions) {
+	public ModelAndView inputEmpFixedDeductions(EmpFixedDeductions empFixedDeductions) {
 		ObjectMapper mapper = new ObjectMapper();
 		System.out.println("inputEmpDeductions -- empDeductions:"+empFixedDeductions.getEmployeeId());
 		List<Department> deptList = new DepartmentService().getDepartments();
@@ -45,7 +55,8 @@ public class EmpFixedDeductionsController {
 		}
 		if(empFixedDeductions.getEmployeeId() != 0)
 			empFixedDeductions = new EmpFixedDeductionsService().getEmpDeductionsById(empFixedDeductions.getEmployeeId());
-		ModelAndView model = new ModelAndView("empDeductDtls", "command", empFixedDeductions);
+		System.out.println("empFixedDeductions Employee id : "+ empFixedDeductions.getEmployeeId() + "empFixedDeductions Department : " + empFixedDeductions.getDepartmentId());
+		ModelAndView model = new ModelAndView("empFixedDeductions", "command", empFixedDeductions);
 		model.addObject("empDeductions", empFixedDeductions);
 		model.addObject("departments", depJSON);
 		return model;

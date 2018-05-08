@@ -19,58 +19,44 @@
 										function(i, empDeductions) {
 											$('<tr/>')
 													.appendTo(fixedDeductionsTab)
-													.append(
-															$('<td/>')
-																	.text(
-																			empDeductions.fullName))
-													.append(
-															$('<td/>')
-																	.text(
-																			empDeductions.kssUnionFee))
-													.append(
-															$('<td/>')
-																	.text(
-																			empDeductions.rent))
-													.append(
-															$('<td/>')
-																	.text(
-																			empDeductions.courtRecovery))
-													.append(
-															$('<td/>')
-																	.text(
-																			empDeductions.unionFee))
-													.append(
-															$('<td/>')
-																	.text(
-																			empDeductions.gis))
-													.append(
-															$('<td/>')
-																	.append(
-																			'<a href="#" onclick=viewDeductions('
-																					+ empDeductions.employeeId
-																					+ ')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDeductions('
-															+ empDeductions.employeeId
-																					+ ')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
+													.append($('<td/>').text( empDeductions.fullName))
+													.append($('<td/>').text(empDeductions.kssUnionFee))
+													.append($('<td/>').text(empDeductions.rent))
+													.append($('<td/>').text(empDeductions.courtRecovery))
+													.append($('<td/>').text(empDeductions.unionFee))
+													.append($('<td/>').text(empDeductions.gis))
+													.append($('<td/>').append('<a href="#" onclick=addUpdateDeductions('+ empDeductions.employeeId + 
+													')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDeductions('
+													+ empDeductions.employeeId
+													+ ')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
 										});
 					}
 				});
 	}
-	function viewDeductions(id) {
+	
+	 /* function inputAllowance(){
+   	  var f = document.forms['editForm'];
+		  f.action="../Payroll/inputEmpAlwnce";
+		  f.submit();
+	  } */
+	 
+	function addUpdateDeductions(id) {
+		//alert("viewDeductions" + id);
 		var f = document.forms['editForm'];
+		f.action = "../Payroll/inputEmpFixedDeductions";
 		f.employeeId.value = id;
-		f.action = "../Payroll/inputEmpDeductDtls";
 		f.submit();
 	}
 	function inputDeductDtls() {
 		var f = document.forms['editForm'];
-		f.action = "../Payroll/inputEmpDeductDtls";
+		f.action = "../Payroll/inputEmpFixedDeductions";
 		f.submit();
 	}
 	function deleteDeductions(id) {
 		if (confirm("Are you sure want to delete Employee Deduction Details?")) {
 			var f = document.forms['editForm'];
 			f.employeeId.value = id;
-			f.action = "../Payroll/deleteEmpDeductDtls";
+			f.action = "../Payroll/addEmpFxDeductions";
 			f.submit();
 		}
 	}

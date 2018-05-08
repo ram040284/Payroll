@@ -21,6 +21,11 @@ public class EmpFixedDeductions {
 	private Timestamp rowUpdDate;
 	private Employee employee;
 
+	public EmpFixedDeductions() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Employee getEmployee() {
 		return employee;
 	}

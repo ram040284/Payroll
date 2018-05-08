@@ -12,7 +12,7 @@ import com.payroll.TestData;
 import com.payroll.employee.advances.dataobjects.EmpAdvances;
 import com.payroll.employee.allowance.dataobjects.EmpAllowance;
 import com.payroll.employee.bank.vo.BankVO;
-import com.payroll.employee.deductions.dataobjects.EmpDeductionDetails;
+//import com.payroll.employee.deductions.dataobjects.EmpDeductionDetails;
 import com.payroll.employee.deductions.dataobjects.EmpDeductions;
 import com.payroll.employee.leave.dataobjects.Leave;
 import com.payroll.employee.lic.dataobjects.EmpLic;
@@ -78,7 +78,7 @@ public class EmployeePayrollDAO {
 		EmpQuarters empQtr = null;
 		EmpAllowance alowances = null;
 		EmpDeductions empDeductions = null;
-		EmpDeductionDetails empDeductDetails = null;
+		//EmpDeductionDetails empDeductDetails = null;
 		EmpAdvances empAdvances = null;
 		EmpLic empLic = null;
 		List<Overtime> overtimeList = null;
@@ -99,7 +99,7 @@ public class EmployeePayrollDAO {
 			leaves = (List)getObjectsByEmpId(" from Leave l where l.employee.employeeId = ? and l.status = ?");
 			empLic = (EmpLic)getObjectByEmpId(" from EmpLic l where l.employee.employeeId = ? and l.status = ?");
    			empAdvances = (EmpAdvances)getObjectByEmpId(" from EmpAdvances a where a.employee.employeeId = ? and a.status = ?");
-   			empDeductDetails = (EmpDeductionDetails)getObjectByEmpId(" from EmpDeductionDetails d where d.employee.employeeId = ? and d.status = ?");
+   			//empDeductDetails = (EmpDeductionDetails)getObjectByEmpId(" from EmpDeductionDetails d where d.employee.employeeId = ? and d.status = ?");
    			bankVo = (BankVO)getObjectByEmpId("select new com.payroll.employee.bank.vo.BankVO(b.bankDetails.bankId, b.bankDetails.bankName, b.accountNo) "
    					+ "from EmpBank b where b.employee.employeeId = ? and b.status = ?");		
 			
@@ -114,17 +114,17 @@ public class EmployeePayrollDAO {
    				alowances = TestData.getAllowance(employeeId);
    			if(bankVo == null)
    				bankVo = TestData.getBAnkDetails(employeeId);
-   			if(empDeductDetails == null)
-   				empDeductDetails = TestData.getEmpDeductDtls(employeeId);
+   			//if(empDeductDetails == null)
+   			//	empDeductDetails = TestData.getEmpDeductDtls(employeeId);
    			
-   			empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay()+"", salary.getScaleCode(),
-   					empDeductDetails.getAfkRent(), empPf.getPfLoneRecAmt(), empDeductDetails.getUnionFee(),empDeductDetails.getElectRecovery(),
-   					empDeductDetails.getCourtRecovery(),empDeductDetails.getOtherDeductions(), empDeductDetails.getSociety(),
+   		/*	empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay()+"", salary.getScaleCode(),
+   				//	empDeductDetails.getAfkRent(), empPf.getPfLoneRecAmt(), empDeductDetails.getUnionFee(),empDeductDetails.getElectRecovery(),
+   				//	empDeductDetails.getCourtRecovery(),empDeductDetails.getOtherDeductions(), empDeductDetails.getSociety(),
 					alowances.getCca(), empLic.getInstlmtAmt(),alowances.getFamilyPlanAlwance(), alowances.getNonPracAwance(), 
 					alowances.getWashingAlwance(), alowances.getUniformAlwance(), 
 					alowances.getHraFlag(), 0 , 0, 0, 0, empPf.getPfsCpfCntrbn(), EmployeePayrollService.getAbsenties(leaves),
 					EmployeePayrollService.overtimeHours(overtimeList), bankVo.getBankName(), bankVo.getAccountNo(), bankVo.getBankId());
-	
+	*/
 			//payrollDTO.set
     	}catch(Exception e){ 
 			e.printStackTrace();
@@ -224,7 +224,7 @@ public class EmployeePayrollDAO {
 		return query.list();
 	}
     
-    private void loadDeductDetails(List<EmpDeductionDetails> empDeductDetList){
+   /* private void loadDeductDetails(List<EmpDeductionDetails> empDeductDetList){
     	for (Iterator iterator = empDeductDetList.iterator(); iterator.hasNext();) {
     		EmpDeductionDetails empDeductDet = (EmpDeductionDetails) iterator.next();
 			basicPay += empDeductDet.getAfkRent();
@@ -236,7 +236,7 @@ public class EmployeePayrollDAO {
 			empDeductDet.getSociety();
 			empDeductDet.getUnionFee();
 		}
-    }
+    }*/
     
     private void loadBasicGradePay(List<Salary> slaryList){
     	for (Iterator iterator = slaryList.iterator(); iterator.hasNext();) {

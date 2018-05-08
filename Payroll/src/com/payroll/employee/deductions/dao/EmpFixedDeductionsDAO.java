@@ -15,7 +15,6 @@ public class EmpFixedDeductionsDAO {
 	public List<EmpFixedDeductions> getEmpFixedDeductions(){
 		List<EmpFixedDeductions> deductionsList = null;
 			Session session = null;
-			
 			try{
 				String queryString = " select new com.payroll.employee.deductions.dataobjects.EmpFixedDeductions(d.employee.employeeId, "
 						+"d.employee.firstName, d.employee.lastName, d.kssUnionFee, d.rent, d.courtRecovery, d.unionFee, d.gis)"
@@ -32,11 +31,14 @@ public class EmpFixedDeductionsDAO {
 		
 		return deductionsList;
 	}
-	
+	/**
+	 * 
+	 * @param empId
+	 * @return
+	 */
 	public EmpFixedDeductions getEmpFixedDeductions(int empId){
 		EmpFixedDeductions empFixedDeductions = null;
 		Session session = null;
-			
 			try{
 				String queryString = " select new com.payroll.employee.deductions.dataobjects.EmpFixedDeductions(d.employee.employeeId, "
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = d.employee.employeeId and dept.status = 'A'), "
@@ -55,7 +57,6 @@ public class EmpFixedDeductionsDAO {
 			}finally{
 				HibernateConnection.closeSession(session);
 			}
-		
 		return empFixedDeductions;
 	}
 	
@@ -112,7 +113,7 @@ public class EmpFixedDeductionsDAO {
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			Employee employee = (Employee)session.load(Employee.class, empFixedDeductions.getEmployeeId());
-			//empDeduct.setEmployee(employee);
+			empFixedDeductions.setEmployee(employee);
 			empFixedDeductions.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 			empFixedDeductions.setStatus("A");
 			if(empFixedDeductions.getAddUpdate() ==0)
@@ -124,7 +125,7 @@ public class EmpFixedDeductionsDAO {
 		}catch(ConstraintViolationException cv){
 			cv.printStackTrace();
 			transaction.rollback();
-			result = "Deductions are already exist for selected Employee!";
+			result = "Deductions already exist, for selected Employee!";
 		}catch(Exception e){
 			e.printStackTrace();
 			transaction.rollback();
