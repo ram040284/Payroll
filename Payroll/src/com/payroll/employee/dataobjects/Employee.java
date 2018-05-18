@@ -6,9 +6,17 @@ import java.util.Date;
 
 public class Employee implements Serializable{
 	
+	private int employeeId;
+	private int departmentId;
+	private int headId;
+	private int designationId;
 	private String firstName;
-	private String lastName;
 	private String middleName;
+	private String lastName;
+	private Date dob;
+	private String gender;
+	private String pan;
+	private String adharNo;
 	private String designation;
 	private String email;
 	private String phone;
@@ -17,19 +25,13 @@ public class Employee implements Serializable{
 	private String addressLine1;
 	private String addressLine2;
 	private String addressLine3;
-	private String status;
-	private String gender;
-	private Timestamp rowUpdatedDate;
-	private Date dob;
 	private String contactNo;
-	private String pan;
-	private String adharNo;
 	private String lastPromotionDate;
-	private int departmentId;
-	private int designationId;
-	private int employeeId;
-	private int headId;
 	private Date retirementDate;
+	private String status;
+
+	private Timestamp rowUpdatedDate;
+
 	
 	
 	public Date getRetirementDate() {

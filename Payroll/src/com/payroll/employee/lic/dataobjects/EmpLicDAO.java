@@ -13,6 +13,7 @@ import com.payroll.HibernateConnection;
 import com.payroll.employee.dataobjects.Employee;
 import com.payroll.employee.lic.vo.EmpLicMasterVO;
 import com.payroll.employee.lic.vo.EmpLicVO;
+import com.payroll.employee.lic.vo.EmployeeLIC;
 
 
 public class EmpLicDAO {
@@ -40,8 +41,32 @@ public class EmpLicDAO {
 		
 		return instlmtAmt;
 	}
-	
-	
+	/**
+	 * 
+	 * @param employeeId
+	 * @return
+	 */
+	public List<EmployeeLIC> getEmployeeLicDeductions(int employeeId){
+		List<EmployeeLIC> listEmpLICDeductions = null;
+			Session session = null;
+			
+			try{
+				String queryString = " select new com.payroll.employee.lic.vo.EmployeeLIC(l.employeeId, "
+						+ "l.policyNo, l.instlmtAmt) from EmpLicMaster l where  l.employeeId = ? and l.status = ?";		
+				
+				session = HibernateConnection.getSessionFactory().openSession();
+				Query query = session.createQuery(queryString);
+				query.setParameter(0, employeeId);
+				query.setParameter(1, "A");
+				listEmpLICDeductions = query.list();
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				HibernateConnection.closeSession(session);
+			}
+		
+		return listEmpLICDeductions;
+	}
 	
 	public List<EmpLicMasterVO> getEmpLicMasterList(){
 		List<EmpLicMasterVO> instlmtAmt = null;

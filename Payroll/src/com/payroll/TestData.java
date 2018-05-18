@@ -50,7 +50,7 @@ public class TestData {
 		alw.setCycleAlwance(0);
 		alw.setEmployeeId(empId);
 		alw.setFamilyPlanAlwance(0);
-		alw.setHraFlag(false);
+		//alw.setHraFlag(false);
 		alw.setNonPracAwance(0);
 		alw.setUniformAlwance(0);
 		alw.setWashingAlwance(0);

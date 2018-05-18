@@ -20,5 +20,5 @@
     <property name="scaleCode" column="SCALE_CODE" not-null="true"/> 
     <property name="status" column="STATUS" not-null="true"/>  
     <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/>
-  </class>  
+  </class>
  </hibernate-mapping>

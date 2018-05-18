@@ -61,7 +61,6 @@ public class EmployeePayrollDAO {
 	private double vlr;
 	private double pfsCpf;
 	private double apfAcf;
-	
 	private double pfLoanRcry;
 	private double cpfRcry;
 	private double incomTax;
@@ -126,7 +125,7 @@ public class EmployeePayrollDAO {
 					EmployeePayrollService.overtimeHours(overtimeList), bankVo.getBankName(), bankVo.getAccountNo(), bankVo.getBankId());
 	*/
 			//payrollDTO.set
-    	}catch(Exception e){ 
+    	}catch(Exception e){
 			e.printStackTrace();
 		}finally {
 			HibernateConnection.closeSession(session);
@@ -141,54 +140,6 @@ public class EmployeePayrollDAO {
     	return searchCriteria;
     }
    
-    /*@SuppressWarnings("unchecked")
-   	public EmployeePayrollDTO loadPayrollByDept(int deptId, Date date){
-       	List<Salary> salaryList = null;
-   		List<EmpPf> empPfList = null;
-   		List<EmpQuarters> empQtrList = null;
-   		List<EmpAllowance> alowancesList = null;
-   		List<EmpDeductions> empDeductionsList = null;
-   		List<EmpDeductionDetails> empDeductDetailsList = null;
-   		List<EmpAdvances> empAdvancesList = null;
-   		List<Overtime> overtimeList = null;
-   		List<Leave> leaves = null;
-   		List<EmpLic> empLicList = null;
-   		EmployeePayrollDTO payrollDTO = new EmployeePayrollDTO();
-       	try{
-       		this.deptId = deptId;
-       		String searchCriteria = " (select eDept.employee.employeeId from EmpDepartment eDept where e.employeeId = eDept.employee.employeeId and eDept.department.departmentId = ?)";
-   			session = HibernateConnection.getSessionFactory().openSession();
-   			salaryList = (List)getObjectsByDeptId(" from Salary s where s.employee.employeeId = ? and s.status = ?");//session.load(Salary.class, employeeId);
-   			empPfList = (List)getObjectsByDeptId(" from EmpPf p where p.employee.employeeId = ? and p.status = ?");
-   			empQtrList = (List)getObjectsByDeptId(" from EmpQuarters q where q.employee.employeeId = ? and q.status= ?");
-   			empDeductionsList = (List)getObjectsByDeptId(" from EmpDeductions d where d.employee.employeeId = ? and d.status = ?");
-   			alowancesList = (List)getObjectsByDeptId(" from EmpAllowance a where a.employee.employeeId = ? and a.status = ?");
-   			overtimeList = (List)getObjectsByDeptId(date, " from Overtime o where o.employee.employeeId = ? and o.status = ? and o.overtimeDate >= ?");
-   			leaves = (List)getObjectsByDeptId(" from Leave l where l.employee.employeeId = ? and l.status = ?");
-   			empLicList = (List)getObjectsByDeptId(" from EmpLic l where l.employee.employeeId = ? and l.status = ?");
-   			empAdvancesList = (List)getObjectsByDeptId(" from EmpAdvances a where a.employee.employeeId = ? and a.status = ?");
-   			empDeductDetailsList = (List)getObjectsByDeptId(" from EmpDeductionDetails d where d.employee.employeeId = ? and d.status = ?");
-   			payrollDTO.setBasic(basicPay);
-   			payrollDTO.setGradePay(gradePay);
-   			payrollDTO.setListAllowances(EmployeePayrollService.listAllowances(alowancesList));
-   			payrollDTO.setNoOfAbsentDays(EmployeePayrollService.getAbsenties(leaves));
-   			payrollDTO.setOverTimeHours(EmployeePayrollService.overtimeHours(overtimeList));
-   			payrollDTO.setHraFlag(alowances.getHraFlag());
-   			// Yet to conform Pf details
-   			if(empPf.getApfAcpfCntrbn() >0 || empPf.getPfLoneRecAmt() > 0 || empPf.getPfsCpfCntrbn() > 0)
-   				payrollDTO.setPfFlag(true);
-   			payrollDTO.setAdditionalProventFund(empPf.getApfAcpfCntrbn());
-   			payrollDTO.setPfLoanRecovery(empPf.getPfLoneRecAmt());
-   			payrollDTO.setPf0Recovery(empPf.getPfsCpfCntrbn());
-   			//payrollDTO.set
-       	}catch(Exception e){ 
-   			e.printStackTrace();
-   		}finally {
-   			HibernateConnection.closeSession(session);
-   		}
-           return payrollDTO;
-       }
-   */ 
     private List getObjectsByEmpId(Date date, String queryString){
     	this.date = date;
     	return getObjectsByEmpId(queryString);
@@ -209,7 +160,11 @@ public class EmployeePayrollDAO {
 			query.setParameter(2, date);
 		return query.list();
 	}
-    
+    /**
+     * @param date
+     * @param queryString
+     * @return
+     */
     private List getObjectsByDeptId(Date date, String queryString){
     	this.date = date;
     	return getObjectsByDeptId(queryString);
@@ -223,20 +178,6 @@ public class EmployeePayrollDAO {
 			query.setParameter(2, date);
 		return query.list();
 	}
-    
-   /* private void loadDeductDetails(List<EmpDeductionDetails> empDeductDetList){
-    	for (Iterator iterator = empDeductDetList.iterator(); iterator.hasNext();) {
-    		EmpDeductionDetails empDeductDet = (EmpDeductionDetails) iterator.next();
-			basicPay += empDeductDet.getAfkRent();
-			gradePay += empDeductDet.getCourtRecovery();
-			empDeductDet.getElectRecovery();
-			empDeductDet.getKssUnionRecovery();
-			empDeductDet.getOtherDeductions();
-			empDeductDet.getMiscRecovery();
-			empDeductDet.getSociety();
-			empDeductDet.getUnionFee();
-		}
-    }*/
     
     private void loadBasicGradePay(List<Salary> slaryList){
     	for (Iterator iterator = slaryList.iterator(); iterator.hasNext();) {
@@ -301,6 +242,7 @@ public class EmployeePayrollDAO {
     	}
     	return employeeList;
     }
+
     /**
      * 
      * @param deptId

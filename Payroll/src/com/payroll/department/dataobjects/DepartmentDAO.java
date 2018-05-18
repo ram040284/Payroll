@@ -10,7 +10,6 @@ import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
-import com.payroll.employee.dataobjects.Employee;
 
 public class DepartmentDAO {
 	/**

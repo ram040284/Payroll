@@ -3,15 +3,13 @@ package com.payroll.employee.salary.dataobjects;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
-
 import com.payroll.HibernateConnection;
 import com.payroll.employee.dataobjects.Employee;
-import com.payroll.employee.dataobjects.EmployeeDAO;
+import com.payroll.employee.salary.vo.EmployeeSalary;
 import com.payroll.employee.salary.vo.SalaryVO;
 
 public class SalaryDAO {
@@ -114,6 +112,30 @@ public class SalaryDAO {
 			HibernateConnection.closeSession(session);
 		}
 		return salVO;
+	}
+
+	/**
+	 * Get Employee Salary
+	 * @param empId
+	 * @return
+	 */
+	public EmployeeSalary getEmployeeSalary(int empId){
+		System.out.println("Entered EmployeeSalary getEmployeeSalary(int empId) : "+ empId);
+		EmployeeSalary employeeSalary = null;
+		Session session = null;
+		try{
+			String queryString = "select new com.payroll.employee.salary.vo.EmployeeSalary(s.employeeId, s.basic, s.gradePay,s.scalePay,s.scaleCode) from Salary s where s.employeeId = ? and s.status = ?";
+			session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, empId);
+			query.setParameter(1, "A");
+			employeeSalary = (EmployeeSalary)(!(query.list().isEmpty()) ? query.list().get(0) : null);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return employeeSalary;
 	}
 	
 	public String deleteEmpSal(int empId){

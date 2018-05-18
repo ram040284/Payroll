@@ -1,81 +1,55 @@
 //package com.kcb.hrms.payroll.dataobjects;
 package com.payroll.hrms.payroll.dataobjects;
 
-//import com.kcb.hrms.payroll.service.EmployeePayrollService;
-import com.payroll.hrms.payroll.incometax.service.EmployeePayrollService;
+import org.apache.log4j.Logger;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import com.payroll.hrms.payroll.dao.EmployeePayrollDAONew;
 
 /**
  * Created by rajendra on 12/7/17.
  */
 public class  PayrollEngine {
-    private double daPercent;
-    private double hraPercent;
-    private int deptCode;
+	public static Logger log = Logger.getLogger(PayrollEngine.class.getName());
+    public static double DA_PERCENT = 139.00;
+    public static double HRA_PERCENT = 30.00;
+    public static int WORKING_DAYS=22;
+    public static double PF_PERCENT=6.0;
+    public static double CPF_PERCENT=10.0;
+    private String section;
+    private int[] arrDepartmentId; 
+    private int [] arrEmployeeId;
 
-    public void runPayroll(){
-
-        //List<String> empId = employeeService.getListOfEmployees(String deptId);
-
-        String empId = null;
-        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
-        EmployeePayrollDTO employeePayrollDTO =  employeePayrollService.retrievePayrollData(empId);
-
-        EmployeePayroll empPayroll = new EmployeePayroll(employeePayrollDTO);
-
-        //********** load payroll info ***************
-        //load basic grade pay
-        // load allowances
-        //load PF Flag, Load HRA flag
-        //Calculate DA,
-        // calculate HRA,
-        // calculate TA
-        //Calculate Allowances
-        //Check Absentism
-        //calculate over time
-        //Calculate Gross Salary
-
-
+    /**
+     * get the list of departments for a section
+     */
+    private void getDepartments(){
+    	
     }
-    public static void main(String [] arg){
-        double basic = 7530.00;
-        double gradepay = 1300.00;
-        double da = Math.round(136*(basic+gradepay)/100);
-        double hra = Math.round(30*(basic+gradepay)/100);
-        double travelAllowance;
-        travelAllowance = 0.0;
-        boolean handiCapped = false;
+    /**
+     * Retrieve List OF EMPLOYEE IDs for all the departments in a section
+     */
+    private void getEmployeeList(){
+    	
+    }
+    
+    /**
+     * processPayroll
+     */
+    public void processPayroll(int employeeId){
+    	System.out.println("Entered processPayroll(int employeeId)" );
 
-        if (!handiCapped) {
-            if (gradepay >= 5400.00)
-                travelAllowance = 2400.00;
-            else if (gradepay >= 4400.00 && gradepay < 5400.00)
-                travelAllowance = 1200.00;
-            else
-                travelAllowance = 400.00;
-        } else{
-            if(gradepay>=4400.00)
-                travelAllowance = 2400;
-            else
-                travelAllowance = 2000;
-        }
-        Date date= new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        //int month = cal.get(Calendar.MONTH);
-        //cal.get(Calendar.DAY_OF_MONTH);
-        //cal.set(Calendar.YEAR, Calendar.MONTH,1);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        
-        System.out.println("Dearness Alllowance is : " + Math.round(da));
-        System.out.println("HRA Alllowance is : " + Math.round(hra));
-        System.out.println("Travel Alllowance is : " + Math.round(travelAllowance));
-       // System.out.println("Day of Month:"+Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
-       // new Date(cal.getTime().getTime());
-        System.out.println("date:"+new Date(cal.getTime().getTime()));
+    	EmployeePayrollNew employeePayroll = new EmployeePayrollDAONew().loadEmployeePayrollInfo(employeeId);
+    	
+    	employeePayroll.setEmployeeId(employeeId);
+    	System.out.println("Exiting processPayroll(int employeeId)" );
+    }
+    /**
+     * 
+     * @param args
+     */
+    public static void main(String []args){
+    	new PayrollEngine().processPayroll(199105024);
+    	
     }
 
 }

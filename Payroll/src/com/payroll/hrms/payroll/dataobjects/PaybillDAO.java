@@ -10,9 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
-import com.payroll.Utils;
 import com.payroll.employee.dataobjects.Employee;
-import com.payroll.employee.salary.dataobjects.Salary;
 
 public class PaybillDAO {
 	private int headId=0;

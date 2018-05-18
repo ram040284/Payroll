@@ -15,6 +15,7 @@ import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.deductions.business.EmpFixedDeductionsService;
 import com.payroll.employee.deductions.dataobjects.EmpFixedDeductions;
+import com.payroll.hrms.payroll.dataobjects.PayrollEngine;
 
 @Controller
 public class EmpFixedDeductionsController {
@@ -22,6 +23,7 @@ public class EmpFixedDeductionsController {
 	@RequestMapping(value="/listFixedEmpDeductions", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<EmpFixedDeductions> getEmpFixedDeductions(){
 		System.out.println("listFixedEmpDeductions-- getEmpDeductDtlsList");
+		new PayrollEngine().processPayroll(199508018);
 	   List<EmpFixedDeductions> empdeductionsList = new EmpFixedDeductionsService().getEmpFixedDeductions();
 	   return empdeductionsList;
     }

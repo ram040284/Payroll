@@ -7,7 +7,6 @@ import java.util.List;
 import com.payroll.employee.vo.EmployeeVO;
 //import com.kcb.hrms.payroll.dao.EmployeePayrollDAO;
 import com.payroll.hrms.payroll.dao.EmployeePayrollDAO;
-import com.payroll.hrms.payroll.service.EmployeePayrollService;
 
 /**
  * Created by rajendra on 12/7/17.

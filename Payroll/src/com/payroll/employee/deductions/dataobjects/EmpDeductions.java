@@ -29,6 +29,7 @@ public class EmpDeductions implements Serializable{
 	private short addUpdate; // 0 - Add / 1 - update
 	private Timestamp rowUpdDate;
 	private Employee employee;
+	
 	public int getEmployeeId() {
 		return employeeId;
 	}

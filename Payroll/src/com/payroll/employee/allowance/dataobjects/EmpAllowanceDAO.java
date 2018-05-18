@@ -10,9 +10,8 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
 import com.payroll.employee.allowance.vo.EmpAllowanceVO;
+import com.payroll.employee.allowance.vo.EmployeeAllowances;
 import com.payroll.employee.dataobjects.Employee;
-import com.payroll.employee.lic.dataobjects.EmpLic;
-import com.payroll.employee.lic.vo.EmpLicVO;
 
 public class EmpAllowanceDAO {
 	
@@ -63,6 +62,32 @@ public class EmpAllowanceDAO {
 		return empAllowanceVO;
 	}
 	
+	/**
+	 * Get employee allowances by employeed Id
+	 * @param empId
+	 * @return
+	 */
+	public EmployeeAllowances getEmployeeAllowances(int empId){
+		EmployeeAllowances employeeAllowances = null;
+			Session session = null;
+			try{
+				String queryString = "select new com.payroll.employee.allowance.vo.EmployeeAllowances(a.employeeId, a.cca, a.washingAlwance,a.nonPracAwance,a.uniformAlwance,a.familyPlanAlwance, a.cycleAlwance,a.hraFlag,a.qtrFlag,a.afkFlag, a.taFlag) from EmpAllowance a where a.employeeId = ? and a.status = ?";		
+				
+				session = HibernateConnection.getSessionFactory().openSession();
+				Query query = session.createQuery(queryString);
+				query.setParameter(0, empId);
+				query.setParameter(1, "A");
+				System.out.println("EmployeeAllowances getEmployeeAllowances(int empId): "+ empId);
+				employeeAllowances = (EmployeeAllowances)(!(query.list().isEmpty()) ? query.list().get(0) : null);
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				HibernateConnection.closeSession(session);
+			}
+		
+		return employeeAllowances;
+	}
+
 	public String deleteEmpAllowance(int empId){
 		String result = null;
 		Session session = null;
@@ -114,6 +139,4 @@ public class EmpAllowanceDAO {
 		}
 		return result;
 	}
-
-
 }

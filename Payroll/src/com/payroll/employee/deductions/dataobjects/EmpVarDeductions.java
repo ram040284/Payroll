@@ -1,8 +1,9 @@
 package com.payroll.employee.deductions.dataobjects;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import com.payroll.Utils;
 import com.payroll.employee.dataobjects.Employee;
 
@@ -12,7 +13,7 @@ public class EmpVarDeductions {
 	private double society;
 	private double otherDeductions;
 	private double miscRecovery;
-	private Timestamp monthDate;
+	private String monthDate;
 	private int departmentId;
 	private int headId;
 	private int designationId;
@@ -21,10 +22,11 @@ public class EmpVarDeductions {
 	private short addUpdate;
 	private Timestamp rowUpdDate;
 	private Employee employee;
+	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
 
 	public EmpVarDeductions() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Employee getEmployee() {
@@ -44,13 +46,25 @@ public class EmpVarDeductions {
 	}
 
 	public EmpVarDeductions(int employeeId, String firstName, String lastName, double afkRent, double society, 
-			 double otherDeductions, double miscRecovery, Date monthDate){
+			 double otherDeductions, double miscRecovery, String monthDate){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
 		this.society = society;
 		this.otherDeductions = otherDeductions;
 		this.miscRecovery = miscRecovery;
-		this.monthDate = Timestamp.valueOf(monthDate.toString());
+		System.out.println("monthDate:"+monthDate);
+		Date dateMonthDate;
+		
+		if (monthDate!=null){
+			try {
+				dateMonthDate =  dateFormatRead.parse(monthDate);
+				this.monthDate =  dateFormat.format(dateMonthDate);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		} else
+			this.monthDate = "";
+		
 		StringBuffer nameSB = new StringBuffer(Utils.safeTrim(firstName));
 		nameSB.append(" ");
 		nameSB.append(Utils.safeTrim(lastName));
@@ -58,7 +72,7 @@ public class EmpVarDeductions {
 	}
 	
 	public EmpVarDeductions(int employeeId, int departmentId , int designationId, int headId, double afkRent, 
-			double society, double otherDeductions, double miscRecovery, Date monthDate){
+			double society, double otherDeductions, double miscRecovery, String monthDate){
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -67,7 +81,18 @@ public class EmpVarDeductions {
 		this.society = society;
 		this.otherDeductions = otherDeductions;
 		this.miscRecovery = miscRecovery;
-		this.monthDate = Timestamp.valueOf(monthDate.toString());
+		Date dateMonthDate;
+		
+		if (monthDate!=null){
+			try {
+				dateMonthDate =  dateFormatRead.parse(monthDate);
+				this.monthDate =  dateFormat.format(dateMonthDate);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		} else
+			this.monthDate = "";
+		
 	}
 
 	public int getEmployeeId() {
@@ -111,12 +136,12 @@ public class EmpVarDeductions {
 		this.miscRecovery = miscRecovery;
 	}
 
-	public Date getMonthDate() {
+	public String getMonthDate() {
 		return monthDate;
 	}
 
-	public void setMonthDate(Date monthDate) {
-		this.monthDate = Timestamp.valueOf(monthDate.toString());
+	public void setMonthDate(String monthDate) {
+		this.monthDate =  (monthDate != null) ? dateFormat.format(monthDate) : "";
 	}
 
 	public int getDepartmentId() {

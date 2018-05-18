@@ -1,10 +1,7 @@
 package com.payroll.hrms.payroll.dataobjects;
 
 
-import java.util.ArrayList;
 import java.util.Date;
-
-import com.payroll.Utils;
 
 public class ReportDetails {
 	
