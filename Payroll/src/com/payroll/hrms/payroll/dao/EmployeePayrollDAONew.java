@@ -1,5 +1,6 @@
 //package com.kcb.hrms.payroll.dao;
 package com.payroll.hrms.payroll.dao;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -48,11 +49,24 @@ public class EmployeePayrollDAONew {
     	
     	// Employee Lic Deductions details
     	List <EmployeeLIC> listEmployeeLICDeductions = new EmpLicDAO().getEmployeeLicDeductions(employeeId);
-    	System.out.println("listEmployeeLICDeductions : "+ listEmployeeLICDeductions);    	
-    	
-    	
+    	double licTotalInstallmentAmt = 0;
+    	if (listEmployeeLICDeductions!=null){
+    		Iterator<EmployeeLIC> listEmpLicIterator = listEmployeeLICDeductions.iterator();
+    		
+    		while (listEmpLicIterator.hasNext()){
+    			EmployeeLIC employeeLIC = listEmpLicIterator.next();
+    			licTotalInstallmentAmt =licTotalInstallmentAmt + employeeLIC.getInstlmtAmt();
+    			}
+    		}
+    	System.out.println("listEmployeeLICDeductions : "+ listEmployeeLICDeductions +" licTotalInstallmentAmt: "+licTotalInstallmentAmt);    	
+    	// Festival Advance loan recovery
+    	//	Overtime
+    	// PF Advance loan recovery
+    	// Absentism
+    	//income tax calculations
+    	//professional tax
+
     	return employeePayroll;
- 
     }
      
 }
