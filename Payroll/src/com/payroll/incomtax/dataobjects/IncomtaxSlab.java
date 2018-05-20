@@ -75,5 +75,12 @@ public class IncomtaxSlab implements Serializable{
 	public void setRowUpdDate(Timestamp rowUpdDate) {
 		this.rowUpdDate = rowUpdDate;
 	}
+	
+	@Override
+	public String toString() {
+		return "IncomeTax Slab Details [incomtaxId=" + incomtaxId + ", financialYear=" + financialYear + ", lowerSlab=" + lowerSlab
+				+ ", higherSlab=" + higherSlab + ", incomtaxPercent=" + incomtaxPercent + ", surcharge=" + surcharge + ", educationCess=" + educationCess
+				+ ", otherCess=" + otherCess + ", rowUpdDate=" + rowUpdDate + ", status="+status+"]";
+	}
     
 }

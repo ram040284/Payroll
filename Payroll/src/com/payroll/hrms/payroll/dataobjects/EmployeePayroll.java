@@ -103,7 +103,6 @@ public class EmployeePayroll {
     	this.employeeName = empVO.getFullName();
     	this.department = empVO.getDepartment();
     	this.deptCostHead = empVO.getHeadName();
-    	System.out.println("deptCostHead:"+deptCostHead);
     	this.designation = empVO.getDesignation();
     	this.panNo = empVO.getPan();
     	this.dob = empVO.getDob();
@@ -112,15 +111,12 @@ public class EmployeePayroll {
     	this.employeeId = empVO.getEmployeeId();
     }
     
-    
-    
-    public EmployeePayroll(double basic, double gradePay, String scalePay, String scaleCode,
-    		double afkRent, double pfLoanRcry, double unionFee, double electRcry,
-    		double courtRcry,double otherDeduct, double society,
-			double cca, double licInstalAmt, double fmlyPlgAlw, double npa, 
-			double wshngAlw, double uniformAlw, 
-			boolean hraFlag, double festAdvRcry, double gis, double bankLoanRcry, double cpfRcry,double pfsCpfCntrb, double absentDays,
-			double overtimeHours, String bankName, String bankAcctNo, int bankId){
+   public EmployeePayroll(double basic, double gradePay, String scalePay, String scaleCode,
+    		double cca, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,
+    		double unionFee, double electRcry, double courtRcry, double gis, double afkRent, double otherDeduct,
+    		double society,  double licInstalAmt, double pfLoanRcry, double pfsCpfCntrb, double cpfRcry,
+    		double festAdvRcry,  double bankLoanRcry,  double absentDays, double overtimeHours, String bankName, 
+    		String bankAcctNo, int bankId){
     	this.basic = basic;
     	this.gradePay = gradePay;
     	this.afkRent = afkRent;
@@ -180,8 +176,6 @@ public class EmployeePayroll {
         this.courtRecovery = employeePayrollDTO.getCourtRecovery();
         this.otherDeductions = employeePayrollDTO.getOtherDeductions();
         
-        System.out.println("EmployeePayrollDTO : "+ employeePayrollDTO);
-        
         calculateDA();
         calculateHRA();
         calculateTA();
@@ -195,20 +189,7 @@ public class EmployeePayroll {
         
     }
 
-    /**
-     * Load the Payroll data
-     * Earnings: Basic pay, grade pay, HRA Flag, , LWP /
-     * Absentee, over time details, allowances
-     *  Deductions : PF Flag, AFK Rent, Light Bill, Festival Advance Installment, PF loan Amount
-     */
-
-    public void loadPayrollInfo(){
-        EmployeePayrollDAO employeePayrollDAO = new EmployeePayrollDAO();
-       // EmployeePayrollDTO empPayrollDTO = employeePayrollDAO.loadPayrollInfo(this.employeeId, new Date());
-        //EmployeePayroll empPayroll = new EmployeePayroll(empPayrollDTO);
-    }
-
-    /**
+   /**
      *
      */
     private void calculateDA(){

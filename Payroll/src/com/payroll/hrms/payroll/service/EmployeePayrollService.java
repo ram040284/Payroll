@@ -8,6 +8,7 @@ import java.util.List;
 import com.payroll.Utils;
 import com.payroll.employee.allowance.dataobjects.EmpAllowance;
 import com.payroll.employee.leave.dataobjects.Leave;
+import com.payroll.employee.leave.dataobjects.LeaveRequest;
 import com.payroll.employee.vo.EmployeeVO;
 import com.payroll.hrms.payroll.dao.EmployeePayrollDAO;
 import com.payroll.hrms.payroll.dataobjects.Allowance;
@@ -47,7 +48,6 @@ public class EmployeePayrollService {
 	}
 	public boolean createPaybills(int deptId, Date date){
 		boolean success = false;
-		System.out.println("retreiveEmpsForPayroll");
 		try{
 			EmployeePayrollDAO payrollDAO = new EmployeePayrollDAO();
 			incTaxservice= new IncomeTaxCalculatorService();
@@ -78,10 +78,10 @@ public class EmployeePayrollService {
     	return overtimeHrs;
     }
     
-    public static double getAbsenties(List<Leave> leaveList){
+    public static double getAbsenties(List<LeaveRequest> leaveList){
     	double absenties = 0;
     	for (Iterator iterator = leaveList.iterator(); iterator.hasNext();) {
-			Leave leave = (Leave) iterator.next();
+    		LeaveRequest leave = (LeaveRequest) iterator.next();
 			if(leave.getLeaveType().equalsIgnoreCase(ABCENTIES))
 				absenties += leave.getNoOfLeaves();
 		}

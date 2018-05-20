@@ -9,7 +9,9 @@ import com.payroll.hrms.payroll.incometax.dataobjects.ITSlabsDTO;
 import com.payroll.incomtax.dataobjects.IncomtaxSlab;
 import com.payroll.incomtax.dataobjects.IncomtaxSlabDAO;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -22,9 +24,9 @@ public class IncomeTaxCalculatorService {
 	public static final double SECTION80C = 150000;
 	public static final double HOMELOANINTEREST80E = 50000;
 	public static final double MEDICALINSURANCE80D = 25000;
-	public static final double MINTAXPERAMOUNT = 250000;
-	public static final double MEDIUMPERTAXAMOUNT = 500001;
-	public static final double MAXPERTAXAMOUNT = 1000001;
+	//public static final double MINTAXPERAMOUNT = 250000;
+	//public static final double MEDIUMPERTAXAMOUNT = 500001;
+	//public static final double MAXPERTAXAMOUNT = 1000001;
 	//public static final double MEDICALINSURANCE80D = 25000;
     /**
      *
@@ -46,73 +48,68 @@ public class IncomeTaxCalculatorService {
     	itDeductions.setSection80C(empDeductions.getSection80C());
     	itDeductions.setHomeLoanInterest80E(empDeductions.getHomeLoanIntrst88EE());
     	itDeductions.setSelfDisability80U(empDeductions.getSelfDisable80U());
-    	if(!slabs.isEmpty())
-    		slab = slabs.get(0);
     }
 
     public double getIncomeTax(int empId, Date year, double grossPay){
-    	getIncomeTaxSlabs(Utils.getFullYear(year));
+    	String fullYr = Utils.getFullYear(year);
+    	StringBuffer finYr = new StringBuffer(fullYr);
+    	finYr.append("-");
+    	finYr.append(Integer.parseInt(fullYr)+1);
+    	getIncomeTaxSlabs(finYr.toString());
     	getIncomeTaxDeductions(empId);
     	
-    	double incomeTax = (slab != null) ? calculateIncomeTax(grossPay) : 0;
+    	double incomeTax = (slabs != null && !slabs.isEmpty()) ? calculateIncomeTax(grossPay) : 0;
     	incomeTax = incomeTax < 0 ? 0 : incomeTax;
+    	//Income tax per month
+    	if(incomeTax > 0)
+    		incomeTax = Math.round((incomeTax/12) * 100.0) / 100.0;
+    	
+    	System.out.println("incomeTax:"+incomeTax);
     	return incomeTax;
     }
     
-    public double calculateIncomeTax(double grossSalary){
+    public double calculateIncomeTax(double pGrossSalary){
+    	double grossSalary = pGrossSalary*12;  // Monthly Gross calculating to yearly
         double taxableAmount= 0.0;
-        grossSalary -= slab.getLowerSlab(); // deducting lower slab
-        //grossSalary -= hra; // Deducting HRA  // HRA already deducted 
-        if(itDeductions.getSection80C() <= SECTION80C)
-        	grossSalary -= itDeductions.getSection80C();
-        else
-        	grossSalary -= SECTION80C;
-        if(itDeductions.getEductionLoan80E() > 0)
-        	grossSalary -= itDeductions.getEductionLoan80E();
-        if(itDeductions.getEmployerNPSsection80CCD2() > 0)
-        	grossSalary -= itDeductions.getEmployerNPSsection80CCD2();
+        double section80C = itDeductions.getSection80C();
+        double educationLoan80E = itDeductions.getEductionLoan80E();
+        double employerNPSSec80CCD2 = itDeductions.getEmployerNPSsection80CCD2();
+        double homeLoanInterest80E = itDeductions.getHomeLoanInterest80E();
+        double medicalInsurance80D = itDeductions.getMedicalInsurance80D();
+       
+        //Deducting tax declarations from 
+        grossSalary  = (section80C <= SECTION80C) ? grossSalary- section80C : grossSalary - SECTION80C;
+        if(educationLoan80E > 0)
+        	grossSalary = grossSalary - educationLoan80E;
+        if(employerNPSSec80CCD2 > 0)
+        	grossSalary = grossSalary - employerNPSSec80CCD2;
+        grossSalary = (homeLoanInterest80E <= HOMELOANINTEREST80E) ? grossSalary - homeLoanInterest80E : grossSalary - HOMELOANINTEREST80E;
+        grossSalary = (medicalInsurance80D <= MEDICALINSURANCE80D) ? grossSalary - medicalInsurance80D : grossSalary - MEDICALINSURANCE80D; 
         
-        if(itDeductions.getHomeLoanInterest80E() <= HOMELOANINTEREST80E)
-        	grossSalary -= itDeductions.getEmployerNPSsection80CCD2();
-        else
-        	grossSalary -= HOMELOANINTEREST80E;
-        if(itDeductions.getMedicalInsurance80D() <= MEDICALINSURANCE80D)
-        	grossSalary -= itDeductions.getEmployerNPSsection80CCD2();
-        else
-        	grossSalary -= MEDICALINSURANCE80D;
-     
-        if(grossSalary > MINTAXPERAMOUNT) {
-        	taxableAmount+= (MINTAXPERAMOUNT * 5/100); // 5% tax to remaining gross up to 5L
-		    double remTaxAmount = grossSalary - MINTAXPERAMOUNT;
-		    double medTaxAmt = 500000;
-		    if(remTaxAmount > MEDIUMPERTAXAMOUNT){ // 20% tax to 
-		    	taxableAmount+= medTaxAmt * 20/100;
-		    	remTaxAmount -= medTaxAmt;
-		    	taxableAmount+= remTaxAmount * 30/100;
-		    }
-		    else
-		    	taxableAmount+= remTaxAmount * 20/100;
-        }else
-        	taxableAmount+= (grossSalary * 5/100); // 5% tax to remaining gross up to 5L
+        //Calculating Tax with different slabs
+        
+        for (Iterator iterator = slabs.iterator(); iterator.hasNext();) {
+			IncomtaxSlab incomtaxSlab = (IncomtaxSlab) iterator.next();
+			System.out.println("slab:"+incomtaxSlab);
+			double lowerSlab = incomtaxSlab.getLowerSlab();
+			if(grossSalary <= lowerSlab)
+				return taxableAmount;
+			grossSalary -= lowerSlab;
+			double incomtaxPercent = incomtaxSlab.getIncomtaxPercent();
+			double taxableAmt = (grossSalary > incomtaxSlab.getHigherSlab())? incomtaxSlab.getHigherSlab() : grossSalary;
+			System.out.println("incomtaxPercent is:"+incomtaxPercent+" and taxableAmt:"+taxableAmt);
+			taxableAmount += taxableAmt * incomtaxPercent/100; 
+		}
+         System.out.println("taxableAmount:"+taxableAmount);
         return taxableAmount;
     }
     
     public static void main(String a[]){
     	double taxableAmount= 0.0;
-    	double grossSalary = 600000;
-    	if(grossSalary > MINTAXPERAMOUNT) {
-        	taxableAmount+= (MINTAXPERAMOUNT * 5/100); // 5% tax to remaining gross up to 5L
-		    double remTaxAmount = grossSalary - MINTAXPERAMOUNT;
-		    double medTaxAmt = 500000;
-		    if(remTaxAmount > MEDIUMPERTAXAMOUNT){ // 20% tax to 
-		    	taxableAmount+= medTaxAmt * 20/100;
-		    	remTaxAmount -= medTaxAmt;
-		    	taxableAmount+= remTaxAmount * 30/100;
-		    }
-		    else
-		    	taxableAmount+= remTaxAmount * 20/100;
-        }else
-        	taxableAmount+= (grossSalary * 5/100); // 5% tax to remaining gross up to 5L
+    	double grossSalary = 151503;
+    	System.out.println("grossSalary:"+grossSalary);
+    	Date startDate = Utils.getStartDateOfMonth(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+    	taxableAmount = new IncomeTaxCalculatorService().getIncomeTax(198005008, startDate, grossSalary);
         System.out.println("taxableAmount:"+taxableAmount);
     }
 

@@ -184,5 +184,12 @@ public class EmpDeductionsVO {
 	public double getSection80DD() {
 		return section80DD;
 	}
+	
+	@Override
+	public String toString() {
+		return "EmployeeFixedDeductions [employeeId=" + employeeId + ", section80C=" + section80C + ", lic=" + lic
+				+ ", nsc=" + nsc + ", section80E=" + section80E + ", section80D=" + section80D + ", mutualFund=" + mutualFund
+				+ ", ppf=" + ppf + ", donation=" + donation + ", section80DD="+section80DD+"]";
+	}
 
 }

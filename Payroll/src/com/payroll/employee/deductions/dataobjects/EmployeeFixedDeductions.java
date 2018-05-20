@@ -12,6 +12,7 @@ public class EmployeeFixedDeductions {
 	private double courtRecovery;
 	private double unionFee;
 	private double gis;
+	private double electricityRecovery;
 	private String status;
 	private short addUpdate;
 	private Timestamp rowUpdDate;
@@ -103,10 +104,19 @@ public class EmployeeFixedDeductions {
 		this.addUpdate = addUpdate;
 	}
 	
+	public double getElectricityRecovery() {
+		return electricityRecovery;
+	}
+
+	public void setElectricityRecovery(double electricityRecovery) {
+		this.electricityRecovery = electricityRecovery;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "EmployeeFixedDeductions [employeeId=" + employeeId + ", kssUnionFee=" + kssUnionFee + ", rent=" + rent
 				+ ", courtRecovery=" + courtRecovery + ", unionFee=" + unionFee + ", gis=" + gis + ", status=" + status
-				+ ", addUpdate=" + addUpdate + ", rowUpdDate=" + rowUpdDate + "]";
+				+ ", addUpdate=" + addUpdate + ", rowUpdDate=" + rowUpdDate + ", electricityRecovery="+electricityRecovery+"]";
 	}
 }
