@@ -1,47 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Advance Details</title>
+<title>Employee Advance List</title>
+
 <script type="text/javascript">
-      function getAdvanceList() {
-          $.ajax({
-              url : '../Payroll/listAdvance',
+      function getadvanceList() {
+    	  $.ajax({
+              url : '../Payroll/listAdvances',
               type:"GET",
               contentType: "application/json;charset=utf-8",
               success : function(data) {
                  
-                  <%--$(data).each(function(i, advance){
-                	  var rowClass = (i % 2 ==0) ? "rTableRow" : "rTableRowEven";
-                	  $("<div class='"+rowClass+"'></div>").appendTo($('#advListDiv')).append($("<div class='rTableCell'></div>").text(advance.departmentName))
-                	  .append($("<div class='rTableCell'></div>").text(advance.designationName))
-                	  .append($("<div class='rTableCell'></div>").text(advance.paymentDate))
-                	  .append($("<div class='rTableCell'></div>").text(advance.advanceAmount))
-        			  .append($("<div class='rTableCellLast'></div>").append('<a href="#" onclick=viewAdvance('+advance.advanceId+','+advance.designationId+','+advance.departmentId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteConveyance('+conveyance.conveyanceId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
-                  });--%>
-                  var advTab = $('<table style="margin-bottom: 10px;"/>').appendTo($('#advListDiv'));
+               var advanceTab = $('<table style="margin-bottom: 10px;"/>').appendTo($('#advanceListDiv'));
                   $(data).each(function(i, advance){
-                	  $('<tr/>').appendTo(advTab)
-                	  		.append($('<td/>').text(advance.advanceName))
-                			<%--.append($('<td/>').text(advance.paymentDate))--%>
-                			.append($('<td/>').text(advance.advanceAmount))
-                			.append($('<td/>').append('<a href="#" onclick=viewAdvance('+advance.advanceId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteAdvance('+advance.advanceId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
-                  });
+                	  $('<tr/>').appendTo(advanceTab)
+                			.append($('<td/>').text(advance.fullName))
+     			            .append($('<td/>').text(advance.advanceName))
+                	  		.append($('<td/>').text(advance.advanceDate))
+                	  		.append($('<td/>').text(advance.advanceAmount))
+                			.append($('<td/>').text(advance.installAmount))
+                			.append($('<td/>').text(advance.installStartDate))
+                			.append($('<td/>').append('<a href="#" onclick=viewadvance('+advance.advanceId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteadvance('+advance.advanceId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
+                  });   
               }
           });
       }
-      function viewAdvance(id){
+      function viewadvance(id){
     	  var f = document.forms['editForm'];
+    	  alert('id:'+id);
 		  f.advanceId.value=id;
 		  f.action="../Payroll/inputAdvance";
 		  f.submit();
 	  }
-      function inputAdvance(){
+      function inputOrtime(){
     	  var f = document.forms['editForm'];
 		  f.action="../Payroll/inputAdvance";
 		  f.submit();
 	  }
-      function deleteAdvance(id){
-    	  if(confirm("Are you sure want to delete Advance Amount?")){
+      function deleteadvance(id, advanceDate){
+    	  if(confirm("Are you sure want to delete advance Amount?")){
     		  var f = document.forms['editForm'];
     		  f.advanceId.value=id;
     		  f.action="../Payroll/deleteAdvance";
@@ -50,36 +47,30 @@
       }
       </script>
 </head>
-<body onload="getAdvanceList()">
+<body onload="getadvanceList()">
 	<jsp:include page="../jsp/public/postHeader.jsp" />
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
-			<div class="formDiv" style="border: none;">
-				<div class="row">
-					<div class="text-left" style="margin-left: 15px;">
-						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/mastersMenu')">Back</button>
-					</div>
-				</div>
-			</div>	
+	
 	<div style="margin-top: 12px; float: left; width: 98%;">
-			<h4 style="color: #0101DF;">Advance Details</h4>
+			<h4 style="color: #0101DF;">Employee Advance List</h4>
 		<div>
 			
-				<div class="tblClass" id="advListDiv">
+				<div class="tblClass" id="advanceListDiv">
 				<table>
 				<tr>
-					<th>Advance Name</th>
-					<%--<th>Designation</th>
 					<th>Employee</th>
-					<th>Payment Date</th> --%>
+					<th>Advance Name</th>
+					<th>Advane Date</th>
 					<th>Advance Amount</th>
-					<th><a href="#" onclick="inputAdvance()" title="Add">
+					<th>Installment Amount</th>
+					<th>Installment Start Date</th>
+					<th><a href="#" onclick="inputOrtime()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
 					</th>
 				</tr>
 				</table>
 				</div>
-				
 		</div>
 	</div>
 	</div>

@@ -4,16 +4,17 @@
  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
   
  <hibernate-mapping>  
-  <class name="com.payroll.advance.dataobjects.Advance" table="ADV_MASTER">  
+  <class name="com.payroll.employee.advances.dataobjects.EmployeeAdvance" table="ADV_MASTER">  
   	<id name="advanceId" type="integer" >  
      <column name="ADV_ID" sql-type="integer" not-null="true"/>  
      <generator class="increment"/>
-    </id>  
+    </id>
+    <property name="employeeId" column="EMP_ID" not-null="true"></property>
     <property name="advanceName" column="ADV_NAME" not-null="true"></property>
     <property name="advanceAmount" column="ADV_AMT" not-null="true"></property>  
-    <property name="paymentDate" column="PAYMENT_DATE" not-null="true"/>
+        <property name="installAmount" column="ADV_INSTALL_AMT" not-null="true"></property>  
+    <property name="advanceDate" column="ADVANCE_DATE" not-null="true"/>
     <property name="status" column="STATUS" not-null="true"/>  
     <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/> 
-    
   </class>  
- </hibernate-mapping> 
+ </hibernate-mapping>

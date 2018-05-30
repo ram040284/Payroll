@@ -1,4 +1,4 @@
-package com.payroll.overtime.dataobjects;
+package com.payroll.advance.dataobjects;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -14,61 +14,61 @@ import com.payroll.HibernateConnection;
 import com.payroll.employee.dataobjects.Employee;
 import com.payroll.overtime.vo.OvertimeVO;
 
-public class OvertimeDAO {
+public class EmployeeAdvanceDAO {
 	
-	public List<com.payroll.overtime.vo.OvertimeVO> getOvertimeList(){
-		List<com.payroll.overtime.vo.OvertimeVO> overtimeList = null;
-		Session session = null;
-		
+	public List<EmployeeAdvance> getEmployeeAdvanceList(){
+		List<EmployeeAdvance> employeeAdvanceList = null;
+		Session session = null;		
 		try{
-			String queryString = " select new com.payroll.overtime.vo.OvertimeVO(o.overtimeId, o.employee.employeeId, "
-					+" o.employee.firstName, o.employee.lastName, o.overtimeOrder, o.overtimeHours,"
-					+ "o.overtimeDate, o.overtimeAmount) from Overtime o where o.status = ?";		
+			String queryString = " select new com.payroll.advance.dataobjects.EmployeeAdvance(o.advanceId, o.employee.employeeId, "
+					+" o.employee.firstName, o.employee.lastName, o.advanceName, o.advanceAmount,o.advanceDate, o.installAmount, o.installStartDate) from EmployeeAdvance o where o.status = ?";		
 			
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
 			query.setParameter(0, "A");
-			overtimeList = query.list();
+			employeeAdvanceList = query.list();
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			HibernateConnection.closeSession(session);
 		}
-		return overtimeList;
+		return employeeAdvanceList;
 	}
+
 	
-	public OvertimeVO getOvertimeById(int overtimeId){
-		OvertimeVO overtime = null;
+	public EmployeeAdvance getEmployeeAvanceById(int overtimeId){
+		EmployeeAdvance employeeAdvance = null;
 		Session session = null;
 		try{
-			String queryString ="select new com.payroll.overtime.vo.OvertimeVO(o.overtimeId, o.employee.employeeId,"
+			String queryString ="select new com.payroll.advance.dataobjects.EmployeeAdvance(o.overtimeId, o.employee.employeeId,"
 				+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = o.employee.employeeId and dept.status = 'A'), "
 				+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = o.employee.employeeId and desg.status='A'), "
 				+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = o.employee.employeeId and dh.status = 'A'), "
-				+ "o.overtimeOrder, o.overtimeHours, o.overtimeDate, o.overtimeAmount) from Overtime o where o.status = ? and o.overtimeId = ?";
+				+ "o.advanceName, o.advanceAmount,o.advanceDate, o.installAmount, o.installStartDate) from EmployeeAdvance o where o.status = ? and o.advanceId = ?";
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
 			query.setParameter(0, "A");
 			query.setParameter(1, overtimeId);
-			overtime = (OvertimeVO)(!query.list().isEmpty() ? query.list().get(0) : null);
+			employeeAdvance = (EmployeeAdvance)(!query.list().isEmpty() ? query.list().get(0) : null);
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			HibernateConnection.closeSession(session);
 		}
-		return overtime;
+		return employeeAdvance;
 	}
-	public boolean deleteOvertime(int overtimeId){
+	
+	public boolean deleteEmployeeAdvance(int advanceId){
 		boolean success = false;
 		Session session = null;
 		Transaction transaction = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-				Query query = session.createQuery("update Overtime o set o.status = ?, o.rowUpdDate = ? where o.overtimeId = ? ");
+				Query query = session.createQuery("update EmployeeAdvance o set o.status = ?, o.rowUpdDate = ? where o.advanceId = ? ");
 				query.setParameter(0, "S");
 				query.setParameter(1, new Timestamp(System.currentTimeMillis()));
-				query.setParameter(2, overtimeId);
+				query.setParameter(2, advanceId);
 				int updated = query.executeUpdate();
 				System.out.println("Deleted:"+updated);
 				if(updated == 1){
@@ -87,41 +87,41 @@ public class OvertimeDAO {
 		return success;
 	}
 	
-	public String addUpdateOvertime(Overtime overtime){
+	public String addUpdateAdvance(EmployeeAdvance employeeAdvance){
 		String result = "Yes";
 		Session session = null;
 		Transaction transaction = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Employee employee = (Employee)session.load(Employee.class, overtime.getEmployeeId());
-			System.out.println("addUpdateOvertime -- overtime:"+overtime);
-			overtime.setEmployee(employee);
-			overtime.setStatus("A");
-			overtime.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
-			if(overtime.getOvertimeId() !=0)
-				session.update(overtime);
+			Employee employee = (Employee)session.load(Employee.class, employeeAdvance.getEmployeeId());
+			System.out.println("addUpdateAdvance -- advance:"+employeeAdvance);
+			employeeAdvance.setEmployee(employee);
+			employeeAdvance.setStatus("A");
+			employeeAdvance.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+			if(employeeAdvance.getAdvanceId() !=0)
+				session.update(employeeAdvance);
 			else
-				session.save(overtime);
+				session.save(employeeAdvance);
 			
 			transaction.commit();
 			result = "Yes";
 		}catch(ConstraintViolationException cv){
 			cv.printStackTrace();
 			transaction.rollback();
-			result = "Overtime details are exist for Employee on selected date!";
+			result = "Advance details are exist for Employee on selected date!";
 		}catch(Exception e){
 			e.printStackTrace();
 			transaction.rollback();
-			result = "Unable to Add/Update Overtime for selected Employee!";
+			result = "Unable to Add/Update Advance for selected Employee!";
 		}finally {
 			HibernateConnection.closeSession(session);
 		}
 		return result;
 	}
 	
-	private Overtime checkOvertime(int empId, Date paymentDate, Session session){
-		Overtime overtime = null;
+	private EmployeeAdvance checkEmployeeAdvance(int empId, Date paymentDate, Session session){
+		EmployeeAdvance employeeAdvance = null;
 		try{
 			if(session == null)
 				session = HibernateConnection.getSessionFactory().openSession();
@@ -130,12 +130,12 @@ public class OvertimeDAO {
 			query.setParameter(0, empId);
 			query.setParameter(1, paymentDate);
 			if(query.list() !=null && !query.list().isEmpty() )
-				overtime = (Overtime)query.list().get(0);
+				employeeAdvance = (EmployeeAdvance)query.list().get(0);
 		}catch(Exception e){
 			e.printStackTrace();
 		
 		}
-		return overtime;
+		return employeeAdvance;
 	}
 	
 

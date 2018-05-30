@@ -11,11 +11,8 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
 import com.payroll.department.dataobjects.Department;
-import com.payroll.department.dataobjects.DepartmentDAO;
 import com.payroll.designation.vo.DesignationVO;
-import com.payroll.employee.dataobjects.Employee;
 import com.payroll.headInfo.dataobjects.HeadInfo;
-import com.payroll.headInfo.dataobjects.HeadInfoDAO;
 
 public class DesignationDAO {
 	

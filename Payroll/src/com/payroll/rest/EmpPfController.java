@@ -17,8 +17,9 @@ import com.payroll.designation.business.DesignationService;
 import com.payroll.designation.dataobjects.Designation;
 import com.payroll.employee.pf.business.EmpPfService;
 import com.payroll.employee.pf.vo.EmpPfVO;
-import com.payroll.employee.salary.business.SalaryService;
-import com.payroll.employee.salary.dataobjects.Salary;
+import com.payroll.headInfo.business.HeadInfoService;
+import com.payroll.headInfo.dataobjects.HeadInfo;
+import com.payroll.headInfo.vo.HeadInfoVO;
 
 @Controller
 public class EmpPfController {
@@ -40,7 +41,9 @@ public class EmpPfController {
 		ObjectMapper mapper = new ObjectMapper();
 		System.out.println("inputEmpPf -- empPfVO:"+empPfVO);
 		List<Designation> desigList = new DesignationService().getDesignationList();
+		List<HeadInfoVO> headList = new HeadInfoService().getHeadInfoList();
 		List<Department> deptList = new DepartmentService().getDepartments();
+		
 		String desigJSON = "";
 		String depJSON = "";
 		try {

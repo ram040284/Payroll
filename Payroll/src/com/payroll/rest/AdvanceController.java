@@ -12,19 +12,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.payroll.advance.business.AdvanceService;
-import com.payroll.advance.dataobjects.Advance;
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.designation.business.DesignationService;
 import com.payroll.designation.dataobjects.Designation;
+import com.payroll.employee.advances.dataobjects.EmployeeAdvance;
+import com.payroll.employee.advances.dataobjects.EmployeeAdvanceDetails;
 
 @Controller
 public class AdvanceController {
 	
 	@RequestMapping(value="/listAdvance", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<com.payroll.advance.vo.AdvanceVO> getAdvances(){
-	   List<com.payroll.advance.vo.AdvanceVO> conveyances = new AdvanceService().getAdvanceList();
-	   return conveyances;
+    public @ResponseBody List<EmployeeAdvance> getAdvances(){
+	   List<EmployeeAdvance> employeeAdvanceList = new AdvanceService().getAdvanceList();
+	   return employeeAdvanceList;
     }
 	
 	@RequestMapping(value = "/viewAdvance", method = RequestMethod.GET)
@@ -33,9 +34,10 @@ public class AdvanceController {
 	}
 	
 	@RequestMapping(value = "/inputAdvance", method = RequestMethod.POST)
-	public ModelAndView inputAdvance(com.payroll.advance.vo.AdvanceVO advance) {
+	public ModelAndView inputAdvance(EmployeeAdvance advance) {
+		ObjectMapper mapper = new ObjectMapper();
 		System.out.println("Advance:"+advance);
-		/*List<Designation> desigList = new DesignationService().getDesignationList();
+		List<Designation> desigList = new DesignationService().getDesignationList();
 		List<Department> deptList = new DepartmentService().getDepartments();
 		String desigJSON = "";
 		String depJSON = "";
@@ -44,21 +46,22 @@ public class AdvanceController {
 			desigJSON = mapper.writeValueAsString(desigList);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 		if(advance.getAdvanceId() != 0)
 			advance = new AdvanceService().getAdvanceById(advance.getAdvanceId());
+		
 		ModelAndView model = new ModelAndView("advance", "command", advance);
 		model.addObject("advance", advance);
-		//model.addObject("departments", depJSON);
-		//model.addObject("designations", desigJSON);
+		model.addObject("departments", depJSON);
+		model.addObject("designations", desigJSON);
 		return model;
 	}
 	   
 	@RequestMapping(value="/addAdvance",method=RequestMethod.POST)
 	public @ResponseBody
-	String addAdvance(@RequestBody com.payroll.advance.vo.AdvanceVO advance){
-	   System.out.println("advance:"+advance);
-	   String result = new AdvanceService().addUpdateAdvance(advance);
+	String addAdvance(@RequestBody EmployeeAdvanceDetails empAdvance){
+	   System.out.println("advance:"+empAdvance);
+	   String result = new AdvanceService().addUpdateAdvance(empAdvance);
 	   System.out.println("result:"+result);
 	   return result;
 	}

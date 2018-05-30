@@ -11,6 +11,10 @@ import com.payroll.headInfo.dataobjects.HeadInfo;
 
 public class Designation implements Serializable{
 	
+	public Designation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	/**
 	 * 
 	 */

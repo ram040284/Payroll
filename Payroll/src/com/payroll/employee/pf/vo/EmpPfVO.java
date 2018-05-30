@@ -8,6 +8,8 @@ import com.payroll.Utils;
 public class EmpPfVO {
 	
 	private int empId;
+	private int headId;
+
 	private double pfsCpfCntrbn;
 	private double pfLoneRecAmt;
 	private double cfLoneRecAmt;
@@ -38,7 +40,7 @@ public class EmpPfVO {
 			this.pfDate = dateFormat.format(pfDate);
 	}
 	
-	public EmpPfVO(int empId, int deptId, int desgId, Date pfDate, double pfsCpfCntrbn, double pfLoneRecAmt, 
+	public EmpPfVO(int empId, int deptId, int headId, int desgId, Date pfDate, double pfsCpfCntrbn, double pfLoneRecAmt, 
 			double cfLoneRecAmt, double apfAcpfCntrbn){
 		this.empId =empId;
 		this.pfLoneRecAmt = pfLoneRecAmt;
@@ -47,10 +49,17 @@ public class EmpPfVO {
 		this.apfAcpfCntrbn = apfAcpfCntrbn;
 		this.designationId = desgId;
 		this.departmentId = deptId;
+		this.headId = headId;
 		if(pfDate != null)
 			this.pfDate = dateFormat.format(pfDate);
 	}
 	
+	public int getHeadId() {
+		return headId;
+	}
+	public void setHeadId(int headIdId) {
+		this.headId = headIdId;
+	}
 	
 	public int getEmpId() {
 		return empId;
@@ -114,6 +123,13 @@ public class EmpPfVO {
 	}
 	public void setAddUpdate(short addUpdate) {
 		this.addUpdate = addUpdate;
+	}
+	@Override
+	public String toString() {
+		return "EmpPfVO [empId=" + empId + ", pfsCpfCntrbn=" + pfsCpfCntrbn + ", pfLoneRecAmt=" + pfLoneRecAmt
+				+ ", cfLoneRecAmt=" + cfLoneRecAmt + ", apfAcpfCntrbn=" + apfAcpfCntrbn + ", pfDate=" + pfDate
+				+ ", fullName=" + fullName + ", designationId=" + designationId + ", departmentId=" + departmentId
+				+ ", addUpdate=" + addUpdate + ", dateFormat=" + dateFormat + "]";
 	}
 	
 

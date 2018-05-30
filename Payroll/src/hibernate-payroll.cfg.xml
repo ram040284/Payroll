@@ -19,7 +19,7 @@
    	<mapping resource="com/payroll/employee/dataobjects/EmpDesignation.hbm.xml"/>
    	<mapping resource="com/payroll/employee/dataobjects/EmpHeadInfo.hbm.xml"/>
    	<mapping resource="com/payroll/conveyance/dataobjects/Conveyance.hbm.xml"/>
-   	<mapping resource="com/payroll/advance/dataobjects/Advance.hbm.xml"/>
+   	<mapping resource="com/payroll/advance/dataobjects/EmployeeAdvance.hbm.xml"/>
    	<mapping resource="com/payroll/overtime/dataobjects/Overtime.hbm.xml"/>
    	<mapping resource="com/payroll/headInfo/dataobjects/HeadInfo.hbm.xml"/>
    	<mapping resource="com/payroll/employee/leave/dataobjects/Leave.hbm.xml"/>
@@ -42,6 +42,5 @@
    	<mapping resource="com/payroll/employee/leave/dataobjects/LeaveRequest.hbm.xml"/>
    	<mapping resource="com/payroll/employee/deductions/dataobjects/EmpFixedDeductions.hbm.xml"/>
    	<mapping resource="com/payroll/employee/deductions/dataobjects/EmpVarDeductions.hbm.xml"/>
-   	<mapping resource="com/payroll/employee/advances/dataobjects/EmpAdvances.hbm.xml"/>
 </session-factory>
 </hibernate-configuration>

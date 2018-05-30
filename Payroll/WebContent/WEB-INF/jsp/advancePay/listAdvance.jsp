@@ -44,7 +44,7 @@ tr > td:last-of-type {
                 	  var rowClass = (i % 2 ==0) ? "rTableRow" : "rTableRowEven";
                 	  $("<div class='"+rowClass+"'></div>").appendTo($('#advListDiv')).append($("<div class='rTableCell'></div>").text(advance.departmentName))
                 	  .append($("<div class='rTableCell'></div>").text(advance.designationName))
-                	  .append($("<div class='rTableCell'></div>").text(advance.paymentDate))
+                	  .append($("<div class='rTableCell'></div>").text(advance.advanceDate))
                 	  .append($("<div class='rTableCell'></div>").text(advance.advanceAmount))
         			  .append($("<div class='rTableCellLast'></div>").append('<a href="#" onclick=viewAdvance('+advance.advanceId+','+advance.designationId+','+advance.departmentId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteConveyance('+conveyance.conveyanceId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                   });
@@ -85,7 +85,7 @@ tr > td:last-of-type {
 					<div class="rTableRowHead">
 					<div class="rTableHead">Department</div>
 					<div class="rTableHead">Designation</div>
-					<div class="rTableHead">Payment Date</div>
+					<div class="rTableHead">Advance Date</div>
 					<div class="rTableHead">Advance Amount</div>
 					<div class="rHeadCellLast"><a href="#" onclick="inputAdvance()" title="Add">
 					<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a></div>

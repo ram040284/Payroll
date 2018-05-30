@@ -69,6 +69,4 @@ public class EmpAllowanceController {
 	   System.out.println("Result:"+result);
 	   return "listEmpAlwnce";
 	}
-
-
 }

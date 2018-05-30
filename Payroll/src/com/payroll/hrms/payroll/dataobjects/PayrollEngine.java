@@ -36,6 +36,7 @@ public class  PayrollEngine {
      * processPayroll
      */
     public void processPayroll(int employeeId){
+    	// for all employees in Section 
     	System.out.println("Entered processPayroll(int employeeId)" );
 
     	EmployeePayrollNew employeePayroll = new EmployeePayrollDAONew().loadEmployeePayrollInfo(employeeId);

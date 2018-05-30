@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.advance.dataobjects.EmployeeAdvance" table="ADV_MASTER">
+  <id name="advanceId" type="integer" >  
+     <column name="ADV_ID" sql-type="integer" not-null="true"/>  
+     <generator class="increment"/>
+    </id>  
+      <many-to-one name="employee" fetch="select" 
+             class="com.payroll.employee.dataobjects.Employee"
+             column="EMP_ID"
+             cascade="all">
+	</many-to-one>
+    <property name="advanceName" column="ADV_NAME" not-null="true"></property>
+    <property name="advanceAmount" column="ADV_AMT" not-null="true"></property>
+    <property name="installAmount" column="ADV_INSTALL_AMT" not-null="true"></property>
+    <property name="advanceDate" column="ADVANCE_DATE" not-null="true"></property>
+    <property name="installStartDate" column="INST_START_DATE" not-null="true"></property>
+    <property name="status" column="STATUS" not-null="true"></property>  
+    <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"></property>
+  </class>  
+ </hibernate-mapping>

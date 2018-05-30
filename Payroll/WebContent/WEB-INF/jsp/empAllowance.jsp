@@ -44,6 +44,7 @@ $(document).ready(function() {
 	if(empId != 0)
 		$('#hraFlag').val(hraFlag);
 	$('#addAllowanceBtn').click(function(event) {
+
 				var cca = "${empAllowance.cca}";
 				var washingAlwance = "${empAllowance.washingAlwance}";
 				var nonPracAwance = "${empAllowance.nonPracAwance}";

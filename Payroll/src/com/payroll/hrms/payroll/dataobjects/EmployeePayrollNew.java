@@ -1,6 +1,9 @@
 //package com.kcb.hrms.payroll.dataobjects;
 package com.payroll.hrms.payroll.dataobjects;
 
+import com.payroll.employee.deductions.dataobjects.EmployeeFixedDeductions;
+import com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions;
+import com.payroll.employee.lic.vo.EmployeeLIC;
 import com.payroll.employee.salary.vo.EmployeeSalary;
 
 /**
@@ -11,6 +14,9 @@ public class EmployeePayrollNew {
 	private EmployeeSalary employeeSalary;
 	private EmployeePayrollEarnings employeePayrollEarnings;
 	private EmployeePayrollDeductions employeePayrollDeductions;
+	private EmployeeFixedDeductions employeeFixedDeductions;
+	private EmployeeVarDeductions employeeVarDeductions;
+	private EmployeeLIC employeeLIC; 
 	private double grossPay;
 	private double totalGrossPay;
 	private double netPay;

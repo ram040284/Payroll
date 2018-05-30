@@ -69,11 +69,11 @@
 				</div>
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="../Payroll/viewEmpQtr"><img
-							src="../Payroll/resources/images/empQuarters.jpeg"
+						<a href="../Payroll/viewAdvance"><img
+							src="../Payroll/resources/images/rs.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
-							<a href="../Payroll/viewEmpQtr">Employee Quarters</a>
+							<a href="../Payroll/viewAdvance">Employee Festival Advance</a>
 						</h3>
 					</div>
 				</div>
