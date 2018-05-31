@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.payroll.advance.business.AdvanceService;
+import com.payroll.advance.business.EmployeeAdvanceService;
 import com.payroll.employee.allowance.dataobjects.EmpAllowanceDAO;
 import com.payroll.employee.allowance.vo.EmployeeAllowances;
 import com.payroll.employee.deductions.dao.EmpFixedDeductionsDAO;
@@ -61,7 +61,7 @@ public class EmployeePayrollDAONew {
     		}
     	System.out.println("listEmployeeLICDeductions : "+ listEmployeeLICDeductions +" licTotalInstallmentAmt: "+licTotalInstallmentAmt);    	
     	// Festival Advance loan recovery
-    	double advanceInstallmentAmount = new AdvanceService().getAdvanceInstallment(employeeId);
+    	double advanceInstallmentAmount = new EmployeeAdvanceService().getAdvanceInstallment(employeeId);
     	System.out.println("Employee Advance Amount : "+ advanceInstallmentAmount);
     	
     	//	Overtime

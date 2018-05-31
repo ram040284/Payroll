@@ -21,7 +21,7 @@ public class EmployeeAdvanceDAO {
 		Session session = null;		
 		try{
 			String queryString = " select new com.payroll.advance.dataobjects.EmployeeAdvance(o.advanceId, o.employee.employeeId, "
-					+" o.employee.firstName, o.employee.lastName, o.advanceName, o.advanceAmount,o.advanceDate, o.installAmount, o.installStartDate) from EmployeeAdvance o where o.status = ?";		
+					+" o.employee.firstName, o.employee.lastName, o.advanceName, o.advanceAmount,o.advanceDate, o.installAmount, o.installStartDate) from EmployeeAdvanceVO o where o.status = ?";		
 			
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
@@ -36,19 +36,19 @@ public class EmployeeAdvanceDAO {
 	}
 
 	
-	public EmployeeAdvance getEmployeeAvanceById(int overtimeId){
+	public EmployeeAdvance getEmployeeAvanceById(int advanceId){
 		EmployeeAdvance employeeAdvance = null;
 		Session session = null;
 		try{
-			String queryString ="select new com.payroll.advance.dataobjects.EmployeeAdvance(o.overtimeId, o.employee.employeeId,"
+			String queryString ="select new com.payroll.advance.dataobjects.EmployeeAdvance(o.advanceId, o.employee.employeeId,"
 				+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = o.employee.employeeId and dept.status = 'A'), "
 				+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = o.employee.employeeId and desg.status='A'), "
 				+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = o.employee.employeeId and dh.status = 'A'), "
-				+ "o.advanceName, o.advanceAmount,o.advanceDate, o.installAmount, o.installStartDate) from EmployeeAdvance o where o.status = ? and o.advanceId = ?";
+				+ "o.advanceName, o.advanceAmount,o.advanceDate, o.installAmount, o.installStartDate) from EmployeeAdvanceVO o where o.status = ? and o.advanceId = ?";
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
 			query.setParameter(0, "A");
-			query.setParameter(1, overtimeId);
+			query.setParameter(1, advanceId);
 			employeeAdvance = (EmployeeAdvance)(!query.list().isEmpty() ? query.list().get(0) : null);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class EmployeeAdvanceDAO {
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-				Query query = session.createQuery("update EmployeeAdvance o set o.status = ?, o.rowUpdDate = ? where o.advanceId = ? ");
+				Query query = session.createQuery("update EmployeeAdvanceVO o set o.status = ?, o.rowUpdDate = ? where o.advanceId = ? ");
 				query.setParameter(0, "S");
 				query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 				query.setParameter(2, advanceId);
@@ -87,7 +87,7 @@ public class EmployeeAdvanceDAO {
 		return success;
 	}
 	
-	public String addUpdateAdvance(EmployeeAdvance employeeAdvance){
+	public String addUpdateAdvance(EmployeeAdvanceVO employeeAdvance){
 		String result = "Yes";
 		Session session = null;
 		Transaction transaction = null;
@@ -120,15 +120,15 @@ public class EmployeeAdvanceDAO {
 		return result;
 	}
 	
-	private EmployeeAdvance checkEmployeeAdvance(int empId, Date paymentDate, Session session){
+	private EmployeeAdvance checkEmployeeAdvance(int empId, Date advanceDate, Session session){
 		EmployeeAdvance employeeAdvance = null;
 		try{
 			if(session == null)
 				session = HibernateConnection.getSessionFactory().openSession();
-			Query query = session.createQuery("select o from Overtime o where o.empId = ? and o.overtimeDate = ?");
+			Query query = session.createQuery("select o from EmployeeAdvanceVO o where o.empId = ? and o.advanceDate = ?");
 			//.setMaxResults(1).uniqueResult();
 			query.setParameter(0, empId);
-			query.setParameter(1, paymentDate);
+			query.setParameter(1, advanceDate);
 			if(query.list() !=null && !query.list().isEmpty() )
 				employeeAdvance = (EmployeeAdvance)query.list().get(0);
 		}catch(Exception e){

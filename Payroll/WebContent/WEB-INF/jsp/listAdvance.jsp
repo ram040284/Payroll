@@ -15,6 +15,7 @@
                   $(data).each(function(i, advance){
                 	  $('<tr/>').appendTo(advanceTab)
                 			.append($('<td/>').text(advance.fullName))
+                			.append($('<td/>').text(advance.advanceId))
      			            .append($('<td/>').text(advance.advanceName))
                 	  		.append($('<td/>').text(advance.advanceDate))
                 	  		.append($('<td/>').text(advance.advanceAmount))
@@ -27,7 +28,6 @@
       }
       function viewadvance(id){
     	  var f = document.forms['editForm'];
-    	  alert('id:'+id);
 		  f.advanceId.value=id;
 		  f.action="../Payroll/inputAdvance";
 		  f.submit();
@@ -60,8 +60,9 @@
 				<table>
 				<tr>
 					<th>Employee</th>
+					<th>Advance Id</th>
 					<th>Advance Name</th>
-					<th>Advane Date</th>
+					<th>Advance Date</th>
 					<th>Advance Amount</th>
 					<th>Installment Amount</th>
 					<th>Installment Start Date</th>

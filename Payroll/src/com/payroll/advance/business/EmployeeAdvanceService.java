@@ -1,9 +1,11 @@
 package com.payroll.advance.business;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-
 import com.payroll.advance.dataobjects.EmployeeAdvance;
 import com.payroll.advance.dataobjects.EmployeeAdvanceDAO;
+import com.payroll.advance.dataobjects.EmployeeAdvanceVO;
 
 public class EmployeeAdvanceService {
 	
@@ -13,13 +15,52 @@ public class EmployeeAdvanceService {
 	public EmployeeAdvance getEmployeeAdvanceById(int advanceId){
 		return new EmployeeAdvanceDAO().getEmployeeAvanceById(advanceId);
 	}
+	/**
+	 * 
+	 * @param employeeAdvance
+	 * @return
+	 */
 	public String addUpdateAdvance(EmployeeAdvance employeeAdvance){
-		//Overtime overtimeDB = copyProperties(employeeAdvance);
-		return new EmployeeAdvanceDAO().addUpdateAdvance(employeeAdvance);
+		EmployeeAdvanceVO empAdvanceVO = copyProperties(employeeAdvance);
+		return new EmployeeAdvanceDAO().addUpdateAdvance(empAdvanceVO);
 	}
+	/**
+	 * 
+	 * @param advanceId
+	 * @return
+	 */
 	public boolean deleteEmployeeAdvance(int advanceId){
 
 		return new EmployeeAdvanceDAO().deleteEmployeeAdvance(advanceId);
+	}
+	/**
+	 * 
+	 * @param employeeId
+	 * @return
+	 */
+	public double getAdvanceInstallment(int employeeId){
+
+		return 0.0;
+	}
+	
+	private EmployeeAdvanceVO copyProperties(EmployeeAdvance empAdvance){
+		EmployeeAdvanceVO empAdvanceVO = new EmployeeAdvanceVO();
+		try{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			empAdvanceVO.setAdvanceId(empAdvance.getAdvanceId());
+			empAdvanceVO.setEmployeeId(empAdvance.getEmployeeId());
+			empAdvanceVO.setAdvanceName(empAdvance.getAdvanceName());
+			empAdvanceVO.setAdvanceAmount(empAdvance.getAdvanceAmount());
+			empAdvanceVO.setInstallAmount(empAdvance.getInstallAmount());
+			//empAdvanceVO.set
+			
+			empAdvanceVO.setAdvanceDate((empAdvance.getAdvanceDate()!= null ? dateFormat.parse(empAdvance.getAdvanceDate()): new Date()));
+			empAdvanceVO.setInstallStartDate((empAdvance.getAdvanceDate()!= null ? dateFormat.parse(empAdvance.getAdvanceDate()): new Date()));
+
+		}catch(Exception e){
+			
+		}
+		return empAdvanceVO;
 	}
 	
 	
@@ -43,6 +84,28 @@ public class EmployeeAdvanceService {
 			
 		}
 		return overtimeList;
+	}*/
+	
+	/*public double getAdvanceInstallment(int employeeId){
+		double festInstallmentAmount = 0;
+		EmployeeAdvance employeeAdvance = new AdvanceDAO().getAdvanceByEmployeeId(employeeId);
+		List<EmployeeAdvanceDetails> listEmployeeAdvanceDetails = new AdvanceDAO().getEmployeeAdvanceDetails(employeeAdvance.getAdvanceId());
+		return festInstallmentAmount;
+		
+	}
+	
+	private double calculateInstallment(EmployeeAdvance employeeAdvance, List<EmployeeAdvanceDetails> listemployeeAdvanceDetails){
+
+		Date sDate = employeeAdvance.getAdvanceDate();
+		Date todaysDate = new Date();
+		Calendar startDate = Calendar.getInstance();
+		startDate.setTime(sDate);
+		Calendar endDate = Calendar.getInstance();
+		endDate.setTime(todaysDate);
+		
+		int difInMonths = endDate.MONTH -  startDate.MONTH;
+		
+		return 0.0;
 	}*/
 
 }

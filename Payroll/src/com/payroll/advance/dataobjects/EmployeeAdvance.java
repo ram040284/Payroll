@@ -1,6 +1,7 @@
 package com.payroll.advance.dataobjects;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.payroll.Utils;
@@ -16,16 +17,16 @@ public class EmployeeAdvance {
 	private String advanceName;
 	private double advanceAmount;
 	private double installAmount;
-	private Date advanceDate;
-	private Date installStartDate;
+	private String advanceDate;
+	private String installStartDate;
 	private String status;
 	private Timestamp rowUpdDate;
 	private String fullName;
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	
 	public String getFullName() {
 		return fullName;
 	}
-
-
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
@@ -36,10 +37,10 @@ public class EmployeeAdvance {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
+
 	public EmployeeAdvance(int advanceId,int employeeId, int departmentId, int designationId, int headId, 
-			String advanceName, double advanceAmount, double installAmount, Date advanceDate, Date installStartDate,
-			String status, Timestamp rowUpdDate) {
+			String advanceName, double advanceAmount,  Date advanceDate, double installAmount, Date installStartDate) {
 		super();
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
@@ -49,9 +50,10 @@ public class EmployeeAdvance {
 		this.advanceName = advanceName;
 		this.advanceAmount = advanceAmount;
 		this.installAmount = installAmount;
-		this.advanceDate = advanceDate;
-		this.installStartDate = installStartDate;
-		this.status = status;
+		if(advanceDate != null)
+			this.advanceDate = dateFormat.format(advanceDate);
+		if(installStartDate != null)
+			this.installStartDate = dateFormat.format(installStartDate);
 	}
 
 	public EmployeeAdvance( int advanceId,int employeeId, String fName, String lName, String advanceName, double advanceAmount, Date advanceDate, double installAmount, Date installStartDate) {
@@ -60,15 +62,16 @@ public class EmployeeAdvance {
 		this.employeeId = employeeId;
 		this.advanceAmount = advanceAmount;
 		this.installAmount = installAmount;
-		this.advanceDate = advanceDate;
+		if(advanceDate != null)
+			this.advanceDate = dateFormat.format(advanceDate);
 		this.advanceName = advanceName;
-		this.installStartDate = installStartDate;
+		if(installStartDate != null)
+			this.installStartDate = dateFormat.format(installStartDate);
 		StringBuffer fullNameSB = new StringBuffer(fName);
 		fullNameSB.append(" ");
 		fullNameSB.append(Utils.safeTrim(lName));
 		this.fullName = fullNameSB.toString();
 	}
-
 
 	public int getEmployeeId() {
 		return employeeId;
@@ -118,16 +121,16 @@ public class EmployeeAdvance {
 	public void setInstallAmount(double installAmount) {
 		this.installAmount = installAmount;
 	}
-	public Date getAdvanceDate() {
+	public String getAdvanceDate() {
 		return advanceDate;
 	}
-	public void setAdvanceDate(Date advanceDate) {
+	public void setAdvanceDate(String advanceDate) {
 		this.advanceDate = advanceDate;
 	}
-	public Date getInstallStartDate() {
+	public String getInstallStartDate() {
 		return installStartDate;
 	}
-	public void setInstallStartDate(Date installStartDate) {
+	public void setInstallStartDate(String installStartDate) {
 		this.installStartDate = installStartDate;
 	}
 	public String getStatus() {

@@ -4,7 +4,7 @@
  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
   
  <hibernate-mapping>  
-  <class name="com.payroll.advance.dataobjects.EmployeeAdvance" table="ADV_MASTER">
+  <class name="com.payroll.advance.dataobjects.EmployeeAdvanceVO" table="ADV_MASTER">
   <id name="advanceId" type="integer" >  
      <column name="ADV_ID" sql-type="integer" not-null="true"/>  
      <generator class="increment"/>

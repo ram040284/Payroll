@@ -50,7 +50,7 @@ public class EmployeeAdvanceController {
 			overtime.setOvertimeDate(null);*/
 		if(employeeAdvance.getAdvanceId()!=0)
 			employeeAdvance = new EmployeeAdvanceService().getEmployeeAdvanceById(employeeAdvance.getAdvanceId());
-		ModelAndView model = new ModelAndView("advance2", "command", employeeAdvance);
+		ModelAndView model = new ModelAndView("advance", "command", employeeAdvance);
 		model.addObject("advance", employeeAdvance);
 		model.addObject("departments", depJSON);
 		return model;
@@ -61,7 +61,7 @@ public class EmployeeAdvanceController {
 	String addEmployeeAdvance(@RequestBody EmployeeAdvance employeeAdvance){
 	   System.out.println("addEmployeeAdvance -- advance:"+employeeAdvance);
 	   String result = new EmployeeAdvanceService().addUpdateAdvance(employeeAdvance);
-	   System.out.println("Add Overtime - Result:"+result);
+	   System.out.println("Add addEmployeeAdvance - Result:"+result);
 	   return result;
 	}
 	
@@ -79,6 +79,6 @@ public class EmployeeAdvanceController {
 		   System.out.println("Successfully deleted Advance!!");
 	   else
 		   System.out.println("Failed to deleted Advance!!");
-	   return "listOvertimes";
+	   return "listAdvance";
 	}
 }
