@@ -19,6 +19,7 @@
                 	  		.append($('<td/>').text(overtime.overtimeDate))
                 	  		.append($('<td/>').text(overtime.overtimeHours))
                 			.append($('<td/>').text(overtime.overtimeAmount))
+                			.append($('<td/>').text(overtime.overtimeDayHours))
                 			.append($('<td/>').append('<a href="#" onclick=viewOvertime('+overtime.overtimeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteOvertime('+overtime.overtimeId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                   });
                   
@@ -64,6 +65,7 @@
 					<th>Overtime Date</th>
 					<th>Overtime Hours</th>
 					<th>Overtime Amount</th>
+					<th>Office Day Hours</th>
 					<th><a href="#" onclick="inputOrtime()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
 					</th>

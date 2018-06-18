@@ -233,7 +233,6 @@ $(document).ready(function() {
 											<option value="false">FALSE</option>
 										</select>
 									</div>
-
 									<div class="col-sm-4 form-group">
 										<label>TA Flag</label>
 										<select id="taFlag" class="form-control">

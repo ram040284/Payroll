@@ -22,6 +22,7 @@
 													.append($('<td/>').text( empDeductions.fullName))
 													.append($('<td/>').text(empDeductions.afkRent))
 													.append($('<td/>').text(empDeductions.society))
+													.append($('<td/>').text(empDeductions.pfLoanRecovery))
 													.append($('<td/>').text(empDeductions.otherDedutions))
 													.append($('<td/>').text(empDeductions.miscRecovery))
 													.append($('<td/>').text(empDeductions.monthDate))
@@ -76,6 +77,7 @@
 								<th>Employee</th>
 								<th>AFK Rent</th>
 								<th>Society</th>
+								<th>PF Loan Recovery </th>
 								<th>Other Deductions</th>
 								<th>Misc Recovery</th>
 								<th>Month Date</th>

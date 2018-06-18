@@ -3,6 +3,7 @@ package com.payroll.advance.business;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import com.payroll.advance.dataobjects.EmployeeAdvance;
 import com.payroll.advance.dataobjects.EmployeeAdvanceDAO;
 import com.payroll.advance.dataobjects.EmployeeAdvanceVO;
@@ -39,8 +40,9 @@ public class EmployeeAdvanceService {
 	 * @return
 	 */
 	public double getAdvanceInstallment(int employeeId){
+		double festInstallmentAmount = 0;
 
-		return 0.0;
+		return festInstallmentAmount;
 	}
 	
 	private EmployeeAdvanceVO copyProperties(EmployeeAdvance empAdvance){

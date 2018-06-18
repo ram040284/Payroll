@@ -215,7 +215,7 @@ public class EmployeePayroll {
     }
 
     /**
-     * Calculate Traveling allowance. If person leaves within 2 km TA =0;
+     * Calculate Traveling allowance. If person leaves within 2 km radius TA =0;
      *
      */
     private void calculateTA(){

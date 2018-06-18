@@ -18,6 +18,7 @@
     <property name="overtimeOrder" column="OTIME_ORDER" not-null="true"></property>
     <property name="overtimeDate" column="OTIME_DATE" not-null="true"></property>
     <property name="overtimeHours" column="OTIME_HRS" not-null="true"></property>
+    <property name="overtimeDayHours" column="OTIME_DAY_HRS" not-null="true"></property>
     <property name="status" column="STATUS" not-null="true"></property>  
     <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"></property>
   </class>  

@@ -23,7 +23,7 @@ public class OvertimeDAO {
 		try{
 			String queryString = " select new com.payroll.overtime.vo.OvertimeVO(o.overtimeId, o.employee.employeeId, "
 					+" o.employee.firstName, o.employee.lastName, o.overtimeOrder, o.overtimeHours,"
-					+ "o.overtimeDate, o.overtimeAmount) from Overtime o where o.status = ?";		
+					+ "o.overtimeDate, o.overtimeAmount, o.overtimeDayHours) from Overtime o where o.status = ?";		
 			
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
@@ -36,7 +36,10 @@ public class OvertimeDAO {
 		}
 		return overtimeList;
 	}
-	
+	/**
+	 * @param overtimeId
+	 * @return
+	 */
 	public OvertimeVO getOvertimeById(int overtimeId){
 		OvertimeVO overtime = null;
 		Session session = null;
@@ -45,7 +48,7 @@ public class OvertimeDAO {
 				+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = o.employee.employeeId and dept.status = 'A'), "
 				+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = o.employee.employeeId and desg.status='A'), "
 				+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = o.employee.employeeId and dh.status = 'A'), "
-				+ "o.overtimeOrder, o.overtimeHours, o.overtimeDate, o.overtimeAmount) from Overtime o where o.status = ? and o.overtimeId = ?";
+				+ "o.overtimeOrder, o.overtimeHours, o.overtimeDate, o.overtimeAmount,o.overtimeDayHours) from Overtime o where o.status = ? and o.overtimeId = ?";
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
 			query.setParameter(0, "A");
@@ -58,6 +61,33 @@ public class OvertimeDAO {
 		}
 		return overtime;
 	}
+	
+	/**
+	 * @param overtimeId
+	 * @return
+	 */
+	public List<OvertimeVO> getOvertimeByEmpId(int employeeId){
+		List<OvertimeVO> overtime = null;
+		Session session = null;
+		try{
+			String queryString ="select new com.payroll.overtime.vo.OvertimeVO(o.overtimeId, o.employee.employeeId,"
+				+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = o.employee.employeeId and dept.status = 'A'), "
+				+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = o.employee.employeeId and desg.status='A'), "
+				+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = o.employee.employeeId and dh.status = 'A'), "
+				+ "o.overtimeOrder, o.overtimeHours, o.overtimeDate, o.overtimeAmount,o.overtimeDayHours) from Overtime o where o.status = ? and o.employeeId = ?";
+			session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, "A");
+			query.setParameter(1, employeeId);
+			overtime = query.list();;
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return overtime;
+	}
+
 	public boolean deleteOvertime(int overtimeId){
 		boolean success = false;
 		Session session = null;
@@ -92,6 +122,7 @@ public class OvertimeDAO {
 		Session session = null;
 		Transaction transaction = null;
 		try{
+			System.out.println("Overtime Hrs : "+ overtime.getOvertimeDayHours());
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			Employee employee = (Employee)session.load(Employee.class, overtime.getEmployeeId());
@@ -137,7 +168,4 @@ public class OvertimeDAO {
 		}
 		return overtime;
 	}
-	
-
-
 }

@@ -18,6 +18,16 @@ public class OvertimeService {
 	public OvertimeVO getOvertimeById(int overtimeId){
 		return new OvertimeDAO().getOvertimeById(overtimeId);
 	}
+
+	/**
+	 * 
+	 * @param overtime
+	 * @return
+	 */
+	public List<OvertimeVO> getOvertimeByEmpId(int employeeId){
+		return new OvertimeDAO().getOvertimeByEmpId(employeeId);
+	}
+	
 	public String addUpdateOvertime(com.payroll.overtime.vo.OvertimeVO overtime){
 		Overtime overtimeDB = copyProperties(overtime);
 		return new OvertimeDAO().addUpdateOvertime(overtimeDB);
@@ -41,6 +51,7 @@ public class OvertimeService {
 			overtimeDB.setOvertimeOrder(overtime.getOvertimeOrder());
 			overtimeDB.setOvertimeHours(overtime.getOvertimeHours());
 			overtimeDB.setOvertimeAmount(overtime.getOvertimeAmount());
+			overtimeDB.setOvertimeDayHours(overtime.getOvertimeDayHours());
 			overtimeDB.setOvertimeId(overtime.getOvertimeId());
 			overtimeDB.setOvertimeDate((overtime.getOvertimeDate()!= null ? dateFormat.parse(overtime.getOvertimeDate()): new Date()));
 		}catch(Exception e){

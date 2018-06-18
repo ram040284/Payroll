@@ -1,16 +1,13 @@
 package com.payroll.employee.pf.dataobjects;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
-import com.payroll.employee.bank.dataobjects.EmpBank;
 import com.payroll.employee.dataobjects.Employee;
 import com.payroll.employee.pf.vo.EmpPfVO;
 
@@ -138,7 +135,7 @@ public class EmpPfDAO {
 		}
 		return result;
 	}
-
+	
 	private EmpPf checkEmpPf(int empId, Session session){
 		EmpPf empPf = null;
 		try{
@@ -155,6 +152,4 @@ public class EmpPfDAO {
 		}
 		return empPf;
 	}
-
-
 }

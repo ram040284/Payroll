@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Add Designation</title>
+<title>Add Overtime</title>
 <style type="text/css">
 td, th {
 	padding: 3px;
@@ -45,10 +45,11 @@ $(document).ready(function() {
 			var overtimeDate = "${overtime.overtimeDate}";
 			var overtimeOrder = "${overtime.overtimeOrder}";
 			var overtimeHours = "${overtime.overtimeHours}";
+			var overtimeDayHours = "${overtime.overtimeDayHours}";
 			var overtimeId = "${overtime.overtimeId}";
 			if(overtimeId !=0){
 				if(overtimeAmount == $('#overtimeAmount').val() && overtimeOrder == $('#overtimeOrder').val() && 
-						overtimeHours == $('#overtimeHours').val() && overtimeDate == $('#overtimeDate').val()){
+						overtimeHours == $('#overtimeHours').val() && overtimeDayHours == $('#overtimeDayHours').val() && overtimeDate == $('#overtimeDate').val()){
 					alert('Nothing was changed');
 					$('#overtimeOrder').focus();
 					return false;
@@ -96,6 +97,21 @@ $(document).ready(function() {
 			$('#overtimeHours').focus();
 			return false;
 		}
+		
+		var oDayHoursVal = $('#overtimeDayHours').val();
+		alert(oDayHoursVal);
+		if(oDayHoursVal){
+			if(!checkAmount(oDayHoursVal)){
+				alert("Invalid Overtime Hours!");
+				$('#overtimeDayHours').focus();
+				return false;
+			}
+		}else {
+			alert("Overtime Day Hours must be provided!");
+			$('#overtimeDayHours').focus();
+			return false;
+		}
+		
 		var oAmountVal = $('#overtimeAmount').val();
 		if(oAmountVal){
 			if(!checkAmount(oAmountVal)){
@@ -109,7 +125,7 @@ $(document).ready(function() {
 			return false;
 		}
 		
-		var inputJson = { "overtimeAmount" : $('#overtimeAmount').val(), "overtimeHours" : $('#overtimeHours').val(),  
+		var inputJson = { "overtimeAmount" : $('#overtimeAmount').val(), "overtimeHours" : $('#overtimeHours').val(), "overtimeDayHours" : $('#overtimeDayHours').val(),  
 				"overtimeOrder" : $('#overtimeOrder').val(), "employeeId" : $('#employeeId').val(), 
 				"overtimeDate": $('#overtimeDate').val(), "overtimeId" : $('#overtimeId').val()};
 		$.ajax({
@@ -210,6 +226,15 @@ function checkAmount(value){
 									<form:input path="overtimeAmount"  id="overtimeAmount" placeholder="Enter Ovetime Amount" class="form-control"/>
 									<form:input type="hidden" path="overtimeId" id="overtimeId" />
 								</div>
+								<div class="col-sm-4 form-group">
+									<label>Office Day Hours</label>
+									<select id="overtimeDayHours" class="form-control">
+											<option value="0">-- Select Day Office Hrs --</option>
+											<option value="8">8Hrs</option>
+											<option value="7">7Hrs</option>
+										</select>
+								</div>			
+								
 						</div>
 						<div class="row">	
 							<div class="text-right">

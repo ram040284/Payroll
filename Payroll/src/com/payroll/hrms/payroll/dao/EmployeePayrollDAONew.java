@@ -17,6 +17,8 @@ import com.payroll.employee.lic.vo.EmployeeLIC;
 import com.payroll.employee.salary.dataobjects.SalaryDAO;
 import com.payroll.employee.salary.vo.EmployeeSalary;
 import com.payroll.hrms.payroll.dataobjects.EmployeePayrollNew;
+import com.payroll.overtime.business.OvertimeService;
+import com.payroll.overtime.vo.OvertimeVO;
 /**
  * 
  * Created by rajendra on 12/8/17.
@@ -65,7 +67,10 @@ public class EmployeePayrollDAONew {
     	System.out.println("Employee Advance Amount : "+ advanceInstallmentAmount);
     	
     	//	Overtime
+    	List<OvertimeVO> overTimeList = new OvertimeService().getOvertimeByEmpId(employeeId);
+    	
     	// PF Advance loan recovery
+    	
     	// Absentism
     	//income tax calculations
     	//professional tax

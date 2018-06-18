@@ -11,6 +11,7 @@ public class EmpVarDeductions {
 	private int employeeId;
 	private double afkRent;
 	private double society;
+	private double pfLoanRecovery;
 	private double otherDeductions;
 	private double miscRecovery;
 	private String monthDate;
@@ -25,31 +26,12 @@ public class EmpVarDeductions {
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
 
-	public EmpVarDeductions() {
-		super();
-	}
-	
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
-	public Timestamp getRowUpdDate() {
-		return rowUpdDate;
-	}
-
-	public void setRowUpdDate(Timestamp rowUpdDate) {
-		this.rowUpdDate = rowUpdDate;
-	}
-
-	public EmpVarDeductions(int employeeId, String firstName, String lastName, double afkRent, double society, 
+	public EmpVarDeductions(int employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
 			 double otherDeductions, double miscRecovery, String monthDate){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
 		this.society = society;
+		this.pfLoanRecovery = pfLoanRecovery;
 		this.otherDeductions = otherDeductions;
 		this.miscRecovery = miscRecovery;
 		System.out.println("monthDate:"+monthDate);
@@ -72,13 +54,14 @@ public class EmpVarDeductions {
 	}
 	
 	public EmpVarDeductions(int employeeId, int departmentId , int designationId, int headId, double afkRent, 
-			double society, double otherDeductions, double miscRecovery, String monthDate){
+			double society, double pfLoanRecovery, double otherDeductions, double miscRecovery, String monthDate){
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
 		this.headId = headId;
 		this.afkRent = afkRent;
 		this.society = society;
+		this.pfLoanRecovery = pfLoanRecovery;
 		this.otherDeductions = otherDeductions;
 		this.miscRecovery = miscRecovery;
 		Date dateMonthDate;
@@ -94,6 +77,35 @@ public class EmpVarDeductions {
 			this.monthDate = "";
 		
 	}
+	
+	public double getPfLoanRecovery() {
+		return pfLoanRecovery;
+	}
+
+	public void setPfLoanRecovery(double pfLoanRecovery) {
+		this.pfLoanRecovery = pfLoanRecovery;
+	}
+	
+	public EmpVarDeductions() {
+		super();
+	}
+	
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Timestamp getRowUpdDate() {
+		return rowUpdDate;
+	}
+
+	public void setRowUpdDate(Timestamp rowUpdDate) {
+		this.rowUpdDate = rowUpdDate;
+	}
+
 
 	public int getEmployeeId() {
 		return employeeId;

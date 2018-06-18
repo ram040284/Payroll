@@ -16,6 +16,7 @@
 			fetch="select"></one-to-one>
 		<property name="afkRent" column="AFK_RENT" />
 		<property name="society" column="SOCITY" />
+		<property name="pfLoanRecovery" column="PF_LOAN_REC" />
 		<property name="otherDeductions" column="OTHER_DEDUCTION" />
 		<property name="miscRecovery" column="MIS_RCVRY" />
 		<property name="monthDate" column="MONTH_DATE" />

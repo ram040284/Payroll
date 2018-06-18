@@ -21,4 +21,12 @@ public class EmpAllowanceService {
 	public EmpAllowanceVO getEmpAllowanceById(int empId){
 		return new EmpAllowanceDAO().getEmpAllowanceById(empId);
 	}
+	
+	public double getTotalEmpAllowanceById(int empId){
+		EmpAllowanceVO empAllowanceVO = new EmpAllowanceDAO().getEmpAllowanceById(empId);
+		double totalEmpAllowance = empAllowanceVO.getCca() + empAllowanceVO.getCycleAlwance()+empAllowanceVO.getFamilyPlanAlwance() +empAllowanceVO.getNonPracAwance() +
+				empAllowanceVO.getUniformAlwance() + empAllowanceVO.getWashingAlwance();
+		return totalEmpAllowance;
+	}
+	
 }

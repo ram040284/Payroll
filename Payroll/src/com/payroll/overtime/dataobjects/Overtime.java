@@ -11,12 +11,48 @@ public class Overtime implements Serializable{
 	private int employeeId;
 	private int overtimeId;
 	private Double overtimeHours;
+	private Double overtimeDayHours;
 	private Double overtimeAmount;
 	private Date overtimeDate;
 	private String overtimeOrder;
 	private String status;
 	private Timestamp rowUpdDate;
 	private Employee employee;
+	/**
+	 * 
+	 */
+	public Overtime() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * 
+	 * @param employeeId
+	 * @param overtimeId
+	 * @param overtimeHours
+	 * @param overtimeDayHours
+	 * @param overtimeAmount
+	 * @param overtimeDate
+	 * @param overtimeOrder
+	 * @param status
+	 * @param rowUpdDate
+	 * @param employee
+	 */
+	public Overtime(int employeeId, int overtimeId, Double overtimeHours, Double overtimeDayHours,
+			Double overtimeAmount, Date overtimeDate, String overtimeOrder, String status, Timestamp rowUpdDate,
+			Employee employee) {
+		super();
+		this.employeeId = employeeId;
+		this.overtimeId = overtimeId;
+		this.overtimeHours = overtimeHours;
+		this.overtimeDayHours = overtimeDayHours;
+		this.overtimeAmount = overtimeAmount;
+		this.overtimeDate = overtimeDate;
+		this.overtimeOrder = overtimeOrder;
+		this.status = status;
+		this.rowUpdDate = rowUpdDate;
+		this.employee = employee;
+	}
 	
 	public int getEmployeeId() {
 		return employeeId;
@@ -73,6 +109,10 @@ public class Overtime implements Serializable{
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
-	
-
+	public Double getOvertimeDayHours() {
+		return overtimeDayHours;
+	}
+	public void setOvertimeDayHours(Double overtimeDayHours) {
+		this.overtimeDayHours = overtimeDayHours;
+	}
 }

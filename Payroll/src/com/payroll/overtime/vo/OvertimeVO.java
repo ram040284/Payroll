@@ -14,6 +14,7 @@ public class OvertimeVO {
 	private Double overtimeAmount;
 	private int overtimeId;
 	private Double overtimeHours;
+	private Double overtimeDayHours;
 	private String overtimeOrder;
 	private String overtimeDate = null;
 	private String fullName;
@@ -27,7 +28,7 @@ public class OvertimeVO {
 	}
 	
 	public OvertimeVO(int overtimeId, int empId, int deptId, int desgId, int headId, String overtimeOrder, 
-			double overtimeHours, Date overtimeDate, Double overtimeAmount){
+			double overtimeHours, Date overtimeDate, Double overtimeAmount,Double overtimeDayHours){
 		this.employeeId = empId;
 		this.overtimeId = overtimeId;
 		this.departmentId = deptId;
@@ -37,14 +38,16 @@ public class OvertimeVO {
 			this.overtimeDate = dateFormat.format(overtimeDate);
 		this.overtimeOrder = overtimeOrder;
 		this.overtimeHours = overtimeHours;
+		this.overtimeDayHours = overtimeDayHours;
 		this.headId = headId;
 	}
 	
 	public OvertimeVO(int overtimeId, int empId, String fName, String lName, String overtimeOrder, 
-			double overtimeHours, Date overtimeDate, Double overtimeAmount){
+			double overtimeHours, Date overtimeDate, Double overtimeAmount,Double overtimeDayHours){
 		this.employeeId = empId;
 		this.overtimeOrder = overtimeOrder;
 		this.overtimeHours = overtimeHours;
+		this.overtimeDayHours = overtimeDayHours;
 		this.overtimeAmount = overtimeAmount;
 		if(overtimeDate != null)
 			this.overtimeDate = dateFormat.format(overtimeDate);
@@ -123,6 +126,14 @@ public class OvertimeVO {
 
 	public void setHeadId(int headId) {
 		this.headId = headId;
+	}
+
+	public Double getOvertimeDayHours() {
+		return overtimeDayHours;
+	}
+
+	public void setOvertimeDayHours(Double overtimeDayHours) {
+		this.overtimeDayHours = overtimeDayHours;
 	}
 
 }

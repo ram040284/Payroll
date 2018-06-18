@@ -9,7 +9,6 @@
               type:"GET",
               contentType: "application/json;charset=utf-8",
               success : function(data) {
-                 
                  var pfTab = $('<table style="margin-bottom: 10px;"/>').appendTo($('#pfListDiv'));
                   $(data).each(function(i, empPf){
                 	  $('<tr/>').appendTo(pfTab)
@@ -21,7 +20,6 @@
                 			.append($('<td/>').text(empPf.cfLoneRecAmt))
                 			.append($('<td/>').append('<a href="#" onclick=viewPf('+empPf.employeeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deletePf('+empPf.employeeId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                   });
-                  
               }
           });
       }
