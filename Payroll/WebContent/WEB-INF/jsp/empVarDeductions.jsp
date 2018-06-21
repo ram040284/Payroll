@@ -138,7 +138,7 @@ td, th {
 												"monthDate" : monthDateVal,
 												"note" : noteVal
 											};
-											alert(JSON.stringify(inputJson));
+											alert(addUpdate);
 											$.ajax({
 												url : '../Payroll/addEmpVarDeductions',
 												data : JSON.stringify(inputJson),
@@ -252,6 +252,9 @@ td, th {
 									<label>Note:</label>
 										<form:input path="note" id="note"
 											placeholder="Enter Note:" class="form-control" />
+											
+											<input type="hidden" name="addUpdate" id="addUpdate"
+											<c:if test="${empDeductions.employeeId != '0'}" > value="1" </c:if> />
 									</div>
 									
 								</div>
