@@ -20,7 +20,7 @@ public class EmpFixedDeductionsDAO {
 			Session session = null;
 			try{
 				String queryString = " select new com.payroll.employee.deductions.dataobjects.EmpFixedDeductions(d.employee.employeeId, "
-						+"d.employee.firstName, d.employee.lastName, d.kssUnionFee, d.rent, d.courtRecovery, d.unionFee, d.gis)"
+						+"d.employee.firstName, d.employee.lastName, d.kssUnionFee, d.rent, d.courtRecovery, d.unionFee, d.gis,d.additionalPF)"
 						+ " from EmpFixedDeductions d where d.status = ? ";
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -47,7 +47,7 @@ public class EmpFixedDeductionsDAO {
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = d.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = d.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = d.employee.employeeId and dh.status = 'A'), "
-						+" d.kssUnionFee, d.rent,d.courtRecovery,d.unionFee, d.gis)"
+						+" d.kssUnionFee, d.rent,d.courtRecovery,d.unionFee, d.gis,d.additionalPF)"
 						+ " from EmpFixedDeductions d where d.employee.employeeId = ? and d.status = ? ";
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -71,7 +71,7 @@ public class EmpFixedDeductionsDAO {
 		EmployeeFixedDeductions empFixedDeductions = null;
 		Session session = null;
 			try{
-				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeFixedDeductions(s.employeeId, s.kssUnionFee, s.rent,s.courtRecovery,s.unionFee, s.gis) from EmpFixedDeductions s where s.employeeId = ? and s.status = ?";				
+				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeFixedDeductions(s.employeeId, s.kssUnionFee, s.rent,s.courtRecovery,s.unionFee, s.gis,,d.additionalPF) from EmpFixedDeductions s where s.employeeId = ? and s.status = ?";				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, empId);

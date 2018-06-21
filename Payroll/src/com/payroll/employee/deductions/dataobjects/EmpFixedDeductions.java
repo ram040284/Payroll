@@ -12,6 +12,7 @@ public class EmpFixedDeductions {
 	private double courtRecovery;
 	private double unionFee;
 	private double gis;
+	private double additionalPF;
 	private int departmentId;
 	private int headId;
 	private int designationId;
@@ -21,29 +22,8 @@ public class EmpFixedDeductions {
 	private Timestamp rowUpdDate;
 	private Employee employee;
 
-	public EmpFixedDeductions() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
-	public Timestamp getRowUpdDate() {
-		return rowUpdDate;
-	}
-
-	public void setRowUpdDate(Timestamp rowUpdDate) {
-		this.rowUpdDate = rowUpdDate;
-	}
-
 	public EmpFixedDeductions(int employeeId, String firstName, String lastName, double kssUnionFee, double rent, 
-			 double courtRecovery, double unionFee, double gis){
+			 double courtRecovery, double unionFee, double gis, double additionalPF){
 		this.employeeId = employeeId;
 		this.kssUnionFee = kssUnionFee;
 		this.rent = rent;
@@ -54,10 +34,11 @@ public class EmpFixedDeductions {
 		nameSB.append(" ");
 		nameSB.append(Utils.safeTrim(lastName));
 		this.fullName = nameSB.toString();
+		this.additionalPF = additionalPF;
 	}
 	
 	public EmpFixedDeductions(int employeeId, int departmentId , int designationId, int headId, double kssUnionFee, 
-			double rent, double courtRecovery, double unionFee, double gis){
+			double rent, double courtRecovery, double unionFee, double gis, double additionalPF){
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -67,6 +48,7 @@ public class EmpFixedDeductions {
 		this.courtRecovery = courtRecovery;
 		this.unionFee = unionFee;
 		this.gis = gis;
+		this.additionalPF = additionalPF;
 	}
 
 	public int getEmployeeId() {
@@ -165,5 +147,31 @@ public class EmpFixedDeductions {
 		this.addUpdate = addUpdate;
 	}
 	
+	public double getAdditionalPF() {
+		return additionalPF;
+	}
+
+	public void setAdditionalPF(double additionalPF) {
+		this.additionalPF = additionalPF;
+	}
+	public EmpFixedDeductions() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Timestamp getRowUpdDate() {
+		return rowUpdDate;
+	}
+
+	public void setRowUpdDate(Timestamp rowUpdDate) {
+		this.rowUpdDate = rowUpdDate;
+	}
 }

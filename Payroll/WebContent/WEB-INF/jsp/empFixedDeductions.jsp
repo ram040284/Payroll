@@ -51,17 +51,21 @@ td, th {
 													'#courtRecovery').val();
 											var unionFeeVal = $('#unionFee').val();
 											var gisVal = $('#gis').val();
+											var additionalPFVal = $('#additionalPF').val();
+											
 											if (empId != 0) {
 												var kssUnionFee = "${empDeductions.kssUnionFee}";
 												var rent = "${empDeductions.rent}";
 												var courtRecovery = "${empDeductions.courtRecovery}";
 												var unionFee = "${empDeductions.unionFee}";
 												var gis = "${empDeductions.gis}";
+												var additionalPF = "${empDeductions.additionalPF}";
 												if (kssUnionFee == kssUnionFeeVal
 														&& rent == rentVal
 														&& courtRecovery == courtRecoveryVal
 														&& unionFee == unionFeeVal
-														&& gis == gisVal) {
+														&& gis == gisVal
+														&&additionalPF == additionalPFVal) {
 													alert('Nothing was changed');
 													$('#kssUnionFee').focus();
 													return false;
@@ -111,10 +115,16 @@ td, th {
 												return false;
 											}
 											if (gisVal && isNaN(gisVal)) {
-												alert("Please enter valid Other Deductions Value!");
+												alert("Please enter valid GIS Value!");
 												$('#gis').focus();
 												return false;
 											}
+											if (additionalPFVal && isNaN(additionalPFVal)) {
+												alert("Please enter valid Additional PF Value!");
+												$('#additionalPF').focus();
+												return false;
+											}
+											
 											var inputJson = {
 												"employeeId" : $('#employeeId').val(),
 												"kssUnionFee" : kssUnionFeeVal,
@@ -122,7 +132,8 @@ td, th {
 												"rent" : rentVal,
 												"unionFee" : unionFeeVal,
 												"courtRecovery" : courtRecoveryVal,
-												"gis" : gisVal
+												"gis" : gisVal,
+												"additionalPF" : additionalPFVal
 											};
 											$
 													.ajax({
@@ -229,8 +240,14 @@ td, th {
 										<label>GIS:</label>
 										<form:input path="gis" id="gis"
 											placeholder="Enter GIS value" class="form-control" />
+											
+									</div>
+									<div class="col-sm-4 form-group">
+										<label>Additional PF:</label>
+										<form:input path="additionalPF" id="additionalPF"
+											placeholder="Enter Additional PF value" class="form-control" />
 										<input type="hidden" name="addUpdate" id="addUpdate"
-											<c:if test="${empAllowance.employeeId != '0'}" > value="1" </c:if> />
+											<c:if test="${empDeductions.employeeId != '0'}" > value="1" </c:if> />
 											
 									</div>
 								</div>

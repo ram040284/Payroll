@@ -25,6 +25,7 @@
 													.append($('<td/>').text(empDeductions.courtRecovery))
 													.append($('<td/>').text(empDeductions.unionFee))
 													.append($('<td/>').text(empDeductions.gis))
+													.append($('<td/>').text(empDeductions.additionalPF))
 													.append($('<td/>').append('<a href="#" onclick=addUpdateDeductions('+ empDeductions.employeeId + 
 													')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDeductions('
 													+ empDeductions.employeeId
@@ -79,6 +80,7 @@
 								<th>Court Recovery</th>
 								<th>Union Fee</th>
 								<th>GIS</th>
+								<th>Additional PF</th>
 								<th><a href="#" onclick="inputDeductDtls()" title="Add">
 										<img src="../Payroll/resources/images/add.jpg" alt="Add"
 										class="addImg" />
