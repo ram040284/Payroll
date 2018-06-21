@@ -3,7 +3,7 @@
  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="com.payroll.employee.deductions.dataobjects.EmpVarDeductions"
+	<class name="com.payroll.employee.deductions.dataobjects.EmpVarDeductionsVO"
 		table="EMP_VAR_DEDUCTIONS">
 		<id name="employeeId" type="java.lang.Integer">
 			<column name="EMP_ID" />
@@ -20,8 +20,8 @@
 		<property name="otherDeductions" column="OTHER_DEDUCTION" />
 		<property name="miscRecovery" column="MIS_RCVRY" />
 		<property name="monthDate" column="MONTH_DATE" />
+		<property name="note" column="note" />
 		<property name="status" column="STATUS" not-null="true" />
 		<property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true" />
 	</class>
 </hibernate-mapping>
- 

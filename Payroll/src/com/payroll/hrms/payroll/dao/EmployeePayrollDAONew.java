@@ -69,7 +69,7 @@ public class EmployeePayrollDAONew {
     	//	Overtime
     	List<OvertimeVO> overTimeList = new OvertimeService().getOvertimeByEmpId(employeeId);
     	
-    	// PF Advance loan recovery
+  
     	
     	// Absentism
     	//income tax calculations

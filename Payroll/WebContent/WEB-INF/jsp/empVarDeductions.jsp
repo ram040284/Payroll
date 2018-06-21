@@ -10,7 +10,9 @@ td, th {
 }
 </style>
 <jsp:include page="../jsp/public/postHeader.jsp" />
-
+<jsp:include page="../jsp/public/jquery.datepick.css.jsp" />
+<jsp:include page="../jsp/public/jqueryPluginMin.jsp"/>
+<jsp:include page="../jsp/public/jdatePicker.jsp"/>
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -39,7 +41,8 @@ td, th {
 						if (empId != 0) {
 							getEmployeesByIds(deptId, desgId, empId);
 						}
-
+						$('#monthDate').datepick({dateFormat: 'dd/mm/yyyy'});
+						$('#inlineDatepicker').datepick({onSelect: showDate});	
 						$('#addDeductBtn')
 								.click(
 										function(event) {
@@ -47,21 +50,28 @@ td, th {
 													'#afkRent').val();
 											var societyVal = $('#society').val()
 													.trim();
+											var pfLoanRecoveryVal = $('#pfLoanRecovery').val().trim();
 											var otherDeductionsVal = $(
 													'#otherDeductions').val();
 											var miscRecoveryVal = $('#miscRecovery').val();
 											var monthDateVal = $('#monthDate').val();
+											var noteVal = $('#note').val();
 											if (empId != 0) {
 												var afkRent = "${empDeductions.afkRent}";
 												var society = "${empDeductions.society}";
+												var pfLoanRecovery = "${empDeductions.pfLoanRecovery}";
 												var otherDeductions = "${empDeductions.otherDeductions}";
 												var miscRecovery = "${empDeductions.miscRecovery}";
 												var monthDate = "${empDeductions.monthDate}";
+												var note = "${empDeductions.note}";
+												
 												if (afkRent == afkRentVal
 														&& society == societyVal
+														&& pfLoanRecovery == pfLoanRecoveryVal
 														&& otherDeductions == otherDeductionsVal
 														&& miscRecovery == miscRecoveryVal
-														&& monthDate == monthDateVal) {
+														&& monthDate == monthDateVal
+														&& note == noteVal) {
 													alert('Nothing was changed');
 													$('#afkRent').focus();
 													return false;
@@ -93,6 +103,12 @@ td, th {
 												$('#society').focus();
 												return false;
 											}
+											if (pfLoanRecoveryVal && isNaN(pfLoanRecoveryVal)) {
+												alert("Please enter valid society amount!");
+												$('#pfLoanRecovery').focus();
+												return false;
+											}
+											
 											if (afkRentVal
 													&& isNaN(afkRentVal)) {
 												alert("Please enter valid AFK Rent Value!");
@@ -110,42 +126,39 @@ td, th {
 												$('#miscRecovery').focus();
 												return false;
 											}
-											if (monthDateVal && isNaN(monthDateVal)) {
-												alert("Please enter valid month and date Value!");
-												$('#monthDate').focus();
-												return false;
-											}
+
 											var inputJson = {
 												"employeeId" : $('#employeeId').val(),
 												"afkRent" : afkRentVal,
 												"addUpdate" : $('#addUpdate').val(),
 												"society" : societyVal,
+												"pfLoanRecovery" : pfLoanRecoveryVal,
 												"miscRecovery" : miscRecoveryVal,
 												"otherDeductions" : otherDeductionsVal,
-												"monthDate" : monthDateVal
+												"monthDate" : monthDateVal,
+												"note" : noteVal
 											};
-											$
-													.ajax({
-														url : '../Payroll/addEmpFixedDeductions',
-														data : JSON
-																.stringify(inputJson),
-														type : "POST",
-														contentType : "application/json;charset=utf-8",
-														success : function(data) {
-															if (data == "Yes") {
-																window.location = "../Payroll/viewEmpFixedDeductions";
-															} else {
-																$("#errMsgDiv")
-																		.text(
-																				data);
-																$("#errMsgDiv")
-																		.show();
-															}
+											alert(JSON.stringify(inputJson));
+											$.ajax({
+												url : '../Payroll/addEmpVarDeductions',
+												data : JSON.stringify(inputJson),
+												type : "POST",
+												contentType : "application/json;charset=utf-8",
+												success : function(data) {
+												if (data == "Yes") {
+														window.location = "../Payroll/viewEmpVarDeductions";
+													} else {
+														$("#errMsgDiv").text(data);
+																$("#errMsgDiv").show();
 														}
-													});
+													}
+												});
 											event.preventDefault();
 										});
 					});
+	function showDate(date) {
+		alert('The date chosen is ' + date);
+	}
 </script>
 <jsp:include page="../jsp/public/master.jsp" />
 </head>
@@ -215,24 +228,32 @@ td, th {
 								<div class="row">
 
 									<div class="col-sm-4 form-group">
+										<label>PF Loan Recovery:</label>
+										<form:input path="pfLoanRecovery" id="pfLoanRecovery" placeholder="Enter PF Loan Recovery Amt"
+											class="form-control" />
+									</div>
+
+									<div class="col-sm-4 form-group">
 										<label>Other Dedutions:</label>
 										<form:input path="otherDeductions" id="otherDeductions"
-											placeholder="Enter Court Recovery" class="form-control" />
+											placeholder="Enter Other Deductions" class="form-control" />
 									</div>
 									<div class="col-sm-4 form-group">
 										<label>Misc Recovery:</label>
 										<form:input path="miscRecovery" id="miscRecovery"
-											placeholder="Enter Union Fee" class="form-control" />
+											placeholder="Enter Misc Recovery" class="form-control" />
 									</div>
-
+									<div class="col-sm-6 form-group">
+									<label>Month Date::</label>
+									<form:input path="monthDate" placeholder="Enter Advance Date (DD/MM/YYYY)"  id="monthDate" class="form-control" value=""/>
+									</div>
+									
 									<div class="col-sm-4 form-group">
-										<label>GIS:</label>
-										<form:input path="monthDate" id="monthDate"
-											placeholder="Enter GIS value" class="form-control" />
-										<input type="hidden" name="addUpdate" id="addUpdate"
-											<c:if test="${empAllowance.employeeId != '0'}" > value="1" </c:if> />
-											
+									<label>Note:</label>
+										<form:input path="note" id="note"
+											placeholder="Enter Note:" class="form-control" />
 									</div>
+									
 								</div>
 								<div class="row">
 									<div class="text-right">

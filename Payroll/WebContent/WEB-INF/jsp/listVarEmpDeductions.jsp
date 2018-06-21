@@ -26,6 +26,7 @@
 													.append($('<td/>').text(empDeductions.otherDedutions))
 													.append($('<td/>').text(empDeductions.miscRecovery))
 													.append($('<td/>').text(empDeductions.monthDate))
+													.append($('<td/>').text(empDeductions.note))
 													.append($('<td/>').append('<a href="#" onclick=addUpdateDeductions('+ empDeductions.employeeId + 
 													')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDeductions('
 													+ empDeductions.employeeId
@@ -81,6 +82,7 @@
 								<th>Other Deductions</th>
 								<th>Misc Recovery</th>
 								<th>Month Date</th>
+								<th>Note</th>
 								<th><a href="#" onclick="inputDeductDtls()" title="Add">
 										<img src="../Payroll/resources/images/add.jpg" alt="Add"
 										class="addImg" />

@@ -84,8 +84,8 @@ public class PdfUtils {
 	
 	
 	public static final String COMP_NAME = "KHADKI CANTONMENT BOARD";
-	public static final String ADD_LINE1 = "Golibar Maidan, Pune - Solapur Road,";
-	public static final String ADD_LINE2 = "Pune, Maharashtra - 411001.";
+	public static final String ADD_LINE1 = "17, Field Marshall, Cariappa Road, Khadki,";
+	public static final String ADD_LINE2 = "Pune, Maharashtra 411003";
 	public static final String[] PBITEMS = {"Basics", "Grade Pay/DP", "DA", "HRA", "CCA", "TA", "NPA", "WA", "CA",
 			"Uniform Alw", "Fly/Plg Alw", "Total Alw", "OTAmt", "Others", "Grosspay", "Rent", "AFK Rent", "Absent Deductions",
 			"Fest.Adv.Recovery", "PT", "LIC", "Society", "GIS", "Bank Loan Recovery", "VLR", "PFS+CPF", "APF+ACPF", "PF Loan Recovery",

@@ -6,7 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import com.payroll.Utils;
 import com.payroll.employee.dataobjects.Employee;
-
+/**
+ * 
+ * @author rajendra
+ *
+ */
 public class EmpVarDeductions {
 	private int employeeId;
 	private double afkRent;
@@ -15,6 +19,7 @@ public class EmpVarDeductions {
 	private double otherDeductions;
 	private double miscRecovery;
 	private String monthDate;
+	private String note;
 	private int departmentId;
 	private int headId;
 	private int designationId;
@@ -25,15 +30,16 @@ public class EmpVarDeductions {
 	private Employee employee;
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
-
+	
 	public EmpVarDeductions(int employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
-			 double otherDeductions, double miscRecovery, String monthDate){
+			 double otherDeductions, double miscRecovery, String monthDate,String note){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
 		this.society = society;
 		this.pfLoanRecovery = pfLoanRecovery;
 		this.otherDeductions = otherDeductions;
 		this.miscRecovery = miscRecovery;
+		this.note = note;
 		System.out.println("monthDate:"+monthDate);
 		Date dateMonthDate;
 		
@@ -53,8 +59,31 @@ public class EmpVarDeductions {
 		this.fullName = nameSB.toString();
 	}
 	
+	public EmpVarDeductions(int employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
+			 double otherDeductions, double miscRecovery, Date monthDate,String note){
+		this.employeeId = employeeId;
+		this.afkRent = afkRent;
+		this.society = society;
+		this.pfLoanRecovery = pfLoanRecovery;
+		this.otherDeductions = otherDeductions;
+		this.miscRecovery = miscRecovery;
+		this.note = note;
+		System.out.println("monthDate:"+monthDate);
+		
+		if (monthDate!=null){
+
+				this.monthDate =  dateFormatRead.format(monthDate);
+		} else
+			this.monthDate = "";
+		
+		StringBuffer nameSB = new StringBuffer(Utils.safeTrim(firstName));
+		nameSB.append(" ");
+		nameSB.append(Utils.safeTrim(lastName));
+		this.fullName = nameSB.toString();
+	}
+
 	public EmpVarDeductions(int employeeId, int departmentId , int designationId, int headId, double afkRent, 
-			double society, double pfLoanRecovery, double otherDeductions, double miscRecovery, String monthDate){
+			double society, double pfLoanRecovery, double otherDeductions, double miscRecovery, String monthDate, String note){
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -64,6 +93,7 @@ public class EmpVarDeductions {
 		this.pfLoanRecovery = pfLoanRecovery;
 		this.otherDeductions = otherDeductions;
 		this.miscRecovery = miscRecovery;
+		this.note = note;
 		Date dateMonthDate;
 		
 		if (monthDate!=null){
@@ -77,6 +107,29 @@ public class EmpVarDeductions {
 			this.monthDate = "";
 		
 	}
+	
+	public EmpVarDeductions(int employeeId, int departmentId , int designationId, int headId, double afkRent, 
+			double society, double pfLoanRecovery, double otherDeductions, double miscRecovery, Date monthDate, String note){
+		this.employeeId = employeeId;
+		this.departmentId = departmentId;
+		this.designationId = designationId;
+		this.headId = headId;
+		this.afkRent = afkRent;
+		this.society = society;
+		this.pfLoanRecovery = pfLoanRecovery;
+		this.otherDeductions = otherDeductions;
+		this.miscRecovery = miscRecovery;
+		this.note = note;
+		
+		if (monthDate!=null){
+				//dateMonthDate =  dateFormatRead.parse(monthDate);
+				this.monthDate =  dateFormat.format(monthDate);
+		
+		} else
+			this.monthDate = "";
+		
+	}
+	
 	
 	public double getPfLoanRecovery() {
 		return pfLoanRecovery;
@@ -153,7 +206,7 @@ public class EmpVarDeductions {
 	}
 
 	public void setMonthDate(String monthDate) {
-		this.monthDate =  (monthDate != null) ? dateFormat.format(monthDate) : "";
+		this.monthDate = monthDate;
 	}
 
 	public int getDepartmentId() {
@@ -203,4 +256,11 @@ public class EmpVarDeductions {
 	public void setAddUpdate(short addUpdate) {
 		this.addUpdate = addUpdate;
 	}	
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
 }

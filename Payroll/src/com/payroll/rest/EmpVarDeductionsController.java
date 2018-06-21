@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
-import com.payroll.employee.allowance.vo.EmpAllowanceVO;
 import com.payroll.employee.deductions.business.EmpVarDeductionsService;
 import com.payroll.employee.deductions.dataobjects.EmpVarDeductions;
+import com.payroll.employee.deductions.dataobjects.EmpVarDeductionsVO;
 
 @Controller
 public class EmpVarDeductionsController {

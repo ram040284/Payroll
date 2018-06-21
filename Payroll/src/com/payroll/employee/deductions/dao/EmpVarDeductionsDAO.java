@@ -11,6 +11,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import com.payroll.HibernateConnection;
 import com.payroll.employee.dataobjects.Employee;
 import com.payroll.employee.deductions.dataobjects.EmpVarDeductions;
+import com.payroll.employee.deductions.dataobjects.EmpVarDeductionsVO;
 import com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions;
 
 public class EmpVarDeductionsDAO {
@@ -19,8 +20,8 @@ public class EmpVarDeductionsDAO {
 			Session session = null;
 			try{
 				String queryString = " select new com.payroll.employee.deductions.dataobjects.EmpVarDeductions(d.employee.employeeId, "
-						+"d.employee.firstName, d.employee.lastName, d.afkRent, d.society, d.pfLoanRecovery, d.otherDeductions, d.miscRecovery, d.monthDate)"
-						+ " from EmpVarDeductions d where d.status = ? ";
+						+"d.employee.firstName, d.employee.lastName, d.afkRent, d.society, d.pfLoanRecovery, d.otherDeductions, d.miscRecovery, d.monthDate,d.note)"
+						+ " from EmpVarDeductionsVO d where d.status = ? ";
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, "A");
@@ -45,8 +46,8 @@ public class EmpVarDeductionsDAO {
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = d.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = d.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = d.employee.employeeId and dh.status = 'A'), "
-						+" d.afkRent, d.society, pfLoanRecovery, d.otherDeductions, d.miscRecovery, d.monthDate)"
-						+ " from EmpVarDeductions d where d.employee.employeeId = ? and d.status = ? ";		
+						+" d.afkRent, d.society, pfLoanRecovery, d.otherDeductions, d.miscRecovery, d.monthDate,d.note)"
+						+ " from EmpVarDeductionsVO d where d.employee.employeeId = ? and d.status = ? ";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -69,7 +70,8 @@ public class EmpVarDeductionsDAO {
 		EmployeeVarDeductions employeeVarDeductions = null;
 		Session session = null;
 			try{
-				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions(s.employeeId, s.afkRent, s.society,pfLoanRecovery, s.otherDeductions,s.miscRecovery, s.monthDate) from EmpVarDeductions s where s.employeeId = ? and s.status = ?";		
+				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions(s.employeeId, s.afkRent, s.society,pfLoanRecovery, s.otherDeductions,s.miscRecovery, "
+						+ "s.monthDate,d.note) from EmpVarDeductionsVO s where s.employeeId = ? and s.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -89,7 +91,7 @@ public class EmpVarDeductionsDAO {
 		Session session = null;
 			
 			try{
-				String queryString = " from EmpVarDeductions d where d.employee.employeeId = ? and d.status = ? ";		
+				String queryString = " from EmpVarDeductionsVO d where d.employee.employeeId = ? and d.status = ? ";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -110,7 +112,7 @@ public class EmpVarDeductionsDAO {
 		Session session = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
-			Query query = session.createQuery("update EmpVarDeductions d set d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ?");
+			Query query = session.createQuery("update EmpVarDeductionsVO d set d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ?");
 			query.setParameter(0, "S");
 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 			query.setParameter(2, empId);
@@ -129,7 +131,7 @@ public class EmpVarDeductionsDAO {
 	 * @param empVarDeductions
 	 * @return
 	 */
-	public String addUpdateEmpDeductions(EmpVarDeductions empVarDeductions){
+	public String addUpdateEmpDeductions(EmpVarDeductionsVO empVarDeductions){
 		String result = null;
 		Session session = null;
 		Transaction transaction = null;

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Add Designation</title>
+<title>Add Advance</title>
 <style type="text/css">
 td, th {
 	padding: 3px;
@@ -121,7 +121,7 @@ $(document).ready(function() {
 		
 		var inputJson = { "advanceId" : $('#advanceId').val(),"employeeId" : $('#employeeId').val(),"advanceName" : $('#advanceName').val(),"advanceAmount" : $('#advanceAmount').val(),
 				"installAmount" : $('#installAmount').val(),"advanceDate": $('#advanceDate').val(),"installStartDate": $('#installStartDate').val()};
-		
+		alert(JSON.stringify(inputJson));
 		$.ajax({
 	        url: '../Payroll/addEmployeeAdvance',
 	        data: JSON.stringify(inputJson),
