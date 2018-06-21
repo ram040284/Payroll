@@ -138,7 +138,7 @@ td, th {
 												"monthDate" : monthDateVal,
 												"note" : noteVal
 											};
-											alert(addUpdate);
+											alert( $('#employeeId').val());
 											$.ajax({
 												url : '../Payroll/addEmpVarDeductions',
 												data : JSON.stringify(inputJson),

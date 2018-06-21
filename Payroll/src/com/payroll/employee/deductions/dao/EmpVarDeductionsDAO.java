@@ -138,10 +138,11 @@ public class EmpVarDeductionsDAO {
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Employee employee = (Employee)session.load(Employee.class, empVarDeductions.getEmployeeId());
-			empVarDeductions.setEmployee(employee);
+			//Employee employee = (Employee)session.load(Employee.class, empVarDeductions.getEmployeeId());
+			//empVarDeductions.setEmployee(employee);
 			empVarDeductions.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 			empVarDeductions.setStatus("A");
+			System.out.println("empVarDeductions.getAddUpdate()"+ empVarDeductions.getAddUpdate());
 			if(empVarDeductions.getAddUpdate() ==0)
 				session.save(empVarDeductions);
 			else
