@@ -126,7 +126,6 @@ td, th {
 												$('#miscRecovery').focus();
 												return false;
 											}
-
 											var inputJson = {
 												"employeeId" : $('#employeeId').val(),
 												"afkRent" : afkRentVal,
@@ -138,7 +137,7 @@ td, th {
 												"monthDate" : monthDateVal,
 												"note" : noteVal
 											};
-											alert( $('#employeeId').val());
+
 											$.ajax({
 												url : '../Payroll/addEmpVarDeductions',
 												data : JSON.stringify(inputJson),

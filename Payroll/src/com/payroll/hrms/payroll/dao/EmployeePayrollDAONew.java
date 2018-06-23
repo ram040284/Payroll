@@ -69,10 +69,11 @@ public class EmployeePayrollDAONew {
     	//	Overtime
     	List<OvertimeVO> overTimeList = new OvertimeService().getOvertimeByEmpId(employeeId);
     	
-  
+    	//Rerieve Absetism or LWP
     	
     	// Absentism
     	//income tax calculations
+    	
     	//professional tax
 
     	return employeePayroll;
