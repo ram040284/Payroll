@@ -1,0 +1,22 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.employee.attendance.dataobjects.EmployeeAttendance" table="EMP_ATTENDANCE_DETAILS">  
+	<id name="srNo" type="integer">  
+    	<column name="EMP_ATTENDANCE_ID" sql-type="integer" not-null="true"/>  
+    	<generator class="increment"/>
+    </id>
+    <property name="officeLocation" column="OFFICE_LOCATION" not-null="false"/>
+    <property name="divisionUnit" column="DIVISION_UNIT" not-null="false"/>
+    <property name="attendanceId" column="AADHAR_NO" not-null="false"/>
+    <property name="employeeName" column="EMPLOYEE_NAME" not-null="false"/>
+    <property name="designation" column="DESIGNATION" not-null="false"/>
+    <property name="inTime" column="INTIME" not-null="false"/>
+    <property name="outTime" column="OUTTIME" not-null="false"/>
+    <property name="status" column="STATUS" not-null="false"/>
+    <property name="absenceReason" column="ABSENCE_REASON" not-null="false"/>
+    <property name="rowUpdateTime" column="ROW_UPDATE_DATE" not-null="false"/>
+   </class>  
+ </hibernate-mapping>

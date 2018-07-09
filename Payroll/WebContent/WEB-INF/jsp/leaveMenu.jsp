@@ -25,6 +25,29 @@
 					<h3><a href="../Payroll/empLeaveReport">Leave Report</a></h3>
 					</div>
 				</div>
+				
+				<div class="col-xs-4 text-center">
+					<div class="precess-column">
+						<a href="../Payroll/viewEmployeeAttendance"><img
+							src="../Payroll/resources/images/empLeave.png"
+							class="img-responsive imageMenuItem" alt="theme logo" /></a>
+						<h3>
+							<a href="../Payroll/viewEmployeeAttendance">Employee Attendance</a>
+						</h3>
+					</div>
+				</div>
+				
+				<div class="col-xs-4 text-center">
+					<div class="precess-column">
+						<a href="../Payroll/processEmployeeAttendance"><img
+							src="../Payroll/resources/images/empProcessAttendance.png"
+							class="img-responsive imageMenuItem" alt="theme logo" /></a>
+						<h3>
+							<a href="../Payroll/processEmployeeAttendance">Process Attendance</a>
+						</h3>
+					</div>
+				</div>
+				
 			</div>	
 		</div>
 	</div>
