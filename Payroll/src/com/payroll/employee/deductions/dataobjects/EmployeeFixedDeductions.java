@@ -15,6 +15,12 @@ public class EmployeeFixedDeductions {
 	private double electricityRecovery;
 	private String status;
 	private short addUpdate;
+	private double additionalPF;
+	public double getAdditionalPF() {
+		return additionalPF;
+	}
+
+
 	private Timestamp rowUpdDate;
 
 	public EmployeeFixedDeductions() {
@@ -30,16 +36,17 @@ public class EmployeeFixedDeductions {
 		this.rowUpdDate = rowUpdDate;
 	}
 
-	public EmployeeFixedDeductions(int employeeId,  double kssUnionFee, double rent, 
-			 double courtRecovery, double unionFee, double gis){
+	public EmployeeFixedDeductions(Integer employeeId,  Double kssUnionFee, Double rent, 
+			 Double courtRecovery, Double unionFee, Double gis, Double additionalPF){
 		this.employeeId = employeeId;
 		this.kssUnionFee = kssUnionFee;
 		this.rent = rent;
 		this.courtRecovery = courtRecovery;
 		this.unionFee = unionFee;
 		this.gis = gis;
+		this.additionalPF = (additionalPF!= null ) ? additionalPF : 0;
 	}
-
+	
 	public int getEmployeeId() {
 		return employeeId;
 	}

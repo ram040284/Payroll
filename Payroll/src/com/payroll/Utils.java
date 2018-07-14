@@ -1,5 +1,6 @@
 package com.payroll;
 
+import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -89,6 +90,12 @@ public class Utils {
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.MONTH, month-1);
 		return getSimpleDate(c.getTime());
+	}
+	
+	public static String getDecimalFormat(double value) {
+		DecimalFormat df = new DecimalFormat();
+		df.setMinimumFractionDigits(2);
+		return df.format(value);
 	}
 	
 }

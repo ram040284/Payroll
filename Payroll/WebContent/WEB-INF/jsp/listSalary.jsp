@@ -15,8 +15,8 @@
                 	  $('<tr/>').appendTo(salaryTab)
                 	  		.append($('<td/>').text(salary.fullName))
                 			.append($('<td/>').text(salary.year))
-                			.append($('<td/>').text(salary.basic))
-                			.append($('<td/>').text(salary.gradePay))
+                			.append($('<td/>').text(salary.basic.toFixed(2)))
+                			.append($('<td/>').text(salary.gradePay.toFixed(2)))
                 			.append($('<td/>').text(salary.scalePay))
                 			<%--.append($('<td/>').text(salary.scaleInc))--%>
                 			.append($('<td/>').append('<a href="#" onclick=viewSalary('+salary.employeeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteSalary('+salary.employeeId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));

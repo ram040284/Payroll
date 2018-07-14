@@ -71,7 +71,7 @@ public class EmpFixedDeductionsDAO {
 		EmployeeFixedDeductions empFixedDeductions = null;
 		Session session = null;
 			try{
-				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeFixedDeductions(s.employeeId, s.kssUnionFee, s.rent,s.courtRecovery,s.unionFee, s.gis,,d.additionalPF) from EmpFixedDeductions s where s.employeeId = ? and s.status = ?";				
+				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeFixedDeductions(s.employeeId, s.kssUnionFee, s.rent,s.courtRecovery,s.unionFee, s.gis, s.additionalPF) from EmpFixedDeductions s where s.employeeId = ? and s.status = ?";				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, empId);

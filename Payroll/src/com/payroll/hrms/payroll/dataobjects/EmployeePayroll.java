@@ -115,10 +115,11 @@ public class EmployeePayroll {
    public EmployeePayroll(double basic, double gradePay, String scalePay, String scaleCode,
     		double cca, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,
     		double unionFee,double cycleAllowance, double courtRcry, double gis, double afkRent, double otherDeduct,
-    		double society,  double licInstalAmt, double pfLoanRcry, double cpfRcry,
+    		double society,  double licInstalAmt, double pfLoanRcry, double cpfCont, double cpfRcry,
     		double festAdvRcry,  double bankLoanRcry,  double absentDays, double overtimeHours, String bankName, 
     		String bankAcctNo, int bankId){
-    	this.basic = basic;
+	   
+	   this.basic = basic;
     	this.gradePay = gradePay;
     	this.afkRent = afkRent;
     	this.pfLoanRecovery = pfLoanRcry;
@@ -151,8 +152,8 @@ public class EmployeePayroll {
          calculateTA();
          calculateOverTime();
          calculateProvidentFund();
-         calculateGrossPay();
          calculateTotalAllowances();
+         calculateGrossPay();
          calculateTotalGrossPay();
          calculateProfessionalTax();
          processAbsentee();

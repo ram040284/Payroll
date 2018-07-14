@@ -51,7 +51,11 @@ public class EmployeePayrollService {
 				EmployeePayroll empPayroll = payrollDAO.loadPayrollInfo(employee.getEmployeeId(), date);
 				if(empPayroll!=null){
 					empPayroll.setEmployee(employee);
-					empPayroll.setIncomeTax(incTaxservice.getIncomeTax(employee.getEmployeeId(), date, empPayroll.getGrossPay()));
+					double incomeTax = incTaxservice.getIncomeTax(employee.getEmployeeId(), date, empPayroll.getGrossPay());
+					empPayroll.setIncomeTax(incomeTax);
+					empPayroll.setTotalDeductions(empPayroll.getTotalDeductions() + incomeTax);
+					empPayroll.setNetPay(empPayroll.getNetPay() - incomeTax);
+					
 					addPaybill(empPayroll, date);
 				}
 			}

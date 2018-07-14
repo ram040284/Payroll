@@ -70,8 +70,7 @@ public class EmpVarDeductionsDAO {
 		EmployeeVarDeductions employeeVarDeductions = null;
 		Session session = null;
 			try{
-				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions(s.employeeId, s.afkRent, s.society,pfLoanRecovery, s.otherDeductions,s.miscRecovery, "
-						+ "s.monthDate,d.note) from EmpVarDeductionsVO s where s.employeeId = ? and s.status = ?";		
+				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions(s.employeeId, s.afkRent, s.society, s.otherDeductions,s.miscRecovery, s.monthDate) from EmpVarDeductionsVO s where s.employeeId = ? and s.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -86,6 +85,26 @@ public class EmpVarDeductionsDAO {
 		return employeeVarDeductions;
 	}
 
+	public EmployeeVarDeductions getEmpVarDeductionsNew(int empId){
+		EmployeeVarDeductions employeeVarDeductions = null;
+		Session session = null;
+			try{
+				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions(s.employeeId, s.afkRent, s.society, s.otherDeductions) from EmpVarDeductionsVO s where s.employeeId = ? and s.status = ?";		
+				
+				session = HibernateConnection.getSessionFactory().openSession();
+				Query query = session.createQuery(queryString);
+				query.setParameter(0, empId);
+				query.setParameter(1, "A");
+				employeeVarDeductions = (EmployeeVarDeductions)(!(query.list().isEmpty())?query.list().get(0):null);
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				HibernateConnection.closeSession(session);
+			}
+		return employeeVarDeductions;
+	}
+
+	
 	public EmpVarDeductions getEmpDeductionsByEmpId(int empId){
 		EmpVarDeductions empDeductions = null;
 		Session session = null;
