@@ -459,3 +459,27 @@ CREATE TABLE EMP_CONTACT (
 	PRIMARY KEY (EMP_CNT_ID),
     FOREIGN KEY (EMP_ID) REFERENCES EMP_MASTER (EMP_ID)
 ) ENGINE=InnoDB;
+
+CREATE TABLE `emp_attendance_details` (
+  `EMP_ATTENDANCE_ID` int(11) NOT NULL,
+  `OFFICE_LOCATION` varchar(60) DEFAULT NULL,
+  `DIVISION_UNIT` varchar(60) DEFAULT NULL,
+  `AADHAR_NO` varchar(40) DEFAULT NULL,
+  `EMPLOYEE_NAME` varchar(60) DEFAULT NULL,
+  `DESIGNATION` varchar(60) DEFAULT NULL,
+  `INTIME` varchar(10) DEFAULT NULL,
+  `OUTTIME` varchar(10) DEFAULT NULL,
+  `STATUS` varchar(2) DEFAULT NULL,
+  `ABSENCE_REASON` varchar(80) DEFAULT NULL,
+  `ROW_UPDATE_DATE` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`EMP_ATTENDANCE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `emp_master_attendance_details` (
+  `empid` int(11) NOT NULL,
+  `attendanceid` int(11) NOT NULL,
+  PRIMARY KEY (`empid`,`attendanceid`),
+  KEY `attendanceid` (`attendanceid`),
+  CONSTRAINT `emp_master_attendance_details_ibfk_1` FOREIGN KEY (`empid`) REFERENCES `emp_master` (`EMP_ID`),
+  CONSTRAINT `emp_master_attendance_details_ibfk_2` FOREIGN KEY (`attendanceid`) REFERENCES `emp_attendance_details` (`EMP_ATTENDANCE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
