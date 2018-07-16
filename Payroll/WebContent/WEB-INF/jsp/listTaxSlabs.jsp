@@ -16,12 +16,12 @@
                   $(data).each(function(i, taxSlab){
                 	  $('<tr/>').appendTo(taxSlabsTab)
                 	  		.append($('<td/>').text(taxSlab.financialYear))
-                	  		.append($('<td/>').text(taxSlab.lowerSlab))
-                			.append($('<td/>').text(taxSlab.higherSlab))
+                	  		.append($('<td/>').text(taxSlab.lowerSlab.toFixed(2)))
+                			.append($('<td/>').text(taxSlab.higherSlab.toFixed(2)))
                 			.append($('<td/>').text(taxSlab.incomtaxPercent))
-                	  		.append($('<td/>').text(taxSlab.surcharge))
-                			.append($('<td/>').text(taxSlab.educationCess))
-                			.append($('<td/>').text(taxSlab.otherCess))
+                	  		.append($('<td/>').text(taxSlab.surcharge.toFixed(2)))
+                			.append($('<td/>').text(taxSlab.educationCess.toFixed(2)))
+                			.append($('<td/>').text(taxSlab.otherCess.toFixed(2)))
                 			.append($('<td/>').append('<a href="#" onclick=viewTaxSlab('+taxSlab.incomtaxId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDesg('+taxSlab.incomtaxId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                   });
               }

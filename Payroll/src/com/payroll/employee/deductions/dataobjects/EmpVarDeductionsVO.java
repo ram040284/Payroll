@@ -51,6 +51,21 @@ public class EmpVarDeductionsVO {
 	}
 	
 	
+	public EmpVarDeductionsVO(int employeeId, double afkRent, double society, 
+			 double otherDeductions, double miscRecovery, Date monthDate){
+		this.employeeId = employeeId;
+		this.afkRent = afkRent;
+		this.society = society;
+		this.otherDeductions = otherDeductions;
+		this.miscRecovery = miscRecovery;
+		
+		if (monthDate!=null){
+				this.monthDate =  monthDate;
+		} else
+			this.monthDate = null;
+	}
+	
+	
 	public double getPfLoanRecovery() {
 		return pfLoanRecovery;
 	}

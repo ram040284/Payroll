@@ -25,24 +25,25 @@ public class EmployeeVarDeductions {
 	}
 	
 	public EmployeeVarDeductions(int employeeId, double afkRent, double society, 
-			 double otherDeductions, double miscRecovery, String monthDate){
+			 double otherDeductions, double miscRecovery, Date monthDate){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
 		this.society = society;
 		this.otherDeductions = otherDeductions;
 		this.miscRecovery = miscRecovery;
-		System.out.println("monthDate:"+monthDate);
+		//this.monthDate = monthDate;
+		/*System.out.println("monthDate:"+monthDate);
 		Date dateMonthDate;
-		
+		*/
 		if (monthDate!=null){
 			try {
-				dateMonthDate =  dateFormatRead.parse(monthDate);
-				this.monthDate =  dateFormat.format(dateMonthDate);
-			} catch (ParseException e) {
+				//dateMonthDate =  dateFormatRead.parse(monthDate);
+				this.monthDate =  dateFormat.format(monthDate);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else
-			this.monthDate = "";
+		} /*else
+			this.monthDate = "";*/
 	}
 	
 

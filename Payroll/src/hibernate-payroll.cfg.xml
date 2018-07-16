@@ -7,9 +7,9 @@
    <session-factory>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="connection.url">jdbc:mysql://localhost:3306/Payroll</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/Payroll_1</property>
     <property name="connection.username">root</property>
-   	<property name="connection.password">MySQL@2100</property>
+   	<property name="connection.password">root</property>
    	<property name="show_sql">true</property>
 	<mapping resource="com/payroll/employee/dataobjects/EmpContact.hbm.xml"/>
    	<mapping resource="com/payroll/department/dataobjects/Department.hbm.xml"/>
@@ -35,13 +35,15 @@
    	<mapping resource="com/payroll/employee/allowance/dataobjects/EmpAllowance.hbm.xml"/>
    	<mapping resource="com/payroll/employee/deductions/dataobjects/EmpDeductions.hbm.xml"/>
    	<mapping resource="com/payroll/incomtax/dataobjects/IncomtaxSlab.hbm.xml"/>
+   	<mapping resource="com/payroll/advance/dataobjects/Advance.hbm.xml"/>
    	<mapping resource="com/payroll/login/dataobjects/User.hbm.xml"/>
    	<mapping resource="com/payroll/login/dataobjects/Roles.hbm.xml"/>
    	<mapping resource="com/payroll/login/dataobjects/UserRoles.hbm.xml"/>
    	<mapping resource="com/payroll/hrms/payroll/dataobjects/Paybill.hbm.xml"/>
    	<mapping resource="com/payroll/employee/leave/dataobjects/LeaveRequest.hbm.xml"/>
    	<mapping resource="com/payroll/employee/deductions/dataobjects/EmpFixedDeductions.hbm.xml"/>
-   	<mapping resource="com/payroll/employee/deductions/dataobjects/EmpVarDeductions.hbm.xml"/>
-   	<mapping resource="com/payroll/employee/attendance/dataobjects/EmployeeAttendance.hbm.xml"/>
+   	 	<mapping resource="com/payroll/employee/deductions/dataobjects/EmpVarDeductions.hbm.xml"/>
+  	<mapping resource="com/payroll/employee/attendance/dataobjects/EmployeeAttendance.hbm.xml"/> 
+  	<mapping resource="com/payroll/employee/advances/dataobjects/EmpAdvances.hbm.xml"/>
 </session-factory>
 </hibernate-configuration>
