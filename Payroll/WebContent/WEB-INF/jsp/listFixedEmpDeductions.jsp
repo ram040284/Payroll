@@ -19,12 +19,12 @@
 											$('<tr/>')
 													.appendTo(fixedDeductionsTab)
 													.append($('<td/>').text( empDeductions.fullName))
-													.append($('<td/>').text(empDeductions.kssUnionFee))
-													.append($('<td/>').text(empDeductions.rent))
-													.append($('<td/>').text(empDeductions.courtRecovery))
-													.append($('<td/>').text(empDeductions.unionFee))
-													.append($('<td/>').text(empDeductions.gis))
-													.append($('<td/>').text(empDeductions.additionalPF))
+													.append($('<td/>').text(empDeductions.kssUnionFee.toFixed(2)))
+													.append($('<td/>').text(empDeductions.rent.toFixed(2)))
+													.append($('<td/>').text(empDeductions.courtRecovery.toFixed(2)))
+													.append($('<td/>').text(empDeductions.unionFee.toFixed(2)))
+													.append($('<td/>').text(empDeductions.gis.toFixed(2)))
+													.append($('<td/>').text(empDeductions.additionalPF.toFixed(2)))
 													.append($('<td/>').append('<a href="#" onclick=addUpdateDeductions('+ empDeductions.employeeId + 
 													')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDeductions('
 													+ empDeductions.employeeId

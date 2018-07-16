@@ -15,7 +15,7 @@
                 	  $('<tr/>').appendTo(licTab)
                 	  		.append($('<td/>').text(empLic.fullName))
                 			.append($('<td/>').text(empLic.policyNo))
-                			.append($('<td/>').text(empLic.instlmtAmt))
+                			.append($('<td/>').text(empLic.instlmtAmt.toFixed(2)))
                 			.append($('<td/>').append('<a href="#" onclick=viewLic('+empLic.employeeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteLic('+empLic.employeeId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                   });
                   

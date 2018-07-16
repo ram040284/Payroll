@@ -1,27 +1,26 @@
 <!DOCTYPE hibernate-mapping PUBLIC  
  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
- "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-
-<hibernate-mapping>
-	<class
-		name="com.payroll.employee.advances.dataobjects.EmployeeAdvanceDetails"
-		table="EMP_ADV_DETAIL">
-
-		<id name="advanceId" type="java.lang.Integer">
-			<column name="ADV_ID" />
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.employee.advances.dataobjects.EmpAdvances" table="EMP_ADV_DETAIL">  
+    <id name="employeeId" type="java.lang.Integer">
+			<column name="EMP_ID" />
 			<generator class="foreign">
-				<param name="property">employeeAdvance</param>
+				<param name="property">employee</param>
 			</generator>
-		</id>
-		<many-to-one name="employeeAdvance"
-			class="com.payroll.employee.advances.dataobjects.EmployeeAdvance"
-			fetch="select">
-		</many-to-one>
-		<property name="employeeId" column="EMP_ID" not-null="true" />
-		<property name="advanceBalanceAmount" column="ADV_BAL_AMT" not-null="true" />
-		<property name="installmentAmount" column="INST_AMT" not-null="true" />
-		<property name="paymentDate" column="PAYMENT_DATE" not-null="true" />
-		<property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true" />
-		<property name="status" column="STATUS" not-null="true" />
-	</class>
-</hibernate-mapping>
+	</id>
+	<one-to-one name="employee" class="com.payroll.employee.dataobjects.Employee"
+		constrained="true" fetch="select"></one-to-one>
+	<many-to-one name="advance"   
+        class="com.payroll.advance.dataobjects.Advance" column="ADV_ID" cascade="all">
+	</many-to-one>
+    <property name="advBalAmount" column="ADV_BAL_AMT" not-null="true"/>
+    <property name="installAmount" column="INST_AMT" not-null="true"/>
+    <property name="nextInstallAmount" column="NXT_INST_AMT" not-null="true"/>
+    <property name="paymentDate" column="PAYMENT_DATE" not-null="true"/>
+	<property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/>
+    <property name="status" column="STATUS" not-null="true"/>
+   </class>  
+ </hibernate-mapping> 
+	

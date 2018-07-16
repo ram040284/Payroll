@@ -8,7 +8,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
 public class PdfUtils {
-	public static double DA_PERCENT = 136.00;
+	public static double DA_PERCENT = 139.00;
     public static double HRA_PERCENT = 30.00;
     
 	public static final String IMG_PATH= "/resources/images/";

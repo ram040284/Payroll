@@ -9,11 +9,21 @@ import org.hibernate.Session;
 
 import com.payroll.HibernateConnection;
 import com.payroll.TestData;
+import com.payroll.employee.advances.dataobjects.EmpAdvances;
 import com.payroll.employee.allowance.dataobjects.EmpAllowance;
+import com.payroll.employee.allowance.dataobjects.EmpAllowanceDAO;
+import com.payroll.employee.allowance.vo.EmployeeAllowances;
 import com.payroll.employee.bank.vo.BankVO;
+import com.payroll.employee.deductions.dao.EmpFixedDeductionsDAO;
+import com.payroll.employee.deductions.dao.EmpVarDeductionsDAO;
 import com.payroll.employee.deductions.dataobjects.EmpDeductions;
+import com.payroll.employee.deductions.dataobjects.EmployeeFixedDeductions;
+import com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions;
 import com.payroll.employee.leave.dataobjects.Leave;
+import com.payroll.employee.leave.dataobjects.LeaveRequest;
 import com.payroll.employee.lic.dataobjects.EmpLic;
+import com.payroll.employee.lic.dataobjects.EmpLicDAO;
+import com.payroll.employee.lic.vo.EmployeeLIC;
 import com.payroll.employee.pf.dataobjects.EmpPf;
 import com.payroll.employee.qtr.dataobjects.EmpQuarters;
 import com.payroll.employee.salary.dataobjects.Salary;
@@ -22,6 +32,7 @@ import com.payroll.employee.vo.EmployeeVO;
 import com.kcb.hrms.payroll.dataobjects.EmployeePayrollDTO;*/
 import com.payroll.hrms.payroll.dataobjects.EmployeePayroll;
 import com.payroll.hrms.payroll.dataobjects.EmployeePayrollDTO;
+import com.payroll.hrms.payroll.incometax.service.EmployeePayrollService;
 import com.payroll.overtime.dataobjects.Overtime;
 /**
  * Created by rajendra on 12/8/17.
@@ -68,7 +79,77 @@ public class EmployeePayrollDAO {
 	private double otherDeducs;
 	private double misc;
 	
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
+	public EmployeePayroll loadPayrollInfo(int employeeId, Date date){
+    	System.out.println("loadPayrollInfo:");
+    	Salary salary = null;
+		EmpPf empPf = null;
+		
+		EmpAdvances empAdvances = null;
+		//EmpLic empLic = null;
+		List<Overtime> overtimeList = null;
+		List<LeaveRequest> leaves = null;
+		EmployeePayroll empPayroll = null;
+		BankVO bankVo = null;
+    	try{
+    		this.employeeId = employeeId;
+			session = HibernateConnection.getSessionFactory().openSession();
+			salary = (Salary)getObjectByEmpId(" from Salary s where s.employee.employeeId = ? and s.status = ?");
+			empPf = (EmpPf)getObjectByEmpId(" from EmpPf p where p.employee.employeeId = ? and p.status = ?");
+			if(empPf == null)
+				empPf = new EmpPf();
+			EmployeeAllowances employeeAllowances = new EmpAllowanceDAO().getEmployeeAllowances(employeeId);
+			
+			// Employee Fixed Deductions details
+	    	EmployeeFixedDeductions employeeFixedDeductions = new EmpFixedDeductionsDAO().getEmployeeFixedDeductions(employeeId);
+	    	
+	    	// Employee Monthly Variable Deductions details
+	    	EmployeeVarDeductions employeeVarDeductions = new EmpVarDeductionsDAO().getEmployeeVarDeductions(employeeId);
+	    	
+	    	// Employee Lic Deductions details
+	    	List <EmployeeLIC> listEmployeeLICDeductions = new EmpLicDAO().getEmployeeLicDeductions(employeeId);
+	    	double licTotalInstallmentAmt = 0;
+	    	if (listEmployeeLICDeductions!=null){
+	    		Iterator<EmployeeLIC> listEmpLicIterator = listEmployeeLICDeductions.iterator();
+	    		
+	    		while (listEmpLicIterator.hasNext()){
+	    			EmployeeLIC employeeLIC = listEmpLicIterator.next();
+	    			licTotalInstallmentAmt =licTotalInstallmentAmt + employeeLIC.getInstlmtAmt();
+	    		}
+	    	}
+	    	
+			overtimeList = (List)getObjectsByEmpId(date, " from Overtime o where o.employee.employeeId = ? and o.status = ? and o.overtimeDate >= ?");
+			this.date = null;
+			leaves = (List)getObjectsByEmpId(" from LeaveRequest l where l.employee.employeeId = ? and l.status = ?");
+			empAdvances = (EmpAdvances)getObjectByEmpId(" from EmpAdvances a where a.employee.employeeId = ? and a.status = ?");
+   			bankVo = (BankVO)getObjectByEmpId("select new com.payroll.employee.bank.vo.BankVO(b.bankDetails.bankId, b.bankDetails.bankName, b.accountNo) "
+   					+ "from EmpBank b where b.employee.employeeId = ? and b.status = ?");		
+			double overtimeAmount = com.payroll.hrms.payroll.service.EmployeePayrollService.overtimeHours(overtimeList);
+			double abcenties = com.payroll.hrms.payroll.service.EmployeePayrollService.getAbsenties(leaves);
+			
+			// This need to check 
+			double festAdvanceRecovery = (empAdvances != null) ? empAdvances.getInstallAmount() : 0;
+			double bankLoanRecovery = 0;
+			double cpfRecovery = 0;
+   			empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay()+"", salary.getScaleCode(),
+   					employeeAllowances.getCca(), employeeAllowances.getFamilyPlanAlwance(),employeeAllowances.getNonPracAwance(),
+   					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),
+   					employeeFixedDeductions.getUnionFee(),employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
+   					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getOtherDeductions(),
+   					employeeVarDeductions.getSociety(), licTotalInstallmentAmt, empPf.getPfLoneRecAmt(), empPf.getPfsCpfCntrbn(),
+   					cpfRecovery, festAdvanceRecovery , bankLoanRecovery, abcenties, overtimeAmount, bankVo.getBankName(), 
+   					bankVo.getAccountNo(), bankVo.getBankId());
+	
+   		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			HibernateConnection.closeSession(session);
+		}
+        return empPayroll;
+    }
+   
+	
+   /* @SuppressWarnings("unchecked")
 	public EmployeePayroll loadPayrollInfo(int employeeId, Date date){
     	Salary salary = null;
 		EmpPf empPf = null;
@@ -123,13 +204,13 @@ public class EmployeePayrollDAO {
 					EmployeePayrollService.overtimeHours(overtimeList), bankVo.getBankName(), bankVo.getAccountNo(), bankVo.getBankId());
 	*/
 			//payrollDTO.set
-    	}catch(Exception e){ 
+    /*	}catch(Exception e){ 
 			e.printStackTrace();
 		}finally {
 			HibernateConnection.closeSession(session);
 		}
         return empPayroll;
-    }
+    }*/
     
     private StringBuffer getSearchCriteria(String condition){
     	StringBuffer searchCriteria = new StringBuffer("(select eDept.employee.employeeId from EmpDepartment eDept where ");
