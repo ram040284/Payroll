@@ -1,4 +1,3 @@
-//package com.kcb.hrms.payroll.dataobjects;
 package com.payroll.hrms.payroll.dataobjects;
 
 import org.apache.log4j.Logger;
@@ -31,7 +30,6 @@ public class  PayrollEngine {
     private void getEmployeeList(){
     	
     }
-    
     /**
      * processPayroll
      */
@@ -53,5 +51,4 @@ public class  PayrollEngine {
     	new PayrollEngine().processPayroll(199105024);
     	
     }
-
 }

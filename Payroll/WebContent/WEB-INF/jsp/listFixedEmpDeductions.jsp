@@ -11,7 +11,6 @@
 					type : "GET",
 					contentType : "application/json;charset=utf-8",
 					success : function(data) {
-
 						var fixedDeductionsTab = $('<table style="margin-bottom: 10px;"/>')
 								.appendTo($('#deductDtlsListDiv'));
 						$(data)
@@ -34,7 +33,6 @@
 					}
 				});
 	}
-	
 	 /* function inputAllowance(){
    	  var f = document.forms['editForm'];
 		  f.action="../Payroll/inputEmpAlwnce";

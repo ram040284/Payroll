@@ -2,12 +2,10 @@ package com.payroll.employee.deductions.dao;
 
 import java.sql.Timestamp;
 import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
-
 import com.payroll.HibernateConnection;
 import com.payroll.employee.dataobjects.Employee;
 import com.payroll.employee.deductions.dataobjects.EmpFixedDeductions;
@@ -61,7 +59,6 @@ public class EmpFixedDeductionsDAO {
 			}
 		return empFixedDeductions;
 	}
-	
 	/**
 	 * 
 	 * @param empId
@@ -85,7 +82,11 @@ public class EmpFixedDeductionsDAO {
 		return empFixedDeductions;
 	}
 
-	
+	/**
+	 * 
+	 * @param empId
+	 * @return
+	 */
 	public EmpFixedDeductions getEmpDeductionsByEmpId(int empId){
 		EmpFixedDeductions empDeductions = null;
 		Session session = null;
@@ -106,7 +107,11 @@ public class EmpFixedDeductionsDAO {
 		
 		return empDeductions;
 	}
-	
+	/**
+	 * 
+	 * @param empId
+	 * @return
+	 */
 	public String deleteEmpDeductions(int empId){
 		String result = null;
 		Session session = null;
@@ -161,6 +166,4 @@ public class EmpFixedDeductionsDAO {
 		}
 		return result;
 	}
-
-	
 }

@@ -25,6 +25,7 @@ public class EmployeeAdvanceService {
 		EmployeeAdvanceVO empAdvanceVO = copyProperties(employeeAdvance);
 		return new EmployeeAdvanceDAO().addUpdateAdvance(empAdvanceVO);
 	}
+	
 	/**
 	 * 
 	 * @param advanceId
@@ -65,7 +66,6 @@ public class EmployeeAdvanceService {
 		return empAdvanceVO;
 	}
 	
-	
 	/*private List<com.payroll.overtime.vo.OvertimeVO> getValues(List<Overtime> overtimes){
 		List<com.payroll.overtime.vo.OvertimeVO> overtimeList = new ArrayList<com.payroll.overtime.vo.OvertimeVO>();
 		com.payroll.overtime.vo.OvertimeVO overtimeDB = null;
@@ -92,22 +92,17 @@ public class EmployeeAdvanceService {
 		double festInstallmentAmount = 0;
 		EmployeeAdvance employeeAdvance = new AdvanceDAO().getAdvanceByEmployeeId(employeeId);
 		List<EmployeeAdvanceDetails> listEmployeeAdvanceDetails = new AdvanceDAO().getEmployeeAdvanceDetails(employeeAdvance.getAdvanceId());
-		return festInstallmentAmount;
-		
+		return festInstallmentAmount;	
 	}
 	
 	private double calculateInstallment(EmployeeAdvance employeeAdvance, List<EmployeeAdvanceDetails> listemployeeAdvanceDetails){
-
 		Date sDate = employeeAdvance.getAdvanceDate();
 		Date todaysDate = new Date();
 		Calendar startDate = Calendar.getInstance();
 		startDate.setTime(sDate);
 		Calendar endDate = Calendar.getInstance();
 		endDate.setTime(todaysDate);
-		
 		int difInMonths = endDate.MONTH -  startDate.MONTH;
-		
 		return 0.0;
 	}*/
-
 }
