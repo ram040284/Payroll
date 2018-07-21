@@ -23,7 +23,7 @@ public class SalaryDAO {
 						//+ "(select e.firstName from Employee e where e.employeeId = s.empId),"
 						//+ " (select e.lastName from Employee e where e.employeeId = s.empId), "
 						+"s.employee.firstName, s.employee.lastName, "
-						+ "s.year, s.basic, s.gradePay, s.scalePay) from Salary s where s.status = ?";		
+						+ "s.year, s.basic, s.gradePay, s.scalePay) from Salary s where s.scaleCode = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
