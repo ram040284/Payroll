@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Add Designation</title>
+<title>Budget Heads</title>
 <style type="text/css">
 td, th {
 	padding: 3px;
@@ -81,7 +81,7 @@ $(document).ready(function() {
 		</div>	
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">
-				<c:if test="${headDetails.headId != '0'}" > Update	</c:if><c:if test="${headDetails.headId == '0'}">	Add	</c:if>Head Details
+				<c:if test="${headDetails.headId != '0'}" > Update	</c:if><c:if test="${headDetails.headId == '0'}">	Add	</c:if>Budget Head Details
 			</h4>
 
 		<div class="col-lg-12 card-block bg-faded" style="margin-bottom: 10px;">

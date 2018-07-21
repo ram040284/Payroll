@@ -47,9 +47,9 @@
 				
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="../Payroll/viewTaxSlab"><img src="../Payroll/resources/images/allowances.png" class="img-responsive imageMenuItem"
+						<a href="../Payroll/viewTaxSlab"><img src="../Payroll/resources/images/iTax.png" class="img-responsive imageMenuItem"
 					alt="theme logo" /></a>
-						<h3><a href="../Payroll/viewTaxSlab">Incometax Slabs</a></h3>
+						<h3><a href="../Payroll/viewTaxSlab">Income Tax Slabs</a></h3>
 					</div>
 				</div>
 				<%--<div class="col-xs-4 text-center">
@@ -59,15 +59,6 @@
 						<h3><a href="../Payroll/viewOvertime">Overtime Payment</a></h3>
 					</div>
 				</div> --%>
-				<div class="col-xs-4 text-center">
-					<div class="precess-column">
-						<a href="../Payroll/viewAdvance"><img src="../Payroll/resources/images/advance.png" class="img-responsive imageMenuItem"
-					alt="theme logo" /></a>
-						<h3><a href="../Payroll/viewAdvance">Advances</a></h3>
-					</div>
-				</div>
-			</div>
-			<div class="row">
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
 						<a href="../Payroll/usersList"><img src="../Payroll/resources/images/userAdd.jpe" class="img-responsive imageMenuItem"

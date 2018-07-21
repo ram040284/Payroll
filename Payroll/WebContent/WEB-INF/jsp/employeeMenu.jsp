@@ -24,7 +24,7 @@
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
 						<a href="../Payroll/viewBank"><img
-							src="../Payroll/resources/images/empBank.png"
+							src="../Payroll/resources/images/bank.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
 							<a href="../Payroll/viewBank">Employee Bank</a>
@@ -70,7 +70,7 @@
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
 						<a href="../Payroll/viewAdvance"><img
-							src="../Payroll/resources/images/rs.png"
+							src="../Payroll/resources/images/advance.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
 							<a href="../Payroll/viewAdvance">Employee Festival Advance</a>
@@ -105,7 +105,7 @@
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
 						<a href="../Payroll/viewEmpAlwnce"><img
-							src="../Payroll/resources/images/allowances.png"
+							src="../Payroll/resources/images/empAlowance.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
 							<a href="../Payroll/viewEmpAlwnce">Employee Fixed Allowances</a>
@@ -129,7 +129,7 @@
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
 						<a href="../Payroll/viewEmpDeductions"><img
-							src="../Payroll/resources/images/advance.png"
+							src="../Payroll/resources/images/deductions.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
 							<a href="../Payroll/viewEmpDeductions">Employee ITax Deductions</a>
@@ -139,7 +139,7 @@
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
 						<a href="../Payroll/viewEmpFixedDeductions"><img
-							src="../Payroll/resources/images/empLeave.png"
+							src="../Payroll/resources/images/deductions.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
 							<a href="../Payroll/viewEmpFixedDeductions">Employee Fixed Deductions</a>
@@ -150,7 +150,7 @@
 								<div class="col-xs-4 text-center">
 					<div class="precess-column">
 						<a href="../Payroll/viewEmpVarDeductions"><img
-							src="../Payroll/resources/images/empLeave.png"
+							src="../Payroll/resources/images/deductions.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
 							<a href="../Payroll/viewEmpVarDeductions">Employee Variable Deductions</a>
