@@ -310,7 +310,7 @@ public class EmployeePayroll {
             if(pfFlag)
                 this.providentFund = (this.basic + this.gradePay)*PF_PERCENT/100;
             else
-                this.providentFund = (this.basic + this.gradePay)*CPF_PERCENT/100;
+                this.providentFund = (this.basic + this.gradePay+ this.dearnessAllowance)*CPF_PERCENT/100;
     }
 
     // Calculate Professional Tax
