@@ -24,6 +24,7 @@
 							.append($('<td/>').text(empAllowance.qtrFlag))
 							.append($('<td/>').text(empAllowance.afkFlag))
 							.append($('<td/>').text(empAllowance.taFlag))
+							.append($('<td/>').text(empAllowance.pfFlag))
                 			.append($('<td/>').append('<a href="#" onclick=viewAllowance('+empAllowance.employeeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteAllowance('+empAllowance.employeeId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                   });
                   
@@ -74,6 +75,7 @@
 					<th>QTR  Flag</th>
 					<th>AFK Flag</th>
 					<th>TA Flag</th>
+					<th>PF Flag</th>
 					<th><a href="#" onclick="inputAllowance()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
 					</th>

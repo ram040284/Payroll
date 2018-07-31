@@ -22,7 +22,6 @@ import com.payroll.paybill.vo.PaybillVO;
 import com.payroll.pdf.business.Book;
 @Controller
 public class PaybillController {
-	
 	@RequestMapping(value = "/inputPaybill", method = RequestMethod.POST)
 	public ModelAndView inputPaybill(PaybillVO paybill) {
 		/*ObjectMapper mapper = new ObjectMapper();
@@ -86,7 +85,6 @@ public class PaybillController {
 		return model;*/
 		return getInputForm(paybill, "generateBills");
 	}
-	
 	
 	private ModelAndView getInputForm(PaybillVO paybill, String jspName){
 		ObjectMapper mapper = new ObjectMapper();

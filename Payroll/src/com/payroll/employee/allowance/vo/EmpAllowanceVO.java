@@ -14,10 +14,19 @@ public class EmpAllowanceVO {
 	private Boolean qtrFlag;
 	private Boolean afkFlag;
 	private Boolean taFlag;
+	private Boolean pfFlag;
 	private int departmentId;
 	private int headId;
 	private int designationId;
 	private String fullName;
+	
+	public Boolean getPfFlag() {
+		return pfFlag;
+	}
+
+	public void setPfFlag(Boolean pfFlag) {
+		this.pfFlag = pfFlag;
+	}
 
 	public Boolean getQtrFlag() {
 		return qtrFlag;
@@ -64,7 +73,7 @@ public class EmpAllowanceVO {
 	}
 	
 	public EmpAllowanceVO(int employeeId, String firstName, String lastName, double cca, double washingAlwance,	double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag,Boolean pfFlag) {
 		this.employeeId = employeeId;
 		StringBuffer fullNameSB = new StringBuffer(firstName);
 		fullNameSB.append(" ");
@@ -80,11 +89,11 @@ public class EmpAllowanceVO {
 		this.qtrFlag = qtrFlag;
 		this.afkFlag = afkFlag;
 		this.taFlag = taFlag;
-
+		this.pfFlag = pfFlag;
 	}
 	
 	public EmpAllowanceVO(int employeeId, int departmentId, int designationId, int headId, double cca, double washingAlwance, double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag, Boolean pfFlag) {
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -99,6 +108,7 @@ public class EmpAllowanceVO {
 		this.qtrFlag = qtrFlag;
 		this.afkFlag = afkFlag;
 		this.taFlag = taFlag;
+		this.pfFlag = pfFlag;
 	}
 	
 	public int getEmployeeId() {

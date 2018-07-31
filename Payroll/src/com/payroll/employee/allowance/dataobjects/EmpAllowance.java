@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 import com.payroll.employee.dataobjects.Employee;
 
 public class EmpAllowance implements Serializable {
-
 	private int employeeId;
 	private double cca;
 	private double washingAlwance;
@@ -19,10 +18,18 @@ public class EmpAllowance implements Serializable {
 	private Boolean qtrFlag;
 	private Boolean afkFlag;
 	private Boolean taFlag;
+	private Boolean pfFlag;
 	private Timestamp rowUpdDate;
 	private String status;
 	private short addUpdate; // 0 - Add / 1 - update
 	private Employee employee;
+	
+	public Boolean getPfFlag() {
+		return pfFlag;
+	}
+	public void setPfFlag(Boolean pfFlag) {
+		this.pfFlag = pfFlag;
+	}
 	
 	public Boolean getQtrFlag() {
 		return qtrFlag;

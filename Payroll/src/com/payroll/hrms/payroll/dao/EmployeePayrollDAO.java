@@ -133,7 +133,7 @@ public class EmployeePayrollDAO {
 			double cpfRecovery = 0;
    			empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay()+"", salary.getScaleCode(),
    					employeeAllowances.getCca(), employeeAllowances.getFamilyPlanAlwance(),employeeAllowances.getNonPracAwance(),
-   					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),
+   					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),employeeAllowances.getPFFlag(),
    					employeeFixedDeductions.getUnionFee(),employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
    					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getOtherDeductions(),
    					employeeVarDeductions.getSociety(), licTotalInstallmentAmt, empPf.getPfLoneRecAmt(), empPf.getPfsCpfCntrbn(),
@@ -149,69 +149,6 @@ public class EmployeePayrollDAO {
     }
    
 	
-   /* @SuppressWarnings("unchecked")
-	public EmployeePayroll loadPayrollInfo(int employeeId, Date date){
-    	Salary salary = null;
-		EmpPf empPf = null;
-		EmpQuarters empQtr = null;
-		EmpAllowance alowances = null;
-		EmpDeductions empDeductions = null;
-		//EmpDeductionDetails empDeductDetails = null;
-		//EmpAdvances empAdvances = null;
-		EmpLic empLic = null;
-		List<Overtime> overtimeList = null;
-		List<Leave> leaves = null;
-		EmployeePayrollDTO payrollDTO = new EmployeePayrollDTO();
-		EmployeePayroll empPayroll = null;
-		BankVO bankVo = null;
-    	try{
-    		this.employeeId = employeeId;
-			session = HibernateConnection.getSessionFactory().openSession();
-			salary = (Salary)getObjectByEmpId(" from Salary s where s.employee.employeeId = ? and s.status = ?");
-			empPf = (EmpPf)getObjectByEmpId(" from EmpPf p where p.employee.employeeId = ? and p.status = ?");
-			empQtr = (EmpQuarters)getObjectByEmpId(" from EmpQuarters q where q.employee.employeeId = ? and q.status= ?");
-			//empDeductions = (EmpDeductions)getObjectByEmpId(" from EmpDeductions d where d.employee.employeeId = ? and d.status = ?");
-			alowances = (EmpAllowance)getObjectByEmpId(" from EmpAllowance a where a.employee.employeeId = ? and a.status = ?");
-			overtimeList = (List)getObjectsByEmpId(date, " from Overtime o where o.employee.employeeId = ? and o.status = ? and o.overtimeDate >= ?");
-			this.date = null;
-			leaves = (List)getObjectsByEmpId(" from Leave l where l.employee.employeeId = ? and l.status = ?");
-			empLic = (EmpLic)getObjectByEmpId(" from EmpLic l where l.employee.employeeId = ? and l.status = ?");
-   		//	empAdvances = (EmpAdvances)getObjectByEmpId(" from EmpAdvances a where a.employee.employeeId = ? and a.status = ?");
-   	//		empDeductDetails = (EmpDeductionDetails)getObjectByEmpId(" from EmpDeductionDetails d where d.employee.employeeId = ? and d.status = ?");
-   			bankVo = (BankVO)getObjectByEmpId("select new com.payroll.employee.bank.vo.BankVO(b.bankDetails.bankId, b.bankDetails.bankName, b.accountNo) "
-   					+ "from EmpBank b where b.employee.employeeId = ? and b.status = ?");		
-			
-   			if(salary == null){
-   				salary = TestData.getSalary(employeeId);
-   			}
-   			if(empPf == null)
-   				empPf = TestData.getEmpPf(employeeId);
-   			if(empLic == null)
-   				empLic = TestData.getEmpLic(employeeId);
-   			if(alowances== null)
-   				alowances = TestData.getAllowance(employeeId);
-   			if(bankVo == null)
-   				bankVo = TestData.getBAnkDetails(employeeId);
-   		//	if(empDeductDetails == null)
-   		//		empDeductDetails = TestData.getEmpDeductDtls(employeeId);
-   			
-   		/*	empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay()+"", salary.getScaleCode(),
-   					empDeductDetails.getRent(), empPf.getPfLoneRecAmt(), empDeductDetails.getUnionFee(),empDeductDetails.getCourtRecovery(),
-   					empDeductDetails.getCourtRecovery(),empDeductDetails.getGis(), empDeductDetails.getCourtRecovery(),
-					alowances.getCca(), empLic.getInstlmtAmt(),alowances.getFamilyPlanAlwance(), alowances.getNonPracAwance(), 
-					alowances.getWashingAlwance(), alowances.getUniformAlwance(), 
-					alowances.getHraFlag(), 0 , 0, 0, 0, empPf.getPfsCpfCntrbn(), EmployeePayrollService.getAbsenties(leaves),
-					EmployeePayrollService.overtimeHours(overtimeList), bankVo.getBankName(), bankVo.getAccountNo(), bankVo.getBankId());
-	*/
-			//payrollDTO.set
-    /*	}catch(Exception e){ 
-			e.printStackTrace();
-		}finally {
-			HibernateConnection.closeSession(session);
-		}
-        return empPayroll;
-    }*/
-    
     private StringBuffer getSearchCriteria(String condition){
     	StringBuffer searchCriteria = new StringBuffer("(select eDept.employee.employeeId from EmpDepartment eDept where ");
     	searchCriteria.append(condition);

@@ -24,6 +24,7 @@
 		<property name="qtrFlag" column="QTR_FLAG" />
 		<property name="afkFlag" column="AFK_FLAG" />
 		<property name="taFlag" column="TA_FLAG" />
+		<property name="pfFlag" column="PF_FLAG" />
 		<property name="status" column="STATUS" not-null="true" />
 		<property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true" />
 	</class>

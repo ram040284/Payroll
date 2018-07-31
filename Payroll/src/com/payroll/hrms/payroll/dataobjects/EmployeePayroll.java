@@ -113,7 +113,7 @@ public class EmployeePayroll {
     }
     
    public EmployeePayroll(double basic, double gradePay, String scalePay, String scaleCode,
-    		double cca, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,
+    		double cca, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,boolean pfFlag,
     		double unionFee,double cycleAllowance, double courtRcry, double gis, double afkRent, double otherDeduct,
     		double society,  double licInstalAmt, double pfLoanRcry, double cpfCont, double cpfRcry,
     		double festAdvRcry,  double bankLoanRcry,  double absentDays, double overtimeHours, String bankName, 
@@ -143,6 +143,7 @@ public class EmployeePayroll {
     	this.bankAcctNo = bankAcctNo;
     	this.bankName = bankName;
     	this.bankId = bankId;
+    	this.pfFlag = pfFlag;
     	//this.bankLoanRecovery = bankLoanRcry;
     	//this.vlr = vlr;
     	//this.cpfRcry = cpfRcry;
@@ -184,7 +185,6 @@ public class EmployeePayroll {
         calculateOverTime();
         calculateProvidentFund();
         calculateTotalAllowances();
-        
         calculateGrossPay();
         calculateTotalGrossPay();
         processAbsentee();
@@ -311,6 +311,7 @@ public class EmployeePayroll {
                 this.providentFund = (this.basic + this.gradePay)*PF_PERCENT/100;
             else
                 this.providentFund = (this.basic + this.gradePay+ this.dearnessAllowance)*CPF_PERCENT/100;
+        System.out.println("Provident Fund ="+ this.providentFund);
     }
 
     // Calculate Professional Tax

@@ -23,7 +23,7 @@
 													.append($('<td/>').text(empDeductions.afkRent))
 													.append($('<td/>').text(empDeductions.society.toFixed(2)))
 													.append($('<td/>').text(empDeductions.pfLoanRecovery.toFixed(2)))
-													.append($('<td/>').text(empDeductions.otherDedutions.toFixed(2)))
+													.append($('<td/>').text(empDeductions.otherDeductions.toFixed(2)))
 													.append($('<td/>').text(empDeductions.miscRecovery.toFixed(2)))
 													.append($('<td/>').text(empDeductions.monthDate))
 													.append($('<td/>').text(empDeductions.note))

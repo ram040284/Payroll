@@ -12,7 +12,34 @@ public class EmployeeAllowances {
 	private Boolean qtrFlag;
 	private Boolean afkFlag;
 	private Boolean taFlag;
+	private Boolean pfFlag;
 	
+	/**
+	 */
+	public EmployeeAllowances(int employeeId, double cca, double washingAlwance, double nonPracAwance, 
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag, Boolean pfFlag) {
+		this.employeeId = employeeId;
+		this.cca = cca;
+		this.washingAlwance = washingAlwance;
+		this.nonPracAwance = nonPracAwance;
+		this.uniformAlwance = uniformAlwance;
+		this.familyPlanAlwance = familyPlanAlwance;
+		this.cycleAlwance = cycleAlwance;
+		this.hraFlag = hraFlag;
+		this.qtrFlag = qtrFlag;
+		this.afkFlag = afkFlag;
+		this.taFlag = taFlag;
+		this.pfFlag = pfFlag;
+	}
+	
+		public Boolean getPFFlag() {
+		return pfFlag;
+	}
+
+	public void setPFFlag(Boolean pFFlag) {
+		pfFlag = pFFlag;
+	}
+
 		public Boolean getQtrFlag() {
 		return qtrFlag;
 	}
@@ -39,23 +66,6 @@ public class EmployeeAllowances {
 
 	public EmployeeAllowances(){
 		
-	}
-
-	/**
-	 */
-	public EmployeeAllowances(int employeeId, double cca, double washingAlwance, double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag) {
-		this.employeeId = employeeId;
-		this.cca = cca;
-		this.washingAlwance = washingAlwance;
-		this.nonPracAwance = nonPracAwance;
-		this.uniformAlwance = uniformAlwance;
-		this.familyPlanAlwance = familyPlanAlwance;
-		this.cycleAlwance = cycleAlwance;
-		this.hraFlag = hraFlag;
-		this.qtrFlag = qtrFlag;
-		this.afkFlag = afkFlag;
-		this.taFlag = taFlag;
 	}
 	
 	public int getEmployeeId() {

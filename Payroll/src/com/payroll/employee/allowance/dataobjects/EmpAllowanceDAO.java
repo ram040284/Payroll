@@ -22,7 +22,7 @@ public class EmpAllowanceDAO {
 			try{
 				String queryString = " select new com.payroll.employee.allowance.vo.EmpAllowanceVO(a.employee.employeeId, "
 						+ "a.employee.firstName, a.employee.lastName, a.cca, a.washingAlwance, "
-						+ "a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag,a.qtrFlag, a.afkFlag, a.taFlag) "
+						+ "a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag,a.qtrFlag, a.afkFlag, a.taFlag, a.pfFlag) "
 						+ "from EmpAllowance a where a.status = ?";
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -71,7 +71,7 @@ public class EmpAllowanceDAO {
 		EmployeeAllowances employeeAllowances = null;
 			Session session = null;
 			try{
-				String queryString = "select new com.payroll.employee.allowance.vo.EmployeeAllowances(a.employeeId, a.cca, a.washingAlwance,a.nonPracAwance,a.uniformAlwance,a.familyPlanAlwance, a.cycleAlwance,a.hraFlag,a.qtrFlag,a.afkFlag, a.taFlag) from EmpAllowance a where a.employeeId = ? and a.status = ?";		
+				String queryString = "select new com.payroll.employee.allowance.vo.EmployeeAllowances(a.employeeId, a.cca, a.washingAlwance,a.nonPracAwance,a.uniformAlwance,a.familyPlanAlwance, a.cycleAlwance,a.hraFlag,a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag) from EmpAllowance a where a.employeeId = ? and a.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -83,8 +83,7 @@ public class EmpAllowanceDAO {
 				e.printStackTrace();
 			}finally{
 				HibernateConnection.closeSession(session);
-			}
-		
+			}	
 		return employeeAllowances;
 	}
 
