@@ -36,7 +36,7 @@ public class EmployeeDAO {
 					+ "(select desg.designationName from Designation desg where desg.designationId = "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId)), "
 					//+ "e.addressLine1, e.addressLine2, e.addressLine3, e.gender, e.joiningDate) from Employee e where e.status= ?");
-					+ "e.gender, e.joiningDate) from Employee e where e.status= ?");
+					+ "e.gender, e.joiningDate, e.retirementDate) from Employee e where e.status= ?");
 			
 			if(deptId != 0)
 				searchCriteria.append(" and e.employeeId = (select eDept.employee.employeeId from EmpDepartment eDept where e.employeeId = eDept.employee.employeeId and eDept.department.departmentId = ?)");
