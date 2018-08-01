@@ -277,6 +277,12 @@ public class MonthlyPdfRep extends PaybillPdfRep{
 		table.addCell(addToCell(payroll.getUnionFee()+"", font, true));
 		table.addCell(addToCell(lmDetails.getUnionFee()+"", font, true));
 		table.addCell(addToCell(payroll.getUnionFee() - lmDetails.getUnionFee()+"", font, true));
+		
+		table.addCell(addToCell(srNo++ +"", font));
+		table.addCell(addToCell(PdfUtils.UNFEE_KSS, font));
+		table.addCell(addToCell(payroll.getUnionFeeKss()+"", font, true));
+		table.addCell(addToCell(lmDetails.getUnionFeeKss()+"", font, true));
+		table.addCell(addToCell(payroll.getUnionFeeKss() - lmDetails.getUnionFeeKss()+"", font, true));
 		return srNo;
 	}
 	

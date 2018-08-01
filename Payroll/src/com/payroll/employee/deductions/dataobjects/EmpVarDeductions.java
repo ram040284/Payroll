@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+
 import com.payroll.Utils;
 import com.payroll.employee.dataobjects.Employee;
 /**
@@ -30,6 +32,7 @@ public class EmpVarDeductions {
 	private Employee employee;
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
+	private static SimpleDateFormat monthYearFormat = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
 	
 	public EmpVarDeductions(int employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
 			 double otherDeductions, double miscRecovery, String monthDate,String note){
@@ -40,7 +43,6 @@ public class EmpVarDeductions {
 		this.otherDeductions = otherDeductions;
 		this.miscRecovery = miscRecovery;
 		this.note = note;
-		System.out.println("monthDate:"+monthDate);
 		Date dateMonthDate;
 		
 		if (monthDate!=null){
@@ -52,7 +54,7 @@ public class EmpVarDeductions {
 			}
 		} else
 			this.monthDate = "";
-		
+		System.out.println("1 Month Date: " + this.monthDate);
 		StringBuffer nameSB = new StringBuffer(Utils.safeTrim(firstName));
 		nameSB.append(" ");
 		nameSB.append(Utils.safeTrim(lastName));
@@ -68,11 +70,9 @@ public class EmpVarDeductions {
 		this.otherDeductions = otherDeductions;
 		this.miscRecovery = miscRecovery;
 		this.note = note;
-		System.out.println("monthDate:"+monthDate);
 		
 		if (monthDate!=null){
-
-				this.monthDate =  dateFormatRead.format(monthDate);
+				this.monthDate = monthYearFormat.format(monthDate);
 		} else
 			this.monthDate = "";
 		
@@ -105,6 +105,7 @@ public class EmpVarDeductions {
 			}
 		} else
 			this.monthDate = "";
+		System.out.println("3 Month Date: " + this.monthDate);
 		
 	}
 	
@@ -127,6 +128,7 @@ public class EmpVarDeductions {
 		
 		} else
 			this.monthDate = "";
+		System.out.println("4 Month Date: " + this.monthDate);
 		
 	}
 	

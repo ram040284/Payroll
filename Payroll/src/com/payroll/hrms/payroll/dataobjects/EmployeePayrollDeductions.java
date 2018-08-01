@@ -16,7 +16,8 @@ public class EmployeePayrollDeductions {
     private double pfLoanRecovery;
     private double incomeTax;
     private double unionFee;
-    private double electricityRecovery;
+    private double unionFeeKss;
+	private double electricityRecovery;
     private double courtRecovery;
     private double otherDeductions;
     private double totalDeductions;
@@ -25,6 +26,12 @@ public class EmployeePayrollDeductions {
     private double cpfRecovery;
     private double lfee;
     
+    public double getUnionFeeKss() {
+    	return unionFeeKss;
+    }
+    public void setUnionFeeKss(double unionFeeKss) {
+    	this.unionFeeKss = unionFeeKss;
+    }
     
 	public EmployeePayrollDeductions() {
 		super();

@@ -114,7 +114,7 @@ public class EmployeePayroll {
     
    public EmployeePayroll(double basic, double gradePay, String scalePay, String scaleCode,
     		double cca, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,boolean pfFlag,
-    		double unionFee,double cycleAllowance, double courtRcry, double gis, double afkRent, double otherDeduct,
+    		double unionFee, double unionFeeKss, double cycleAllowance, double courtRcry, double gis, double afkRent, double otherDeduct,
     		double society,  double licInstalAmt, double pfLoanRcry, double cpfCont, double cpfRcry,
     		double festAdvRcry,  double bankLoanRcry,  double absentDays, double overtimeHours, String bankName, 
     		String bankAcctNo, int bankId){
@@ -123,6 +123,7 @@ public class EmployeePayroll {
     	this.gradePay = gradePay;
     	this.afkRent = afkRent;
     	this.pfLoanRecovery = pfLoanRcry;
+    	this.unionFeeKss = unionFeeKss;
     	this.unionFee = unionFee;
     	this.cycleAllowance = cycleAllowance;
     	this.courtRecovery = courtRcry;

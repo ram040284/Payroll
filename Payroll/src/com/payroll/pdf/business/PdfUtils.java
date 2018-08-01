@@ -29,6 +29,7 @@ public class PdfUtils {
 	public static final String GROSS = "Gross Pay:";
 	public static final String SNO = "Sr.No.:";
 	public static final String HEAD = "Budget HEAD:";
+	public static final String EMPLOYEE_ID = "Employee Id:";
 	public static final String CODE_NAME = "Code Name:";
 	public static final String DESIGNATION = "Designation:";
 	public static final String BANK_NAME = "Bank Name:";
