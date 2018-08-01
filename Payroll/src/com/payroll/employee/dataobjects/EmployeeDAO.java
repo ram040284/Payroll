@@ -360,7 +360,12 @@ public class EmployeeDAO {
 		}
 		return empList;
 	}
-	
+	/**
+	 * @param empId
+	 * @param deptId
+	 * @return
+	 */
+			
 	public EmployeeVO getEmployeeDetailsById(int empId, int deptId){
 		//Session session = null;
 		EmployeeVO employee = null;
@@ -394,7 +399,11 @@ public class EmployeeDAO {
 		}
 		return employee;
 	}
-	
+	/**
+	 * 
+	 * @param empId
+	 * @return
+	 */
 	public EmpContactVO getEmployeeContactDetailsById(int empId){
 		Session session = null;
 		EmpContactVO empContact = null;
@@ -434,6 +443,11 @@ public class EmployeeDAO {
 		return empContact;
 	}
 	
+	/**
+	 * 
+	 * @param empContact
+	 * @return
+	 */
 	public boolean addUpdateEmpContact(EmpContact empContact) {
 		boolean result = false;
 		Session session = null;
