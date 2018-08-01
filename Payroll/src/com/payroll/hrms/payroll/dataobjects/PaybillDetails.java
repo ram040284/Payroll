@@ -40,6 +40,7 @@ public class PaybillDetails {
 	private double cpfRcry;
 	private double incomTax;
 	private double unionFee;
+	private double unionFeeKss;
 	private double elecRcry;
 	private double courtRcry;
 	private double otherDeducs;
@@ -109,6 +110,7 @@ public class PaybillDetails {
 		cpfRcry+= payroll.getCpfRcry();
 		incomTax += payroll.getIncomTax();
 		unionFee += payroll.getUnionFee();
+		unionFeeKss += payroll.getUnionFeeKss();
 		elecRcry += payroll.getElecRcry();
 		courtRcry += payroll.getCourtRcry();
 		otherDeducs += payroll.getOtherDeducs();
@@ -152,6 +154,7 @@ public class PaybillDetails {
 		cpfRcry+= payroll.getCpfRecovery();
 		incomTax += payroll.getIncomeTax();
 		unionFee += payroll.getUnionFee();
+		unionFeeKss += payroll.getUnionFeeKss();
 		elecRcry += payroll.getElectricityRecovery();
 		courtRcry += payroll.getCourtRecovery();
 		otherDeducs += payroll.getOtherDeductions();
@@ -193,7 +196,7 @@ public class PaybillDetails {
     						+ this.courtRcry
     						+ this.otherDeducs
     						+ this.misc
-    						+ this.unionFee
+    						+ this.unionFeeKss
     						+ this.pfInstment;
     			return totalDeductions;			
     }
@@ -373,6 +376,12 @@ public class PaybillDetails {
 
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
+	}
+	public double getUnionFeeKss() {
+		return unionFeeKss;
+	}
+	public void setUnionFeeKss(double unionFeeKss) {
+		this.unionFeeKss = unionFeeKss;
 	}
 	
 	

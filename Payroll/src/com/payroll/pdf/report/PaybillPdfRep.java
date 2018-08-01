@@ -342,6 +342,8 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getMisc()), font));
 		table.addCell(addToCell(PdfUtils.UNIONFEE, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUnionFee()), font));
+		table.addCell(addToCell(PdfUtils.UNFEE_KSS, font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUnionFeeKss()), font));
 		
 	}
 	

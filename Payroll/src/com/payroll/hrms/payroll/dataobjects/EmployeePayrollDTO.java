@@ -18,7 +18,7 @@ public class EmployeePayrollDTO {
 				+ listAllowances + ", listEmpAllowances=" + listEmpAllowances + ", hraFlag=" + hraFlag
 				+ ", noOfAbsentDays=" + noOfAbsentDays + ", pfFlag=" + pfFlag + ", additionalProventFund="
 				+ additionalProventFund + ", afkFlag=" + afkFlag + ", pfRecovery=" + pfRecovery + ", pfLoanRecovery="
-				+ pfLoanRecovery + ", unionFee=" + unionFee + ", electricityRecovery=" + electricityRecovery
+				+ pfLoanRecovery + ", unionFee=" + unionFee + ", UnionFeeKss= " + unionFeeKss + ", electricityRecovery=" + electricityRecovery
 				+ ", courtRecovery=" + courtRecovery + ", otherDeductions=" + otherDeductions + ", leaves=" + leaves
 				+ ", npa=" + npa + ", wa=" + wa + ", ca=" + ca + ", uniformAlw=" + uniformAlw + ", familyPlaningAlw="
 				+ familyPlaningAlw + ", lic=" + lic + ", cca=" + cca + ", society=" + society + "]";
@@ -45,6 +45,7 @@ public class EmployeePayrollDTO {
     private double pfRecovery;
     private double pfLoanRecovery;
     private double unionFee;
+    private double unionFeeKss;
     private double electricityRecovery;
     private double courtRecovery;
     private double otherDeductions;
@@ -272,5 +273,13 @@ public class EmployeePayrollDTO {
 
 	public void setSociety(double society) {
 		this.society = society;
+	}
+
+	public double getUnionFeeKss() {
+		return unionFeeKss;
+	}
+
+	public void setUnionFeeKss(double unionFeeKss) {
+		this.unionFeeKss = unionFeeKss;
 	}
 }

@@ -134,7 +134,7 @@ public class EmployeePayrollDAO {
    			empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay()+"", salary.getScaleCode(),
    					employeeAllowances.getCca(), employeeAllowances.getFamilyPlanAlwance(),employeeAllowances.getNonPracAwance(),
    					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),employeeAllowances.getPFFlag(),
-   					employeeFixedDeductions.getUnionFee(),employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
+   					employeeFixedDeductions.getUnionFee(), employeeFixedDeductions.getKssUnionFee(), employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
    					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getOtherDeductions(),
    					employeeVarDeductions.getSociety(), licTotalInstallmentAmt, empPf.getPfLoneRecAmt(), empPf.getPfsCpfCntrbn(),
    					cpfRecovery, festAdvanceRecovery , bankLoanRecovery, abcenties, overtimeAmount, bankVo.getBankName(), 

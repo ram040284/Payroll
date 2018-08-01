@@ -44,6 +44,7 @@ public class GeneratePaybill {
 	private double cpfRcry;
 	private double incomTax;
 	private double unionFee;
+	private double unionFeeKss;
 	private double elecRcry;
 	private double courtRcry;
 	private double otherDeduct;
@@ -93,6 +94,7 @@ public class GeneratePaybill {
 			//cpfRcry+= employeePayroll.get
 			incomTax+=employeePayroll.getIncomeTax();
 			unionFee+= employeePayroll.getUnionFee();
+			unionFeeKss += employeePayroll.getUnionFeeKss();
 			elecRcry += employeePayroll.getElectricityRecovery();
 			courtRcry += employeePayroll.getCourtRecovery();
 			otherDeduct+= employeePayroll.getOtherDeductions();
