@@ -5,7 +5,7 @@
  <hibernate-mapping>  
   <class name="com.payroll.login.dataobjects.UserRoles" table="USER_ROLES"> 
    <id name="userRoleId" type="integer" >  
-     <column name="USR_ROLE_ID" sql-type="integer" not-null="true"/>  
+     <column name="USER_ROLE_ID" sql-type="integer" not-null="true"/>  
      <generator class="increment"/>
    </id> 
    <many-to-one name="role" fetch="select" 
@@ -24,4 +24,4 @@
    <!--  <property name="roleId" column="ROLE_ID" not-null="true"/>
    <property name="userId" column="USER_ID" not-null="true"/> -->
   </class>  
- </hibernate-mapping> 
+ </hibernate-mapping>

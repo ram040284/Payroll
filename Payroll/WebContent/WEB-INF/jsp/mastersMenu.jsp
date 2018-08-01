@@ -1,10 +1,8 @@
-
 <jsp:include page="../jsp/public/postHeader.jsp" />
 <html>
 <head>
 <title>Masters</title>
 <style type="text/css">
-
 </style>
 </head>
 <body>

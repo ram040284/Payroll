@@ -81,7 +81,7 @@ public class UserController
 	  public ModelAndView editUser(HttpServletRequest request, User userVo)
 	  {
 		  	User user = new User();
-		  	if (userVo.getUserIdPk()!=null && userVo.getUserIdPk()!=0) {
+		  	if (userVo.getUserId()!=null && userVo.getUserId()!=0) {
 		  		user = new UserDAO().getUserByUserIdPk(userVo);
 		  		user.setPassword("");
 		  		user.setConfirmPassword("");
@@ -150,7 +150,7 @@ public class UserController
   @RequestMapping(value={"/deleteUser"}, method={RequestMethod.POST})
   public ModelAndView deleteUser(HttpServletRequest request, User user)
   {
-	  	boolean result = new UserDAO().deleteUser(user.getUserIdPk());
+	  	boolean result = new UserDAO().deleteUser(user.getUserId());
 	  	List<User> usersList = new UserDAO().getUsersList(user.getListDeptId(), user.getListRoleId() );
 	    
 	    ModelAndView model = new ModelAndView("userReport", "command", user);
@@ -172,7 +172,7 @@ public class UserController
   
   @RequestMapping(value="/userNameCheck",method=RequestMethod.POST, produces = "application/json")
 	public @ResponseBody User userNameCheck(@RequestBody User userVo){
-	   userVo.setUserNameAvailabe(new UserDAO().isUserNameAvailable(userVo.getUserId().trim()));
+	   userVo.setUserNameAvailabe(new UserDAO().isUserNameAvailable(userVo.getUserName().trim()));
 	   return userVo;
 	}
 }

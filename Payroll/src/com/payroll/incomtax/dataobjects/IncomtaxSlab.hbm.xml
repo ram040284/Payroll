@@ -5,7 +5,7 @@
  <hibernate-mapping>  
   <class name="com.payroll.incomtax.dataobjects.IncomtaxSlab" table="INCOME_TAX_SLAB_MASTER">  
     <id name="incomtaxId" type="integer" >  
-     <column name="SR_NO" sql-type="integer" not-null="true"/>  
+     <column name="INCOME_TAX_ID" sql-type="integer" not-null="true"/>  
      <generator class="increment"/>
     </id>  
     <property name="financialYear" column="FIN_YEAR" not-null="true"/>  

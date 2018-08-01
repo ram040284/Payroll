@@ -64,7 +64,7 @@ public class UserDAO {
 			transaction = session.beginTransaction();
 			String queryString = " from User where userId = ? and status = ?";
 			Query query = session.createQuery(queryString);
-			query.setParameter(0, userVo.getUserId().trim());
+			query.setParameter(0, userVo.getUserName().trim());
 			query.setParameter(1, "A");
 			user= (User)(!(query.list().isEmpty()) ? query.list().get(0) : null);
 			
@@ -124,7 +124,7 @@ public class UserDAO {
 			transaction = session.beginTransaction();
 			String queryString = " from UserRoles usrRoles where usrRoles.user.userIdPk = ? and usrRoles.status = ? ";
 			Query query = session.createQuery(queryString);
-			query.setParameter(0, userVo.getUserIdPk());
+			query.setParameter(0, userVo.getUserId());
 			query.setParameter(1, "A");
 			
 			List<UserRoles> userList = query.list();
@@ -134,14 +134,14 @@ public class UserDAO {
 			Map<String, User> usersMap = new HashMap();
 			
 			for (UserRoles userRole: userList) {
-				if (usersMap.containsKey("" +userRole.getUser().getUserIdPk())) {
+				if (usersMap.containsKey("" +userRole.getUser().getUserId())) {
 					if (userRole.getRole()!=null) {
-						User user = usersMap.get(""+userRole.getUser().getUserIdPk());
+						User user = usersMap.get(""+userRole.getUser().getUserId());
 						if (user != null) {
 							List<Integer> roleIds = user.getRolesList();
 							roleIds.add(userRole.getRole().getRoleId());
 							user.setRolesList(roleIds);
-							usersMap.put(""+userRole.getUser().getUserIdPk(), user);
+							usersMap.put(""+userRole.getUser().getUserId(), user);
 						}
 					}
 					
@@ -163,7 +163,7 @@ public class UserDAO {
 					user.setDeptIdsArray(user.getDeptIds().split(","));
 				}
 				user.setDeptNames(deptNames);
-				usersMap.put(""+userRole.getUser().getUserIdPk(), user);
+				usersMap.put(""+userRole.getUser().getUserId(), user);
 			}
 			userFilterList.addAll(usersMap.values());
 			return userFilterList.size()>0? userFilterList.get(0):null;
@@ -240,7 +240,7 @@ public class UserDAO {
 			transaction = session.beginTransaction();
 			String queryString = " from UserRoles usrRoles where usrRoles.user.userIdPk = ? and usrRoles.status = ? ";
 			Query query = session.createQuery(queryString);
-			query.setParameter(0, userVo.getUserIdPk());
+			query.setParameter(0, userVo.getUserId());
 			query.setParameter(1, "A");
 			
 			List<UserRoles> userList = query.list();
@@ -384,13 +384,13 @@ public class UserDAO {
 			List<User> userFilterList = new ArrayList<User>();
 			Map<String, User> usersMap = new HashMap();
 			for (UserRoles userRole: userList) {
-				if (usersMap.containsKey("" +userRole.getUser().getUserIdPk())) {
+				if (usersMap.containsKey("" +userRole.getUser().getUserId())) {
 					if (userRole.getRole()!=null) {
-						User user = usersMap.get(""+userRole.getUser().getUserIdPk());
+						User user = usersMap.get(""+userRole.getUser().getUserId());
 						if (user != null) {
 							String roleNames = user.getRoleNames() + ", " + Utils.safeTrim(userRole.getRole().getRoleName());
 							user.setRoleNames(roleNames);
-							usersMap.put(""+userRole.getUser().getUserIdPk(), user);
+							usersMap.put(""+userRole.getUser().getUserId(), user);
 						}
 					}
 					
@@ -416,7 +416,7 @@ public class UserDAO {
 					deptNames = deptNames.substring(2);
 				}
 				user.setDeptNames(deptNames);
-				usersMap.put(""+userRole.getUser().getUserIdPk(), user);
+				usersMap.put(""+userRole.getUser().getUserId(), user);
 			}
 			userFilterList.addAll(usersMap.values());
 			return userFilterList;

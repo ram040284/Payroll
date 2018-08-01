@@ -4,20 +4,15 @@
   
  <hibernate-mapping>  
   <class name="com.payroll.login.dataobjects.User" table="USER_MASTER">  
-    <id name="userIdPk" type="integer" >  
-     <column name="USR_ID_PK" sql-type="integer" not-null="true"/>  
+    <id name="userId" type="integer" >  
+     <column name="USR_ID" sql-type="integer" not-null="true"/>  
      <generator class="increment"/>
     </id>  
-    <property name="userId" column="USR_ID"  not-null="true" />
+    <property name="userName" column="USR_NAME"  not-null="true" />
     <property name="password" column="USR_PWD" not-null="true"/>
     <property name="empId" column="EMP_ID" type="integer" />
     <property name="deptIds" column="DEPT_IDS"/>
     <property name="rowUpdatedDate" column="ROW_UPD_DATE" not-null="true"/>
     <property name="status" column="STATUS" />
-	<!-- <many-to-one name="role" fetch="select" 
-             class="com.payroll.login.dataobjects.UserRoles"
-             column="ROLE_ID"
-             cascade="all" lazy="false">
-	</many-to-one> -->
   </class>  
  </hibernate-mapping> 

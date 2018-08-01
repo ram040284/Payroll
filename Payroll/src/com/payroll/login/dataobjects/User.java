@@ -8,10 +8,10 @@ import com.payroll.employee.vo.EmployeeVO;
 
 public class User implements Serializable
 {
-	private String userId;
+	private Integer userId;
+	private String userName;
 	private String password;
 	private String confirmPassword;
-	private Integer userIdPk;
 	private Integer empId;
 	private Integer roleId;
 	private Integer deptId;
@@ -27,6 +27,19 @@ public class User implements Serializable
 	private List<Integer> rolesList;
 	private String[] deptIdsArray;
 	private String roleNames;
+	
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
 	
 	public String getPassword() {
 		return password;
@@ -52,12 +65,7 @@ public class User implements Serializable
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+
 	public Integer getEmpId() {
 		return empId;
 	}
@@ -81,12 +89,6 @@ public class User implements Serializable
 	}
 	public void setUserNameAvailabe(boolean userNameAvailabe) {
 		this.userNameAvailabe = userNameAvailabe;
-	}
-	public Integer getUserIdPk() {
-		return userIdPk;
-	}
-	public void setUserIdPk(Integer userIdPk) {
-		this.userIdPk = userIdPk;
 	}
 	public EmployeeVO getEmployee() {
 		return employee;
@@ -115,7 +117,7 @@ public class User implements Serializable
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", password=" + password + ", confirmPassword=" + confirmPassword
-				+ ", userIdPk=" + userIdPk + ", empId=" + empId + ", roleId=" + roleId + ", deptId=" + deptId
+				+ ", userIdPk=" + userId + ", empId=" + empId + ", roleId=" + roleId + ", deptId=" + deptId
 				+ ", listRoleId=" + listRoleId + ", listDeptId=" + listDeptId + ", status=" + status + ", deptIds="
 				+ deptIds + ", rowUpdatedDate=" + rowUpdatedDate + ", userNameAvailabe=" + userNameAvailabe
 				+ ", employee=" + employee + ", roles=" + roles + " Depts =" + deptNames + "]";

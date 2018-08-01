@@ -16,8 +16,6 @@ import com.payroll.designation.dataobjects.Designation;
 import com.payroll.employee.vo.EmpContactVO;
 import com.payroll.employee.vo.EmployeeVO;
 import com.payroll.headInfo.dataobjects.HeadInfo;
-import com.payroll.employee.dataobjects.EmpContact;
-import com.payroll.employee.leave.dataobjects.LeaveRequest;
 
 public class EmployeeDAO {
 
@@ -36,7 +34,7 @@ public class EmployeeDAO {
 					+ "(select desg.designationName from Designation desg where desg.designationId = "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId)), "
 					//+ "e.addressLine1, e.addressLine2, e.addressLine3, e.gender, e.joiningDate) from Employee e where e.status= ?");
-					+ "e.gender, e.joiningDate) from Employee e where e.status= ?");
+					+ "e.gender, e.joiningDate,) from Employee e where e.status= ?");
 			
 			if(deptId != 0)
 				searchCriteria.append(" and e.employeeId = (select eDept.employee.employeeId from EmpDepartment eDept where e.employeeId = eDept.employee.employeeId and eDept.department.departmentId = ?)");
@@ -275,30 +273,7 @@ public class EmployeeDAO {
 			Designation designation =(Designation)session.load(Designation.class, emp.getDesignationId());
 			if(emp.getEmployeeId() != 0) {
 				EmployeeVO empDB = getEmployeeById(emp.getEmployeeId());
-				/*if(empDB.getDepartmentId() != emp.getDepartmentId()){
-					EmpDepartment empDept = new EmpDepartment();
-					empDept.setDepartmentId(emp.getDepartmentId());
-					empDept.setEmpId(emp.getEmployeeId());
-					empDept.setStartDate(new Date());
-					empDept.setStatus("A");
-					empDept.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
-					session.save(empDept);
-				}
-				if(empDB.getDesignationId() != emp.getDesignationId()){
-					// Updating Last working day for Employee designation
-					EmpDesignation empDesgDB = getEmpDesignationByIds(emp.getEmployeeId(), empDB.getDesignationId(), session);
-					empDesgDB.setLastWokingDate(new Date());
-					empDesgDB.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
-					session.update(empDesgDB);
-					// Adding new designation for Employee
-					EmpDesignation empDesg = new EmpDesignation();
-					empDesg.setDesignationId(emp.getDesignationId());
-					empDesg.setEmpId(emp.getEmployeeId());
-					empDesg.setStartDate(new Date());
-					empDesg.setStatus("A");
-					empDesg.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
-					session.save(empDesg);
-				}*/
+
 				emp.setStatus("A");
 				emp.setRowUpdatedDate(new Timestamp(System.currentTimeMillis()));
 				session.update(emp);

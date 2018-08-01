@@ -40,7 +40,7 @@ public class LoginController
 		 model = new ModelAndView("dashboard");
 		 model.addObject("welcomeMsg", true);
 	     request.getSession().setAttribute("user", userDb);
-	 } else*/ if (userMap.get(user.getUserId())!=null && userMap.get(user.getUserId().toLowerCase()).equals(user.getPassword())) {
+	 } else*/ if (userMap.get(user.getUserId())!=null && userMap.get(user.getUserName().toLowerCase()).equals(user.getPassword())) {
 	     model = new ModelAndView("dashboard");
 	     model.addObject("welcomeMsg", true);
 	     user.setEmployee(new EmployeeVO(0, "Payroll", "User", ""));
