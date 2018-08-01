@@ -36,7 +36,6 @@ public class EmpVarDeductionsVO {
 		this.pfLoanRecovery = pfLoanRecovery;
 		this.otherDeductions = otherDeductions;
 		this.miscRecovery = miscRecovery;
-		System.out.println("monthDate:"+monthDate);
 		
 		if (monthDate!=null){
 
