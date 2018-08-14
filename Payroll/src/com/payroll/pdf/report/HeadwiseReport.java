@@ -66,9 +66,9 @@ public class HeadwiseReport extends PaybillPdfRep{
 		        doc.add(dottedline);
 		        float pbTotDtlsTabW[] = {2.5f, 2.5f, 2.5f};
 		        pbDtlsTab = createPdfPTable(3, 5, pbTotDtlsTabW);
-		        pbDtlsTab.addCell(addToCell(PdfUtils.GROSS+" "+pbDetails.getTotalGrossPay(), headHdFont, true));
-		        pbDtlsTab.addCell(addToCell(PdfUtils.TOTDEDUCTION+" "+pbDetails.getTotalDeductions(), headHdFont, true));
-		        pbDtlsTab.addCell(addToCell(PdfUtils.NETPAY+" "+pbDetails.getNetPay(), headHdFont, true));
+		        pbDtlsTab.addCell(addToCell(PdfUtils.GROSS+" "+Utils.getDecimalFormat(pbDetails.getTotalGrossPay()), headHdFont, true));
+		        pbDtlsTab.addCell(addToCell(PdfUtils.TOTDEDUCTION+" "+Utils.getDecimalFormat(pbDetails.getTotalDeductions()), headHdFont, true));
+		        pbDtlsTab.addCell(addToCell(PdfUtils.NETPAY+" "+Utils.getDecimalFormat(pbDetails.getNetPay()), headHdFont, true));
 		        doc.add(pbDtlsTab);
 		        doc.add(dottedline);
 		    }

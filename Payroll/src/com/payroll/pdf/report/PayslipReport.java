@@ -132,7 +132,7 @@ public class PayslipReport extends PaybillPdfRep{
 	        doc.add(dottedline);
 	        float psInWordsTxtTabW[] = {1f, 5f};
 	        psPayDetTab = createPdfPTable(2, 0, psInWordsTxtTabW);
-	        psPayDetTab.addCell(addToCell(PdfUtils.NETPAY+" "+payslip.getNetPay(), headHdFont, false));
+	        psPayDetTab.addCell(addToCell(PdfUtils.NETPAY+" "+Utils.getDecimalFormat(payslip.getNetPay()), headHdFont, false));
 	        StringBuffer inWordsTxt = new StringBuffer(PdfUtils.IN_WORDS);
 	        inWordsTxt.append(" ");
 	        inWordsTxt.append(InWords.getInWords(payslip.getNetPay()));

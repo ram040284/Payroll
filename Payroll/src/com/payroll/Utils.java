@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 public class Utils {
 	public static String DDMMYYYY = "dd/MM/yyyy"; 
@@ -95,7 +94,7 @@ public class Utils {
 	
 	public static String getDecimalFormat(double value) {
 		DecimalFormat df = new DecimalFormat();
-		df.setMinimumFractionDigits(2);
+		df.setMaximumFractionDigits(2);
 		return df.format(value);
 	}
 	

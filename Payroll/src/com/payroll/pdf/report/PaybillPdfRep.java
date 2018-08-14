@@ -113,9 +113,9 @@ public class PaybillPdfRep extends PdfBuilder{
 	        float pbTotDtlsTabW[] = {2.5f, 2.5f, 2.5f};
 	        pbDtlsTab = createPdfPTable(3, 5, pbTotDtlsTabW);
 	        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_CENTER);
-	        pbDtlsTab.addCell(addToCell(PdfUtils.GROSS+" "+paybillDetails.getTotalGrossPay(), headHdFont));
-	        pbDtlsTab.addCell(addToCell(PdfUtils.TOTDEDUCTION+" "+paybillDetails.getTotalDeductions(), headHdFont));
-	        pbDtlsTab.addCell(addToCell(PdfUtils.NETPAY+" "+paybillDetails.getNetPay(), headHdFont));
+	        pbDtlsTab.addCell(addToCell(PdfUtils.GROSS+" "+Utils.getDecimalFormat(paybillDetails.getTotalGrossPay()), headHdFont));
+	        pbDtlsTab.addCell(addToCell(PdfUtils.TOTDEDUCTION+" "+Utils.getDecimalFormat(paybillDetails.getTotalDeductions()), headHdFont));
+	        pbDtlsTab.addCell(addToCell(PdfUtils.NETPAY+" "+Utils.getDecimalFormat(paybillDetails.getNetPay()), headHdFont));
 	        doc.add(pbDtlsTab);
 	        doc.add(dottedline);
 	      
