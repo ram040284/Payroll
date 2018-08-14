@@ -47,11 +47,11 @@
 			<div class="row">
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="#" onclick="getList('../Payroll/viewLeave')"><img
+						<a href="#" onclick="getList('../Payroll/viewLeave_1')"><img
 							src="../Payroll/resources/images/empLeave.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
-							<a href="#" onclick="getList('../Payroll/viewLeave')">Employee
+							<a href="#" onclick="getList('../Payroll/viewLeave_1')">Employee
 								Leave</a>
 						</h3>
 					</div>
@@ -132,7 +132,7 @@
 							src="../Payroll/resources/images/deductions.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
-							<a href="../Payroll/viewEmpDeductions">Employee ITax Deductions</a>
+							<a href="../Payroll/viewEmpDeductions">Employee ITax Exemptions</a>
 						</h3>
 					</div>
 				</div>

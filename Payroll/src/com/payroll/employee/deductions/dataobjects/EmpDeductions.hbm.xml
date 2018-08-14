@@ -3,7 +3,7 @@
  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
   
  <hibernate-mapping>  
-  <class name="com.payroll.employee.deductions.dataobjects.EmpDeductions" table="EMP_TAX_DEDUCTION">  
+  <class name="com.payroll.employee.deductions.dataobjects.EmpDeductions" table="EMP_TAX_EXEMPTIONS">  
     <id name="employeeId" type="java.lang.Integer">
 			<column name="EMP_ID" />
 			<generator class="foreign">

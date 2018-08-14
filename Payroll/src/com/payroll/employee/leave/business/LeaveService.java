@@ -1,5 +1,6 @@
 package com.payroll.employee.leave.business;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -11,6 +12,7 @@ import com.payroll.employee.dataobjects.EmployeeDAO;
 import com.payroll.employee.leave.dataobjects.Leave;
 import com.payroll.employee.leave.dataobjects.LeaveDAO;
 import com.payroll.employee.leave.dataobjects.LeaveRequest;
+import com.payroll.employee.leave.dataobjects.LeaveType;
 import com.payroll.employee.leave.vo.LeaveVO;
 public class LeaveService {
 	public static final String LEAVE_TYPES[] = {"Casual Leave", "Sick Leave", "Half Paid Leave", 
@@ -77,6 +79,14 @@ public class LeaveService {
 	}
 	
 	public String addLeaveRequest(LeaveRequest leaveRequest){
+		
+		List<LeaveType> leaveTypes = new LeaveDAO().getLeaveTypeById(leaveRequest.getLeaveType().getId());
+		LeaveType retrievedLeaveType = null;
+		if (!leaveTypes.isEmpty()) {
+			retrievedLeaveType = leaveTypes.get(0);
+		}
+		leaveRequest.setLeaveType(retrievedLeaveType);
+		
 		return new LeaveDAO().addLeaveRequest(leaveRequest);
 	}
 	
@@ -119,7 +129,27 @@ public class LeaveService {
 	}
 	
 	public Leave getLeaveDetailsByLeaveType(int empId, String leaveType){
-		Leave listVO = new LeaveDAO().getEmpLeave(empId, leaveType);
+		
+		int leaveTypeId = 0;
+		
+		if (leaveType.equals("Casual Leave")) {
+			leaveTypeId = 1;
+		} else if (leaveType.equals("Sick Leave")) {
+			leaveTypeId = 2;
+		} else if (leaveType.equals("Half Paid Leave")) {
+			leaveTypeId = 3;
+		} else if (leaveType.equals("Earned Leave")) {
+			leaveTypeId = 4;
+		} else if (leaveType.equals("Maternity Leave")) {
+			leaveTypeId = 5;
+		} else if (leaveType.equals("Paternity Leave")) {
+			leaveTypeId = 6;
+		} else if (leaveType.equals("Extraordinary Leave")) {
+			leaveTypeId = 7;
+		}
+		
+		Leave listVO = new LeaveDAO().getEmpLeave(empId, leaveTypeId);
+		
 		return listVO;
 	}
 	private List<Leave> copyProperties(LeaveVO leaveVO){
@@ -160,7 +190,7 @@ public class LeaveService {
 			leaveList.add(getLeaveObj(LEAVE_TYPES[1], leaveVO.getSickLeaveInp(), slId));
 		}
 		if(leaveVO.getPaidLeaveInp() != 0){
-			leaveList.add(getLeaveObj(LEAVE_TYPES[2], leaveVO.getCasualLeaveInp(), plId));
+			leaveList.add(getLeaveObj(LEAVE_TYPES[2], leaveVO.getPaidLeaves(), plId));
 		}
 		if(leaveVO.getEarnLeaveInp() != 0){
 			leaveList.add(getLeaveObj(LEAVE_TYPES[3], leaveVO.getEarnLeaveInp(), elId));
@@ -168,20 +198,28 @@ public class LeaveService {
 		if(leaveVO.getMaternityLeaveInp() != 0){
 			leaveList.add(getLeaveObj(LEAVE_TYPES[4], leaveVO.getMaternityLeaveInp(), mtlId));
 		}
-		if(leaveVO.getPaternityLeaveInp() != 0)
+		if(leaveVO.getPaternityLeaveInp() != 0) {
 			leaveList.add(getLeaveObj(LEAVE_TYPES[5], leaveVO.getPaternityLeaveInp(), ptlId));
-		if(leaveVO.getExtraLeaveInp() != 0)
+		}
+		if(leaveVO.getExtraLeaveInp() != 0) {
 			leaveList.add(getLeaveObj(LEAVE_TYPES[6], leaveVO.getExtraLeaveInp(), exlId));
-		
+		}
 		return leaveList;
 	}
 	
 	private Leave getLeaveObj(String leaveType, int noOfLeaves, int leaveId){
 		Leave leave = new Leave();
 		leave.setEmployeeId(empId);
-		leave.setLeaveType(leaveType);
-		leave.setNoOfLeaves(noOfLeaves);
-		leave.setLeaveId(leaveId);
+		
+		List<LeaveType> leaveTypes = new LeaveDAO().getLeaveTypeById(leaveId);
+		LeaveType retrievedLeaveType = null;
+		if (!leaveTypes.isEmpty()) {
+			retrievedLeaveType = leaveTypes.get(0);
+		}
+		
+		leave.setLeaveType(retrievedLeaveType);
+		leave.setLeaveBalance(noOfLeaves);
+		leave.setLeaveId(retrievedLeaveType.getId());
 		return leave;
 	}
 	
@@ -212,36 +250,43 @@ public class LeaveService {
 				empName = null;
 				leaveIds = new StringBuffer("");
 			}
-			if(leave.getLeaveType() != null){
+			if(leave.getLeaveTypeId() != 0){
 				if(Utils.isEmpty(empName))
 					empName = leave.getFullName();
-				if(leave.getLeaveType().equalsIgnoreCase(LEAVE_TYPES[1])){
+//				if(leave.getLeaveType().getName().equalsIgnoreCase(LEAVE_TYPES[1])){
+				if(leave.getLeaveTypeId() == 1){
 					sLeave = leave.getLeaveBalance();
-					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[1], leave.getLeaveId());
+					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[0], leave.getLeaveTypeId());
 				}
-				if(leave.getLeaveType().equalsIgnoreCase(LEAVE_TYPES[0])){
+//				if(leave.getLeaveType().getName().equalsIgnoreCase(LEAVE_TYPES[0])){
+				if(leave.getLeaveTypeId() == 2){
 					cLeave = leave.getLeaveBalance();
-					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[0], leave.getLeaveId());
+					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[1], leave.getLeaveTypeId());
 				}
-				if(leave.getLeaveType().equalsIgnoreCase(LEAVE_TYPES[2])){
+//				if(leave.getLeaveType().getName().equalsIgnoreCase(LEAVE_TYPES[2])){
+				if(leave.getLeaveTypeId() == 3){
 					pLeave = leave.getLeaveBalance();
-					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[2], leave.getLeaveId());
+					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[2], leave.getLeaveTypeId());
 				}
-				if(leave.getLeaveType().equalsIgnoreCase(LEAVE_TYPES[3])){
+//				if(leave.getLeaveType().getName().equalsIgnoreCase(LEAVE_TYPES[3])){
+				if(leave.getLeaveTypeId() == 4){
 					eLeave = leave.getLeaveBalance();
-					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[3], leave.getLeaveId());
+					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[3], leave.getLeaveTypeId());
 				}
-				if(leave.getLeaveType().equalsIgnoreCase(LEAVE_TYPES[4])){
+//				if(leave.getLeaveType().getName().equalsIgnoreCase(LEAVE_TYPES[4])){
+				if(leave.getLeaveTypeId() == 5){
 					mLeave = leave.getLeaveBalance();
-					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[4], leave.getLeaveId());
+					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[4], leave.getLeaveTypeId());
 				}
-				if(leave.getLeaveType().equalsIgnoreCase(LEAVE_TYPES[5])){
+//				if(leave.getLeaveType().getName().equalsIgnoreCase(LEAVE_TYPES[5])){
+				if(leave.getLeaveTypeId() == 6){
 					ptLeave = leave.getLeaveBalance();
-					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[5], leave.getLeaveId());
+					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[5], leave.getLeaveTypeId());
 				}
-				if(leave.getLeaveType().equalsIgnoreCase(LEAVE_TYPES[6])){
+//				if(leave.getLeaveType().getName().equalsIgnoreCase(LEAVE_TYPES[6])){
+				if(leave.getLeaveTypeId() == 7){
 					xLeave = leave.getLeaveBalance();
-					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[6], leave.getLeaveId());
+					addLeaveIds(leaveIds, SHORT_LEAVE_TYPES[6], leave.getLeaveTypeId());
 				}
 			}
 		}

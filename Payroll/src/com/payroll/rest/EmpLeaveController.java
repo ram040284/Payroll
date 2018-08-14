@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.leave.business.LeaveService;
 import com.payroll.employee.leave.dataobjects.Leave;
+import com.payroll.employee.leave.dataobjects.LeaveDAO;
 import com.payroll.employee.leave.dataobjects.LeaveRequest;
 import com.payroll.employee.leave.vo.LeaveVO;
 
@@ -92,12 +94,14 @@ public class EmpLeaveController {
 		//model.addObject("leaveTypes", leaveTypes);
   	    return model;
 	}
-	
+
+
 	@RequestMapping(value = "/applyLeave", method = RequestMethod.POST)
-	public ModelAndView applyLeave(HttpServletRequest request, LeaveRequest leaveRequest) {
+	public ModelAndView applyLeave(@ModelAttribute LeaveRequest leaveRequest) {
 		//return "listLeaves";
 		LeaveService service = new LeaveService();
-		Leave leave = service.getLeaveDetailsByLeaveType(leaveRequest.getEmployeeId(), leaveRequest.getLeaveType());
+//		Leave leave = service.getLeaveDetailsByLeaveType(leaveRequest.getEmployeeId(), leaveRequest.getLeaveType());
+		Leave leave = service.getLeaveDetailsByLeaveType(leaveRequest.getEmployeeId(), leaveRequest.getLeaveType().getName());
 		int noOfLeaves = leave.getLeaveBalance();
 		if (noOfLeaves >= leaveRequest.getNoOfLeaves())
 		leave.setLeaveBalance(noOfLeaves - leaveRequest.getNoOfLeaves());
@@ -114,7 +118,7 @@ public class EmpLeaveController {
 		leaveReq.setListName(leaveRequest.getListName());
 		
 		List<LeaveVO> empLeaveList = new LeaveService().getLeaves(leaveRequest.getListDeptId(), leaveRequest.getListHeadId(), leaveRequest.getListName());
-		request.getSession().setAttribute("empLeaveList", empLeaveList);
+		//request.getSession().setAttribute("empLeaveList", empLeaveList);
 		  
 		ModelAndView model = new ModelAndView("empLeaveList", "command", leaveReq);
 		if (result!= null && result.equalsIgnoreCase("YES")) 
@@ -144,15 +148,20 @@ public class EmpLeaveController {
 		   return model;
     }
 	
-	@RequestMapping(value="/empLeaveReportSearch", method = RequestMethod.POST)
-    public ModelAndView getEmpLeaveReportSearch(HttpServletRequest request, LeaveRequest leaveReauest){
+	@RequestMapping(value = "/empLeaveReportSearch", method = RequestMethod.POST)
+	public ModelAndView getEmpLeaveReportSearch(HttpServletRequest request, LeaveRequest leaveReauest) {
 		LeaveService service = new LeaveService();
 		List<LeaveRequest> leaveRequests = service.getLeaveRequests(leaveReauest.getDepartmentId(), leaveReauest.getHeadId(), leaveReauest.getFirstName());
-		   ModelAndView model = new ModelAndView("empLeaveReport", "command", leaveReauest);
-		   model.addObject("employee", leaveReauest);
-		   request.getSession().setAttribute("empLeaveReport", leaveRequests);
-		   return model;
-    }
+
+		for (LeaveRequest leaveReq : leaveRequests) {
+			leaveReq.setLeave(new LeaveDAO().getEmpLeave(leaveReq.getEmployee().getEmployeeId(), leaveReq.getLeaveType().getId()));
+		}
+
+		ModelAndView model = new ModelAndView("empLeaveReport", "command", leaveReauest);
+		model.addObject("employee", leaveReauest);
+		request.getSession().setAttribute("empLeaveReport", leaveRequests);
+		return model;
+	}
 	@RequestMapping(value = "/inputLeave", method = RequestMethod.POST)
 	public ModelAndView inputLeave(LeaveVO leave) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -213,6 +222,9 @@ public class EmpLeaveController {
 		   System.out.println("leaveVO:"+leaveVO);
 		   List<LeaveVO> leaveVOList = null;
 		   if(leaveVO.getDepartmentId() !=0 || !Utils.isEmpty(leaveVO.getFirstName())){
+			   leaveVOList = new LeaveService().getLeaves(
+					   leaveVO.getDepartmentId(), leaveVO.getHeadId(), leaveVO.getFirstName());
+		   } else {
 			   leaveVOList = new LeaveService().getLeaves(
 					   leaveVO.getDepartmentId(), leaveVO.getHeadId(), leaveVO.getFirstName());
 		   }

@@ -22,7 +22,7 @@ public class EmpPfDAO {
 						/*+ "(select e.firstName from Employee e where e.employeeId = p.empId),"
 						+ " (select e.lastName from Employee e where e.employeeId = p.empId), "*/
 						+ "(select dept.departmentId from Department dept where dept.departmentId = (select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = p.employeeId)),"
-						+ "(select h.HeadId from HeadInfo h where h.headId = (select eMas.headInfo.headId from EmpHeadInfo eMas where eMas.employee.employeeId = p.employeeId)),"
+						+ "(select h.headId from HeadInfo h where h.headId = (select eMas.headInfo.headId from EmpHeadInfo eMas where eMas.employee.employeeId = p.employeeId)),"
 						+ "(select desg.designationId from Designation desg where desg.designationId = "
 						+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = p.employeeId)), "
 						+"p.employee.firstName, p.employee.lastName, "

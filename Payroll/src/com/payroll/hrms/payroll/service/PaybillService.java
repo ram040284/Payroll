@@ -175,7 +175,7 @@ public class PaybillService {
 	}
 	private boolean checkPayBills(int deptId){
 		boolean billsExist = false;
-		empList = new EmployeePayrollDAO().getEmployeesByDept(deptId);
+		empList = new EmployeePayrollDAO().getActiveEmployeesByDept(deptId, startDate);
 		List<Paybill> paybillListTemp = new PaybillDAO(startDate, endDate, deptId).getPaybillsByDept(headId, bankWise);
 		if(paybillListTemp !=null && !paybillListTemp.isEmpty()){
 			billsExist = true;

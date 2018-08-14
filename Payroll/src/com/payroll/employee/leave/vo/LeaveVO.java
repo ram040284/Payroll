@@ -4,13 +4,15 @@ import java.io.Serializable;
 
 import com.payroll.Utils;
 import com.payroll.employee.SearchCriteria;
+import com.payroll.employee.leave.dataobjects.LeaveType;
 import com.payroll.employee.vo.EmployeeVO;
 
 public class LeaveVO extends SearchCriteria implements Serializable{
 	
 	private int employeeId;
 	private int leaveId;
-	private String leaveType;
+	private LeaveType leaveType;
+	private int leaveTypeId;
 	private int noOfLeaves;
 	private int leaveBalance;
 	private String fullName;
@@ -41,27 +43,27 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 		super();
 	}
 	
-	public LeaveVO(int empId, String fName, String lName, int leaveId, String leaveType, int noOfLeaves, int leaveBalance){
+	public LeaveVO(int empId, String fName, String lName, int leaveId, int leaveTypeId, int leaveBalance){
 		this.employeeId = empId;
 		this.leaveId = leaveId;
 		this.leaveBalance = leaveBalance;
-		this.noOfLeaves = noOfLeaves;
-		this.leaveType = leaveType;
+//		this.noOfLeaves = noOfLeaves;
+		this.leaveTypeId = leaveTypeId;
 		StringBuffer fullNameSB = new StringBuffer(fName);
 		fullNameSB.append(" ");
 		fullNameSB.append(Utils.safeTrim(lName));
 		this.fullName = fullNameSB.toString();
 	}
 	
-	public LeaveVO (int empId, int deptId, int desgId, int headId, int leaveId, String leaveType,
-			int noOfLeaves, int leaveBalance){
+	public LeaveVO (int empId, int deptId, int desgId, int headId, int leaveId, int leaveTypeId,
+			int leaveBalance){
 		super(deptId, headId);
 		this.employeeId = empId;
 		//this.departmentId = deptId;
 		this.designationId = desgId;
 		this.leaveBalance = leaveBalance;
-		this.noOfLeaves = noOfLeaves;
-		this.leaveType = leaveType;
+//		this.noOfLeaves = noOfLeaves;
+		this.leaveTypeId = leaveTypeId;
 		this.leaveId = leaveId;
 		//this.headId = headId;
 		
@@ -109,7 +111,7 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 		return leaveId;
 	}
 
-	public String getLeaveType() {
+	public LeaveType getLeaveType() {
 		return leaveType;
 	}
 
@@ -140,7 +142,7 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 		this.leaveId = leaveId;
 	}
 
-	public void setLeaveType(String leaveType) {
+	public void setLeaveType(LeaveType leaveType) {
 		this.leaveType = leaveType;
 	}
 
@@ -155,7 +157,7 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "employeeId:"+employeeId+" |  leaveType:"+this.leaveType+" | noOfLeaves:"+this.noOfLeaves +" | LeaveId:"+leaveId;
+		return "employeeId:"+employeeId+" |  leaveType:"+ (this.leaveType != null ? this.leaveType.getName() : " leave type is null ")+" | noOfLeaves:"+this.noOfLeaves +" | LeaveId:"+leaveId;
 	}
 
 	public int getCasualLeaves() {
@@ -284,5 +286,13 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 
 	public void setEmployee(EmployeeVO employee) {
 		this.employee = employee;
+	}
+
+	public int getLeaveTypeId() {
+		return leaveTypeId;
+	}
+
+	public void setLeaveTypeId(int leaveTypeId) {
+		this.leaveTypeId = leaveTypeId;
 	}
 }

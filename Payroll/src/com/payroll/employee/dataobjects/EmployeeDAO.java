@@ -176,6 +176,23 @@ public class EmployeeDAO {
 		return empList;
 	}
 	
+	public List<Employee> getEmployeeByEmployeeId(int id) {
+		List<Employee> employees = null;
+		Session session = null;
+		try{
+			String queryString = "from Employee where employeeId = ?";
+			session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, id);
+			employees = query.list();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return employees;
+	}
+	
 	
 	private EmployeeVO getEmployeeById(int empId, Session session){
 		this.session = session;

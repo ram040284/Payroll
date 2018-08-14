@@ -72,6 +72,11 @@ public class EmployeeService {
 	public com.payroll.employee.Employee getEmployeeById(int empId){
 		return copyDBEmp(new EmployeeDAO().getEmployeeById(empId));
 	}
+	
+	public List<Employee> getEmployeeByEmployeeId(int id) {
+		return new EmployeeDAO().getEmployeeByEmployeeId(id);
+	}
+	
 	public EmpContactVO getEmployeeContactDetailsById(int empId){
 		return new EmployeeDAO().getEmployeeContactDetailsById(empId);
 	}

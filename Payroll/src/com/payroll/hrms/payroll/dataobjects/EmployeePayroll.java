@@ -121,6 +121,7 @@ public class EmployeePayroll {
 	   
 	   this.basic = basic;
     	this.gradePay = gradePay;
+    	this.scale = scaleCode;
     	this.afkRent = afkRent;
     	this.pfLoanRecovery = pfLoanRcry;
     	this.unionFeeKss = unionFeeKss;

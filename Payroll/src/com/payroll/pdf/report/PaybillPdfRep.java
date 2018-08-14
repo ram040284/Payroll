@@ -353,6 +353,9 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(PdfUtils.HEAD, font));
 		table.addCell(addToCell(payroll.getDeptCostHead(), font));
 		
+		table.addCell(addToCell(PdfUtils.EMPLOYEE_ID, font));
+		table.addCell(addToCell(payroll.getEmployeeNumber(), font));
+		
 		table.addCell(addToCell(PdfUtils.CODE_NAME, font));
 		table.addCell(addToCell(payroll.getEmployeeName(), font));
 		

@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC
-"-//Hibernate/Hibernate Configuration DTD//EN"
-"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
-
+	"-//Hibernate/Hibernate Configuration DTD//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<!-- For offline user -->
+<!-- Option# 1: -->
+<!-- <!DOCTYPE hibernate-configuration SYSTEM -->
+<!--      "./hibernate-configuration-3.0.dtd"> -->
+<!-- Option 2: -->
+<!-- <!DOCTYPE hibernate-configuration SYSTEM "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"> -->
 <hibernate-configuration>
    <session-factory>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="connection.url">jdbc:mysql://localhost:3306/Payroll</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/Payroll?zeroDateTimeBehavior=convertToNull</property>
     <property name="connection.username">root</property>
    	<property name="connection.password">MySQL@2100</property>
    	<property name="show_sql">true</property>
@@ -23,6 +28,7 @@
    	<mapping resource="com/payroll/overtime/dataobjects/Overtime.hbm.xml"/>
    	<mapping resource="com/payroll/headInfo/dataobjects/HeadInfo.hbm.xml"/>
    	<mapping resource="com/payroll/employee/leave/dataobjects/Leave.hbm.xml"/>
+   	<mapping resource="com/payroll/employee/leave/dataobjects/LeaveType.hbm.xml"/>
    	<mapping resource="com/payroll/employee/salary/dataobjects/Salary.hbm.xml"/>
    	<mapping resource="com/payroll/employee/bank/dataobjects/EmpBank.hbm.xml"/>
    	<mapping resource="com/payroll/employee/lic/dataobjects/EmpLic.hbm.xml"/>

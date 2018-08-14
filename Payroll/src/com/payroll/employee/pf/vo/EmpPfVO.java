@@ -40,7 +40,7 @@ public class EmpPfVO {
 			this.pfDate = dateFormat.format(pfDate);
 	}
 	
-	public EmpPfVO(int empId, int deptId, int headId, int desgId, Date pfDate, double pfsCpfCntrbn, double pfLoneRecAmt, 
+	public EmpPfVO(int empId, int deptId, int headId, int desgId, String fName, String lName, Date pfDate, double pfsCpfCntrbn, double pfLoneRecAmt, 
 			double cfLoneRecAmt, double apfAcpfCntrbn){
 		this.empId =empId;
 		this.pfLoneRecAmt = pfLoneRecAmt;
@@ -50,6 +50,10 @@ public class EmpPfVO {
 		this.designationId = desgId;
 		this.departmentId = deptId;
 		this.headId = headId;
+		StringBuffer fullNameSB = new StringBuffer(fName);
+		fullNameSB.append(" ");
+		fullNameSB.append(Utils.safeTrim(lName));
+		this.fullName = fullNameSB.toString();
 		if(pfDate != null)
 			this.pfDate = dateFormat.format(pfDate);
 	}

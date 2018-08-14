@@ -216,7 +216,7 @@ h3 {font-size:16pt;}
 							<li><a href="../Payroll/viewEmpLic">Employee LIC Details</a></li>
 							<li><a href="../Payroll/viewEmpAlwnce">Employee Allowances</a></li>
 							<li><a href="../Payroll/viewOvertime">Employee Overtime</a></li>
-							<li><a href="../Payroll/viewEmpDeductions">Employee ITax Deductions</a></li>
+							<li><a href="../Payroll/viewEmpDeductions">Employee ITax Exemptions</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -224,9 +224,8 @@ h3 {font-size:16pt;}
 						<ul class="dropdown-menu">
 							<li><a href="../Payroll/empLeaveList">Apply Leave</a></li>
 							<li><a href="../Payroll/empLeaveReport">Leave Report</a></li>
-							<%--<li><a href="portfolio-alt1.html">Option-01</a></li>
-							<li><a href="portfolio-alt2.html">Option-02</a></li>
-							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
+							<li><a href="../Payroll/viewEmployeeAttendance">Employee Attendance</a></li>
+							<li><a href="../Payroll/processEmployeeAttendance">Process Attendance</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">

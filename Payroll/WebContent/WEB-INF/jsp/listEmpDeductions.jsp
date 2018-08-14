@@ -51,7 +51,7 @@
 		  f.submit();
 	  }
       function deleteDeductions(id){
-    	  if(confirm("Are you sure want to delete Employee ITax Deductions?")){
+    	  if(confirm("Are you sure want to delete Employee ITax Exemption?")){
     		  var f = document.forms['editForm'];
     		  f.employeeId.value=id;
     		  f.action="../Payroll/deleteEmpDeductions";

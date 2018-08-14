@@ -115,15 +115,15 @@ function inputPage(){
 					<th>Number of Days </th>
 					<th>Reason</th>
 				</tr></thead>
-				<c:forEach var="leave" items="${sessionScope.empLeaveReport}">
+				<c:forEach var="leaveReport" items="${sessionScope.empLeaveReport}">
 				<tr>
-					<td> ${leave.employee.firstName} ${leave.employee.middleName} ${leave.employee.lastName}</td>
-					<td> ${leave.leave.leaveType}</td>
-					<td> ${leave.leave.leaveBalance}</td>
-					<td> <fmt:formatDate pattern = "dd/MM/yyyy" value = "${leave.fromDate}"/></td>
-					<td> <fmt:formatDate pattern = "dd/MM/yyyy" value = "${leave.toDate}"/></td>
-					<td> ${leave.noOfLeaves} </td>
-					<td> ${leave.reason}</td>
+					<td> ${leaveReport.employee.firstName} ${leaveReport.employee.middleName} ${leaveReport.employee.lastName}</td>
+					<td> ${leaveReport.leaveType.name}</td>
+					<td> ${leaveReport.leave.leaveBalance}</td>
+					<td> <fmt:formatDate pattern = "dd/MM/yyyy" value = "${leaveReport.fromDate}"/></td>
+					<td> <fmt:formatDate pattern = "dd/MM/yyyy" value = "${leaveReport.toDate}"/></td>
+					<td> ${leaveReport.noOfLeaves} </td>
+					<td> ${leaveReport.reason}</td>
 				</tr>
 				</c:forEach>
 				</table>

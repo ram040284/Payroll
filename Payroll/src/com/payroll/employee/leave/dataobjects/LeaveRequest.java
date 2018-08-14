@@ -1,17 +1,18 @@
 package com.payroll.employee.leave.dataobjects;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
 import com.payroll.employee.dataobjects.Employee;
 
-public class LeaveRequest {
+public class LeaveRequest implements Serializable {
 
 	private int employeeId;
 	private int departmentId;
 	private int headId;
 	private int leaveReqId;
-	private String leaveType;
+//	private String leaveType;
 	private int noOfLeaves;
 	private int leaveBalance;
 	private Date fromDate;
@@ -25,7 +26,8 @@ public class LeaveRequest {
 	private String status;
 	private Timestamp rowUpdDate;
 	private Employee employee;
-
+	private LeaveType leaveType;
+	
 	public int getEmployeeId() {
 		return employeeId;
 	}
@@ -42,13 +44,13 @@ public class LeaveRequest {
 		this.leaveReqId = leaveId;
 	}
 
-	public String getLeaveType() {
-		return leaveType;
-	}
-
-	public void setLeaveType(String leaveType) {
-		this.leaveType = leaveType;
-	}
+//	public String getLeaveType() {
+//		return leaveType;
+//	}
+//
+//	public void setLeaveType(String leaveType) {
+//		this.leaveType = leaveType;
+//	}
 
 	public int getNoOfLeaves() {
 		return noOfLeaves;
@@ -168,6 +170,14 @@ public class LeaveRequest {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+
+	public LeaveType getLeaveType() {
+		return leaveType;
+	}
+
+	public void setLeaveType(LeaveType leaveType) {
+		this.leaveType = leaveType;
 	}
 
 }

@@ -81,7 +81,7 @@ public class EmployeePayrollService {
     	double absenties = 0;
     	for (Iterator iterator = leaveList.iterator(); iterator.hasNext();) {
     		LeaveRequest leave = (LeaveRequest) iterator.next();
-			if(leave.getLeaveType().equalsIgnoreCase(ABCENTIES))
+			if(leave.getLeaveType().getName().equalsIgnoreCase(ABCENTIES))
 				absenties += leave.getNoOfLeaves();
 		}
     	return absenties;

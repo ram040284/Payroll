@@ -3,13 +3,13 @@
  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
   
  <hibernate-mapping>  
-  <class name="com.payroll.employee.leave.dataobjects.LeaveRequest" table="EMP_LEAVE_REQUEST">
+  <class name="com.payroll.employee.leave.dataobjects.LeaveRequest" table="EMP_LEAVE_DETAILS">
   <id name="leaveReqId" type="integer" >  
      <column name="LEAVE_REQ_ID" sql-type="integer" not-null="true"/>  
      <generator class="increment"/>
     </id>  
-    <many-to-one name="leave"   
-        class="com.payroll.employee.leave.dataobjects.Leave" column="LEAVE_ID" cascade="all" lazy="false">
+    <many-to-one name="leaveType"   
+        class="com.payroll.employee.leave.dataobjects.LeaveType" column="LEAVE_TYPE_ID" cascade="all" lazy="false">
 	</many-to-one>
 	<many-to-one name="employee"   
         class="com.payroll.employee.dataobjects.Employee" column="EMP_ID" cascade="all" lazy="false">

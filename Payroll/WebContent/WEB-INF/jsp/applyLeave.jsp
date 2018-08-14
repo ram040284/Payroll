@@ -173,7 +173,7 @@ function getLeaveBalance() {
 			
 			<div class="col-lg-12 card-block bg-faded" style="padding-bottom: 5px;">
 			<div class="row">
-			<form:form method = "POST" action = "" id="userForm" autocomplete="off">
+			<form:form action="" id="userForm" method="post" autocomplete="off">
 				<div class="col-sm-12">
 						<div class="row">	
 							
@@ -211,7 +211,7 @@ function getLeaveBalance() {
 							<div class="col-sm-6 form-group">
 								<label>Leave Type</label>
 								<div class="ui-widget">
-								<select id="leaveType" class="form-control" name="leaveType" onchange="getLeaveBalance()">
+								<select id="leaveType.name" class="form-control" name="leaveType.name" onchange="getLeaveBalance()">
 								<option value="">-- Select Leave Type --</option>
 								<c:forEach var="leaveType" items="${leaveBalance}">
 								<option value="${leaveType.key}">${leaveType.key}</option>

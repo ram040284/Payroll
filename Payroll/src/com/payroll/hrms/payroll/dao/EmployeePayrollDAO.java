@@ -316,6 +316,37 @@ public class EmployeePayrollDAO {
     	}
     	return employeeList;
     }
+    
+    /**
+     * 
+     * @param deptId
+     * @return
+     */
+    public List<EmployeeVO> getActiveEmployeesByDept(int deptId, Date startDate){
+    	List<EmployeeVO> employeeList = null;
+    	try{
+    		session = HibernateConnection.getSessionFactory().openSession();
+    		String queryString = "select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName,"
+					+ " e.pan, e.dob, e.retirementDate, "
+					+ "(select dept.departmantName from Department dept where dept.departmentId = (select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId)),"
+					+ "(select h.headName from HeadInfo h where h.headId = (select eMas.headInfo.headId from EmpHeadInfo eMas where eMas.employee.employeeId = e.employeeId)),"
+					+ "(select desg.designationName from Designation desg where desg.designationId = "
+					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId)), "
+					+ "e.joiningDate) from Employee e where e.status = ? and e.retirementDate > ? and e.employeeId in "
+					+ "(select eDept.employee.employeeId from EmpDepartment eDept where eDept.department.departmentId = ?)";
+    		Query query = session.createQuery(queryString);
+    		query.setParameter(0, "A");
+    		query.setParameter(1, startDate);
+    		query.setParameter(2, deptId);
+    		System.out.println("**** Query Count: " + query.list().size());
+    		employeeList = query.list();
+    	}catch(Exception e){ 
+    		e.printStackTrace();
+    	}finally {
+    		HibernateConnection.closeSession(session);
+    	}
+    	return employeeList;
+    }
     /**
      * 
      * @param deptId

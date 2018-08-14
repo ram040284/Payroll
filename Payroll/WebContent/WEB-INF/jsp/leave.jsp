@@ -16,7 +16,9 @@ $(document).ready(function() {
 	var deptId = "${leave.departmentId}";
 	var desgId = "${leave.designationId}";
 	var headId = "${leave.headId}";
-	var leaveIds = "${leave.leaveIds}";
+// 	var leaveIds = "${leave.leaveIds}";
+// 	var leaveIds = {"CL", "SL", "PL", "EL", "MTL", "PTL", "EXL"};
+	var leaveIds = [];
 	if(deptId !=0) {
 		getHeadsByDept(deptId, headId);		
 	}
@@ -25,7 +27,6 @@ $(document).ready(function() {
 	}
 	var empId = "${leave.employeeId}";
 	$('#departmentId').val(deptId);
-	$('#leaveIds').val(leaveIds);
 	if(empId != 0){
 		getEmployeesByIds(deptId, desgId, empId);
 	}
@@ -40,7 +41,7 @@ $(document).ready(function() {
 				var extraLeave = "${leave.extraLeave}";
 				if(sickLeaves == $('#sickLeaveInp').val() && casualLeaves == $('#casualLeaveInp').val() && paidLeaves == $('#paidLeaveInp').val() &&
 						earnLeave == $('#earnLeaveInp').val() && maternityLeave == $('#maternityLeaveInp').val() && paternityLeave == $('#paternityLeaveInp').val()&& 
-						extraLeave == $('#extraLeave').val()){
+						extraLeave == $('#extraLeaveInp').val()){
 					alert('Nothing was changed');
 					$('#sickLeaves').focus();
 					return false;
@@ -70,17 +71,38 @@ $(document).ready(function() {
 			}
 			if($('#sickLeaveInp').val() == 0 && $('#casualLeaveInp').val() == 0 && $('#paidLeaveInp').val() == 0 && 
 					$('#earnLeaveInp').val() == 0 && $('#maternityLeaveInp').val() == 0 && $('#paternityLeaveInp').val() == 0 && 
-					$('#extraLeave').val() ==0){
+					$('#extraLeaveInp').val() ==0){
 				alert("At least one (Sick/Casual/Paid/Earned/Maternity/Paternity/Extraordinary) must be provided!");
 				$('#sickLeaveInp').focus();
 				return false;
-			}
+			}//{"CL", "SL", "PL", "EL", "MTL", "PTL", "EXL"};
 		var empIdInput = 0;
 		if(empId !=0)
 			empIdInput = empId;
 		else
 			empIdInput = $('#employeeId').val();
-		
+		if ($('#casualLeaveInp').val() != 0) {
+			leaveIds.push("CL:1,");
+		}
+		if ($('#sickLeaveInp').val() != 0) {
+			leaveIds.push("SL:2,");
+		}
+		if ($('#paidLeaveInp').val() != 0) {
+			leaveIds.push("PL:3,");
+		}
+		if ($('#earnLeaveInp').val() != 0) {
+			leaveIds.push("EL:4,");
+		}
+		if ($('#maternityLeaveInp').val() != 0) {
+			leaveIds.push("MTL:5,");
+		}
+		if ($('#paternityLeaveInp').val() != 0) {
+			leaveIds.push("PTL:6,");
+		}
+		if ($('#extraLeaveInp').val() != 0) {
+			leaveIds.push("EXL:7");
+		}
+		$('#leaveIds').val(leaveIds);
 		var inputJson = { "employeeId" : empIdInput, "sickLeaveInp" : $('#sickLeaveInp').val(),  
 				"casualLeaveInp" : $('#casualLeaveInp').val(), "paidLeaveInp" : $('#paidLeaveInp').val(), "leaveIds": $('#leaveIds').val(),
 				"earnLeaveInp" : $('#earnLeaveInp').val(), "maternityLeaveInp" : $('#maternityLeaveInp').val(), "paternityLeaveInp" : $('#paternityLeaveInp').val(),  

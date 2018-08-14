@@ -200,7 +200,7 @@ public class PaybillController {
 		try{
 			String month = Utils.getDateByMonth(Integer.parseInt(paybill.getMonthDate()));
 			
-			bankwiseDetails = new PaybillService(paybill.getDepartmentId(), month).getBankWisePayBills();
+			bankwiseDetails = new PaybillService(paybill.getSection(), month).getBankWisePayBills();
 			if(bankwiseDetails == null || bankwiseDetails.isEmpty()){
 				return new ModelAndView("noActivity", "", bankwiseDetails);
 			}

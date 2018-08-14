@@ -10,8 +10,9 @@ public class Leave implements Serializable{
 	
 	private int employeeId;
 	private int leaveId;
-	private String leaveType;
-	private int noOfLeaves;
+//	private String leaveType;
+	private LeaveType leaveType;
+//	private int noOfLeaves;
 	private int leaveBalance;
 	private String status;
 	private Timestamp rowUpdDate;
@@ -29,18 +30,24 @@ public class Leave implements Serializable{
 	public void setLeaveId(int leaveId) {
 		this.leaveId = leaveId;
 	}
-	public String getLeaveType() {
+//	public String getLeaveType() {
+//		return leaveType;
+//	}
+//	public void setLeaveType(String leaveType) {
+//		this.leaveType = leaveType;
+//	}
+	public LeaveType getLeaveType() {
 		return leaveType;
 	}
-	public void setLeaveType(String leaveType) {
+	public void setLeaveType(LeaveType leaveType) {
 		this.leaveType = leaveType;
 	}
-	public int getNoOfLeaves() {
-		return noOfLeaves;
-	}
-	public void setNoOfLeaves(int noOfLeaves) {
-		this.noOfLeaves = noOfLeaves;
-	}
+//	public int getNoOfLeaves() {
+//		return noOfLeaves;
+//	}
+//	public void setNoOfLeaves(int noOfLeaves) {
+//		this.noOfLeaves = noOfLeaves;
+//	}
 	public int getLeaveBalance() {
 		return leaveBalance;
 	}
@@ -63,8 +70,8 @@ public class Leave implements Serializable{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "employeeId:"+employeeId+" |  leaveType:"+this.leaveType+" | noOfLeaves:"+this.noOfLeaves +
-				" | LeaveId:"+leaveId +" | leaveBalance:"+leaveBalance;
+		//return "employeeId:"+employeeId+" |  noOfLeaves:"+this.noOfLeaves + " | LeaveId:"+leaveId +" | leaveBalance:"+leaveBalance;
+		return "employeeId:"+employeeId+" | LeaveId:"+leaveId +" | leaveBalance:"+leaveBalance;
 	}
 	public Employee getEmployee() {
 		return employee;
