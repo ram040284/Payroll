@@ -2,7 +2,6 @@ package com.payroll.pdf.report;
 
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -11,7 +10,6 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import com.payroll.Utils;
-import com.payroll.hrms.payroll.dataobjects.EmployeePayroll;
 import com.payroll.hrms.payroll.dataobjects.PaybillDetails;
 import com.payroll.hrms.payroll.dataobjects.ReportDetails;
 import com.payroll.pdf.business.PdfBuilder;
@@ -25,7 +23,6 @@ public class PaybillPdfRep extends PdfBuilder{
 	public void paybillReport(Document doc, PaybillDetails paybillDetails, String imgPath){
 		try{
 			String watermarkImg = imgPath+"//CBK_Logo.png";//request.getSession().getServletContext().getRealPath("/resources/images/CBK_Logo.png");
-	        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
 	        String logoImg = imgPath+"//logo_new.jpg";
 	        doc.add(PdfUtils.getMainHeader(logoImg));
 	        
@@ -63,6 +60,9 @@ public class PaybillPdfRep extends PdfBuilder{
 	        float tabWidths[] = {2.8f, 2.2f, 1.9f, 2.2f};
 	        PdfPTable paybillTab2 = null; 
 	        for (Iterator iterator = paybillDetails.getPayrollList().iterator(); iterator.hasNext();) {
+
+		        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
+		        
 				ReportDetails employeePayroll = (ReportDetails) iterator.next();
 				srNo++;
 				edTab = createPdfPTable(2, 5, edTabWidths);
@@ -84,6 +84,15 @@ public class PaybillPdfRep extends PdfBuilder{
 		        		frtHdFont, tabWidths));
 		        doc.add(addNetPay(Utils.getDecimalFormat(employeePayroll.getNetPay()), frtHdFont, tabWidths));
 		        doc.add(dottedline);
+		        if (srNo % 3 == 0) {
+		        	doc.newPage();
+		        	doc.add(PdfUtils.getMainHeader(logoImg));
+			        dottedline.setOffset(-2);
+			        dottedline.setGap(2f);
+			        doc.add(dottedline);
+		        	doc.add(paybillTab);
+		        	doc.add(dottedline);
+		        }
 	        }
 	        //Adding totals per Department
 	        PdfPTable pbDtlsTab = null;
@@ -118,7 +127,7 @@ public class PaybillPdfRep extends PdfBuilder{
 	        pbDtlsTab.addCell(addToCell(PdfUtils.NETPAY+" "+Utils.getDecimalFormat(paybillDetails.getNetPay()), headHdFont));
 	        doc.add(pbDtlsTab);
 	        doc.add(dottedline);
-	      
+	        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
 		}catch(Exception e){
 			e.printStackTrace();
 		}

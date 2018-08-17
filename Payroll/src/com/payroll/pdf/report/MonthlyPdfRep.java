@@ -51,9 +51,9 @@ public class MonthlyPdfRep extends PaybillPdfRep{
 	        firstLine = createPdfPTable(5, 15, tabWidths);
 	        firstLine.addCell(addToCell("", frtHdFont));
 	        firstLine.addCell(addToCell(PdfUtils.NOOFEMPS, headHdFont));
-	        firstLine.addCell(addToCell(cmEmps+".00", headHdFont, true));
-	        firstLine.addCell(addToCell(pmEmps+".00", headHdFont, true));
-	        firstLine.addCell(addToCell((cmEmps-pmEmps)+".00", headHdFont, true));
+	        firstLine.addCell(addToCell(Integer.toString(cmEmps), headHdFont, true));
+	        firstLine.addCell(addToCell(Integer.toString(pmEmps), headHdFont, true));
+	        firstLine.addCell(addToCell(Integer.toString(cmEmps-pmEmps), headHdFont, true));
 	        doc.add(firstLine);
 	        doc.add(dottedline);
 	        
@@ -65,9 +65,9 @@ public class MonthlyPdfRep extends PaybillPdfRep{
 	        firstLine = createPdfPTable(5, 8, tabWidths);
 	        firstLine.addCell(addToCell(srNo++ +"", frtHdFont));
 	        firstLine.addCell(addToCell(PdfUtils.GROSS, headHdFont));
-	        firstLine.addCell(addToCell(cmDetails.getTotalGrossPay()+"", headHdFont, true));
-	        firstLine.addCell(addToCell(pmDetails.getTotalGrossPay()+"", headHdFont, true));
-	        firstLine.addCell(addToCell((cmDetails.getTotalGrossPay() - pmDetails.getTotalGrossPay())+"", headHdFont, true));
+	        firstLine.addCell(addToCell(Utils.getDecimalFormat(cmDetails.getTotalGrossPay())+"", headHdFont, true));
+	        firstLine.addCell(addToCell(Utils.getDecimalFormat(pmDetails.getTotalGrossPay())+"", headHdFont, true));
+	        firstLine.addCell(addToCell(Utils.getDecimalFormat((cmDetails.getTotalGrossPay() - pmDetails.getTotalGrossPay()))+"", headHdFont, true));
 	        doc.add(firstLine);
 	        doc.add(dottedline);
 	        firstLine = createPdfPTable(5, 3, tabWidths);
@@ -77,17 +77,17 @@ public class MonthlyPdfRep extends PaybillPdfRep{
 	        firstLine = createPdfPTable(5, 8, tabWidths);
 	        firstLine.addCell(addToCell(srNo++ +"", frtHdFont));
 	        firstLine.addCell(addToCell(PdfUtils.TOTDEDUCTION, headHdFont));
-	        firstLine.addCell(addToCell(cmDetails.getTotalDeductions()+"", headHdFont, true));
-	        firstLine.addCell(addToCell(pmDetails.getTotalDeductions()+"", headHdFont, true));
-	        firstLine.addCell(addToCell((cmDetails.getTotalDeductions() - pmDetails.getTotalDeductions())+"", headHdFont, true));
+	        firstLine.addCell(addToCell(Utils.getDecimalFormat(cmDetails.getTotalDeductions())+"", headHdFont, true));
+	        firstLine.addCell(addToCell(Utils.getDecimalFormat(pmDetails.getTotalDeductions())+"", headHdFont, true));
+	        firstLine.addCell(addToCell(Utils.getDecimalFormat((cmDetails.getTotalDeductions() - pmDetails.getTotalDeductions()))+"", headHdFont, true));
 	        doc.add(firstLine);
 	        doc.add(dottedline);
 	        firstLine = createPdfPTable(5, 8, tabWidths);
 	        firstLine.addCell(addToCell(srNo++ +"", frtHdFont));
 	        firstLine.addCell(addToCell(PdfUtils.NETPAY, headHdFont));
-	        firstLine.addCell(addToCell(cmDetails.getNetPay()+"", headHdFont, true));
-	        firstLine.addCell(addToCell(pmDetails.getNetPay()+"", headHdFont, true));
-	        firstLine.addCell(addToCell((cmDetails.getNetPay() - pmDetails.getNetPay())+"", headHdFont, true));
+	        firstLine.addCell(addToCell(Utils.getDecimalFormat(cmDetails.getNetPay())+"", headHdFont, true));
+	        firstLine.addCell(addToCell(Utils.getDecimalFormat(pmDetails.getNetPay())+"", headHdFont, true));
+	        firstLine.addCell(addToCell(Utils.getDecimalFormat((cmDetails.getNetPay() - pmDetails.getNetPay()))+"", headHdFont, true));
 	        doc.add(firstLine);
 	        doc.add(dottedline);
 	    }catch(Exception e){
@@ -109,21 +109,21 @@ public class MonthlyPdfRep extends PaybillPdfRep{
 		
 		table.addCell(addToCell(srNo++ +"", font));
 		table.addCell(addToCell(PdfUtils.DA, font));
-		table.addCell(addToCell(payroll.getDa()+"", font, true));
-		table.addCell(addToCell(lmDetails.getDa()+"", font, true));
-		table.addCell(addToCell(payroll.getDa() - lmDetails.getDa()+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getDa())+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(lmDetails.getDa())+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getDa() - lmDetails.getDa())+"", font, true));
 		
 		table.addCell(addToCell(srNo++ +"", font));
 		table.addCell(addToCell(PdfUtils.HRA, font));
-		table.addCell(addToCell(payroll.getHra()+"", font, true));
-		table.addCell(addToCell(lmDetails.getHra()+"", font, true));
-		table.addCell(addToCell(payroll.getHra() - lmDetails.getHra()+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getHra())+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(lmDetails.getHra())+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getHra() - lmDetails.getHra())+"", font, true));
 		
 		table.addCell(addToCell(srNo++ +"", font));
 		table.addCell(addToCell(PdfUtils.CCA, font));
-		table.addCell(addToCell(payroll.getCca()+"", font, true));
-		table.addCell(addToCell(lmDetails.getCca()+"", font, true));
-		table.addCell(addToCell(payroll.getCca() - lmDetails.getCca()+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCca())+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(lmDetails.getCca())+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCca() - lmDetails.getCca())+"", font, true));
 		
 		table.addCell(addToCell(srNo++ +"", font));
 		table.addCell(addToCell(PdfUtils.TA, font));
@@ -238,9 +238,9 @@ public class MonthlyPdfRep extends PaybillPdfRep{
 		
 		table.addCell(addToCell(srNo++ +"", font));
 		table.addCell(addToCell(PdfUtils.PFSCPFS, font));
-		table.addCell(addToCell(payroll.getPfsCpf()+"", font, true));
-		table.addCell(addToCell(lmDetails.getPfsCpf()+"", font, true));
-		table.addCell(addToCell(payroll.getPfsCpf() - lmDetails.getPfsCpf()+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfsCpf())+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(lmDetails.getPfsCpf())+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfsCpf() - lmDetails.getPfsCpf())+"", font, true));
 		
 		table.addCell(addToCell(srNo++ +"", font));
 		table.addCell(addToCell(PdfUtils.APFACPF, font));

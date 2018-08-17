@@ -1,11 +1,14 @@
 package com.payroll;
 
-import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
+
+import com.ibm.icu.text.NumberFormat;
+import com.ibm.icu.util.Currency;
 
 public class Utils {
 	public static String DDMMYYYY = "dd/MM/yyyy"; 
@@ -93,9 +96,23 @@ public class Utils {
 	}
 	
 	public static String getDecimalFormat(double value) {
-		DecimalFormat df = new DecimalFormat();
-		df.setMaximumFractionDigits(2);
-		return df.format(value);
+		NumberFormat formatter = com.ibm.icu.text.NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
+		formatter.setCurrency(Currency.getInstance(new Locale("en","IN")));
+		return formatter.format(value);
+//		DecimalFormat df = new DecimalFormat();
+//		df.setMaximumFractionDigits(2);
+//		return df.format(value);
+		
+//		Locale locale = new Locale("en","IN");
+//	    DecimalFormat decimalFormat = (DecimalFormat) DecimalFormat.getCurrencyInstance(locale);
+//	    DecimalFormatSymbols dfs = DecimalFormatSymbols.getInstance(locale);
+//	    dfs.setCurrencySymbol("\u20B9");
+//	    decimalFormat.setDecimalFormatSymbols(dfs);
+//	    System.out.println("Before: " + value);
+//	    System.out.println("After: " + decimalFormat.format(value));
+//	    return decimalFormat.format(value);
+		
+		
 	}
 	
 }
