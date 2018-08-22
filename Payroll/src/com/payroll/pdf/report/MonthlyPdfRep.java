@@ -256,9 +256,9 @@ public class MonthlyPdfRep extends PaybillPdfRep{
 		
 		table.addCell(addToCell(srNo++ +"", font));
 		table.addCell(addToCell(PdfUtils.INCTAX, font));
-		table.addCell(addToCell(payroll.getIncomTax()+"", font, true));
-		table.addCell(addToCell(lmDetails.getIncomTax()+"", font, true));
-		table.addCell(addToCell(payroll.getIncomTax() - lmDetails.getIncomTax()+"", font, true));
+		table.addCell(addToCell(payroll.getIncomeTax()+"", font, true));
+		table.addCell(addToCell(lmDetails.getIncomeTax()+"", font, true));
+		table.addCell(addToCell(payroll.getIncomeTax() - lmDetails.getIncomeTax()+"", font, true));
 		
 		table.addCell(addToCell(srNo++ +"", font));
 		table.addCell(addToCell(PdfUtils.OTHERDED, font));

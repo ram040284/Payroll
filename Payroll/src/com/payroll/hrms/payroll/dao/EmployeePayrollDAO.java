@@ -79,6 +79,8 @@ public class EmployeePayrollDAO {
 	private double otherDeducs;
 	private double misc;
 	
+	private double incomeTax;
+	
 	@SuppressWarnings("unchecked")
 	public EmployeePayroll loadPayrollInfo(int employeeId, Date date){
     	System.out.println("loadPayrollInfo:");
@@ -136,7 +138,7 @@ public class EmployeePayrollDAO {
    					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),employeeAllowances.getPFFlag(),
    					employeeFixedDeductions.getUnionFee(), employeeFixedDeductions.getKssUnionFee(), employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
    					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getOtherDeductions(),
-   					employeeVarDeductions.getSociety(), licTotalInstallmentAmt, empPf.getPfLoneRecAmt(), empPf.getPfsCpfCntrbn(),
+   					employeeVarDeductions.getSociety(), employeeVarDeductions.getIncomeTax(), licTotalInstallmentAmt, empPf.getPfLoneRecAmt(), empPf.getPfsCpfCntrbn(), empPf.getApfAcpfCntrbn(),
    					cpfRecovery, festAdvanceRecovery , bankLoanRecovery, abcenties, overtimeAmount, bankVo.getBankName(), 
    					bankVo.getAccountNo(), bankVo.getBankId());
 	

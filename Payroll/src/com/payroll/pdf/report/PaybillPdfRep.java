@@ -343,7 +343,7 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfLoanRcry()), font));
 		
 		table.addCell(addToCell(PdfUtils.INCTAX, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getIncomTax()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getIncomeTax()), font));
 		table.addCell(addToCell(PdfUtils.OTHERDED, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtherDeducs()), font));
 		
