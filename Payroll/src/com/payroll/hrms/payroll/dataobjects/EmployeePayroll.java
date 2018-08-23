@@ -1,8 +1,10 @@
 //package com.kcb.hrms.payroll.dataobjects;
 package com.payroll.hrms.payroll.dataobjects;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import com.payroll.employee.allowance.dataobjects.EmpAllowance;
 import com.payroll.employee.vo.EmployeeVO;
@@ -118,7 +120,7 @@ public class EmployeePayroll {
     		double unionFee, double unionFeeKss, double lfee, double cycleAllowance, double courtRcry, double gis, double afkRent, double pfLoanRecovery, double otherDeduct,
     		double society,  double incomeTax, double licInstalAmt, double pfLoanRcry, double cpfCont, double apfacpf, double cpfRcry,
     		double festAdvRcry,  double bankLoanRcry,  double absentDays, double overtimeHours, String bankName, 
-    		String bankAcctNo, int bankId){
+    		String bankAcctNo, int bankId, Date incrementDate, double incrementAmt){
 	   
 	    this.basic = basic;
     	this.gradePay = gradePay;
@@ -152,6 +154,8 @@ public class EmployeePayroll {
     	this.incomeTax = incomeTax;
     	this.lfee = lfee;
     	this.pfLoanRecovery = pfLoanRecovery;
+    	this.incrementDate = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH).format(incrementDate);
+    	this.incrementAmt = incrementAmt;
     	//this.bankLoanRecovery = bankLoanRcry;
     	//this.vlr = vlr;
     	//this.cpfRcry = cpfRcry;

@@ -18,6 +18,8 @@ public class Salary implements Serializable{
 	private String status;
 	private Timestamp rowUpdDate;
 	private Employee employee;
+	private double incrementAmount;
+	private Date incrementDate;
 	
 	public int getEmployeeId() {
 		return employeeId;
@@ -85,5 +87,17 @@ public class Salary implements Serializable{
 	}
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+	public double getIncrementAmount() {
+		return incrementAmount;
+	}
+	public void setIncrementAmount(double incrementAmount) {
+		this.incrementAmount = incrementAmount;
+	}
+	public Date getIncrementDate() {
+		return incrementDate;
+	}
+	public void setIncrementDate(Date incrementDate) {
+		this.incrementDate = incrementDate;
 	}
 }

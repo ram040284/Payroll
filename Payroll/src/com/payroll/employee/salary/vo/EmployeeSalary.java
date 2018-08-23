@@ -1,6 +1,7 @@
 package com.payroll.employee.salary.vo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class EmployeeSalary implements Serializable{
 	@Override
@@ -8,19 +9,23 @@ public class EmployeeSalary implements Serializable{
 		return "EmployeeSalary [employeeId=" + employeeId + ", basic=" + basic + ", gradePay=" + gradePay
 				+ ", scalePay=" + scalePay + ", scaleCode=" + scaleCode + "]";
 	}
-	public EmployeeSalary(int employeeId, double basic, double gradePay, String scalePay, String scaleCode) {
+	public EmployeeSalary(int employeeId, double basic, double gradePay, String scalePay, String scaleCode, double incrementAmount, Date incrementDate) {
 		super();
 		this.employeeId = employeeId;
 		this.basic = basic;
 		this.gradePay = gradePay;
 		this.scalePay = scalePay;
 		this.scaleCode = scaleCode;
+		this.incrementAmount = incrementAmount;
+		this.incrementDate = incrementDate;
 	}
 	private int employeeId;
 	private double basic;
 	private double gradePay;
 	private String scalePay;
 	private String scaleCode;
+	private double incrementAmount;
+	private Date incrementDate;
 	
 	public EmployeeSalary() {
 		
@@ -53,5 +58,17 @@ public class EmployeeSalary implements Serializable{
 	}
 	public void setScaleCode(String scaleCode) {
 		this.scaleCode = scaleCode;
+	}
+	public double getIncrementAmount() {
+		return incrementAmount;
+	}
+	public void setIncrementAmount(double incrementAmount) {
+		this.incrementAmount = incrementAmount;
+	}
+	public Date getIncrementDate() {
+		return incrementDate;
+	}
+	public void setIncrementDate(Date incrementDate) {
+		this.incrementDate = incrementDate;
 	}
 }
