@@ -56,10 +56,11 @@
     <property name="bankAcctNo" column="BANK_ACCT_NO"  />
     <property name="bankName" column="BANK_NAME"  />
     <property name="bankId" column="BANK_ID"  />
-     <property name="month" column="MONTH_DATE"  />  
+    <property name="month" column="MONTH_DATE"  />  
     <property name="scale" column="SCALE"  />
-     <property name="incrementAmt" column="INC_AMT"  />  
-     <property name="incrementDate" column="INC_DATE"  />  
+    <property name="scalePay" column="SCALE_PAY"  />
+    <property name="incrementAmt" column="INC_AMT"  />  
+    <property name="incrementDate" column="INC_DATE"  />  
     <property name="rowUpdDate" column="ROW_UPD_DATE"  />
   </class>  
  </hibernate-mapping>

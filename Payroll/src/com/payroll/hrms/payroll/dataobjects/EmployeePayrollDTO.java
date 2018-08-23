@@ -59,6 +59,7 @@ public class EmployeePayrollDTO {
 	private double cca;
 	private double society;
 	private double incomeTax;
+	private double rent;
 
     public String getDeptCostHead() {
         return deptCostHead;
@@ -282,6 +283,14 @@ public class EmployeePayrollDTO {
 
 	public void setIncomeTax(double incomeTax) {
 		this.incomeTax = incomeTax;
+	}
+
+	public double getRent() {
+		return rent;
+	}
+
+	public void setRent(double rent) {
+		this.rent = rent;
 	}
 
 	public double getUnionFeeKss() {

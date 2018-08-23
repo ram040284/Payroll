@@ -64,7 +64,7 @@ public class EmployeePayroll {
     private double netPay;
     private double apfacpf;
     private double cpfRecovery;
-    private double lfee;
+    private double lfee; //RENT from EMP_VAR_DEDUCTIONS table
    /* private double others;
     private double misc;
     */
@@ -90,6 +90,7 @@ public class EmployeePayroll {
     private String panNo;
     private String aadharNo;
     private String pfNumber;
+    private String scalePay;
     
     private boolean hraFlag;
     private double absentDays;
@@ -114,16 +115,17 @@ public class EmployeePayroll {
     
    public EmployeePayroll(double basic, double gradePay, String scalePay, String scaleCode,
     		double cca, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,boolean pfFlag,
-    		double unionFee, double unionFeeKss, double cycleAllowance, double courtRcry, double gis, double afkRent, double otherDeduct,
+    		double unionFee, double unionFeeKss, double lfee, double cycleAllowance, double courtRcry, double gis, double afkRent, double pfLoanRecovery, double otherDeduct,
     		double society,  double incomeTax, double licInstalAmt, double pfLoanRcry, double cpfCont, double apfacpf, double cpfRcry,
     		double festAdvRcry,  double bankLoanRcry,  double absentDays, double overtimeHours, String bankName, 
     		String bankAcctNo, int bankId){
 	   
-	   this.basic = basic;
+	    this.basic = basic;
     	this.gradePay = gradePay;
+    	this.scalePay = scalePay;
     	this.scale = scaleCode;
     	this.afkRent = afkRent;
-    	this.pfLoanRecovery = pfLoanRcry;
+//    	this.pfLoanRecovery = pfLoanRcry;
     	this.unionFeeKss = unionFeeKss;
     	this.unionFee = unionFee;
     	this.cycleAllowance = cycleAllowance;
@@ -148,6 +150,8 @@ public class EmployeePayroll {
     	this.pfFlag = pfFlag;
     	this.apfacpf = apfacpf;
     	this.incomeTax = incomeTax;
+    	this.lfee = lfee;
+    	this.pfLoanRecovery = pfLoanRecovery;
     	//this.bankLoanRecovery = bankLoanRcry;
     	//this.vlr = vlr;
     	//this.cpfRcry = cpfRcry;
@@ -183,6 +187,7 @@ public class EmployeePayroll {
         this.courtRecovery = employeePayrollDTO.getCourtRecovery();
         this.otherDeductions = employeePayrollDTO.getOtherDeductions();
         this.incomeTax = employeePayrollDTO.getIncomeTax();
+        this.lfee = employeePayrollDTO.getRent();
         
         calculateDA();
         calculateHRA();
@@ -780,6 +785,12 @@ public class EmployeePayroll {
 		this.pfInstment = pfInstment;
 	}
 
+	public String getScalePay() {
+		return scalePay;
+	}
+	public void setScalePay(String scalePay) {
+		this.scalePay = scalePay;
+	}
 	public double getUnionFeeKss() {
 		return unionFeeKss;
 	}

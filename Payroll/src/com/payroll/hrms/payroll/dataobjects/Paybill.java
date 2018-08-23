@@ -64,6 +64,7 @@ public class Paybill implements Serializable{
 	private double incrementAmt;
 	private String incrementDate;
 	private int bankId;
+	private String scalePay;
 	
 	/*private String employeeName;
 	private String panNo;
@@ -388,6 +389,12 @@ public class Paybill implements Serializable{
 	}
 	public void setBankId(int bankId) {
 		this.bankId = bankId;
+	}
+	public String getScalePay() {
+		return scalePay;
+	}
+	public void setScalePay(String scalePay) {
+		this.scalePay = scalePay;
 	}
 	
 	

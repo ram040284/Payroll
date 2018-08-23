@@ -53,7 +53,8 @@ public class EmployeePayrollService {
 					empPayroll.setEmployee(employee);
 					//double incomeTax = incTaxservice.getIncomeTax(employee.getEmployeeId(), date, empPayroll.getGrossPay());
 					//empPayroll.setIncomeTax(incomeTax);
-					empPayroll.setTotalDeductions(empPayroll.getTotalDeductions() + empPayroll.getIncomeTax());
+					//empPayroll.setTotalDeductions(empPayroll.getTotalDeductions() + empPayroll.getIncomeTax());
+					empPayroll.setTotalDeductions(empPayroll.getTotalDeductions());
 					//empPayroll.setNetPay(empPayroll.getNetPay() - empPayroll.getIncomeTax());
 					empPayroll.setNetPay(empPayroll.getNetPay());
 					

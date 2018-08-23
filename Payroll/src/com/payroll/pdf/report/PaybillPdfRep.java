@@ -261,7 +261,7 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(PdfUtils.FLYPLGALW, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getFamilyPlanningAllowance()), font));
 		table.addCell(addToCell(PdfUtils.TALW, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getTotalAllowance()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(0), font)); //TODO - Prasad
 		
 		table.addCell(addToCell(PdfUtils.OTAMT, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOverTimeAmount()), font));
@@ -385,7 +385,7 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(payroll.getRetirementDate(), font));
 		
 		table.addCell(addToCell(PdfUtils.SCALE, font));
-		table.addCell(addToCell(payroll.getScale(), font));
+		table.addCell(addToCell(payroll.getScalePay() + ": " + payroll.getScale(), font));
 		table.addCell(addToCell(PdfUtils.INC_MONTH, font));
 		table.addCell(addToCell(payroll.getIncrementDate(), font));
 		

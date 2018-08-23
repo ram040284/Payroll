@@ -227,7 +227,6 @@ public class PaybillService {
     	try {
 			for (Paybill paybill : paybillList) {
 				ReportDetails empPayroll = new ReportDetails();
-	    		System.out.println("bankId:"+paybill.getBankId() +", Name:"+paybill.getBankName());
 	    		org.apache.commons.beanutils.BeanUtils.copyProperties(empPayroll, paybill);
 	    		if(bankId == 0){
 	    			bankId = paybill.getBankId();

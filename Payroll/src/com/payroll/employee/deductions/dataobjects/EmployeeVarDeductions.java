@@ -20,12 +20,14 @@ public class EmployeeVarDeductions {
 	private short addUpdate;
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("m/d/yyyy");
 //	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
+	
+	private double pfLoanRecovery;
 
 	public EmployeeVarDeductions() {
 		super();
 	}
 	
-	public EmployeeVarDeductions(int employeeId, double afkRent, double society, 
+	public EmployeeVarDeductions(int employeeId, double afkRent, double society, double pfLoanRecovery,
 			 double otherDeductions, double miscRecovery, Date monthDate, double incomeTax){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
@@ -47,6 +49,7 @@ public class EmployeeVarDeductions {
 		} /*else
 			this.monthDate = "";*/
 		this.incomeTax = incomeTax;
+		this.pfLoanRecovery = pfLoanRecovery;
 	}
 	
 
@@ -122,6 +125,14 @@ public class EmployeeVarDeductions {
 	public void setAddUpdate(short addUpdate) {
 		this.addUpdate = addUpdate;
 	}	
+	public double getPfLoanRecovery() {
+		return pfLoanRecovery;
+	}
+
+	public void setPfLoanRecovery(double pfLoanRecovery) {
+		this.pfLoanRecovery = pfLoanRecovery;
+	}
+
 	@Override
 	public String toString() {
 		return "EmployeeVarDeductions [employeeId=" + employeeId + ", afkRent=" + afkRent + ", society=" + society
