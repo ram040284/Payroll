@@ -107,7 +107,16 @@ $(document).ready(function() {
 <jsp:include page="../jsp/public/master.jsp" />
 </head>
 <body>
-	<div class="contain-wrapp bodyDivCss">	
+	<div class="contain-wrapp bodyDivCss">
+		<div class="container">
+			<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/viewEmpLicMaster#')">Back</button>
+					</div>
+				</div>
+			</div>	
+		</div>
 		<div class="container">
 		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">

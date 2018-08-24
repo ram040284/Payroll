@@ -147,6 +147,15 @@ alert("${message}");
 
 <body >
 	<div class="contain-wrapp bodyDivCss">	
+	<div class="container">
+		<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/mastersMenu')">Back</button>
+					</div>
+				</div>
+			</div>
+			</div>
 	<form:form id="formSearch" method = "POST" action = "" >
 	<div class="container panel panel-primary">
       <div class="panel-heading" style="margin:0px;padding:0px;background-color: #8B9DC3;">

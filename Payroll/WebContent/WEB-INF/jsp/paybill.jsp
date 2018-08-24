@@ -111,7 +111,16 @@ function getHeadsByDept(deptId) {
 
 </head>
 <body>
-<div class="contain-wrapp bodyDivCss">	
+<div class="contain-wrapp bodyDivCss">
+<div class="container">
+			<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/reportsMenu')">Back</button>
+					</div>
+				</div>
+			</div>	
+		</div>
 <div class="container">
 <%--<h5 style="color: #0101DF;">Paybill Report</h5> --%>
 <div style="margin-top:0px;">

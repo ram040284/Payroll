@@ -204,7 +204,15 @@ function processSelectedAttendance2() {
 </head>
 <body>
 	<div class="contain-wrapp bodyDivCss">
-		<div  class="container" class="row" style="position: relative;">
+		<div class="container">
+			<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/leaveMenu')">Back</button>
+					</div>
+				</div>
+			</div>	
+		</div><div  class="container" class="row" style="position: relative;">
 			<div style="margin-top: 12px; float: left; width: 98%;">
 				<h4 style="color: #0101DF;">Process Attendance</h4>
 <!-- 				<form method="post" name="processAttendance" action="" onSubmit="processSelectedAttendance()"> -->
