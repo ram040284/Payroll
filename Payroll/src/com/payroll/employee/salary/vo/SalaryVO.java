@@ -23,7 +23,7 @@ public class SalaryVO implements Serializable{
 		
 	}
 	public SalaryVO (int empId, String fName, String lName, int year, double basic, 
-			double gradePay, String scalePay, double incrementAmount, Date incrementDate){
+			double gradePay, String scalePay, String scaleCode, double incrementAmount, Date incrementDate){
 		this.employeeId = empId;
 		this.year = year;
 		this.basic = basic;
@@ -34,6 +34,7 @@ public class SalaryVO implements Serializable{
 		fullNameSB.append(" ");
 		fullNameSB.append(Utils.safeTrim(lName));
 		this.fullName = fullNameSB.toString();
+		this.scaleCode= scaleCode;
 		this.incrementAmount = incrementAmount;
 		this.incrementDate = incrementDate;
 		
