@@ -115,7 +115,7 @@ public class PdfUtils {
 		      float[] headTextWidth = {350F};
 		      PdfPTable headTextTab = new PdfPTable(headTextWidth);
 		      headTextTab.getDefaultCell().setBorder(0);
-		      headTextTab.setHorizontalAlignment(Element.ALIGN_CENTER);
+		      headTextTab.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		      
 		      Font titleFont = FontFactory.getFont(FontFactory.HELVETICA);
 		      titleFont.setSize(12);
