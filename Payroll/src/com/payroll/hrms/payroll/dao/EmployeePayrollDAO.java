@@ -79,6 +79,8 @@ public class EmployeePayrollDAO {
 	private double otherDeducs;
 	private double misc;
 	
+	private double incomeTax;
+	
 	@SuppressWarnings("unchecked")
 	public EmployeePayroll loadPayrollInfo(int employeeId, Date date){
     	System.out.println("loadPayrollInfo:");
@@ -131,14 +133,15 @@ public class EmployeePayrollDAO {
 			double festAdvanceRecovery = (empAdvances != null) ? empAdvances.getInstallAmount() : 0;
 			double bankLoanRecovery = 0;
 			double cpfRecovery = 0;
-   			empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay()+"", salary.getScaleCode(),
+			
+   			empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(),
    					employeeAllowances.getCca(), employeeAllowances.getFamilyPlanAlwance(),employeeAllowances.getNonPracAwance(),
    					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),employeeAllowances.getPFFlag(),
-   					employeeFixedDeductions.getUnionFee(), employeeFixedDeductions.getKssUnionFee(), employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
-   					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getOtherDeductions(),
-   					employeeVarDeductions.getSociety(), licTotalInstallmentAmt, empPf.getPfLoneRecAmt(), empPf.getPfsCpfCntrbn(),
+   					employeeFixedDeductions.getUnionFee(), employeeFixedDeductions.getKssUnionFee(), employeeFixedDeductions.getRent(), employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
+   					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getPfLoanRecovery(), employeeVarDeductions.getOtherDeductions(),
+   					employeeVarDeductions.getSociety(), employeeVarDeductions.getIncomeTax(), licTotalInstallmentAmt, empPf.getPfLoneRecAmt(), empPf.getPfsCpfCntrbn(), empPf.getApfAcpfCntrbn(),
    					cpfRecovery, festAdvanceRecovery , bankLoanRecovery, abcenties, overtimeAmount, bankVo.getBankName(), 
-   					bankVo.getAccountNo(), bankVo.getBankId());
+   					bankVo.getAccountNo(), bankVo.getBankId(), salary.getIncrementDate(), salary.getIncrementAmount());
 	
    		}catch(Exception e){
 			e.printStackTrace();
@@ -338,7 +341,6 @@ public class EmployeePayrollDAO {
     		query.setParameter(0, "A");
     		query.setParameter(1, startDate);
     		query.setParameter(2, deptId);
-    		System.out.println("**** Query Count: " + query.list().size());
     		employeeList = query.list();
     	}catch(Exception e){ 
     		e.printStackTrace();

@@ -59,11 +59,12 @@ public class Paybill implements Serializable{
 	private String deptCostHead;
 	private String bankAcctNo;
 	private String bankName;
-	private String incomeTax;
+	private double incomeTax;
 	private String scale;
 	private double incrementAmt;
 	private String incrementDate;
 	private int bankId;
+	private String scalePay;
 	
 	/*private String employeeName;
 	private String panNo;
@@ -359,10 +360,10 @@ public class Paybill implements Serializable{
 	public void setDeptCostHead(String deptCostHead) {
 		this.deptCostHead = deptCostHead;
 	}
-	public String getIncomeTax() {
+	public double getIncomeTax() {
 		return incomeTax;
 	}
-	public void setIncomeTax(String incomeTax) {
+	public void setIncomeTax(double incomeTax) {
 		this.incomeTax = incomeTax;
 	}
 	public String getScale() {
@@ -388,6 +389,12 @@ public class Paybill implements Serializable{
 	}
 	public void setBankId(int bankId) {
 		this.bankId = bankId;
+	}
+	public String getScalePay() {
+		return scalePay;
+	}
+	public void setScalePay(String scalePay) {
+		this.scalePay = scalePay;
 	}
 	
 	

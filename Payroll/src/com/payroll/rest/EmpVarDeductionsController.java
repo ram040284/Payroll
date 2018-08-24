@@ -15,7 +15,6 @@ import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.deductions.business.EmpVarDeductionsService;
 import com.payroll.employee.deductions.dataobjects.EmpVarDeductions;
-import com.payroll.employee.deductions.dataobjects.EmpVarDeductionsVO;
 
 @Controller
 public class EmpVarDeductionsController {

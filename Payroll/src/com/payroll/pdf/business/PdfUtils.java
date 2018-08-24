@@ -50,7 +50,7 @@ public class PdfUtils {
 	public static final String FAREC = "Fest. Adv. Rec:";
 	public static final String PTAX = "P.Tax:";
 	public static final String LIC = "LIC:";
-	public static final String SOCIETY = "Sciety:";
+	public static final String SOCIETY = "Society:";
 	public static final String GIS = "GIS:";
 	public static final String BANKLOANREC = "Bank Loan Rec:";
 	public static final String VEHLOANREC = "Veh. Loan Rec:";

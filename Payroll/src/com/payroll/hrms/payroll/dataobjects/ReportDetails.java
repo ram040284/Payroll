@@ -61,6 +61,7 @@ public class ReportDetails {
 	private String gender;
 	private String pfNumber;
 	private String employeeNumber;
+	private String scalePay;
 	
 	public String getEmployeeNumber() {
 		return employeeNumber;
@@ -355,6 +356,12 @@ public class ReportDetails {
 	}
 	public void setEmployeeName(String employeeName) {
 		this.employeeName = employeeName;
+	}
+	public String getScalePay() {
+		return scalePay;
+	}
+	public void setScalePay(String scalePay) {
+		this.scalePay = scalePay;
 	}
 	public String getPanNo() {
 		return panNo;

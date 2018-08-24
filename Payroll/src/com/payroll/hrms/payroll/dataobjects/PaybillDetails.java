@@ -38,7 +38,7 @@ public class PaybillDetails {
 	private double apfAcf;
 	private double pfLoanRcry;
 	private double cpfRcry;
-	private double incomTax;
+//	private double incomTax;
 	private double unionFee;
 	private double unionFeeKss;
 	private double elecRcry;
@@ -53,6 +53,7 @@ public class PaybillDetails {
 	private double netPay;
 	private Date month;
 	private int noOfEmployees;
+	private double incomeTax;
 	//private String gender;
 	//private String pfNumber;
 	//private String employeeNumber;
@@ -108,13 +109,14 @@ public class PaybillDetails {
 		apfAcf+= payroll.getApfAcf();
 		pfLoanRcry+= payroll.getPfLoanRcry();
 		cpfRcry+= payroll.getCpfRcry();
-		incomTax += payroll.getIncomTax();
+//		incomTax += payroll.getIncomTax();
 		unionFee += payroll.getUnionFee();
 		unionFeeKss += payroll.getUnionFeeKss();
 		elecRcry += payroll.getElecRcry();
 		courtRcry += payroll.getCourtRcry();
 		otherDeducs += payroll.getOtherDeducs();
 		misc += payroll.getMisc();
+		incomeTax += payroll.getIncomeTax();
 	}
 	public void addEmployeePayroll(ReportDetails payroll){
 		if(Utils.isEmpty(deptName))
@@ -152,7 +154,7 @@ public class PaybillDetails {
 		apfAcf+= payroll.getApfacpf();
 		pfLoanRcry+= payroll.getPfLoanRecovery();
 		cpfRcry+= payroll.getCpfRecovery();
-		incomTax += payroll.getIncomeTax();
+		incomeTax += payroll.getIncomeTax();
 		unionFee += payroll.getUnionFee();
 		unionFeeKss += payroll.getUnionFeeKss();
 		elecRcry += payroll.getElectricityRecovery();
@@ -190,7 +192,7 @@ public class PaybillDetails {
     						+ this.apfAcf
     						+ this.pfLoanRcry
     						+ this.cpfRcry
-    						+ this.incomTax
+    						+ this.incomeTax
     						+ this.unionFee
     						+ this.elecRcry
     						+ this.courtRcry
@@ -318,9 +320,9 @@ public class PaybillDetails {
 		return cpfRcry;
 	}
 
-	public double getIncomTax() {
-		return incomTax;
-	}
+//	public double getIncomTax() {
+//		return incomTax;
+//	}
 
 	public double getUnionFee() {
 		return unionFee;
@@ -370,6 +372,12 @@ public class PaybillDetails {
 		return noOfEmployees;
 	}
 
+	public double getIncomeTax() {
+		return incomeTax;
+	}
+	public void setIncomeTax(double incomeTax) {
+		this.incomeTax = incomeTax;
+	}
 	public String getBankName() {
 		return bankName;
 	}

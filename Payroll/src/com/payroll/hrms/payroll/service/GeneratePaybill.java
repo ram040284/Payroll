@@ -42,7 +42,7 @@ public class GeneratePaybill {
 	private double grossPay; 
 	private double pfLoanRcry;
 	private double cpfRcry;
-	private double incomTax;
+//	private double incomTax;
 	private double unionFee;
 	private double unionFeeKss;
 	private double elecRcry;
@@ -51,6 +51,7 @@ public class GeneratePaybill {
 	private double totDeduct;
 	private double netPay;
 	private double society;
+	private double incomeTax;
 	
 	public PaybillDetails generatePaybill(int deptId){
 		/*EmployeePayrollService payrollService =  new EmployeePayrollService();
@@ -92,7 +93,7 @@ public class GeneratePaybill {
 			//apfAcf+=employeePayroll.getApf
 			pfLoanRcry+=employeePayroll.getPfLoanRecovery();
 			//cpfRcry+= employeePayroll.get
-			incomTax+=employeePayroll.getIncomeTax();
+			incomeTax+=employeePayroll.getIncomeTax();
 			unionFee+= employeePayroll.getUnionFee();
 			unionFeeKss += employeePayroll.getUnionFeeKss();
 			elecRcry += employeePayroll.getElectricityRecovery();

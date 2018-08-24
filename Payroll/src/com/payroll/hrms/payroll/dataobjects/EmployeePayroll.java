@@ -1,8 +1,10 @@
 //package com.kcb.hrms.payroll.dataobjects;
 package com.payroll.hrms.payroll.dataobjects;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import com.payroll.employee.allowance.dataobjects.EmpAllowance;
 import com.payroll.employee.vo.EmployeeVO;
@@ -64,7 +66,7 @@ public class EmployeePayroll {
     private double netPay;
     private double apfacpf;
     private double cpfRecovery;
-    private double lfee;
+    private double lfee; //RENT from EMP_VAR_DEDUCTIONS table
    /* private double others;
     private double misc;
     */
@@ -90,6 +92,7 @@ public class EmployeePayroll {
     private String panNo;
     private String aadharNo;
     private String pfNumber;
+    private String scalePay;
     
     private boolean hraFlag;
     private double absentDays;
@@ -114,16 +117,17 @@ public class EmployeePayroll {
     
    public EmployeePayroll(double basic, double gradePay, String scalePay, String scaleCode,
     		double cca, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,boolean pfFlag,
-    		double unionFee, double unionFeeKss, double cycleAllowance, double courtRcry, double gis, double afkRent, double otherDeduct,
-    		double society,  double licInstalAmt, double pfLoanRcry, double cpfCont, double cpfRcry,
+    		double unionFee, double unionFeeKss, double lfee, double cycleAllowance, double courtRcry, double gis, double afkRent, double pfLoanRecovery, double otherDeduct,
+    		double society,  double incomeTax, double licInstalAmt, double pfLoanRcry, double cpfCont, double apfacpf, double cpfRcry,
     		double festAdvRcry,  double bankLoanRcry,  double absentDays, double overtimeHours, String bankName, 
-    		String bankAcctNo, int bankId){
+    		String bankAcctNo, int bankId, Date incrementDate, double incrementAmt){
 	   
-	   this.basic = basic;
+	    this.basic = basic;
     	this.gradePay = gradePay;
+    	this.scalePay = scalePay;
     	this.scale = scaleCode;
     	this.afkRent = afkRent;
-    	this.pfLoanRecovery = pfLoanRcry;
+//    	this.pfLoanRecovery = pfLoanRcry;
     	this.unionFeeKss = unionFeeKss;
     	this.unionFee = unionFee;
     	this.cycleAllowance = cycleAllowance;
@@ -137,7 +141,7 @@ public class EmployeePayroll {
     	this.washingAllowance = wshngAlw;
     	this.uniformAllowance = uniformAlw;
     	this.hraFlag = hraFlag;
-    	this.afkRent = afkRent;
+//    	this.afkRent = afkRent; Code repeat - Prasad
     	this.festAdvRecovery = festAdvRcry;
     	this.grpInsurance = gis;
     	this.designation = "Business Analyst";
@@ -146,6 +150,12 @@ public class EmployeePayroll {
     	this.bankName = bankName;
     	this.bankId = bankId;
     	this.pfFlag = pfFlag;
+    	this.apfacpf = apfacpf;
+    	this.incomeTax = incomeTax;
+    	this.lfee = lfee;
+    	this.pfLoanRecovery = pfLoanRecovery;
+    	this.incrementDate = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH).format(incrementDate);
+    	this.incrementAmt = incrementAmt;
     	//this.bankLoanRecovery = bankLoanRcry;
     	//this.vlr = vlr;
     	//this.cpfRcry = cpfRcry;
@@ -180,6 +190,8 @@ public class EmployeePayroll {
         this.electricityRecovery = employeePayrollDTO.getElectricityRecovery();
         this.courtRecovery = employeePayrollDTO.getCourtRecovery();
         this.otherDeductions = employeePayrollDTO.getOtherDeductions();
+        this.incomeTax = employeePayrollDTO.getIncomeTax();
+        this.lfee = employeePayrollDTO.getRent();
         
         calculateDA();
         calculateHRA();
@@ -200,7 +212,7 @@ public class EmployeePayroll {
     private void calculateDA(){
         this.dearnessAllowance = 0.0;
         if (this.basic + this.gradePay >0)
-            this.dearnessAllowance = DA_PERCENT * (this.basic+ this.gradePay)/100;
+            this.dearnessAllowance = Math.round(DA_PERCENT * (this.basic+ this.gradePay)/100);
     }
 
     /**
@@ -211,7 +223,7 @@ public class EmployeePayroll {
     	
         this.houseRentAllowance = 0.0;
         if (this.basic + this.gradePay >0 && hraFlag)
-            this.houseRentAllowance = HRA_PERCENT * (this.basic+ this.gradePay)/100;
+            this.houseRentAllowance = Math.round(HRA_PERCENT * (this.basic+ this.gradePay)/100);
         
         System.out.println("******Entered :"+ "calculateHR()*******************************"+ houseRentAllowance);
 
@@ -249,12 +261,12 @@ public class EmployeePayroll {
         /*for (Allowance allowance: this.listAllowances){
             this.totalAllowance = this.totalAllowance + allowance.getAllowance();
         }*/
-        this.totalAllowance = this.cca 
+        this.totalAllowance = Math.round(this.cca 
 				+ this.nonPracticingAllowance 
 				+ this.washingAllowance 
 				+ this.uniformAllowance
 				+ this.cycleAllowance
-				+ this.familyPlanningAllowance;
+				+ this.familyPlanningAllowance);
         //this.totalAllowance += this.travelAllowance;
         System.out.println("totalAllowance :"+ totalAllowance);
     }
@@ -270,7 +282,7 @@ public class EmployeePayroll {
                 + this.totalAllowance;
         System.out.println("Calculate Gross: " + "basic : "+ this.basic +" Grade Pay" + this.gradePay + " Dearness Allowance : "+ this.dearnessAllowance + 
         		" Travel Allowance : "+ this.travelAllowance + " Total Allowance : "+ this.totalAllowance+ "Gross Pay : "+ this.grossPay);
-            this.totalGrossPay = this.grossPay + this.overTimeAmount + this.otherPayAmount;
+            this.totalGrossPay = Math.round(this.grossPay + this.overTimeAmount + this.otherPayAmount);
         //if leave without pay or absent
         if(absentDays > 0.0)
             processAbsentee();
@@ -278,15 +290,15 @@ public class EmployeePayroll {
     //if employee has absentee or leave without pay
     private void processAbsentee(){
     	if(absentDays > 0)
-    		this.absentAmount = (this.grossPay / WORKING_DAYS) * absentDays;
+    		this.absentAmount = Math.round((this.grossPay / WORKING_DAYS) * absentDays);
        
     }
     private void calculateNetPay(){
     	this.netPay = 0;
     	if(this.totalGrossPay>this.grossPay)
-    		this.netPay = this.totalGrossPay - this.totalDeductions;
+    		this.netPay = Math.round(this.totalGrossPay - this.totalDeductions);
     	else
-    		this.netPay = this.grossPay - this.totalDeductions;
+    		this.netPay = Math.round(this.grossPay - this.totalDeductions);
     }
     /**
      * Calculate over time
@@ -294,7 +306,7 @@ public class EmployeePayroll {
      */
     private void calculateOverTime(){
         double perHourRate = (this.grossPay / WORKING_DAYS)/8;
-        this.overTimeAmount = this.overTimeHours * perHourRate;
+        this.overTimeAmount = Math.round(this.overTimeHours * perHourRate);
     }
 
     /*
@@ -302,7 +314,7 @@ public class EmployeePayroll {
      *
       */
     private void calculateTotalGrossPay(){
-        this.totalGrossPay = this.grossPay + this.overTimeAmount + this.otherPayAmount;
+        this.totalGrossPay = Math.round(this.grossPay + this.overTimeAmount + this.otherPayAmount);
     }
 
     //Calculate Deductions
@@ -310,9 +322,9 @@ public class EmployeePayroll {
     private void calculateProvidentFund(){
         if (this.basic + this.gradePay > 0)
             if(pfFlag)
-                this.providentFund = (this.basic + this.gradePay)*PF_PERCENT/100;
+                this.providentFund = Math.round((this.basic + this.gradePay)*PF_PERCENT/100); // 6% BEfore 01/04/2004
             else
-                this.providentFund = (this.basic + this.gradePay+ this.dearnessAllowance)*CPF_PERCENT/100;
+                this.providentFund = Math.round((this.basic + this.gradePay+ this.dearnessAllowance)*CPF_PERCENT/100); // 10 %
         System.out.println("Provident Fund ="+ this.providentFund);
     }
 
@@ -330,7 +342,7 @@ public class EmployeePayroll {
  
     private void calculateDeductions() {
     	this.totalDeductions = 0;
-    	this.totalDeductions = this.absentAmount
+    	this.totalDeductions = Math.round(this.absentAmount
     						+ this.lfee 
     						+ this.afkRent
     						+ this.festAdvRecovery
@@ -348,7 +360,7 @@ public class EmployeePayroll {
     						+ this.otherDeductions
     						+ this.miscAllowance
     						+ this.unionFeeKss
-    						+ this.pfInstment;
+    						+ this.pfInstment);
     						
     }
     
@@ -777,6 +789,12 @@ public class EmployeePayroll {
 		this.pfInstment = pfInstment;
 	}
 
+	public String getScalePay() {
+		return scalePay;
+	}
+	public void setScalePay(String scalePay) {
+		this.scalePay = scalePay;
+	}
 	public double getUnionFeeKss() {
 		return unionFeeKss;
 	}
