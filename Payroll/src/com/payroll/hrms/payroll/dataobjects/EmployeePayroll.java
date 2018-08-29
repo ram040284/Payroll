@@ -163,6 +163,7 @@ public class EmployeePayroll {
     	this.otherAllowance = otherAllowance;
     	this.otherPayAmount = otherPayAmount;
     	this.absentAmount = absentAmount;
+    	this.cpfRecovery = cpfRcry;
     	//this.bankLoanRecovery = bankLoanRcry;
     	//this.vlr = vlr;
     	//this.cpfRcry = cpfRcry;

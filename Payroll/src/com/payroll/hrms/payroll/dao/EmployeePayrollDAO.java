@@ -134,7 +134,7 @@ public class EmployeePayrollDAO {
 			// This need to check 
 			double festAdvanceRecovery = (empAdvances != null) ? empAdvances.getInstallAmount() : 0;
 			double bankLoanRecovery = 0;
-			double cpfRecovery = 0;
+//			double cpfRecovery = 0;
 			
    			empPayroll = new EmployeePayroll(handicapFlag, salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(), salary.getOtherPay(),
    					employeeAllowances.getCca(), employeeAllowances.getCycleAlwance(), employeeAllowances.getOtherAllowance(), employeeAllowances.getFamilyPlanAlwance(),employeeAllowances.getNonPracAwance(),
@@ -142,7 +142,7 @@ public class EmployeePayrollDAO {
    					employeeFixedDeductions.getUnionFee(), employeeFixedDeductions.getKssUnionFee(), employeeFixedDeductions.getRent(), employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
    					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getPfLoanRecovery(), employeeVarDeductions.getOtherDeductions(),
    					employeeVarDeductions.getSociety(), employeeVarDeductions.getIncomeTax(), licTotalInstallmentAmt, empPf.getPfLoneRecAmt(), empPf.getPfsCpfCntrbn(), empPf.getApfAcpfCntrbn(),
-   					cpfRecovery, festAdvanceRecovery , bankLoanRecovery, employeeVarDeductions.getAbsenties(), overtimeAmount, bankVo.getBankName(), 
+   					empPf.getCfLoneRecAmt(), festAdvanceRecovery , bankLoanRecovery, employeeVarDeductions.getAbsenties(), overtimeAmount, bankVo.getBankName(), 
    					bankVo.getAccountNo(), bankVo.getBankId(), salary.getIncrementDate(), salary.getIncrementAmount());
 	
    		}catch(Exception e){
