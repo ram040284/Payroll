@@ -118,6 +118,15 @@ $(document).ready(function() {
 </head>
 <body>
 	<div class="contain-wrapp bodyDivCss">
+	<div class="container">
+	<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/viewEmpAlwnce')">Back</button>
+					</div>
+				</div>
+			</div>
+			</div>
 		<div class="container">
 			<div
 				style="display: none; color: red; font-weight: bold; height: 15px;"
