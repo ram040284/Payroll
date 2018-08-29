@@ -45,7 +45,7 @@ public class EmpAllowanceDAO {
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = a.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = a.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = a.employee.employeeId and dh.status = 'A'), "
-						+ "a.cca, a.washingAlwance, a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag, a.qtrFlag,a.afkFlag, a.taFlag) from EmpAllowance a "
+						+ "a.cca, a.washingAlwance, a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag, a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag) from EmpAllowance a "
 						+ "where a.status = ? and a.employee.employeeId = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();

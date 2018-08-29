@@ -72,7 +72,6 @@ table.dataTable thead:first-child .sorting_desc {
             
              $('#allowanceListTable').DataTable({
             	 
-            	 "scrollY": 400,
                  "scrollX": true,
             	 
                       data: allowanceData,
@@ -91,9 +90,9 @@ table.dataTable thead:first-child .sorting_desc {
                           { data: 'pfFlag', title: 'PF Flag',"autoWidth": true},
                           
                           {
-								 'data': null,title:'<a href="#" onclick="inputEmpAlwnce()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
+								 'data': null,title:'<a href="#" onclick="addAllowance()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
 								 'render': function (allowanceData, type, row) {
-											   return '<a id="' + row.Id +'" href="#" onclick="inputEmpAlwnce('+allowanceData.employeeId+')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteEmpAllowance('+allowanceData.employeeId+')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
+											   return '<a id="' + row.Id +'" href="#" onclick="UpdateAllowance('+allowanceData.employeeId+')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteAllowance('+allowanceData.employeeId+')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
 										   }
 							}
                      	
@@ -105,13 +104,13 @@ table.dataTable thead:first-child .sorting_desc {
     	  
       });   	                 
 	
-      function viewAllowance(id){
+      function UpdateAllowance(id){
     	  var f = document.forms['editForm'];
 		  f.employeeId.value=id;
 		  f.action="../Payroll/inputEmpAlwnce";
 		  f.submit();
 	  }
-      function inputAllowance(){
+      function addAllowance(){
     	  var f = document.forms['editForm'];
 		  f.action="../Payroll/inputEmpAlwnce";
 		  f.submit();
