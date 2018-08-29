@@ -1,6 +1,5 @@
 package com.payroll.employee.deductions.dataobjects;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
@@ -20,6 +19,7 @@ public class EmployeeVarDeductions {
 	private short addUpdate;
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("m/d/yyyy");
 //	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
+	private double absenties;
 	
 	private double pfLoanRecovery;
 
@@ -28,7 +28,7 @@ public class EmployeeVarDeductions {
 	}
 	
 	public EmployeeVarDeductions(int employeeId, double afkRent, double society, double pfLoanRecovery,
-			 double otherDeductions, double miscRecovery, Date monthDate, double incomeTax){
+			 double otherDeductions, double miscRecovery, Date monthDate, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
 		this.society = society;
@@ -50,6 +50,7 @@ public class EmployeeVarDeductions {
 			this.monthDate = "";*/
 		this.incomeTax = incomeTax;
 		this.pfLoanRecovery = pfLoanRecovery;
+		this.absenties = absenties;
 	}
 	
 
@@ -131,6 +132,14 @@ public class EmployeeVarDeductions {
 
 	public void setPfLoanRecovery(double pfLoanRecovery) {
 		this.pfLoanRecovery = pfLoanRecovery;
+	}
+
+	public double getAbsenties() {
+		return absenties;
+	}
+
+	public void setAbsenties(double absenties) {
+		this.absenties = absenties;
 	}
 
 	@Override

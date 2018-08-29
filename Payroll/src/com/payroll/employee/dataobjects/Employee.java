@@ -29,7 +29,7 @@ public class Employee implements Serializable{
 	private String lastPromotionDate;
 	private Date retirementDate;
 	private String status;
-
+	private Boolean handicapFlag;
 	private Timestamp rowUpdatedDate;
 
 	
@@ -239,5 +239,13 @@ public class Employee implements Serializable{
 
 	public void setHeadId(int headId) {
 		this.headId = headId;
+	}
+
+	public Boolean getHandicapFlag() {
+		return handicapFlag;
+	}
+
+	public void setHandicapFlag(Boolean handicapFlag) {
+		this.handicapFlag = handicapFlag;
 	}
 }

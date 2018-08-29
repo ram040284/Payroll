@@ -20,7 +20,14 @@ public class EmployeePayrollEarnings {
     private double overTimeHours;
     private boolean handicappedFlag;
     private boolean taFlag; // false if employee leaves within 2km radiu of office
+    private double cycleAllowance;
 
+	public double getCycleAllowance() {
+		return cycleAllowance;
+	}
+	public void setCycleAllowance(double cycleAllowance) {
+		this.cycleAllowance = cycleAllowance;
+	}
 	public EmployeePayrollEarnings() {
 		super();
 		// TODO Auto-generated constructor stub

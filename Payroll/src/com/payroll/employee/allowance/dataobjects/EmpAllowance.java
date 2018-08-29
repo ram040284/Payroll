@@ -23,6 +23,7 @@ public class EmpAllowance implements Serializable {
 	private String status;
 	private short addUpdate; // 0 - Add / 1 - update
 	private Employee employee;
+	private double otherAllowance;
 	
 	public Boolean getPfFlag() {
 		return pfFlag;
@@ -122,6 +123,12 @@ public class EmpAllowance implements Serializable {
 	}
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+	public double getOtherAllowance() {
+		return otherAllowance;
+	}
+	public void setOtherAllowance(double otherAllowance) {
+		this.otherAllowance = otherAllowance;
 	}
 	
 	

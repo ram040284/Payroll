@@ -82,7 +82,7 @@ public class EmployeePayrollDAO {
 	private double incomeTax;
 	
 	@SuppressWarnings("unchecked")
-	public EmployeePayroll loadPayrollInfo(int employeeId, Date date){
+	public EmployeePayroll loadPayrollInfo(int employeeId, Boolean handicapFlag, Date date){
     	System.out.println("loadPayrollInfo:");
     	Salary salary = null;
 		EmpPf empPf = null;
@@ -127,20 +127,22 @@ public class EmployeePayrollDAO {
    			bankVo = (BankVO)getObjectByEmpId("select new com.payroll.employee.bank.vo.BankVO(b.bankDetails.bankId, b.bankDetails.bankName, b.accountNo) "
    					+ "from EmpBank b where b.employee.employeeId = ? and b.status = ?");		
 			double overtimeAmount = com.payroll.hrms.payroll.service.EmployeePayrollService.overtimeHours(overtimeList);
-			double abcenties = com.payroll.hrms.payroll.service.EmployeePayrollService.getAbsenties(leaves);
+			
+			//TODO: Prasad: Needs to be retrieved from respective module
+//			double abcenties = com.payroll.hrms.payroll.service.EmployeePayrollService.getabcenties(leaves);
 			
 			// This need to check 
 			double festAdvanceRecovery = (empAdvances != null) ? empAdvances.getInstallAmount() : 0;
 			double bankLoanRecovery = 0;
 			double cpfRecovery = 0;
 			
-   			empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(),
-   					employeeAllowances.getCca(), employeeAllowances.getFamilyPlanAlwance(),employeeAllowances.getNonPracAwance(),
-   					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),employeeAllowances.getPFFlag(),
+   			empPayroll = new EmployeePayroll(handicapFlag, salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(), salary.getOtherPay(),
+   					employeeAllowances.getCca(), employeeAllowances.getCycleAlwance(), employeeAllowances.getOtherAllowance(), employeeAllowances.getFamilyPlanAlwance(),employeeAllowances.getNonPracAwance(),
+   					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),employeeAllowances.getPFFlag(), employeeAllowances.getTaFlag(),
    					employeeFixedDeductions.getUnionFee(), employeeFixedDeductions.getKssUnionFee(), employeeFixedDeductions.getRent(), employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
    					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getPfLoanRecovery(), employeeVarDeductions.getOtherDeductions(),
    					employeeVarDeductions.getSociety(), employeeVarDeductions.getIncomeTax(), licTotalInstallmentAmt, empPf.getPfLoneRecAmt(), empPf.getPfsCpfCntrbn(), empPf.getApfAcpfCntrbn(),
-   					cpfRecovery, festAdvanceRecovery , bankLoanRecovery, abcenties, overtimeAmount, bankVo.getBankName(), 
+   					cpfRecovery, festAdvanceRecovery , bankLoanRecovery, employeeVarDeductions.getAbsenties(), overtimeAmount, bankVo.getBankName(), 
    					bankVo.getAccountNo(), bankVo.getBankId(), salary.getIncrementDate(), salary.getIncrementAmount());
 	
    		}catch(Exception e){
@@ -306,7 +308,7 @@ public class EmployeePayrollDAO {
 					+ "(select h.headName from HeadInfo h where h.headId = (select eMas.headInfo.headId from EmpHeadInfo eMas where eMas.employee.employeeId = e.employeeId)),"
 					+ "(select desg.designationName from Designation desg where desg.designationId = "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId)), "
-					+ "e.joiningDate) from Employee e where e.status = ? and e.employeeId in "
+					+ "e.joiningDate, e.handicapFlag) from Employee e where e.status = ? and e.employeeId in "
     			+ "(select eDept.employee.employeeId from EmpDepartment eDept where eDept.department.departmentId = ?)";
     		Query query = session.createQuery(queryString);
     		query.setParameter(0, "A");
@@ -335,7 +337,7 @@ public class EmployeePayrollDAO {
 					+ "(select h.headName from HeadInfo h where h.headId = (select eMas.headInfo.headId from EmpHeadInfo eMas where eMas.employee.employeeId = e.employeeId)),"
 					+ "(select desg.designationName from Designation desg where desg.designationId = "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId)), "
-					+ "e.joiningDate) from Employee e where e.status = ? and e.retirementDate > ? and e.employeeId in "
+					+ "e.joiningDate, e.handicapFlag) from Employee e where e.status = ? and e.retirementDate > ? and e.employeeId in "
 					+ "(select eDept.employee.employeeId from EmpDepartment eDept where eDept.department.departmentId = ?)";
     		Query query = session.createQuery(queryString);
     		query.setParameter(0, "A");

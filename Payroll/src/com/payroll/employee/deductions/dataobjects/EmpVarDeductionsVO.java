@@ -27,9 +27,10 @@ public class EmpVarDeductionsVO {
 	private Employee employee;
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
+	private double absenties;
 
 	public EmpVarDeductionsVO(int employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
-			 double otherDeductions, double miscRecovery, Date monthDate, double incomeTax){
+			 double otherDeductions, double miscRecovery, Date monthDate, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
 		this.society = society;
@@ -48,11 +49,12 @@ public class EmpVarDeductionsVO {
 		nameSB.append(Utils.safeTrim(lastName));
 		this.fullName = nameSB.toString();
 		this.incomeTax = incomeTax;
+		this.absenties = absenties;
 	}
 	
 	
 	public EmpVarDeductionsVO(int employeeId, double afkRent, double society, 
-			 double otherDeductions, double miscRecovery, Date monthDate, double incomeTax){
+			 double otherDeductions, double miscRecovery, Date monthDate, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
 		this.society = society;
@@ -65,6 +67,7 @@ public class EmpVarDeductionsVO {
 			this.monthDate = null;
 		
 		this.incomeTax = incomeTax;
+		this.absenties = absenties;
 	}
 	
 	
@@ -208,4 +211,17 @@ public class EmpVarDeductionsVO {
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+
+	public double getAbsenties() {
+		return absenties;
+	}
+
+
+	public void setAbsenties(double absenties) {
+		this.absenties = absenties;
+	}
+
+
+
 }

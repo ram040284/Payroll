@@ -22,7 +22,7 @@ public class Paybill implements Serializable{
 	private double travelAllowance;
 	private double nonPracticingAllowance;
 	private double washingAllowance;
-	private double conveyanceAllowance;
+//	private double conveyanceAllowance;
 	private double uniformAllowance;
 	private double familyPlanningAllowance;
 	private double totalAllowance;
@@ -65,6 +65,7 @@ public class Paybill implements Serializable{
 	private String incrementDate;
 	private int bankId;
 	private String scalePay;
+	private double ca;
 	
 	/*private String employeeName;
 	private String panNo;
@@ -126,12 +127,12 @@ public class Paybill implements Serializable{
 	public void setWashingAllowance(double wa) {
 		this.washingAllowance = wa;
 	}
-	public double getConveyanceAllowance() {
-		return conveyanceAllowance;
-	}
-	public void setConveyanceAllowance(double ca) {
-		this.conveyanceAllowance = ca;
-	}
+//	public double getConveyanceAllowance() {
+//		return conveyanceAllowance;
+//	}
+//	public void setConveyanceAllowance(double ca) {
+//		this.conveyanceAllowance = ca;
+//	}
 	public double getUniformAllowance() {
 		return uniformAllowance;
 	}
@@ -395,6 +396,12 @@ public class Paybill implements Serializable{
 	}
 	public void setScalePay(String scalePay) {
 		this.scalePay = scalePay;
+	}
+	public double getCa() {
+		return ca;
+	}
+	public void setCa(double ca) {
+		this.ca = ca;
 	}
 	
 	

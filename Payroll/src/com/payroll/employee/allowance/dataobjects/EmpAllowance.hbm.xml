@@ -20,6 +20,7 @@
 		<property name="uniformAlwance" column="UNIFORM_ALLOWANCE" />
 		<property name="familyPlanAlwance" column="FAMILY_PLANNING_ALLOWANCE" />
 		<property name="cycleAlwance" column="CYCLE_ALLOWANCE" />
+		<property name="otherAllowance" column="OTHER_ALLOWANCE" />
 		<property name="hraFlag" column="HRA_FLAG" />
 		<property name="qtrFlag" column="QTR_FLAG" />
 		<property name="afkFlag" column="AFK_FLAG" />

@@ -66,8 +66,6 @@
 <body onload="getDeductionsList()">
 	<jsp:include page="../jsp/public/postHeader.jsp" />
 	<div class="contain-wrapp bodyDivCss">
-	
-	<!-- ************ -->
 		<div class="container">
 			<div class="formDiv" style="border: none;">
 				<div class="row">
@@ -77,8 +75,6 @@
 				</div>
 			</div>	
 		</div>
-		<!-- ************ -->
-	
 		<div class="container">
 
 			<div style="margin-top: 12px; float: left; width: 98%;">

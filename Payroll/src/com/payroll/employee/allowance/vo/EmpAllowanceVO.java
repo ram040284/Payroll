@@ -19,6 +19,7 @@ public class EmpAllowanceVO {
 	private int headId;
 	private int designationId;
 	private String fullName;
+	private double otherAllowance;
 	
 	public Boolean getPfFlag() {
 		return pfFlag;
@@ -73,7 +74,7 @@ public class EmpAllowanceVO {
 	}
 	
 	public EmpAllowanceVO(int employeeId, String firstName, String lastName, double cca, double washingAlwance,	double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag,Boolean pfFlag) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag,Boolean pfFlag, double otherAllowance) {
 		this.employeeId = employeeId;
 		StringBuffer fullNameSB = new StringBuffer(firstName);
 		fullNameSB.append(" ");
@@ -90,10 +91,11 @@ public class EmpAllowanceVO {
 		this.afkFlag = afkFlag;
 		this.taFlag = taFlag;
 		this.pfFlag = pfFlag;
+		this.otherAllowance = otherAllowance;
 	}
 	
 	public EmpAllowanceVO(int employeeId, int departmentId, int designationId, int headId, double cca, double washingAlwance, double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag, Boolean pfFlag) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag, Boolean pfFlag, double otherAllowance) {
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -109,6 +111,7 @@ public class EmpAllowanceVO {
 		this.afkFlag = afkFlag;
 		this.taFlag = taFlag;
 		this.pfFlag = pfFlag;
+		this.otherAllowance = otherAllowance;
 	}
 	
 	public int getEmployeeId() {
@@ -181,4 +184,13 @@ public class EmpAllowanceVO {
 	public void setHraFlag(Boolean hraFlag) {
 		this.hraFlag = hraFlag;
 	}
+
+	public double getOtherAllowance() {
+		return otherAllowance;
+	}
+
+	public void setOtherAllowance(double otherAllowance) {
+		this.otherAllowance = otherAllowance;
+	}
+
 }

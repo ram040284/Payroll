@@ -24,6 +24,7 @@ public class Employee {
 	private String gender;
 	private int headId;
 	private String retirementDate;
+	private Boolean handicapFlag;
 	
 	public int getEmployeeId() {
 		return employeeId;
@@ -225,5 +226,13 @@ public class Employee {
 
 	public void setRetirementDate(String retirementDate) {
 		this.retirementDate = retirementDate;
+	}
+
+	public Boolean getHandicapFlag() {
+		return handicapFlag;
+	}
+
+	public void setHandicapFlag(Boolean handicapFlag) {
+		this.handicapFlag = handicapFlag;
 	}
 }

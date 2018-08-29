@@ -18,6 +18,7 @@
     <property name="pan" column="EMP_PAN" />
     <property name="adharNo" column="EMP_AADHAR" />
     <property name="lastPromotionDate" column="EMP_LST_PROMO_DT" />
+    <property name="handicapFlag" column="HANDICAP_FLAG" />
     <property name="status" column="STATUS" not-null="true"/>
     <property name="gender" column="GENDER" not-null="true"/>
     <property name="retirementDate" column="RETMT_DATE"/>

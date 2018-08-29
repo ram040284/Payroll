@@ -13,13 +13,14 @@
 	<one-to-one name="employee" class="com.payroll.employee.dataobjects.Employee"
 		constrained="true" fetch="select"></one-to-one>
 	 
-     <property name="year" column="YEAR" not-null="true"/> 
+    <property name="year" column="YEAR" not-null="true"/> 
     <property name="basic" column="BASIC" not-null="true"/> 
     <property name="gradePay" column="GRD_PAY" not-null="true"/>
     <property name="scalePay" column="SCALE_PAY" not-null="true"/> 
     <property name="scaleCode" column="SCALE_CODE" not-null="true"/>
     <property name="incrementAmount" column="INC_AMT"/>
     <property name="incrementDate" column="INC_DATE"/>
+    <property name="otherPay" column="OTHER_PAY"/>
     <property name="status" column="STATUS" not-null="true"/>  
     <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/>
   </class>
