@@ -8,6 +8,11 @@ import com.payroll.Utils;
 
 public class EmployeeVO implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String firstName;
 	private String lastName;
 	private String middleName;
@@ -37,6 +42,7 @@ public class EmployeeVO implements Serializable{
 	private String headName;
 	private int headId;
 	private String retirementDate;
+	private Boolean handicapFlag;
 	
 	
 	public EmployeeVO(){
@@ -54,7 +60,7 @@ public class EmployeeVO implements Serializable{
 	
 	public EmployeeVO(int employeeId, String firstName, String lastName, String middleName,
 			String pan, Date dob, Date retirementDate, String department,
-			String headName, String designation,  Date joiningDate){
+			String headName, String designation,  Date joiningDate, Boolean handicapFlag){
 		this.employeeId = employeeId;
 		this.fullName = getName(firstName, middleName, lastName);
 		this.pan = pan;
@@ -64,6 +70,7 @@ public class EmployeeVO implements Serializable{
 		this.joiningDate = (joiningDate != null) ? dateFormat.format(joiningDate) : "";
 		this.retirementDate = (retirementDate != null) ? dateFormat.format(retirementDate) : "";
 		this.headName = headName;
+		this.handicapFlag = handicapFlag;
 	}
 	
 	public EmployeeVO(int employeeId, String firstName, String lastName, String middleName,
@@ -71,7 +78,7 @@ public class EmployeeVO implements Serializable{
 			String pan, String aadhar, Date dob, String department,
 			String headName, String designation, 
 			//String addressLine1, String addressLine2, String addressLine3, 
-			String gender, Date joiningDate, Date retirementDate){
+			String gender, Date joiningDate, Date retirementDate, Boolean handicapFlag){
 		this.employeeId = employeeId;
 		
 		this.email = email;
@@ -92,6 +99,7 @@ public class EmployeeVO implements Serializable{
 		this.headName = headName;
 		this.joiningDate = (joiningDate != null) ? dateFormat.format(joiningDate) : "";
 		this.retirementDate = (retirementDate != null) ? dateFormat.format(retirementDate) : "";
+		this.handicapFlag = handicapFlag;
 	}
 	
 	public EmployeeVO(Integer employeeId, String firstName, String lastName, String middleName,
@@ -99,7 +107,7 @@ public class EmployeeVO implements Serializable{
 			String pan, String aadhar, Date dob, Integer departmentId,
 			Integer headId, Integer designationId, 
 			//String addressLine1, String addressLine2, String addressLine3, 
-			String gender, Date joiningDate, Date retirementDate){
+			String gender, Date joiningDate, Date retirementDate, Boolean handicapFlag){
 		this.employeeId = employeeId;
 		
 		this.email = email;
@@ -123,6 +131,7 @@ public class EmployeeVO implements Serializable{
 		this.headId = headId;
 		this.joiningDate = (joiningDate != null) ? dateFormat.format(joiningDate) : "";
 		this.retirementDate = (retirementDate != null) ? dateFormat.format(retirementDate) : "";
+		this.handicapFlag = handicapFlag;
 	}
 	
 	public EmployeeVO(int employeeId, String firstName, String lastName, String middleName,
@@ -130,7 +139,7 @@ public class EmployeeVO implements Serializable{
 			String pan, String aadhar, Date dob, int deptId, String department,
 			String headName, String designation, 
 			//String addressLine1, String addressLine2, String addressLine3, 
-			String gender, Date joiningDate){
+			String gender, Date joiningDate, Boolean handicapFlag){
 		this.employeeId = employeeId;
 		
 		this.email = email;
@@ -151,6 +160,7 @@ public class EmployeeVO implements Serializable{
 		this.fullName = getName(firstName, middleName, lastName);
 		this.headName = headName;
 		this.joiningDate = (joiningDate != null) ? dateFormat.format(joiningDate) : "";
+		this.handicapFlag = handicapFlag;
 	}
 	
 	public String getFirstName() {
@@ -251,5 +261,11 @@ public class EmployeeVO implements Serializable{
 	}
 	public String getRetirementDate() {
 		return retirementDate;
+	}
+	public Boolean getHandicapFlag() {
+		return handicapFlag;
+	}
+	public void setHandicapFlag(Boolean handicapFlag) {
+		this.handicapFlag = handicapFlag;
 	}
 }

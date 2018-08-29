@@ -13,7 +13,7 @@ public class ReportDetails {
 	private double travelAllowance;
 	private double nonPracticingAllowance;
 	private double washingAllowance;
-	private double conveyanceAllowance;
+//	private double conveyanceAllowance;
 	private double uniformAllowance;
 	private double familyPlanningAllowance;
 	private double totalAllowance;
@@ -62,6 +62,7 @@ public class ReportDetails {
 	private String pfNumber;
 	private String employeeNumber;
 	private String scalePay;
+	private double ca;
 	
 	public String getEmployeeNumber() {
 		return employeeNumber;
@@ -129,12 +130,12 @@ public class ReportDetails {
 	public void setWashingAllowance(double washingAllowance) {
 		this.washingAllowance = washingAllowance;
 	}
-	public double getConveyanceAllowance() {
-		return conveyanceAllowance;
-	}
-	public void setConveyanceAllowance(double conveyanceAllowance) {
-		this.conveyanceAllowance = conveyanceAllowance;
-	}
+//	public double getConveyanceAllowance() {
+//		return conveyanceAllowance;
+//	}
+//	public void setConveyanceAllowance(double conveyanceAllowance) {
+//		this.conveyanceAllowance = conveyanceAllowance;
+//	}
 	public double getUniformAllowance() {
 		return uniformAllowance;
 	}
@@ -404,6 +405,12 @@ public class ReportDetails {
 	}
 	public void setIncrementDate(String incrementDate) {
 		this.incrementDate = incrementDate;
+	}
+	public double getCa() {
+		return ca;
+	}
+	public void setCa(double ca) {
+		this.ca = ca;
 	}
 	
 	/*protected void addPayrollTotals(EmployeePayroll payroll){

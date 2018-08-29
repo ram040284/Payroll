@@ -20,7 +20,7 @@ public class EmpVarDeductionsDAO {
 			Session session = null;
 			try{
 				String queryString = " select new com.payroll.employee.deductions.dataobjects.EmpVarDeductions(d.employee.employeeId, "
-						+"d.employee.firstName, d.employee.lastName, d.afkRent, d.society, d.pfLoanRecovery, d.otherDeductions, d.miscRecovery, d.monthDate,d.note, d.incomeTax)"
+						+"d.employee.firstName, d.employee.lastName, d.afkRent, d.society, d.pfLoanRecovery, d.otherDeductions, d.miscRecovery, d.monthDate,d.note, d.incomeTax, d.absenties)"
 						+ " from EmpVarDeductionsVO d where d.status = ? ";
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -46,7 +46,7 @@ public class EmpVarDeductionsDAO {
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = d.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = d.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = d.employee.employeeId and dh.status = 'A'), "
-						+" d.afkRent, d.society, d.pfLoanRecovery, d.otherDeductions, d.miscRecovery, d.monthDate,d.note, d.incomeTax)"
+						+" d.afkRent, d.society, d.pfLoanRecovery, d.otherDeductions, d.miscRecovery, d.monthDate,d.note, d.incomeTax, d.absenties)"
 						+ " from EmpVarDeductionsVO d where d.employee.employeeId = ? and d.status = ? ";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
@@ -70,7 +70,7 @@ public class EmpVarDeductionsDAO {
 		EmployeeVarDeductions employeeVarDeductions = null;
 		Session session = null;
 			try{
-				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions(s.employeeId, s.afkRent, s.society, s.pfLoanRecovery, s.otherDeductions,s.miscRecovery, s.monthDate, s.incomeTax) from EmpVarDeductionsVO s where s.employeeId = ? and s.status = ?";		
+				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions(s.employeeId, s.afkRent, s.society, s.pfLoanRecovery, s.otherDeductions,s.miscRecovery, s.monthDate, s.incomeTax, s.absenties) from EmpVarDeductionsVO s where s.employeeId = ? and s.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);

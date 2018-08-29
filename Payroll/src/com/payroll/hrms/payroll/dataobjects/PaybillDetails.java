@@ -46,7 +46,7 @@ public class PaybillDetails {
 	private double otherDeducs;
 	private double misc;
 	private double grossPay;
-	private double lfee;
+//	private double lfee;
 	private double pfInstment;
 	private double totalDeductions;
 	private double totalGrossPay; 
@@ -86,6 +86,7 @@ public class PaybillDetails {
 		da += payroll.getDa();
 		hra+= payroll.getHra();
 		cca+= payroll.getCca();
+//		ca += payroll.getCycleAllowance();
 		ta+= payroll.getTa();
 		npa+= payroll.getNpa();
 		wa+= payroll.getWa();
@@ -131,16 +132,17 @@ public class PaybillDetails {
 		da += payroll.getDearnessAllowance();
 		hra+= payroll.getHouseRentAllowance();
 		cca+= payroll.getCca();
+		ca+= payroll.getCa();
 		ta+= payroll.getTravelAllowance();
 		npa+= payroll.getNonPracticingAllowance();
 		wa+= payroll.getWashingAllowance();
-		ca+= payroll.getConveyanceAllowance();
+//		ca+= payroll.getConveyanceAllowance();
 		uniformAlw+=payroll.getUniformAllowance();
 		familyPlaningAlw+= payroll.getFamilyPlanningAllowance();
 		totallw += payroll.getTotalAllowance();
 		otAmt += payroll.getOverTimeAmount();
 		others += payroll.getOtherPayAmount();
-		rent+= payroll.getRent();
+		rent+= payroll.getLfee();
 		afkRent += payroll.getAfkRent();
 		absentDed+= payroll.getAbsentAmount();
 		festAdvRcry += payroll.getFestAdvRecovery();
@@ -179,7 +181,8 @@ public class PaybillDetails {
     public double getTotalDeductions() {
     	this.totalDeductions = 0;
     	this.totalDeductions = this.absentDed
-    						+ this.lfee // need to check what is it mean
+//    						+ this.lfee // need to check what is it mean
+    						+ this.rent
     						+ this.afkRent
     						+ this.festAdvRcry
     						+ this.pt
@@ -390,6 +393,9 @@ public class PaybillDetails {
 	}
 	public void setUnionFeeKss(double unionFeeKss) {
 		this.unionFeeKss = unionFeeKss;
+	}
+	public void setCa(double ca) {
+		this.ca = ca;
 	}
 	
 	

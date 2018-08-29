@@ -48,7 +48,7 @@ public class EmployeePayrollService {
 			incTaxservice= new IncomeTaxCalculatorService();
 			for (Iterator iterator = empList.iterator(); iterator.hasNext();) {
 				EmployeeVO employee = (EmployeeVO) iterator.next();
-				EmployeePayroll empPayroll = payrollDAO.loadPayrollInfo(employee.getEmployeeId(), date);
+				EmployeePayroll empPayroll = payrollDAO.loadPayrollInfo(employee.getEmployeeId(), employee.getHandicapFlag(), date);
 				if(empPayroll!=null){
 					empPayroll.setEmployee(employee);
 					//double incomeTax = incTaxservice.getIncomeTax(employee.getEmployeeId(), date, empPayroll.getGrossPay());

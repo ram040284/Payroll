@@ -13,11 +13,12 @@ public class EmployeeAllowances {
 	private Boolean afkFlag;
 	private Boolean taFlag;
 	private Boolean pfFlag;
+	private double otherAllowance;
 	
 	/**
 	 */
 	public EmployeeAllowances(int employeeId, double cca, double washingAlwance, double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag, Boolean pfFlag) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag, Boolean pfFlag, double otherAllowance) {
 		this.employeeId = employeeId;
 		this.cca = cca;
 		this.washingAlwance = washingAlwance;
@@ -30,6 +31,7 @@ public class EmployeeAllowances {
 		this.afkFlag = afkFlag;
 		this.taFlag = taFlag;
 		this.pfFlag = pfFlag;
+		this.otherAllowance = otherAllowance;
 	}
 	
 		public Boolean getPFFlag() {
@@ -126,6 +128,15 @@ public class EmployeeAllowances {
 		this.hraFlag = hraFlag;
 	}
 	
+
+	public double getOtherAllowance() {
+		return otherAllowance;
+	}
+
+	public void setOtherAllowance(double otherAllowance) {
+		this.otherAllowance = otherAllowance;
+	}
+
 	@Override
 	public String toString() {
 		return "EmployeeAllowances [employeeId=" + employeeId + ", cca=" + cca + ", washingAlwance=" + washingAlwance

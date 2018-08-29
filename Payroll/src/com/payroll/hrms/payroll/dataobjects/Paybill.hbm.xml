@@ -20,7 +20,7 @@
     <property name="travelAllowance" column="TA"  /> 
     <property name="nonPracticingAllowance" column="NPA"  />
     <property name="washingAllowance" column="WA"  /> 
-    <property name="conveyanceAllowance" column="CA"  />  
+    <property name="ca" column="CA"  />  
     <property name="uniformAllowance" column="UFALW"  /> 
     <property name="familyPlanningAllowance" column="FPALW"  />
     <property name="totalAllowance" column="TALW"  />

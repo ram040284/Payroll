@@ -60,6 +60,16 @@ public class EmployeePayrollDTO {
 	private double society;
 	private double incomeTax;
 	private double rent;
+	private double cycleAllowance;
+	private double otherPay;
+
+    public double getCycleAllowance() {
+		return cycleAllowance;
+	}
+
+	public void setCycleAllowance(double cycleAllowance) {
+		this.cycleAllowance = cycleAllowance;
+	}
 
     public String getDeptCostHead() {
         return deptCostHead;
@@ -299,5 +309,13 @@ public class EmployeePayrollDTO {
 
 	public void setUnionFeeKss(double unionFeeKss) {
 		this.unionFeeKss = unionFeeKss;
+	}
+
+	public double getOtherPay() {
+		return otherPay;
+	}
+
+	public void setOtherPay(double otherPay) {
+		this.otherPay = otherPay;
 	}
 }

@@ -253,8 +253,10 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(PdfUtils.WA, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getWashingAllowance()), font));
 		
+//		table.addCell(addToCell(PdfUtils.CA, font));
+//		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getConveyanceAllowance()), font));
 		table.addCell(addToCell(PdfUtils.CA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getConveyanceAllowance()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCa()), font));
 		table.addCell(addToCell(PdfUtils.UNIFORMALW, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUniformAllowance()), font));
 		
@@ -266,7 +268,7 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(PdfUtils.OTAMT, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOverTimeAmount()), font));
 		table.addCell(addToCell(PdfUtils.OTHERS, font));
-		table.addCell(addToCell("0.00", font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtherPayAmount()), font));
 		
 		//table.addCell(addToCell(PdfUtils.GROSS, font));
 		//table.addCell(addToCell(payroll.getGrossPay()+"", font));
@@ -307,7 +309,7 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(PdfUtils.OTAMT, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtAmt()), font));
 		table.addCell(addToCell(PdfUtils.OTHERS, font));
-		table.addCell(addToCell("0.00", font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOthers()), font));
 		
 	}
 	

@@ -24,6 +24,7 @@ public class EmpAllowanceReportVO implements Serializable {
   private double familyPlanAllowance;
   private double cycleAllowance;
   private boolean hraFlag;
+  private double otherAllowance;
   
   public EmpAllowanceReportVO() {}
   
@@ -36,7 +37,7 @@ public class EmpAllowanceReportVO implements Serializable {
   
   public EmpAllowanceReportVO(int employeeId, String firstName, String lastName, String middleName, 
 		  double cca, double wa,  double npa, double ua, double fpa, double cycleAlwance, boolean hraFlag, 
-		  String deptName, String headName, String designation)
+		  String deptName, String headName, String designation, double otherAllowance)
   {
     this.employeeId = employeeId;
     this.fullName = getName(firstName, middleName, lastName);
@@ -56,6 +57,7 @@ public class EmpAllowanceReportVO implements Serializable {
     this.department = deptName;
     this.headName = headName;
     this.designation = designation;
+    this.otherAllowance = otherAllowance;
   }
   
   public String getFirstName()
@@ -150,6 +152,14 @@ public boolean isHraFlag() {
 
 public double getUniformAllowance() {
 	return uniformAllowance;
+}
+
+public double getOtherAllowance() {
+	return otherAllowance;
+}
+
+public void setOtherAllowance(double otherAllowance) {
+	this.otherAllowance = otherAllowance;
 }
   
 

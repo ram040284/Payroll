@@ -25,7 +25,7 @@ public class EmpAllowanceService {
 	public double getTotalEmpAllowanceById(int empId){
 		EmpAllowanceVO empAllowanceVO = new EmpAllowanceDAO().getEmpAllowanceById(empId);
 		double totalEmpAllowance = empAllowanceVO.getCca() + empAllowanceVO.getCycleAlwance()+empAllowanceVO.getFamilyPlanAlwance() +empAllowanceVO.getNonPracAwance() +
-				empAllowanceVO.getUniformAlwance() + empAllowanceVO.getWashingAlwance();
+				empAllowanceVO.getUniformAlwance() + empAllowanceVO.getWashingAlwance() + empAllowanceVO.getOtherAllowance();
 		return totalEmpAllowance;
 	}
 	

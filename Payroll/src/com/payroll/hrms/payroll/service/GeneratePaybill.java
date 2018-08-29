@@ -69,6 +69,7 @@ public class GeneratePaybill {
 			basicPay+= employeePayroll.getBasic();
 			gradePay += employeePayroll.getGradePay();
 			cca+= employeePayroll.getCca();
+			ca += employeePayroll.getCa();
 			da+= employeePayroll.getDearnessAllowance();
 			hra+= employeePayroll.getHouseRentAllowance();
 			ta+= employeePayroll.getTravelAllowance();
