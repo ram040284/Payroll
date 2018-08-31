@@ -18,7 +18,7 @@ public class EmployeePayrollEarnings {
     private double otherPayAmount;
     private double grossPay;
     private double overTimeHours;
-    private boolean handicappedFlag;
+    private byte handicappedFlag;
     private boolean taFlag; // false if employee leaves within 2km radiu of office
     private double cycleAllowance;
 
@@ -38,10 +38,10 @@ public class EmployeePayrollEarnings {
 	public void setOverTimeHours(double overTimeHours) {
 		this.overTimeHours = overTimeHours;
 	}
-	public boolean isHandicappedFlag() {
+	public byte isHandicappedFlag() {
 		return handicappedFlag;
 	}
-	public void setHandicappedFlag(boolean handicappedFlag) {
+	public void setHandicappedFlag(byte handicappedFlag) {
 		this.handicappedFlag = handicappedFlag;
 	}
 	public boolean isTaFlag() {

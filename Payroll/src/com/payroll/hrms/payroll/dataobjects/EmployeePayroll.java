@@ -71,7 +71,7 @@ public class EmployeePayroll {
    /* private double others;
     private double misc;
     */
-    private boolean handicappedFlag;
+    private byte handicappedFlag;
     private boolean taFlag; // false if employee leaves within 2km radiu of office
     private double overTimeHours;
     private List<EmpAllowance> listEmpAllowances;
@@ -119,7 +119,7 @@ public class EmployeePayroll {
     	this.employeeId = empVO.getEmployeeId();
     }
     
-   public EmployeePayroll(int employeeId, Boolean handicapFlag, double basic, double gradePay, String scalePay, String scaleCode, double otherPayAmount,
+   public EmployeePayroll(int employeeId, byte handicapFlag, double basic, double gradePay, String scalePay, String scaleCode, double otherPayAmount,
     		double cca, double cycleAllowance, double otherAllowance, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,byte pfFlag, boolean taFlag, double tAllowance,
     		double unionFee, double unionFeeKss, double lfee, double electricityRecovery, double courtRcry, double gis, double afkRent, double pfLoanRecovery, double otherDeduct,
     		double society,  double incomeTax, double licInstalAmt, double pfLoanRcry, double cpfCont, double apfacpf, double cpfRcry,
@@ -178,12 +178,12 @@ public class EmployeePayroll {
          calculateOverTime();
          calculateProvidentFund(this.employeeId);
          calculateTotalAllowances();
-         calculateGrossPay();
+         calculateGrossPay(this.employeeId);
          calculateTotalGrossPay();
          calculateProfessionalTax(this.employeeId);
          processAbsentee();
-         calculateDeductions();
-         calculateNetPay();
+         calculateDeductions(this.employeeId);
+         calculateNetPay(this.employeeId);
     }
     
 //    Is it being used??? - Prasad
@@ -250,7 +250,7 @@ public class EmployeePayroll {
     	
     	if (taFlag) {
     		
-    		if (!handicappedFlag) {
+    		if (handicappedFlag == 0 || handicappedFlag == 2) {
     			
     			if (this.gradePay >= 5400.00)
     				travelAllowance = 2400.00;
@@ -289,10 +289,10 @@ public class EmployeePayroll {
      * Calculate over time
      *
      */
-    private void calculateGrossPay(){
+    private void calculateGrossPay(int employeeId){
+    	
 
         this.grossPay = this.basic + this.gradePay + this.dearnessAllowance + this.travelAllowance + this.houseRentAllowance + this.totalAllowance + this.otherPayAmount + this.tAllowance;
-        
         this.totalGrossPay = Math.round(this.grossPay + this.overTimeAmount);
         //if leave without pay or absent
         if(absentDays > 0.0)
@@ -304,12 +304,14 @@ public class EmployeePayroll {
     		this.absentAmount = Math.round((this.grossPay / WORKING_DAYS) * absentDays);
        
     }
-    private void calculateNetPay(){
+    private void calculateNetPay(int employeeId){
     	this.netPay = 0;
-    	if(this.totalGrossPay>this.grossPay)
+    	if(this.totalGrossPay>this.grossPay) {
     		this.netPay = Math.round(this.totalGrossPay - this.totalDeductions);
-    	else
+    	}
+    	else {
     		this.netPay = Math.round(this.grossPay - this.totalDeductions);
+    	}
     }
     /**
      * Calculate over time
@@ -325,7 +327,7 @@ public class EmployeePayroll {
      *
       */
     private void calculateTotalGrossPay(){
-        this.totalGrossPay = Math.round(this.grossPay + this.overTimeAmount + this.otherPayAmount);
+        this.totalGrossPay = Math.round(this.grossPay);
     }
 
     //Calculate Deductions
@@ -354,7 +356,7 @@ public class EmployeePayroll {
     	//NetPay is 0 (absent) for these employees for April. Professional Tax should be 0.
     	Integer[] employeeWithZeroNetPay = new Integer[] {200403073, 200403106, 201707440, 198212743,198508715,198706682,199507690,201002226,199808873,198610092,200403899,199205035};
     	
-    	if (!Arrays.asList(employeeWithZeroNetPay).contains(employeeId) && !handicappedFlag) {
+    	if (!Arrays.asList(employeeWithZeroNetPay).contains(employeeId) && handicappedFlag == 0) {
     		profTax = 200.00;
     		Date date= new Date();
     		
@@ -369,7 +371,7 @@ public class EmployeePayroll {
         
     }
  
-    private void calculateDeductions() {
+    private void calculateDeductions(int employeeId) {
     	this.totalDeductions = 0;
     	this.totalDeductions = Math.round(this.absentAmount
     						+ this.lfee 
@@ -390,7 +392,6 @@ public class EmployeePayroll {
     						+ this.miscAllowance
     						+ this.unionFeeKss
     						+ this.pfInstment);
-    						
     }
     
 	public String getEmployeeName() {

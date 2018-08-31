@@ -32,7 +32,7 @@ public class EmployeePayrollDTO {
     private String deptCostHead;
     private double basic;
     private double gradePay;
-    private boolean handicappedFlag;
+    private byte handicappedFlag;
     private double overTimeHours;
     private List<Allowance> listAllowances;
     private List<EmpAllowance> listEmpAllowances;
@@ -95,11 +95,11 @@ public class EmployeePayrollDTO {
         this.gradePay = gradePay;
     }
 
-    public boolean isHandicappedFlag() {
+    public byte isHandicappedFlag() {
         return handicappedFlag;
     }
 
-    public void setHandicappedFlag(boolean handicappedFlag) {
+    public void setHandicappedFlag(byte handicappedFlag) {
         this.handicappedFlag = handicappedFlag;
     }
 

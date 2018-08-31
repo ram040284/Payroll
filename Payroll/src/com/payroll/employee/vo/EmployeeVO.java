@@ -42,7 +42,7 @@ public class EmployeeVO implements Serializable{
 	private String headName;
 	private int headId;
 	private String retirementDate;
-	private Boolean handicapFlag;
+	private byte handicapFlag;
 	
 	
 	public EmployeeVO(){
@@ -60,7 +60,7 @@ public class EmployeeVO implements Serializable{
 	
 	public EmployeeVO(int employeeId, String firstName, String lastName, String middleName,
 			String pan, Date dob, Date retirementDate, String department,
-			String headName, String designation,  Date joiningDate, Boolean handicapFlag){
+			String headName, String designation,  Date joiningDate, byte handicapFlag){
 		this.employeeId = employeeId;
 		this.fullName = getName(firstName, middleName, lastName);
 		this.pan = pan;
@@ -78,7 +78,7 @@ public class EmployeeVO implements Serializable{
 			String pan, String aadhar, Date dob, String department,
 			String headName, String designation, 
 			//String addressLine1, String addressLine2, String addressLine3, 
-			String gender, Date joiningDate, Date retirementDate, Boolean handicapFlag){
+			String gender, Date joiningDate, Date retirementDate, byte handicapFlag){
 		this.employeeId = employeeId;
 		
 		this.email = email;
@@ -107,7 +107,7 @@ public class EmployeeVO implements Serializable{
 			String pan, String aadhar, Date dob, Integer departmentId,
 			Integer headId, Integer designationId, 
 			//String addressLine1, String addressLine2, String addressLine3, 
-			String gender, Date joiningDate, Date retirementDate, Boolean handicapFlag){
+			String gender, Date joiningDate, Date retirementDate, byte handicapFlag){
 		this.employeeId = employeeId;
 		
 		this.email = email;
@@ -139,7 +139,7 @@ public class EmployeeVO implements Serializable{
 			String pan, String aadhar, Date dob, int deptId, String department,
 			String headName, String designation, 
 			//String addressLine1, String addressLine2, String addressLine3, 
-			String gender, Date joiningDate, Boolean handicapFlag){
+			String gender, Date joiningDate, byte handicapFlag){
 		this.employeeId = employeeId;
 		
 		this.email = email;
@@ -262,10 +262,10 @@ public class EmployeeVO implements Serializable{
 	public String getRetirementDate() {
 		return retirementDate;
 	}
-	public Boolean getHandicapFlag() {
+	public byte getHandicapFlag() {
 		return handicapFlag;
 	}
-	public void setHandicapFlag(Boolean handicapFlag) {
+	public void setHandicapFlag(byte handicapFlag) {
 		this.handicapFlag = handicapFlag;
 	}
 }

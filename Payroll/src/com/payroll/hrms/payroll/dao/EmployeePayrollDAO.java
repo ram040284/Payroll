@@ -82,7 +82,7 @@ public class EmployeePayrollDAO {
 	private double incomeTax;
 	
 	@SuppressWarnings("unchecked")
-	public EmployeePayroll loadPayrollInfo(int employeeId, Boolean handicapFlag, Date date){
+	public EmployeePayroll loadPayrollInfo(int employeeId, byte handicapFlag, Date date){
     	System.out.println("loadPayrollInfo:");
     	Salary salary = null;
 		EmpPf empPf = null;

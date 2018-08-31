@@ -174,9 +174,9 @@ public class PaybillDetails {
 	
     public double getTotalGrossPay(){
 
-        this.grossPay = this.basicPay + this.gradePay + this.da + this.ta  + this.totallw + this.tAllowance;
+        this.grossPay = this.basicPay + this.gradePay + this.da + this.ta  + this.totallw + this.tAllowance + this.others;
         //System.out.println("***** GrossPay -> Basic: " + this.basicPay + " GradePay: " + this.gradePay + " DA: " + this.da + " TA: " + this.ta + " TotalAllowance: " + this.totallw);
-        this.totalGrossPay = this.grossPay + this.otAmt+ this.others;
+        this.totalGrossPay = this.grossPay + this.otAmt;
         //System.out.println("***** Total Gross Pay -> GrossPay " + this.grossPay + " OverTimeAmount: " + this.otAmt + " Others/OtherPayment: " + this.others);
         return totalGrossPay;
     }
