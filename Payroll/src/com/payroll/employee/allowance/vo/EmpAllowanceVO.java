@@ -14,18 +14,19 @@ public class EmpAllowanceVO {
 	private Boolean qtrFlag;
 	private Boolean afkFlag;
 	private Boolean taFlag;
-	private Boolean pfFlag;
+	private byte pfFlag;
 	private int departmentId;
 	private int headId;
 	private int designationId;
 	private String fullName;
 	private double otherAllowance;
+	private double tAllowance;
 	
-	public Boolean getPfFlag() {
+	public byte getPfFlag() {
 		return pfFlag;
 	}
 
-	public void setPfFlag(Boolean pfFlag) {
+	public void setPfFlag(byte pfFlag) {
 		this.pfFlag = pfFlag;
 	}
 
@@ -74,7 +75,7 @@ public class EmpAllowanceVO {
 	}
 	
 	public EmpAllowanceVO(int employeeId, String firstName, String lastName, double cca, double washingAlwance,	double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag,Boolean pfFlag, double otherAllowance) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag,byte pfFlag, double otherAllowance, double tAllowance) {
 		this.employeeId = employeeId;
 		StringBuffer fullNameSB = new StringBuffer(firstName);
 		fullNameSB.append(" ");
@@ -92,10 +93,11 @@ public class EmpAllowanceVO {
 		this.taFlag = taFlag;
 		this.pfFlag = pfFlag;
 		this.otherAllowance = otherAllowance;
+		this.tAllowance = tAllowance;
 	}
 	
 	public EmpAllowanceVO(int employeeId, int departmentId, int designationId, int headId, double cca, double washingAlwance, double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag, Boolean pfFlag, double otherAllowance) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag, byte pfFlag, double otherAllowance, double tAllowance) {
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -112,6 +114,7 @@ public class EmpAllowanceVO {
 		this.taFlag = taFlag;
 		this.pfFlag = pfFlag;
 		this.otherAllowance = otherAllowance;
+		this.tAllowance = tAllowance;
 	}
 	
 	public int getEmployeeId() {
@@ -191,6 +194,14 @@ public class EmpAllowanceVO {
 
 	public void setOtherAllowance(double otherAllowance) {
 		this.otherAllowance = otherAllowance;
+	}
+
+	public double gettAllowance() {
+		return tAllowance;
+	}
+
+	public void settAllowance(double tAllowance) {
+		this.tAllowance = tAllowance;
 	}
 
 }

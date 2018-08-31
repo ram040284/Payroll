@@ -136,9 +136,9 @@ public class EmployeePayrollDAO {
 			double bankLoanRecovery = 0;
 //			double cpfRecovery = 0;
 			
-   			empPayroll = new EmployeePayroll(handicapFlag, salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(), salary.getOtherPay(),
+   			empPayroll = new EmployeePayroll(this.employeeId, handicapFlag, salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(), salary.getOtherPay(),
    					employeeAllowances.getCca(), employeeAllowances.getCycleAlwance(), employeeAllowances.getOtherAllowance(), employeeAllowances.getFamilyPlanAlwance(),employeeAllowances.getNonPracAwance(),
-   					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),employeeAllowances.getPFFlag(), employeeAllowances.getTaFlag(),
+   					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),employeeAllowances.getPFFlag(), employeeAllowances.getTaFlag(), employeeAllowances.gettAllowance(),
    					employeeFixedDeductions.getUnionFee(), employeeFixedDeductions.getKssUnionFee(), employeeFixedDeductions.getRent(), employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
    					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getPfLoanRecovery(), employeeVarDeductions.getOtherDeductions(),
    					employeeVarDeductions.getSociety(), employeeVarDeductions.getIncomeTax(), licTotalInstallmentAmt, empPf.getPfLoneRecAmt(), empPf.getPfsCpfCntrbn(), empPf.getApfAcpfCntrbn(),

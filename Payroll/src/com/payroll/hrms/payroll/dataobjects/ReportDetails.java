@@ -63,6 +63,7 @@ public class ReportDetails {
 	private String employeeNumber;
 	private String scalePay;
 	private double ca;
+	private double tAllowance;
 	
 	public String getEmployeeNumber() {
 		return employeeNumber;
@@ -411,6 +412,12 @@ public class ReportDetails {
 	}
 	public void setCa(double ca) {
 		this.ca = ca;
+	}
+	public double gettAllowance() {
+		return tAllowance;
+	}
+	public void settAllowance(double tAllowance) {
+		this.tAllowance = tAllowance;
 	}
 	
 	/*protected void addPayrollTotals(EmployeePayroll payroll){

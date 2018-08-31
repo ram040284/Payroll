@@ -38,7 +38,7 @@ public class EmployeePayrollDTO {
     private List<EmpAllowance> listEmpAllowances;
     private boolean hraFlag;
     private double noOfAbsentDays;
-    private boolean pfFlag;
+    private byte pfFlag;
 
     private double additionalProventFund;
     private double afkFlag;
@@ -135,11 +135,11 @@ public class EmployeePayrollDTO {
         this.noOfAbsentDays = noOfAbsentDays;
     }
 
-    public boolean isPfFlag() {
+    public byte isPfFlag() {
         return pfFlag;
     }
 
-    public void setPfFlag(boolean pfFlag) {
+    public void setPfFlag(byte pfFlag) {
         this.pfFlag = pfFlag;
     }
 

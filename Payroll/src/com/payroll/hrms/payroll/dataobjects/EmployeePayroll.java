@@ -1,6 +1,7 @@
 //package com.kcb.hrms.payroll.dataobjects;
 package com.payroll.hrms.payroll.dataobjects;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -51,7 +52,7 @@ public class EmployeePayroll {
     private double lic;
     private double societyInstallment;
     private double grpInsurance;
-    private boolean pfFlag;
+    private byte pfFlag;
     private double providentFund;
     private double additionalProventFund;
     private double pfRecovery;
@@ -100,6 +101,7 @@ public class EmployeePayroll {
     private double totalGrossPay;
     private double ca;
     private double otherAllowance;
+    private double tAllowance;
 
     //deductions
     public EmployeePayroll(){
@@ -117,8 +119,8 @@ public class EmployeePayroll {
     	this.employeeId = empVO.getEmployeeId();
     }
     
-   public EmployeePayroll(Boolean handicapFlag, double basic, double gradePay, String scalePay, String scaleCode, double otherPayAmount,
-    		double cca, double cycleAllowance, double otherAllowance, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,boolean pfFlag, boolean taFlag,
+   public EmployeePayroll(int employeeId, Boolean handicapFlag, double basic, double gradePay, String scalePay, String scaleCode, double otherPayAmount,
+    		double cca, double cycleAllowance, double otherAllowance, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,byte pfFlag, boolean taFlag, double tAllowance,
     		double unionFee, double unionFeeKss, double lfee, double electricityRecovery, double courtRcry, double gis, double afkRent, double pfLoanRecovery, double otherDeduct,
     		double society,  double incomeTax, double licInstalAmt, double pfLoanRcry, double cpfCont, double apfacpf, double cpfRcry,
     		double festAdvRcry,  double bankLoanRcry,  double absentAmount, double overtimeHours, String bankName, 
@@ -164,6 +166,8 @@ public class EmployeePayroll {
     	this.otherPayAmount = otherPayAmount;
     	this.absentAmount = absentAmount;
     	this.cpfRecovery = cpfRcry;
+    	this.tAllowance = tAllowance;
+    	this.employeeId = employeeId;
     	//this.bankLoanRecovery = bankLoanRcry;
     	//this.vlr = vlr;
     	//this.cpfRcry = cpfRcry;
@@ -172,11 +176,11 @@ public class EmployeePayroll {
          calculateHRA();
          this.travelAllowance = calculateTA();
          calculateOverTime();
-         calculateProvidentFund();
+         calculateProvidentFund(this.employeeId);
          calculateTotalAllowances();
          calculateGrossPay();
          calculateTotalGrossPay();
-         calculateProfessionalTax();
+         calculateProfessionalTax(this.employeeId);
          processAbsentee();
          calculateDeductions();
          calculateNetPay();
@@ -277,12 +281,8 @@ public class EmployeePayroll {
     private void calculateTotalAllowances(){
 
         this.totalAllowance = 0.0;
-        /*for (Allowance allowance: this.listAllowances){
-            this.totalAllowance = this.totalAllowance + allowance.getAllowance();
-        }*/
+        
         this.totalAllowance = Math.round(this.cca + this.nonPracticingAllowance + this.washingAllowance + this.uniformAllowance + this.ca + this.familyPlanningAllowance + this.otherAllowance);
-        //this.totalAllowance += this.travelAllowance;
-        System.out.println("totalAllowance :"+ totalAllowance);
     }
 
     /**
@@ -291,10 +291,9 @@ public class EmployeePayroll {
      */
     private void calculateGrossPay(){
 
-        this.grossPay = this.basic + this.gradePay + this.dearnessAllowance + this.travelAllowance + this.houseRentAllowance + this.totalAllowance;
-//        System.out.println("Calculate Gross: " + "basic : "+ this.basic +" Grade Pay" + this.gradePay + " Dearness Allowance : "+ this.dearnessAllowance + 
-//        		" Travel Allowance : "+ this.travelAllowance + " Total Allowance : "+ this.totalAllowance+ "Gross Pay : "+ this.grossPay);
-            this.totalGrossPay = Math.round(this.grossPay + this.overTimeAmount + this.otherPayAmount);
+        this.grossPay = this.basic + this.gradePay + this.dearnessAllowance + this.travelAllowance + this.houseRentAllowance + this.totalAllowance + this.otherPayAmount + this.tAllowance;
+        
+        this.totalGrossPay = Math.round(this.grossPay + this.overTimeAmount);
         //if leave without pay or absent
         if(absentDays > 0.0)
             processAbsentee();
@@ -331,25 +330,43 @@ public class EmployeePayroll {
 
     //Calculate Deductions
     // Calculate PF
-    private void calculateProvidentFund(){
-        if (this.basic + this.gradePay > 0)
-            if(pfFlag)
-                this.providentFund = Math.round((this.basic + this.gradePay)*PF_PERCENT/100); // 6% BEfore 01/04/2004
-            else
-                this.providentFund = Math.round((this.basic + this.gradePay+ this.dearnessAllowance)*CPF_PERCENT/100); // 10 %
-        System.out.println("Provident Fund ="+ this.providentFund);
+    private void calculateProvidentFund(int employeeId){
+    	
+    		if (this.basic + this.gradePay > 0) {
+    			
+    			if (pfFlag == 0) { //Calculate CPF
+    				this.providentFund = Math.round((this.basic + this.gradePay+ this.dearnessAllowance)*CPF_PERCENT/100); // 10 %
+    			} else if (pfFlag == 1) { //Calculate PF
+    				this.providentFund = Math.round((this.basic + this.gradePay)*PF_PERCENT/100); // 6% BEfore 01/01/2004
+    			} else if (pfFlag == 2 || pfFlag == 3) { // Employees whose PF is not setup or Employees who are retiring in 6 months.
+    				this.providentFund = 0;
+    			}
+    			
+    		}
+    	
     }
 
     // Calculate Professional Tax
-    private void calculateProfessionalTax(){
-        profTax = 200.00;
-        Date date= new Date();
+    private void calculateProfessionalTax(int employeeId){
+    	
+    	profTax = 0.0;
+    	
+    	//NetPay is 0 (absent) for these employees for April. Professional Tax should be 0.
+    	Integer[] employeeWithZeroNetPay = new Integer[] {200403073, 200403106, 201707440, 198212743,198508715,198706682,199507690,201002226,199808873,198610092,200403899,199205035};
+    	
+    	if (!Arrays.asList(employeeWithZeroNetPay).contains(employeeId) && !handicappedFlag) {
+    		profTax = 200.00;
+    		Date date= new Date();
+    		
+    		Calendar cal = Calendar.getInstance();
+    		cal.setTime(date); 
+    		int month = cal.get(Calendar.MONTH);
+    		if(month == 1)
+    			profTax = 300.00;
+    	}
+    	
         
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date); 
-        int month = cal.get(Calendar.MONTH);
-        if(month == 1)
-            profTax = 300.00;
+        
     }
  
     private void calculateDeductions() {
@@ -846,6 +863,12 @@ public class EmployeePayroll {
 	}
 	public void setOtherPayAmount(double otherPayAmount) {
 		this.otherPayAmount = otherPayAmount;
+	}
+	public double gettAllowance() {
+		return tAllowance;
+	}
+	public void settAllowance(double tAllowance) {
+		this.tAllowance = tAllowance;
 	}
 
 	/*public double getOthers() {

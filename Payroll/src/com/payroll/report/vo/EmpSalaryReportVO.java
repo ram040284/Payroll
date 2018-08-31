@@ -24,7 +24,7 @@ public class EmpSalaryReportVO
   private double fpa;
   private double ta;
   private boolean hraFlag;
-  private boolean pfFlag;
+  private byte pfFlag;
   private int lwp;
   
   public EmpSalaryReportVO() {}
@@ -36,7 +36,7 @@ public class EmpSalaryReportVO
   
   private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
   
-  public EmpSalaryReportVO(int employeeId, String firstName, String lastName, String middleName, double basic, double gradePay, double ca, double ufa, double fpa, double ta, boolean hraFlag, boolean pfFlag, int lwp, String deptName, String headName, String designation)
+  public EmpSalaryReportVO(int employeeId, String firstName, String lastName, String middleName, double basic, double gradePay, double ca, double ufa, double fpa, double ta, boolean hraFlag, byte pfFlag, int lwp, String deptName, String headName, String designation)
   {
     this.employeeId = employeeId;
     this.fullName = getName(firstName, middleName, lastName);
@@ -158,7 +158,7 @@ public class EmpSalaryReportVO
     return this.hraFlag;
   }
   
-  public boolean isPfFlag()
+  public byte isPfFlag()
   {
     return this.pfFlag;
   }

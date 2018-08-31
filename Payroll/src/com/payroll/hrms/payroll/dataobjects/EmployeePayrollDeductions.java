@@ -9,7 +9,7 @@ public class EmployeePayrollDeductions {
     private double lic;
     private double societyInstallment;
     private double grpInsurance;
-    private boolean pfFlag;
+    private byte pfFlag;
     private double providentFund;
     private double additionalProventFund;
     private double pfRecovery;
@@ -79,10 +79,10 @@ public class EmployeePayrollDeductions {
 	public void setGrpInsurance(double grpInsurance) {
 		this.grpInsurance = grpInsurance;
 	}
-	public boolean isPfFlag() {
+	public byte isPfFlag() {
 		return pfFlag;
 	}
-	public void setPfFlag(boolean pfFlag) {
+	public void setPfFlag(byte pfFlag) {
 		this.pfFlag = pfFlag;
 	}
 	public double getProvidentFund() {

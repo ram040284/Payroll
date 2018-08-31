@@ -54,6 +54,7 @@ public class PaybillDetails {
 	private Date month;
 	private int noOfEmployees;
 	private double incomeTax;
+	private double tAllowance;
 	//private String gender;
 	//private String pfNumber;
 	//private String employeeNumber;
@@ -118,6 +119,7 @@ public class PaybillDetails {
 		otherDeducs += payroll.getOtherDeducs();
 		misc += payroll.getMisc();
 		incomeTax += payroll.getIncomeTax();
+		tAllowance += payroll.gettAllowance();
 	}
 	public void addEmployeePayroll(ReportDetails payroll){
 		if(Utils.isEmpty(deptName))
@@ -163,6 +165,7 @@ public class PaybillDetails {
 		courtRcry += payroll.getCourtRecovery();
 		otherDeducs += payroll.getOtherDeductions();
 		misc += payroll.getMiscAllowance();
+		tAllowance += payroll.gettAllowance();
 		noOfEmployees += 1;
 		if(payrollList == null)
 			payrollList = new ArrayList<ReportDetails>();
@@ -171,10 +174,10 @@ public class PaybillDetails {
 	
     public double getTotalGrossPay(){
 
-        this.grossPay = this.basicPay + this.gradePay + this.da
-                + this.ta 
-                + this.totallw;
+        this.grossPay = this.basicPay + this.gradePay + this.da + this.ta  + this.totallw + this.tAllowance;
+        //System.out.println("***** GrossPay -> Basic: " + this.basicPay + " GradePay: " + this.gradePay + " DA: " + this.da + " TA: " + this.ta + " TotalAllowance: " + this.totallw);
         this.totalGrossPay = this.grossPay + this.otAmt+ this.others;
+        //System.out.println("***** Total Gross Pay -> GrossPay " + this.grossPay + " OverTimeAmount: " + this.otAmt + " Others/OtherPayment: " + this.others);
         return totalGrossPay;
     }
     
@@ -396,6 +399,12 @@ public class PaybillDetails {
 	}
 	public void setCa(double ca) {
 		this.ca = ca;
+	}
+	public double gettAllowance() {
+		return tAllowance;
+	}
+	public void settAllowance(double tAllowance) {
+		this.tAllowance = tAllowance;
 	}
 	
 	

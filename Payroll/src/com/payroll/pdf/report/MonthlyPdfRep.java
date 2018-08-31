@@ -163,9 +163,9 @@ public class MonthlyPdfRep extends PaybillPdfRep{
 		
 		table.addCell(addToCell(srNo++ +"", font));
 		table.addCell(addToCell(PdfUtils.TALW, font));
-		table.addCell(addToCell(0+"", font, true)); //TODO Need to check about total allowance
-		table.addCell(addToCell(0+"", font, true));
-		table.addCell(addToCell(0+"", font, true));
+		table.addCell(addToCell(payroll.gettAllowance()+"", font, true)); //TODO Need to check about total allowance
+		table.addCell(addToCell(lmDetails.gettAllowance()+"", font, true));
+		table.addCell(addToCell(payroll.gettAllowance() - lmDetails.gettAllowance()+"", font, true));
 		
 		table.addCell(addToCell(srNo++ +"", font));
 		table.addCell(addToCell(PdfUtils.OTAMT, font));
