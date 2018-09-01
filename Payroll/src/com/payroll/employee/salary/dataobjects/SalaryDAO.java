@@ -23,7 +23,7 @@ public class SalaryDAO {
 						//+ "(select e.firstName from Employee e where e.employeeId = s.empId),"
 						//+ " (select e.lastName from Employee e where e.employeeId = s.empId), "
 						+"s.employee.firstName, s.employee.lastName, "
-						+ "s.year, s.basic, s.gradePay, s.scalePay, s.scaleCode, s.incrementAmount, s.incrementDate, s.otherPay) from Salary s where s.status = ?";		
+						+ "s.year, s.basic, s.gradePay, s.scalePay, s.scaleCode, s.incrementAmount, s.incrementDate) from Salary s where s.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -99,7 +99,7 @@ public class SalaryDAO {
 					"(select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = s.employee.employeeId), "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = s.employee.employeeId), "
 					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = s.employee.employeeId), "
-					+ "s.year, s.basic, s.gradePay, s.scalePay, s.incrementAmount, s.incrementDate, s.otherPay) from Salary s where s.employee.employeeId = ? and s.status = ?";		
+					+ "s.year, s.basic, s.gradePay, s.scalePay, s.incrementAmount, s.incrementDate) from Salary s where s.employee.employeeId = ? and s.status = ?";		
 			
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);

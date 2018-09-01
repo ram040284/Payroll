@@ -25,6 +25,7 @@ public class EmpAllowance implements Serializable {
 	private Employee employee;
 	private double otherAllowance;
 	private double tAllowance;
+	private double otherPay;
 	
 	public byte getPfFlag() {
 		return pfFlag;
@@ -136,6 +137,12 @@ public class EmpAllowance implements Serializable {
 	}
 	public void settAllowance(double tAllowance) {
 		this.tAllowance = tAllowance;
+	}
+	public double getOtherPay() {
+		return otherPay;
+	}
+	public void setOtherPay(double otherPay) {
+		this.otherPay = otherPay;
 	}
 	
 	

@@ -18,13 +18,12 @@ public class SalaryVO implements Serializable{
 	private int headId;
 	private double incrementAmount;
 	private Date incrementDate;
-	private double otherPay;
 	
 	public SalaryVO() {
 		
 	}
 	public SalaryVO (int empId, String fName, String lName, int year, double basic, 
-			double gradePay, String scalePay, String scaleCode, double incrementAmount, Date incrementDate, double otherPay){
+			double gradePay, String scalePay, String scaleCode, double incrementAmount, Date incrementDate){
 		this.employeeId = empId;
 		this.year = year;
 		this.basic = basic;
@@ -38,12 +37,11 @@ public class SalaryVO implements Serializable{
 		this.scaleCode= scaleCode;
 		this.incrementAmount = incrementAmount;
 		this.incrementDate = incrementDate;
-		this.otherPay = otherPay;
 		
 	}
 	
 	public SalaryVO (int empId, int deptId, int desgId, int headId, int year, double basic, 
-			double gradePay, String scalePay, double incrementAmount, Date incrementDate, double otherPay){
+			double gradePay, String scalePay, double incrementAmount, Date incrementDate){
 		this.employeeId = empId;
 		this.departmentId = deptId;
 		this.designationId = desgId;
@@ -55,7 +53,6 @@ public class SalaryVO implements Serializable{
 		this.headId = headId;
 		this.incrementAmount = incrementAmount;
 		this.incrementDate = incrementDate;
-		this.otherPay = otherPay;
 	}
 	
 	public int getEmployeeId() {
@@ -129,11 +126,5 @@ public class SalaryVO implements Serializable{
 	}
 	public void setIncrementDate(Date incrementDate) {
 		this.incrementDate = incrementDate;
-	}
-	public double getOtherPay() {
-		return otherPay;
-	}
-	public void setOtherPay(double otherPay) {
-		this.otherPay = otherPay;
 	}
 }

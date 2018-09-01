@@ -166,7 +166,7 @@ public class EmployeeReportDAO
         try
         {
             String queryString = " select new com.payroll.employee.salary.vo.SalaryVO(s.employee.employeeId, '',''" +
-", s.year, s.basic, s.gradePay, s.scalePay, s.scaleCode, s.incrementAmount, s.incrementDate, s.otherPay) from Salary s where s.emp" +
+", s.year, s.basic, s.gradePay, s.scalePay, s.scaleCode, s.incrementAmount, s.incrementDate) from Salary s where s.emp" +
 "loyee.employeeId = ? and s.status = ?"
 ;
             session = HibernateConnection.getSessionFactory().openSession();

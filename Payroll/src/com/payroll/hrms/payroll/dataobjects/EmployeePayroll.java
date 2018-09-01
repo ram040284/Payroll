@@ -178,12 +178,12 @@ public class EmployeePayroll {
          calculateOverTime();
          calculateProvidentFund(this.employeeId);
          calculateTotalAllowances();
-         calculateGrossPay(this.employeeId);
+         calculateGrossPay();
          calculateTotalGrossPay();
          calculateProfessionalTax(this.employeeId);
          processAbsentee();
-         calculateDeductions(this.employeeId);
-         calculateNetPay(this.employeeId);
+         calculateDeductions();
+         calculateNetPay();
     }
     
 //    Is it being used??? - Prasad
@@ -289,7 +289,7 @@ public class EmployeePayroll {
      * Calculate over time
      *
      */
-    private void calculateGrossPay(int employeeId){
+    private void calculateGrossPay(){
     	
 
         this.grossPay = this.basic + this.gradePay + this.dearnessAllowance + this.travelAllowance + this.houseRentAllowance + this.totalAllowance + this.otherPayAmount + this.tAllowance;
@@ -304,7 +304,7 @@ public class EmployeePayroll {
     		this.absentAmount = Math.round((this.grossPay / WORKING_DAYS) * absentDays);
        
     }
-    private void calculateNetPay(int employeeId){
+    private void calculateNetPay(){
     	this.netPay = 0;
     	if(this.totalGrossPay>this.grossPay) {
     		this.netPay = Math.round(this.totalGrossPay - this.totalDeductions);
@@ -371,7 +371,7 @@ public class EmployeePayroll {
         
     }
  
-    private void calculateDeductions(int employeeId) {
+    private void calculateDeductions() {
     	this.totalDeductions = 0;
     	this.totalDeductions = Math.round(this.absentAmount
     						+ this.lfee 
