@@ -180,7 +180,7 @@ public class EmployeePayroll {
          calculateTotalAllowances();
          calculateGrossPay();
          calculateTotalGrossPay();
-         calculateProfessionalTax(this.employeeId);
+         calculateProfessionalTax();
          processAbsentee();
          calculateDeductions();
          calculateNetPay();
@@ -306,12 +306,40 @@ public class EmployeePayroll {
     }
     private void calculateNetPay(){
     	this.netPay = 0;
-    	if(this.totalGrossPay>this.grossPay) {
-    		this.netPay = Math.round(this.totalGrossPay - this.totalDeductions);
-    	}
-    	else {
-    		this.netPay = Math.round(this.grossPay - this.totalDeductions);
-    	}
+    	
+		if(this.totalGrossPay>this.grossPay) {
+			this.netPay = Math.round(this.totalGrossPay - this.totalDeductions);
+		} else {
+			this.netPay = Math.round(this.grossPay - this.totalDeductions);
+		}
+		
+		if (this.netPay <= 0 ) {
+			this.netPay = 0;
+			this.profTax = 0;
+			this.providentFund = 0;
+			this.lfee = 0;
+			this.afkRent = 0;
+			this.festAdvRecovery = 0;
+			this.profTax = 0;
+			this.lic = 0;
+			this.societyInstallment = 0;
+			this.grpInsurance = 0;
+			this.providentFund = 0;
+			this.apfacpf = 0;
+			this.pfLoanRecovery = 0;
+			this.cpfRecovery = 0;
+			this.incomeTax = 0;
+			this.unionFee = 0;
+			this.courtRecovery = 0;
+			this.otherDeductions = 0;
+			this.miscAllowance = 0;
+			this.unionFeeKss = 0;
+			this.pfInstment = 0;
+		}
+		
+    	this.totalDeductions = this.absentAmount;
+		
+    	
     }
     /**
      * Calculate over time
@@ -340,7 +368,7 @@ public class EmployeePayroll {
     				this.providentFund = Math.round((this.basic + this.gradePay+ this.dearnessAllowance)*CPF_PERCENT/100); // 10 %
     			} else if (pfFlag == 1) { //Calculate PF
     				this.providentFund = Math.round((this.basic + this.gradePay)*PF_PERCENT/100); // 6% BEfore 01/01/2004
-    			} else if (pfFlag == 2 || pfFlag == 3) { // Employees whose PF is not setup or Employees who are retiring in 6 months.
+    			} else if (pfFlag == 2 || pfFlag == 3) { // (2) Employees whose PF is not setup or (3) Employees who are retiring in 6 months
     				this.providentFund = 0;
     			}
     			
@@ -349,25 +377,17 @@ public class EmployeePayroll {
     }
 
     // Calculate Professional Tax
-    private void calculateProfessionalTax(int employeeId){
+    private void calculateProfessionalTax(){
     	
-    	profTax = 0.0;
-    	
-    	//NetPay is 0 (absent) for these employees for April. Professional Tax should be 0.
-    	Integer[] employeeWithZeroNetPay = new Integer[] {200403073, 200403106, 201707440, 198212743,198508715,198706682,199507690,201002226,199808873,198610092,200403899,199205035};
-    	
-    	if (!Arrays.asList(employeeWithZeroNetPay).contains(employeeId) && handicappedFlag == 0) {
-    		profTax = 200.00;
+    		this.profTax = 200.00;
     		Date date= new Date();
     		
     		Calendar cal = Calendar.getInstance();
     		cal.setTime(date); 
     		int month = cal.get(Calendar.MONTH);
+    		//FIXME: This needs to be fixed - Prasad. This will work only when Paybill is run only in the month of Jan and not when Jan paybill is run in the month fof June
     		if(month == 1)
-    			profTax = 300.00;
-    	}
-    	
-        
+    			this.profTax = 300.00;
         
     }
  
