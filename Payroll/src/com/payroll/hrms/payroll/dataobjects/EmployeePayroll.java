@@ -337,7 +337,7 @@ public class EmployeePayroll {
 			this.pfInstment = 0;
 		}
 		
-    	this.totalDeductions = this.absentAmount;
+		this.totalDeductions = addDeductions();
 		
     	
     }
@@ -390,28 +390,33 @@ public class EmployeePayroll {
     			this.profTax = 300.00;
         
     }
- 
+    
     private void calculateDeductions() {
     	this.totalDeductions = 0;
-    	this.totalDeductions = Math.round(this.absentAmount
-    						+ this.lfee 
-    						+ this.afkRent
-    						+ this.festAdvRecovery
-    						+ this.profTax
-    						+ this.lic
-    						+ this.societyInstallment
-    						+ this.grpInsurance
-    						+ this.providentFund
-    						+ this.apfacpf
-    						+ this.pfLoanRecovery
-    						+ this.cpfRecovery
-    						+ this.incomeTax
-    						+ this.unionFee
-    						+ this.courtRecovery
-    						+ this.otherDeductions
-    						+ this.miscAllowance
-    						+ this.unionFeeKss
-    						+ this.pfInstment);
+    	this.totalDeductions = addDeductions();
+    	
+    }
+    
+    private double addDeductions() {
+    	return Math.round(this.absentAmount
+				+ this.lfee 
+				+ this.afkRent
+				+ this.festAdvRecovery
+				+ this.profTax
+				+ this.lic
+				+ this.societyInstallment
+				+ this.grpInsurance
+				+ this.providentFund
+				+ this.apfacpf
+				+ this.pfLoanRecovery
+				+ this.cpfRecovery
+				+ this.incomeTax
+				+ this.unionFee
+				+ this.courtRecovery
+				+ this.otherDeductions
+				+ this.miscAllowance
+				+ this.unionFeeKss
+				+ this.pfInstment);
     }
     
 	public String getEmployeeName() {
