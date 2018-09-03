@@ -17,7 +17,7 @@ public class EmpAllowance implements Serializable {
 	private Boolean hraFlag;
 	private Boolean qtrFlag;
 	private Boolean afkFlag;
-	private Boolean taFlag;
+	private byte taFlag;
 	private byte pfFlag;
 	private Timestamp rowUpdDate;
 	private String status;
@@ -46,10 +46,10 @@ public class EmpAllowance implements Serializable {
 	public void setAfkFlag(Boolean afkFlag) {
 		this.afkFlag = afkFlag;
 	}
-	public Boolean getTaFlag() {
+	public byte getTaFlag() {
 		return taFlag;
 	}
-	public void setTaFlag(Boolean taFlag) {
+	public void setTaFlag(byte taFlag) {
 		this.taFlag = taFlag;
 	}
 

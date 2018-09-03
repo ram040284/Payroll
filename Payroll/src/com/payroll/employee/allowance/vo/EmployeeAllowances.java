@@ -11,7 +11,7 @@ public class EmployeeAllowances {
 	private Boolean hraFlag;
 	private Boolean qtrFlag;
 	private Boolean afkFlag;
-	private Boolean taFlag;
+	private byte taFlag;
 	private byte pfFlag;
 	private double otherAllowance;
 	private double tAllowance;
@@ -20,7 +20,7 @@ public class EmployeeAllowances {
 	/**
 	 */
 	public EmployeeAllowances(int employeeId, double cca, double washingAlwance, double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag, byte pfFlag, double otherAllowance, double tAllowance, double otherPay) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, double otherAllowance, double tAllowance, double otherPay) {
 		this.employeeId = employeeId;
 		this.cca = cca;
 		this.washingAlwance = washingAlwance;
@@ -62,11 +62,11 @@ public class EmployeeAllowances {
 		this.afkFlag = afkFlag;
 	}
 
-	public Boolean getTaFlag() {
+	public byte getTaFlag() {
 		return taFlag;
 	}
 
-	public void setTaFlag(Boolean taFlag) {
+	public void setTaFlag(byte taFlag) {
 		this.taFlag = taFlag;
 	}
 

@@ -72,7 +72,7 @@ public class EmployeePayroll {
     private double misc;
     */
     private byte handicappedFlag;
-    private boolean taFlag; // false if employee leaves within 2km radiu of office
+    private byte taFlag; // false if employee leaves within 2km radiu of office
     private double overTimeHours;
     private List<EmpAllowance> listEmpAllowances;
     private String employeeName;
@@ -102,6 +102,7 @@ public class EmployeePayroll {
     private double ca;
     private double otherAllowance;
     private double tAllowance;
+    private int month;
 
     //deductions
     public EmployeePayroll(){
@@ -120,11 +121,11 @@ public class EmployeePayroll {
     }
     
    public EmployeePayroll(int employeeId, byte handicapFlag, double basic, double gradePay, String scalePay, String scaleCode, double otherPayAmount,
-    		double cca, double cycleAllowance, double otherAllowance, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,byte pfFlag, boolean taFlag, double tAllowance,
+    		double cca, double cycleAllowance, double otherAllowance, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,byte pfFlag, byte taFlag, double tAllowance,
     		double unionFee, double unionFeeKss, double lfee, double electricityRecovery, double courtRcry, double gis, double afkRent, double pfLoanRecovery, double otherDeduct,
     		double society,  double incomeTax, double licInstalAmt, double pfLoanRcry, double cpfCont, double apfacpf, double cpfRcry,
     		double festAdvRcry,  double bankLoanRcry,  double absentAmount, double overtimeHours, String bankName, 
-    		String bankAcctNo, int bankId, Date incrementDate, double incrementAmt){
+    		String bankAcctNo, int bankId, Date incrementDate, double incrementAmt, int month){
 	   
 	    this.basic = basic;
     	this.gradePay = gradePay;
@@ -171,6 +172,7 @@ public class EmployeePayroll {
     	//this.bankLoanRecovery = bankLoanRcry;
     	//this.vlr = vlr;
     	//this.cpfRcry = cpfRcry;
+    	this.month = month;
     	
     	 calculateDA();
          calculateHRA();
@@ -248,7 +250,7 @@ public class EmployeePayroll {
      */
     private double calculateTA(){
     	
-    	if (taFlag) {
+    	if ((taFlag == 1) || (taFlag == 2 && this.month != 5) ) {
     		
     		if (handicappedFlag == 0 || handicappedFlag == 2) {
     			
