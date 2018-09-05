@@ -178,7 +178,7 @@ public class EmployeePayroll {
          calculateHRA();
          this.travelAllowance = calculateTA();
          calculateOverTime();
-         calculateProvidentFund(this.employeeId);
+         calculateProvidentFund();
          calculateTotalAllowances();
          calculateGrossPay();
          calculateTotalGrossPay();
@@ -361,7 +361,7 @@ public class EmployeePayroll {
 
     //Calculate Deductions
     // Calculate PF
-    private void calculateProvidentFund(int employeeId){
+    private void calculateProvidentFund(){
     	
     		if (this.basic + this.gradePay > 0) {
     			
