@@ -36,6 +36,9 @@ public class EmployeePayrollService {
 			org.apache.commons.beanutils.BeanUtils.copyProperties(paybill, payroll);
 			paybill.setMonth(date);
 			result = new PaybillDAO().addPaybill(paybill);
+			
+			//System.out.println("***** Paybill TAllowance: " + paybill.gettAllowance() + " Payroll TAllowance: " + payroll.gettAllowance());
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

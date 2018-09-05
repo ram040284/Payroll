@@ -24,6 +24,7 @@
     <property name="uniformAllowance" column="UFALW"  /> 
     <property name="familyPlanningAllowance" column="FPALW"  />
     <property name="totalAllowance" column="TALW"  />
+    <property name="tAllowance" column="T_ALLOWANCE"  />
     <property name="overTimeAmount" column="OT_AMT"  /> 
     <property name="otherPayAmount" column="OTHER_AMT"  />
     <property name="grossPay" column="GROSS_PAY"  /> 

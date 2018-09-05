@@ -11,14 +11,16 @@ public class EmployeeAllowances {
 	private Boolean hraFlag;
 	private Boolean qtrFlag;
 	private Boolean afkFlag;
-	private Boolean taFlag;
-	private Boolean pfFlag;
+	private byte taFlag;
+	private byte pfFlag;
 	private double otherAllowance;
+	private double tAllowance;
+	private double otherPay;
 	
 	/**
 	 */
 	public EmployeeAllowances(int employeeId, double cca, double washingAlwance, double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,Boolean taFlag, Boolean pfFlag, double otherAllowance) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, double otherAllowance, double tAllowance, double otherPay) {
 		this.employeeId = employeeId;
 		this.cca = cca;
 		this.washingAlwance = washingAlwance;
@@ -32,13 +34,15 @@ public class EmployeeAllowances {
 		this.taFlag = taFlag;
 		this.pfFlag = pfFlag;
 		this.otherAllowance = otherAllowance;
+		this.tAllowance = tAllowance;
+		this.otherPay = otherPay;
 	}
 	
-		public Boolean getPFFlag() {
+		public byte getPFFlag() {
 		return pfFlag;
 	}
 
-	public void setPFFlag(Boolean pFFlag) {
+	public void setPFFlag(byte pFFlag) {
 		pfFlag = pFFlag;
 	}
 
@@ -58,11 +62,11 @@ public class EmployeeAllowances {
 		this.afkFlag = afkFlag;
 	}
 
-	public Boolean getTaFlag() {
+	public byte getTaFlag() {
 		return taFlag;
 	}
 
-	public void setTaFlag(Boolean taFlag) {
+	public void setTaFlag(byte taFlag) {
 		this.taFlag = taFlag;
 	}
 
@@ -135,6 +139,22 @@ public class EmployeeAllowances {
 
 	public void setOtherAllowance(double otherAllowance) {
 		this.otherAllowance = otherAllowance;
+	}
+
+	public double gettAllowance() {
+		return tAllowance;
+	}
+
+	public void settAllowance(double tAllowance) {
+		this.tAllowance = tAllowance;
+	}
+
+	public double getOtherPay() {
+		return otherPay;
+	}
+
+	public void setOtherPay(double otherPay) {
+		this.otherPay = otherPay;
 	}
 
 	@Override

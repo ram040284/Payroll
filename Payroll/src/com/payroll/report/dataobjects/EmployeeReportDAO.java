@@ -166,7 +166,7 @@ public class EmployeeReportDAO
         try
         {
             String queryString = " select new com.payroll.employee.salary.vo.SalaryVO(s.employee.employeeId, '',''" +
-", s.year, s.basic, s.gradePay, s.scalePay, s.scaleCode, s.incrementAmount, s.incrementDate, s.otherPay) from Salary s where s.emp" +
+", s.year, s.basic, s.gradePay, s.scalePay, s.scaleCode, s.incrementAmount, s.incrementDate) from Salary s where s.emp" +
 "loyee.employeeId = ? and s.status = ?"
 ;
             session = HibernateConnection.getSessionFactory().openSession();
@@ -245,7 +245,8 @@ public class EmployeeReportDAO
                 		row[9] != null ? ((Double)row[9]).doubleValue() : 0.0D, 
                 		row[10] != null ? ((Byte)(row[10])!=0) : false, 
                 		(String)row[11], (String)row[12], (String)row[13], 
-                		row[14] != null ? ((Double)row[14]).doubleValue() : 0.0D);
+                		row[14] != null ? ((Double)row[14]).doubleValue() : 0.0D,
+                		row[15] != null ? ((Double)row[15]).doubleValue() : 0.0D);
             }
 
         }

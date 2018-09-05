@@ -1,5 +1,6 @@
 //package com.kcb.hrms.payroll.dao;
 package com.payroll.hrms.payroll.dao;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -8,7 +9,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.payroll.HibernateConnection;
-import com.payroll.TestData;
 import com.payroll.employee.advances.dataobjects.EmpAdvances;
 import com.payroll.employee.allowance.dataobjects.EmpAllowance;
 import com.payroll.employee.allowance.dataobjects.EmpAllowanceDAO;
@@ -16,23 +16,18 @@ import com.payroll.employee.allowance.vo.EmployeeAllowances;
 import com.payroll.employee.bank.vo.BankVO;
 import com.payroll.employee.deductions.dao.EmpFixedDeductionsDAO;
 import com.payroll.employee.deductions.dao.EmpVarDeductionsDAO;
-import com.payroll.employee.deductions.dataobjects.EmpDeductions;
 import com.payroll.employee.deductions.dataobjects.EmployeeFixedDeductions;
 import com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions;
-import com.payroll.employee.leave.dataobjects.Leave;
 import com.payroll.employee.leave.dataobjects.LeaveRequest;
 import com.payroll.employee.lic.dataobjects.EmpLic;
 import com.payroll.employee.lic.dataobjects.EmpLicDAO;
 import com.payroll.employee.lic.vo.EmployeeLIC;
 import com.payroll.employee.pf.dataobjects.EmpPf;
-import com.payroll.employee.qtr.dataobjects.EmpQuarters;
 import com.payroll.employee.salary.dataobjects.Salary;
 import com.payroll.employee.vo.EmployeeVO;
 /*import com.kcb.hrms.payroll.dataobjects.EmployeePayroll;
 import com.kcb.hrms.payroll.dataobjects.EmployeePayrollDTO;*/
 import com.payroll.hrms.payroll.dataobjects.EmployeePayroll;
-import com.payroll.hrms.payroll.dataobjects.EmployeePayrollDTO;
-import com.payroll.hrms.payroll.incometax.service.EmployeePayrollService;
 import com.payroll.overtime.dataobjects.Overtime;
 /**
  * Created by rajendra on 12/8/17.
@@ -82,7 +77,7 @@ public class EmployeePayrollDAO {
 	private double incomeTax;
 	
 	@SuppressWarnings("unchecked")
-	public EmployeePayroll loadPayrollInfo(int employeeId, Boolean handicapFlag, Date date){
+	public EmployeePayroll loadPayrollInfo(int employeeId, byte handicapFlag, Date date){
     	System.out.println("loadPayrollInfo:");
     	Salary salary = null;
 		EmpPf empPf = null;
@@ -134,16 +129,20 @@ public class EmployeePayrollDAO {
 			// This need to check 
 			double festAdvanceRecovery = (empAdvances != null) ? empAdvances.getInstallAmount() : 0;
 			double bankLoanRecovery = 0;
-			double cpfRecovery = 0;
+//			double cpfRecovery = 0;
 			
-   			empPayroll = new EmployeePayroll(handicapFlag, salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(), salary.getOtherPay(),
+			Calendar cal = Calendar.getInstance();
+    		cal.setTime(date); 
+    		int month = cal.get(Calendar.MONTH);
+			
+   			empPayroll = new EmployeePayroll(this.employeeId, handicapFlag, salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(), employeeAllowances.getOtherPay(),
    					employeeAllowances.getCca(), employeeAllowances.getCycleAlwance(), employeeAllowances.getOtherAllowance(), employeeAllowances.getFamilyPlanAlwance(),employeeAllowances.getNonPracAwance(),
-   					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),employeeAllowances.getPFFlag(), employeeAllowances.getTaFlag(),
+   					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),employeeAllowances.getPFFlag(), employeeAllowances.getTaFlag(), employeeAllowances.gettAllowance(),
    					employeeFixedDeductions.getUnionFee(), employeeFixedDeductions.getKssUnionFee(), employeeFixedDeductions.getRent(), employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
    					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getPfLoanRecovery(), employeeVarDeductions.getOtherDeductions(),
    					employeeVarDeductions.getSociety(), employeeVarDeductions.getIncomeTax(), licTotalInstallmentAmt, empPf.getPfLoneRecAmt(), empPf.getPfsCpfCntrbn(), empPf.getApfAcpfCntrbn(),
-   					cpfRecovery, festAdvanceRecovery , bankLoanRecovery, employeeVarDeductions.getAbsenties(), overtimeAmount, bankVo.getBankName(), 
-   					bankVo.getAccountNo(), bankVo.getBankId(), salary.getIncrementDate(), salary.getIncrementAmount());
+   					empPf.getCfLoneRecAmt(), festAdvanceRecovery , bankLoanRecovery, employeeVarDeductions.getAbsenties(), overtimeAmount, bankVo.getBankName(), 
+   					bankVo.getAccountNo(), bankVo.getBankId(), salary.getIncrementDate(), salary.getIncrementAmount(), month);
 	
    		}catch(Exception e){
 			e.printStackTrace();

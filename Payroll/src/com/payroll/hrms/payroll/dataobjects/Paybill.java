@@ -66,6 +66,7 @@ public class Paybill implements Serializable{
 	private int bankId;
 	private String scalePay;
 	private double ca;
+	private double tAllowance;
 	
 	/*private String employeeName;
 	private String panNo;
@@ -402,6 +403,12 @@ public class Paybill implements Serializable{
 	}
 	public void setCa(double ca) {
 		this.ca = ca;
+	}
+	public double gettAllowance() {
+		return tAllowance;
+	}
+	public void settAllowance(double tAllowance) {
+		this.tAllowance = tAllowance;
 	}
 	
 	

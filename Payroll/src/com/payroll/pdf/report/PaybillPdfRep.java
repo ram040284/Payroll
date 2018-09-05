@@ -22,8 +22,8 @@ public class PaybillPdfRep extends PdfBuilder{
     
 	public void paybillReport(Document doc, PaybillDetails paybillDetails, String imgPath){
 		try{
-			String watermarkImg = imgPath+"//CBK_Logo.png";//request.getSession().getServletContext().getRealPath("/resources/images/CBK_Logo.png");
-	        String logoImg = imgPath+"//logo_new.jpg";
+			String watermarkImg = imgPath+"//CBK_Logo_min.png";//request.getSession().getServletContext().getRealPath("/resources/images/CBK_Logo.png");
+	        String logoImg = imgPath+"//logo_new_min.jpg";
 	        doc.add(PdfUtils.getMainHeader(logoImg));
 	        
 	        DottedLineSeparator dottedline = new DottedLineSeparator();
@@ -263,7 +263,7 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(PdfUtils.FLYPLGALW, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getFamilyPlanningAllowance()), font));
 		table.addCell(addToCell(PdfUtils.TALW, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(0), font)); //TODO - Prasad
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.gettAllowance()), font)); //TODO - Prasad
 		
 		table.addCell(addToCell(PdfUtils.OTAMT, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOverTimeAmount()), font));
@@ -304,7 +304,7 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(PdfUtils.FLYPLGALW, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getFamilyPlaningAlw()), font));
 		table.addCell(addToCell(PdfUtils.TALW, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(0), font)); // TODO need to check what to display
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.gettAllowance()), font));
 		
 		table.addCell(addToCell(PdfUtils.OTAMT, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtAmt()), font));

@@ -20,7 +20,6 @@ public class Salary implements Serializable{
 	private Employee employee;
 	private double incrementAmount;
 	private Date incrementDate;
-	private double otherPay;
 	
 	public int getEmployeeId() {
 		return employeeId;
@@ -100,11 +99,5 @@ public class Salary implements Serializable{
 	}
 	public void setIncrementDate(Date incrementDate) {
 		this.incrementDate = incrementDate;
-	}
-	public double getOtherPay() {
-		return otherPay;
-	}
-	public void setOtherPay(double otherPay) {
-		this.otherPay = otherPay;
 	}
 }
