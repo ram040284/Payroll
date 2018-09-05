@@ -62,18 +62,15 @@ table.dataTable thead:first-child .sorting_desc {
 </style>
 
 <script type="text/javascript">
-       	 
     	 $(document).ready(function() {
     		  $.ajax({
               url : '../Payroll/listEmpAlwnce',
               type:"GET",
               contentType: "application/json;charset=utf-8",
               success : function(allowanceData) {
-            
-             $('#allowanceListTable').DataTable({
-            	 
+                 $('#allowanceListTable').DataTable({
                  "scrollX": true,
-            	 
+                 "scrollY": "350px",	 
                       data: allowanceData,
                       columns: [
       				      { data: 'fullName', title: 'Employee',"autoWidth": true},
@@ -88,33 +85,30 @@ table.dataTable thead:first-child .sorting_desc {
                           { data: 'afkFlag', title: 'AFK Flag',"autoWidth": true},
                           { data: 'taFlag', title: 'TA Flag',"autoWidth": true},
                           { data: 'pfFlag', title: 'PF Flag',"autoWidth": true},
-                          
                           {
 								 'data': null,title:'<a href="#" onclick="addAllowance()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
 								 'render': function (allowanceData, type, row) {
 											   return '<a id="' + row.Id +'" href="#" onclick="UpdateAllowance('+allowanceData.employeeId+')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteAllowance('+allowanceData.employeeId+')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
 										   }
-							}
-                     	
+					       }
                       ]
-                    
                   });
       		}
       	});
-    	  
-      });   	                 
-	
+      });   	      
+                 
       function UpdateAllowance(id){
-    	  var f = document.forms['editForm'];
+       	  var f = document.forms['editForm'];
 		  f.employeeId.value=id;
-		  f.action="../Payroll/inputEmpAlwnce";
-		  f.submit();
-	  }
+   		  f.action="../Payroll/inputEmpAlwnce";
+   		  f.submit();
+   	  }
       function addAllowance(){
     	  var f = document.forms['editForm'];
 		  f.action="../Payroll/inputEmpAlwnce";
 		  f.submit();
 	  }
+    
       function deleteAllowance(id){
     	  if(confirm("Are you sure want to delete Employee Fixed Allowances?")){
     		  var f = document.forms['editForm'];
@@ -135,25 +129,20 @@ table.dataTable thead:first-child .sorting_desc {
 						</div>
 					</div>
 				</div>	
-			</div>
-			
+			</div>	
 			<div class="container">
 				<div style="margin-top: 12px; float: left; width: 98%;">
-					<h4 style="color: #0101DF;">Employee Fixed Allowances</h4>
-					
-					
-			<div id="allowanceListDiv" class="allowanceListTableClass" style ="width:100%; margin-top: 25px">
-					<table id="allowanceListTable" class="table table-striped table-bordered table-responsive"></table>
+					<h4 style="color: #0101DF;">Employee Fixed Allowances</h4>	
+					<div id="allowanceListDiv" class="allowanceListTableClass" style ="width:100%; margin-top: 25px">
+						<table id="allowanceListTable" class="table table-striped table-bordered table-responsive"></table>
+					</div>
+				</div>
 			</div>
-		
-	</div>
-	</div>
 	</div>
 	<form action="" name="editForm" method="post">
 		<%--<input type="hidden" name="designationId" value="0">
 		<input type="hidden" name="departmentId" value="0"> --%>
 		<input type="hidden" name="employeeId" value="0">
-		
 	</form>
 	<jsp:include page="../jsp/public/postFooter.jsp" />
 </body>

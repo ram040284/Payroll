@@ -62,33 +62,31 @@ table.dataTable thead:first-child .sorting_desc {
 </style>
 
 <script type="text/javascript">
-    	 $(document).ready(function() {
+    	 $(document).ready(function(){
     		  $.ajax({
               url : '../Payroll/listSalary',
               type:"GET",
               contentType: "application/json;charset=utf-8",
               success : function(salaryData) {
              $('#salaryListTable').DataTable({
-                      data: salaryData,
+            	 "scrollY": "300px",
+                    data: salaryData,
                       columns: [
-      					{ data: 'fullName', title: 'Employee',"autoWidth": true},
-                      	{ data: 'year', title: 'Year',"autoWidth": true},
-                          { data: 'basic', title: 'Basic Pay',"autoWidth": true},
-                          { data: 'gradePay', title: 'Grade Pay',"autoWidth": true},
-                          { data: 'scalePay', title: 'Scale Pay',"autoWidth": true},
-                          
-                          {
-								 'data': null,title:'<a href="#" onclick="addSalary()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
-								 'render': function (salaryData, type, row) {
-											   return '<a id="' + row.Id +'" href="#" onclick="updateSalary('+salaryData.employeeId+')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteSalary('+salaryData.employeeId+')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
-										   }
-							}
-                     ]
-                    
+      					{ data: 'fullName', title: 'Employee',"autoWidth": false},
+                      	{ data: 'year', title: 'Year',"autoWidth": false},
+                        { data: 'basic', title: 'Basic Pay',"autoWidth": false},
+                        { data: 'gradePay', title: 'Grade Pay',"autoWidth": false},
+                        { data: 'scalePay', title: 'Scale Pay',"autoWidth": false},
+                        {
+						 'data': null,title:'<a href="#" onclick="addSalary()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
+						 'render': function (salaryData, type, row) {
+            			   return '<a id="' + row.Id +'" href="#" onclick="updateSalary('+salaryData.employeeId+')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteSalary('+salaryData.employeeId+')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
+			            	}
+						}
+                     ] 
                   });
-      		}
-      	});
-    	  
+      		   }
+      	   });
       });   	                 
 	
       function addSalary(){
@@ -103,6 +101,7 @@ table.dataTable thead:first-child .sorting_desc {
 		  f.action="../Payroll/inputSalary";
 		  f.submit();
 	  }
+      
       function deleteSalary(id){
     	  if(confirm("Are you sure want to delete Employee Salary?")){
     		  var f = document.forms['editForm'];
@@ -125,16 +124,13 @@ table.dataTable thead:first-child .sorting_desc {
 			</div>	
 		</div>
 		<div class="container">
-	
-	<div style="margin-top: 12px; float: left; width: 98%;">
-			<h4 style="color: #0101DF;">Salary Details</h4>
-	
+			<div style="margin-top: 12px; float: left; width: 98%;">
+				<h4 style="color: #0101DF;">Salary Details</h4>
 				<div id="salaryListDiv" class="salaryListTableClass" style ="width:100%; margin-top: 25px">
 					<table id="salaryListTable" class="table table-striped table-bordered table-responsive"></table>
 				</div>
-		
-	</div>
-	</div>
+			</div>
+		</div>
 	</div>
 	<form action="" name="editForm" method="post">
 		<%--<input type="hidden" name="designationId" value="0">
