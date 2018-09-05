@@ -317,7 +317,6 @@ public class EmployeePayroll {
 		
 		if (this.netPay <= 0 ) {
 			this.netPay = 0;
-			this.profTax = 0;
 			this.providentFund = 0;
 			this.lfee = 0;
 			this.afkRent = 0;
@@ -381,15 +380,19 @@ public class EmployeePayroll {
     // Calculate Professional Tax
     private void calculateProfessionalTax(){
     	
-    		this.profTax = 200.00;
+    	profTax = 0.0;
+    	
+    	
+    	if (handicappedFlag == 0) {
+    		profTax = 200.00;
     		Date date= new Date();
     		
     		Calendar cal = Calendar.getInstance();
     		cal.setTime(date); 
     		int month = cal.get(Calendar.MONTH);
-    		//FIXME: This needs to be fixed - Prasad. This will work only when Paybill is run only in the month of Jan and not when Jan paybill is run in the month fof June
     		if(month == 1)
-    			this.profTax = 300.00;
+    			profTax = 300.00;
+    	}
         
     }
     

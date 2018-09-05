@@ -53,7 +53,7 @@ public class EmployeeVO implements Serializable{
 	}
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	
-	public EmployeeVO (int employeeId, String firstName, String lastName, String middleName){
+	public EmployeeVO (int employeeId, String firstName, String lastName, String middleName, byte handicapFlag){
 		this.employeeId = employeeId;
 		this.fullName = getName(firstName, middleName, lastName);
 	}

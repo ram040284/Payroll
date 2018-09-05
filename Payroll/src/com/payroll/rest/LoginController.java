@@ -43,7 +43,8 @@ public class LoginController
 	 } else*/ if (userMap.get(user.getUserName())!=null && userMap.get(user.getUserName().toLowerCase()).equals(user.getPassword())) {
 	     model = new ModelAndView("dashboard");
 	     model.addObject("welcomeMsg", true);
-	     user.setEmployee(new EmployeeVO(0, "Payroll", "User", ""));
+	     byte handicapFlag = 0;
+	     user.setEmployee(new EmployeeVO(0, "Payroll", "User", "", handicapFlag));
 	     request.getSession().setAttribute("user", user);
 	 } else {
 	     model = new ModelAndView("userLogin", "command", user);
