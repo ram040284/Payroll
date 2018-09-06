@@ -114,17 +114,15 @@ $(document).ready(function() {
 </head>
 <body>
 	<div class="contain-wrapp bodyDivCss">	
-		<div  class="container" class="row" style="position: relative;">
-            <div class="formDiv" style="border: none;">
+			<div class="container" style="margin-top: 85px;">  
+				<div class="formDiv" style="border: none;">
 				<div class="row">
-					<div class="text-left" style="margin-left: 15px;">
-						<button type="button" id="backBtn" class="btn"
-							onclick="backNav('../Payroll/employeeMenu')">Back</button>
+					<div class="text-left" style="margin-left: 33px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/employeeMenu')">Back</button>
 					</div>
 				</div>
-			</div>
-
-			<div style="margin-top: 12px; float: left; width: 98%;">
+			</div>	
+			<div style="margin-top: 12px; float: left; width: 98%; margin-left: 15px;">
 				<h4 style="color: #0101DF;">Bank Details</h4>
 				<form method="post" name="editForm" action="">
 					 <input type="hidden" name="employeeId" value="0">

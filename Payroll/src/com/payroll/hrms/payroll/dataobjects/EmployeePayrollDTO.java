@@ -32,13 +32,13 @@ public class EmployeePayrollDTO {
     private String deptCostHead;
     private double basic;
     private double gradePay;
-    private boolean handicappedFlag;
+    private byte handicappedFlag;
     private double overTimeHours;
     private List<Allowance> listAllowances;
     private List<EmpAllowance> listEmpAllowances;
     private boolean hraFlag;
     private double noOfAbsentDays;
-    private boolean pfFlag;
+    private byte pfFlag;
 
     private double additionalProventFund;
     private double afkFlag;
@@ -58,6 +58,18 @@ public class EmployeePayrollDTO {
 	private double lic;
 	private double cca;
 	private double society;
+	private double incomeTax;
+	private double rent;
+	private double cycleAllowance;
+	private double otherPay;
+
+    public double getCycleAllowance() {
+		return cycleAllowance;
+	}
+
+	public void setCycleAllowance(double cycleAllowance) {
+		this.cycleAllowance = cycleAllowance;
+	}
 
     public String getDeptCostHead() {
         return deptCostHead;
@@ -83,11 +95,11 @@ public class EmployeePayrollDTO {
         this.gradePay = gradePay;
     }
 
-    public boolean isHandicappedFlag() {
+    public byte isHandicappedFlag() {
         return handicappedFlag;
     }
 
-    public void setHandicappedFlag(boolean handicappedFlag) {
+    public void setHandicappedFlag(byte handicappedFlag) {
         this.handicappedFlag = handicappedFlag;
     }
 
@@ -123,11 +135,11 @@ public class EmployeePayrollDTO {
         this.noOfAbsentDays = noOfAbsentDays;
     }
 
-    public boolean isPfFlag() {
+    public byte isPfFlag() {
         return pfFlag;
     }
 
-    public void setPfFlag(boolean pfFlag) {
+    public void setPfFlag(byte pfFlag) {
         this.pfFlag = pfFlag;
     }
 
@@ -275,11 +287,35 @@ public class EmployeePayrollDTO {
 		this.society = society;
 	}
 
+	public double getIncomeTax() {
+		return incomeTax;
+	}
+
+	public void setIncomeTax(double incomeTax) {
+		this.incomeTax = incomeTax;
+	}
+
+	public double getRent() {
+		return rent;
+	}
+
+	public void setRent(double rent) {
+		this.rent = rent;
+	}
+
 	public double getUnionFeeKss() {
 		return unionFeeKss;
 	}
 
 	public void setUnionFeeKss(double unionFeeKss) {
 		this.unionFeeKss = unionFeeKss;
+	}
+
+	public double getOtherPay() {
+		return otherPay;
+	}
+
+	public void setOtherPay(double otherPay) {
+		this.otherPay = otherPay;
 	}
 }

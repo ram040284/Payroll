@@ -24,6 +24,7 @@ public class Employee {
 	private String gender;
 	private int headId;
 	private String retirementDate;
+	private byte handicapFlag;
 	
 	public int getEmployeeId() {
 		return employeeId;
@@ -225,5 +226,13 @@ public class Employee {
 
 	public void setRetirementDate(String retirementDate) {
 		this.retirementDate = retirementDate;
+	}
+
+	public byte getHandicapFlag() {
+		return handicapFlag;
+	}
+
+	public void setHandicapFlag(byte handicapFlag) {
+		this.handicapFlag = handicapFlag;
 	}
 }

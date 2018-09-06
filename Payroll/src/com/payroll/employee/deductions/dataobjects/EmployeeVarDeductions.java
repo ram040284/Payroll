@@ -1,6 +1,5 @@
 package com.payroll.employee.deductions.dataobjects;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
@@ -15,17 +14,21 @@ public class EmployeeVarDeductions {
 	private double otherDeductions;
 	private double miscRecovery;
 	private String monthDate;
+	private double incomeTax;
 	private String status;
 	private short addUpdate;
-	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
+	private static SimpleDateFormat dateFormat = new SimpleDateFormat("m/d/yyyy");
+//	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
+	private double absenties;
+	
+	private double pfLoanRecovery;
 
 	public EmployeeVarDeductions() {
 		super();
 	}
 	
-	public EmployeeVarDeductions(int employeeId, double afkRent, double society, 
-			 double otherDeductions, double miscRecovery, Date monthDate){
+	public EmployeeVarDeductions(int employeeId, double afkRent, double society, double pfLoanRecovery,
+			 double otherDeductions, double miscRecovery, Date monthDate, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
 		this.society = society;
@@ -39,11 +42,15 @@ public class EmployeeVarDeductions {
 			try {
 				//dateMonthDate =  dateFormatRead.parse(monthDate);
 				this.monthDate =  dateFormat.format(monthDate);
+//				System.out.println("***** Before Format: " + monthDate + " After Format: " + this.monthDate);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} /*else
 			this.monthDate = "";*/
+		this.incomeTax = incomeTax;
+		this.pfLoanRecovery = pfLoanRecovery;
+		this.absenties = absenties;
 	}
 	
 
@@ -96,6 +103,14 @@ public class EmployeeVarDeductions {
 		this.monthDate =  (monthDate != null) ? dateFormat.format(monthDate) : "";
 	}
 
+	public double getIncomeTax() {
+		return incomeTax;
+	}
+
+	public void setIncomeTax(double incomeTax) {
+		this.incomeTax = incomeTax;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -111,6 +126,22 @@ public class EmployeeVarDeductions {
 	public void setAddUpdate(short addUpdate) {
 		this.addUpdate = addUpdate;
 	}	
+	public double getPfLoanRecovery() {
+		return pfLoanRecovery;
+	}
+
+	public void setPfLoanRecovery(double pfLoanRecovery) {
+		this.pfLoanRecovery = pfLoanRecovery;
+	}
+
+	public double getAbsenties() {
+		return absenties;
+	}
+
+	public void setAbsenties(double absenties) {
+		this.absenties = absenties;
+	}
+
 	@Override
 	public String toString() {
 		return "EmployeeVarDeductions [employeeId=" + employeeId + ", afkRent=" + afkRent + ", society=" + society

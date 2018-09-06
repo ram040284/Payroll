@@ -34,7 +34,7 @@ public class EmployeeDAO {
 					+ "(select desg.designationName from Designation desg where desg.designationId = "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId)), "
 					//+ "e.addressLine1, e.addressLine2, e.addressLine3, e.gender, e.joiningDate) from Employee e where e.status= ?");
-					+ "e.gender, e.joiningDate, e.retirementDate) from Employee e where e.status= ?");
+					+ "e.gender, e.joiningDate, e.retirementDate, e.handicapFlag) from Employee e where e.status= ?");
 
 			
 			if(deptId != 0)
@@ -75,7 +75,7 @@ public class EmployeeDAO {
 		try{
 			//String queryString = " from Employee";
 			String queryString = " select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, "
-					+ "e.lastName, e.middleName) from Employee e where e.status = ? and e.employeeId = "
+					+ "e.lastName, e.middleName, e.handicapFlag) from Employee e where e.status = ? and e.employeeId = "
 					+ "(select eDept.employeeId from EmpDepartment eDept where eDept.employee.employeeId=e.employeeId and eDept.department.departmentId = ? ) and "
 					+ "e.employeeId = (select eDesg.employee.employeeId from EmpDesignation eDesg where eDesg.employeeId=e.employeeId and "
 					+ " eDesg.designationId = ?)";		
@@ -122,7 +122,7 @@ public class EmployeeDAO {
 					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = e.employeeId), "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId), "
 					//+ "e.addressLine1, e.addressLine2, e.addressLine3, "
-					+ "e.gender, e.joiningDate, e.retirementDate) from Employee e where e.employeeId = ? and e.status = ?";		
+					+ "e.gender, e.joiningDate, e.retirementDate, e.handicapFlag) from Employee e where e.employeeId = ? and e.status = ?";		
 			if(session == null || !session.isOpen()) 
 				session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
@@ -161,7 +161,7 @@ public class EmployeeDAO {
 		List<EmployeeVO> empList = null;
 		Session session = null;
 		try{
-			String queryString = "select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName) from Employee e "
+			String queryString = "select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName, e.handicapFlag) from Employee e "
 					+ "where e.status = ? and e.employeeId in (select eDesg.employee.employeeId from EmpDesignation eDesg where eDesg.designation.designationId = ?)";
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
@@ -363,7 +363,7 @@ public class EmployeeDAO {
 		List<EmployeeVO> empList = null;
 		Session session = null;
 		try{
-			String queryString = "select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName) from Employee e "
+			String queryString = "select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName, e.handicapFlag) from Employee e "
 					+ "where e.status = ? and e.employeeId in (select eDept.employee.employeeId from EmpDepartment eDept where eDept.department.departmentId = ?)";
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
@@ -394,7 +394,7 @@ public class EmployeeDAO {
 					+ "(select dh.headInfo.headName from EmpHeadInfo dh where dh.employee.employeeId = e.employeeId), "
 					+ "(select eDesg.designation.designationName from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId), "
 					//+ "e.addressLine1, e.addressLine2, e.addressLine3, "
-					+ "e.gender, e.joiningDate) from Employee e where e.employeeId = ? and e.status = ? ";		
+					+ "e.gender, e.joiningDate, e.handicapFlag) from Employee e where e.employeeId = ? and e.status = ? ";		
 			if (deptId != 0) {
 				queryString += " and e.employeeId = (select eDept1.employee.employeeId from EmpDepartment eDept1 where eDept1.employee.employeeId=e.employeeId and eDept1.department.departmentId = ? )";	
 			}

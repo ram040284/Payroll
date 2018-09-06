@@ -36,6 +36,9 @@ public class EmployeePayrollService {
 			org.apache.commons.beanutils.BeanUtils.copyProperties(paybill, payroll);
 			paybill.setMonth(date);
 			result = new PaybillDAO().addPaybill(paybill);
+			
+			//System.out.println("***** Paybill TAllowance: " + paybill.gettAllowance() + " Payroll TAllowance: " + payroll.gettAllowance());
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -48,13 +51,15 @@ public class EmployeePayrollService {
 			incTaxservice= new IncomeTaxCalculatorService();
 			for (Iterator iterator = empList.iterator(); iterator.hasNext();) {
 				EmployeeVO employee = (EmployeeVO) iterator.next();
-				EmployeePayroll empPayroll = payrollDAO.loadPayrollInfo(employee.getEmployeeId(), date);
+				EmployeePayroll empPayroll = payrollDAO.loadPayrollInfo(employee.getEmployeeId(), employee.getHandicapFlag(), date);
 				if(empPayroll!=null){
 					empPayroll.setEmployee(employee);
-					double incomeTax = incTaxservice.getIncomeTax(employee.getEmployeeId(), date, empPayroll.getGrossPay());
-					empPayroll.setIncomeTax(incomeTax);
-					empPayroll.setTotalDeductions(empPayroll.getTotalDeductions() + incomeTax);
-					empPayroll.setNetPay(empPayroll.getNetPay() - incomeTax);
+					//double incomeTax = incTaxservice.getIncomeTax(employee.getEmployeeId(), date, empPayroll.getGrossPay());
+					//empPayroll.setIncomeTax(incomeTax);
+					//empPayroll.setTotalDeductions(empPayroll.getTotalDeductions() + empPayroll.getIncomeTax());
+					empPayroll.setTotalDeductions(empPayroll.getTotalDeductions());
+					//empPayroll.setNetPay(empPayroll.getNetPay() - empPayroll.getIncomeTax());
+					empPayroll.setNetPay(empPayroll.getNetPay());
 					
 					addPaybill(empPayroll, date);
 				}

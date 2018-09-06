@@ -121,7 +121,7 @@ $(document).ready(function() {
 		
 		var inputJson = { "employeeId" : empIdInput, "basic" : $('#basic').val(),  
 				"year" : $('#year').val(), "gradePay" : $('#gradePay').val(), 
-				"scalePay": $('#scalePay').val(), "scaleInc": $('#scaleInc').val(), "addUpdate": $('#addUpdate').val()};
+				"scalePay": $('#scalePay').val(), "scaleCode": $('#scaleCode').val(),  "addUpdate": $('#addUpdate').val()};
 		$.ajax({
 	        url: '../Payroll/addSalary',
 	        data: JSON.stringify(inputJson),
@@ -153,6 +153,15 @@ function checkAmount(value){
 </head>
 <body>
 	<div class="contain-wrapp bodyDivCss">	
+		<div class="container">
+			<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/viewSalary#')">Back</button>
+					</div>
+				</div>
+			</div>	
+		</div>
 		<div class="container">
 		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
@@ -216,7 +225,6 @@ function checkAmount(value){
 									<form:input path="scalePay"  id="scalePay" placeholder="Enter Scale Pay" class="form-control"/>
 									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${salary.employeeId != '0'}" > value="1" </c:if>/>
 								</div>
-								
 							</div>
 							<%--<div class="row">
 								<div class="col-sm-6 form-group">
@@ -234,7 +242,7 @@ function checkAmount(value){
 								</div>	
 							</div>
 					</div>
-						
+					<input type="hidden" id="scaleCode" name="scaleCode" value="${salary.scaleCode}">
 				</form:form>
 			</div>
 		</div>

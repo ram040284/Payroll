@@ -23,7 +23,6 @@
         }
     }
 </style>
-
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#loginBtn').click(function(event) {
@@ -40,8 +39,15 @@ $(document).ready(function() {
 		$("#formLogin").attr("action", "../Payroll/home");
 		$("#formLogin").submit();
 	});
+	
+	$(document).keypress(function(e) {
+	    if(e.which == 13) {
+	        $("#formLogin").attr("action", "../Payroll/home");
+	        $("#formLogin").submit();
+	    }
+	});
 });
-      </script>
+</script>
 </head>
 <body >
 	<div class="contain-wrapp bodyDivCss">	
@@ -68,7 +74,7 @@ $(document).ready(function() {
 				<form:input type="password" id="password" path="password" placeholder="Password" class="form-control"/>
 			</div>
 			<div class="col-sm-12" style="text-align:right">
-				<button type="button" id="loginBtn"  class="btn" >Log in</button>
+				<button type="button" id="loginBtn"  class="btn" value="Submit">Log in</button>
 			</div>
 		</div>
 	</div>

@@ -5,8 +5,7 @@
 <script type="text/javascript">
 	function getDeductionsList() {
 
-		$
-				.ajax({
+		$.ajax({
 					url : '../Payroll/listVarEmpDeductions',
 					type : "GET",
 					contentType : "application/json;charset=utf-8",
@@ -67,6 +66,15 @@
 <body onload="getDeductionsList()">
 	<jsp:include page="../jsp/public/postHeader.jsp" />
 	<div class="contain-wrapp bodyDivCss">
+		<div class="container">
+			<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/employeeMenu')">Back</button>
+					</div>
+				</div>
+			</div>	
+		</div>
 		<div class="container">
 
 			<div style="margin-top: 12px; float: left; width: 98%;">

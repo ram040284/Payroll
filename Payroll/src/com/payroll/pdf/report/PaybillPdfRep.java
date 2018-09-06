@@ -2,7 +2,6 @@ package com.payroll.pdf.report;
 
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -11,7 +10,6 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import com.payroll.Utils;
-import com.payroll.hrms.payroll.dataobjects.EmployeePayroll;
 import com.payroll.hrms.payroll.dataobjects.PaybillDetails;
 import com.payroll.hrms.payroll.dataobjects.ReportDetails;
 import com.payroll.pdf.business.PdfBuilder;
@@ -24,9 +22,8 @@ public class PaybillPdfRep extends PdfBuilder{
     
 	public void paybillReport(Document doc, PaybillDetails paybillDetails, String imgPath){
 		try{
-			String watermarkImg = imgPath+"//CBK_Logo.png";//request.getSession().getServletContext().getRealPath("/resources/images/CBK_Logo.png");
-	        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
-	        String logoImg = imgPath+"//logo_new.jpg";
+			String watermarkImg = imgPath+"//CBK_Logo_min.png";//request.getSession().getServletContext().getRealPath("/resources/images/CBK_Logo.png");
+	        String logoImg = imgPath+"//logo_new_min.jpg";
 	        doc.add(PdfUtils.getMainHeader(logoImg));
 	        
 	        DottedLineSeparator dottedline = new DottedLineSeparator();
@@ -63,6 +60,9 @@ public class PaybillPdfRep extends PdfBuilder{
 	        float tabWidths[] = {2.8f, 2.2f, 1.9f, 2.2f};
 	        PdfPTable paybillTab2 = null; 
 	        for (Iterator iterator = paybillDetails.getPayrollList().iterator(); iterator.hasNext();) {
+
+		        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
+		        
 				ReportDetails employeePayroll = (ReportDetails) iterator.next();
 				srNo++;
 				edTab = createPdfPTable(2, 5, edTabWidths);
@@ -84,6 +84,15 @@ public class PaybillPdfRep extends PdfBuilder{
 		        		frtHdFont, tabWidths));
 		        doc.add(addNetPay(Utils.getDecimalFormat(employeePayroll.getNetPay()), frtHdFont, tabWidths));
 		        doc.add(dottedline);
+		        if (srNo % 3 == 0) {
+		        	doc.newPage();
+		        	doc.add(PdfUtils.getMainHeader(logoImg));
+			        dottedline.setOffset(-2);
+			        dottedline.setGap(2f);
+			        doc.add(dottedline);
+		        	doc.add(paybillTab);
+		        	doc.add(dottedline);
+		        }
 	        }
 	        //Adding totals per Department
 	        PdfPTable pbDtlsTab = null;
@@ -118,7 +127,7 @@ public class PaybillPdfRep extends PdfBuilder{
 	        pbDtlsTab.addCell(addToCell(PdfUtils.NETPAY+" "+Utils.getDecimalFormat(paybillDetails.getNetPay()), headHdFont));
 	        doc.add(pbDtlsTab);
 	        doc.add(dottedline);
-	      
+	        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -244,20 +253,22 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(PdfUtils.WA, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getWashingAllowance()), font));
 		
+//		table.addCell(addToCell(PdfUtils.CA, font));
+//		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getConveyanceAllowance()), font));
 		table.addCell(addToCell(PdfUtils.CA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getConveyanceAllowance()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCa()), font));
 		table.addCell(addToCell(PdfUtils.UNIFORMALW, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUniformAllowance()), font));
 		
 		table.addCell(addToCell(PdfUtils.FLYPLGALW, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getFamilyPlanningAllowance()), font));
 		table.addCell(addToCell(PdfUtils.TALW, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getTotalAllowance()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.gettAllowance()), font)); //TODO - Prasad
 		
 		table.addCell(addToCell(PdfUtils.OTAMT, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOverTimeAmount()), font));
 		table.addCell(addToCell(PdfUtils.OTHERS, font));
-		table.addCell(addToCell("0.00", font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtherPayAmount()), font));
 		
 		//table.addCell(addToCell(PdfUtils.GROSS, font));
 		//table.addCell(addToCell(payroll.getGrossPay()+"", font));
@@ -293,12 +304,12 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(PdfUtils.FLYPLGALW, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getFamilyPlaningAlw()), font));
 		table.addCell(addToCell(PdfUtils.TALW, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(0), font)); // TODO need to check what to display
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.gettAllowance()), font));
 		
 		table.addCell(addToCell(PdfUtils.OTAMT, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtAmt()), font));
 		table.addCell(addToCell(PdfUtils.OTHERS, font));
-		table.addCell(addToCell("0.00", font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOthers()), font));
 		
 	}
 	
@@ -334,7 +345,7 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfLoanRcry()), font));
 		
 		table.addCell(addToCell(PdfUtils.INCTAX, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getIncomTax()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getIncomeTax()), font));
 		table.addCell(addToCell(PdfUtils.OTHERDED, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtherDeducs()), font));
 		
@@ -376,7 +387,7 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(payroll.getRetirementDate(), font));
 		
 		table.addCell(addToCell(PdfUtils.SCALE, font));
-		table.addCell(addToCell(payroll.getScale(), font));
+		table.addCell(addToCell(payroll.getScalePay() + ": " + payroll.getScale(), font));
 		table.addCell(addToCell(PdfUtils.INC_MONTH, font));
 		table.addCell(addToCell(payroll.getIncrementDate(), font));
 		

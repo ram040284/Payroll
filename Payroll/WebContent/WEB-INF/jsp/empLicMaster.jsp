@@ -107,8 +107,8 @@ $(document).ready(function() {
 <jsp:include page="../jsp/public/master.jsp" />
 </head>
 <body>
-	<div class="contain-wrapp bodyDivCss">	
-		<div class="container">	
+	<div class="contain-wrapp bodyDivCss">
+		<div class="container">
 			<div class="formDiv" style="border: none;">
 				<div class="row">
 					<div class="text-left" style="margin-left: 15px;">
@@ -122,7 +122,7 @@ $(document).ready(function() {
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">
 				<c:if test="${empLic.employeeId != '0'}" >	Update</c:if><c:if test="${empLic.employeeId == '0'}">Add</c:if> Employee LIC
-		    </h4>
+			</h4>
 
 		<div class="col-lg-12 card-block bg-faded" style="margin-bottom: 10px;">
 			<div class="row">

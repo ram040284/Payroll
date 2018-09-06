@@ -13,7 +13,7 @@ public class ReportDetails {
 	private double travelAllowance;
 	private double nonPracticingAllowance;
 	private double washingAllowance;
-	private double conveyanceAllowance;
+//	private double conveyanceAllowance;
 	private double uniformAllowance;
 	private double familyPlanningAllowance;
 	private double totalAllowance;
@@ -61,6 +61,9 @@ public class ReportDetails {
 	private String gender;
 	private String pfNumber;
 	private String employeeNumber;
+	private String scalePay;
+	private double ca;
+	private double tAllowance;
 	
 	public String getEmployeeNumber() {
 		return employeeNumber;
@@ -128,12 +131,12 @@ public class ReportDetails {
 	public void setWashingAllowance(double washingAllowance) {
 		this.washingAllowance = washingAllowance;
 	}
-	public double getConveyanceAllowance() {
-		return conveyanceAllowance;
-	}
-	public void setConveyanceAllowance(double conveyanceAllowance) {
-		this.conveyanceAllowance = conveyanceAllowance;
-	}
+//	public double getConveyanceAllowance() {
+//		return conveyanceAllowance;
+//	}
+//	public void setConveyanceAllowance(double conveyanceAllowance) {
+//		this.conveyanceAllowance = conveyanceAllowance;
+//	}
 	public double getUniformAllowance() {
 		return uniformAllowance;
 	}
@@ -356,6 +359,12 @@ public class ReportDetails {
 	public void setEmployeeName(String employeeName) {
 		this.employeeName = employeeName;
 	}
+	public String getScalePay() {
+		return scalePay;
+	}
+	public void setScalePay(String scalePay) {
+		this.scalePay = scalePay;
+	}
 	public String getPanNo() {
 		return panNo;
 	}
@@ -397,6 +406,18 @@ public class ReportDetails {
 	}
 	public void setIncrementDate(String incrementDate) {
 		this.incrementDate = incrementDate;
+	}
+	public double getCa() {
+		return ca;
+	}
+	public void setCa(double ca) {
+		this.ca = ca;
+	}
+	public double gettAllowance() {
+		return tAllowance;
+	}
+	public void settAllowance(double tAllowance) {
+		this.tAllowance = tAllowance;
 	}
 	
 	/*protected void addPayrollTotals(EmployeePayroll payroll){

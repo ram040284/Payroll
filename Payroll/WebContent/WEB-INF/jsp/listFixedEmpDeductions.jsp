@@ -132,9 +132,8 @@ $(document).ready(function() {
 					</div>
 				</div>
 			</div>
-		
-		
-		
+		</div>
+		<div class="container">
 		
 			<div style="margin-top: 12px; float: left; width: 98%;">
 				<h4 style="color: #0101DF;">EMP Fixed Deductions</h4>

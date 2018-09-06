@@ -26,6 +26,7 @@ public class EmpVarDeductions {
 	private int headId;
 	private int designationId;
 	private String fullName;
+	private double incomeTax;
 	private String status;
 	private short addUpdate;
 	private Timestamp rowUpdDate;
@@ -33,9 +34,10 @@ public class EmpVarDeductions {
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
 	private static SimpleDateFormat monthYearFormat = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
+	private double absenties;
 	
 	public EmpVarDeductions(int employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
-			 double otherDeductions, double miscRecovery, String monthDate,String note){
+			 double otherDeductions, double miscRecovery, String monthDate,String note, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
 		this.society = society;
@@ -59,10 +61,12 @@ public class EmpVarDeductions {
 		nameSB.append(" ");
 		nameSB.append(Utils.safeTrim(lastName));
 		this.fullName = nameSB.toString();
+		this.incomeTax = incomeTax;
+		this.absenties = absenties;
 	}
 	
 	public EmpVarDeductions(int employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
-			 double otherDeductions, double miscRecovery, Date monthDate,String note){
+			 double otherDeductions, double miscRecovery, Date monthDate,String note, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
 		this.society = society;
@@ -80,10 +84,12 @@ public class EmpVarDeductions {
 		nameSB.append(" ");
 		nameSB.append(Utils.safeTrim(lastName));
 		this.fullName = nameSB.toString();
+		this.incomeTax = incomeTax;
+		this.absenties = absenties;
 	}
 
 	public EmpVarDeductions(int employeeId, int departmentId , int designationId, int headId, double afkRent, 
-			double society, double pfLoanRecovery, double otherDeductions, double miscRecovery, String monthDate, String note){
+			double society, double pfLoanRecovery, double otherDeductions, double miscRecovery, String monthDate, String note, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -106,11 +112,12 @@ public class EmpVarDeductions {
 		} else
 			this.monthDate = "";
 		System.out.println("3 Month Date: " + this.monthDate);
-		
+		this.incomeTax = incomeTax;
+		this.absenties = absenties;
 	}
 	
 	public EmpVarDeductions(int employeeId, int departmentId , int designationId, int headId, double afkRent, 
-			double society, double pfLoanRecovery, double otherDeductions, double miscRecovery, Date monthDate, String note){
+			double society, double pfLoanRecovery, double otherDeductions, double miscRecovery, Date monthDate, String note, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -129,6 +136,8 @@ public class EmpVarDeductions {
 		} else
 			this.monthDate = "";
 		System.out.println("4 Month Date: " + this.monthDate);
+		this.incomeTax = incomeTax;
+		this.absenties = absenties;
 		
 	}
 	
@@ -243,6 +252,14 @@ public class EmpVarDeductions {
 		this.fullName = fullName;
 	}
 
+	public double getIncomeTax() {
+		return incomeTax;
+	}
+
+	public void setIncomeTax(double incomeTax) {
+		this.incomeTax = incomeTax;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -265,4 +282,13 @@ public class EmpVarDeductions {
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+	public double getAbsenties() {
+		return absenties;
+	}
+
+	public void setAbsenties(double absenties) {
+		this.absenties = absenties;
+	}
+
 }

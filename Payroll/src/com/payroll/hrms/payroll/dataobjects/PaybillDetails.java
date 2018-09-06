@@ -38,7 +38,7 @@ public class PaybillDetails {
 	private double apfAcf;
 	private double pfLoanRcry;
 	private double cpfRcry;
-	private double incomTax;
+//	private double incomTax;
 	private double unionFee;
 	private double unionFeeKss;
 	private double elecRcry;
@@ -46,13 +46,15 @@ public class PaybillDetails {
 	private double otherDeducs;
 	private double misc;
 	private double grossPay;
-	private double lfee;
+//	private double lfee;
 	private double pfInstment;
 	private double totalDeductions;
 	private double totalGrossPay; 
 	private double netPay;
 	private Date month;
 	private int noOfEmployees;
+	private double incomeTax;
+	private double tAllowance;
 	//private String gender;
 	//private String pfNumber;
 	//private String employeeNumber;
@@ -85,6 +87,7 @@ public class PaybillDetails {
 		da += payroll.getDa();
 		hra+= payroll.getHra();
 		cca+= payroll.getCca();
+//		ca += payroll.getCycleAllowance();
 		ta+= payroll.getTa();
 		npa+= payroll.getNpa();
 		wa+= payroll.getWa();
@@ -108,13 +111,15 @@ public class PaybillDetails {
 		apfAcf+= payroll.getApfAcf();
 		pfLoanRcry+= payroll.getPfLoanRcry();
 		cpfRcry+= payroll.getCpfRcry();
-		incomTax += payroll.getIncomTax();
+//		incomTax += payroll.getIncomTax();
 		unionFee += payroll.getUnionFee();
 		unionFeeKss += payroll.getUnionFeeKss();
 		elecRcry += payroll.getElecRcry();
 		courtRcry += payroll.getCourtRcry();
 		otherDeducs += payroll.getOtherDeducs();
 		misc += payroll.getMisc();
+		incomeTax += payroll.getIncomeTax();
+		tAllowance += payroll.gettAllowance();
 	}
 	public void addEmployeePayroll(ReportDetails payroll){
 		if(Utils.isEmpty(deptName))
@@ -129,16 +134,17 @@ public class PaybillDetails {
 		da += payroll.getDearnessAllowance();
 		hra+= payroll.getHouseRentAllowance();
 		cca+= payroll.getCca();
+		ca+= payroll.getCa();
 		ta+= payroll.getTravelAllowance();
 		npa+= payroll.getNonPracticingAllowance();
 		wa+= payroll.getWashingAllowance();
-		ca+= payroll.getConveyanceAllowance();
+//		ca+= payroll.getConveyanceAllowance();
 		uniformAlw+=payroll.getUniformAllowance();
 		familyPlaningAlw+= payroll.getFamilyPlanningAllowance();
 		totallw += payroll.getTotalAllowance();
 		otAmt += payroll.getOverTimeAmount();
 		others += payroll.getOtherPayAmount();
-		rent+= payroll.getRent();
+		rent+= payroll.getLfee();
 		afkRent += payroll.getAfkRent();
 		absentDed+= payroll.getAbsentAmount();
 		festAdvRcry += payroll.getFestAdvRecovery();
@@ -152,13 +158,14 @@ public class PaybillDetails {
 		apfAcf+= payroll.getApfacpf();
 		pfLoanRcry+= payroll.getPfLoanRecovery();
 		cpfRcry+= payroll.getCpfRecovery();
-		incomTax += payroll.getIncomeTax();
+		incomeTax += payroll.getIncomeTax();
 		unionFee += payroll.getUnionFee();
 		unionFeeKss += payroll.getUnionFeeKss();
 		elecRcry += payroll.getElectricityRecovery();
 		courtRcry += payroll.getCourtRecovery();
 		otherDeducs += payroll.getOtherDeductions();
 		misc += payroll.getMiscAllowance();
+		tAllowance += payroll.gettAllowance();
 		noOfEmployees += 1;
 		if(payrollList == null)
 			payrollList = new ArrayList<ReportDetails>();
@@ -167,17 +174,18 @@ public class PaybillDetails {
 	
     public double getTotalGrossPay(){
 
-        this.grossPay = this.basicPay + this.gradePay + this.da
-                + this.ta 
-                + this.totallw;
-        this.totalGrossPay = this.grossPay + this.otAmt+ this.others;
+        this.grossPay = this.basicPay + this.gradePay + this.da + this.ta  + this.totallw + this.tAllowance + this.others;
+        //System.out.println("***** GrossPay -> Basic: " + this.basicPay + " GradePay: " + this.gradePay + " DA: " + this.da + " TA: " + this.ta + " TotalAllowance: " + this.totallw);
+        this.totalGrossPay = this.grossPay + this.otAmt;
+        //System.out.println("***** Total Gross Pay -> GrossPay " + this.grossPay + " OverTimeAmount: " + this.otAmt + " Others/OtherPayment: " + this.others);
         return totalGrossPay;
     }
     
     public double getTotalDeductions() {
     	this.totalDeductions = 0;
     	this.totalDeductions = this.absentDed
-    						+ this.lfee // need to check what is it mean
+//    						+ this.lfee // need to check what is it mean
+    						+ this.rent
     						+ this.afkRent
     						+ this.festAdvRcry
     						+ this.pt
@@ -190,7 +198,7 @@ public class PaybillDetails {
     						+ this.apfAcf
     						+ this.pfLoanRcry
     						+ this.cpfRcry
-    						+ this.incomTax
+    						+ this.incomeTax
     						+ this.unionFee
     						+ this.elecRcry
     						+ this.courtRcry
@@ -318,9 +326,9 @@ public class PaybillDetails {
 		return cpfRcry;
 	}
 
-	public double getIncomTax() {
-		return incomTax;
-	}
+//	public double getIncomTax() {
+//		return incomTax;
+//	}
 
 	public double getUnionFee() {
 		return unionFee;
@@ -370,6 +378,12 @@ public class PaybillDetails {
 		return noOfEmployees;
 	}
 
+	public double getIncomeTax() {
+		return incomeTax;
+	}
+	public void setIncomeTax(double incomeTax) {
+		this.incomeTax = incomeTax;
+	}
 	public String getBankName() {
 		return bankName;
 	}
@@ -382,6 +396,15 @@ public class PaybillDetails {
 	}
 	public void setUnionFeeKss(double unionFeeKss) {
 		this.unionFeeKss = unionFeeKss;
+	}
+	public void setCa(double ca) {
+		this.ca = ca;
+	}
+	public double gettAllowance() {
+		return tAllowance;
+	}
+	public void settAllowance(double tAllowance) {
+		this.tAllowance = tAllowance;
 	}
 	
 	

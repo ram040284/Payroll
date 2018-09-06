@@ -22,7 +22,7 @@ public class Paybill implements Serializable{
 	private double travelAllowance;
 	private double nonPracticingAllowance;
 	private double washingAllowance;
-	private double conveyanceAllowance;
+//	private double conveyanceAllowance;
 	private double uniformAllowance;
 	private double familyPlanningAllowance;
 	private double totalAllowance;
@@ -59,11 +59,14 @@ public class Paybill implements Serializable{
 	private String deptCostHead;
 	private String bankAcctNo;
 	private String bankName;
-	private String incomeTax;
+	private double incomeTax;
 	private String scale;
 	private double incrementAmt;
 	private String incrementDate;
 	private int bankId;
+	private String scalePay;
+	private double ca;
+	private double tAllowance;
 	
 	/*private String employeeName;
 	private String panNo;
@@ -125,12 +128,12 @@ public class Paybill implements Serializable{
 	public void setWashingAllowance(double wa) {
 		this.washingAllowance = wa;
 	}
-	public double getConveyanceAllowance() {
-		return conveyanceAllowance;
-	}
-	public void setConveyanceAllowance(double ca) {
-		this.conveyanceAllowance = ca;
-	}
+//	public double getConveyanceAllowance() {
+//		return conveyanceAllowance;
+//	}
+//	public void setConveyanceAllowance(double ca) {
+//		this.conveyanceAllowance = ca;
+//	}
 	public double getUniformAllowance() {
 		return uniformAllowance;
 	}
@@ -359,10 +362,10 @@ public class Paybill implements Serializable{
 	public void setDeptCostHead(String deptCostHead) {
 		this.deptCostHead = deptCostHead;
 	}
-	public String getIncomeTax() {
+	public double getIncomeTax() {
 		return incomeTax;
 	}
-	public void setIncomeTax(String incomeTax) {
+	public void setIncomeTax(double incomeTax) {
 		this.incomeTax = incomeTax;
 	}
 	public String getScale() {
@@ -388,6 +391,24 @@ public class Paybill implements Serializable{
 	}
 	public void setBankId(int bankId) {
 		this.bankId = bankId;
+	}
+	public String getScalePay() {
+		return scalePay;
+	}
+	public void setScalePay(String scalePay) {
+		this.scalePay = scalePay;
+	}
+	public double getCa() {
+		return ca;
+	}
+	public void setCa(double ca) {
+		this.ca = ca;
+	}
+	public double gettAllowance() {
+		return tAllowance;
+	}
+	public void settAllowance(double tAllowance) {
+		this.tAllowance = tAllowance;
 	}
 	
 	

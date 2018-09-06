@@ -22,7 +22,7 @@ public class EmpAllowanceDAO {
 			try{
 				String queryString = " select new com.payroll.employee.allowance.vo.EmpAllowanceVO(a.employee.employeeId, "
 						+ "a.employee.firstName, a.employee.lastName, a.cca, a.washingAlwance, "
-						+ "a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag,a.qtrFlag, a.afkFlag, a.taFlag, a.pfFlag) "
+						+ "a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag,a.qtrFlag, a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance. a.otherPay) "
 						+ "from EmpAllowance a where a.status = ?";
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -45,7 +45,7 @@ public class EmpAllowanceDAO {
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = a.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = a.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = a.employee.employeeId and dh.status = 'A'), "
-						+ "a.cca, a.washingAlwance, a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag, a.qtrFlag,a.afkFlag, a.taFlag) from EmpAllowance a "
+						+ "a.cca, a.washingAlwance, a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag, a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance, a.otherPay) from EmpAllowance a "
 						+ "where a.status = ? and a.employee.employeeId = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
@@ -71,7 +71,7 @@ public class EmpAllowanceDAO {
 		EmployeeAllowances employeeAllowances = null;
 			Session session = null;
 			try{
-				String queryString = "select new com.payroll.employee.allowance.vo.EmployeeAllowances(a.employeeId, a.cca, a.washingAlwance,a.nonPracAwance,a.uniformAlwance,a.familyPlanAlwance, a.cycleAlwance,a.hraFlag,a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag) from EmpAllowance a where a.employeeId = ? and a.status = ?";		
+				String queryString = "select new com.payroll.employee.allowance.vo.EmployeeAllowances(a.employeeId, a.cca, a.washingAlwance,a.nonPracAwance,a.uniformAlwance,a.familyPlanAlwance, a.cycleAlwance,a.hraFlag,a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance, a.otherPay) from EmpAllowance a where a.employeeId = ? and a.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -90,15 +90,19 @@ public class EmpAllowanceDAO {
 	public String deleteEmpAllowance(int empId){
 		String result = null;
 		Session session = null;
+		Transaction transaction = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
 			Query query = session.createQuery("update EmpAllowance a set a.status = ?, a.rowUpdDate = ? where a.employee.employeeId = ?");
-			query.setParameter(0, "S");
+			query.setParameter(0, "I");
 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 			query.setParameter(2, empId);
 			int updated = query.executeUpdate();
 			if(updated > 0)
 				result = "Successfully deleted EMP Allowance Details!";
+			session.flush();	
+			transaction.commit();
 		}catch(Exception e){
 			e.printStackTrace();
 			result = "Failed to delete EMP Allowance details!";

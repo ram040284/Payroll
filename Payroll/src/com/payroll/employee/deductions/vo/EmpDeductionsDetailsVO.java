@@ -18,6 +18,8 @@ public class EmpDeductionsDetailsVO {
 	private int headId;
 	private int designationId;
 	private String fullName;
+	private double incomeTax;
+	private double absenties;
 	
 	public EmpDeductionsDetailsVO() {
 		
@@ -25,7 +27,7 @@ public class EmpDeductionsDetailsVO {
 	
 	public EmpDeductionsDetailsVO(int employeeId, String firstName, String lastName, double afkRent, double society, 
 			double electRecovery, double courtRecovery, double unionFee, double otherDeductions, 
-			double miscRecovery, double kssUnionRecovery){
+			double miscRecovery, double kssUnionRecovery, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
 		this.society = society;
@@ -40,11 +42,13 @@ public class EmpDeductionsDetailsVO {
 		nameSB.append(" ");
 		nameSB.append(Utils.safeTrim(lastName));
 		this.fullName = nameSB.toString();
+		this.incomeTax = incomeTax;
+		this.absenties = absenties;
 	}
 	
 	public EmpDeductionsDetailsVO(int employeeId, int departmentId , int designationId, int headId, double afkRent, 
 			double society, double electRecovery, double courtRecovery, double unionFee, double otherDeductions, 
-			double miscRecovery, double kssUnionRecovery){
+			double miscRecovery, double kssUnionRecovery, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -58,6 +62,8 @@ public class EmpDeductionsDetailsVO {
 		this.miscRecovery = miscRecovery;
 		this.kssUnionRecovery = kssUnionRecovery;
 		this.profTax = profTax;
+		this.incomeTax = incomeTax;
+		this.absenties = absenties;
 	}
 	
 	public int getEmployeeId() {
@@ -102,8 +108,20 @@ public class EmpDeductionsDetailsVO {
 	public String getFullName() {
 		return fullName;
 	}
+	public double getIncomeTax() {
+		return incomeTax;
+	}
+
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
+	}
+
+	public double getAbsenties() {
+		return absenties;
+	}
+
+	public void setAbsenties(double absenties) {
+		this.absenties = absenties;
 	}
 	
 }

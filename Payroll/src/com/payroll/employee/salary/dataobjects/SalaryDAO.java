@@ -23,7 +23,7 @@ public class SalaryDAO {
 						//+ "(select e.firstName from Employee e where e.employeeId = s.empId),"
 						//+ " (select e.lastName from Employee e where e.employeeId = s.empId), "
 						+"s.employee.firstName, s.employee.lastName, "
-						+ "s.year, s.basic, s.gradePay, s.scalePay) from Salary s where s.status = ?";		
+						+ "s.year, s.basic, s.gradePay, s.scalePay, s.scaleCode, s.incrementAmount, s.incrementDate) from Salary s where s.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -99,7 +99,7 @@ public class SalaryDAO {
 					"(select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = s.employee.employeeId), "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = s.employee.employeeId), "
 					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = s.employee.employeeId), "
-					+ "s.year, s.basic, s.gradePay, s.scalePay) from Salary s where s.employee.employeeId = ? and s.status = ?";		
+					+ "s.year, s.basic, s.gradePay, s.scalePay, s.incrementAmount, s.incrementDate) from Salary s where s.employee.employeeId = ? and s.status = ?";		
 			
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
@@ -141,15 +141,19 @@ public class SalaryDAO {
 	public String deleteEmpSal(int empId){
 		String result = null;
 		Session session = null;
+		Transaction transaction = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
 			Query query = session.createQuery("update Salary s set s.status = ?, s.rowUpdDate = ? where s.employee.employeeId = ?");
-			query.setParameter(0, "S");
+			query.setParameter(0, "I");
 			query.setParameter(1, new Date());
 			query.setParameter(2, empId);
 			int updated = query.executeUpdate();
 			if(updated > 0)
 				result = "Successfully deleted Salary!";
+			session.flush();	
+			transaction.commit();
 		}catch(Exception e){
 			e.printStackTrace();
 			result = "Failed deleted Salary!";

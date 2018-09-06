@@ -107,7 +107,7 @@ h3 {font-size:16pt;}
 .bodyDivCss {
 	position:relative;
 	padding-bottom: 50px;
-	
+	margin-top: 160px;	
 }
 .errMsg {
 	display: none;
@@ -154,7 +154,7 @@ h3 {font-size:16pt;}
 	</script>
 
 <!-- Start Navbar -->
-	<nav class="navbar yamm navbar-dark navbar-fixed-top">
+	<nav class="navbar yamm navbar-dark navbar-fixed-top" style="position: fixed;">
 		<div class="wrapper" style="background:#e0e2ee;">
 			<div class="container">
 				<div class="navbar-header">

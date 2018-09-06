@@ -20,10 +20,11 @@
     <property name="travelAllowance" column="TA"  /> 
     <property name="nonPracticingAllowance" column="NPA"  />
     <property name="washingAllowance" column="WA"  /> 
-    <property name="conveyanceAllowance" column="CA"  />  
+    <property name="ca" column="CA"  />  
     <property name="uniformAllowance" column="UFALW"  /> 
     <property name="familyPlanningAllowance" column="FPALW"  />
     <property name="totalAllowance" column="TALW"  />
+    <property name="tAllowance" column="T_ALLOWANCE"  />
     <property name="overTimeAmount" column="OT_AMT"  /> 
     <property name="otherPayAmount" column="OTHER_AMT"  />
     <property name="grossPay" column="GROSS_PAY"  /> 
@@ -56,10 +57,11 @@
     <property name="bankAcctNo" column="BANK_ACCT_NO"  />
     <property name="bankName" column="BANK_NAME"  />
     <property name="bankId" column="BANK_ID"  />
-     <property name="month" column="MONTH_DATE"  />  
+    <property name="month" column="MONTH_DATE"  />  
     <property name="scale" column="SCALE"  />
-     <property name="incrementAmt" column="INC_AMT"  />  
-     <property name="incrementDate" column="INC_DATE"  />  
+    <property name="scalePay" column="SCALE_PAY"  />
+    <property name="incrementAmt" column="INC_AMT"  />  
+    <property name="incrementDate" column="INC_DATE"  />  
     <property name="rowUpdDate" column="ROW_UPD_DATE"  />
   </class>  
  </hibernate-mapping>

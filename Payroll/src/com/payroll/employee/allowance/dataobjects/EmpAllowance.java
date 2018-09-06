@@ -17,17 +17,20 @@ public class EmpAllowance implements Serializable {
 	private Boolean hraFlag;
 	private Boolean qtrFlag;
 	private Boolean afkFlag;
-	private Boolean taFlag;
-	private Boolean pfFlag;
+	private byte taFlag;
+	private byte pfFlag;
 	private Timestamp rowUpdDate;
 	private String status;
 	private short addUpdate; // 0 - Add / 1 - update
 	private Employee employee;
+	private double otherAllowance;
+	private double tAllowance;
+	private double otherPay;
 	
-	public Boolean getPfFlag() {
+	public byte getPfFlag() {
 		return pfFlag;
 	}
-	public void setPfFlag(Boolean pfFlag) {
+	public void setPfFlag(byte pfFlag) {
 		this.pfFlag = pfFlag;
 	}
 	
@@ -43,10 +46,10 @@ public class EmpAllowance implements Serializable {
 	public void setAfkFlag(Boolean afkFlag) {
 		this.afkFlag = afkFlag;
 	}
-	public Boolean getTaFlag() {
+	public byte getTaFlag() {
 		return taFlag;
 	}
-	public void setTaFlag(Boolean taFlag) {
+	public void setTaFlag(byte taFlag) {
 		this.taFlag = taFlag;
 	}
 
@@ -122,6 +125,24 @@ public class EmpAllowance implements Serializable {
 	}
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+	public double getOtherAllowance() {
+		return otherAllowance;
+	}
+	public void setOtherAllowance(double otherAllowance) {
+		this.otherAllowance = otherAllowance;
+	}
+	public double gettAllowance() {
+		return tAllowance;
+	}
+	public void settAllowance(double tAllowance) {
+		this.tAllowance = tAllowance;
+	}
+	public double getOtherPay() {
+		return otherPay;
+	}
+	public void setOtherPay(double otherPay) {
+		this.otherPay = otherPay;
 	}
 	
 	
