@@ -1,5 +1,4 @@
 package com.payroll.rest;
-
 import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -15,28 +14,23 @@ import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.designation.business.DesignationService;
 import com.payroll.designation.dataobjects.Designation;
-import com.payroll.employee.bank.business.BankService;
-import com.payroll.employee.bank.dataobjects.EmpBank;
-import com.payroll.employee.bank.vo.BankVO;
 import com.payroll.employee.lic.business.EmpLicService;
+import com.payroll.employee.lic.dataobjects.EmpLic;
+import com.payroll.employee.lic.dataobjects.EmpLicMaster;
 import com.payroll.employee.lic.vo.EmpLicMasterVO;
 import com.payroll.employee.lic.vo.EmpLicVO;
-import com.payroll.employee.qtr.business.EmpQuartersService;
-import com.payroll.employee.qtr.vo.EmpQuartersVO;
 
 @Controller
 public class EmpLicController {
 
 	@RequestMapping(value="/listEmpLic", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<EmpLicVO> getEmpLicList(){
-		System.out.println("listEmpLic-- getEmpLicList");
-	   List<EmpLicVO> empLics = new EmpLicService().getEmpLicList();
-	   return empLics;
+	   List<EmpLicVO> empLic = new EmpLicService().getEmpLicList();
+	   return empLic;
     }
 
 	@RequestMapping(value="/listEmpLicMaster", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<EmpLicMasterVO> getEmpLicListMaster(){
-		System.out.println("listEmpLic-- getEmpLicList Master");
 	   List<EmpLicMasterVO> empLics = new EmpLicService().getEmpLicMasterList();
 	   return empLics;
     }
@@ -53,39 +47,42 @@ public class EmpLicController {
 	}
 	
 	@RequestMapping(value = "/inputEmpLic", method = RequestMethod.POST)
-	public ModelAndView inputEmpLic(EmpLicVO empLicVO) {
+	public ModelAndView inputEmpLic(EmpLic empLic) {
 		ObjectMapper mapper = new ObjectMapper();
-		System.out.println("inputEmpLic -- EmpLic:"+empLicVO);
-		List<Designation> desigList = new DesignationService().getDesignationList();
-		List<Department> deptList = new DepartmentService().getDepartments();
-		String desigJSON = "";
+        List<Designation> desigList = new DesignationService().getDesignations();
+        List<Department> deptList = new DepartmentService().getDepartments();
 		String depJSON = "";
+		String desigJSON = "";
+
 		try {
 			depJSON = mapper.writeValueAsString(deptList);
 			desigJSON = mapper.writeValueAsString(desigList);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(empLicVO.getEmpId()!=0)
-			empLicVO = new EmpLicService().getEmpLicById(empLicVO.getEmpId());
+		
+		EmpLicVO empLicVO = new EmpLicVO(); 
+		if(empLic.getEmployeeId()!=0)
+			empLicVO = new EmpLicService().getEmpLicById(empLic.getEmployeeId());
 		ModelAndView model = new ModelAndView("empLic", "command", empLicVO);
 		model.addObject("empLic", empLicVO);
 		model.addObject("departments", depJSON);
 		model.addObject("designations", desigJSON);
+
 		return model;
 	}
-	  
 	
+
 /**
  * 
  * @param empLicVO
  * @return
  */
 	@RequestMapping(value = "/inputEmpLicMaster", method = RequestMethod.POST)
-	public ModelAndView inputEmpLicMaster(EmpLicMasterVO empLicMasterVO) {
+	public ModelAndView inputEmpLicMaster(EmpLicMaster empLicMaster) {
 		ObjectMapper mapper = new ObjectMapper();
-		System.out.println("inputEmpLic -- EmpLic Master:"+empLicMasterVO);
-		List<Designation> desigList = new DesignationService().getDesignationList();
+		List<Designation> desigList = new DesignationService().getDesignations();
 		List<Department> deptList = new DepartmentService().getDepartments();
 		String desigJSON = "";
 		String depJSON = "";
@@ -95,8 +92,9 @@ public class EmpLicController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(empLicMasterVO.getEmployeeId()!=0)
-			empLicMasterVO = new EmpLicService().getEmpLicMasterById(empLicMasterVO.getEmployeeId());
+		EmpLicMasterVO empLicMasterVO = new EmpLicMasterVO(); 
+         if(empLicMaster.getEmployeeId()!=0)
+			empLicMasterVO = new EmpLicService().getEmpLicMasterById(empLicMaster.getEmployeeId());
 		ModelAndView model = new ModelAndView("empLicMaster", "command", empLicMasterVO);
 		model.addObject("empLic", empLicMasterVO);
 		model.addObject("departments", depJSON);
@@ -107,26 +105,28 @@ public class EmpLicController {
 	@RequestMapping(value="/addEmpLic",method=RequestMethod.POST)
 	public @ResponseBody
 	String addEmpLic(@RequestBody EmpLicVO empLicVO){
-	   System.out.println("addEmpLic -- EmpLic:"+empLicVO);
 	   String result = new EmpLicService().addUpdateEmpLic(empLicVO);
-	   System.out.println("Result:"+result);
 	   return result;
 	}
 	
 	@RequestMapping(value="/addEmpLicMaster",method=RequestMethod.POST)
 	public @ResponseBody
 	String addEmpLicMaster(@RequestBody EmpLicMasterVO empLicMasterVO){
-	   System.out.println("addEmpLic -- EmpLic:"+empLicMasterVO);
 	   String result = new EmpLicService().addUpdateEmpLicMaster(empLicMasterVO);
-	   System.out.println("Result:"+result);
 	   return result;
 	}
 	
 	@RequestMapping(value="/deleteLic",method=RequestMethod.POST)
-	public String deleteQtr(EmpLicVO empLicVO){
-	   System.out.println("deleteLic -- empLicVO:"+empLicVO.getEmpId());
-	   String result = new EmpLicService().deleteLic(empLicVO.getEmpId());
-	   System.out.println("Result:"+result);
-	   return "listEmpLic";
+	public String deleteLic(EmpLic empLic){
+	   String result = new EmpLicService().deleteLic(empLic.getEmployeeId());
+	   //FIXME: Prasad - add logic in UI based on result return value
+	  return "listEmpLic";
+	}
+
+	@RequestMapping(value="/deleteEmpLicMaster",method=RequestMethod.POST)
+	public String deleteLicMaster(EmpLicMaster empLicMaster){
+	   String result = new EmpLicService().deleteLicMaster(empLicMaster.getEmployeeId());
+	 //FIXME: Prasad - add logic in UI based on result return value
+	   return "listEmpLicMaster";
 	}
 }

@@ -8,7 +8,13 @@ import com.payroll.employee.dataobjects.Employee;
 
 public class EmpLic implements Serializable {
 	private int employeeId;
-	private double instlmtAmt;
+	@Override
+	public String toString() {
+          return "EmpLic [employeeId=" + employeeId + ", paymentAmount=" + paymentAmount
+				+ ", policyNo=" + policyNo + ", paymentDate=" + paymentDate + ", status=" + status + ", rowUpdDate="
+				+ rowUpdDate + ", addUpdate=" + addUpdate + ", employee=" + employee + "]";
+	
+	}
 	private double paymentAmount;
 	private String policyNo;
 	private Date paymentDate;
@@ -21,24 +27,16 @@ public class EmpLic implements Serializable {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int empId) {
-		this.employeeId = empId;
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
 	}
 
-	public double getInstlmtAmt() {
-		return instlmtAmt;
-	}
-
-	public void setInstlmtAmt(double instlmtAmt) {
-		this.instlmtAmt = instlmtAmt;
-	}
-
-	public String getPolicyNo() {
+   public String getPolicyNo() {
 		return policyNo;
 	}
 
-	public void setPolicyNo(String policy_no) {
-		this.policyNo = policy_no;
+	public void setPolicyNo(String policyNo) {
+		this.policyNo = policyNo;
 	}
 
 	public Date getPaymentDate() {
@@ -89,6 +87,4 @@ public class EmpLic implements Serializable {
 		this.paymentAmount = paymentAmount;
 	}
 
-	
-
-}
+	}

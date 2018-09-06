@@ -108,12 +108,21 @@ $(document).ready(function() {
 </head>
 <body>
 	<div class="contain-wrapp bodyDivCss">	
+		<div class="container">	
+			<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/viewEmpLicMaster#')">Back</button>
+					</div>
+				</div>
+			</div>	
+		</div>
 		<div class="container">
 		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">
 				<c:if test="${empLic.employeeId != '0'}" >	Update</c:if><c:if test="${empLic.employeeId == '0'}">Add</c:if> Employee LIC
-			</h4>
+		    </h4>
 
 		<div class="col-lg-12 card-block bg-faded" style="margin-bottom: 10px;">
 			<div class="row">
@@ -154,22 +163,25 @@ $(document).ready(function() {
 									<label>Policy No:</label>
 									<form:input path="policyNo"  id="policyNo" placeholder="Enter Policy No" class="form-control"/>
 								</div>
-							
-							</div>
-							<div class="row">
-								<div class="col-sm-6 form-group">
-									<label>Installment Amount:</label>
-									<form:input path="instlmtAmt"  id="instlmtAmt" placeholder="Enter Installment Amount" class="form-control"/>
-									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empLic.employeeId != '0'}" > value="1" </c:if>/>
 								</div>
-							</div>
 							
-							<div class="row">	
-								<div class="text-right">
-									<button type="button" id="addLicBtn" class="btn">Submit</button>
-									<button type="reset" class="btn">Reset</button>	
-								</div>	
+							<div class="row">
+							<div class="col-sm-6 form-group">
+								<label>Installment Amount:</label>
+							   <form:input path="instlmtAmt"  id="instlmtAmt" placeholder="Enter Installment Amount" class="form-control"/>
+								<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empLic.employeeId != '0'}" > value="1" </c:if>/>
 							</div>
+							<div class="col-sm-6 form-group">
+							</div>
+						</div>
+					
+							
+						<div class="row">	
+							<div class="text-right">
+								<button type="button" id="addLicBtn" class="btn">Submit</button>
+								<button type="reset" class="btn">Reset</button>	
+							</div>	
+						</div>
 					</div>
 						
 				</form:form>

@@ -12,8 +12,8 @@
 	</id>
 	<one-to-one name="employee" class="com.payroll.employee.dataobjects.Employee"
 		constrained="true" fetch="select"></one-to-one>
-	<property name="paymentDate" column="PAYMENT_DATE" not-null="true"/> 
     <property name="policyNo" column="POLICY_NO" not-null="true"/> 
+    <property name="paymentDate" column="PAYMENT_DATE" not-null="true"/> 
     <property name="paymentAmount" column="PAYMENT_AMT" not-null="true"/> 
     <property name="status" column="STATUS" not-null="true"/>  
     <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/> 

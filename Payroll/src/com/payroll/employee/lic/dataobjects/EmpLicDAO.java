@@ -24,8 +24,6 @@ public class EmpLicDAO {
 			
 			try{
 				String queryString = " select new com.payroll.employee.lic.vo.EmpLicVO(l.employee.employeeId, "
-						/*+ "(select e.firstName from Employee e where e.employeeId = l.empId),"
-						+ " (select e.lastName from Employee e where e.employeeId = l.empId), "*/
 						+ "l.employee.firstName, l.employee.lastName, "
 						+ "l.policyNo, l.paymentDate, l.paymentAmount) from EmpLic l where l.status = ?";		
 				
@@ -146,20 +144,50 @@ public class EmpLicDAO {
 		
 		return empLicMasterVO;
 	}
-	
-	
-	public String deleteEmpLic(int empId){
+	public String deleteEmpLicMaster(int empId){
 		String result = null;
 		Session session = null;
+		Transaction transaction = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
-			Query query = session.createQuery("update EmpLic l set l.status = ?, l.rowUpdDate = ? where l.employee.employeeId = ?");
-			query.setParameter(0, "S");
+			transaction = session.beginTransaction();
+			Query query = session.createQuery("update EmpLicMaster l set l.status = ?, l.rowUpdDate = ? where l.employee.employeeId = ?");
+            query.setParameter(0, "I");
 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 			query.setParameter(2, empId);
 			int updated = query.executeUpdate();
 			if(updated > 0)
 				result = "Successfully deleted LIC Details!";
+			session.flush();
+			transaction.commit();
+			result = "Yes";
+		}catch(Exception e){
+			e.printStackTrace();
+			result = "Failed to delete LIC details!";
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return result;
+	}
+	
+	
+	public String deleteEmpLic(int empId){
+		String result = null;
+		Session session = null;
+		Transaction transaction = null;
+		try{
+			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			Query query = session.createQuery("update EmpLic l set l.status = ?, l.rowUpdDate = ? where l.employee.employeeId = ?");
+            query.setParameter(0, "I");
+			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
+			query.setParameter(2, empId);
+			int updated = query.executeUpdate();
+			if(updated > 0)
+				result = "Successfully deleted LIC Details!";
+			session.flush();
+			transaction.commit();
+			result = "Yes";
 		}catch(Exception e){
 			e.printStackTrace();
 			result = "Failed to delete LIC details!";
