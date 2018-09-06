@@ -86,6 +86,7 @@ public class BankDetailsDAO {
 				query.setParameter(2, bankId);
 				int updated = query.executeUpdate();
 				if(updated == 1){
+					session.flush();
 					transaction.commit();
 					success = true;
 				}
