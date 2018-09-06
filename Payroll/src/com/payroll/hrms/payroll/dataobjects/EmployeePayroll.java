@@ -178,7 +178,7 @@ public class EmployeePayroll {
          calculateHRA();
          this.travelAllowance = calculateTA();
          calculateOverTime();
-         calculateProvidentFund(this.employeeId);
+         calculateProvidentFund();
          calculateTotalAllowances();
          calculateGrossPay();
          calculateTotalGrossPay();
@@ -249,6 +249,8 @@ public class EmployeePayroll {
      *
      */
     private double calculateTA(){
+    	
+    	//FIXME: Prasad - TA flag needs to set correctly for employees who are on medical leave
     	
     	if ((taFlag == 1) || (taFlag == 2 && this.month != 5) ) {
     		
@@ -361,7 +363,7 @@ public class EmployeePayroll {
 
     //Calculate Deductions
     // Calculate PF
-    private void calculateProvidentFund(int employeeId){
+    private void calculateProvidentFund(){
     	
     		if (this.basic + this.gradePay > 0) {
     			
@@ -372,6 +374,8 @@ public class EmployeePayroll {
     			} else if (pfFlag == 2 || pfFlag == 3) { // (2) Employees whose PF is not setup or (3) Employees who are retiring in 6 months
     				this.providentFund = 0;
     			}
+    			
+    			//FIXME: Prasad - CPF will be 0 upto 1 year for newly joined employees. It needs to be recovered in next year.
     			
     		}
     	
