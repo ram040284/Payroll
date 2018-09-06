@@ -15,7 +15,6 @@ import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.deductions.business.EmpFixedDeductionsService;
 import com.payroll.employee.deductions.dataobjects.EmpFixedDeductions;
-import com.payroll.hrms.payroll.dataobjects.PayrollEngine;
 
 @Controller
 public class EmpFixedDeductionsController {
@@ -78,6 +77,6 @@ public class EmpFixedDeductionsController {
 	   System.out.println("deleteEmpDeductDtls -- empDeductions:"+empDeductions.getEmployeeId());
 	   String result = new EmpFixedDeductionsService().deleteEmpDeductions(empDeductions.getEmployeeId());
 	   System.out.println("Result:"+result);
-	   return "listEmpDeductions";
+	   return "listFixedEmpDeductions";
 	}
 }

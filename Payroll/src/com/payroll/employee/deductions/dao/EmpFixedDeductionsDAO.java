@@ -115,8 +115,10 @@ public class EmpFixedDeductionsDAO {
 	public String deleteEmpDeductions(int empId){
 		String result = null;
 		Session session = null;
-		try{
+		Transaction transaction = null;
+        try{
 			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
 			Query query = session.createQuery("update EmpFixedDeductions d set d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ?");
 			query.setParameter(0, "S");
 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
@@ -124,6 +126,9 @@ public class EmpFixedDeductionsDAO {
 			int updated = query.executeUpdate();
 			if(updated > 0)
 				result = "Successfully deleted Employee Deduction details!";
+			session.flush();
+			transaction.commit();
+			result="yes";
 		}catch(Exception e){
 			e.printStackTrace();
 			result = "Failed to delete Employee Deduction details!";
