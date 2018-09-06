@@ -8,6 +8,10 @@ import com.payroll.designation.vo.DesignationVO;
 
 public class DesignationService {
 	
+	public List<Designation> getDesignations(){
+		return new DesignationDAO().getDesignations();
+	}
+	
 	public List<DesignationVO> getDesignationVOList(){
 		return new DesignationDAO().getDesignationList();
 	}

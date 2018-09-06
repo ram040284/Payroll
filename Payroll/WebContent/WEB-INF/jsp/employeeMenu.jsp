@@ -63,7 +63,7 @@
 							src="../Payroll/resources/images/epfo.jpg"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
-							<a href="../Payroll/viewEmpPf">Provident Fund</a>
+							<a href="../Payroll/viewEmpPf">Employee Provident Fund</a>
 						</h3>
 					</div>
 				</div>
