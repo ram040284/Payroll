@@ -36,7 +36,6 @@ public class TestData {
 	public static EmpLic getEmpLic(int empId){
 		EmpLic empLic = new EmpLic();
 		empLic.setEmployeeId(empId);
-		empLic.setInstlmtAmt(0);
 		empLic.setPaymentAmount(0);
 		empLic.setPaymentDate(new Date());
 		empLic.setPolicyNo("");
