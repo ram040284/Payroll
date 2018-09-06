@@ -285,7 +285,6 @@ public class EmployeePayrollDAO {
     private void loadLicDetails(List<EmpLic> empLicList){
     	for (Iterator iterator = empLicList.iterator(); iterator.hasNext();) {
     		EmpLic empLic = (EmpLic) iterator.next();
-			lic += empLic.getInstlmtAmt();
 		}
     }
     /**
