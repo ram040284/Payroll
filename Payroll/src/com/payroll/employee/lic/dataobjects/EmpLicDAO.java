@@ -121,15 +121,18 @@ public class EmpLicDAO {
 		EmpLicMasterVO empLicMasterVO = null;
 			Session session = null;
 			try{
+
 				String queryString = " select new com.payroll.employee.lic.vo.EmpLicMasterVO(l.employee.employeeId, "
 						/*+ "(select dept.departmentId from Department dept where dept.departmentId = (select eDept.departmentId "
 						+ "from EmpDepartment eDept where eDept.empId = l.empId)), (select desg.designationId "
 						+ "from Designation desg where desg.designationId = (select eDesg.designationId from EmpDesignation eDesg "
 						+ "where eDesg.empId = l.empId)), "*/
-						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = l.employee.employeeId and dept.status = 'A'), "
+						+ "(select dept.department.departmentId from EmpDepartment dept where "
+						+ "dept.employee.employeeId = l.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = l.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = l.employee.employeeId and dh.status = 'A'), "
 						+ "l.policyNo, l.instlmtAmt) from EmpLicMaster l where l.status = ? and l.employee.employeeId = ?";		
+
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -145,19 +148,19 @@ public class EmpLicDAO {
 		return empLicMasterVO;
 	}
 	public String deleteEmpLicMaster(int empId){
-		String result = null;
-		Session session = null;
+ 		String result = null;
+ 		Session session = null;
 		Transaction transaction = null;
-		try{
-			session = HibernateConnection.getSessionFactory().openSession();
+ 		try{
+ 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			Query query = session.createQuery("update EmpLicMaster l set l.status = ?, l.rowUpdDate = ? where l.employee.employeeId = ?");
             query.setParameter(0, "I");
-			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
-			query.setParameter(2, empId);
-			int updated = query.executeUpdate();
-			if(updated > 0)
-				result = "Successfully deleted LIC Details!";
+ 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
+ 			query.setParameter(2, empId);
+ 			int updated = query.executeUpdate();
+ 			if(updated > 0)
+ 				result = "Successfully deleted LIC Details!";
 			session.flush();
 			transaction.commit();
 			result = "Yes";

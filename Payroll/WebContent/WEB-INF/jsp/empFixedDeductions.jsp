@@ -172,15 +172,6 @@ td, th {
 			</div>	
 		</div>
 		<div class="container">
-			<div class="formDiv" style="border: none;">
-				<div class="row">
-					<div class="text-left" style="margin-left: 15px;">
-						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/viewEmpFixedDeductions')">Back</button>
-					</div>
-				</div>
-			</div>	
-		</div>
-		<div class="container">
 			<div
 				style="display: none; color: red; font-weight: bold; height: 15px;"
 				id="errMsgDiv"></div>
@@ -211,7 +202,7 @@ td, th {
 											onchange="loadDesignations()"
 											<c:if test="${empDeductions.employeeId != '0'}" > disabled= "disabled" </c:if>>
 											<option value="0">-- Select Head --</option>
-										</select>
+										 </select>
 									</div>
 									<div class="col-sm-4 form-group">
 										<label>Designation:</label> <select id="designationId"
@@ -229,10 +220,9 @@ td, th {
 											<option value="0">-- Select Employee --</option>
 										</select>
 									</div>
-																		<div class="col-sm-4 form-group">
-										<label>KSS Union Fee:</label>
-										<form:input path="kssUnionFee" id="kssUnionFee"
-											placeholder="Enter Union Fee" class="form-control" />
+								<div class="col-sm-4 form-group">
+								   <label>KSS Union Fee:</label>
+				                    <form:input path="kssUnionFee" id="kssUnionFee" placeholder="Enter Union Fee" class="form-control" />
 									</div>
 									
 									<div class="col-sm-4 form-group">

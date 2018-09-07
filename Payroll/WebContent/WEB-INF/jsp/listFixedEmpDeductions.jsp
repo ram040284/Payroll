@@ -140,10 +140,7 @@ $(document).ready(function() {
 				
 				
 				<form method="post" name="editForm" action="">
-					 <input type="hidden" name="employeeId" value="0">
-					<a href="#" onclick="inputDeductDtls()" title="Add">
-						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg" />
-					</a>
+					 <input type="hidden" name="employeeId" value="0">	
 				</form>
 				<div id="deductionListDiv" class="deductionListTableClass" style ="width:100%;">
 					<table id="deductionListTable" class="table table-striped table-bordered table-responsive"></table>

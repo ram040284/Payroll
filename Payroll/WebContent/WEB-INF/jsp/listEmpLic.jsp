@@ -91,7 +91,6 @@ input[type=file] {
      });
        function updateLic(id){
     	  var f = document.forms['editForm'];
-    	  alert(""+id);
 		  f.employeeId.value=id;
 		  f.action="../Payroll/inputEmpLic";
 		  f.submit();
@@ -110,7 +109,6 @@ input[type=file] {
     	  }
       }
       </script>
-<<<<<<< HEAD
       </head>
        <body>
       	<div class="contain-wrapp bodyDivCss">	
@@ -142,49 +140,3 @@ input[type=file] {
       	 <jsp:include page="../jsp/public/postFooter.jsp" />
       </body>
       </html>
-=======
-</head>
-<body onload="getLicList()">
-	<jsp:include page="../jsp/public/postHeader.jsp" />
-	<div class="contain-wrapp bodyDivCss">	
-		<div class="container">
-			<div class="formDiv" style="border: none;">
-				<div class="row">
-					<div class="text-left" style="margin-left: 15px;">
-						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/employeeMenu')">Back</button>
-					</div>
-				</div>
-			</div>	
-		</div>
-		<div class="container">
-	
-	<div style="margin-top: 12px; float: left; width: 98%;">
-			<h4 style="color: #0101DF;">LIC Details</h4>
-		<div>
-				<div class="tblClass" id="licListDiv">
-				<table>
-				<tr>
-					<th>Employee</th>
-					<th>Policy No</th>
-					<th>Payment Date</th>
-					<th>Payment Amount</th>
-					<th><a href="#" onclick="inputLic()" title="Add">
-						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
-					</th>
-				</tr>
-				</table>
-				</div>
-		</div>
-	</div>
-	</div>
-	</div>
-	<form action="" name="editForm" method="post">
-		<%--<input type="hidden" name="designationId" value="0">
-		<input type="hidden" name="departmentId" value="0"> --%>
-		<input type="hidden" name="employeeId" value="0">
-		
-	</form>
-	<jsp:include page="../jsp/public/postFooter.jsp" />
-</body>
-</html>
->>>>>>> refs/remotes/origin/Payroll_01_201712

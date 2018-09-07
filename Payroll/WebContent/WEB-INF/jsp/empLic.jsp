@@ -202,6 +202,7 @@ function showDate(date) {
 		</div>
 	</div>
 	</div>
+	</div>
 	<jsp:include page="../jsp/public/postFooter.jsp" />
 </body>
 </html>
