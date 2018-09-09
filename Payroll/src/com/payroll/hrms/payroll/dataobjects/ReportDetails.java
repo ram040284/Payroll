@@ -3,8 +3,11 @@ package com.payroll.hrms.payroll.dataobjects;
 
 import java.util.Date;
 
+import com.payroll.employee.dataobjects.Employee;
+
 public class ReportDetails {
 	
+	private String employeeId;
 	private double gradePay;
 	private double basic;
 	private double dearnessAllowance;
@@ -66,7 +69,28 @@ public class ReportDetails {
 	private String scalePay;
 	private double ca;
 	private double tAllowance;
+	private int employeeType;
+	//adding new columns for contratuary
+    private int empAbsentDays;
+	private int empPresentDays;
+	private double contAbsDedAmt;
+	private double contTDS;
+	private double conOtherded;
+	private String contBankAcNumber;
+	private Employee employee;
 	
+	public String getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
+	public int getEmployeeType() {
+		return employeeType;
+	}
+	public void setEmployeeType(int employeeType) {
+		this.employeeType = employeeType;
+	}
 	public String getEmployeeNumber() {
 		return employeeNumber;
 	}
@@ -425,6 +449,48 @@ public class ReportDetails {
 		this.tAllowance = tAllowance;
 	}
 	
+	public int getEmpAbsentDays() {
+		return empAbsentDays;
+	}
+	public void setEmpAbsentDays(int empAbsentDays) {
+		this.empAbsentDays = empAbsentDays;
+	}
+	public int getEmpPresentDays() {
+		return empPresentDays;
+	}
+	public void setEmpPresentDays(int empPresentDays) {
+		this.empPresentDays = empPresentDays;
+	}
+	public double getContAbsDedAmt() {
+		return contAbsDedAmt;
+	}
+	public void setContAbsDedAmt(double contAbsDedAmt) {
+		this.contAbsDedAmt = contAbsDedAmt;
+	}
+	public double getContTDS() {
+		return contTDS;
+	}
+	public void setContTDS(double contTDS) {
+		this.contTDS = contTDS;
+	}
+	public double getConOtherded() {
+		return conOtherded;
+	}
+	public void setConOtherded(double conOtherded) {
+		this.conOtherded = conOtherded;
+	}
+	public String getContBankAcNumber() {
+		return contBankAcNumber;
+	}
+	public void setContBankAcNumber(String contBankAcNumber) {
+		this.contBankAcNumber = contBankAcNumber;
+	}
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 	/*protected void addPayrollTotals(EmployeePayroll payroll){
 		gradePay+=payroll.getGradePay();
 		basic +=payroll.getBasic();

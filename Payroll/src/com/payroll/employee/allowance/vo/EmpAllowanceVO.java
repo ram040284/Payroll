@@ -3,7 +3,7 @@ package com.payroll.employee.allowance.vo;
 import com.payroll.Utils;
 
 public class EmpAllowanceVO {
-	private int employeeId;
+	private String employeeId;
 	private double cca;
 	private double washingAlwance;
 	private double nonPracAwance;
@@ -74,7 +74,7 @@ public class EmpAllowanceVO {
 		
 	}
 	
-	public EmpAllowanceVO(int employeeId, String firstName, String lastName, double cca, double washingAlwance,	double nonPracAwance, 
+	public EmpAllowanceVO(String employeeId, String firstName, String lastName, double cca, double washingAlwance,	double nonPracAwance, 
 			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag,byte pfFlag, double otherAllowance, double tAllowance) {
 		this.employeeId = employeeId;
 		StringBuffer fullNameSB = new StringBuffer(firstName);
@@ -96,7 +96,7 @@ public class EmpAllowanceVO {
 		this.tAllowance = tAllowance;
 	}
 	
-	public EmpAllowanceVO(int employeeId, int departmentId, int designationId, int headId, double cca, double washingAlwance, double nonPracAwance, 
+	public EmpAllowanceVO(String employeeId, int departmentId, int designationId, int headId, double cca, double washingAlwance, double nonPracAwance, 
 			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, double otherAllowance, double tAllowance) {
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
@@ -117,7 +117,7 @@ public class EmpAllowanceVO {
 		this.tAllowance = tAllowance;
 	}
 	
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 	public double getCca() {
@@ -155,7 +155,7 @@ public class EmpAllowanceVO {
 		return fullName;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 

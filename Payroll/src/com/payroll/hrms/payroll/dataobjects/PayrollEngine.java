@@ -33,7 +33,7 @@ public class  PayrollEngine {
     /**
      * processPayroll
      */
-    public void processPayroll(int employeeId){
+    public void processPayroll(String employeeId){
     	// for all employees in Section 
     	System.out.println("Entered processPayroll(int employeeId)" );
     	
@@ -48,7 +48,7 @@ public class  PayrollEngine {
      * @param args
      */
     public static void main(String []args){
-    	new PayrollEngine().processPayroll(199105024);
+    	new PayrollEngine().processPayroll("199105024");
     	
     }
 }

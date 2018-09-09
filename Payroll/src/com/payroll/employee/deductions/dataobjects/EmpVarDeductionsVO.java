@@ -8,7 +8,7 @@ import com.payroll.Utils;
 import com.payroll.employee.dataobjects.Employee;
 
 public class EmpVarDeductionsVO {
-	private int employeeId;
+	private String employeeId;
 	private double afkRent;
 	private double society;
 	private double pfLoanRecovery;
@@ -29,7 +29,7 @@ public class EmpVarDeductionsVO {
 	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
 	private double absenties;
 
-	public EmpVarDeductionsVO(int employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
+	public EmpVarDeductionsVO(String employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
 			 double otherDeductions, double miscRecovery, Date monthDate, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
@@ -53,7 +53,7 @@ public class EmpVarDeductionsVO {
 	}
 	
 	
-	public EmpVarDeductionsVO(int employeeId, double afkRent, double society, 
+	public EmpVarDeductionsVO(String employeeId, double afkRent, double society, 
 			 double otherDeductions, double miscRecovery, Date monthDate, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
@@ -100,11 +100,11 @@ public class EmpVarDeductionsVO {
 	}
 
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 

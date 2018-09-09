@@ -12,7 +12,7 @@ public class User implements Serializable
 	private String userName;
 	private String password;
 	private String confirmPassword;
-	private Integer empId;
+	private String empId;
 	private Integer roleId;
 	private Integer deptId;
 	private int listRoleId;
@@ -69,10 +69,10 @@ public class User implements Serializable
 		this.confirmPassword = confirmPassword;
 	}
 
-	public Integer getEmpId() {
+	public String getEmpId() {
 		return empId;
 	}
-	public void setEmpId(Integer empId) {
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 	public Integer getRoleId() {

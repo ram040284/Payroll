@@ -8,7 +8,7 @@ import com.payroll.headInfo.dataobjects.HeadInfo;
 
 public class EmpHeadInfo implements Serializable{
 	
-	private int employeeId;
+	private String employeeId;
 	private int headId;
 	private Date startDate;
 	private Date lastWokingDate;
@@ -16,10 +16,10 @@ public class EmpHeadInfo implements Serializable{
 	private Timestamp rowUpdDate;
 	private Employee employee;
 	private HeadInfo headInfo;
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 	public int getHeadId() {

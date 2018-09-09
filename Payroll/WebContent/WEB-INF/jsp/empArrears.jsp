@@ -160,14 +160,14 @@ $(document).ready(function() {
 								<div class="col-sm-6 form-group">
 									<label>Department</label>
 									<select id="departmentId" class="form-control" onchange="getHeads()"
-									<c:if test="${empArrears.employeeId != '0'}" >disabled = "disabled" </c:if>>
+									<c:if test="${empArrears.arrearId != '0'}" >disabled = "disabled" </c:if>>
 										<option value="0">-- Select Department --</option>
 									</select>
 								</div>
 								<div class="col-sm-6 form-group">
 									<label>Head:</label>
 									<select id="headId" class="form-control" onchange="loadDesignations()"
-									<c:if test="${empArrears.employeeId != '0'}" > disabled= "disabled" </c:if>>
+									<c:if test="${empArrears.arrearId != '0'}" > disabled= "disabled" </c:if>>
 									<option value="0">-- Select Head --</option></select>
 								</div>
 								</div>
@@ -175,14 +175,14 @@ $(document).ready(function() {
 									<div class="col-sm-6 form-group">
 									<label>Designation:</label>
 									<select id="designationId" class="form-control" onchange="getEmployees()"
-									<c:if test="${empArrears.employeeId != '0'}" >disabled = "disabled" </c:if>>
+									<c:if test="${empArrears.arrearId != '0'}" >disabled = "disabled" </c:if>>
 										<option value="0">-- Select Designation --</option>
 									</select>
 								</div>
 								<div class="col-sm-6 form-group">
 										<label>Employee:</label>
 										<select id="employeeId" class="form-control"
-										<c:if test="${empArrears.employeeId != '0'}" >disabled = "disabled" </c:if>>
+										<c:if test="${empArrears.arrearId != '0'}" >disabled = "disabled" </c:if>>
 											<option value="0">-- Select Employee --</option>
 										</select>
 								</div>
@@ -194,7 +194,7 @@ $(document).ready(function() {
 									<div class="col-sm-6 form-group">
 										<label>Arrears Type :</label>
 										<select id="arrearsType" class="form-control"
-										<c:if test="${empArrears.employeeId != '0'}" >disabled = "disabled" </c:if>>
+										<c:if test="${empArrears.arrearId != '0'}" >disabled = "disabled" </c:if>>
 											<option value="0">-- Select Arrears Type --</option>
 											<option value="Rent">Rent</option>
 											<option value="AfkRent">AfkRent</option>
@@ -207,7 +207,7 @@ $(document).ready(function() {
 									<div class="col-sm-6 form-group">
 										<label>Arrears Pay:</label>
 										<form:input path="arrearsPay"  id="arrearsPay" placeholder="Enter Account No" class="form-control"/>
-										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.employeeId != '0'}" > value="1" </c:if>/>
+										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.arrearId != '0'}" > value="1" </c:if>/>
 									</div>
 									<%-- <div class="col-sm-4 form-group">
 										<label>Misc Pay:</label>
@@ -217,14 +217,14 @@ $(document).ready(function() {
 									<div class="col-sm-6 form-group">
 										<label>Arrears Pay Note:</label>
 										<form:textarea path="arrearsPayNote"  id="arrearsPayNote" placeholder="Enter Arrears Type" class="form-control"/>
-										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.employeeId != '0'}" > value="1" </c:if>/>
+										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.arrearId != '0'}" > value="1" </c:if>/>
 									</div>
 								</div>
 								<div class="col-sm-12 form-group">
 									<div class="col-sm-6 form-group">
 										<label>Arrears Deductions:</label>
 										<form:input path="arrearsDeductions"  id="arrearsDeductions" placeholder="Enter Arrears Type" class="form-control"/>
-										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.employeeId != '0'}" > value="1" </c:if>/>
+										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.arrearId != '0'}" > value="1" </c:if>/>
 									</div>
 									<%-- <div class="col-sm-4 form-group">
 										<label>Misc Diductions:</label>
@@ -234,7 +234,7 @@ $(document).ready(function() {
 									<div class="col-sm-6 form-group">
 										<label>Arrears Diduction Note:</label>
 										<form:textarea path="arrearsDeductionNote"  id="arrearsDeductionNote" placeholder="Enter Arrears Type" class="form-control"/>
-										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.employeeId != '0'}" > value="1" </c:if>/>
+										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.arrearId != '0'}" > value="1" </c:if>/>
 									</div>
 									
 									<div class="row">

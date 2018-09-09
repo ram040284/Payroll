@@ -37,7 +37,7 @@ public class EmpFixedDeductionsDAO {
 	 * @param empId
 	 * @return
 	 */
-	public EmpFixedDeductions getEmpFixedDeductions(int empId){
+	public EmpFixedDeductions getEmpFixedDeductions(String empId){
 		EmpFixedDeductions empFixedDeductions = null;
 		Session session = null;
 			try{
@@ -64,7 +64,7 @@ public class EmpFixedDeductionsDAO {
 	 * @param empId
 	 * @return
 	 */
-	public EmployeeFixedDeductions getEmployeeFixedDeductions(int empId){
+	public EmployeeFixedDeductions getEmployeeFixedDeductions(String empId){
 		EmployeeFixedDeductions empFixedDeductions = null;
 		Session session = null;
 			try{
@@ -87,7 +87,7 @@ public class EmpFixedDeductionsDAO {
 	 * @param empId
 	 * @return
 	 */
-	public EmpFixedDeductions getEmpDeductionsByEmpId(int empId){
+	public EmpFixedDeductions getEmpDeductionsByEmpId(String empId){
 		EmpFixedDeductions empDeductions = null;
 		Session session = null;
 			
@@ -112,7 +112,7 @@ public class EmpFixedDeductionsDAO {
 	 * @param empId
 	 * @return
 	 */
-	public String deleteEmpDeductions(int empId){
+	public String deleteEmpDeductions(String empId){
 		String result = null;
 		Session session = null;
 		Transaction transaction = null;

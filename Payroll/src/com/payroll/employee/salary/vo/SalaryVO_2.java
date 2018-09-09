@@ -4,7 +4,7 @@ package com.payroll.employee.salary.vo;
 import com.payroll.Utils;
 
 public class SalaryVO {
-	private int empId;
+	private String empId;
 	private int year;
 	private double basic;
 	private double gradePay;
@@ -17,7 +17,7 @@ public class SalaryVO {
 	public SalaryVO() {
 		
 	}
-	public SalaryVO (int empId, String fName, String lName, int year, double basic, 
+	public SalaryVO (String empId, String fName, String lName, int year, double basic, 
 			double gradePay, double scalePay, double scaleInc){
 		this.empId = empId;
 		this.year = year;
@@ -32,7 +32,7 @@ public class SalaryVO {
 		
 	}
 	
-	public SalaryVO (int empId, int deptId, int desgId, int headId, int year, double basic, 
+	public SalaryVO (String empId, int deptId, int desgId, int headId, int year, double basic, 
 			double gradePay, double scalePay, double scaleInc){
 		this.empId = empId;
 		this.departmentId = deptId;
@@ -75,7 +75,7 @@ public class SalaryVO {
 	public int getDesignationId() {
 		return designationId;
 	}
-	public void setEmpId(int empId) {
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 	public void setYear(int year) {

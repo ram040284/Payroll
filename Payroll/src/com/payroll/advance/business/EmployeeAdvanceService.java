@@ -40,7 +40,7 @@ public class EmployeeAdvanceService {
 	 * @param employeeId
 	 * @return
 	 */
-	public double getAdvanceInstallment(int employeeId){
+	public double getAdvanceInstallment(String employeeId){
 		double festInstallmentAmount = 0;
 
 		return festInstallmentAmount;

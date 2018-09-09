@@ -117,7 +117,7 @@ public class LeaveDAO {
 			return leaves;
 		}
 	
-	public List<LeaveVO> getEmpLeave(int empId){
+	public List<LeaveVO> getEmpLeave(String empId){
 		List<LeaveVO> leaveVOList = null;
 		Session session = null;
 		try{
@@ -142,7 +142,7 @@ public class LeaveDAO {
 		return leaveVOList;
 	}
 	
-	public Leave getEmpLeave(int empId, int leaveTypeId){
+	public Leave getEmpLeave(String empId, int leaveTypeId){
 		List<Leave> leaveVOList = null;
 		Session session = null;
 		try{
@@ -165,7 +165,7 @@ public class LeaveDAO {
 		return (leaveVOList.size() > 0) ?leaveVOList.get(0) : null;
 	}
 	
-		private Leave getLeaveById(int employeeId, int leaveId, Session session){
+		private Leave getLeaveById(String employeeId, int leaveId, Session session){
 			Leave leave = null;
 			try{
 				if(session == null || !session.isOpen())
@@ -260,7 +260,7 @@ public class LeaveDAO {
 			}
 			return result;
 		}
-		private boolean checkLeaveExist(int empId, String leaveType, Session session){
+		private boolean checkLeaveExist(String empId, String leaveType, Session session){
 			boolean exist = false;
 			try{
 				if(session == null)
@@ -294,7 +294,7 @@ public class LeaveDAO {
 			return maxId;
 		}
 		
-		public String deleteEmpLeave(int empId){
+		public String deleteEmpLeave(String empId){
 			String result = null;
 			Session session = null;
 			Transaction transaction = null;
@@ -319,7 +319,7 @@ public class LeaveDAO {
 			return result;
 		}
 		
-		public List<LeaveVO> getLeavesByEmp(int empId){
+		public List<LeaveVO> getLeavesByEmp(String empId){
 			List<LeaveVO> leaveList = null;
 			Session session = null;
 			try{

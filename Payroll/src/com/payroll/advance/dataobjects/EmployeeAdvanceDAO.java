@@ -120,7 +120,7 @@ public class EmployeeAdvanceDAO {
 		return result;
 	}
 	
-	private EmployeeAdvance checkEmployeeAdvance(int empId, Date advanceDate, Session session){
+	private EmployeeAdvance checkEmployeeAdvance(String empId, Date advanceDate, Session session){
 		EmployeeAdvance employeeAdvance = null;
 		try{
 			if(session == null)

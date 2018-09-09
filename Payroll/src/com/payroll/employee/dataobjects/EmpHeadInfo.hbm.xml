@@ -9,7 +9,7 @@
 		<key-property name="designationId" column="DESG_ID" />
 		<key-property name="startDate" column="START_DATE" />
 	</composite-id> -->
-	<id name="employeeId" type="java.lang.Integer">
+	<id name="employeeId" type="string">
 			<column name="EMP_ID" />
 			<generator class="foreign">
 				<param name="property">employee</param>

@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 import com.payroll.employee.dataobjects.Employee;
 
 public class EmpAllowance implements Serializable {
-	private int employeeId;
+	private String employeeId;
 	private double cca;
 	private double washingAlwance;
 	private double nonPracAwance;
@@ -52,10 +52,10 @@ public class EmpAllowance implements Serializable {
 		this.taFlag = taFlag;
 	}
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 	public double getCca() {

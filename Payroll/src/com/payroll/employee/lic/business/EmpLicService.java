@@ -18,18 +18,18 @@ public class EmpLicService {
 		return new EmpLicDAO().getEmpLicMasterList();
 	}
 	
-	public EmpLicVO getEmpLicById(int empId){
+	public EmpLicVO getEmpLicById(String empId){
 		return new EmpLicDAO().getEmpLicById(empId);
 	}
 	
-	public EmpLicMasterVO getEmpLicMasterById(int empId){
+	public EmpLicMasterVO getEmpLicMasterById(String empId){
 		return new EmpLicDAO().getEmpLicMasterById(empId);
 	}
 	
-	public String deleteLicMaster(int empId){
+	public String deleteLicMaster(String empId){
 		return new EmpLicDAO().deleteEmpLicMaster(empId);
 	}
-	public String deleteLic(int empId){
+	public String deleteLic(String empId){
 		return new EmpLicDAO().deleteEmpLic(empId);
 	}
 	

@@ -7,6 +7,7 @@ import java.util.Date;
 import org.apache.commons.collections.map.LRUMap;
 
 import com.payroll.department.dataobjects.Department;
+import com.payroll.employee.dataobjects.Employee;
 import com.payroll.headInfo.dataobjects.HeadInfo;
 
 public class Designation implements Serializable{
@@ -15,9 +16,7 @@ public class Designation implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	/**
-	 * 
-	 */
+	private String employeeId;
 	private static final long serialVersionUID = 1L;
 	private int designationId;
 	private int headId;
@@ -29,7 +28,12 @@ public class Designation implements Serializable{
 	private HeadInfo headInfo;
 	private int departmentId;
 	
-	
+	public String getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
 	
 	public int getDesignationId() {
 		return designationId;

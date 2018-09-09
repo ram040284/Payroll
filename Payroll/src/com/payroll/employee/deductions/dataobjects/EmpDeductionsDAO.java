@@ -38,7 +38,7 @@ public class EmpDeductionsDAO {
 		return deductionsList;
 	}
 	
-	public EmpDeductionsVO getEmpDeductionsById(int empId){
+	public EmpDeductionsVO getEmpDeductionsById(String empId){
 		EmpDeductionsVO empDeductionsVO = null;
 		Session session = null;
 			
@@ -65,7 +65,7 @@ public class EmpDeductionsDAO {
 		return empDeductionsVO;
 	}
 	
-	public EmpDeductions getEmpDeductionsByEmpId(int empId){
+	public EmpDeductions getEmpDeductionsByEmpId(String empId){
 		EmpDeductions empDeductions = null;
 		Session session = null;
 			
@@ -86,7 +86,7 @@ public class EmpDeductionsDAO {
 		return empDeductions;
 	}
 	
-	public String deleteEmpDeductions(int empId){
+	public String deleteEmpDeductions(String empId){
 		String result = null;
 		Session session = null;
 		try{
@@ -112,6 +112,7 @@ public class EmpDeductionsDAO {
 		Session session = null;
 		Transaction transaction = null;
 		try{
+			System.out.println("empDeduct emp id : " + empDeduct.getEmployeeId());
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			Employee employee = (Employee)session.load(Employee.class, empDeduct.getEmployeeId());

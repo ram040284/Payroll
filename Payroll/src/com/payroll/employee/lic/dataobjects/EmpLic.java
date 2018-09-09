@@ -7,7 +7,7 @@ import java.util.Date;
 import com.payroll.employee.dataobjects.Employee;
 
 public class EmpLic implements Serializable {
-	private int employeeId;
+	private String employeeId;
 	@Override
 	public String toString() {
           return "EmpLic [employeeId=" + employeeId + ", paymentAmount=" + paymentAmount
@@ -15,6 +15,7 @@ public class EmpLic implements Serializable {
 				+ rowUpdDate + ", addUpdate=" + addUpdate + ", employee=" + employee + "]";
 	
 	}
+	private double instlmtAmt;
 	private double paymentAmount;
 	private String policyNo;
 	private Date paymentDate;
@@ -23,12 +24,12 @@ public class EmpLic implements Serializable {
 	private short addUpdate; // 0 - Add / 1 - update
 	private Employee employee;
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployeeId(String empId) {
+		this.employeeId = empId;
 	}
 
    public String getPolicyNo() {
@@ -85,6 +86,14 @@ public class EmpLic implements Serializable {
 
 	public void setPaymentAmount(double paymentAmount) {
 		this.paymentAmount = paymentAmount;
+	}
+	
+	public double getInstlmtAmt() {
+		return instlmtAmt;
+	}
+
+	public void setInstlmtAmt(double instlmtAmt) {
+		this.instlmtAmt = instlmtAmt;
 	}
 
 	}

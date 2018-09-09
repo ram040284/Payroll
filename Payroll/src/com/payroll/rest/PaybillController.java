@@ -130,6 +130,7 @@ public class PaybillController {
 	@RequestMapping(value = "/generatePaybills", method = RequestMethod.POST)
     public ModelAndView generatePaybills(PaybillVO paybill) {
 		ModelAndView model = null;
+		System.out.println("Generating paybill..");
 		try{
 			String month = Utils.getDateByMonth(Integer.parseInt(paybill.getMonthDate()));
 		int result = new PaybillService(paybill.getSection(), month).generatePayBills(paybill.getBillType());
@@ -184,8 +185,9 @@ public class PaybillController {
     public ModelAndView downloadPaybill(PaybillVO paybill) {
 		PaybillDetails paybillDetails = null;
 		try{
+			System.out.println("downloadPaybill called and billtype is " + paybill.getBillType());
 			String month = Utils.getDateByMonth(Integer.parseInt(paybill.getMonthDate()));
-			paybillDetails = new PaybillService(paybill.getSection(), month).getPayBills();
+			paybillDetails = new PaybillService(paybill.getSection(), month).getPayBills(paybill.getBillType());
 			if(paybillDetails == null || (paybillDetails.getPayrollList() == null || paybillDetails.getPayrollList().isEmpty())){
 				return new ModelAndView("noActivity", "", paybillDetails);
 			}
@@ -193,6 +195,7 @@ public class PaybillController {
 		}catch(Exception e){
 			throw new AppException(new Date(), "Failed to get Paybills Report!");
 		}
+		System.out.println("paybillDetails getEmployeeType : " + paybillDetails.getEmployeeType());
         return new ModelAndView("pdfView", "paybillDetails", paybillDetails);
     }
 	

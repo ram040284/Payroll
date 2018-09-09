@@ -13,7 +13,7 @@ public class EmpSalaryReportVO
   private String designation;
   private int departmentId;
   private int designationId;
-  private int employeeId;
+  private String employeeId;
   private String department;
   private String fullName;
   private String headName;
@@ -36,7 +36,7 @@ public class EmpSalaryReportVO
   
   private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
   
-  public EmpSalaryReportVO(int employeeId, String firstName, String lastName, String middleName, double basic, double gradePay, double ca, double ufa, double fpa, double ta, boolean hraFlag, byte pfFlag, int lwp, String deptName, String headName, String designation)
+  public EmpSalaryReportVO(String employeeId, String firstName, String lastName, String middleName, double basic, double gradePay, double ca, double ufa, double fpa, double ta, boolean hraFlag, byte pfFlag, int lwp, String deptName, String headName, String designation)
   {
     this.employeeId = employeeId;
     this.fullName = getName(firstName, middleName, lastName);
@@ -87,7 +87,7 @@ public class EmpSalaryReportVO
     return this.designationId;
   }
   
-  public int getEmployeeId()
+  public String getEmployeeId()
   {
     return this.employeeId;
   }

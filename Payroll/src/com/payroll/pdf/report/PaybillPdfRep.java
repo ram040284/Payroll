@@ -19,9 +19,12 @@ public class PaybillPdfRep extends PdfBuilder{
 	int srNo = 0;
 	Font boldFont = FontFactory.getFont(FontFactory.HELVETICA, 7, Font.BOLD);
 	Font headHdFont = FontFactory.getFont(FontFactory.HELVETICA, 8, Font.BOLD);
+	int empType;
     
 	public void paybillReport(Document doc, PaybillDetails paybillDetails, String imgPath){
 		try{
+			
+			
 			String watermarkImg = imgPath+"//CBK_Logo_min.png";//request.getSession().getServletContext().getRealPath("/resources/images/CBK_Logo.png");
 	        String logoImg = imgPath+"//logo_new_min.jpg";
 	        doc.add(PdfUtils.getMainHeader(logoImg));
@@ -34,6 +37,7 @@ public class PaybillPdfRep extends PdfBuilder{
 	        Font frtHdFont = FontFactory.getFont(FontFactory.HELVETICA);
 	        frtHdFont.setSize(7);
 	        //Date date = new Date();
+	        empType = paybillDetails.getEmployeeType();
 	        String deptName = Utils.safeTrim(paybillDetails.getDeptName());//"Civil Cons.";
 	        StringBuffer titleText = new StringBuffer("Paybill of Permanent/Temporary Establishment ");
 	        titleText.append("for the Month of ");
@@ -69,10 +73,20 @@ public class PaybillPdfRep extends PdfBuilder{
 				grossTab = createPdfPTable(2, 5, grossTabWidths);
 				deductTab1 = createPdfPTable(2, 5, deductTab1Widths);
 				deductTab2 = createPdfPTable(2, 5, deductTab2Widths);
-				addDetails(edTab, employeePayroll, frtHdFont);
-				addGrossDetails(grossTab, employeePayroll, frtHdFont);
-				addDeduct1Details(deductTab1, employeePayroll, frtHdFont);
-				addDeduct2Details(deductTab2, employeePayroll, frtHdFont);
+				if (paybillDetails.getEmployeeType() == 1) {
+					addDetails(edTab, employeePayroll, frtHdFont);
+					addGrossDetails(grossTab, employeePayroll, frtHdFont);
+					addDeduct1Details(deductTab1, employeePayroll, frtHdFont);
+					addDeduct2Details(deductTab2, employeePayroll, frtHdFont);
+				} else if (paybillDetails.getEmployeeType() == 2) {
+					addContractualDetails(edTab, employeePayroll, frtHdFont);
+					addContractualTwo(deductTab2, employeePayroll, frtHdFont);
+					
+				} else if (paybillDetails.getEmployeeType() == 3) {
+					addHonoraryDetails(edTab, employeePayroll, frtHdFont);
+					addHonoraryDetailsTwo(deductTab2, employeePayroll, frtHdFont);
+				}
+				
 				paybillTab2 = createPdfPTable(4, 5, tabWidths);
 				paybillTab2.addCell(edTab);
 				paybillTab2.addCell(grossTab);
@@ -80,54 +94,111 @@ public class PaybillPdfRep extends PdfBuilder{
 				paybillTab2.addCell(deductTab2);
 				doc.add(paybillTab2);
 		        doc.add(dottedline);
-		        doc.add(addTotals(Utils.getDecimalFormat(employeePayroll.getGrossPay()), Utils.getDecimalFormat(employeePayroll.getTotalDeductions()),
-		        		frtHdFont, tabWidths));
-		        doc.add(addNetPay(Utils.getDecimalFormat(employeePayroll.getNetPay()), frtHdFont, tabWidths));
+		        if (paybillDetails.getEmployeeType() == 1) {
+		        	doc.add(addTotals(Utils.getDecimalFormat(employeePayroll.getGrossPay()), Utils.getDecimalFormat(employeePayroll.getTotalDeductions()),
+			        		frtHdFont, tabWidths));
+			        doc.add(addNetPay(Utils.getDecimalFormat(employeePayroll.getNetPay()), frtHdFont, tabWidths));
+				} 
+		        
 		        doc.add(dottedline);
-		        if (srNo % 3 == 0) {
-		        	doc.newPage();
-		        	doc.add(PdfUtils.getMainHeader(logoImg));
-			        dottedline.setOffset(-2);
-			        dottedline.setGap(2f);
-			        doc.add(dottedline);
-		        	doc.add(paybillTab);
-		        	doc.add(dottedline);
-		        }
+		        if (paybillDetails.getEmployeeType() == 1) {
+		        	if (srNo % 3 == 0) {
+			        	doc.newPage();
+			        	doc.add(PdfUtils.getMainHeader(logoImg));
+				        dottedline.setOffset(-2);
+				        dottedline.setGap(2f);
+				        doc.add(dottedline);
+			        	doc.add(paybillTab);
+			        	doc.add(dottedline);
+			        }
+				} else if (paybillDetails.getEmployeeType() == 2) {
+					
+				} else if (paybillDetails.getEmployeeType() == 3) {
+					
+				}
+		        
 	        }
-	        //Adding totals per Department
-	        PdfPTable pbDtlsTab = null;
-	        float pbDtlsTabW[] = {7f};
-	        pbDtlsTab = createPdfPTable(1, 3, pbDtlsTabW);
-	        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
-	        pbDtlsTab.addCell(addToCell(PdfUtils.INCOME_SIDE, headHdFont));
-	        doc.add(pbDtlsTab);
 	        
-	        float pbDtls1TabW[] = {0.6f, 0.7f, 0.8f, 0.7f, 0.8f, 0.7f, 0.8f, 0.6f, 0.5f, 0.6f, 0.7f, 0.6f, 0.6f, 0.6f};
-	        pbDtlsTab = createPdfPTable(14, 3, pbDtls1TabW);
-	        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
-	        addTotalDetails(pbDtlsTab, paybillDetails, frtHdFont);
-	        doc.add(pbDtlsTab);
-	        doc.add(dottedline);
-	        pbDtlsTab = createPdfPTable(1, 3, pbDtlsTabW);
-	        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
-	        pbDtlsTab.addCell(addToCell(PdfUtils.DEDUCT_SIDE, headHdFont));
-	        doc.add(pbDtlsTab);
-	      
-	        pbDtlsTab = createPdfPTable(14, 3, pbDtls1TabW);
-	        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
-	        addDeductionTotals(pbDtlsTab, paybillDetails, frtHdFont);
-	        doc.add(pbDtlsTab);
-	        doc.add(dottedline);
+	        if (paybillDetails.getEmployeeType() == 1) {
+	        	
+	        	//Adding totals per Department
+		        PdfPTable pbDtlsTab = null;
+		        float pbDtlsTabW[] = {7f};
+		        pbDtlsTab = createPdfPTable(1, 3, pbDtlsTabW);
+		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
+		        pbDtlsTab.addCell(addToCell(PdfUtils.INCOME_SIDE, headHdFont));
+		        doc.add(pbDtlsTab);
+		        
+		        float pbDtls1TabW[] = {0.6f, 0.7f, 0.8f, 0.7f, 0.8f, 0.7f, 0.8f, 0.6f, 0.5f, 0.6f, 0.7f, 0.6f, 0.6f, 0.6f};
+		        pbDtlsTab = createPdfPTable(14, 3, pbDtls1TabW);
+		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
+		        addTotalDetails(pbDtlsTab, paybillDetails, frtHdFont);
+		        doc.add(pbDtlsTab);
+		        doc.add(dottedline);
+		        pbDtlsTab = createPdfPTable(1, 3, pbDtlsTabW);
+		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
+		        pbDtlsTab.addCell(addToCell(PdfUtils.DEDUCT_SIDE, headHdFont));
+		        doc.add(pbDtlsTab);
+		      
+		        pbDtlsTab = createPdfPTable(14, 3, pbDtls1TabW);
+		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
+		        addDeductionTotals(pbDtlsTab, paybillDetails, frtHdFont);
+		        doc.add(pbDtlsTab);
+		        doc.add(dottedline);
+		        
+		        float pbTotDtlsTabW[] = {2.5f, 2.5f, 2.5f};
+		        pbDtlsTab = createPdfPTable(3, 5, pbTotDtlsTabW);
+		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_CENTER);
+		        pbDtlsTab.addCell(addToCell(PdfUtils.GROSS+" "+Utils.getDecimalFormat(paybillDetails.getTotalGrossPay()), headHdFont));
+			    pbDtlsTab.addCell(addToCell(PdfUtils.TOTDEDUCTION+" "+Utils.getDecimalFormat(paybillDetails.getTotalDeductions()), headHdFont));
+			    pbDtlsTab.addCell(addToCell(PdfUtils.NETPAY+" "+Utils.getDecimalFormat(paybillDetails.getNetPay()), headHdFont));
+			    
+		        pbDtlsTab.addCell(addToCell(PdfUtils.GROSS+" "+Utils.getDecimalFormat(paybillDetails.getTotalGrossPay()), headHdFont));
+		        pbDtlsTab.addCell(addToCell(PdfUtils.TOTDEDUCTION+" "+Utils.getDecimalFormat(paybillDetails.getTotalDeductions()), headHdFont));
+		        pbDtlsTab.addCell(addToCell(PdfUtils.NETPAY+" "+Utils.getDecimalFormat(paybillDetails.getNetPay()), headHdFont));
+		        doc.add(pbDtlsTab);
+		        doc.add(dottedline);
+		        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
+			} else if (paybillDetails.getEmployeeType() == 2) {
+				
+				//Adding totals per Department
+		        PdfPTable pbDtlsTab = null;
+		        float pbDtlsTabW[] = {7f};
+		        pbDtlsTab = createPdfPTable(1, 3, pbDtlsTabW);
+		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
+		        doc.add(pbDtlsTab);
+		        
+		        float pbTotDtlsTabW[] = {2.5f, 2.5f, 2.5f};
+		        pbDtlsTab = createPdfPTable(3, 5, pbTotDtlsTabW);
+		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_CENTER);
+		        pbDtlsTab.addCell(addToCell(PdfUtils.NET_PAY+ " "+Utils.getDecimalFormat(paybillDetails.getTotal()), headHdFont));
+		        pbDtlsTab.addCell(addToCell(PdfUtils.TOT_TDS+" "+Utils.getDecimalFormat(paybillDetails.getTDS()), headHdFont));
+		        pbDtlsTab.addCell(addToCell(PdfUtils.ABS_DED_TOTAL_AMT+" "+Utils.getDecimalFormat(paybillDetails.getAbsentDeduction()), headHdFont));
+		        
+		        doc.add(pbDtlsTab);
+		        doc.add(dottedline);
+		        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
+			} else if (paybillDetails.getEmployeeType() == 3) {
+				
+				//Adding totals per Department
+		        PdfPTable pbDtlsTab = null;
+		        float pbDtlsTabW[] = {7f};
+		        pbDtlsTab = createPdfPTable(1, 3, pbDtlsTabW);
+		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
+		        doc.add(pbDtlsTab);
+		        
+		        float pbTotDtlsTabW[] = {2.5f, 2.5f, 2.5f};
+		        pbDtlsTab = createPdfPTable(3, 5, pbTotDtlsTabW);
+		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_CENTER);
+		        pbDtlsTab.addCell(addToCell(PdfUtils.NET_PAY+ " "+Utils.getDecimalFormat(paybillDetails.getTotal()), headHdFont));
+		        pbDtlsTab.addCell(addToCell(""+" ", headHdFont));
+		        pbDtlsTab.addCell(addToCell(""+" ", headHdFont));
+		        
+		        doc.add(pbDtlsTab);
+		        doc.add(dottedline);
+		        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
+			}
 	        
-	        float pbTotDtlsTabW[] = {2.5f, 2.5f, 2.5f};
-	        pbDtlsTab = createPdfPTable(3, 5, pbTotDtlsTabW);
-	        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_CENTER);
-	        pbDtlsTab.addCell(addToCell(PdfUtils.GROSS+" "+Utils.getDecimalFormat(paybillDetails.getTotalGrossPay()), headHdFont));
-	        pbDtlsTab.addCell(addToCell(PdfUtils.TOTDEDUCTION+" "+Utils.getDecimalFormat(paybillDetails.getTotalDeductions()), headHdFont));
-	        pbDtlsTab.addCell(addToCell(PdfUtils.NETPAY+" "+Utils.getDecimalFormat(paybillDetails.getNetPay()), headHdFont));
-	        doc.add(pbDtlsTab);
-	        doc.add(dottedline);
-	        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -167,6 +238,7 @@ public class PaybillPdfRep extends PdfBuilder{
 	}
 	
 	private void addDeduct1Details(PdfPTable table, ReportDetails payroll, Font font){
+		
 		table.addCell(addToCell(PdfUtils.L_FEES, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getLfee()), font));
 		table.addCell(addToCell(PdfUtils.AFKRENT, font));
@@ -191,7 +263,6 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBankLoanRcry()), font));
 		table.addCell(addToCell(PdfUtils.VEHLOANREC, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getVehclLoanRcry()), font));
-		
 	}
 	
 	private void addDeduct2Details(PdfPTable table, ReportDetails payroll, Font font){
@@ -243,6 +314,7 @@ public class PaybillPdfRep extends PdfBuilder{
 
 	
 	private void addGrossDetails(PdfPTable table, ReportDetails payroll, Font font){
+		
 		table.addCell(addToCell(PdfUtils.BASICS, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBasic()), font));
 		table.addCell(addToCell(PdfUtils.GRADEPAY, font));
@@ -286,6 +358,7 @@ public class PaybillPdfRep extends PdfBuilder{
 	}
 	
 	protected void addTotalDetails(PdfPTable table, PaybillDetails payroll, Font font){
+		
 		table.addCell(addToCell(PdfUtils.BASICS, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBasicPay()), font));
 		table.addCell(addToCell(PdfUtils.GRADEPAY, font));
@@ -324,6 +397,7 @@ public class PaybillPdfRep extends PdfBuilder{
 	}
 	
 	protected void addDeductionTotals(PdfPTable table, PaybillDetails payroll, Font font){
+		
 		table.addCell(addToCell(PdfUtils.RENT, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getRent()), font));
 		table.addCell(addToCell(PdfUtils.AFKRENT, font));
@@ -369,6 +443,7 @@ public class PaybillPdfRep extends PdfBuilder{
 	}
 	
 	private void addDetails(PdfPTable table, ReportDetails payroll, Font font){
+		
 		table.addCell(addToCell(PdfUtils.SNO, font));
 		table.addCell(addToCell(srNo+"", font));
 		table.addCell(addToCell(PdfUtils.HEAD, font));
@@ -410,5 +485,107 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(String.valueOf(PdfUtils.DA_PERCENT+"%"), font));
 		table.addCell(addToCell(PdfUtils.HRA_RATE, font));
 		table.addCell(addToCell(PdfUtils.HRA_PERCENT+"%", font));
+		
+	}
+	
+	private void addContractualDetails(PdfPTable table, ReportDetails payroll, Font font) {
+		table.addCell(addToCell(PdfUtils.SNO, font));
+		table.addCell(addToCell(srNo+"", font));
+		
+		table.addCell(addToCell(PdfUtils.HEAD, font));
+		table.addCell(addToCell(payroll.getDeptCostHead(), font));
+		
+		table.addCell(addToCell(PdfUtils.EMPLOYEE_ID, font));
+		table.addCell(addToCell(String.valueOf(payroll.getEmployeeId()), font));
+		
+		table.addCell(addToCell(PdfUtils.BANK_ACCTNO, font));
+		table.addCell(addToCell(payroll.getContBankAcNumber(), font));
+		
+		table.addCell(addToCell(PdfUtils.BASICS, font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBasic()), font));
+		
+		table.addCell(addToCell(PdfUtils.OTHERDED, font));
+		table.addCell(addToCell("0", font));
+		
+	}
+	
+	private void addContractualTwo(PdfPTable table, ReportDetails payroll, Font font) {
+	
+		table.addCell(addToCell(PdfUtils.NO_OF_DAYS, font));
+		table.addCell(addToCell("31", font));
+		
+		table.addCell(addToCell(PdfUtils.ABS_DAYS, font));
+		table.addCell(addToCell(String.valueOf(payroll.getEmpAbsentDays()), font));
+		
+		table.addCell(addToCell(PdfUtils.PRESENT_DAY, font));
+		table.addCell(addToCell(String.valueOf(payroll.getEmpPresentDays()), font));
+		
+		table.addCell(addToCell(PdfUtils.ABS_DED_AMT, font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getContAbsDedAmt()), font));
+		
+		table.addCell(addToCell(PdfUtils.TDS, font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getContTDS()), font));
+	}
+	
+	private void addHonoraryDetails(PdfPTable table, ReportDetails payroll, Font font) {
+		table.addCell(addToCell(PdfUtils.SNO, font));
+		table.addCell(addToCell(srNo+"", font));
+		
+		table.addCell(addToCell(PdfUtils.HEAD, font));
+		table.addCell(addToCell(payroll.getDeptCostHead(), font));
+		
+		table.addCell(addToCell(PdfUtils.EMPLOYEE_ID, font));
+		table.addCell(addToCell(String.valueOf(payroll.getEmployeeId()), font));
+		
+		table.addCell(addToCell(PdfUtils.BANK_ACCTNO, font));
+		table.addCell(addToCell(payroll.getContBankAcNumber(), font));
+		
+		table.addCell(addToCell(PdfUtils.BASICS, font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBasic()), font));
+		
+		table.addCell(addToCell(PdfUtils.OTHERDED, font));
+		table.addCell(addToCell("0", font));
+		
+		table.addCell(addToCell(PdfUtils.DP, font));
+		table.addCell(addToCell("0", font));
+		
+		table.addCell(addToCell(PdfUtils.DA, font));
+		table.addCell(addToCell("0", font));
+		
+		table.addCell(addToCell(PdfUtils.GROSSPAY, font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBasic()), font));
+		
+		table.addCell(addToCell(PdfUtils.ABS_DAYS, font));
+		table.addCell(addToCell(String.valueOf(payroll.getEmpAbsentDays()), font));
+	} 
+	
+	private void addHonoraryDetailsTwo(PdfPTable table, ReportDetails payroll, Font font) {
+		
+		table.addCell(addToCell(PdfUtils.ABS_DED_AMT, font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getContAbsDedAmt()), font));
+		
+		table.addCell(addToCell(PdfUtils.MISC, font));
+		table.addCell(addToCell("0", font));
+		
+		table.addCell(addToCell(PdfUtils.PT, font));
+		table.addCell(addToCell("0", font));
+		
+		table.addCell(addToCell(PdfUtils.DA_FLAG, font));
+		table.addCell(addToCell("FLASE", font));
+		
+		table.addCell(addToCell(PdfUtils.SUSPENSE, font));
+		table.addCell(addToCell("FLASE", font));
+		
+		table.addCell(addToCell(PdfUtils.PT_FLAG, font));
+		table.addCell(addToCell("FLASE", font));
+		
+		table.addCell(addToCell(PdfUtils.DP_FLAG, font));
+		table.addCell(addToCell("FALSE", font));
+		
+		table.addCell(addToCell(PdfUtils.DED_REMARK, font));
+		table.addCell(addToCell("", font));
+		
+		table.addCell(addToCell(PdfUtils.NO_OF_DAYS, font));
+		table.addCell(addToCell(String.valueOf(payroll.getEmpPresentDays()), font));
 	}
 }

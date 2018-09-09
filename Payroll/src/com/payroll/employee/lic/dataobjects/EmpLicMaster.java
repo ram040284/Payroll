@@ -14,7 +14,7 @@ public class EmpLicMaster implements Serializable {
 				+ employee + "]";
 	}
 
-	private int employeeId;
+	private String employeeId;
 	private String policyNo;
 	private double instlmtAmt;
 	private String status;
@@ -22,11 +22,11 @@ public class EmpLicMaster implements Serializable {
 	private short addUpdate; // 0 - Add / 1 - update
 	private Employee employee;
 	
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int empId) {
+	public void setEmployeeId(String empId) {
 		this.employeeId = empId;
 	}
 

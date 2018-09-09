@@ -74,7 +74,7 @@ public class EmpSalaryController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if(salary.getEmployeeId() != 0)
+		if(salary.getEmployeeId() != "0")
 				salary = new SalaryService().getEmpSalary(salary.getEmployeeId());
 			model = new ModelAndView("salary", "command", salary);
 			model.addObject("salary", salary);

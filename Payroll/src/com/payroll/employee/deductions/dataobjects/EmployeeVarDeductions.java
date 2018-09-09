@@ -8,7 +8,7 @@ import java.util.Date;
  *
  */
 public class EmployeeVarDeductions {
-	private int employeeId;
+	private String employeeId;
 	private double afkRent;
 	private double society;
 	private double otherDeductions;
@@ -27,7 +27,7 @@ public class EmployeeVarDeductions {
 		super();
 	}
 	
-	public EmployeeVarDeductions(int employeeId, double afkRent, double society, double pfLoanRecovery,
+	public EmployeeVarDeductions(String employeeId, double afkRent, double society, double pfLoanRecovery,
 			 double otherDeductions, double miscRecovery, Date monthDate, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
@@ -54,11 +54,11 @@ public class EmployeeVarDeductions {
 	}
 	
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 

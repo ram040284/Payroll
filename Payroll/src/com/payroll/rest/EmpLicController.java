@@ -98,7 +98,7 @@ public class EmpLicController {
 			}
 			
 			EmpLicVO empLicVO = new EmpLicVO(); 
-			if(empLic.getEmployeeId()!=0)
+			if(empLic.getEmployeeId()!="0")
 				empLicVO = new EmpLicService().getEmpLicById(empLic.getEmployeeId());
 			model = new ModelAndView("empLic", "command", empLicVO);
 			model.addObject("empLic", empLicVO);
@@ -141,7 +141,7 @@ public class EmpLicController {
 				e.printStackTrace();
 			}
 			EmpLicMasterVO empLicMasterVO = new EmpLicMasterVO(); 
-	         if(empLicMaster.getEmployeeId()!=0)
+	         if(empLicMaster.getEmployeeId()!="0")
 				empLicMasterVO = new EmpLicService().getEmpLicMasterById(empLicMaster.getEmployeeId());
 			model = new ModelAndView("empLicMaster", "command", empLicMasterVO);
 			model.addObject("empLic", empLicMasterVO);

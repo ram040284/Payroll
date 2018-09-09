@@ -222,7 +222,7 @@ public class EmpLeaveController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if(leave.getEmployeeId()!=0)
+		if(leave.getEmployeeId()!="0")
 				leave = new LeaveService().getLeaveByIde(leave.getEmployeeId());
 			model = new ModelAndView("leave", "command", leave);
 			model.addObject("leave", leave);
@@ -284,7 +284,7 @@ public class EmpLeaveController {
 	@RequestMapping(value="/empLeaves",method=RequestMethod.POST)
 	public String getLeavesByEmp(LeaveVO leave){
 	   System.out.println("empLeaves -- Leave:"+leave.getEmployeeId());
-	   List<LeaveVO> leaveVoNew = new LeaveService().getEmpAvailableLeaves(leave.getLeaveId());
+	   List<LeaveVO> leaveVoNew = new LeaveService().getEmpAvailableLeaves(leave.getEmployeeId());
 	   System.out.println("result:"+leaveVoNew);
 	   return "listLeaves";
 	}

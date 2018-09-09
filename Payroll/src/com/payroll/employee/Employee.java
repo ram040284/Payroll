@@ -17,7 +17,7 @@ public class Employee {
 	private String lastPromotionDate;
 	private int departmentId;
 	private int designationId;
-	private int employeeId;
+	private String employeeId;
 	private String addressLine1;
 	private String addressLine2;
 	private String addressLine3;
@@ -25,12 +25,15 @@ public class Employee {
 	private int headId;
 	private String retirementDate;
 	private byte handicapFlag;
+	private int employeeType;
 	
-	public int getEmployeeId() {
+	
+
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 
@@ -144,13 +147,14 @@ public class Employee {
 	
 	
 	public Employee(String firstName, String lastName, String middleName, String designation, 
-			String email, String phone){
+			String email, String phone, int employeeType){
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
 		this.email = email;
 		this.designation = designation;
 		this.phone = phone;
+		this.employeeType = employeeType;
 		
 	}
 	
@@ -177,7 +181,7 @@ public class Employee {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "employeeId:"+employeeId+" | FName:"+this.firstName+" | lName:"+this.lastName+" | desigId:"+this.designationId+" | "
-				+ "departId:"+this.departmentId+" | email:"+this.email+" | phone:"+this.phone;
+				+ "departId:"+this.departmentId+" | email:"+this.email+" | phone:"+this.phone+" | employeeType:"+this.employeeType;
 	}
 
 	public String getAddressLine1() {
@@ -234,5 +238,13 @@ public class Employee {
 
 	public void setHandicapFlag(byte handicapFlag) {
 		this.handicapFlag = handicapFlag;
+	}
+	
+	public int getEmployeeType() {
+		return employeeType;
+	}
+
+	public void setEmployeeType(int employeeType) {
+		this.employeeType = employeeType;
 	}
 }

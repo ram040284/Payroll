@@ -4,7 +4,7 @@
   
  <hibernate-mapping>  
   <class name="com.payroll.employee.deductions.dataobjects.EmpDeductions" table="EMP_TAX_EXEMPTIONS">  
-    <id name="employeeId" type="java.lang.Integer">
+    <id name="employeeId" type="string">
 			<column name="EMP_ID" />
 			<generator class="foreign">
 				<param name="property">employee</param>
@@ -32,5 +32,20 @@
    	<property name="arrears" column="ARREARS"/> 
     <property name="otAmount" column="OT_AMOUNT"/>
     <property name="otWages" column="OT_WAGES"/>
+    
+    <property name="hra_section10_13A" column="HRA_SECTION10_13A"/>
+    <property name="income_tax_rebate_section_87C" column="INCOME_TAX_REBATE_SECTION_87C"/>
+    <property name="child_trans_allw_10_14" column="CHILD_TRANS_ALLW_10_14"/>
+    <property name="home_loan_section_24B" column="HOME_LOAN_SECTION_24B"/>
+    <property name="hlp_pf_lic_80C" column="HLP_PF_LIC_80C"/>
+    <property name="nps_80CCD_1B" column="NPS_80CCD_1B"/>
+    <property name="health_insu_80D" column="HEALTH_INSU_80D"/>
+    <property name="des_dep_80DD" column="DES_DEP_80DD"/>
+    <property name="medical_80DDB" column="MEDICAL_80DDB"/>
+    <property name="edu_load_80D" column="EDU_LOAN_80E"/>
+    <property name="donation_80G" column="DONATION_80G"/>
+    <property name="rent_80GG" column="RENT_80GG"/>
+    <property name="int_bank_section_80TTA" column="INT_BANK_SECTION_80TTA"/>
+    <property name="phys_dis_per_section_80U" column="PHYS_DIS_PER_SECTION_80U"/>
   </class>  
  </hibernate-mapping> 

@@ -4,7 +4,7 @@ public class PaybillVO {
 	private int departmentId;
 	private String section;
 	private String monthDate;
-	private int employeeId;
+	private String employeeId;
 	private int billType;
 	
 	public int getBillType() {
@@ -13,10 +13,10 @@ public class PaybillVO {
 	public void setBillType(int billType) {
 		this.billType = billType;
 	}
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 	public String getSection() {

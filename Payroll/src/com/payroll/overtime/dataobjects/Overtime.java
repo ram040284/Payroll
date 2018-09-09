@@ -8,7 +8,7 @@ import com.payroll.employee.dataobjects.Employee;
 
 public class Overtime implements Serializable{
 	
-	private int employeeId;
+	private String employeeId;
 	private int overtimeId;
 	private Double overtimeHours;
 	private Double overtimeDayHours;
@@ -38,7 +38,7 @@ public class Overtime implements Serializable{
 	 * @param rowUpdDate
 	 * @param employee
 	 */
-	public Overtime(int employeeId, int overtimeId, Double overtimeHours, Double overtimeDayHours,
+	public Overtime(String employeeId, int overtimeId, Double overtimeHours, Double overtimeDayHours,
 			Double overtimeAmount, Date overtimeDate, String overtimeOrder, String status, Timestamp rowUpdDate,
 			Employee employee) {
 		super();
@@ -54,10 +54,10 @@ public class Overtime implements Serializable{
 		this.employee = employee;
 	}
 	
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int empId) {
+	public void setEmployeeId(String empId) {
 		this.employeeId = empId;
 	}
 	

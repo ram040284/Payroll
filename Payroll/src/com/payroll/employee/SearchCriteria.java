@@ -8,7 +8,7 @@ public class SearchCriteria {
 	private int listDeptId;
 	private int listHeadId;
 	private String listName;
-	private int employeeId;
+	private String employeeId;
 	
 	public SearchCriteria(){
 		
@@ -60,10 +60,10 @@ public class SearchCriteria {
 	public void setListName(String listName) {
 		this.listName = listName;
 	}
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 

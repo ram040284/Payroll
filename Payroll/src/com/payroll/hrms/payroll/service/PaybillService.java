@@ -44,15 +44,15 @@ public class PaybillService {
 	 * Getting Pay bills for Monthly comparision 
 	 */
 	public List<PaybillDetails> getMonthlyBills(){
-		
+		System.out.println("getMonthlyBills called");
 		List<PaybillDetails> pbDetailsList = new ArrayList<PaybillDetails>();
-		PaybillDetails pbDetails = getPayBills();
+		PaybillDetails pbDetails = getPayBills(1);
 		pbDetailsList.add(pbDetails);
 		Date prevMonth = Utils.getPrevMonth(startDate);
 		String prevMonthTxt = Utils.getSimpleDate(prevMonth);
 		this.startDate = Utils.getStartDateOfMonth(prevMonthTxt);
 		this.endDate = Utils.getEndDateOfMonth(prevMonthTxt);
-		pbDetails = getPayBills();
+		pbDetails = getPayBills(1);
 		pbDetailsList.add(pbDetails);
 		return pbDetailsList;
 	}
@@ -62,7 +62,7 @@ public class PaybillService {
 	 * @return
 	 */
 	public List<PaybillDetails> getHeadsPayBills(){
-		
+		System.out.println("getHeadsPayBills called");
 		List<PaybillDetails> pbDetailsList = new ArrayList<PaybillDetails>();
 		List<Department> departments = new DepartmentService().getDepartmentsBySection(section);
 		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
@@ -73,7 +73,7 @@ public class PaybillService {
 			for (Iterator headIterator = headInfoList.iterator(); headIterator.hasNext();) {
 				HeadInfoVO headInfoVO = (HeadInfoVO) headIterator.next();
 				this.headId = headInfoVO.getHeadId();
-				pbDetails = getPayBills();
+				pbDetails = getPayBills(1);
 				if(pbDetails != null){
 					pbDetails.setHeadName(headInfoVO.getHeadName());
 					pbDetailsList.add(pbDetails);
@@ -103,7 +103,7 @@ public class PaybillService {
 		List<Department> departments = new DepartmentService().getDepartmentsBySection(section);
 		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
 			Department department = (Department) iterator.next();
-			checkPayBills(department.getDepartmentId());
+			checkPayBills(department.getDepartmentId(), 1);
 		}
 		return getBankwiseDetails();
 	}
@@ -113,7 +113,7 @@ public class PaybillService {
 	 * @param empId
 	 * @return
 	 */
-	public PaybillDetails getPaySlip(int empId){
+	public PaybillDetails getPaySlip(String empId){
 		EmployeeVO empVO = new EmployeeDAO().getEmployeeById(empId);
 		Paybill paybill = new PaybillDAO(startDate, endDate, 0).getPaybillByEmp(empId);
 		//Payslip payslip = new Payslip(empVO, paybill, startDate);
@@ -143,12 +143,13 @@ public class PaybillService {
 		List<Department> departments = new DepartmentService().getDepartmentsBySection(section);
 		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
 			Department department = (Department) iterator.next();
-			if(checkPayBills(department.getDepartmentId())){
+			if(checkPayBills(department.getDepartmentId(), billType)){
+				System.out.println("inside checkbills... success = true ");
 				success = 1;
 				continue;
 			}
 			EmployeePayrollService payroll = new EmployeePayrollService(empList);
-			boolean result = payroll.createPaybills(department.getDepartmentId(), startDate);
+			boolean result = payroll.createPaybills(department.getDepartmentId(), startDate, billType);
 			success = (result) ? 2 :3;
 		}
 		
@@ -163,20 +164,24 @@ public class PaybillService {
 	 * Getting Pay Bills
 	 * @return
 	 */
-	public PaybillDetails getPayBills(){
+	public PaybillDetails getPayBills(int billType){
 		PaybillDetails details = null;
+		
 		List<Department> departments = new DepartmentService().getDepartmentsBySection(section);
 		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
+			System.out.println("inside for");
 			Department department = (Department) iterator.next();
-			checkPayBills(department.getDepartmentId());
+			checkPayBills(department.getDepartmentId(), billType);
 		}
 		details = getPaybillDetails();
+		details.setEmployeeType(billType);
+		System.out.println("details getEmployeeType : " + details.getEmployeeType());
 		return details;
 	}
-	private boolean checkPayBills(int deptId){
+	private boolean checkPayBills(int deptId, int billType){
 		boolean billsExist = false;
-		empList = new EmployeePayrollDAO().getActiveEmployeesByDept(deptId, startDate);
-		List<Paybill> paybillListTemp = new PaybillDAO(startDate, endDate, deptId).getPaybillsByDept(headId, bankWise);
+		empList = new EmployeePayrollDAO().getActiveEmployeesByDept(deptId, startDate, billType);
+		List<Paybill> paybillListTemp = new PaybillDAO(startDate, endDate, deptId).getPaybillsByDept(headId, bankWise, billType);
 		if(paybillListTemp !=null && !paybillListTemp.isEmpty()){
 			billsExist = true;
 		}
@@ -186,13 +191,15 @@ public class PaybillService {
 		if(paybillList == null)
 			paybillList = new ArrayList<Paybill>();
 		paybillList.addAll(paybillListTemp);
+		System.out.println("Data is added into paybill table");
 		return billsExist;
 	}
     private PaybillDetails getPaybillDetails(){
     	PaybillDetails payrollTotals = new PaybillDetails();
+    	System.out.println("head id... " + headId);
     	try {
 		for (Paybill paybill : paybillList) {
-			//System.out.println("bankId:"+paybill.getBankId() +", Name:"+paybill.getBankName());
+			
     		ReportDetails empPayroll = new ReportDetails(); 
     		org.apache.commons.beanutils.BeanUtils.copyProperties(empPayroll, paybill);
     		if(headId == 0){
@@ -206,6 +213,7 @@ public class PaybillService {
 			    		empPayroll.setGender(employee.getGender());
 			    		empPayroll.setPfNumber("");
 			    		empPayroll.setEmployeeNumber(employee.getEmployeeId()+"");
+			    		empPayroll.setEmployeeType(employee.getEmployeeType());
 			    		break;
 					}
 				}

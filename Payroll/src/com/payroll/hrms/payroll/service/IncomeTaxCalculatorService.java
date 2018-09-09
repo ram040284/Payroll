@@ -4,6 +4,7 @@ import com.payroll.TestData;
 import com.payroll.Utils;
 import com.payroll.employee.deductions.dataobjects.EmpDeductions;
 import com.payroll.employee.deductions.dataobjects.EmpDeductionsDAO;
+import com.payroll.employee.deductions.vo.EmpDeductionsVO;
 import com.payroll.hrms.payroll.incometax.dataobjects.EMPITDecutions;
 import com.payroll.hrms.payroll.incometax.dataobjects.ITSlabsDTO;
 import com.payroll.incomtax.dataobjects.IncomtaxSlab;
@@ -40,7 +41,7 @@ public class IncomeTaxCalculatorService {
     /**
      *
      */
-    public void getIncomeTaxDeductions(int empId){
+    public void getIncomeTaxDeductions(String empId){
     	EmpDeductions empDeductions = new EmpDeductionsDAO().getEmpDeductionsByEmpId(empId);  
     	if(empDeductions == null)
     		empDeductions = TestData.getEmpDeductions(empId);
@@ -50,7 +51,7 @@ public class IncomeTaxCalculatorService {
     	itDeductions.setSelfDisability80U(empDeductions.getSelfDisable80U());
     }
 
-    public double getIncomeTax(int empId, Date year, double grossPay){
+    public double getIncomeTax(String empId, Date year, double grossPay){
     	String fullYr = Utils.getFullYear(year);
     	StringBuffer finYr = new StringBuffer(fullYr);
     	finYr.append("-");
@@ -66,6 +67,22 @@ public class IncomeTaxCalculatorService {
     	
     	System.out.println("incomeTax:"+incomeTax);
     	return incomeTax;
+    }
+    
+    public double getEmpITExemptions(String empId, Date year, double grossPay, EmpDeductionsVO exemptions) {
+    	
+    	/*First Month :
+    	Annual Gross Salary - Exemptions -> IT_BRACKET/SLAB
+    	TAXABLE Amount * SLAB_PER /12
+
+    	Second month onwards: 
+    	e.g. AUG
+    	(Sum (Salary from April - Aug) + projected Salary for sep-Mar) - Exemptions -> get tax slab
+    	TAXABLE Amount * SLAB_PER /12*/
+    	
+    	//double incomeTax = grossPay - exemptions.getDes_dep_80DD() 
+    	
+    	return 0.0;
     }
     
     public double calculateIncomeTax(double pGrossSalary){
@@ -109,7 +126,7 @@ public class IncomeTaxCalculatorService {
     	double grossSalary = 151503;
     	System.out.println("grossSalary:"+grossSalary);
     	Date startDate = Utils.getStartDateOfMonth(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
-    	taxableAmount = new IncomeTaxCalculatorService().getIncomeTax(198005008, startDate, grossSalary);
+    	taxableAmount = new IncomeTaxCalculatorService().getIncomeTax("198005008", startDate, grossSalary);
         System.out.println("taxableAmount:"+taxableAmount);
     }
 

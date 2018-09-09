@@ -9,7 +9,7 @@ import com.payroll.employee.vo.EmployeeVO;
 
 public class LeaveVO extends SearchCriteria implements Serializable{
 	
-	private int employeeId;
+	private String employeeId;
 	private int leaveId;
 	private LeaveType leaveType;
 	private int leaveTypeId;
@@ -43,7 +43,7 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 		super();
 	}
 	
-	public LeaveVO(int empId, String fName, String lName, int leaveId, int leaveTypeId, int leaveBalance){
+	public LeaveVO(String empId, String fName, String lName, int leaveId, int leaveTypeId, int leaveBalance){
 		this.employeeId = empId;
 		this.leaveId = leaveId;
 		this.leaveBalance = leaveBalance;
@@ -55,7 +55,7 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 		this.fullName = fullNameSB.toString();
 	}
 	
-	public LeaveVO (int empId, int deptId, int desgId, int headId, int leaveId, int leaveTypeId,
+	public LeaveVO (String empId, int deptId, int desgId, int headId, int leaveId, int leaveTypeId,
 			int leaveBalance){
 		super(deptId, headId);
 		this.employeeId = empId;
@@ -69,7 +69,7 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 		
 	}
 	
-	public LeaveVO(int empId, String empName, int cLeave, int pLeave, int sLeave, int eLeave, 
+	public LeaveVO(String empId, String empName, int cLeave, int pLeave, int sLeave, int eLeave, 
 			int mLeave, int ptLeave, int xLeave, String leaveIds){
 		this.casualLeaves = cLeave;
 		this.sickLeaves = sLeave;
@@ -84,7 +84,7 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 		this.leaveIds = leaveIds;
 		
 	}
-	public LeaveVO (int empId, int deptId, int desgId, int headId, int sLeave, int cLeave, int pLeave,
+	public LeaveVO (String empId, int deptId, int desgId, int headId, int sLeave, int cLeave, int pLeave,
 			int eLeave, int mLeave, int ptLeave, int xLeave,int leaveBalance, String leaveIds){
 		super(deptId, headId);
 		this.employeeId = empId;
@@ -103,7 +103,7 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 	}
 	
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
@@ -134,7 +134,7 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 		this.designationId = designationId;
 	}
 
-	public void setEmployeeId(int empId) {
+	public void setEmployeeId(String empId) {
 		this.employeeId = empId;
 	}
 

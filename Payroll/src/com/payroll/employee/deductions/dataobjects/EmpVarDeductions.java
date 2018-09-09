@@ -14,7 +14,7 @@ import com.payroll.employee.dataobjects.Employee;
  *
  */
 public class EmpVarDeductions {
-	private int employeeId;
+	private String employeeId;
 	private double afkRent;
 	private double society;
 	private double pfLoanRecovery;
@@ -36,7 +36,7 @@ public class EmpVarDeductions {
 	private static SimpleDateFormat monthYearFormat = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
 	private double absenties;
 	
-	public EmpVarDeductions(int employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
+	public EmpVarDeductions(String employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
 			 double otherDeductions, double miscRecovery, String monthDate,String note, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
@@ -65,7 +65,7 @@ public class EmpVarDeductions {
 		this.absenties = absenties;
 	}
 	
-	public EmpVarDeductions(int employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
+	public EmpVarDeductions(String employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
 			 double otherDeductions, double miscRecovery, Date monthDate,String note, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.afkRent = afkRent;
@@ -88,7 +88,7 @@ public class EmpVarDeductions {
 		this.absenties = absenties;
 	}
 
-	public EmpVarDeductions(int employeeId, int departmentId , int designationId, int headId, double afkRent, 
+	public EmpVarDeductions(String employeeId, int departmentId , int designationId, int headId, double afkRent, 
 			double society, double pfLoanRecovery, double otherDeductions, double miscRecovery, String monthDate, String note, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
@@ -116,7 +116,7 @@ public class EmpVarDeductions {
 		this.absenties = absenties;
 	}
 	
-	public EmpVarDeductions(int employeeId, int departmentId , int designationId, int headId, double afkRent, 
+	public EmpVarDeductions(String employeeId, int departmentId , int designationId, int headId, double afkRent, 
 			double society, double pfLoanRecovery, double otherDeductions, double miscRecovery, Date monthDate, String note, double incomeTax, double absenties){
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
@@ -171,11 +171,11 @@ public class EmpVarDeductions {
 	}
 
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 

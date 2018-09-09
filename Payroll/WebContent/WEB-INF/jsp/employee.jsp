@@ -47,9 +47,11 @@ $(document).ready(function() {
 		loadDesgByHead(headId);
 	}
 	var genderId = "${employee.gender}";
+	var employeeTypeId = "${employee.employeeType}";
 	$('#departmentId').val(deptId);
 	<%--$('#designationId').val(desgId);--%>
 	$('#gender').val(genderId);
+	$('#employeeType').val(employeeTypeId);
 	
 	$('#dob').datepick({dateFormat: 'dd/mm/yyyy'});
 	$('#joiningDate').datepick({dateFormat: 'dd/mm/yyyy'});
@@ -71,12 +73,13 @@ $(document).ready(function() {
 			var adharNo = "${employee.adharNo}";
 			var pan = "${employee.pan}";
 			var retirementDate = "${employee.retirementDate}";
+			var employeeType = "${employee.employeeType}";
 						
 		if(desgId == $('#designationId').val() && deptId == $('#departmentId').val() && genderId == $('#gender').val().trim() && 
 			fname == $('#fname').val().trim() && lname == $('#lname').val().trim() && mname==$('#mname').val().trim() &&
 			dob == $('#dob').val().trim() && joiningDate == $('#joiningDate').val().trim() && 
 			adharNo == $('#aadhar').val().trim() && pan == $('#pan').val().trim() && 
-			retirementDate == $('#retirementDate').val().trim()) {
+			retirementDate == $('#retirementDate').val().trim() && employeeType == $('#employeeType').val()) {
 			//address1 == $('#addressLine1').val().trim() && address2 == $('#addressLine2').val().trim() && address3 ==$('#addressLine3').val().trim() &&
 			// phone == $('#phone').val().trim() && email == $('#email').val().trim() &&
 				alert('Nothing was changed!');
@@ -129,6 +132,11 @@ $(document).ready(function() {
 		if($('#joiningDate').val().trim() == ""){
 			alert("Joining Date must be provided!");
 			$('#joiningDate').focus();
+			return false;
+		}
+		if($('#employeeType').val() == 0){
+			alert("Employee type must be selected!");
+			$('#employeeType').focus();
 			return false;
 		}
 		/*var phoneValue = $('#phone').val().trim();
@@ -197,7 +205,7 @@ $(document).ready(function() {
 		var inputJson = { "firstName" : $('#fname').val(), "middleName" : $('#mname').val(), "lastName" : $('#lname').val(),"designationId" : $('#designationId').val(), 
 				"departmentId": $('#departmentId').val(), "pan":panValue,				
 				"adharNo":$('#aadhar').val(),"dob":$('#dob').val(), "employeeId":$('#employeeId').val(), "gender":$('#gender').val(),
-				"joiningDate":$('#joiningDate').val(), "headId":$('#headId').val(), "retirementDate":$('#retirementDate').val()};
+				"joiningDate":$('#joiningDate').val(), "headId":$('#headId').val(), "retirementDate":$('#retirementDate').val(), "employeeType" : $('#employeeType').val()};
 		// "addressLine1":$('#addressLine1').val(),"addressLine2":$('#addressLine2').val(),"addressLine3":$('#addressLine3').val(),
 		//"email": $('#email').val(), "phone":phoneValue,
 	    $.ajax({
@@ -331,6 +339,35 @@ function loadDesgByHead(headId) {
 	});
 }
 
+function getEmployeesByIds(deptId, desgId, empId){
+	var inputJson = { "departmentId" : deptId,"designationId" : desgId};
+	  $.ajax({
+      url: '../Payroll/loadEmployees',
+      data: JSON.stringify(inputJson),
+      type: "POST",           
+      beforeSend: function(xhr) {
+          xhr.setRequestHeader("Accept", "application/json");
+          xhr.setRequestHeader("Content-Type", "application/json");
+      },
+      success: function(data){ 
+      	$('#employeeId').empty();
+      	$('<option>').val(0).text("-- Select Employee --").appendTo('#employeeId');
+      	$(data).each(function(i, employee){
+      		$('<option>').val(employee.employeeId).text(employee.fullName).appendTo('#employeeId');
+      	});
+      	<%--var empId = "${salary.empId}";--%>
+      	if(empId !=0) {
+    		$('#employeeId').val(empId);
+    		
+    	}
+      },
+      failure: function (){
+      	alert('Unable to load Employees');
+      }
+  });
+  
+}
+
 
       </script>
 </head>
@@ -455,6 +492,19 @@ function loadDesgByHead(headId) {
 								<form:input type="text" id="pan" path="pan" placeholder="Enter PAN" class="form-control"/>
 							</div>	
 						</div>
+						<div class="row">
+								
+							<div class="col-sm-4 form-group">
+								<label>Employee Type</label>
+								<select id="employeeType" class="form-control" <c:if test="${employee.employeeId != '0'}" > disabled= "disabled" </c:if>>
+									<option value="0">-- Select Employee Type --</option>
+									<option value="1">Permanent</option>
+									<option value="2">Contract</option>
+									<option value="3">Honorary</option>
+								</select>
+							</div>	
+						
+						</div>		
 						
 						<div class="row">	
 							<div class="text-right">

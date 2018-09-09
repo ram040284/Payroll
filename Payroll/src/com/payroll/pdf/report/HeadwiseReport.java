@@ -18,9 +18,9 @@ public class HeadwiseReport extends PaybillPdfRep{
 	
 	public void headwireReport(Document doc, List<PaybillDetails> paybillDetails, String imgPath){
 		try{
-			String watermarkImg = imgPath+"//CBK_Logo.png";
+			String watermarkImg = imgPath+"//CBK_Logo_min.png";
 	        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
-	        String logoImg = imgPath+"//logo_new.jpg";
+	        String logoImg = imgPath+"//logo_new_min.jpg";
 	        doc.add(PdfUtils.getMainHeader(logoImg));
 	        
 	        DottedLineSeparator dottedline = new DottedLineSeparator();

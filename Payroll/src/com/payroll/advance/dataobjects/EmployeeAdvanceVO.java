@@ -10,7 +10,7 @@ import com.payroll.employee.dataobjects.Employee;
 
 public class EmployeeAdvanceVO {
 	
-	private int employeeId;
+	private String employeeId;
 	private int departmentId;
 	private int designationId;
 	private int headId;
@@ -39,7 +39,7 @@ public class EmployeeAdvanceVO {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public EmployeeAdvanceVO(int advanceId,int employeeId, int departmentId, int designationId, int headId, 
+	public EmployeeAdvanceVO(int advanceId,String employeeId, int departmentId, int designationId, int headId, 
 			String advanceName, double advanceAmount, double installAmount, String advanceDate, String installStartDate,
 			String status, Timestamp rowUpdDate) throws ParseException {
 		super();
@@ -59,7 +59,7 @@ public class EmployeeAdvanceVO {
 		this.status = status;
 	}
 
-	public EmployeeAdvanceVO( int advanceId,int employeeId, String fName, String lName, String advanceName, double advanceAmount, String advanceDate, double installAmount, String installStartDate) throws ParseException {
+	public EmployeeAdvanceVO( int advanceId,String employeeId, String fName, String lName, String advanceName, double advanceAmount, String advanceDate, double installAmount, String installStartDate) throws ParseException {
 		super();
 		this.advanceId = advanceId;
 		this.employeeId = employeeId;
@@ -77,10 +77,10 @@ public class EmployeeAdvanceVO {
 		this.fullName = fullNameSB.toString();
 	}
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 	public int getDepartmentId() {

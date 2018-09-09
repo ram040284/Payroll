@@ -15,7 +15,7 @@ public class EmpQuartersService {
 		//EmpQuarters empQtr = copyProperties(empQtrVO);
 		return new EmpQuartersDAO().addUpdateEmpQtr(empQtr);
 	}
-	public String deleteEmpQtr(int empId){
+	public String deleteEmpQtr(String empId){
 		return new EmpQuartersDAO().deleteEmpQtr(empId);
 	}
 	
@@ -26,7 +26,7 @@ public class EmpQuartersService {
 		return empQtr;
 	}*/
 	
-	public EmpQuartersVO getEmpQtrById(int empId){
+	public EmpQuartersVO getEmpQtrById(String empId){
 		return new EmpQuartersDAO().getEmpQtrById(empId);
 	}
 

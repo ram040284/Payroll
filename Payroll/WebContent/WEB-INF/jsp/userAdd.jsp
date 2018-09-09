@@ -294,7 +294,6 @@ $(document).ready(function() {
 	    		return false;
 	    		
 	    	}
-	    	
 	    	$("#userForm").attr("action", "../Payroll/addUserConfirm");
 			$("#userForm").submit();
 	    });

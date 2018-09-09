@@ -12,7 +12,7 @@ import com.payroll.employee.dataobjects.Employee;
  */
 public class Paybill implements Serializable{
 
-	private int employeeId;
+	private String employeeId;
 	private Employee employee;
 	private double gradePay;
 	private double basic;
@@ -67,6 +67,16 @@ public class Paybill implements Serializable{
 	private String scalePay;
 	private double ca;
 	private double tAllowance;
+	private int employeeType;
+	
+	//new columns added for contract
+	private double contAbsDedAmt;
+	private double contTDS;
+	private double conOtherded;
+	private int empAbsentDays;
+	private int empPresentDays;
+	private String contPan;
+	private String contBankAcNumber;
 	
 	/*private String employeeName;
 	private String panNo;
@@ -74,12 +84,9 @@ public class Paybill implements Serializable{
 	private String joiningDate;
 	private String retirementDate;
 	*/
-	public int getEmployeeId() {
-		return employeeId;
-	}
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
-	}
+	
+	
+	
 	public double getGradePay() {
 		return gradePay;
 	}
@@ -410,6 +417,58 @@ public class Paybill implements Serializable{
 	public void settAllowance(double tAllowance) {
 		this.tAllowance = tAllowance;
 	}
-	
-	
+	public int getEmployeeType() {
+		return employeeType;
+	}
+	public void setEmployeeType(int employeeType) {
+		this.employeeType = employeeType;
+	}
+	public String getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
+	public double getContAbsDedAmt() {
+		return contAbsDedAmt;
+	}
+	public void setContAbsDedAmt(double contAbsDedAmt) {
+		this.contAbsDedAmt = contAbsDedAmt;
+	}
+	public double getContTDS() {
+		return contTDS;
+	}
+	public void setContTDS(double contTDS) {
+		this.contTDS = contTDS;
+	}
+	public double getConOtherded() {
+		return conOtherded;
+	}
+	public void setConOtherded(double conOtherded) {
+		this.conOtherded = conOtherded;
+	}
+	public int getEmpAbsentDays() {
+		return empAbsentDays;
+	}
+	public void setEmpAbsentDays(int empAbsentDays) {
+		this.empAbsentDays = empAbsentDays;
+	}
+	public int getEmpPresentDays() {
+		return empPresentDays;
+	}
+	public void setEmpPresentDays(int empPresentDays) {
+		this.empPresentDays = empPresentDays;
+	}
+	public String getContPan() {
+		return contPan;
+	}
+	public void setContPan(String contPan) {
+		this.contPan = contPan;
+	}
+	public String getContBankAcNumber() {
+		return contBankAcNumber;
+	}
+	public void setContBankAcNumber(String contBankAcNumber) {
+		this.contBankAcNumber = contBankAcNumber;
+	}
 }

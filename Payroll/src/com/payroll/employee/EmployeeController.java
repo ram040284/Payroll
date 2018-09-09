@@ -30,9 +30,9 @@ public class EmployeeController {
 	   @RequestMapping(value="/view", method = RequestMethod.GET, produces = "application/json")
 	    public @ResponseBody List<Employee> getEmployees(){
 		   List<Employee> employees = new ArrayList<Employee>();
-		   employees.add(new Employee("Rajendra", "Gangarde", "", "Vice President", "raj@gmail.com", "9878687678"));
-		   employees.add(new Employee("Ramanjaneyulu", "Kummari", "", "Tech Lead", "ram040284@gmail.com", "8939345488"));
-		   employees.add(new Employee("Srinivasa", "Mukku", "", "Tech Lead", "srini.mukku@gmail.com", "98787687686"));
+		   employees.add(new Employee("Rajendra", "Gangarde", "", "Vice President", "raj@gmail.com", "9878687678", 1));
+		   employees.add(new Employee("Ramanjaneyulu", "Kummari", "", "Tech Lead", "ram040284@gmail.com", "8939345488", 2));
+		   employees.add(new Employee("Srinivasa", "Mukku", "", "Tech Lead", "srini.mukku@gmail.com", "98787687686", 3));
 	        return employees;
 	    }
 	   @RequestMapping(value = "/viewEmp", method = RequestMethod.GET)

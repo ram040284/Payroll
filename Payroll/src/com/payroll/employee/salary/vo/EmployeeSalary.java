@@ -9,7 +9,7 @@ public class EmployeeSalary implements Serializable{
 		return "EmployeeSalary [employeeId=" + employeeId + ", basic=" + basic + ", gradePay=" + gradePay
 				+ ", scalePay=" + scalePay + ", scaleCode=" + scaleCode + "]";
 	}
-	public EmployeeSalary(int employeeId, double basic, double gradePay, String scalePay, String scaleCode, double incrementAmount, Date incrementDate) {
+	public EmployeeSalary(String employeeId, double basic, double gradePay, String scalePay, String scaleCode, double incrementAmount, Date incrementDate) {
 		super();
 		this.employeeId = employeeId;
 		this.basic = basic;
@@ -19,7 +19,7 @@ public class EmployeeSalary implements Serializable{
 		this.incrementAmount = incrementAmount;
 		this.incrementDate = incrementDate;
 	}
-	private int employeeId;
+	private String employeeId;
 	private double basic;
 	private double gradePay;
 	private String scalePay;
@@ -30,7 +30,7 @@ public class EmployeeSalary implements Serializable{
 	public EmployeeSalary() {
 		
 	}
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 

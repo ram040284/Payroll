@@ -3,7 +3,7 @@ package com.payroll.employee.lic.vo;
 import java.util.Date;
 
 public class EmployeeLIC {
-	private int empId;
+	private String empId;
 	private double instlmtAmt;
 	private String policyNo;
 	private short addUpdate; // 0 - Add / 1 - update
@@ -13,13 +13,13 @@ public class EmployeeLIC {
 		
 	}
 	
-	public EmployeeLIC(int empId, String policyNo, double instlmtAmt) {
+	public EmployeeLIC(String empId, String policyNo, double instlmtAmt) {
 		this.empId = empId;
 		this.policyNo = policyNo;
 		this.instlmtAmt = instlmtAmt;
 	}
 
-	public int getEmpId() {
+	public String getEmpId() {
 		return empId;
 	}
 	public double getInstlmtAmt() {
@@ -38,7 +38,7 @@ public class EmployeeLIC {
 		this.addUpdate = addUpdate;
 	}
 
-	public void setEmpId(int empId) {
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 

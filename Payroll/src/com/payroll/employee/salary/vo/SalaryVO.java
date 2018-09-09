@@ -6,7 +6,7 @@ import java.util.Date;
 import com.payroll.Utils;
 
 public class SalaryVO implements Serializable{
-	private int employeeId;
+	private String employeeId;
 	private int year;
 	private double basic;
 	private double gradePay;
@@ -22,7 +22,7 @@ public class SalaryVO implements Serializable{
 	public SalaryVO() {
 		
 	}
-	public SalaryVO (int empId, String fName, String lName, int year, double basic, 
+	public SalaryVO (String empId, String fName, String lName, int year, double basic, 
 			double gradePay, String scalePay, String scaleCode, double incrementAmount, Date incrementDate){
 		this.employeeId = empId;
 		this.year = year;
@@ -40,7 +40,7 @@ public class SalaryVO implements Serializable{
 		
 	}
 	
-	public SalaryVO (int empId, int deptId, int desgId, int headId, int year, double basic, 
+	public SalaryVO (String empId, int deptId, int desgId, int headId, int year, double basic, 
 			double gradePay, String scalePay, double incrementAmount, Date incrementDate){
 		this.employeeId = empId;
 		this.departmentId = deptId;
@@ -55,7 +55,7 @@ public class SalaryVO implements Serializable{
 		this.incrementDate = incrementDate;
 	}
 	
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 	public int getYear() {
@@ -85,7 +85,7 @@ public class SalaryVO implements Serializable{
 	public int getDesignationId() {
 		return designationId;
 	}
-	public void setEmployeeId(int empId) {
+	public void setEmployeeId(String empId) {
 		this.employeeId = empId;
 	}
 	public void setYear(int year) {

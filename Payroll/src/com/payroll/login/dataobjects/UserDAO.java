@@ -184,7 +184,7 @@ public class UserDAO {
 			//transaction = session.beginTransaction();
 			String queryString = " from User user where user.empId = ? and user.status = ? ";
 			Query query = session.createQuery(queryString);
-			query.setParameter(0, Integer.valueOf(userVo.getUserName()));
+			query.setParameter(0, userVo.getUserName());
 			query.setParameter(1, "A");
 			
 			List<User> userList = query.list();

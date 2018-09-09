@@ -4,7 +4,7 @@ import com.payroll.Utils;
 
 public class EmpQuartersVO {
 	
-	private int empId;
+	private String empId;
 	private String afkQtr;
 	private String fullName;
 	private int departmentId;
@@ -16,14 +16,14 @@ public class EmpQuartersVO {
 		
 	}
 	
-	public EmpQuartersVO(int empId, Boolean afkQtr, int deptId, int desgId){
+	public EmpQuartersVO(String empId, Boolean afkQtr, int deptId, int desgId){
 		this.empId = empId;
 		this.afkQtr = afkQtr ? "Yes" : "No";
 		this.departmentId = deptId;
 		this.designationId = desgId;
 	}
 	
-	public EmpQuartersVO(int empId, String fName, String lName, Boolean afkQtr){
+	public EmpQuartersVO(String empId, String fName, String lName, Boolean afkQtr){
 		this.empId = empId;
 		this.afkQtr = afkQtr ? "Yes" : "No";
 		StringBuffer fullNameSB = new StringBuffer(fName);
@@ -33,7 +33,7 @@ public class EmpQuartersVO {
 		
 	}
 
-	public int getEmpId() {
+	public String getEmpId() {
 		return empId;
 	}
 
@@ -67,7 +67,7 @@ public class EmpQuartersVO {
 		this.addUpdate = addUpdate;
 	}
 
-	public void setEmpId(int empId) {
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 

@@ -13,20 +13,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.payroll.Utils;
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
+import com.payroll.employee.Employee;
+import com.payroll.employee.business.EmployeeService;
 import com.payroll.employee.deductions.business.EmpDeductionsService;
 import com.payroll.employee.deductions.dataobjects.EmpDeductions;
 import com.payroll.employee.deductions.vo.EmpDeductionsVO;
 import com.payroll.login.dao.PermissionsDAO;
 import com.payroll.login.dataobjects.User;
+import com.payroll.employee.vo.EmployeeVO;
 
 @Controller
 public class EmpDeductionsController {
 	
 	String permissionForThis = null;
 	
-	@RequestMapping(value="/listEmpDeductions", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value="/listEmpDeductions", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody List<EmpDeductionsVO> getEmpDeductionsList(){
 		System.out.println("listEmpDeductions-- getEmpDeductionsList");
 	   List<EmpDeductionsVO> empdeductionsList = new EmpDeductionsService().getEmpDeductionsList();
@@ -50,7 +54,7 @@ public class EmpDeductionsController {
 	}
 	
 	@RequestMapping(value = "/inputEmpDeductions", method = RequestMethod.POST)
-	public ModelAndView inputEmpDeductions(EmpDeductionsVO empDeductions, HttpServletRequest request) {
+	public ModelAndView inputEmpDeductions(EmpDeductions empDeductions, HttpServletRequest request) {
 		
 		permissionForThis = "addEmployeeDeduction";
 		ModelAndView model = null;
@@ -67,8 +71,11 @@ public class EmpDeductionsController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if(empDeductions.getEmployeeId() != 0)
+		if(!empDeductions.getEmployeeId().equalsIgnoreCase("0")) {
+			System.out.println("employee is " + empDeductions.getEmployeeId());
 				empDeductions = new EmpDeductionsService().getEmpDeductionsById(empDeductions.getEmployeeId());
+		}
+			
 			model = new ModelAndView("empDeductions", "command", empDeductions);
 			model.addObject("empDeductions", empDeductions);
 			model.addObject("departments", depJSON);

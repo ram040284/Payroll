@@ -4,8 +4,8 @@
   
  <hibernate-mapping>  
   <class name="com.payroll.employee.dataobjects.Employee" table="EMP_MASTER">  
-    <id name="employeeId" type="integer" >  
-     <column name="EMP_ID" sql-type="integer" not-null="true"/>  
+    <id name="employeeId" type="string" >  
+     <column name="EMP_ID" sql-type="string" not-null="true"/>  
      <generator class="increment"/>
     </id>  
     <property name="firstName" column="EMP_FNAME" not-null="true"/>
@@ -22,5 +22,6 @@
     <property name="status" column="STATUS" not-null="true"/>
     <property name="gender" column="GENDER" not-null="true"/>
     <property name="retirementDate" column="RETMT_DATE"/>
+    <property name="employeeType" column="EMP_TYPE" />
    </class>  
  </hibernate-mapping> 

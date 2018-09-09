@@ -1,7 +1,7 @@
 package com.payroll.employee.allowance.vo;
 
 public class EmployeeAllowances {
-	private int employeeId;
+	private String employeeId;
 	private double cca;
 	private double washingAlwance;
 	private double nonPracAwance;
@@ -18,7 +18,7 @@ public class EmployeeAllowances {
 	
 	/**
 	 */
-	public EmployeeAllowances(int employeeId, double cca, double washingAlwance, double nonPracAwance, 
+	public EmployeeAllowances(String employeeId, double cca, double washingAlwance, double nonPracAwance, 
 			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, double otherAllowance, double tAllowance) {
 		this.employeeId = employeeId;
 		this.cca = cca;
@@ -72,7 +72,7 @@ public class EmployeeAllowances {
 		
 	}
 	
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 	public double getCca() {
@@ -97,7 +97,7 @@ public class EmployeeAllowances {
 		return hraFlag;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 

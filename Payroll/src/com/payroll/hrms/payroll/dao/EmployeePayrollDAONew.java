@@ -29,7 +29,7 @@ public class EmployeePayrollDAONew {
 	
 	
     @SuppressWarnings("unchecked")
-	public EmployeePayrollNew loadEmployeePayrollInfo(int employeeId){
+	public EmployeePayrollNew loadEmployeePayrollInfo(String employeeId){
     	
     	System.out.println("Entered EmployeePayrollNew: "+employeeId);
     	EmployeePayrollNew employeePayroll = new EmployeePayrollNew();

@@ -15,11 +15,11 @@ public class BankService {
 		return new EmpBankDAO().addUpdateBank(bank);
 	}
 	
-	public BankVO getBankByEmpId(int empId){
+	public BankVO getBankByEmpId(String empId){
 		return new EmpBankDAO().getBankByEmpId(empId);
 	}
 	
-	public String deleteEmpBank(int empId){
+	public String deleteEmpBank(String empId){
 		return new EmpBankDAO().deleteEmpBank(empId);
 	}
 }

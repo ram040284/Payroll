@@ -166,6 +166,7 @@ alert("${message}");
 		<input type="hidden" name="listDeptId" value="${employee.listDeptId}"/>
 		<input type="hidden" name="listHeadId" value="${employee.listHeadId}"/>
 		<input type="hidden" name="listName" value="${employee.listName}"/>
+		<input type="hidden" name="employeeType" value="${employee.employeeType}"/>
 	</form >
 	<jsp:include page="../jsp/public/postFooter.jsp" />
 </body>

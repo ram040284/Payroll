@@ -44,7 +44,7 @@ public class EmpLicDAO {
 	 * @param employeeId
 	 * @return
 	 */
-	public List<EmployeeLIC> getEmployeeLicDeductions(int employeeId){
+	public List<EmployeeLIC> getEmployeeLicDeductions(String employeeId){
 		List<EmployeeLIC> listEmpLICDeductions = null;
 			Session session = null;
 			
@@ -88,7 +88,7 @@ public class EmpLicDAO {
 		return instlmtAmt;
 	}
 	
-	public EmpLicVO getEmpLicById(int empId){
+	public EmpLicVO getEmpLicById(String empId){
 		EmpLicVO empLicVO = null;
 			Session session = null;
 			try{
@@ -117,7 +117,7 @@ public class EmpLicDAO {
 	}
 	
 	
-	public EmpLicMasterVO getEmpLicMasterById(int empId){
+	public EmpLicMasterVO getEmpLicMasterById(String empId){
 		EmpLicMasterVO empLicMasterVO = null;
 			Session session = null;
 			try{
@@ -147,7 +147,7 @@ public class EmpLicDAO {
 		
 		return empLicMasterVO;
 	}
-	public String deleteEmpLicMaster(int empId){
+	public String deleteEmpLicMaster(String empId){
  		String result = null;
  		Session session = null;
 		Transaction transaction = null;
@@ -174,7 +174,7 @@ public class EmpLicDAO {
 	}
 	
 	
-	public String deleteEmpLic(int empId){
+	public String deleteEmpLic(String empId){
 		String result = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -292,7 +292,7 @@ public class EmpLicDAO {
 		return result;
 	}
 	
-	/*private EmpLic checkEmpLic(int empId, Session session){
+	/*private EmpLic checkEmpLic(String empId, Session session){
 		EmpLic empLic = null;
 		try{
 			if(session == null)

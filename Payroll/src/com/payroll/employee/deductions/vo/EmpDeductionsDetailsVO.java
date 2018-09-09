@@ -4,7 +4,7 @@ import com.payroll.Utils;
 
 public class EmpDeductionsDetailsVO {
 	
-	private int employeeId;
+	private String employeeId;
 	private double afkRent;
 	private double society;
 	private double electRecovery;
@@ -25,7 +25,7 @@ public class EmpDeductionsDetailsVO {
 		
 	}
 	
-	public EmpDeductionsDetailsVO(int employeeId, String firstName, String lastName, double afkRent, double society, 
+	public EmpDeductionsDetailsVO(String employeeId, String firstName, String lastName, double afkRent, double society, 
 			double electRecovery, double courtRecovery, double unionFee, double otherDeductions, 
 			double miscRecovery, double kssUnionRecovery, double incomeTax, double absenties){
 		this.employeeId = employeeId;
@@ -46,7 +46,7 @@ public class EmpDeductionsDetailsVO {
 		this.absenties = absenties;
 	}
 	
-	public EmpDeductionsDetailsVO(int employeeId, int departmentId , int designationId, int headId, double afkRent, 
+	public EmpDeductionsDetailsVO(String employeeId, int departmentId , int designationId, int headId, double afkRent, 
 			double society, double electRecovery, double courtRecovery, double unionFee, double otherDeductions, 
 			double miscRecovery, double kssUnionRecovery, double incomeTax, double absenties){
 		this.employeeId = employeeId;
@@ -66,7 +66,7 @@ public class EmpDeductionsDetailsVO {
 		this.absenties = absenties;
 	}
 	
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 	public double getAfkRent() {
@@ -112,7 +112,7 @@ public class EmpDeductionsDetailsVO {
 		return incomeTax;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 

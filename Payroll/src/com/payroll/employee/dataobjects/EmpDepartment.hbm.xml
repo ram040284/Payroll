@@ -8,7 +8,7 @@
 		<key-property name="empId" column="EMP_ID" />
 		<key-property name="departmentId" column="DEPT_ID" />
 	</composite-id> -->
-	 <id name="employeeId" type="java.lang.Integer">
+	 <id name="employeeId" type="string">
 			<column name="EMP_ID" />
 			<generator class="foreign">
 				<param name="property">employee</param>

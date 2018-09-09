@@ -20,7 +20,7 @@ public class EmployeePayroll {
     public static double PF_PERCENT=6.0;
     public static double CPF_PERCENT=10.0;
   //  private String empId;
-    private int employeeId;
+    private String employeeId;
     //income
     private String birthDate;
     private String deptCostHead;
@@ -104,7 +104,19 @@ public class EmployeePayroll {
     private double arrearPay;
     private double arrearDedu;
     
-
+    //adding emplyee type
+    private int employeeType;
+    
+    //adding new columns for contratuary
+    private int empAbsentDays;
+	private int empPresentDays;
+	private double contAbsDedAmt;
+	private double contTDS;
+	private double conOtherded;
+	private String contPan;
+	private String contBankAcNumber;
+	private int billType;
+    
     //deductions
     public EmployeePayroll(){
     	
@@ -121,7 +133,33 @@ public class EmployeePayroll {
     	this.employeeId = empVO.getEmployeeId();
     }
     
-   public EmployeePayroll(int employeeId, byte handicapFlag, double basic, double gradePay, String scalePay, String scaleCode, double otherPayAmount,
+    public EmployeePayroll(double basic, double gradePay, String scalePay, String scaleCode, 
+    		int empAbsentDays, int empPresentDays, String contBankAcNumber, String employeeId, int billType, int designationId) {
+    	this.basic = basic;
+    	this.gradePay = gradePay;
+    	this.scale = scaleCode;
+    	this.empAbsentDays = empAbsentDays;
+    	this.empPresentDays = empPresentDays;
+    	this.contBankAcNumber = contBankAcNumber;
+    	this.employeeId = employeeId;
+    	this.billType = billType;
+    	if (billType == 2) {
+    		calculateAbsDedAmtCont();
+		}else if (billType == 3) {
+			calculateAbsDedAmtHon();
+		}
+    	
+    	System.out.println("Designation id is " + designationId);
+    	if (designationId == 135 || designationId == 136 || designationId == 137 || designationId == 138 || designationId == 151) {
+    		calculateTDSForTenPer();
+		}else {
+			calculateTDSForOnePer();
+		}
+    	
+    	
+    }
+    
+   public EmployeePayroll(String employeeId, byte handicapFlag, double basic, double gradePay, String scalePay, String scaleCode, double otherPayAmount,
     		double cca, double cycleAllowance, double otherAllowance, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,byte pfFlag, byte taFlag, double tAllowance,
     		double unionFee, double unionFeeKss, double lfee, double electricityRecovery, double courtRcry, double gis, double afkRent, double pfLoanRecovery, double otherDeduct,
     		double society,  double incomeTax, double licInstalAmt, double festAdvRcry,  double bankLoanRcry,  double absentAmount, double overtimeHours, String bankName, 
@@ -187,6 +225,7 @@ public class EmployeePayroll {
          processAbsentee();
          calculateDeductions();
          calculateNetPay();
+         
     }
     
 //    Is it being used??? - Prasad
@@ -222,6 +261,43 @@ public class EmployeePayroll {
 //        
 //    }
 
+   /**
+     * Calculate Absent Deduction Amt
+     */
+    private void calculateAbsDedAmtCont(){
+    	this.contAbsDedAmt = 0.0;
+    	this.contAbsDedAmt = this.basic/31*this.empAbsentDays;
+    	System.out.println("{ contAbsDedAmt " + contAbsDedAmt);
+    	System.out.println("basic " + basic);
+    	System.out.println("empAbsentDays " + empAbsentDays + " }");
+    }
+    
+    private void calculateAbsDedAmtHon() {
+    	this.contAbsDedAmt = 0.0;
+    	this.contAbsDedAmt = this.basic/empPresentDays*this.empAbsentDays;
+    	System.out.println("{ contAbsDedAmt " + contAbsDedAmt);
+    	System.out.println("basic " + basic);
+    	System.out.println("empAbsentDays " + empAbsentDays + " }");
+    }
+    
+    /**
+     * Calculate Contractual TDS
+     */
+    private void calculateTDSForTenPer() {
+    	this.contTDS = 0.0;
+    	this.contTDS = ((this.basic-this.contAbsDedAmt)*10)/100;
+    	
+    }
+    
+    /**
+     * Calculate Contractual TDS
+     */
+    private void calculateTDSForOnePer() {
+    	this.contTDS = 0.0;
+    	this.contTDS = ((this.basic-this.contAbsDedAmt)*1)/100;
+    	
+    }
+   
    /**
      *
      */
@@ -440,11 +516,11 @@ public class EmployeePayroll {
 		this.employeeName = employeeName;
 	}
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 
@@ -920,6 +996,48 @@ public class EmployeePayroll {
 	}
 	public void setArrearDedu(double arrearDedu) {
 		this.arrearDedu = arrearDedu;
+	}
+	public int getEmpPresentDays() {
+		return empPresentDays;
+	}
+	public void setEmpPresentDays(int empPresentDays) {
+		this.empPresentDays = empPresentDays;
+	}
+	public double getContTDS() {
+		return contTDS;
+	}
+	public void setContTDS(double contTDS) {
+		this.contTDS = contTDS;
+	}
+	public double getConOtherded() {
+		return conOtherded;
+	}
+	public void setConOtherded(double conOtherded) {
+		this.conOtherded = conOtherded;
+	}
+	public double getContAbsDedAmt() {
+		return contAbsDedAmt;
+	}
+	public void setContAbsDedAmt(double contAbsDedAmt) {
+		this.contAbsDedAmt = contAbsDedAmt;
+	}
+	public int getEmpAbsentDays() {
+		return empAbsentDays;
+	}
+	public void setEmpAbsentDays(int empAbsentDays) {
+		this.empAbsentDays = empAbsentDays;
+	}
+	public String getContPan() {
+		return contPan;
+	}
+	public void setContPan(String contPan) {
+		this.contPan = contPan;
+	}
+	public String getContBankAcNumber() {
+		return contBankAcNumber;
+	}
+	public void setContBankAcNumber(String contBankAcNumber) {
+		this.contBankAcNumber = contBankAcNumber;
 	}
 
 	/*public double getOthers() {

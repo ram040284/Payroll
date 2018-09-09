@@ -47,7 +47,7 @@ public class EmpQtrController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(empQtrVO.getEmpId() != 0)
+		if(empQtrVO.getEmpId() != "0")
 			empQtrVO = new EmpQuartersService().getEmpQtrById(empQtrVO.getEmpId());
 		ModelAndView model = new ModelAndView("empQtr", "command", empQtrVO);
 		model.addObject("empQtr", empQtrVO);

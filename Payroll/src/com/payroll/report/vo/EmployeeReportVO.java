@@ -29,7 +29,7 @@ public class EmployeeReportVO implements Serializable {
   private String lastPromotionDate;
   private int departmentId;
   private int designationId;
-  private int employeeId;
+  private String employeeId;
   private String department;
   private String fullName;
   private String addressLine1;
@@ -51,13 +51,13 @@ public class EmployeeReportVO implements Serializable {
   
   private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
   
-  public EmployeeReportVO(int employeeId, String firstName, String lastName, String middleName)
+  public EmployeeReportVO(String employeeId, String firstName, String lastName, String middleName)
   {
     this.employeeId = employeeId;
     this.fullName = getName(firstName, middleName, lastName);
   }
   
-  public EmployeeReportVO(int employeeId, String firstName, String lastName, String middleName, 
+  public EmployeeReportVO(String employeeId, String firstName, String lastName, String middleName, 
 		  String pan, String aadhar, Date dob, String department, String head, String designation, 
 		  String gender, Date joiningDate)
   {
@@ -82,7 +82,7 @@ public class EmployeeReportVO implements Serializable {
     this.headName = Utils.safeTrim(head);
   }
   
-  public EmployeeReportVO(int employeeId, String firstName, String lastName, String middleName, 
+  public EmployeeReportVO(String employeeId, String firstName, String lastName, String middleName, 
 		  String email, String phone, String pan, String aadhar, Date dob, String department, 
 		  String head, String designation, String addressLine1, String addressLine2, String addressLine3, 
 		  String gender, Date joiningDate)
@@ -109,7 +109,7 @@ public class EmployeeReportVO implements Serializable {
     this.headName = Utils.safeTrim(head);
   }
   
-  public EmployeeReportVO(int employeeId, String firstName, String lastName, String middleName, String email, String phone, 
+  public EmployeeReportVO(String employeeId, String firstName, String lastName, String middleName, String email, String phone, 
 		  String pan, String aadhar, Date dob, String department, String designation, String addressLine1, String addressLine2, 
 		  String addressLine3, String gender, Date joiningDate, SalaryVO salVo)
   {
@@ -215,7 +215,7 @@ public class EmployeeReportVO implements Serializable {
     return this.designationId;
   }
   
-  public int getEmployeeId()
+  public String getEmployeeId()
   {
     return this.employeeId;
   }

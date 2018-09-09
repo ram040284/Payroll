@@ -78,7 +78,7 @@ public class EmpVarDeductionsController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if(empVarDeductions.getEmployeeId() != 0)
+		if(empVarDeductions.getEmployeeId() != "0")
 				empVarDeductions = new EmpVarDeductionsService().getEmpDeductionsById(empVarDeductions.getEmployeeId());
 			System.out.println("empVarDeductions Employee id : "+ empVarDeductions.getEmployeeId() + "empVarDeductions Department : " + empVarDeductions.getDepartmentId());
 			model = new ModelAndView("empVarDeductions", "command", empVarDeductions);

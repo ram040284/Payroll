@@ -4,16 +4,16 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class EmployeeMaster implements Serializable{
-	private int empId;
+	private String empId;
 	private int departmentId;
 	private int designationId;
 	private int headId;
 	private String status;
 	private Timestamp rowUpdDate;
-	public int getEmpId() {
+	public String getEmpId() {
 		return empId;
 	}
-	public void setEmpId(int empId) {
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 	public int getDepartmentId() {

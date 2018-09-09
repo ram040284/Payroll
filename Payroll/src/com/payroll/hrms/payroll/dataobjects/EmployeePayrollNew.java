@@ -10,7 +10,7 @@ import com.payroll.employee.salary.vo.EmployeeSalary;
  * Created by rajendra on 12/7/17.
  */
 public class EmployeePayrollNew {
-	private int employeeId;
+	private String employeeId;
 	private EmployeeSalary employeeSalary;
 	private EmployeePayrollEarnings employeePayrollEarnings;
 	private EmployeePayrollDeductions employeePayrollDeductions;
@@ -21,11 +21,11 @@ public class EmployeePayrollNew {
 	private double totalGrossPay;
 	private double netPay;
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 

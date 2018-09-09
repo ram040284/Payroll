@@ -10,7 +10,7 @@
     </id>  
     <property name="userName" column="USR_NAME"  not-null="true" />
     <property name="password" column="USR_PWD" not-null="true"/>
-    <property name="empId" column="EMP_ID" type="integer" />
+    <property name="empId" column="EMP_ID" type="string" />
     <property name="deptIds" column="DEPT_IDS"/>
     <property name="rowUpdatedDate" column="ROW_UPD_DATE" not-null="true"/>
     <property name="status" column="STATUS" />

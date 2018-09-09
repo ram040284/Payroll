@@ -12,7 +12,7 @@ import com.payroll.employee.salary.dataobjects.Salary;
 
 public class TestData {
 		
-	public static Salary getSalary(int empId){
+	public static Salary getSalary(String empId){
 		Salary sal = new Salary();
 		sal.setBasic(0);
 		sal.setGradePay(0);
@@ -33,7 +33,7 @@ public class TestData {
 		return pf;
 	}*/
 	
-	public static EmpLic getEmpLic(int empId){
+	public static EmpLic getEmpLic(String empId){
 		EmpLic empLic = new EmpLic();
 		empLic.setEmployeeId(empId);
 		empLic.setPaymentAmount(0);
@@ -42,7 +42,7 @@ public class TestData {
 		return empLic;
 	}
 	
-	public static EmpAllowance getAllowance(int empId){
+	public static EmpAllowance getAllowance(String empId){
 		EmpAllowance alw = new EmpAllowance();
 		alw.setCca(0);
 
@@ -56,7 +56,7 @@ public class TestData {
 		return alw;
 	}
 	
-	public static EmpDeductions getEmpDeductions(int empId){
+	public static EmpDeductions getEmpDeductions(String empId){
 		EmpDeductions empDeductions = new EmpDeductions();
 		empDeductions.setHomeLoanIntrst88EE(0);
 		empDeductions.setSection80C(0);
@@ -77,7 +77,7 @@ public class TestData {
 		return empDeductions;
 	}
 	*/
-	public static BankVO getBAnkDetails(int empId){
+	public static BankVO getBAnkDetails(String empId){
 		return new BankVO(0, "", ""); 
 				
 	}

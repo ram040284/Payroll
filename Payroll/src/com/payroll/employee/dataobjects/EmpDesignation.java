@@ -8,7 +8,7 @@ import com.payroll.designation.dataobjects.Designation;
 
 public class EmpDesignation implements Serializable{
 	
-	private int employeeId;
+	private String employeeId;
 	private int designationId;
 	private Date startDate;
 	private Date lastWokingDate;
@@ -17,10 +17,10 @@ public class EmpDesignation implements Serializable{
 	private Employee employee;
 	private Designation designation;
 	
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int empId) {
+	public void setEmployeeId(String empId) {
 		this.employeeId = empId;
 	}
 	public int getDesignationId() {

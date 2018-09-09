@@ -12,16 +12,16 @@ public class Advance {
 	private int designationId;
 	private Double advanceAmount;
 	private String paymentDate;
-	private int empId;
+	private String empId;
 	private String departmentName;
 	private String designationName;
 	private String fullName;
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	
-	public int getEmpId() {
+	public String getEmpId() {
 		return empId;
 	}
-	public void setEmpId(int empId) {
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 	public String getDepartmentName() {
@@ -36,7 +36,7 @@ public class Advance {
 	public Advance(){
 		
 	}
-	public Advance(int empId, String fName, String lName, int deptId, String deptName, 
+	public Advance(String empId, String fName, String lName, int deptId, String deptName, 
 			int desgId, String desgName, Date paymentDate, Double advanceAmount){
 		this.empId = empId;
 		this.departmentId = deptId;

@@ -12,7 +12,7 @@ public class EmpAllowanceReportVO implements Serializable {
   private String designation;
   private int departmentId;
   private int designationId;
-  private int employeeId;
+  private String employeeId;
   private String department;
   private String fullName;
   private String headName;
@@ -36,7 +36,7 @@ public class EmpAllowanceReportVO implements Serializable {
   
   private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
   
-  public EmpAllowanceReportVO(int employeeId, String firstName, String lastName, String middleName, 
+  public EmpAllowanceReportVO(String employeeId, String firstName, String lastName, String middleName, 
 		  double cca, double wa,  double npa, double ua, double fpa, double cycleAlwance, boolean hraFlag, 
 		  String deptName, String headName, String designation, double otherAllowance, double tAllowance)
   {
@@ -92,7 +92,7 @@ public class EmpAllowanceReportVO implements Serializable {
     return this.designationId;
   }
   
-  public int getEmployeeId()
+  public String getEmployeeId()
   {
     return this.employeeId;
   }

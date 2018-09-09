@@ -18,7 +18,7 @@ public class LeaveService {
 	public static final String LEAVE_TYPES[] = {"Casual Leave", "Sick Leave", "Half Paid Leave", 
 			"Earned Leave", "Maternity Leave", "Paternity Leave", "Extraordinary Leave"};
 	public static final String SHORT_LEAVE_TYPES[] = {"CL", "SL", "PL", "EL", "MTL", "PTL", "EXL"};
-	int empId;
+	String empId;
 	
 	public Map getLeaveTypes(String gender) {
 		Map leaveMap = new LinkedHashMap();
@@ -90,7 +90,7 @@ public class LeaveService {
 		return new LeaveDAO().addLeaveRequest(leaveRequest);
 	}
 	
-	public LeaveVO getLeaveByIde(int empId){
+	public LeaveVO getLeaveByIde(String empId){
 		LeaveVO empLeave = null;
 		List<LeaveVO> listVO = new LeaveDAO().getEmpLeave(empId);
 		LeaveVO leaveDBVO = null;
@@ -107,7 +107,7 @@ public class LeaveService {
 		return empLeave;
 	}
 	
-	public LeaveVO getLeaveDetailsById(int empId){
+	public LeaveVO getLeaveDetailsById(String empId){
 		LeaveVO empLeave = null;
 		List<LeaveVO> listVO = new LeaveDAO().getEmpLeave(empId);
 		LeaveVO leaveDBVO = null;
@@ -128,7 +128,7 @@ public class LeaveService {
 		return empLeave;
 	}
 	
-	public Leave getLeaveDetailsByLeaveType(int empId, String leaveType){
+	public Leave getLeaveDetailsByLeaveType(String empId, String leaveType){
 		
 		int leaveTypeId = 0;
 		
@@ -223,11 +223,11 @@ public class LeaveService {
 		return leave;
 	}
 	
-	public String deleteLeave(int empId){
+	public String deleteLeave(String empId){
 		return new LeaveDAO().deleteEmpLeave(empId);
 	}
 	
-	public List<LeaveVO> getEmpAvailableLeaves(int empId){
+	public List<LeaveVO> getEmpAvailableLeaves(String empId){
 		return getEmpLeaves(new LeaveDAO().getLeavesByEmp(empId));
 	}
 	
@@ -235,11 +235,11 @@ public class LeaveService {
 		List<LeaveVO> empLeaves = new ArrayList<LeaveVO>();
 		int sLeave = 0, cLeave = 0, pLeave = 0, eLeave = 0,  mLeave = 0, ptLeave =0, xLeave=0;
 		String empName = null;
-		int empId = 0;
+		String empId = "0";
 		StringBuffer leaveIds = new StringBuffer("");
 		for (Iterator iterator = leaves.iterator(); iterator.hasNext();) {
 			LeaveVO leave = (LeaveVO) iterator.next();
-			if(empId == 0)
+			if(empId == "0")
 				empId = leave.getEmployeeId();
 			if(empId != leave.getEmployeeId()){
 				System.out.println("empId:"+empId+" -- leaveIds:"+leaveIds.toString());
@@ -291,7 +291,7 @@ public class LeaveService {
 			}
 		}
 		System.out.println("empId:"+empId+" -- leaveIds:"+leaveIds.toString());
-		if(empId!=0){
+		if(empId!="0"){
 			empLeaves.add(new LeaveVO(empId, empName, cLeave, pLeave, sLeave, 
 					eLeave,  mLeave, ptLeave, xLeave, leaveIds.toString()));
 		}

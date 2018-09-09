@@ -6,7 +6,7 @@ import com.payroll.Utils;
 
 public class BankVO {
 	
-	private int employeeId;
+	private String employeeId;
 	private String bankName;
 	private String ifscCode;
 	private String accountNo;
@@ -19,7 +19,7 @@ public class BankVO {
 		
 	}
 	
-	public BankVO(int empId, String fName, String lName, int bankId, String bankName, String ifscCode, String accountNo) {
+	public BankVO(String empId, String fName, String lName, int bankId, String bankName, String ifscCode, String accountNo) {
 		this.employeeId = empId;
 		StringBuffer fullNameSB = new StringBuffer(fName);
 		fullNameSB.append(" ");
@@ -37,7 +37,7 @@ public class BankVO {
 		this.bankId = bankId;
 	}
 	
-	public BankVO(int empId, int deptId, int desgId, int headId, int bankId, String bankName , String ifscCode, String accountNo) {
+	public BankVO(String empId, int deptId, int desgId, int headId, int bankId, String bankName , String ifscCode, String accountNo) {
 		this.employeeId = empId;
 		this.ifscCode = ifscCode;
 		this.bankName = bankName;
@@ -47,7 +47,7 @@ public class BankVO {
 		this.headId = headId;
 		this.bankId = bankId;
 	}
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 	public String getBankName() {

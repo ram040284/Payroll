@@ -157,7 +157,7 @@ public class EmployeeReportDAO
         return employeeList;
     } */
 
-    public SalaryVO getEmpSalary(int empId)
+    public SalaryVO getEmpSalary(String empId)
     {
         SalaryVO salVO;
         Session session;
@@ -235,7 +235,7 @@ public class EmployeeReportDAO
             for(Iterator iterator = rows.iterator(); iterator.hasNext(); empSalList.add(empSalVo))
             {
                 Object row[] = (Object[])iterator.next();
-                empSalVo = new EmpAllowanceReportVO(row[0] != null ? ((Integer)row[0]).intValue() : 0,
+                empSalVo = new EmpAllowanceReportVO((String)row[0] != null ? ((String)row[0]): "0",
                 		(String)row[1], (String)row[2], (String)row[3], 
                 		row[4] != null ? ((Double)row[4]).doubleValue() : 0.0D, 
                 		row[5] != null ? ((Double)row[5]).doubleValue() : 0.0D, 

@@ -17,11 +17,11 @@ public class SalaryService {
 		return new SalaryDAO().addUpdateSalary(salary);
 	}
 	
-	public SalaryVO getEmpSalary(int empId){
+	public SalaryVO getEmpSalary(String empId){
 		return new SalaryDAO().getEmpSalary(empId);
 	}
 	
-	public String deleteSalary(int empId){
+	public String deleteSalary(String empId){
 		return new SalaryDAO().deleteEmpSal(empId);
 	}
 	public DaHra getDaHra(){
@@ -35,7 +35,7 @@ public class SalaryService {
 	 * @param employeeId
 	 * @return
 	 */
-	public double calculateEmployeeGrossSalary(int employeeId){
+	public double calculateEmployeeGrossSalary(String employeeId){
 		double empGrossSalary = 0.0;
 		SalaryVO empSalary =new SalaryDAO().getEmpSalary(employeeId);
 		double totalAllowance = new EmpAllowanceService().getTotalEmpAllowanceById(employeeId);

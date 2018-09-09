@@ -6,7 +6,7 @@ import com.payroll.Utils;
 import com.payroll.employee.dataobjects.Employee;
 
 public class EmpFixedDeductions {
-	private int employeeId;
+	private String employeeId;
 	private double kssUnionFee;
 	private double rent;
 	private double courtRecovery;
@@ -24,7 +24,7 @@ public class EmpFixedDeductions {
 	//FIXME: Review Comments - Chetan - Review nemaing conventions
 	private double ApfAcpf;
 
-	public EmpFixedDeductions(int employeeId, String firstName, String lastName, double kssUnionFee, double rent, 
+	public EmpFixedDeductions(String employeeId, String firstName, String lastName, double kssUnionFee, double rent, 
 			 double courtRecovery, double unionFee, double gis, double additionalPF, double ApfAcpf){
 		this.employeeId = employeeId;
 		this.kssUnionFee = kssUnionFee;
@@ -40,7 +40,7 @@ public class EmpFixedDeductions {
 		this.ApfAcpf = ApfAcpf;
 	}
 	
-	public EmpFixedDeductions(int employeeId, int departmentId , int designationId, int headId, double kssUnionFee, 
+	public EmpFixedDeductions(String employeeId, int departmentId , int designationId, int headId, double kssUnionFee, 
 			double rent, double courtRecovery, double unionFee, double gis, double additionalPF, double ApfAcpf){
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
@@ -55,11 +55,11 @@ public class EmpFixedDeductions {
 		this.ApfAcpf = ApfAcpf;
 	}
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 

@@ -19,6 +19,12 @@ $(document).ready(function() {
 	<%--$('#monthDate').datepick({dateFormat: 'dd/mm/yyyy'});--%>
 });
 function generatePaybill(){
+	var radioChecked = $("input[name='billType']:checked").val();
+	if(radioChecked < 1){
+		alert('Bill Type must be selected!');
+		$("input[name='billType']").focus();
+		return false;
+	}
 	if($('#departmentId').val() == ""){
 		alert('Department Section must be provided to generate Bill!');
 		$('#departmentId').focus();
@@ -126,10 +132,18 @@ function getHeadsByDept(deptId) {
 <div style="margin-top:0px;">
 	<form method = "POST" action = "../Payroll/employee" name="paybillForm">
 	<%--<div  class="col-sm-12" style="margin-top:0px; margin-bottom:10px; padding-top:5px; padding-bottom:10px;float: left;"> --%>
-	<div class="panel panel-primary" style="width: 40%; margin-left: 25%;">
+	<div class="panel panel-primary" style="width: 45%; margin-left: 25%;">
     	<div class="panel-heading" style="margin:0px;padding:10px;background-color: #8B9DC3; font-size: 1.2em;"><b>Paybill Report</b></div>
 		<div  class="panel-body formDiv" style="padding:5px;margin:0px; width: 100%;">
 		<div style="margin-left: 10px;">
+	<div class="row">
+			<div class="col-sm-10 form-group">
+				<label style="margin-top: 10px;">Bills Type: </label> 
+				<input type="radio" name= "billType" style="margin-left: 8px;" checked="checked" value="1"/> Permanent
+				<input type="radio" name= "billType" style="margin-left: 8px;" value="2"/> Contract
+				<input type="radio" name= "billType" style="margin-left: 8px;" value="3"/> Honorary
+			</div>
+		</div>
 	<div class="row">
 		<div class="col-sm-6 form-group">
 			<label>Department Section: </label> 

@@ -10,7 +10,7 @@ import com.payroll.employee.dataobjects.Employee;
 public class EmpAdvances implements Serializable{
 	
 	private int advanceId;
-	private int employeeId;
+	private String employeeId;
 	private Employee employee;
 	private Advance advance;
 	private double advBalAmount;
@@ -26,10 +26,10 @@ public class EmpAdvances implements Serializable{
 	public void setAdvanceId(int advanceId) {
 		this.advanceId = advanceId;
 	}
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 	public Employee getEmployee() {

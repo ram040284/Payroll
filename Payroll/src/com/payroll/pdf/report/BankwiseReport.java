@@ -19,9 +19,9 @@ public class BankwiseReport extends PaybillPdfRep{
 	public void bankwireReport(Document doc, List<PaybillDetails> paybillDetails, String imgPath){
 		PaybillDetails totPBDetails = new PaybillDetails();
 		try{
-			String watermarkImg = imgPath+"//CBK_Logo.png";
+			String watermarkImg = imgPath+"//CBK_Logo_min.png";
 	        doc.add(PdfUtils.getWaterMarkImg(watermarkImg));
-	        String logoImg = imgPath+"//logo_new.jpg";
+	        String logoImg = imgPath+"//logo_new_min.jpg";
 	        doc.add(PdfUtils.getMainHeader(logoImg));
 	        
 	        DottedLineSeparator dottedline = new DottedLineSeparator();

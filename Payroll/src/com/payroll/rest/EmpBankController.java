@@ -81,7 +81,7 @@ public class EmpBankController {
 				e.printStackTrace();
 			}
 			BankVO bankVO = null; 
-			bankVO = (bank.getEmployeeId() !=0) ? new BankService().getBankByEmpId(bank.getEmployeeId()): new BankVO();
+		bankVO = (bank.getEmployeeId() !="0") ? new BankService().getBankByEmpId(bank.getEmployeeId()): new BankVO();
 			model = new ModelAndView("bank", "command", bankVO);
 			model.addObject("bank", bankVO);
 			model.addObject("departments", depJSON);

@@ -25,6 +25,7 @@ public class PaybillDAO {
 		this.deptId = deptId;
 	}
 	public String addPaybill(Paybill paybill){
+		System.out.println("paybill.getEmployeeId() " + paybill.getEmployeeId());
 		String result = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -33,6 +34,7 @@ public class PaybillDAO {
 			transaction = session.beginTransaction();
 			Employee employee = (Employee)session.load(Employee.class, paybill.getEmployeeId());
 			paybill.setEmployee(employee);
+			paybill.setConOtherded(0);
 			paybill.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 			session.save(paybill);
 			transaction.commit();
@@ -51,22 +53,23 @@ public class PaybillDAO {
 		return result;
 	}
 	
-	public List<Paybill> getPaybillsByDept(int headId, boolean bankWise){
+	public List<Paybill> getPaybillsByDept(int headId, boolean bankWise, int billType){
 		this.headId = headId;
 		this.isBankWise = bankWise;
-		return getPaybillsByDept(deptId);
+		return getPaybillsByDept(deptId, billType);
 	}
 	
 	public List<Paybill> getPaybillsByBank(int deptId){
 		
-		return getPaybillsByDept(deptId);
+		return getPaybillsByDept(deptId, 1);
 	}
 	
-	public List<Paybill> getPaybillsByDept(int deptId){
+	public List<Paybill> getPaybillsByDept(int deptId, int billType){
+		System.out.println("get paybill by dept id...");
 		List<Paybill> paybills = null;
 			Session session = null;
 			try{
-				StringBuffer queryString = new StringBuffer(" from Paybill p where ");
+				StringBuffer queryString = new StringBuffer(" from Paybill p where p.employee.employeeType = ? and ");
 				//if(!isBankWise ){
 					queryString.append("p.employee.employeeId in ");
 					if(this.headId != 0)
@@ -74,20 +77,28 @@ public class PaybillDAO {
 					else
 						queryString.append("(select eDept.employee.employeeId from EmpDepartment eDept where eDept.department.departmentId = ?) and ");
 				//}
-				queryString.append("p.month >= :startDate and p.month <= :endDate");
+				queryString.append("p.month >= :startDate and p.month <= :endDate ");
 				if(isBankWise)
 					queryString.append(" order by p.bankId asc");
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString.toString());
+				query.setParameter(0, billType);
 				//if(!isBankWise){
-					if(this.headId != 0)
-						query.setParameter(0, headId);
-					else 
-						query.setParameter(0, deptId);
+					if(this.headId != 0) {
+						query.setParameter(1, headId);
+					}
+						
+					else {
+						query.setParameter(1, deptId);
+					}
+						
 				//}
+				
 				query.setTimestamp("startDate", startDate);
 				query.setTimestamp("endDate", endDate);
 				paybills = query.list();
+				System.out.println("Report data " + paybills.toString());
+				System.out.println("**** getPaybillsByDept Query Count: " + query.list().size());
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally{
@@ -97,7 +108,7 @@ public class PaybillDAO {
 		return paybills;
 	}
 	
-	public Paybill getPaybillByEmp(int empId){
+	public Paybill getPaybillByEmp(String empId){
 		Paybill paybill = null;
 		Session session = null;
 		try{

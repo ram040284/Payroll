@@ -38,7 +38,7 @@ public class EmpQuartersDAO {
 		return qtrList;
 	}
 	
-	public EmpQuartersVO getEmpQtrById(int empId){
+	public EmpQuartersVO getEmpQtrById(String empId){
 		EmpQuartersVO empQtr = null;
 		Session session = null;
 			
@@ -105,7 +105,7 @@ public class EmpQuartersDAO {
 		return result;
 	}
 
-	private EmpQuarters checkEmpQtr(int empId, Session session){
+	private EmpQuarters checkEmpQtr(String empId, Session session){
 		EmpQuarters empQtr = null;
 		try{
 			if(session == null)
@@ -123,7 +123,7 @@ public class EmpQuartersDAO {
 		return empQtr;
 	}
 	
-	public String deleteEmpQtr(int empId){
+	public String deleteEmpQtr(String empId){
 		String result = null;
 		Session session = null;
 		try{

@@ -14,7 +14,7 @@ public class EmpLicVO {
 				+ ", departmentId=" + departmentId + ", headId=" + headId + "]";
 	}
 	
-	private int employeeId;
+	private String employeeId;
 	private double instlmtAmt;
 	private String policyNo;
 	private String paymentDate;
@@ -39,7 +39,7 @@ public class EmpLicVO {
 		this.headId = headId;
 	}
 	
-	public EmpLicVO(int empId, String fName, String lName, String policyNo, Date paymentDate,double paymentAmount) {
+	public EmpLicVO(String empId, String fName, String lName, String policyNo, Date paymentDate,double paymentAmount) {
 		this.employeeId = empId;
 		StringBuffer fullNameSB = new StringBuffer(fName);
 		fullNameSB.append(" ");
@@ -51,7 +51,7 @@ public class EmpLicVO {
 		this.paymentAmount = paymentAmount;
 	}
 
-	public EmpLicVO(int empId, int departmentId, int designationId, int headId, String policyNo, Date paymentDate, double paymentAmount) {
+	public EmpLicVO(String empId, int departmentId, int designationId, int headId, String policyNo, Date paymentDate, double paymentAmount) {
 		this.employeeId = empId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -59,10 +59,9 @@ public class EmpLicVO {
 		this.policyNo = policyNo;
 		if (paymentDate != null)
 			this.paymentDate = dateFormat.format(paymentDate);
-		this.paymentAmount = paymentAmount;
 	}
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
@@ -92,8 +91,8 @@ public class EmpLicVO {
 		this.addUpdate = addUpdate;
 	}
 
-	public void setEmployeeId(int empId) {
-		this.employeeId = empId;
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
 	}
 
 	public void setInstlmtAmt(double instlmtAmt) {

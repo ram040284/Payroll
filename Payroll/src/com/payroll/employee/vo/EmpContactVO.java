@@ -7,7 +7,7 @@ import java.util.Date;
 import com.payroll.Utils;
 
 public class EmpContactVO implements Serializable{
-	private int employeeId;
+	private String employeeId;
 	private int empContactId;
 	/*private String firstName;
 	private String lastName;
@@ -38,7 +38,7 @@ public class EmpContactVO implements Serializable{
 	public EmpContactVO() {
 		
 	}
-	public EmpContactVO(int employeeId, int empContactId, String email, String phone,   
+	public EmpContactVO(String employeeId, int empContactId, String email, String phone,   
 			String addressLine1, String addressLine2, String addressLine3, String secEmail, String secPhone,   
 			String secAddressLine1, String secAddressLine2, String secAddressLine3, String city, String state, String pin,
 			String secCity, String secState, String secPin) {
@@ -122,10 +122,10 @@ public class EmpContactVO implements Serializable{
 	public void setSecAddressLine3(String secAddressLine3) {
 		this.secAddressLine3 = secAddressLine3;
 	}
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 	public int getEmpContactId() {

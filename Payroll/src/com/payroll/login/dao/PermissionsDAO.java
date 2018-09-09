@@ -9,7 +9,7 @@ import com.payroll.HibernateConnection;
 
 public class PermissionsDAO {
 	
-	public List<String> getPermissions(int employeeId) {
+	public List<String> getPermissions(String employeeId) {
 		
 		Session session = null;
 		

@@ -8,7 +8,7 @@ import com.payroll.employee.dataobjects.Employee;
 
 public class Salary implements Serializable{
 	
-	private int employeeId;
+	private String employeeId;
 	private int year;
 	private double basic;
 	private double gradePay;
@@ -20,11 +20,13 @@ public class Salary implements Serializable{
 	private Employee employee;
 	private double incrementAmount;
 	private Date incrementDate;
+	private int empAbsentDays;
+	private int empPresentDays;
 	
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int empId) {
+	public void setEmployeeId(String empId) {
 		this.employeeId = empId;
 	}
 	public int getYear() {
@@ -99,5 +101,18 @@ public class Salary implements Serializable{
 	}
 	public void setIncrementDate(Date incrementDate) {
 		this.incrementDate = incrementDate;
+	}
+	
+	public int getEmpAbsentDays() {
+		return empAbsentDays;
+	}
+	public void setEmpAbsentDays(int empAbsentDays) {
+		this.empAbsentDays = empAbsentDays;
+	}
+	public int getEmpPresentDays() {
+		return empPresentDays;
+	}
+	public void setEmpPresentDays(int empPresentDays) {
+		this.empPresentDays = empPresentDays;
 	}
 }

@@ -6,6 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.payroll.employee.allowance.dataobjects.EmpAllowance;
+import com.payroll.employee.deductions.dataobjects.EmpDeductions;
+import com.payroll.employee.deductions.dataobjects.EmpDeductionsDAO;
+import com.payroll.employee.deductions.vo.EmpDeductionsVO;
 import com.payroll.employee.leave.dataobjects.LeaveRequest;
 import com.payroll.employee.vo.EmployeeVO;
 import com.payroll.hrms.payroll.dao.EmployeePayrollDAO;
@@ -44,22 +47,27 @@ public class EmployeePayrollService {
 		}
 		return result;
 	}
-	public boolean createPaybills(int deptId, Date date){
+	public boolean createPaybills(int deptId, Date date, int billType){
+		//System.out.println("Creating paybill...");
 		boolean success = false;
 		try{
 			EmployeePayrollDAO payrollDAO = new EmployeePayrollDAO();
+			EmpDeductionsDAO deductionsDAO = new EmpDeductionsDAO();
 			incTaxservice= new IncomeTaxCalculatorService();
 			for (Iterator iterator = empList.iterator(); iterator.hasNext();) {
 				EmployeeVO employee = (EmployeeVO) iterator.next();
-				EmployeePayroll empPayroll = payrollDAO.loadPayrollInfo(employee.getEmployeeId(), employee.getHandicapFlag(), date);
+				EmployeePayroll empPayroll = payrollDAO.loadPayrollInfo(employee.getEmployeeId(), employee.getHandicapFlag(), date, billType);
+				EmpDeductionsVO empDeductions = deductionsDAO.getEmpDeductionsById(employee.getEmployeeId());
+				if(empDeductions!=null){
+					System.out.println("empDeductions createPaybills " + empDeductions.getDonation_80G());
+				}
 				if(empPayroll!=null){
 					empPayroll.setEmployee(employee);
-					//double incomeTax = incTaxservice.getIncomeTax(employee.getEmployeeId(), date, empPayroll.getGrossPay());
-					//empPayroll.setIncomeTax(incomeTax);
-					//empPayroll.setTotalDeductions(empPayroll.getTotalDeductions() + empPayroll.getIncomeTax());
-					empPayroll.setTotalDeductions(empPayroll.getTotalDeductions());
-					//empPayroll.setNetPay(empPayroll.getNetPay() - empPayroll.getIncomeTax());
-					empPayroll.setNetPay(empPayroll.getNetPay());
+					double incomeTax = incTaxservice.getIncomeTax(employee.getEmployeeId(), date, empPayroll.getGrossPay());
+					double tax = incTaxservice.getEmpITExemptions(employee.getEmployeeId(), date, empPayroll.getGrossPay(), empDeductions);
+					empPayroll.setIncomeTax(incomeTax);
+					empPayroll.setTotalDeductions(empPayroll.getTotalDeductions() + incomeTax);
+					empPayroll.setNetPay(empPayroll.getNetPay() - incomeTax);
 					
 					addPaybill(empPayroll, date);
 				}

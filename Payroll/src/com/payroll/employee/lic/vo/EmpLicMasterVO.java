@@ -10,7 +10,7 @@ public class EmpLicMasterVO {
 				+ ", departmentId=" + departmentId + ", headId=" + headId + "]";
 	}
 
-	private int employeeId;
+	private String employeeId;
 	private double instlmtAmt;
 	private String policyNo;
 	private String fullName;
@@ -31,7 +31,7 @@ public class EmpLicMasterVO {
 		
 	}
 	
-	public EmpLicMasterVO(int empId, String fName, String lName, String policyNo, double instlmtAmt) {
+	public EmpLicMasterVO(String empId, String fName, String lName, String policyNo, double instlmtAmt) {
 		this.employeeId = empId;
 		StringBuffer fullNameSB = new StringBuffer(fName);
 		fullNameSB.append(" ");
@@ -47,7 +47,7 @@ public class EmpLicMasterVO {
 	 * @param policyNo
 	 * @param instlmtAmt
 	 */
-	public EmpLicMasterVO(int empId, int departmentId, int designationId,int headId, String policyNo,  double instlmtAmt) {
+	public EmpLicMasterVO(String empId, int departmentId, int designationId,int headId, String policyNo,  double instlmtAmt) {
 		this.employeeId = empId;
 		this.policyNo = policyNo;
 		this.departmentId = departmentId;
@@ -55,7 +55,7 @@ public class EmpLicMasterVO {
 		this.headId = headId;
 		this.instlmtAmt = instlmtAmt;
 	}
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 	public double getInstlmtAmt() {
@@ -77,7 +77,7 @@ public class EmpLicMasterVO {
 		this.addUpdate = addUpdate;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 

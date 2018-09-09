@@ -7,7 +7,7 @@ import java.util.Date;
 import com.payroll.department.dataobjects.Department;
 
 public class EmpDepartment implements Serializable{
-	int employeeId;
+	String employeeId;
 	int departmentId;
 	Date startDate;
 	private String status;
@@ -15,10 +15,10 @@ public class EmpDepartment implements Serializable{
 	private Employee employee;
 	private Department department;
 	
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int empId) {
+	public void setEmployeeId(String empId) {
 		this.employeeId = empId;
 	}
 	public int getDepartmentId() {

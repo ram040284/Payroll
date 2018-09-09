@@ -91,7 +91,7 @@ public class SalaryDAO {
 		return result;
 	}
 	
-	public SalaryVO getEmpSalary(int empId){
+	public SalaryVO getEmpSalary(String empId){
 		SalaryVO salVO = null;
 		Session session = null;
 		try{
@@ -119,8 +119,8 @@ public class SalaryDAO {
 	 * @param empId
 	 * @return
 	 */
-	public EmployeeSalary getEmployeeSalary(int empId){
-		System.out.println("Entered EmployeeSalary getEmployeeSalary(int empId) : "+ empId);
+	public EmployeeSalary getEmployeeSalary(String empId){
+		System.out.println("Entered EmployeeSalary getEmployeeSalary(String empId) : "+ empId);
 		EmployeeSalary employeeSalary = null;
 		Session session = null;
 		try{
@@ -138,7 +138,7 @@ public class SalaryDAO {
 		return employeeSalary;
 	}
 	
-	public String deleteEmpSal(int empId){
+	public String deleteEmpSal(String empId){
 		String result = null;
 		Session session = null;
 		Transaction transaction = null;
@@ -162,7 +162,7 @@ public class SalaryDAO {
 		}
 		return result;
 	}
-	private Salary checkEmpSalary(int empId, Session session){
+	private Salary checkEmpSalary(String empId, Session session){
 		Salary salary = null;
 		try{
 			if(session == null)

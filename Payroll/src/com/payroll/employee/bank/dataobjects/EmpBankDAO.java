@@ -43,7 +43,7 @@ public class EmpBankDAO {
 		return bankList;
 	}
 	
-	public BankVO getBankByEmpId(int empId){
+	public BankVO getBankByEmpId(String empId){
 		BankVO bankVO = null;
 		Session session = null;
 		
@@ -123,7 +123,7 @@ public class EmpBankDAO {
 		return result;
 	}
 
-	private EmpBank checkEmpBank(int empId, Session session){
+	private EmpBank checkEmpBank(String empId, Session session){
 		EmpBank bank = null;
 		try{
 			if(session == null)
@@ -143,7 +143,7 @@ public class EmpBankDAO {
 		return bank;
 	}
 	
-	public String deleteEmpBank(int empId){
+	public String deleteEmpBank(String empId){
 		String result = null;
 		Session session = null;
 		Transaction transaction = null;

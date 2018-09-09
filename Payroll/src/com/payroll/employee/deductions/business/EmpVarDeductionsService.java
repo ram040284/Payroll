@@ -17,11 +17,11 @@ public class EmpVarDeductionsService {
 		EmpVarDeductionsVO empVarDeductionVO = copyProperties(empVarDeductions);
 		return new EmpVarDeductionsDAO().addUpdateEmpDeductions(empVarDeductionVO);
 	}
-	public String deleteEmpDeductions(int empId){
+	public String deleteEmpDeductions(String empId){
 		return new EmpVarDeductionsDAO().deleteEmpDeductions(empId);
 	}
 	
-	public EmpVarDeductions getEmpDeductionsById(int empId){
+	public EmpVarDeductions getEmpDeductionsById(String empId){
 		return new EmpVarDeductionsDAO().getEmpVarDeductions(empId);
 	}
 	

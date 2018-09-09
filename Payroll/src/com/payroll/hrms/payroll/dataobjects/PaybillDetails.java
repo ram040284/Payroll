@@ -57,6 +57,18 @@ public class PaybillDetails {
 	private int noOfEmployees;
 	private double incomeTax;
 	private double tAllowance;
+	private int employeeType;
+	private String employeeId;
+	
+	
+	
+	//adding new columns for contratuary
+    private int empAbsentDays;
+	private int empPresentDays;
+	private double contAbsDedAmt;
+	private double contTDS;
+	private double conOtherded;
+	private String contBankAcNumber;
 	//private String gender;
 	//private String pfNumber;
 	//private String employeeNumber;
@@ -81,6 +93,8 @@ public class PaybillDetails {
 		this.employeeNumber = employeeNumber;
 	}*/
 
+	
+	
 	private List<ReportDetails> payrollList;
 	
 	public void addTotals(PaybillDetails payroll){
@@ -121,9 +135,16 @@ public class PaybillDetails {
 		elecRcry += payroll.getElecRcry();
 		courtRcry += payroll.getCourtRcry();
 		otherDeducs += payroll.getOtherDeducs();
+		employeeType +=payroll.getEmployeeType();
 		misc += payroll.getMisc();
 		incomeTax += payroll.getIncomeTax();
 		tAllowance += payroll.gettAllowance();
+		contAbsDedAmt +=payroll.getContAbsDedAmt();
+		contTDS +=payroll.getContTDS();
+		empAbsentDays += payroll.getEmpAbsentDays();
+		empPresentDays += payroll.getEmpPresentDays();
+		contBankAcNumber +=payroll.getContBankAcNumber();
+		employeeId +=payroll.getEmployeeId();
 	}
 	public void addEmployeePayroll(ReportDetails payroll){
 		if(Utils.isEmpty(deptName))
@@ -172,11 +193,30 @@ public class PaybillDetails {
 		otherDeducs += payroll.getOtherDeductions();
 		misc += payroll.getMiscAllowance();
 		tAllowance += payroll.gettAllowance();
+		employeeType +=payroll.getEmployeeType();
+		contAbsDedAmt +=payroll.getContAbsDedAmt();
+		contTDS +=payroll.getContTDS();
+		empAbsentDays += payroll.getEmpAbsentDays();
+		empPresentDays += payroll.getEmpPresentDays();
+		contBankAcNumber +=payroll.getContBankAcNumber();
+		employeeId +=payroll.getEmployeeId();
 		noOfEmployees += 1;
 		if(payrollList == null)
 			payrollList = new ArrayList<ReportDetails>();
 		payrollList.add(payroll);
 	}
+	
+	public double getTotal(){
+        return basicPay;
+    }
+	
+	public double getTDS(){
+        return contTDS;
+    }
+	
+	public double getAbsentDeduction(){
+        return contAbsDedAmt;
+    }
 	
     public double getTotalGrossPay(){
 
@@ -221,7 +261,12 @@ public class PaybillDetails {
     	return this.netPay;
     }
 
-    
+    public String getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
     public double getGradePay() {
 		return gradePay;
 	}
@@ -412,6 +457,46 @@ public class PaybillDetails {
 	public void settAllowance(double tAllowance) {
 		this.tAllowance = tAllowance;
 	}
-	
-	
+	public int getEmployeeType() {
+		return employeeType;
+	}
+	public void setEmployeeType(int employeeType) {
+		this.employeeType = employeeType;
+	}
+	public int getEmpAbsentDays() {
+		return empAbsentDays;
+	}
+	public void setEmpAbsentDays(int empAbsentDays) {
+		this.empAbsentDays = empAbsentDays;
+	}
+	public int getEmpPresentDays() {
+		return empPresentDays;
+	}
+	public void setEmpPresentDays(int empPresentDays) {
+		this.empPresentDays = empPresentDays;
+	}
+	public double getContAbsDedAmt() {
+		return contAbsDedAmt;
+	}
+	public void setContAbsDedAmt(double contAbsDedAmt) {
+		this.contAbsDedAmt = contAbsDedAmt;
+	}
+	public double getContTDS() {
+		return contTDS;
+	}
+	public void setContTDS(double contTDS) {
+		this.contTDS = contTDS;
+	}
+	public double getConOtherded() {
+		return conOtherded;
+	}
+	public void setConOtherded(double conOtherded) {
+		this.conOtherded = conOtherded;
+	}
+	public String getContBankAcNumber() {
+		return contBankAcNumber;
+	}
+	public void setContBankAcNumber(String contBankAcNumber) {
+		this.contBankAcNumber = contBankAcNumber;
+	}
 }

@@ -6,7 +6,8 @@ import java.util.Date;
 
 public class Employee implements Serializable{
 	
-	private int employeeId;
+	private int employeeType;
+	private String employeeId;
 	private int departmentId;
 	private int headId;
 	private int designationId;
@@ -34,6 +35,8 @@ public class Employee implements Serializable{
 
 	
 	
+	
+	
 	public Date getRetirementDate() {
 		return retirementDate;
 	}
@@ -42,11 +45,11 @@ public class Employee implements Serializable{
 		this.retirementDate = retirementDate;
 	}
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 
@@ -190,7 +193,7 @@ public class Employee implements Serializable{
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "FName:"+this.firstName+", lName:"+this.lastName+", desigId:"+this.designationId+", "
-				+ "departId:"+this.departmentId+", email:"+this.email+", phone:"+this.phone;
+				+ "departId:"+this.departmentId+", email:"+this.email+", phone:"+this.phone+", employeeType:"+this.employeeType;
 	}
 
 	public String getAddressLine2() {
@@ -247,5 +250,13 @@ public class Employee implements Serializable{
 
 	public void setHandicapFlag(byte handicapFlag) {
 		this.handicapFlag = handicapFlag;
+	}
+	
+	public int getEmployeeType() {
+		return employeeType;
+	}
+
+	public void setEmployeeType(int employeeType) {
+		this.employeeType = employeeType;
 	}
 }

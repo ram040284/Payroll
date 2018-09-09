@@ -15,14 +15,14 @@ public class EmpAllowanceService {
 	public String addUpdateEmpAllowance(EmpAllowance empAllowance){
 		return new EmpAllowanceDAO().addUpdateEmpAllowance(empAllowance);
 	}
-	public String deleteEmpAllowance(int empId){
+	public String deleteEmpAllowance(String empId){
 		return new EmpAllowanceDAO().deleteEmpAllowance(empId);
 	}
-	public EmpAllowanceVO getEmpAllowanceById(int empId){
+	public EmpAllowanceVO getEmpAllowanceById(String empId){
 		return new EmpAllowanceDAO().getEmpAllowanceById(empId);
 	}
 	
-	public double getTotalEmpAllowanceById(int empId){
+	public double getTotalEmpAllowanceById(String empId){
 		EmpAllowanceVO empAllowanceVO = new EmpAllowanceDAO().getEmpAllowanceById(empId);
 		double totalEmpAllowance = empAllowanceVO.getCca() + empAllowanceVO.getCycleAlwance()+empAllowanceVO.getFamilyPlanAlwance() +empAllowanceVO.getNonPracAwance() +
 				empAllowanceVO.getUniformAlwance() + empAllowanceVO.getWashingAlwance() + empAllowanceVO.getOtherAllowance();

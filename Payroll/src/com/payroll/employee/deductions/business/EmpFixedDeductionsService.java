@@ -13,11 +13,11 @@ public class EmpFixedDeductionsService {
 	public String addUpdateEmpDeductions(EmpFixedDeductions empFixedDeductions){
 		return new EmpFixedDeductionsDAO().addUpdateEmpDeductions(empFixedDeductions);
 	}
-	public String deleteEmpDeductions(int empId){
+	public String deleteEmpDeductions(String empId){
 		return new EmpFixedDeductionsDAO().deleteEmpDeductions(empId);
 	}
 	
-	public EmpFixedDeductions getEmpDeductionsById(int empId){
+	public EmpFixedDeductions getEmpDeductionsById(String empId){
 		return new EmpFixedDeductionsDAO().getEmpFixedDeductions(empId);
 	}
 }

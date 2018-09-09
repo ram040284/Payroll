@@ -37,7 +37,7 @@ public class EmpAllowanceDAO {
 		return empAllowanceList;
 	}
 	
-	public EmpAllowanceVO getEmpAllowanceById(int empId){
+	public EmpAllowanceVO getEmpAllowanceById(String empId){
 		EmpAllowanceVO empAllowanceVO = null;
 			Session session = null;
 			try{
@@ -67,7 +67,7 @@ public class EmpAllowanceDAO {
 	 * @param empId
 	 * @return
 	 */
-	public EmployeeAllowances getEmployeeAllowances(int empId){
+	public EmployeeAllowances getEmployeeAllowances(String empId){
 		EmployeeAllowances employeeAllowances = null;
 			Session session = null;
 			//FIXME - Review Comments - Chetan: Review below query
@@ -79,7 +79,7 @@ public class EmpAllowanceDAO {
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, empId);
 				query.setParameter(1, "A");
-				System.out.println("EmployeeAllowances getEmployeeAllowances(int empId): "+ empId);
+				//System.out.println("EmployeeAllowances getEmployeeAllowances(int empId): "+ empId);
 				employeeAllowances = (EmployeeAllowances)(!(query.list().isEmpty()) ? query.list().get(0) : null);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -89,7 +89,7 @@ public class EmpAllowanceDAO {
 		return employeeAllowances;
 	}
 
-	public String deleteEmpAllowance(int empId){
+	public String deleteEmpAllowance(String empId){
 		String result = null;
 		Session session = null;
 		Transaction transaction = null;

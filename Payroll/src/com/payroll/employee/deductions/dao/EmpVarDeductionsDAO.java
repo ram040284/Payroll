@@ -38,7 +38,32 @@ public class EmpVarDeductionsDAO {
 	 * @param empId
 	 * @return
 	 */
-	public EmpVarDeductions getEmpVarDeductions(int empId){
+	
+	/**
+	 * 
+	 * @param empId
+	 * @return
+	 */
+	public EmployeeVarDeductions getEmployeeVarDeductions(String empId){
+		EmployeeVarDeductions employeeVarDeductions = null;
+		Session session = null;
+			try{
+				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions(s.employeeId, s.afkRent, s.society, s.pfLoanRecovery, s.otherDeductions,s.miscRecovery, s.monthDate, s.incomeTax, s.absenties) from EmpVarDeductionsVO s where s.employeeId = ? and s.status = ?";		
+				
+				session = HibernateConnection.getSessionFactory().openSession();
+				Query query = session.createQuery(queryString);
+				query.setParameter(0, empId);
+				query.setParameter(1, "A");
+				employeeVarDeductions = (EmployeeVarDeductions)(!(query.list().isEmpty())?query.list().get(0):null);
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				HibernateConnection.closeSession(session);
+			}
+		return employeeVarDeductions;
+	}
+	
+	public EmpVarDeductions getEmpVarDeductions(String empId){
 		EmpVarDeductions empVarDeductions = null;
 		Session session = null;
 			try{
@@ -66,7 +91,7 @@ public class EmpVarDeductionsDAO {
 	 * @param empId
 	 * @return
 	 */
-	public EmployeeVarDeductions getEmployeeVarDeductions(int empId){
+	public EmployeeVarDeductions getEmpVarDeductionsNew(String empId){
 		EmployeeVarDeductions employeeVarDeductions = null;
 		Session session = null;
 			try{
@@ -105,7 +130,7 @@ public class EmpVarDeductionsDAO {
 //	}
 
 	
-	public EmpVarDeductions getEmpDeductionsByEmpId(int empId){
+	public EmpVarDeductions getEmpDeductionsByEmpId(String empId){
 		EmpVarDeductions empDeductions = null;
 		Session session = null;
 			
@@ -126,7 +151,7 @@ public class EmpVarDeductionsDAO {
 		return empDeductions;
 	}
 	
-	public String deleteEmpDeductions(int empId){
+	public String deleteEmpDeductions(String empId){
 		String result = null;
 		Session session = null;
 		try{

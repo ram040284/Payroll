@@ -9,7 +9,7 @@ import com.payroll.employee.dataobjects.Employee;
 
 public class EmpBank implements Serializable{
 	
-	private int employeeId;
+	private String employeeId;
 	private String bankName;
 	private String ifscCode;
 	private String accountNo;
@@ -20,10 +20,10 @@ public class EmpBank implements Serializable{
 	private BankDetails bankDetails;
 	private int bankId;
 	
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int empId) {
+	public void setEmployeeId(String empId) {
 		this.employeeId = empId;
 	}
 	public String getBankName() {

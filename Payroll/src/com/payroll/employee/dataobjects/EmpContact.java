@@ -8,7 +8,7 @@ public class EmpContact implements Serializable{
 	
 	private Employee employee;
 	private int empContactId;
-	private int employeeId;
+	private String employeeId;
 	private String email;
 	private String phone;
 	private String addressLine1;
@@ -142,10 +142,10 @@ public class EmpContact implements Serializable{
 	public void setSecPin(String secPin) {
 		this.secPin = secPin;
 	}
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 }

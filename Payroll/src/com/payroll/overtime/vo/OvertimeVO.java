@@ -7,7 +7,7 @@ import com.payroll.Utils;
 
 public class OvertimeVO {
 	
-	private int employeeId;
+	private String employeeId;
 	private int departmentId;
 	private int designationId;
 	private int headId;
@@ -27,7 +27,7 @@ public class OvertimeVO {
 		
 	}
 	
-	public OvertimeVO(int overtimeId, int empId, int deptId, int desgId, int headId, String overtimeOrder, 
+	public OvertimeVO(int overtimeId, String empId, int deptId, int desgId, int headId, String overtimeOrder, 
 			double overtimeHours, Date overtimeDate, Double overtimeAmount,Double overtimeDayHours){
 		this.employeeId = empId;
 		this.overtimeId = overtimeId;
@@ -42,7 +42,7 @@ public class OvertimeVO {
 		this.headId = headId;
 	}
 	
-	public OvertimeVO(int overtimeId, int empId, String fName, String lName, String overtimeOrder, 
+	public OvertimeVO(int overtimeId, String empId, String fName, String lName, String overtimeOrder, 
 			double overtimeHours, Date overtimeDate, Double overtimeAmount,Double overtimeDayHours){
 		this.employeeId = empId;
 		this.overtimeOrder = overtimeOrder;
@@ -59,10 +59,10 @@ public class OvertimeVO {
 	}
 	
 	
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int empId) {
+	public void setEmployeeId(String empId) {
 		this.employeeId = empId;
 	}
 	public int getDepartmentId() {

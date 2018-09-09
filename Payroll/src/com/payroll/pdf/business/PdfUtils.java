@@ -94,6 +94,50 @@ public class PdfUtils {
 			"Total Deductions", "Netpay"};
 	public static final String[] MTHLY_RPT_HEAD = {"S. No.", "Description", "Current Month - ", "Last Month - ", "Difference"};
 	public static final String NOOFEMPS = "No. of Employees:";
+	
+	//Contractual report fields
+	public static final String SR_NO = "Sr. No";
+	public static final String OO_No = "OO No";
+	public static final String RS_PER_MONTH = "Rs Per Month";
+	public static final String ABS_DAYS = "Abs Days";
+	public static final String NO_OF_DAYS = "No. of Days";
+	public static final String PRESENT_DAY = "Present Day";
+	public static final String ABS_DED_AMT = "ABs ded amount";
+	public static final String ABS_DED_TOTAL_AMT = "ABs ded total amount";
+	public static final String TDS = "TDS";
+	public static final String TOT_TDS = "Total TDS";
+	public static final String OTHER_DED = "Other Deduction";
+	public static final String TOTAL_PAY = "Total Pay";
+	public static final String REMARK = "Remark";
+	
+	//Honorary report fields
+	public static final String PROF_TAX = "Prof. Tax";
+	public static final String SECCODE = "Sec Code";
+	public static final String CODE = "Code";
+	public static final String DESIGN = "Designation";
+	public static final String PAY = "Pay";
+	public static final String OTHER = "Other";
+	public static final String ABSENT = "Absent";
+	public static final String ABS_DED = "Abs. Ded";
+	public static final String ORDER_DED = "Order. Ded";
+	public static final String NET_PAY = "Net pay";
+	public static final String BANK_CODE = "Bank code";
+	public static final String BANK_NO = "Bank No";
+	public static final String DED_REMARK = "Ded. Remark";
+	public static final String TOTAL_DED = "Tot Ded";
+	public static final String GROSSPAY = "Gross pay";
+	public static final String DA_FLAG = "Da Flag";
+	public static final String SUSPENSE = "Suspense";
+	public static final String PT_FLAG = "Pt Flag";
+	public static final String PT = "Pt";
+	public static final String DP_FLAG = "Dp flag";
+	public static final String NOD = "Nod";
+	public static final String RAYE_OF_PAY = "Rate of pay";
+	public static final String APPOINTED = "Appointed";
+	public static final String ICE_REMARK = "Ice Remark";
+	public static final String DP = "Dp";
+	
+	
 	public static com.itextpdf.text.Image getWaterMarkImg(String waterMarkImg){
 		com.itextpdf.text.Image wmarkimge = null;
 		try{

@@ -60,7 +60,7 @@ public class GeneratePaybill {
 		/*for (Iterator iterator = payrollTotals.getPayrollList().iterator(); iterator.hasNext();) {
 			EmployeePayroll employeePayroll = (EmployeePayroll) iterator.next();
 		}*/
-		return new PaybillService(deptId, null).getPayBills();
+		return new PaybillService(deptId, null).getPayBills(1);
 	}
 	
 	private void payBillByDept(List<EmployeePayroll> payrollList){

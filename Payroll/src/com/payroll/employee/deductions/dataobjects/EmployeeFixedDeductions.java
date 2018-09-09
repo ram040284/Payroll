@@ -6,7 +6,7 @@ import com.payroll.Utils;
 import com.payroll.employee.dataobjects.Employee;
 
 public class EmployeeFixedDeductions {
-	private int employeeId;
+	private String employeeId;
 	private double kssUnionFee;
 	private double rent;
 	private double courtRecovery;
@@ -38,7 +38,7 @@ public class EmployeeFixedDeductions {
 		this.rowUpdDate = rowUpdDate;
 	}
 
-	public EmployeeFixedDeductions(Integer employeeId,  Double kssUnionFee, Double rent, 
+	public EmployeeFixedDeductions(String employeeId,  Double kssUnionFee, Double rent, 
 			 Double courtRecovery, Double unionFee, Double gis, Double additionalPF, double ApfAcpf){
 		this.employeeId = employeeId;
 		this.kssUnionFee = kssUnionFee;
@@ -50,11 +50,11 @@ public class EmployeeFixedDeductions {
 		this.ApfAcpf = ApfAcpf;
 	}
 	
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 

@@ -4,7 +4,7 @@
 
 <hibernate-mapping>
 	<class name="com.payroll.employee.deductions.dataobjects.EmpVarDeductionsVO" table="EMP_VAR_DEDUCTIONS">
-		<id name="employeeId" type="java.lang.Integer">
+		<id name="employeeId" type="string">
 			<column name="EMP_ID" />
 			<generator class="foreign">
 				<param name="property">employee</param>

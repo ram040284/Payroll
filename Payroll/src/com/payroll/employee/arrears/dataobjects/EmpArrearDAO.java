@@ -119,7 +119,7 @@ public class EmpArrearDAO {
 		return result;
 	}
 	
-	public List<com.payroll.employee.arrears.dataobjects.EmpArrears> getEmpArrearList(int empId){
+	public List<com.payroll.employee.arrears.dataobjects.EmpArrears> getEmpArrearList(String empId){
 		//System.out.println("Employee id is " + empId);
 		List<com.payroll.employee.arrears.dataobjects.EmpArrears> empArrears = null;
 		Session session = null;

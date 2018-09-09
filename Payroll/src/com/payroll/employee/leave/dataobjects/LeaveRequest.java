@@ -8,7 +8,7 @@ import com.payroll.employee.dataobjects.Employee;
 
 public class LeaveRequest implements Serializable {
 
-	private int employeeId;
+	private String employeeId;
 	private int departmentId;
 	private int headId;
 	private int leaveReqId;
@@ -28,11 +28,11 @@ public class LeaveRequest implements Serializable {
 	private Employee employee;
 	private LeaveType leaveType;
 	
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 

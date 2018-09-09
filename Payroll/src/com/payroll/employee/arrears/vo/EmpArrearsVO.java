@@ -8,7 +8,7 @@ import com.payroll.employee.arrears.dataobjects.EmpArrearsEnumData;
 public class EmpArrearsVO {
 	
 	private int arrearId;
-	private int employeeId;
+	private String employeeId;
 	private String arrearsType;
 	private double arrearsPay;
 	private double arrearsDeductions;
@@ -29,7 +29,7 @@ public class EmpArrearsVO {
 		
 	}
 	
-	public EmpArrearsVO(int arrearId, int employeeId, String arrearsType, double arrearsPay, double arrearsDeductions, double miscPay,
+	public EmpArrearsVO(int arrearId, String employeeId, String arrearsType, double arrearsPay, double arrearsDeductions, double miscPay,
 			double miscDeductions, String arrearsPayNote, String arrearsDeductionNote, String fName, String lName) {
 		StringBuffer fullNameSB = new StringBuffer(fName);
 		fullNameSB.append(" ");
@@ -46,7 +46,7 @@ public class EmpArrearsVO {
 		this.arrearId = arrearId;
 	}
 	
-	public EmpArrearsVO(int arrearId, int employeeId, String arrearsType, double arrearsPay, double arrearsDeductions, double miscPay,
+	public EmpArrearsVO(int arrearId, String employeeId, String arrearsType, double arrearsPay, double arrearsDeductions, double miscPay,
 			double miscDeductions, String arrearsPayNote, String arrearsDeductionNote, int departmentId, int designationId, int headId) {
 		this.arrearsType = arrearsType;
 		this.arrearsPay = arrearsPay;
@@ -129,10 +129,10 @@ public class EmpArrearsVO {
 	public void setArrearsEnumData(EmpArrearsEnumData arrearsEnumData) {
 		this.arrearsEnumData = arrearsEnumData;
 	}
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 

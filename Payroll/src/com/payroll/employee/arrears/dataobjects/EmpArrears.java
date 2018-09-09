@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import com.payroll.employee.dataobjects.Employee;
 
 public class EmpArrears implements Serializable{
-	private int employeeId;
+	private String employeeId;
 	private int arrearId;
 	private String arrearsType;
 	private double arrearsPay;
@@ -26,7 +26,7 @@ public class EmpArrears implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public EmpArrears(int employeeId, int arrearId, String arrearsType, double arrearsPay, double arrearsDeductions,
+	public EmpArrears(String employeeId, int arrearId, String arrearsType, double arrearsPay, double arrearsDeductions,
 			double miscPay, double miscDeductions, String arrearsPayNote, String arrearsDeductionNote) {
 		this.employeeId = employeeId;
 		this.arrearId = arrearId;
@@ -49,10 +49,10 @@ public class EmpArrears implements Serializable{
 		this.arrearId = arrearId;
 	}
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 	public String getArrearsType() {

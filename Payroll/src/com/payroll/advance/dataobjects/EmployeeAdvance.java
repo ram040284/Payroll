@@ -9,7 +9,7 @@ import com.payroll.employee.dataobjects.Employee;
 
 public class EmployeeAdvance {
 	
-	private int employeeId;
+	private String employeeId;
 	private int departmentId;
 	private int designationId;
 	private int headId;
@@ -39,7 +39,7 @@ public class EmployeeAdvance {
 	}
 
 
-	public EmployeeAdvance(int advanceId,int employeeId, int departmentId, int designationId, int headId, 
+	public EmployeeAdvance(int advanceId,String employeeId, int departmentId, int designationId, int headId, 
 			String advanceName, double advanceAmount,  Date advanceDate, double installAmount, Date installStartDate) {
 		super();
 		this.employeeId = employeeId;
@@ -56,7 +56,7 @@ public class EmployeeAdvance {
 			this.installStartDate = dateFormat.format(installStartDate);
 	}
 
-	public EmployeeAdvance( int advanceId,int employeeId, String fName, String lName, String advanceName, double advanceAmount, Date advanceDate, double installAmount, Date installStartDate) {
+	public EmployeeAdvance( int advanceId,String employeeId, String fName, String lName, String advanceName, double advanceAmount, Date advanceDate, double installAmount, Date installStartDate) {
 		super();
 		this.advanceId = advanceId;
 		this.employeeId = employeeId;
@@ -73,10 +73,10 @@ public class EmployeeAdvance {
 		this.fullName = fullNameSB.toString();
 	}
 
-	public int getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 	public int getDepartmentId() {

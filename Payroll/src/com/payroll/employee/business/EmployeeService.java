@@ -66,10 +66,14 @@ public class EmployeeService {
 		return new EmployeeDAO().getEmployeesByDesgId(desgId);
 	}
 	
+	public List<EmployeeVO> getAllEmployees(){
+		return new EmployeeDAO().getAllEmployees();
+	}
+	
 	public String addUpdateEmployee(com.payroll.employee.Employee emp){
 		return new EmployeeDAO().addUpdateEmployee(copyEmp(emp));
 	}
-	public com.payroll.employee.Employee getEmployeeById(int empId){
+	public com.payroll.employee.Employee getEmployeeById(String empId){
 		return copyDBEmp(new EmployeeDAO().getEmployeeById(empId));
 	}
 	
@@ -77,14 +81,14 @@ public class EmployeeService {
 		return new EmployeeDAO().getEmployeeByEmployeeId(id);
 	}
 	
-	public EmpContactVO getEmployeeContactDetailsById(int empId){
+	public EmpContactVO getEmployeeContactDetailsById(String empId){
 		return new EmployeeDAO().getEmployeeContactDetailsById(empId);
 	}
 	
 	public boolean addUpdateEmpContact(EmpContact empContact){
 		return new EmployeeDAO().addUpdateEmpContact(empContact);
 	}
-	public boolean deleteEmp(int empId){
+	public boolean deleteEmp(String empId){
 		return new EmployeeDAO().deleteEmp(empId);
 	}
 	private Employee copyEmp(com.payroll.employee.Employee emp){
@@ -111,6 +115,7 @@ public class EmployeeService {
 			dbEmp.setDesignationId(emp.getDesignationId());
 			dbEmp.setGender(emp.getGender());
 			dbEmp.setHeadId(emp.getHeadId());
+			dbEmp.setEmployeeType(emp.getEmployeeType());
 			if(!Utils.isEmpty(emp.getRetirementDate()))
 				dbEmp.setRetirementDate(dateFormat.parse(emp.getRetirementDate()));
 			
@@ -143,6 +148,7 @@ public class EmployeeService {
 			dbEmp.setEmployeeId(emp.getEmployeeId());
 			dbEmp.setDesignationId(emp.getDesignationId());
 			dbEmp.setGender(emp.getGender());
+			dbEmp.setEmployeeType(emp.getEmployeeType());
 			System.out.println("headId:"+emp.getHeadId());
 			dbEmp.setHeadId(emp.getHeadId());
 			dbEmp.setRetirementDate(emp.getRetirementDate());

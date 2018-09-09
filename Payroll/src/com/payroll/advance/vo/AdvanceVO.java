@@ -12,17 +12,17 @@ public class AdvanceVO {
 	private int designationId;
 	private Double advanceAmount;
 	private String paymentDate;
-	private int empId;
+	private String empId;
 	private String advanceName;
 	private String departmentName;
 	private String designationName;
 	private String fullName;
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	
-	public int getEmpId() {
+	public String getEmpId() {
 		return empId;
 	}
-	public void setEmpId(int empId) {
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 	public String getDepartmentName() {
@@ -47,7 +47,7 @@ public class AdvanceVO {
 			
 	}
 
-	public AdvanceVO(int empId, String fName, String lName, int deptId, String deptName, 
+	public AdvanceVO(String empId, String fName, String lName, int deptId, String deptName, 
 			int desgId, String desgName, Date paymentDate, Double advanceAmount){
 		this.empId = empId;
 		this.departmentId = deptId;

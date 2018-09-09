@@ -103,10 +103,11 @@ public class EmployeeController {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				if(employee.getEmployeeId() !=0){
+			if(!employee.getEmployeeId().equalsIgnoreCase("0")){
 					employee = new EmployeeService().getEmployeeById(employee.getEmployeeId());
+				//System.out.println("employee type is :"+employee.getEmployeeType());
 				}
-				System.out.println("employee:"+employee);
+			//System.out.println("employee type is :"+employee.getEmployeeType());
 				  
 				model = new ModelAndView("employee", "command", employee);
 				model.addObject(employee);
@@ -238,7 +239,7 @@ public class EmployeeController {
 	   @RequestMapping(value = "/viewEmpContact", method = RequestMethod.POST)
 	   public ModelAndView  viewEmpContact(HttpServletRequest request, SearchCriteria employee) {
 		   EmpContactVO empContactVO = null;
-			if(employee.getEmployeeId() !=0){
+			if(!employee.getEmployeeId().equalsIgnoreCase("0")){
 				empContactVO = new EmployeeService().getEmployeeContactDetailsById(employee.getEmployeeId());
 			} 
 			if (empContactVO == null){
@@ -255,7 +256,7 @@ public class EmployeeController {
 	   @RequestMapping(value = "/addUpdateEmpContact", method = RequestMethod.POST)
 	   public ModelAndView  addUpdateEmpContact(EmpContact empContact, SearchCriteria employee) {
 		   boolean result = false;
-			if(empContact.getEmployeeId() !=0){
+			if(empContact.getEmployeeId() !="0"){
 				result = new EmployeeService().addUpdateEmpContact(empContact);
 			} 
 			System.out.println(empContact.getEmployeeId() +" :result:"+result);

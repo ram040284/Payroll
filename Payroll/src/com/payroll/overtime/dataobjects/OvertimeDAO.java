@@ -66,7 +66,7 @@ public class OvertimeDAO {
 	 * @param overtimeId
 	 * @return
 	 */
-	public List<OvertimeVO> getOvertimeByEmpId(int employeeId){
+	public List<OvertimeVO> getOvertimeByEmpId(String employeeId){
 		List<OvertimeVO> overtime = null;
 		Session session = null;
 		try{

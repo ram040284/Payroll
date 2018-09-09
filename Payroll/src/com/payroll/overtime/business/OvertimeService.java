@@ -24,7 +24,7 @@ public class OvertimeService {
 	 * @param overtime
 	 * @return
 	 */
-	public List<OvertimeVO> getOvertimeByEmpId(int employeeId){
+	public List<OvertimeVO> getOvertimeByEmpId(String employeeId){
 		return new OvertimeDAO().getOvertimeByEmpId(employeeId);
 	}
 	

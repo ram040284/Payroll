@@ -34,7 +34,7 @@ public class EmployeeDAO {
 					+ "(select desg.designationName from Designation desg where desg.designationId = "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId)), "
 					//+ "e.addressLine1, e.addressLine2, e.addressLine3, e.gender, e.joiningDate) from Employee e where e.status= ?");
-					+ "e.gender, e.joiningDate, e.retirementDate, e.handicapFlag) from Employee e where e.status= ?");
+					+ "e.gender, e.joiningDate, e.retirementDate, e.handicapFlag, e.employeeType) from Employee e where e.status= ?");
 
 			
 			if(deptId != 0)
@@ -68,6 +68,26 @@ public class EmployeeDAO {
 		return employeeList;
 	}
 	
+	public List<EmployeeVO> getAllEmployees(){
+		List<EmployeeVO> empList = null;
+		Session session = null;
+		try{
+			String queryString = "select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName) from Employee e "
+					+ "where e.status = ?";
+			session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, "A");
+			empList = query.list();
+			if(!empList.isEmpty())
+				System.out.println("getAllEmployees Size:"+empList.size());
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return empList;
+	}
+	
 	public List<EmployeeVO> getEmployees(int deptId, int desgId){
 		List<EmployeeVO> employeeList = null;
 		Session session = null;
@@ -93,7 +113,7 @@ public class EmployeeDAO {
 		return employeeList;
 	}
 	
-	public Employee getById(int empId){
+	public Employee getById(String empId){
 		Session session = null;
 		Employee employee = null;
 		try{
@@ -111,7 +131,7 @@ public class EmployeeDAO {
 		return employee;
 	}
 	
-	public EmployeeVO getEmployeeById(int empId){
+	public EmployeeVO getEmployeeById(String empId){
 		//Session session = null;
 		EmployeeVO employee = null;
 		try{
@@ -122,7 +142,7 @@ public class EmployeeDAO {
 					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = e.employeeId), "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId), "
 					//+ "e.addressLine1, e.addressLine2, e.addressLine3, "
-					+ "e.gender, e.joiningDate, e.retirementDate, e.handicapFlag) from Employee e where e.employeeId = ? and e.status = ?";		
+					+ "e.gender, e.joiningDate, e.retirementDate, e.handicapFlag, e.employeeType) from Employee e where e.employeeId = ? and e.status = ?";		
 			if(session == null || !session.isOpen()) 
 				session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
@@ -194,19 +214,19 @@ public class EmployeeDAO {
 	}
 	
 	
-	private EmployeeVO getEmployeeById(int empId, Session session){
+	private EmployeeVO getEmployeeById(String empId, Session session){
 		this.session = session;
 		return getEmployeeById(empId);
 	}
 	
-	public boolean deleteEmp(int empId){
+	public boolean deleteEmp(String empId){
 		boolean success = false;
 		Session session = null;
 		Transaction transaction = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			if(empId != 0){
+			if(empId != "0"){
 				Query query = session.createQuery("Update Employee e set e.status = ?, e.rowUpdatedDate = ? where e.employeeId = ?");
 				query.setParameter(0, "S");
 				query.setParameter(1, new Date());
@@ -289,7 +309,7 @@ public class EmployeeDAO {
 			Department dept = (Department)session.load(Department.class, emp.getDepartmentId());
 			HeadInfo headInfo = (HeadInfo)session.load(HeadInfo.class, emp.getHeadId());
 			Designation designation =(Designation)session.load(Designation.class, emp.getDesignationId());
-			if(emp.getEmployeeId() != 0) {
+			if(emp.getEmployeeId() != "0") {
 				EmployeeVO empDB = getEmployeeById(emp.getEmployeeId());
 
 				emp.setStatus("A");
@@ -341,24 +361,24 @@ public class EmployeeDAO {
 		return result;
 	}
 	
-	private int getMaxEmpId(Session session){
+	/*private int getMaxEmpId(Session session){
 		int maxEmpId = 0;
 		//Session session = null;
 		try{
 			if(session == null)
 				session = HibernateConnection.getSessionFactory().openSession();
 			Employee emp = (Employee)session.createQuery("select e from Employee e order by e.employeeId desc").setMaxResults(1).uniqueResult();
-			int empId = (emp != null) ? emp.getEmployeeId() : 0;
+			String empId = (emp != null) ? emp.getEmployeeId() : 0;
 			maxEmpId = empId + 1;
 			System.out.println("maxEmpId:"+maxEmpId);
 		}catch(Exception e){
 			e.printStackTrace();
 			maxEmpId = 0;
-		}/*finally {
+		}finally {
 			HibernateConnection.closeSession(session);
-		}*/
+		}
 		return maxEmpId;
-	}
+	}*/
 	public List<EmployeeVO> getEmployeesByDeptId(Integer deptId){
 		List<EmployeeVO> empList = null;
 		Session session = null;
@@ -383,7 +403,7 @@ public class EmployeeDAO {
 	 * @return
 	 */
 			
-	public EmployeeVO getEmployeeDetailsById(int empId, int deptId){
+	public EmployeeVO getEmployeeDetailsById(String empId, int deptId){
 		//Session session = null;
 		EmployeeVO employee = null;
 		try{
@@ -394,7 +414,7 @@ public class EmployeeDAO {
 					+ "(select dh.headInfo.headName from EmpHeadInfo dh where dh.employee.employeeId = e.employeeId), "
 					+ "(select eDesg.designation.designationName from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId), "
 					//+ "e.addressLine1, e.addressLine2, e.addressLine3, "
-					+ "e.gender, e.joiningDate, e.handicapFlag) from Employee e where e.employeeId = ? and e.status = ? ";		
+					+ "e.gender, e.joiningDate, e.handicapFlag, e.employeeType) from Employee e where e.employeeId = ? and e.status = ? ";		
 			if (deptId != 0) {
 				queryString += " and e.employeeId = (select eDept1.employee.employeeId from EmpDepartment eDept1 where eDept1.employee.employeeId=e.employeeId and eDept1.department.departmentId = ? )";	
 			}
@@ -421,7 +441,7 @@ public class EmployeeDAO {
 	 * @param empId
 	 * @return
 	 */
-	public EmpContactVO getEmployeeContactDetailsById(int empId){
+	public EmpContactVO getEmployeeContactDetailsById(String empId){
 		Session session = null;
 		EmpContactVO empContact = null;
 		try{
