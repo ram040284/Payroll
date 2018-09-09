@@ -22,7 +22,7 @@
                 	  		.append($('<td/>').text(taxSlab.surcharge.toFixed(2)))
                 			.append($('<td/>').text(taxSlab.educationCess.toFixed(2)))
                 			.append($('<td/>').text(taxSlab.otherCess.toFixed(2)))
-                			.append($('<td/>').append('<a href="#" onclick=viewTaxSlab('+taxSlab.incomtaxId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDesg('+taxSlab.incomtaxId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
+                			.append($('<td/>').append('<a href="#" onclick=viewTaxSlab('+taxSlab.incomtaxId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteTaxSlab('+taxSlab.incomtaxId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
                   });
               }
           });

@@ -1,0 +1,16 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>  
+  <class name="com.payroll.login.dataobjects.Permissions" table="PERMISSIONS">  
+    <id name="permissionId" type="integer" >  
+	    <column name="PERMISSION_ID" sql-type="integer" not-null="true"/>  
+	    <generator class="increment"/>
+    </id>
+    <property name="permissionName" column="PERMISSION_NAME"  not-null="true" />
+    <property name="permissionDesc" column="PERMISSION_DESC"/>
+    <property name="status" column="STATUS" />
+    <property name="rowUpdatedDate" column="ROW_UPD_DATE" not-null="true"/>
+  </class>  
+ </hibernate-mapping> 

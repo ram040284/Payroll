@@ -175,4 +175,5 @@ public class UserController
 	   userVo.setUserNameAvailabe(new UserDAO().isUserNameAvailable(userVo.getUserName().trim()));
 	   return userVo;
 	}
+  
 }

@@ -13,6 +13,9 @@ public class UserRoles implements Serializable
 	private String status;
 	private Timestamp rowUpdatedDate;
 	
+	public UserRoles() {
+	}
+	
 	public Integer getUserRoleId() {
 		return userRoleId;
 	}

@@ -12,9 +12,9 @@
    <session-factory>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="connection.url">jdbc:mysql://localhost:3306/Payroll?zeroDateTimeBehavior=convertToNull</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/payroll?zeroDateTimeBehavior=convertToNull</property>
     <property name="connection.username">root</property>
-   	<property name="connection.password">MySQL@2100</property>
+   	<property name="connection.password">password</property>
    	<property name="show_sql">true</property>
 	<mapping resource="com/payroll/employee/dataobjects/EmpContact.hbm.xml"/>
    	<mapping resource="com/payroll/department/dataobjects/Department.hbm.xml"/>
@@ -44,7 +44,9 @@
    	<mapping resource="com/payroll/advance/dataobjects/Advance.hbm.xml"/>
    	<mapping resource="com/payroll/login/dataobjects/User.hbm.xml"/>
    	<mapping resource="com/payroll/login/dataobjects/Roles.hbm.xml"/>
+   	<mapping resource="com/payroll/login/dataobjects/Permissions.hbm.xml"/>
    	<mapping resource="com/payroll/login/dataobjects/UserRoles.hbm.xml"/>
+   	<mapping resource="com/payroll/login/dataobjects/RolesPermissions.hbm.xml"/>
    	<mapping resource="com/payroll/hrms/payroll/dataobjects/Paybill.hbm.xml"/>
    	<mapping resource="com/payroll/employee/leave/dataobjects/LeaveRequest.hbm.xml"/>
    	<mapping resource="com/payroll/employee/deductions/dataobjects/EmpFixedDeductions.hbm.xml"/>

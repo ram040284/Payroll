@@ -6,10 +6,10 @@
 <div class="contain-wrapp bodyDivCss">	
 		<div class="container">
 		<c:if test="${welcomeMsg == true}">
-		<div class="row">
-		<div class="col-md-12 text-center">
-		<h3 style="color:blue;">Welcome ${sessionScope.user.employee.firstName} ${sessionScope.user.employee.lastName}!</h3>
-		</div></div>
+			<div class="row">
+			<div class="col-md-12 text-center">
+			<h3 style="color:blue;">Welcome ${sessionScope.user.employee.fullName}!</h3>
+			</div></div>
 		</c:if>
 		
 			<div class="row">

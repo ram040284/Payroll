@@ -266,21 +266,21 @@ $(document).ready(function () {
 		</li>
         <li class="news"><a href="#">Leave <i class="fa fa-angle-down" ></i></a>
           <ul>
-            <li><a href="#" onclick="inputAction('../Payroll/inputDept')">News Department</a></li>
+            <li><a href="#" onclick="inputAction('../Payroll/inputDept')">New Department</a></li>
             <li><a href="../Payroll/viewDept">List Departments</a></li>
            
           </ul>
         </li>
         <li class="news"><a href="#">Payroll <i class="fa fa-angle-down" ></i></a>
           <ul>
-            <li><a href="#" onclick="inputAction('../Payroll/inputDept')">News Department</a></li>
+            <li><a href="#" onclick="inputAction('../Payroll/inputDept')">New Department</a></li>
             <li><a href="../Payroll/viewDept">List Departments</a></li>
            
           </ul>
         </li>
         <li class="news"><a href="#">Reports <i class="fa fa-angle-down" ></i></a>
           <ul>
-            <li><a href="#" onclick="inputAction('../Payroll/inputDept')">News Department</a></li>
+            <li><a href="#" onclick="inputAction('../Payroll/inputDept')">New Department</a></li>
             <li><a href="../Payroll/viewDept">List Departments</a></li>
            
           </ul>

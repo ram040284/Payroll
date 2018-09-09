@@ -23,9 +23,14 @@ import com.payroll.employee.leave.dataobjects.Leave;
 import com.payroll.employee.leave.dataobjects.LeaveDAO;
 import com.payroll.employee.leave.dataobjects.LeaveRequest;
 import com.payroll.employee.leave.vo.LeaveVO;
+import com.payroll.login.dao.PermissionsDAO;
+import com.payroll.login.dataobjects.User;
 
 @Controller
 public class EmpLeaveController {
+	
+	String permissionForThis = null;
+	
 	@RequestMapping(value="/listLeaves", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<LeaveVO> getEmpLeaves(){
 	   List<LeaveVO> overtimes = new LeaveService().getLeaves();
@@ -72,9 +77,20 @@ public class EmpLeaveController {
     }
 	
 	@RequestMapping(value = "/viewLeave_1", method = RequestMethod.POST)
-	public ModelAndView viewLeave_1(LeaveVO leaveVO) {
+	public ModelAndView viewLeave_1(LeaveVO leaveVO, HttpServletRequest request) {
 		//return "listLeaves";
-		return listResult(leaveVO);
+		
+		permissionForThis = "viewEmployeeLeaves";
+		User loggedInUser = (User) request.getSession().getAttribute("user");
+		ModelAndView model = null;
+			
+		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			return listResult(leaveVO);
+		} else {
+			model = new ModelAndView("unauthorized", "message", "You do not have access to view employee leaves. Please click home button to go back.");
+			   model.addObject("unauthorizedMessage", true);
+			   return model;
+		}
 	}
 	
 	
@@ -97,7 +113,7 @@ public class EmpLeaveController {
 
 
 	@RequestMapping(value = "/applyLeave", method = RequestMethod.POST)
-	public ModelAndView applyLeave(@ModelAttribute LeaveRequest leaveRequest) {
+	public ModelAndView applyLeave(@ModelAttribute LeaveRequest leaveRequest, HttpServletRequest request) {
 		//return "listLeaves";
 		LeaveService service = new LeaveService();
 //		Leave leave = service.getLeaveDetailsByLeaveType(leaveRequest.getEmployeeId(), leaveRequest.getLeaveType());
@@ -131,75 +147,138 @@ public class EmpLeaveController {
 	
 	@RequestMapping(value="/empLeaveReport", method = RequestMethod.GET)
     public ModelAndView getEmpLeaveReport(HttpServletRequest request){
-		  ObjectMapper mapper = new ObjectMapper();
-		   List<Department> deptList = new DepartmentService().getDepartments();
-		   String depJSON = "";
-		   try {
-			   depJSON = mapper.writeValueAsString(deptList);
-		   }catch (Exception e) {
-			   e.printStackTrace();
-		   }
+		
+		permissionForThis = "viewEmployeeLeaveReport";
+		User loggedInUser = (User) request.getSession().getAttribute("user");
+		ModelAndView model = null;
+			
+		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			ObjectMapper mapper = new ObjectMapper();
+			   List<Department> deptList = new DepartmentService().getDepartments();
+			   String depJSON = "";
+			   try {
+				   depJSON = mapper.writeValueAsString(deptList);
+			   }catch (Exception e) {
+				   e.printStackTrace();
+			   }
+			  
+			   LeaveRequest leaveReauest = new LeaveRequest();
+			   model = new ModelAndView("empLeaveReport", "command", leaveReauest);
+			   model.addObject("employee", leaveReauest);
+			   request.getSession().setAttribute("departments", depJSON);
+			   request.getSession().setAttribute("empLeaveReport", new ArrayList<LeaveRequest>());
+			   return model;
+		} else {
+			model = new ModelAndView("unauthorized", "message", "You do not have access to view employee leaves report. Please click home button to go back.");
+			   model.addObject("unauthorizedMessage", true);
+			   return model;
+		}
 		  
-		   LeaveRequest leaveReauest = new LeaveRequest();
-		   ModelAndView model = new ModelAndView("empLeaveReport", "command", leaveReauest);
-		   model.addObject("employee", leaveReauest);
-		   request.getSession().setAttribute("departments", depJSON);
-		   request.getSession().setAttribute("empLeaveReport", new ArrayList<LeaveRequest>());
-		   return model;
     }
 	
 	@RequestMapping(value = "/empLeaveReportSearch", method = RequestMethod.POST)
 	public ModelAndView getEmpLeaveReportSearch(HttpServletRequest request, LeaveRequest leaveReauest) {
-		LeaveService service = new LeaveService();
-		List<LeaveRequest> leaveRequests = service.getLeaveRequests(leaveReauest.getDepartmentId(), leaveReauest.getHeadId(), leaveReauest.getFirstName());
+		
+		permissionForThis = "viewEmployeeLeaveSearch";
+		User loggedInUser = (User) request.getSession().getAttribute("user");
+		ModelAndView model = null;
+			
+		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			LeaveService service = new LeaveService();
+			List<LeaveRequest> leaveRequests = service.getLeaveRequests(leaveReauest.getDepartmentId(), leaveReauest.getHeadId(), leaveReauest.getFirstName());
 
-		for (LeaveRequest leaveReq : leaveRequests) {
-			leaveReq.setLeave(new LeaveDAO().getEmpLeave(leaveReq.getEmployee().getEmployeeId(), leaveReq.getLeaveType().getId()));
+			for (LeaveRequest leaveReq : leaveRequests) {
+				leaveReq.setLeave(new LeaveDAO().getEmpLeave(leaveReq.getEmployee().getEmployeeId(), leaveReq.getLeaveType().getId()));
+			}
+
+			model = new ModelAndView("empLeaveReport", "command", leaveReauest);
+			model.addObject("employee", leaveReauest);
+			request.getSession().setAttribute("empLeaveReport", leaveRequests);
+			return model;
+		} else {
+			model = new ModelAndView("unauthorized", "message", "You do not have access to search employee leaves. Please click home button to go back.");
+			   model.addObject("unauthorizedMessage", true);
+			   return model;
 		}
-
-		ModelAndView model = new ModelAndView("empLeaveReport", "command", leaveReauest);
-		model.addObject("employee", leaveReauest);
-		request.getSession().setAttribute("empLeaveReport", leaveRequests);
-		return model;
+		
 	}
 	@RequestMapping(value = "/inputLeave", method = RequestMethod.POST)
-	public ModelAndView inputLeave(LeaveVO leave) {
-		ObjectMapper mapper = new ObjectMapper();
-		System.out.println("inputLeave -- leave:"+leave);
-		//List<Designation> desigList = new DesignationService().getDesignationList();
-		List<Department> deptList = new DepartmentService().getDepartments();
-		String desigJSON = "";
-		String depJSON = "";
-		try {
-			depJSON = mapper.writeValueAsString(deptList);
-			//desigJSON = mapper.writeValueAsString(desigList);
-		} catch (Exception e) {
-			e.printStackTrace();
+	public ModelAndView inputLeave(LeaveVO leave, HttpServletRequest request) {
+		
+		permissionForThis = "addEmployeeeLeave";
+		User loggedInUser = (User) request.getSession().getAttribute("user");
+		ModelAndView model = null;
+			
+		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			ObjectMapper mapper = new ObjectMapper();
+			System.out.println("inputLeave -- leave:"+leave);
+			//List<Designation> desigList = new DesignationService().getDesignationList();
+			List<Department> deptList = new DepartmentService().getDepartments();
+			String desigJSON = "";
+			String depJSON = "";
+			try {
+				depJSON = mapper.writeValueAsString(deptList);
+				//desigJSON = mapper.writeValueAsString(desigList);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if(leave.getEmployeeId()!=0)
+				leave = new LeaveService().getLeaveByIde(leave.getEmployeeId());
+			model = new ModelAndView("leave", "command", leave);
+			model.addObject("leave", leave);
+			model.addObject("departments", depJSON);
+			//model.addObject("designations", desigJSON);
+			return model;
+		} else {
+			 model = new ModelAndView("unauthorized", "message", "You do not have access to add employee leave. Please click home button to go back.");
+			   model.addObject("unauthorizedMessage", true);
+			   return model;
 		}
-		if(leave.getEmployeeId()!=0)
-			leave = new LeaveService().getLeaveByIde(leave.getEmployeeId());
-		ModelAndView model = new ModelAndView("leave", "command", leave);
-		model.addObject("leave", leave);
-		model.addObject("departments", depJSON);
-		//model.addObject("designations", desigJSON);
-		return model;
+		
+		
+		
 	}
 	   
 	@RequestMapping(value="/addLeave",method=RequestMethod.POST)
-	public @ResponseBody String addLeave(@RequestBody LeaveVO leave){
-	   System.out.println("addLeave -- Leave:"+leave);
-	   String result = new LeaveService().addUpdateLeave(leave);
-	   System.out.println("Result:"+result);
-	   return result;
+	public @ResponseBody String addLeave(@RequestBody LeaveVO leave, HttpServletRequest request){
+		
+		permissionForThis = "addEmployeeeLeave";
+		User loggedInUser = (User) request.getSession().getAttribute("user");
+			
+		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			System.out.println("addLeave -- Leave:"+leave);
+			   String result = new LeaveService().addUpdateLeave(leave);
+			   System.out.println("Result:"+result);
+			   return result;
+		} else {
+			request.getSession().setAttribute("message", "You do not have access to add employee leave. Please click home button to go back.");
+			request.getSession().setAttribute("unauthorizedMessage", true);
+			return "unauthorized";
+		}
+		
+		
+	   
 	}
 	
 	@RequestMapping(value="/deleteLeave",method=RequestMethod.POST)
-	public ModelAndView deleteLeave(LeaveVO leave){
-	   System.out.println("deleteLeave -- Leave:"+leave.getEmployeeId());
-	   String result = new LeaveService().deleteLeave(leave.getEmployeeId());
-	   System.out.println("result:"+result);
-	   //return "listLeaves";
-	   return listResult(leave);
+	public ModelAndView deleteLeave(LeaveVO leave, HttpServletRequest request){
+		
+		permissionForThis = "deleteEmployeeeLeave";
+		ModelAndView model = null;
+		User loggedInUser = (User) request.getSession().getAttribute("user");
+			
+		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			System.out.println("deleteLeave -- Leave:"+leave.getEmployeeId());
+			   String result = new LeaveService().deleteLeave(leave.getEmployeeId());
+			   System.out.println("result:"+result);
+			   //return "listLeaves";
+			   return listResult(leave);
+		} else {
+			model = new ModelAndView("unauthorized", "message", "You do not have access to add employee leave. Please click home button to go back.");
+			   model.addObject("unauthorizedMessage", true);
+			   return model;
+		}
+	   
 	}
 
 	@RequestMapping(value="/empLeaves",method=RequestMethod.POST)

@@ -2,6 +2,8 @@ package com.payroll.rest;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,9 +18,13 @@ import com.payroll.department.dataobjects.Department;
 import com.payroll.headInfo.business.HeadInfoService;
 import com.payroll.headInfo.dataobjects.HeadInfo;
 import com.payroll.headInfo.vo.HeadInfoVO;
+import com.payroll.login.dao.PermissionsDAO;
+import com.payroll.login.dataobjects.User;
 
 @Controller
 public class HeadInfoController {
+	
+	String permissionForThis = null;
 	
 	/*@RequestMapping(value="/listPayHead", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<HeadInfo> getPayHeads(){
@@ -58,25 +64,39 @@ public class HeadInfoController {
 	
 	
 	@RequestMapping(value = "/inputHead", method = RequestMethod.POST)
-	public ModelAndView inputHead(HeadInfo headInfo) {
-		System.out.println("headInfo Id:"+headInfo.getHeadId());
-		ObjectMapper mapper = new ObjectMapper();
-		if(headInfo.getHeadId() !=0){
-			headInfo = new HeadInfoService().getHeadInfoById(headInfo.getHeadId());
-			if(headInfo!=null && headInfo.getDepartment() !=null)
-				headInfo.setDepartmentId(headInfo.getDepartment().getDepartmentId());
+	public ModelAndView inputHead(HeadInfo headInfo, HttpServletRequest request) {
+		
+		permissionForThis = "addHead";
+	    ModelAndView model = null;
+		
+		User loggedInUser = (User) request.getSession().getAttribute("user");
+		
+		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+		
+			System.out.println("headInfo Id:"+headInfo.getHeadId());
+			ObjectMapper mapper = new ObjectMapper();
+			if(headInfo.getHeadId() !=0){
+				headInfo = new HeadInfoService().getHeadInfoById(headInfo.getHeadId());
+				if(headInfo!=null && headInfo.getDepartment() !=null)
+					headInfo.setDepartmentId(headInfo.getDepartment().getDepartmentId());
+			}
+			List<Department> deptList = new DepartmentService().getDepartments();
+			String depJSON = "";
+			try {
+				depJSON = mapper.writeValueAsString(deptList);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			model = new ModelAndView("headDetails", "command", headInfo);
+			model.addObject("headDetails", headInfo);
+			model.addObject("departments", depJSON);
+			return model;
+		} else {
+			model = new ModelAndView("unauthorized", "message", "You do not have access to add head details. Please click home button to go back.");
+		    model.addObject("unauthorizedMessage", true);
+		    return model;
 		}
-		List<Department> deptList = new DepartmentService().getDepartments();
-		String depJSON = "";
-		try {
-			depJSON = mapper.writeValueAsString(deptList);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		ModelAndView model = new ModelAndView("headDetails", "command", headInfo);
-		model.addObject("headDetails", headInfo);
-		model.addObject("departments", depJSON);
-		return model;
+		
 	}
 	
 	/*@RequestMapping(value = "/inputDeductHead", method = RequestMethod.POST)
@@ -109,12 +129,22 @@ public class HeadInfoController {
 	
 	
 	@RequestMapping(value="/deleteHeadInfo",method=RequestMethod.POST)
-	public String deleteHeadInfo(HeadInfo headInfo){
-	   System.out.println("headInfo:"+headInfo.getHeadId());
-	   String result = new HeadInfoService().deleteHeadInfo(headInfo.getHeadId());
-	 	System.out.println("result:"+result);
-	   return "listHeads";
-	   
+	public String deleteHeadInfo(HeadInfo headInfo, HttpServletRequest request){
+		
+		permissionForThis = "addHead";
+		User loggedInUser = (User) request.getSession().getAttribute("user");
+		
+		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			System.out.println("headInfo:"+headInfo.getHeadId());
+			String result = new HeadInfoService().deleteHeadInfo(headInfo.getHeadId());
+			System.out.println("result:"+result);
+			return "listHeads";
+		} else {
+			//FIXME: Prasad - This is not working and needs to be fixed
+			 request.getSession().setAttribute("message", "You do not have access to delete head details. Please click home button to go back.");
+			 request.getSession().setAttribute("unauthorizedMessage", true);
+			 return "unauthorized";
+		}
 	}
 
 

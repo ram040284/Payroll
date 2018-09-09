@@ -24,15 +24,20 @@ import com.payroll.employee.vo.EmpContactVO;
 import com.payroll.employee.vo.EmployeeVO;
 import com.payroll.headInfo.dataobjects.HeadInfoDAO;
 import com.payroll.headInfo.vo.HeadInfoVO;
+import com.payroll.login.dao.PermissionsDAO;
+import com.payroll.login.dataobjects.User;
 import com.payroll.report.business.EmployeeReportService;
 import com.payroll.report.vo.EmployeeReportVO;
 
 @Controller
 public class EmployeeController {
+	
+	String permissionForThis = null;
+	private PermissionsDAO permissionsDAO = new PermissionsDAO();
 	   //@RequestMapping(value = "/employee", method = RequestMethod.POST)
 	   //public ModelAndView getEmployees(Employee employee) {
 		@RequestMapping(value = "/employee", method = RequestMethod.POST)
-		public ModelAndView  getEmployees(com.payroll.employee.Employee employee) {
+		public ModelAndView  getEmployees(com.payroll.employee.Employee employee, HttpServletRequest request) {
 		   /*ObjectMapper mapper = new ObjectMapper();
 		   List<Department> deptList = new DepartmentService().getDepartments();
 		   String depJSON = "";
@@ -53,7 +58,18 @@ public class EmployeeController {
 		   model.addObject("employees", employees);
 		   model.addObject("departments", depJSON);
 		   return model;*/
-			return listResult(employee);
+			permissionForThis = "viewEmployees";
+			ModelAndView model = null;
+			
+			User loggedInUser = (User) request.getSession().getAttribute("user");
+			
+			if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+				return listResult(employee);
+			} else {
+				model = new ModelAndView("unauthorized", "message", "You do not have access to view employees. Please click home button to go back.");
+			    model.addObject("unauthorizedMessage", true);
+			    return model;
+			}
 	   }
 	   
 	   @RequestMapping(value="/view", method = RequestMethod.GET, produces = "application/json")
@@ -66,31 +82,44 @@ public class EmployeeController {
 	        return employees;
 	    }
 	   @RequestMapping(value = "/viewEmp", method = RequestMethod.POST)
-	   public ModelAndView  viewEmp(com.payroll.employee.Employee employee) {
-		   ObjectMapper mapper = new ObjectMapper();
+	   public ModelAndView  viewEmp(com.payroll.employee.Employee employee, HttpServletRequest request) {
 		   
-		   List<Department> deptList = new DepartmentService().getDepartments();
-		   //List<Designation> desigList = new DesignationService().getDesignationList();
+		   permissionForThis = "addEmployee";
+		   ModelAndView model = null;
+			
+		   User loggedInUser = (User) request.getSession().getAttribute("user");
+			
+		   if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			   ObjectMapper mapper = new ObjectMapper();
+			   
+			   List<Department> deptList = new DepartmentService().getDepartments();
+			   //List<Designation> desigList = new DesignationService().getDesignationList();
+			   
+			   String depJSON = "";
+			   String desigJSON = "";
+				try {
+					depJSON = mapper.writeValueAsString(deptList);
+					//desigJSON = mapper.writeValueAsString(desigList);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if(employee.getEmployeeId() !=0){
+					employee = new EmployeeService().getEmployeeById(employee.getEmployeeId());
+				}
+				System.out.println("employee:"+employee);
+				  
+				model = new ModelAndView("employee", "command", employee);
+				model.addObject(employee);
+				model.addObject("departments", depJSON);
+				//model.addObject("designations", desigJSON);
+			 
+				return model;
+		   } else {
+			   model = new ModelAndView("unauthorized", "message", "You do not have access to add employee. Please click home button to go back.");
+			   model.addObject("unauthorizedMessage", true);
+			   return model;
+		   }
 		   
-		   String depJSON = "";
-		   String desigJSON = "";
-			try {
-				depJSON = mapper.writeValueAsString(deptList);
-				//desigJSON = mapper.writeValueAsString(desigList);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			if(employee.getEmployeeId() !=0){
-				employee = new EmployeeService().getEmployeeById(employee.getEmployeeId());
-			}
-			System.out.println("employee:"+employee);
-			  
-			ModelAndView model = new ModelAndView("employee", "command", employee);
-			model.addObject(employee);
-			model.addObject("departments", depJSON);
-			//model.addObject("designations", desigJSON);
-		 
-			return model;
 	   }
 	   
 	   @RequestMapping(value="/addEmp",method=RequestMethod.POST)
@@ -104,13 +133,26 @@ public class EmployeeController {
 	    }
 	   
 	   @RequestMapping(value="/deleteEmp",method=RequestMethod.POST)
-		public ModelAndView deleteEmp(Employee employee){
-		   System.out.println("employee:"+employee);
-		   if(new EmployeeService().deleteEmp(employee.getEmployeeId()))
-			   System.out.println("Successfully deleted Employee!!");
-		   else
-			   System.out.println("Failed to deleted Employee!!");
-		   return listResult(employee);
+		public ModelAndView deleteEmp(Employee employee, HttpServletRequest request){
+		   
+		   permissionForThis = "deleteEmployee";
+		   ModelAndView model = null;
+			
+		   User loggedInUser = (User) request.getSession().getAttribute("user");
+			
+		   if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			   System.out.println("employee:"+employee);
+			   if(new EmployeeService().deleteEmp(employee.getEmployeeId()))
+				   System.out.println("Successfully deleted Employee!!");
+			   else
+				   System.out.println("Failed to deleted Employee!!");
+			   return listResult(employee);
+		   } else {
+			   model = new ModelAndView("unauthorized", "message", "You do not have access to delete employee. Please click home button to go back.");
+			   model.addObject("unauthorizedMessage", true);
+			   return model;
+		   }
+		   
 		}
 	   
 	   private ModelAndView listResult(Employee employee) {
