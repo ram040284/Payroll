@@ -537,85 +537,6 @@ CREATE TABLE `EMP_MASTER_ATTENDANCE_DETAILS` (
 	  FOREIGN KEY (ROLE_ID) REFERENCES ROLES (ROLE_ID),
 	  FOREIGN KEY (PERMISSION_ID) REFERENCES PERMISSIONS (PERMISSION_ID)
  );
- 
- INSERT INTO `payroll`.`PERMISSIONS`
-(`PERMISSION_ID`,
-`PERMISSION_NAME`,
-`PERMISSION_DESC`,
-`STATUS`,
-`UPD_USER_ID`,
-`ROW_UPD_DATE`)
-VALUES(
-1,
-'CreateEmployee',
-'Ability to add employee',
-'A',
-0,
-current_timestamp());
-
-INSERT INTO `payroll`.`PERMISSIONS`
-(`PERMISSION_ID`,
-`PERMISSION_NAME`,
-`PERMISSION_DESC`,
-`STATUS`,
-`UPD_USER_ID`,
-`ROW_UPD_DATE`)
-VALUES(
-2,
-'ReadEmployee',
-'Ability to read employee details',
-'A',
-0,
-current_timestamp());
-
-INSERT INTO `payroll`.`PERMISSIONS`
-(`PERMISSION_ID`,
-`PERMISSION_NAME`,
-`PERMISSION_DESC`,
-`STATUS`,
-`UPD_USER_ID`,
-`ROW_UPD_DATE`)
-VALUES(
-3,
-'UpdateEmployee',
-'Ability to update employee details',
-'A',
-0,
-current_timestamp());
-
-INSERT INTO `payroll`.`PERMISSIONS`
-(`PERMISSION_ID`,
-`PERMISSION_NAME`,
-`PERMISSION_DESC`,
-`STATUS`,
-`UPD_USER_ID`,
-`ROW_UPD_DATE`)
-VALUES(
-4,
-'DeleteEmployee',
-'Ability to delete employee details',
-'A',
-0,
-current_timestamp());
-
-/*
-INSERT INTO `payroll`.`USER_MASTER`
-(`USR_ID`,
-`EMP_ID`,
-`USR_NAME`,
-`USR_PWD`,
-`STATUS`,
-`UPD_USER_ID`,
-`ROW_UPD_DATE`)
-VALUES(
-2,
-197810030,
-'030',
-1234567890,
-'A',
-0,
-current_timestamp());
-*/
 
 CREATE TABLE ARREARS_PAY(
 	ARREAR_ID INT NOT NULL AUTO_INCREMENT,
@@ -633,4 +554,539 @@ CREATE TABLE ARREARS_PAY(
     PRIMARY KEY(ARREAR_ID),
 	FOREIGN KEY (EMP_ID) REFERENCES EMP_MASTER (EMP_ID)
 ) ENGINE=InnoDB;
+
+-- Add Permissions
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(1,'createEmployee','Ability to add employee','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(1,1,1,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(2,'readEmployee','Ability to read employee details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(2,1,2,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(3,'updateEmployee','Ability to update employee details','A',0,current_timestamp());
+
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(3,1,3,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(4,'deleteEmployee','Ability to delete employee details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(4,1,4,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(5,'addDepartment','Ability to add department','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(5,1,5,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(6,'deleteDepartment','Ability to delete department','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(6,1,6,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(7,'updateDepartment','Ability to update department','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(7,1,7,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(8,'viewDepartment','Ability to view department','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(8,1,8,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(9,'generateBills','Ability to generate paybills','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(9,1,9,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(10,'viewMasterMenu','Ability to view master menu','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(10,1,10,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(11,'addHead','Ability to add head details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(11,1,11,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(12,'addDesignation','Ability to add designation details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(12,1,12,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(13,'updateDesignation','Ability to update designation details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(13,1,13,'A',0,current_timestamp());
+
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(14,'updateDesignation','Ability to update designation details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(14,1,14,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(15,'updateDesignation','Ability to update designation details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(15,1,15,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(16,'viewEmployeeMenu','Ability to view Employee Menu','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(16,1,16,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(17,'viewPayrollMenu','Ability to view Payroll Menu','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(17,1,17,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(18,'viewReportsMenu','Ability to view Reports Menu','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(18,1,18,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(19,'viewLeaveMenu','Ability to view Leave Menu','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(19,1,19,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(20,'viewEmployees','Ability to view Employee Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(20,1,20,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(21,'addEmployee','Ability to add Employee Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(21,1,21,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(22,'deleteEmployee','Ability to Delete Employee Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(22,1,22,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(23,'addEmployeeBank','Ability to Add Employee Bank Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(23,1,23,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(24,'deleteEmployeeBank','Ability to Delete Employee Bank Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(24,1,24,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(25,'viewEmployeeBank','Ability to View Employee Bank Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(25,1,25,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(26,'addEmployeeSalary','Ability to add Employee Salary Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(26,1,26,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(27,'deleteEmployeeSalary','Ability to Delete Employee Salary Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(27,1,27,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(28,'viewEmployeeSalary','Ability to View Employee Salary Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(28,1,28,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(29,'deleteEmployeeeLeave','Ability to Delete Employee Leave Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(29,1,29,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(30,'addEmployeeeLeave','Ability to add Employee Leave Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(30,1,30,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(31,'viewEmployeeLeaveSearch','Ability to view Employee Leave Report Search Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(31,1,31,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(32,'viewEmployeeLeaveReport','Ability to view Employee Leave Report Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(32,1,32,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(33,'viewEmployeeLeaves','Ability to view Employee Leaves Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(33,1,33,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(34,'addEmployeePF','Ability to Add Employee PF Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(34,1,34,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(35,'deleteEmployeePF','Ability to Delete Employee PF Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(35,1,35,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(36,'viewEmployeePF','Ability to View Employee PF Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(36,1,36,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(37,'addEmployeeAdvance','Ability to Add Employee Advance Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(37,1,37,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(38,'deleteEmployeeAdvance','Ability to Delete Employee Advance Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(38,1,38,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(39,'viewEmployeeAdvance','Ability to View Employee Advance Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(39,1,39,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(40,'addEmployeeLIC','Ability to Add Employee LIC Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(40,1,40,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(41,'addMasterLIC','Ability to Add Master LIC Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(41,1,41,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(42,'deleteEmployeeLIC','Ability to Delete Employee LIC Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(42,1,42,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(43,'deleteMasterLIC','Ability to Delete Master LIC Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(43,1,43,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(44,'viewEmployeeLIC','Ability to View Employee LIC Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(44,1,44,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(45,'viewEmployeeFixedAllowance','Ability to View Employee Fixed Allowance Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(45,1,45,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(46,'addEmployeeFixedAllowance','Ability to Add Employee Fixed Allowance Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(46,1,46,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(47,'deleteEmployeeFixedAllowance','Ability to Delete Employee Fixed Allowance Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(47,1,47,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(48,'addEmployeeOvertime','Ability to Add Employee Overtime Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(48,1,48,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(49,'deleteEmployeeOvertime','Ability to Delete Employee Overtime Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(49,1,49,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(50,'viewEmployeeOvertime','Ability to View Employee Overtime Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(50,1,50,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(51,'addEmployeeDeduction','Ability to Add Employee Deduction Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(51,1,51,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(52,'deleteEmployeeDeduction','Ability to Delete Employee Deduction Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(52,1,52,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(53,'viewEmployeeDeduction','Ability to View Employee Deduction Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(53,1,53,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(54,'addEmployeeFixedDeductions','Ability to Add Employee Fixed Deduction Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(54,1,54,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(55,'deleteEmployeeFixedDeductions','Ability to Delete Employee Fixed Deduction Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(55,1,55,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(56,'viewEmployeeFixedDeductions','Ability to View Employee Fixed Deduction Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(56,1,56,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(57,'addEmployeeVarDeductions','Ability to Add Employee Variable Deduction Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(57,1,57,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(58,'deleteEmployeeVarDeductions','Ability to Delete Employee Variable Deduction Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(58,1,58,'A',0,current_timestamp());
+
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(59,'viewEmployeeVarDeductions','Ability to View Employee Variable Deduction Details','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(59,1,59,'A',0,current_timestamp());
 

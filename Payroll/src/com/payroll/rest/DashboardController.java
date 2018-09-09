@@ -37,16 +37,16 @@ public class DashboardController {
 	 @RequestMapping(value = "/employeeMenu", method = RequestMethod.GET)
 	 public String employeeDashboard(ModelMap model, HttpServletRequest request) {
 		
-//		String permissionForThis = "viewEmployeeMenu";
-//		User loggedInUser = (User) request.getSession().getAttribute("user");
-//		
-//		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+		String permissionForThis = "viewEmployeeMenu";
+		User loggedInUser = (User) request.getSession().getAttribute("user");
+		
+		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
 			return "employeeMenu";
-//		} else {
-//			request.getSession().setAttribute("message", "You do not have access to view employee details. Please click home button to go back.");
-//			request.getSession().setAttribute("unauthorizedMessage", true);
-//			return "unauthorized";
-//		}
+		} else {
+			request.getSession().setAttribute("message", "You do not have access to view employee details. Please click home button to go back.");
+			request.getSession().setAttribute("unauthorizedMessage", true);
+			return "unauthorized";
+		}
 		 
 	 }
 	 

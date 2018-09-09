@@ -1,4 +1,3 @@
-
 <jsp:include page="../jsp/public/postHeader.jsp" />
 <html>
 <head>
@@ -59,16 +58,6 @@
 
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="../Payroll/viewEmpPf"><img
-							src="../Payroll/resources/images/epfo.jpg"
-							class="img-responsive imageMenuItem" alt="theme logo" /></a>
-						<h3>
-							<a href="../Payroll/viewEmpPf">Employee Provident Fund</a>
-						</h3>
-					</div>
-				</div>
-				<div class="col-xs-4 text-center">
-					<div class="precess-column">
 						<a href="../Payroll/viewAdvance"><img
 							src="../Payroll/resources/images/advance.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
@@ -77,9 +66,7 @@
 						</h3>
 					</div>
 				</div>
-			</div>
-
-			<div class="row">
+				
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
 						<a href="../Payroll/viewEmpLicMaster"><img
@@ -90,7 +77,10 @@
 						</h3>
 					</div>
 				</div>
+			</div>
 
+			<div class="row">
+				
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
 						<a href="../Payroll/viewEmpLic"><img
@@ -112,19 +102,18 @@
 						</h3>
 					</div>
 				</div>
-			</div>
-
-			<div class="row">
-								<div class="col-xs-4 text-center">
-					<div class="precess-column">
+				
+				<div class="precess-column">
 						<a href="../Payroll/viewOvertime"><img
 							src="../Payroll/resources/images/overtime.jpeg"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
 							<a href="../Payroll/viewOvertime">Employee Overtime</a>
 						</h3>
-					</div>
 				</div>
+			</div>
+
+			<div class="row">
 				
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
