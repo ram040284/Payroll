@@ -39,8 +39,6 @@ public class EmployeePayroll {
     private double nonPracticingAllowance;
     private double uniformAllowance;
     private double familyPlanningAllowance;
-    
-
 	private double miscAllowance;
     private double totalAllowance;
     private double overTimeAmount;
@@ -103,6 +101,9 @@ public class EmployeePayroll {
     private double otherAllowance;
     private double tAllowance;
     private int month;
+    private double arrearPay;
+    private double arrearDedu;
+    
 
     //deductions
     public EmployeePayroll(){
@@ -123,9 +124,8 @@ public class EmployeePayroll {
    public EmployeePayroll(int employeeId, byte handicapFlag, double basic, double gradePay, String scalePay, String scaleCode, double otherPayAmount,
     		double cca, double cycleAllowance, double otherAllowance, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,byte pfFlag, byte taFlag, double tAllowance,
     		double unionFee, double unionFeeKss, double lfee, double electricityRecovery, double courtRcry, double gis, double afkRent, double pfLoanRecovery, double otherDeduct,
-    		double society,  double incomeTax, double licInstalAmt, double pfLoanRcry, double cpfCont, double apfacpf, double cpfRcry,
-    		double festAdvRcry,  double bankLoanRcry,  double absentAmount, double overtimeHours, String bankName, 
-    		String bankAcctNo, int bankId, Date incrementDate, double incrementAmt, int month){
+    		double society,  double incomeTax, double licInstalAmt, double festAdvRcry,  double bankLoanRcry,  double absentAmount, double overtimeHours, String bankName, 
+    		String bankAcctNo, int bankId, Date incrementDate, double incrementAmt, int month, double apfacpf, double arrearPay, double arrearDedu){
 	   
 	    this.basic = basic;
     	this.gradePay = gradePay;
@@ -166,13 +166,14 @@ public class EmployeePayroll {
     	this.otherAllowance = otherAllowance;
     	this.otherPayAmount = otherPayAmount;
     	this.absentAmount = absentAmount;
-    	this.cpfRecovery = cpfRcry;
     	this.tAllowance = tAllowance;
     	this.employeeId = employeeId;
     	//this.bankLoanRecovery = bankLoanRcry;
     	//this.vlr = vlr;
     	//this.cpfRcry = cpfRcry;
     	this.month = month;
+    	this.arrearPay = arrearPay;
+    	this.arrearDedu = arrearDedu;
     	
     	 calculateDA();
          calculateHRA();
@@ -285,6 +286,8 @@ public class EmployeePayroll {
         this.totalAllowance = 0.0;
         
         this.totalAllowance = Math.round(this.cca + this.nonPracticingAllowance + this.washingAllowance + this.uniformAllowance + this.ca + this.familyPlanningAllowance + this.otherAllowance);
+        
+        totalAllowance += this.arrearPay;
     }
 
     /**
@@ -339,6 +342,7 @@ public class EmployeePayroll {
 		}
 		
 		this.totalDeductions = addDeductions();
+		this.totalDeductions -= this.arrearDedu;
 		
     	
     }
@@ -900,6 +904,18 @@ public class EmployeePayroll {
 	}
 	public void settAllowance(double tAllowance) {
 		this.tAllowance = tAllowance;
+	}
+	public double getArrearPay() {
+		return arrearPay;
+	}
+	public void setArrearPay(double arrearPay) {
+		this.arrearPay = arrearPay;
+	}
+	public double getArrearDedu() {
+		return arrearDedu;
+	}
+	public void setArrearDedu(double arrearDedu) {
+		this.arrearDedu = arrearDedu;
 	}
 
 	/*public double getOthers() {

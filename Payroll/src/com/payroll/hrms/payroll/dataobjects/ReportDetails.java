@@ -29,10 +29,12 @@ public class ReportDetails {
 	private double grpInsurance;
 	private double bankLoanRcry;
 	private double vehclLoanRcry;
-	private double providentFund;
 	private double apfacpf;
 	private double pfLoanRecovery;
-	private double cpfRecovery;
+	private double providentFund;
+	/*
+	private double pfLoanRecovery;
+	private double cpfRecovery;*/
 	private double incomeTax;
 	private double unionFee;
 	private double electricityRecovery;
@@ -227,12 +229,6 @@ public class ReportDetails {
 	public void setVehclLoanRcry(double vehclLoanRcry) {
 		this.vehclLoanRcry = vehclLoanRcry;
 	}
-	public double getProvidentFund() {
-		return providentFund;
-	}
-	public void setProvidentFund(double providentFund) {
-		this.providentFund = providentFund;
-	}
 	public double getApfacpf() {
 		return apfacpf;
 	}
@@ -245,12 +241,21 @@ public class ReportDetails {
 	public void setPfLoanRecovery(double pfLoanRecovery) {
 		this.pfLoanRecovery = pfLoanRecovery;
 	}
+	public double getProvidentFund() {
+		return providentFund;
+	}
+	public void setProvidentFund(double providentFund) {
+		this.providentFund = providentFund;
+	}
+	/*
+	
+	
 	public double getCpfRecovery() {
 		return cpfRecovery;
 	}
 	public void setCpfRecovery(double cpfRecovery) {
 		this.cpfRecovery = cpfRecovery;
-	}
+	}*/
 	public double getIncomeTax() {
 		return incomeTax;
 	}

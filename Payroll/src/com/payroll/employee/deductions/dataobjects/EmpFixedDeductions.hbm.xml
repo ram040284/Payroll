@@ -14,6 +14,7 @@
 	<property name="kssUnionFee" column="KSS_UNION_FEE" />  
     <property name="rent" column="RENT" />
     <property name="courtRecovery" column="COURT_RCVRY" />  
+    <property name="ApfAcpf" column="APF_ACPF_CNTRB" />  
     <property name="unionFee" column="UNION_FEE"/>
     <property name="gis" column="GIS" />
     <property name="additionalPF" column="ADD_PF" />

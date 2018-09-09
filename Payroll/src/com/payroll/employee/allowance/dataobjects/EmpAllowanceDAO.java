@@ -22,7 +22,7 @@ public class EmpAllowanceDAO {
 			try{
 				String queryString = " select new com.payroll.employee.allowance.vo.EmpAllowanceVO(a.employee.employeeId, "
 						+ "a.employee.firstName, a.employee.lastName, a.cca, a.washingAlwance, "
-						+ "a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag,a.qtrFlag, a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance. a.otherPay) "
+						+ "a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag,a.qtrFlag, a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance) "
 						+ "from EmpAllowance a where a.status = ?";
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -45,7 +45,7 @@ public class EmpAllowanceDAO {
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = a.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = a.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = a.employee.employeeId and dh.status = 'A'), "
-						+ "a.cca, a.washingAlwance, a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag, a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance, a.otherPay) from EmpAllowance a "
+						+ "a.cca, a.washingAlwance, a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag, a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance) from EmpAllowance a "
 						+ "where a.status = ? and a.employee.employeeId = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
@@ -70,8 +70,10 @@ public class EmpAllowanceDAO {
 	public EmployeeAllowances getEmployeeAllowances(int empId){
 		EmployeeAllowances employeeAllowances = null;
 			Session session = null;
+			//FIXME - Review Comments - Chetan: Review below query
 			try{
-				String queryString = "select new com.payroll.employee.allowance.vo.EmployeeAllowances(a.employeeId, a.cca, a.washingAlwance,a.nonPracAwance,a.uniformAlwance,a.familyPlanAlwance, a.cycleAlwance,a.hraFlag,a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance, a.otherPay) from EmpAllowance a where a.employeeId = ? and a.status = ?";		
+				String queryString = "select new com.payroll.employee.allowance.vo.EmployeeAllowances(a.employee.employeeId, a.cca, a.washingAlwance,a.nonPracAwance,a.uniformAlwance,a.familyPlanAlwance, "
+						+ "a.cycleAlwance,a.hraFlag,a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance) from EmpAllowance a where a.employee.employeeId = ? and a.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);

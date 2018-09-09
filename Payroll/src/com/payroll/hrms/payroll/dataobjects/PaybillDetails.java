@@ -34,10 +34,12 @@ public class PaybillDetails {
 	private double gis;
 	private double bankLoanRcry;
 	private double vlr;
-	private double pfsCpf;
 	private double apfAcf;
 	private double pfLoanRcry;
-	private double cpfRcry;
+	/*private double pfsCpf;
+	
+	
+	private double cpfRcry;*/
 //	private double incomTax;
 	private double unionFee;
 	private double unionFeeKss;
@@ -107,10 +109,12 @@ public class PaybillDetails {
 		gis+= payroll.getGis();
 		bankLoanRcry += payroll.getBankLoanRcry();
 		vlr += payroll.getVlr();
-		pfsCpf +=payroll.getPfsCpf();
 		apfAcf+= payroll.getApfAcf();
 		pfLoanRcry+= payroll.getPfLoanRcry();
-		cpfRcry+= payroll.getCpfRcry();
+		/*pfsCpf +=payroll.getPfsCpf();
+		
+		
+		cpfRcry+= payroll.getCpfRcry();*/
 //		incomTax += payroll.getIncomTax();
 		unionFee += payroll.getUnionFee();
 		unionFeeKss += payroll.getUnionFeeKss();
@@ -154,10 +158,12 @@ public class PaybillDetails {
 		gis+= payroll.getGrpInsurance();
 		bankLoanRcry += payroll.getBankLoanRcry();
 		vlr += payroll.getVehclLoanRcry();
-		pfsCpf +=payroll.getProvidentFund();
 		apfAcf+= payroll.getApfacpf();
 		pfLoanRcry+= payroll.getPfLoanRecovery();
-		cpfRcry+= payroll.getCpfRecovery();
+		/*pfsCpf +=payroll.getProvidentFund();
+		
+		
+		cpfRcry+= payroll.getCpfRecovery();*/
 		incomeTax += payroll.getIncomeTax();
 		unionFee += payroll.getUnionFee();
 		unionFeeKss += payroll.getUnionFeeKss();
@@ -194,10 +200,12 @@ public class PaybillDetails {
     						+ this.gis
     						+ this.bankLoanRcry
     						+ this.vlr
-    						+ this.pfsCpf
     						+ this.apfAcf
     						+ this.pfLoanRcry
-    						+ this.cpfRcry
+    						/*+ this.pfsCpf
+    						
+    						
+    						+ this.cpfRcry*/
     						+ this.incomeTax
     						+ this.unionFee
     						+ this.elecRcry
@@ -309,22 +317,20 @@ public class PaybillDetails {
 	public double getVlr() {
 		return vlr;
 	}
-
-	public double getPfsCpf() {
-		return pfsCpf;
-	}
-
 	public double getApfAcf() {
 		return apfAcf;
 	}
-
+	
 	public double getPfLoanRcry() {
 		return pfLoanRcry;
+	}
+	/*public double getPfsCpf() {
+		return pfsCpf;
 	}
 
 	public double getCpfRcry() {
 		return cpfRcry;
-	}
+	}*/
 
 //	public double getIncomTax() {
 //		return incomTax;

@@ -19,6 +19,8 @@ public class EmployeeFixedDeductions {
 	public double getAdditionalPF() {
 		return additionalPF;
 	}
+	//FIXME
+	private double ApfAcpf;
 
 
 	private Timestamp rowUpdDate;
@@ -37,7 +39,7 @@ public class EmployeeFixedDeductions {
 	}
 
 	public EmployeeFixedDeductions(Integer employeeId,  Double kssUnionFee, Double rent, 
-			 Double courtRecovery, Double unionFee, Double gis, Double additionalPF){
+			 Double courtRecovery, Double unionFee, Double gis, Double additionalPF, double ApfAcpf){
 		this.employeeId = employeeId;
 		this.kssUnionFee = kssUnionFee;
 		this.rent = rent;
@@ -45,6 +47,7 @@ public class EmployeeFixedDeductions {
 		this.unionFee = unionFee;
 		this.gis = gis;
 		this.additionalPF = (additionalPF!= null ) ? additionalPF : 0;
+		this.ApfAcpf = ApfAcpf;
 	}
 	
 	public int getEmployeeId() {
@@ -120,6 +123,14 @@ public class EmployeeFixedDeductions {
 	}
 
 	
+	public double getApfAcpf() {
+		return ApfAcpf;
+	}
+
+	public void setApfAcpf(double apfAcpf) {
+		ApfAcpf = apfAcpf;
+	}
+
 	@Override
 	public String toString() {
 		return "EmployeeFixedDeductions [employeeId=" + employeeId + ", kssUnionFee=" + kssUnionFee + ", rent=" + rent

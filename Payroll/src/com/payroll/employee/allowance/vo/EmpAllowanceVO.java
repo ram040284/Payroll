@@ -21,7 +21,6 @@ public class EmpAllowanceVO {
 	private String fullName;
 	private double otherAllowance;
 	private double tAllowance;
-	private double otherPay;
 	
 	public byte getPfFlag() {
 		return pfFlag;
@@ -76,7 +75,7 @@ public class EmpAllowanceVO {
 	}
 	
 	public EmpAllowanceVO(int employeeId, String firstName, String lastName, double cca, double washingAlwance,	double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag,byte pfFlag, double otherAllowance, double tAllowance, double otherPay) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag,byte pfFlag, double otherAllowance, double tAllowance) {
 		this.employeeId = employeeId;
 		StringBuffer fullNameSB = new StringBuffer(firstName);
 		fullNameSB.append(" ");
@@ -95,11 +94,10 @@ public class EmpAllowanceVO {
 		this.pfFlag = pfFlag;
 		this.otherAllowance = otherAllowance;
 		this.tAllowance = tAllowance;
-		this.otherPay = otherPay;
 	}
 	
 	public EmpAllowanceVO(int employeeId, int departmentId, int designationId, int headId, double cca, double washingAlwance, double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, double otherAllowance, double tAllowance, double otherPay) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, double otherAllowance, double tAllowance) {
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -117,7 +115,6 @@ public class EmpAllowanceVO {
 		this.pfFlag = pfFlag;
 		this.otherAllowance = otherAllowance;
 		this.tAllowance = tAllowance;
-		this.otherPay = otherPay;
 	}
 	
 	public int getEmployeeId() {
@@ -205,14 +202,6 @@ public class EmpAllowanceVO {
 
 	public void settAllowance(double tAllowance) {
 		this.tAllowance = tAllowance;
-	}
-
-	public double getOtherPay() {
-		return otherPay;
-	}
-
-	public void setOtherPay(double otherPay) {
-		this.otherPay = otherPay;
 	}
 
 }

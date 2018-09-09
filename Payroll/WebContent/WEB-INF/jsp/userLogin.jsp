@@ -25,6 +25,8 @@
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
+	$('#password').val("payroll123");
+	$('#userName').val("payroll");
 	$('#loginBtn').click(function(event) {
 		if($('#userName').val().trim() == ""){
 			alert("User Name must be provided!");

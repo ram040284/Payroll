@@ -195,15 +195,25 @@ public class PaybillPdfRep extends PdfBuilder{
 	}
 	
 	private void addDeduct2Details(PdfPTable table, ReportDetails payroll, Font font){
-		table.addCell(addToCell(PdfUtils.PFSCPFS, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getProvidentFund()), font));
+		// add employee pf recovery from emp fixed ded table and emp var ded
+		
 		table.addCell(addToCell(PdfUtils.APFACPF, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getApfacpf()), font));
 		
 		table.addCell(addToCell(PdfUtils.PFLOANREC, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfLoanRecovery()), font));
+		
+		table.addCell(addToCell(PdfUtils.PFSCPFS, font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getProvidentFund()), font));
+		table.addCell(addToCell(PdfUtils.APFACPF, font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getApfacpf()), font));
+		
+		/*table.addCell(addToCell(PdfUtils.PFLOANREC, font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfLoanRecovery()), font));
 		table.addCell(addToCell(PdfUtils.CPFREC, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCpfRecovery()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCpfRecovery()), font));*/ 
+		
+		
 		
 		table.addCell(addToCell(PdfUtils.INCTAX, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getIncomeTax()), font));
@@ -334,7 +344,7 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(PdfUtils.BANKLOANREC, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBankLoanRcry()), font));
 		
-		table.addCell(addToCell(PdfUtils.VEHLOANREC, font));
+		/*table.addCell(addToCell(PdfUtils.VEHLOANREC, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getVlr()), font));
 		table.addCell(addToCell(PdfUtils.PFSCPFS, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfsCpf()), font));
@@ -342,7 +352,7 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(PdfUtils.APFACPF, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getApfAcf()), font));
 		table.addCell(addToCell(PdfUtils.PFLOANREC, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfLoanRcry()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfLoanRcry()), font));*/
 		
 		table.addCell(addToCell(PdfUtils.INCTAX, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getIncomeTax()), font));

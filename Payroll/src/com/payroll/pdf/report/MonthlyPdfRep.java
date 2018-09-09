@@ -236,7 +236,27 @@ public class MonthlyPdfRep extends PaybillPdfRep{
 		table.addCell(addToCell(lmDetails.getVlr()+"", font, true));
 		table.addCell(addToCell(payroll.getVlr() - lmDetails.getVlr()+"", font, true));
 		
+		// add from emp var ded and emp fix ded tables
+		
+		/*table.addCell(addToCell(srNo++ +"", font));
+		table.addCell(addToCell(PdfUtils.PFSCPFS, font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfsCpf())+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(lmDetails.getPfsCpf())+"", font, true));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfsCpf() - lmDetails.getPfsCpf())+"", font, true));*/
+		
 		table.addCell(addToCell(srNo++ +"", font));
+		table.addCell(addToCell(PdfUtils.APFACPF, font));
+		table.addCell(addToCell(payroll.getApfAcf()+"", font, true));
+		table.addCell(addToCell(lmDetails.getApfAcf()+"", font, true));
+		table.addCell(addToCell(payroll.getApfAcf() - lmDetails.getApfAcf()+"", font, true));
+		
+		table.addCell(addToCell(srNo++ +"", font));
+		table.addCell(addToCell(PdfUtils.PFLOANREC, font));
+		table.addCell(addToCell(payroll.getPfLoanRcry()+"", font, true));
+		table.addCell(addToCell(lmDetails.getPfLoanRcry()+"", font, true));
+		table.addCell(addToCell(payroll.getPfLoanRcry() - lmDetails.getPfLoanRcry()+"", font, true));
+		
+		/*table.addCell(addToCell(srNo++ +"", font));
 		table.addCell(addToCell(PdfUtils.PFSCPFS, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfsCpf())+"", font, true));
 		table.addCell(addToCell(Utils.getDecimalFormat(lmDetails.getPfsCpf())+"", font, true));
@@ -252,7 +272,7 @@ public class MonthlyPdfRep extends PaybillPdfRep{
 		table.addCell(addToCell(PdfUtils.PFLOANREC, font));
 		table.addCell(addToCell(payroll.getPfLoanRcry()+"", font, true));
 		table.addCell(addToCell(lmDetails.getPfLoanRcry()+"", font, true));
-		table.addCell(addToCell(payroll.getPfLoanRcry() - lmDetails.getPfLoanRcry()+"", font, true));
+		table.addCell(addToCell(payroll.getPfLoanRcry() - lmDetails.getPfLoanRcry()+"", font, true));*/
 		
 		table.addCell(addToCell(srNo++ +"", font));
 		table.addCell(addToCell(PdfUtils.INCTAX, font));

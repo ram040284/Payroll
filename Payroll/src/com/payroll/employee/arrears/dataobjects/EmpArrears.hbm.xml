@@ -1,0 +1,28 @@
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.payroll.employee.arrears.dataobjects.EmpArrears" table="ARREARS_PAY">
+		
+		<id name="arrearId" type="integer" >  
+	     <column name="ARREAR_ID" sql-type="integer" not-null="true"/>  
+	     <generator class="increment"/>
+	    </id>
+	    
+	    <many-to-one name="employee" fetch="select" 
+             class="com.payroll.employee.dataobjects.Employee"
+             column="EMP_ID"
+             cascade="all">
+		</many-to-one>
+		<property name="arrearsType" column="ARREARS_TYPE" />
+		<property name="arrearsPay" column="ARREARS_PAY" />
+		<property name="arrearsDeductions" column="ARREARS_DEDUCTION" />
+		<property name="miscPay" column="MISC_PAY" />
+		<property name="miscDeductions" column="MISC_DEDUCTION" />
+		<property name="arrearsPayNote" column="ARREARSPAY_NOTE" />
+		<property name="arrearsDeductionNote" column="ARREARSDEDUCTION_NOTE" />
+		<property name="status" column="STATUS" not-null="true" />
+		<property name="rowUpdatedDate" column="ROW_UPD_DATE" not-null="true" />
+	</class>
+</hibernate-mapping> 

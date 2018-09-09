@@ -13,6 +13,8 @@ import com.payroll.employee.advances.dataobjects.EmpAdvances;
 import com.payroll.employee.allowance.dataobjects.EmpAllowance;
 import com.payroll.employee.allowance.dataobjects.EmpAllowanceDAO;
 import com.payroll.employee.allowance.vo.EmployeeAllowances;
+import com.payroll.employee.arrears.dataobjects.EmpArrearDAO;
+import com.payroll.employee.arrears.dataobjects.EmpArrears;
 import com.payroll.employee.bank.vo.BankVO;
 import com.payroll.employee.deductions.dao.EmpFixedDeductionsDAO;
 import com.payroll.employee.deductions.dao.EmpVarDeductionsDAO;
@@ -22,7 +24,6 @@ import com.payroll.employee.leave.dataobjects.LeaveRequest;
 import com.payroll.employee.lic.dataobjects.EmpLic;
 import com.payroll.employee.lic.dataobjects.EmpLicDAO;
 import com.payroll.employee.lic.vo.EmployeeLIC;
-import com.payroll.employee.pf.dataobjects.EmpPf;
 import com.payroll.employee.salary.dataobjects.Salary;
 import com.payroll.employee.vo.EmployeeVO;
 /*import com.kcb.hrms.payroll.dataobjects.EmployeePayroll;
@@ -80,7 +81,6 @@ public class EmployeePayrollDAO {
 	public EmployeePayroll loadPayrollInfo(int employeeId, byte handicapFlag, Date date){
     	System.out.println("loadPayrollInfo:");
     	Salary salary = null;
-		EmpPf empPf = null;
 		
 		EmpAdvances empAdvances = null;
 		//EmpLic empLic = null;
@@ -92,10 +92,11 @@ public class EmployeePayrollDAO {
     		this.employeeId = employeeId;
 			session = HibernateConnection.getSessionFactory().openSession();
 			salary = (Salary)getObjectByEmpId(" from Salary s where s.employee.employeeId = ? and s.status = ?");
-			empPf = (EmpPf)getObjectByEmpId(" from EmpPf p where p.employee.employeeId = ? and p.status = ?");
-			if(empPf == null)
-				empPf = new EmpPf();
+			
 			EmployeeAllowances employeeAllowances = new EmpAllowanceDAO().getEmployeeAllowances(employeeId);
+			
+			//get arrears list using emp_id
+			List<EmpArrears> empArrearsList = new EmpArrearDAO().getEmpArrearList(employeeId);
 			
 			// Employee Fixed Deductions details
 	    	EmployeeFixedDeductions employeeFixedDeductions = new EmpFixedDeductionsDAO().getEmployeeFixedDeductions(employeeId);
@@ -120,7 +121,7 @@ public class EmployeePayrollDAO {
 			leaves = (List)getObjectsByEmpId(" from LeaveRequest l where l.employee.employeeId = ? and l.status = ?");
 			empAdvances = (EmpAdvances)getObjectByEmpId(" from EmpAdvances a where a.employee.employeeId = ? and a.status = ?");
    			bankVo = (BankVO)getObjectByEmpId("select new com.payroll.employee.bank.vo.BankVO(b.bankDetails.bankId, b.bankDetails.bankName, b.accountNo) "
-   					+ "from EmpBank b where b.employee.employeeId = ? and b.status = ?");		
+   					+ "from EmpBank b where b.employee.employeeId = ? and b.status = ?");
 			double overtimeAmount = com.payroll.hrms.payroll.service.EmployeePayrollService.overtimeHours(overtimeList);
 			
 			//TODO: Prasad: Needs to be retrieved from respective module
@@ -134,15 +135,53 @@ public class EmployeePayrollDAO {
 			Calendar cal = Calendar.getInstance();
     		cal.setTime(date); 
     		int month = cal.get(Calendar.MONTH);
+    		System.out.println("empArrears size " + empArrearsList.size());
+    		
+    		double arrearsTotPay = 0;
+    		double arrearsTotDed = 0;
+    		
+			double arrearsPay = 0; 
+			double arrearsDedu = 0;
 			
-   			empPayroll = new EmployeePayroll(this.employeeId, handicapFlag, salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(), employeeAllowances.getOtherPay(),
+			double otherPay = 0;
+			double otherDedu = 0;
+			
+    		for (Iterator<EmpArrears> iterator = empArrearsList.iterator(); iterator.hasNext();) {
+    			EmpArrears arrears = (EmpArrears)iterator.next();
+    			
+    			if (arrears.getArrearsType().equals("Rent")) {
+    				arrearsPay = arrears.getArrearsPay(); 
+    				arrearsDedu = arrears.getArrearsDeductions();
+    				
+    			} else if(arrears.getArrearsType().equals("AfkRent")) {
+    				arrearsPay = arrears.getArrearsPay(); 
+    				arrearsDedu = arrears.getArrearsDeductions();
+    				
+    			} else if(arrears.getArrearsType().equals("Other")) {
+    				otherPay = arrears.getArrearsPay(); 
+    				otherDedu = arrears.getArrearsDeductions();
+    				
+    			} else if(arrears.getArrearsType().equals("Misc")) {
+    				arrearsPay = arrears.getArrearsPay(); 
+    				arrearsDedu = arrears.getArrearsDeductions();
+    			}
+    			
+    			
+    			/*System.out.println("Other Pay : " + arrears.getArrearsPay() + " Arrears Type " + arrears.getArrearsType() 
+    			+ " Arrears Deductions " + arrears.getArrearsDeductions() + " Arrears Misc Pay " + arrears.getMiscPay());
+    			*/
+    			arrearsTotPay += arrearsPay;
+    			arrearsDedu+= arrearsDedu;
+    		}
+    		
+			// Other pay need to add from Arrears
+   			empPayroll = new EmployeePayroll(this.employeeId, handicapFlag, salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(), otherPay,
    					employeeAllowances.getCca(), employeeAllowances.getCycleAlwance(), employeeAllowances.getOtherAllowance(), employeeAllowances.getFamilyPlanAlwance(),employeeAllowances.getNonPracAwance(),
    					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),employeeAllowances.getPFFlag(), employeeAllowances.getTaFlag(), employeeAllowances.gettAllowance(),
    					employeeFixedDeductions.getUnionFee(), employeeFixedDeductions.getKssUnionFee(), employeeFixedDeductions.getRent(), employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
    					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getPfLoanRecovery(), employeeVarDeductions.getOtherDeductions(),
-   					employeeVarDeductions.getSociety(), employeeVarDeductions.getIncomeTax(), licTotalInstallmentAmt, empPf.getPfLoneRecAmt(), empPf.getPfsCpfCntrbn(), empPf.getApfAcpfCntrbn(),
-   					empPf.getCfLoneRecAmt(), festAdvanceRecovery , bankLoanRecovery, employeeVarDeductions.getAbsenties(), overtimeAmount, bankVo.getBankName(), 
-   					bankVo.getAccountNo(), bankVo.getBankId(), salary.getIncrementDate(), salary.getIncrementAmount(), month);
+   					employeeVarDeductions.getSociety(), employeeVarDeductions.getIncomeTax(), licTotalInstallmentAmt, festAdvanceRecovery , bankLoanRecovery, employeeVarDeductions.getAbsenties(), overtimeAmount, bankVo.getBankName(), 
+   					bankVo.getAccountNo(), bankVo.getBankId(), salary.getIncrementDate(), salary.getIncrementAmount(), month, employeeFixedDeductions.getApfAcpf(), arrearsTotPay, arrearsDedu);
 	
    		}catch(Exception e){
 			e.printStackTrace();
@@ -273,16 +312,6 @@ public class EmployeePayrollDAO {
 			npa += empAllowance.getNonPracAwance();
 			wa+=empAllowance.getWashingAlwance();
 			others+= empAllowance.getCycleAlwance();
-		}
-    }
-    
-    private void loadPFDetails(List<EmpPf> empPfList){
-    	for (Iterator iterator = empPfList.iterator(); iterator.hasNext();) {
-    		EmpPf empPf = (EmpPf) iterator.next();
-			pfsCpf += empPf.getPfsCpfCntrbn();
-			apfAcf += empPf.getApfAcpfCntrbn();
-			cpfRcry += empPf.getCfLoneRecAmt();
-			pfLoanRcry += empPf.getPfLoneRecAmt();
 		}
     }
     

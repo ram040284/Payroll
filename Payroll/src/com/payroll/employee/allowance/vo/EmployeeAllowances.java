@@ -15,12 +15,11 @@ public class EmployeeAllowances {
 	private byte pfFlag;
 	private double otherAllowance;
 	private double tAllowance;
-	private double otherPay;
 	
 	/**
 	 */
 	public EmployeeAllowances(int employeeId, double cca, double washingAlwance, double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, double otherAllowance, double tAllowance, double otherPay) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, double otherAllowance, double tAllowance) {
 		this.employeeId = employeeId;
 		this.cca = cca;
 		this.washingAlwance = washingAlwance;
@@ -35,7 +34,6 @@ public class EmployeeAllowances {
 		this.pfFlag = pfFlag;
 		this.otherAllowance = otherAllowance;
 		this.tAllowance = tAllowance;
-		this.otherPay = otherPay;
 	}
 	
 		public byte getPFFlag() {
@@ -147,14 +145,6 @@ public class EmployeeAllowances {
 
 	public void settAllowance(double tAllowance) {
 		this.tAllowance = tAllowance;
-	}
-
-	public double getOtherPay() {
-		return otherPay;
-	}
-
-	public void setOtherPay(double otherPay) {
-		this.otherPay = otherPay;
 	}
 
 	@Override

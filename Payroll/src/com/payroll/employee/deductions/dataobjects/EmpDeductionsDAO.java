@@ -11,8 +11,6 @@ import org.hibernate.exception.ConstraintViolationException;
 import com.payroll.HibernateConnection;
 import com.payroll.employee.dataobjects.Employee;
 import com.payroll.employee.deductions.vo.EmpDeductionsVO;
-import com.payroll.employee.pf.dataobjects.EmpPf;
-import com.payroll.employee.pf.vo.EmpPfVO;
 
 public class EmpDeductionsDAO {
 	

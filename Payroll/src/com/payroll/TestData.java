@@ -7,7 +7,7 @@ import com.payroll.employee.bank.vo.BankVO;
 //import com.payroll.employee.deductions.dataobjects.EmpDeductionDetails;
 import com.payroll.employee.deductions.dataobjects.EmpDeductions;
 import com.payroll.employee.lic.dataobjects.EmpLic;
-import com.payroll.employee.pf.dataobjects.EmpPf;
+/*import com.payroll.employee.pf.dataobjects.EmpPf;*/
 import com.payroll.employee.salary.dataobjects.Salary;
 
 public class TestData {
@@ -22,7 +22,7 @@ public class TestData {
 		return sal;
 	}
 	
-	public static EmpPf getEmpPf(int empId){
+	/*public static EmpPf getEmpPf(int empId){
 		EmpPf pf = new EmpPf();
 		pf.setEmployeeId(empId);
 		pf.setApfAcpfCntrbn(0);
@@ -31,7 +31,7 @@ public class TestData {
 		pf.setPfLoneRecAmt(0);
 		pf.setPfsCpfCntrbn(0);
 		return pf;
-	}
+	}*/
 	
 	public static EmpLic getEmpLic(int empId){
 		EmpLic empLic = new EmpLic();
