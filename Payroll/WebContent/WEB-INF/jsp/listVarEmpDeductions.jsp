@@ -57,7 +57,7 @@
 		if (confirm("Are you sure want to delete Employee Deduction Details?")) {
 			var f = document.forms['editForm'];
 			f.employeeId.value = id;
-			f.action = "../Payroll/addEmpVarDeductions";
+			f.action = "../Payroll/deleteEmpVarDeductions";
 			f.submit();
 		}
 	}

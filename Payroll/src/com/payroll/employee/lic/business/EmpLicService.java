@@ -26,6 +26,9 @@ public class EmpLicService {
 		return new EmpLicDAO().getEmpLicMasterById(empId);
 	}
 	
+	public String deleteLicMaster(int empId){
+		return new EmpLicDAO().deleteEmpLicMaster(empId);
+	}
 	public String deleteLic(int empId){
 		return new EmpLicDAO().deleteEmpLic(empId);
 	}
@@ -43,12 +46,15 @@ public class EmpLicService {
 		EmpLic empLic = new EmpLic();
 		try{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			empLic.setEmployeeId(licVO.getEmpId());
-			empLic.setInstlmtAmt(licVO.getInstlmtAmt());
-			empLic.setPolicyNo(licVO.getPolicyNo());
+			empLic.setEmployeeId(licVO.getEmployeeId());
+            empLic.setPolicyNo(licVO.getPolicyNo());
 			empLic.setAddUpdate(licVO.getAddUpdate());
 			if(licVO.getPaymentDate() !=null)
+			{
 				empLic.setPaymentDate(dateFormat.parse(licVO.getPaymentDate()));
+			}
+		    empLic.setPaymentAmount(licVO.getPaymentAmount());
+			empLic.setPolicyNo(licVO.getPolicyNo());
 		}catch(Exception e){
 			e.printStackTrace();
 		}

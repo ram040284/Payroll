@@ -117,6 +117,15 @@ $(document).ready(function() {
 <body>
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
+		<div class="container">
+			<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/viewBank')">Back</button>
+					</div>
+				</div>
+			</div>	
+		</div>
 		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">

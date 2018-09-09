@@ -178,20 +178,20 @@ public class UserDAO {
 	
 	public User getUserByEmpId(User userVo){
 		Session session = null;
-		Transaction transaction = null;
+		//Transaction transaction = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
-			transaction = session.beginTransaction();
-			String queryString = " from User usrRoles where usrRoles.empId = ? and usrRoles.status = ? ";
+			//transaction = session.beginTransaction();
+			String queryString = " from User user where user.empId = ? and user.status = ? ";
 			Query query = session.createQuery(queryString);
-			query.setParameter(0, userVo.getEmpId());
+			query.setParameter(0, Integer.valueOf(userVo.getUserName()));
 			query.setParameter(1, "A");
 			
 			List<User> userList = query.list();
 			return userList.size()>0? userList.get(0):null;
 		}catch(Exception e){
 			e.printStackTrace();
-			transaction.rollback();
+			//transaction.rollback();
 		}finally {
 			HibernateConnection.closeSession(session);
 		}

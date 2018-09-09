@@ -146,8 +146,10 @@ public class EmpBankDAO {
 	public String deleteEmpBank(int empId){
 		String result = null;
 		Session session = null;
+		Transaction transaction = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
 			Query query = session.createQuery("update EmpBank b set b.status = ?, b.rowUpdDate = ? where b.employee.employeeId = ?");
 			query.setParameter(0, "S");
 			query.setParameter(1, new Date());
@@ -155,11 +157,15 @@ public class EmpBankDAO {
 			int updated = query.executeUpdate();
 			if(updated > 0)
 				result = "Successfully deleted Bank Details!";
+			session.flush();
+			transaction.commit();
+			result = "Yes";
 		}catch(Exception e){
 			e.printStackTrace();
 			result = "Failed to delete Bank details!";
 		}finally{
 			HibernateConnection.closeSession(session);
+			
 		}
 		return result;
 	}

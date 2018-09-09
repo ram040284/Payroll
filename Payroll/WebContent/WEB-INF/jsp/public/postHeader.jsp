@@ -214,11 +214,13 @@ h3 {font-size:16pt;}
 							<li><a href="../Payroll/viewEmpQtr">Employee Festival Advance</a></li>
 							<li><a href="../Payroll/viewEmpLicMaster">Employee LIC Master</a></li>
 							<li><a href="../Payroll/viewEmpLic">Employee LIC Details</a></li>
-							<li><a href="../Payroll/viewEmpAlwnce">Employee Allowances</a></li>
+							<li><a href="../Payroll/viewEmpAlwnce">Employee Fixed Allowances</a></li>
 							<li><a href="../Payroll/viewOvertime">Employee Overtime</a></li>
 							<li><a href="../Payroll/viewEmpDeductions">Employee ITax Exemptions</a></li>
+							<li><a href="../Payroll/viewEmpFixedDeductions">Employee Fixed Deductions</a></li>
+							<li><a href="../Payroll/viewEmpVarDeductions">Employee Variable Deductions</a></li>
 							<li><a href="../Payroll/viewArrears">Employee Arrears</a></li>
-						</ul>
+							</ul>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Leave <span class="caret"></span></a>

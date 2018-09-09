@@ -51,8 +51,8 @@ public class EmpFixedDeductionsDAO {
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, empId);
 				query.setParameter(1, "A");
-				empFixedDeductions = (EmpFixedDeductions)(!(query.list().isEmpty())?query.list().get(0):null);
-			}catch(Exception e){
+		        empFixedDeductions = (EmpFixedDeductions)(!(query.list().isEmpty())?query.list().get(0):null);
+				}catch(Exception e){
 				e.printStackTrace();
 			}finally{
 				HibernateConnection.closeSession(session);
@@ -115,15 +115,20 @@ public class EmpFixedDeductionsDAO {
 	public String deleteEmpDeductions(int empId){
 		String result = null;
 		Session session = null;
-		try{
+		Transaction transaction = null;
+        try{
 			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
 			Query query = session.createQuery("update EmpFixedDeductions d set d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ?");
-			query.setParameter(0, "S");
+			query.setParameter(0, "I");
 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 			query.setParameter(2, empId);
 			int updated = query.executeUpdate();
 			if(updated > 0)
 				result = "Successfully deleted Employee Deduction details!";
+			session.flush();
+			transaction.commit();
+			result="yes";
 		}catch(Exception e){
 			e.printStackTrace();
 			result = "Failed to delete Employee Deduction details!";
@@ -145,6 +150,7 @@ public class EmpFixedDeductionsDAO {
 			transaction = session.beginTransaction();
 			Employee employee = (Employee)session.load(Employee.class, empFixedDeductions.getEmployeeId());
 			empFixedDeductions.setEmployee(employee);
+	
 			empFixedDeductions.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 			empFixedDeductions.setStatus("A");
 			if(empFixedDeductions.getAddUpdate() ==0)

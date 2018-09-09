@@ -42,8 +42,8 @@ public class EmpLicMaster implements Serializable {
 		return policyNo;
 	}
 
-	public void setPolicyNo(String policy_no) {
-		this.policyNo = policy_no;
+	public void setPolicyNo(String policyNo) {
+		this.policyNo = policyNo;
 	}
 
 

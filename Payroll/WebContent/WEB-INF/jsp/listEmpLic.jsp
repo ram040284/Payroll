@@ -2,34 +2,100 @@
 <html>
 <head>
 <title>LIC Details</title>
+<jsp:include page="../jsp/public/postHeader.jsp" />
+<jsp:include page="../jsp/public/jqueryPluginMin.jsp"/>
+<script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
+<script src="../Payroll/resources/js/dataTables.bootstrap.min.js"></script>
+<style type="text/css">
+select {
+	min-width: 200px;
+	min-height: 30px;
+}
+
+.buttonPadding {
+	padding: 5px;
+}
+.btn-color{
+	background-color: #0101DF;
+}
+
+.licTableClass table {
+	border-collapse: collapse;
+	width: 100%;
+	float: left;
+	margin: 0;
+  	padding: 0;
+	border: 1px solid #aaa;
+	table-layout: auto;
+}
+
+.licTableClass th, td {
+	text-align: left;
+	padding: 5px;
+}
+
+.licTableClass tr:nth-child(odd) {
+	background-color: #f2f2f2; !important
+}
+
+.licTableClass th {
+	background-color: #8B9DC3;
+	color: #fff;
+	cursor: pointer;
+}
+table.dataTable thead:first-child .sorting_asc { 
+	background: url('../Payroll/resources/images/uparrow.png') no-repeat right bottom 8px; 
+	background-size: 25px; 
+	background-color: #8B9DC3;
+	color: white;
+}
+table.dataTable thead:first-child .sorting_desc { 
+	background: url('../Payroll/resources/images/downarrow.png') no-repeat right bottom 8px; 
+	background-size: 25px; 
+	background-color: #8B9DC3;
+	color: white;
+}
+input[type=file] {
+	display: inline-block;
+}
+.dataTables_paginate {
+	text-align: right;
+}
+</style>
 <script type="text/javascript">
-      function getLicList() {
-    	  $.ajax({
+    $(document).ready(function() {
+	      	  $.ajax({
               url : '../Payroll/listEmpLic',
               type:"GET",
               contentType: "application/json;charset=utf-8",
-              success : function(data) {
-                 
-                  var licTab = $('<table style="margin-bottom: 10px;"/>').appendTo($('#licListDiv'));
-                  $(data).each(function(i, empLic){
-                	  $('<tr/>').appendTo(licTab)
-                	  		.append($('<td/>').text(empLic.fullName))
-                			.append($('<td/>').text(empLic.policyNo))
-                			.append($('<td/>').text(empLic.paymentDate))
-                			.append($('<td/>').text(empLic.paymentAmount.toFixed(2)))
-                			.append($('<td/>').append('<a href="#" onclick=viewLic('+empLic.employeeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteLic('+empLic.employeeId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
+             
+              success : function(employeeLicData){
+              $('#licTable').DataTable({
+           		  data:employeeLicData,
+           		  columns:[
+                      {data:'fullName',title:'Employee'},
+           			  {data:'policyNo',title:'Policy No'},
+           			  {data:'paymentDate',title:'Payment Date'},
+           			  {data:'paymentAmount',title:'Payment Amount'},
+                      {
+            		   'data': null, title:'<a href="#" onclick="addLic()"><img style="vertical-align: middle;" src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
+                       'render': function (employeeLicData, type, row)
+           				{
+                         return '<a id= "' +row.Id +'" href="#" onclick="updateLic('+employeeLicData.employeeId+')"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/> <a id="' +row.Id+'"  href="#" onclick="deleteLic('+employeeLicData.employeeId+')"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/>'}
+     			        }
+            			  
+                      ]	  
                   });
-                  
               }
-          });
-      }
-      function viewLic(id){
+     	  });
+     });
+       function updateLic(id){
     	  var f = document.forms['editForm'];
 		  f.employeeId.value=id;
 		  f.action="../Payroll/inputEmpLic";
 		  f.submit();
 	  }
-      function inputLic(){
+      function addLic(){
     	  var f = document.forms['editForm'];
 		  f.action="../Payroll/inputEmpLic";
 		  f.submit();
@@ -43,47 +109,34 @@
     	  }
       }
       </script>
-</head>
-<body onload="getLicList()">
-	<jsp:include page="../jsp/public/postHeader.jsp" />
-	<div class="contain-wrapp bodyDivCss">	
-		<div class="container">
-			<div class="formDiv" style="border: none;">
-				<div class="row">
-					<div class="text-left" style="margin-left: 15px;">
-						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/employeeMenu')">Back</button>
-					</div>
-				</div>
-			</div>	
-		</div>
-		<div class="container">
-	
-	<div style="margin-top: 12px; float: left; width: 98%;">
-			<h4 style="color: #0101DF;">LIC Details</h4>
-		<div>
-				<div class="tblClass" id="licListDiv">
-				<table>
-				<tr>
-					<th>Employee</th>
-					<th>Policy No</th>
-					<th>Payment Date</th>
-					<th>Payment Amount</th>
-					<th><a href="#" onclick="inputLic()" title="Add">
-						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
-					</th>
-				</tr>
-				</table>
-				</div>
-		</div>
-	</div>
-	</div>
-	</div>
-	<form action="" name="editForm" method="post">
-		<%--<input type="hidden" name="designationId" value="0">
-		<input type="hidden" name="departmentId" value="0"> --%>
-		<input type="hidden" name="employeeId" value="0">
-		
-	</form>
-	<jsp:include page="../jsp/public/postFooter.jsp" />
-</body>
-</html>
+      </head>
+       <body>
+      	<div class="contain-wrapp bodyDivCss">	
+      		<div  class="container" class="row" style="position: relative;">
+              <div class="formDiv" style="border: none;">
+      				<div class="row">
+      					<div class="text-left" style="margin-left: 15px;">
+      						<button type="button" id="backBtn" class="btn"
+      							onclick="backNav('../Payroll/employeeMenu')">Back</button>
+      					</div>
+      				</div>
+      			</div>
+      		
+      	 <div style="margin-top: 12px; float: left; width: 98%;">
+      				<h4 style="color: #0101DF;">LIC Details</h4>
+      		<form method="post" name="editForm" action="">
+      		<input type="hidden" name="employeeId" value="0">
+      					
+      		</form>
+      	<div id="licListDiv" class="licTableClass" style ="width:100%;">
+      			<table id="licTable" class="table table-striped table-bordered table-responsive"></table>
+      		</div>
+      	</div>
+      	</div>
+        </div>
+      	 <form action="" name="editForm" method="post">
+      		<input type="hidden" name="employeeId" value="0">
+      	</form>
+      	 <jsp:include page="../jsp/public/postFooter.jsp" />
+      </body>
+      </html>

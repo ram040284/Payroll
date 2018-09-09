@@ -202,7 +202,7 @@ td, th {
 											onchange="loadDesignations()"
 											<c:if test="${empDeductions.employeeId != '0'}" > disabled= "disabled" </c:if>>
 											<option value="0">-- Select Head --</option>
-										</select>
+										 </select>
 									</div>
 									<div class="col-sm-4 form-group">
 										<label>Designation:</label> <select id="designationId"
@@ -220,10 +220,9 @@ td, th {
 											<option value="0">-- Select Employee --</option>
 										</select>
 									</div>
-																		<div class="col-sm-4 form-group">
-										<label>KSS Union Fee:</label>
-										<form:input path="kssUnionFee" id="kssUnionFee"
-											placeholder="Enter Union Fee" class="form-control" />
+								<div class="col-sm-4 form-group">
+								   <label>KSS Union Fee:</label>
+				                    <form:input path="kssUnionFee" id="kssUnionFee" placeholder="Enter Union Fee" class="form-control" />
 									</div>
 									
 									<div class="col-sm-4 form-group">

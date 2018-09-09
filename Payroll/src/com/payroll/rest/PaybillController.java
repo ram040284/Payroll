@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,8 @@ import com.payroll.hrms.payroll.dataobjects.PaybillDetails;
 import com.payroll.hrms.payroll.dataobjects.EmployeePayroll;
 import com.payroll.hrms.payroll.service.GeneratePaybill;
 import com.payroll.hrms.payroll.service.PaybillService;
+import com.payroll.login.dao.PermissionsDAO;
+import com.payroll.login.dataobjects.User;
 import com.payroll.paybill.vo.PaybillBean;
 import com.payroll.paybill.vo.PaybillVO;
 import com.payroll.pdf.business.Book;
@@ -70,20 +74,33 @@ public class PaybillController {
 	}
 	
 	@RequestMapping(value = "/generateBills", method = RequestMethod.POST)
-	public ModelAndView generateBills(PaybillVO paybill) {
-		/*ObjectMapper mapper = new ObjectMapper();
-		List<Department> deptList = new DepartmentService().getDeptSections();
-		String depJSON = "";
-		try {
-			depJSON = mapper.writeValueAsString(deptList);
-		} catch (Exception e) {
-			e.printStackTrace();
+	public ModelAndView generateBills(PaybillVO paybill, HttpServletRequest request) {
+		
+		String permissionForThis = "generateBills";
+		
+		User loggedInUser = (User) request.getSession().getAttribute("user");
+		
+		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			/*ObjectMapper mapper = new ObjectMapper();
+			List<Department> deptList = new DepartmentService().getDeptSections();
+			String depJSON = "";
+			try {
+				depJSON = mapper.writeValueAsString(deptList);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			ModelAndView model = new ModelAndView("generateBills", "command", paybill);
+			model.addObject(paybill);
+			model.addObject("departments", depJSON);
+			return model;*/
+			return getInputForm(paybill, "generateBills");
+		} else {
+		    ModelAndView model = new ModelAndView("unauthorized", "message", "You do not have access to generate paybills. Please click home button to go back.");
+		    model.addObject("unauthorizedMessage", true);
+			return model;
 		}
-		ModelAndView model = new ModelAndView("generateBills", "command", paybill);
-		model.addObject(paybill);
-		model.addObject("departments", depJSON);
-		return model;*/
-		return getInputForm(paybill, "generateBills");
+		
+		
 	}
 	
 	private ModelAndView getInputForm(PaybillVO paybill, String jspName){

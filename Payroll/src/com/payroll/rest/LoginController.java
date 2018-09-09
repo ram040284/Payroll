@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.payroll.employee.dataobjects.Employee;
+import com.payroll.employee.dataobjects.EmployeeDAO;
 import com.payroll.employee.vo.EmployeeVO;
-import com.payroll.login.business.UserService;
 import com.payroll.login.dataobjects.User;
+import com.payroll.login.dataobjects.UserDAO;
 import com.payroll.login.vo.UserVO;
 
 @Controller
@@ -31,8 +33,12 @@ public class LoginController
   @RequestMapping(value={"/home"}, method={RequestMethod.POST})
   public ModelAndView homePage(HttpServletRequest request, User user)
   {
-	 Map userMap = new HashMap<String, String>(); 
-	 userMap.put("payroll", "payroll123");
+	 Map<String, String> userMap = new HashMap<String, String>(); 
+	 //userMap.put("payroll", "payroll123");
+	 
+	 User retrievedUser = new UserDAO().getUserByEmpId(user);
+	 
+	 userMap.put(retrievedUser.getUserName(), retrievedUser.getPassword());
 	 
 	 ModelAndView model = null;
 	/* User userDb = UserService.validateUser(user);
@@ -41,10 +47,14 @@ public class LoginController
 		 model.addObject("welcomeMsg", true);
 	     request.getSession().setAttribute("user", userDb);
 	 } else*/ if (userMap.get(user.getUserName())!=null && userMap.get(user.getUserName().toLowerCase()).equals(user.getPassword())) {
+		 
+		 Employee employee  = new EmployeeDAO().getById(retrievedUser.getEmpId());
+		 
 	     model = new ModelAndView("dashboard");
 	     model.addObject("welcomeMsg", true);
 	     byte handicapFlag = 0;
-	     user.setEmployee(new EmployeeVO(0, "Payroll", "User", "", handicapFlag));
+	     user.setEmployee(new EmployeeVO(employee.getEmployeeId(), employee.getFirstName(), employee.getLastName(), "", handicapFlag));
+	     //user.setEmployee(new EmployeeVO(0, "Payroll", "User", "", handicapFlag));
 	     request.getSession().setAttribute("user", user);
 	 } else {
 	     model = new ModelAndView("userLogin", "command", user);

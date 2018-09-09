@@ -163,22 +163,25 @@ $(document).ready(function() {
 									<label>Policy No:</label>
 									<form:input path="policyNo"  id="policyNo" placeholder="Enter Policy No" class="form-control"/>
 								</div>
-							
-							</div>
-							<div class="row">
-								<div class="col-sm-6 form-group">
-									<label>Installment Amount:</label>
-									<form:input path="instlmtAmt"  id="instlmtAmt" placeholder="Enter Installment Amount" class="form-control"/>
-									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empLic.employeeId != '0'}" > value="1" </c:if>/>
 								</div>
-							</div>
 							
-							<div class="row">	
-								<div class="text-right">
-									<button type="button" id="addLicBtn" class="btn">Submit</button>
-									<button type="reset" class="btn">Reset</button>	
-								</div>	
+							<div class="row">
+							<div class="col-sm-6 form-group">
+								<label>Installment Amount:</label>
+							   <form:input path="instlmtAmt"  id="instlmtAmt" placeholder="Enter Installment Amount" class="form-control"/>
+								<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empLic.employeeId != '0'}" > value="1" </c:if>/>
 							</div>
+							<div class="col-sm-6 form-group">
+							</div>
+						</div>
+					
+							
+						<div class="row">	
+							<div class="text-right">
+								<button type="button" id="addLicBtn" class="btn">Submit</button>
+								<button type="reset" class="btn">Reset</button>	
+							</div>	
+						</div>
 					</div>
 						
 				</form:form>
