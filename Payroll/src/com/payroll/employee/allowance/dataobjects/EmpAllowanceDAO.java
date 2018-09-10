@@ -68,18 +68,16 @@ public class EmpAllowanceDAO {
 	 * @return
 	 */
 	public EmployeeAllowances getEmployeeAllowances(String empId){
-		EmployeeAllowances employeeAllowances = null;
+			EmployeeAllowances employeeAllowances = null;
 			Session session = null;
-			//FIXME - Review Comments - Chetan: Review below query
 			try{
-				String queryString = "select new com.payroll.employee.allowance.vo.EmployeeAllowances(a.employee.employeeId, a.cca, a.washingAlwance,a.nonPracAwance,a.uniformAlwance,a.familyPlanAlwance, "
-						+ "a.cycleAlwance,a.hraFlag,a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance) from EmpAllowance a where a.employee.employeeId = ? and a.status = ?";		
+				String queryString = "select new com.payroll.employee.allowance.vo.EmployeeAllowances(a.employeeId, a.cca, a.washingAlwance,a.nonPracAwance,a.uniformAlwance,a.familyPlanAlwance, a.cycleAlwance,a.hraFlag,a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance) from EmpAllowance a where a.employee.employeeId = ? and a.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, empId);
 				query.setParameter(1, "A");
-				//System.out.println("EmployeeAllowances getEmployeeAllowances(int empId): "+ empId);
+				System.out.println("EmployeeAllowances getEmployeeAllowances(int empId): "+ empId);
 				employeeAllowances = (EmployeeAllowances)(!(query.list().isEmpty()) ? query.list().get(0) : null);
 			}catch(Exception e){
 				e.printStackTrace();

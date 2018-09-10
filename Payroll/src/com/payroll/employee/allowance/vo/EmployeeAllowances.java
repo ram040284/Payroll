@@ -16,6 +16,10 @@ public class EmployeeAllowances {
 	private double otherAllowance;
 	private double tAllowance;
 	
+	public EmployeeAllowances(){
+		
+	}
+	
 	/**
 	 */
 	public EmployeeAllowances(String employeeId, double cca, double washingAlwance, double nonPracAwance, 
@@ -66,10 +70,6 @@ public class EmployeeAllowances {
 
 	public void setTaFlag(byte taFlag) {
 		this.taFlag = taFlag;
-	}
-
-	public EmployeeAllowances(){
-		
 	}
 	
 	public String getEmployeeId() {

@@ -184,8 +184,14 @@ public class EmployeePayrollDAO {
     			arrearsDedu+= arrearsDedu;
     		}
     		
+			System.out.println("this.employeeId " + this.employeeId);
+			System.out.println("handicapFlag " + handicapFlag);
+			System.out.println("salary.getBasic() " + salary.getBasic());
+			System.out.println("salary.getGradePay() " + salary.getGradePay());
+			System.out.println("salary.getScalePay() " + salary.getScalePay());
+			System.out.println("salary.getScaleCode() " + salary.getScaleCode());
+			System.out.println("otherPay " + otherPay);
 			
-	
 			if (billType == 1) {
 				// Other pay need to add from Arrears
 	   			empPayroll = new EmployeePayroll(this.employeeId, handicapFlag, salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(), otherPay,
