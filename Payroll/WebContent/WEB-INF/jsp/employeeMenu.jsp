@@ -79,7 +79,7 @@
 				</div>
 			</div>
 
-			<div class="row">
+			 <div class="row">
 				
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
@@ -103,6 +103,7 @@
 					</div>
 				</div>
 				
+				<div class="col-xs-4 text-center">
 				<div class="precess-column">
 						<a href="../Payroll/viewOvertime"><img
 							src="../Payroll/resources/images/overtime.jpeg"
@@ -111,6 +112,7 @@
 							<a href="../Payroll/viewOvertime">Employee Overtime</a>
 						</h3>
 				</div>
+			</div>
 			</div>
 
 			<div class="row">
