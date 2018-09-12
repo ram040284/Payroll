@@ -159,6 +159,13 @@ public class EmployeePayrollDAO {
     		for (Iterator<EmpArrears> iterator = empArrearsList.iterator(); iterator.hasNext();) {
     			EmpArrears arrears = (EmpArrears)iterator.next();
     			
+    			/*Date arrearDate = arrears.getRowUpdatedDate();
+    			cal = Calendar.getInstance();
+        		cal.setTime(arrearDate); 
+        		int arrearMonth = cal.get(Calendar.MONTH);
+        		System.out.println("arrearMonth : " + arrearMonth);
+        		System.out.println("report month : " + month);*/
+    			
     			if (arrears.getArrearsType().equals("Rent")) {
     				arrearsPay = arrears.getArrearsPay(); 
     				arrearsDedu = arrears.getArrearsDeductions();
