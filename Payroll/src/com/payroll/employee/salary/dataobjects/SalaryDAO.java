@@ -62,20 +62,31 @@ public class SalaryDAO {
 				session.update(salayDB);
 			}
 			else {*/
-				salary.setEmployee(employee);
+			//System.out.println("salary.getEmployeeId()********* " + salary.getEmployeeId());
 				salary.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 				salary.setStatus("A");
-				if(salary.getAddUpdate() == 0){
+				if(salary.getAddUpdate() == 0 && salary.getEmployeeId().equals("0")){
+					salary.setEmployee(employee);
+					System.out.println("Inside add function");
 					session.save(salary);
+					transaction.commit();
 					session.flush();
 				}
 				else{
+					//System.out.println("Inside update function");
+					salary.setStatus("I");
 					session.update(salary);
-					session.flush();
+					salary.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+					transaction.commit();
+					/*transaction = session.beginTransaction();
+					salary.setEmployee(employee);
+					salary.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+					salary.setStatus("A");
+					session.save(salary);
+					transaction.commit();*/
+					session.flush();	
 				}
 			//}
-			session.flush();	
-			transaction.commit();
 			result = "Yes";
 		}catch(ConstraintViolationException cv){
 			cv.printStackTrace();

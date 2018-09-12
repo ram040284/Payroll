@@ -117,11 +117,11 @@
 				
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="../Payroll/viewEmpDeductions"><img
+						<a href="#" onclick="getList('../Payroll/listEmpDeductions')"><img
 							src="../Payroll/resources/images/deductions.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
-							<a href="../Payroll/viewEmpDeductions">Employee ITax Exemptions</a>
+							<a href="../Payroll/listEmpDeductions">Employee ITax Exemptions</a>
 						</h3>
 					</div>
 				</div>

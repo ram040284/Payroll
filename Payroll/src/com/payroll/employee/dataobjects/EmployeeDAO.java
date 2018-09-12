@@ -178,6 +178,7 @@ public class EmployeeDAO {
 	}
 	
 	public List<EmployeeVO> getEmployeesByDesgId(int desgId){
+//		/System.out.println("****Designation Id " + desgId);
 		List<EmployeeVO> empList = null;
 		Session session = null;
 		try{
@@ -196,7 +197,7 @@ public class EmployeeDAO {
 		return empList;
 	}
 	
-	public List<Employee> getEmployeeByEmployeeId(int id) {
+	public List<Employee> getEmployeeByEmployeeId(String id) {
 		List<Employee> employees = null;
 		Session session = null;
 		try{

@@ -36,11 +36,14 @@ $(document).ready(function() {
 	}
 	
 	var empId = "${empDeductions.employeeId}";
-	if(empId != 0){
-		getEmployeesByIds(deptId, desgId, empId);
+	if(empId != 0) {
+		//getEmployeesByIds(deptId, desgId, empId);
+		// need to fix this
+		getAllEmployees();
 	}else {
 		getAllEmployees();
 	}
+	$('#employeeId').val(empId);
 	
 	$('#addQtrBtn').click(function(event) {
 		var section80CVal = $('#section80C').val().trim();
@@ -422,6 +425,7 @@ function getAllEmployees(){
 	 $.ajax({
          url : '../Payroll/loadAllEmployees',
          type:"GET",
+         async: false,
          contentType: "application/json;charset=utf-8",
          success : function(data) {
         	$('#employeeId').empty();

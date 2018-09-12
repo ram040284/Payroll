@@ -30,16 +30,66 @@ public class EmpDeductionsController {
 	
 	String permissionForThis = null;
 	
-	@RequestMapping(value="/listEmpDeductions", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody List<EmpDeductionsVO> getEmpDeductionsList(){
-		System.out.println("listEmpDeductions-- getEmpDeductionsList");
-	   List<EmpDeductionsVO> empdeductionsList = new EmpDeductionsService().getEmpDeductionsList();
-	   return empdeductionsList;
+	@RequestMapping(value="/listEmpDeductions", method = RequestMethod.POST)
+	public ModelAndView  getEmpDeductionsList(com.payroll.employee.Employee employee, HttpServletRequest request) {
+		
+		permissionForThis = "listEmpDeductions";
+		User loggedInUser = (User) request.getSession().getAttribute("user");
+		ModelAndView model = null;
+		
+		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			ObjectMapper mapper = new ObjectMapper();
+			List<Department> deptList = new DepartmentService().getDepartments();
+			String depJSON = "";
+			  try {
+				  depJSON = mapper.writeValueAsString(deptList);
+			  }catch (Exception e) {
+				  e.printStackTrace();
+			  }
+			  List<EmpDeductionsVO> empDeductions = null;
+			  if(employee.getDepartmentId() !=0 || !Utils.isEmpty(employee.getFirstName())){
+				  empDeductions = new EmpDeductionsService().getEmpDeductionsList(employee.getDepartmentId(), employee.getHeadId(), employee.getFirstName());
+			  }else {
+				  empDeductions = new EmpDeductionsService().getAllExemptions();
+			  }
+			  
+			  model = new ModelAndView("listEmpDeductions", "command", empDeductions);
+			  model.addObject("empDeductions", empDeductions);
+			  model.addObject("departments", depJSON);
+			  return model;
+		} else {
+			model = new ModelAndView("unauthorized", "message", "You do not have access to add employee's deductions. Please click home button to go back.");
+			model.addObject("unauthorizedMessage", true);
+			return model;
+		}
+		
     }
+	
+	private ModelAndView empDeductionList(Employee employeeData) {
+		ObjectMapper mapper = new ObjectMapper();
+		   List<Department> deptList = new DepartmentService().getDepartments();
+		   String depJSON = "";
+		   try {
+			   depJSON = mapper.writeValueAsString(deptList);
+		   }catch (Exception e) {
+			   e.printStackTrace();
+		   }
+		   List<EmpDeductionsVO> empDeductions = null;
+		   
+		   if(employeeData.getDepartmentId() !=0 || !Utils.isEmpty(employeeData.getFirstName())){
+			   System.out.println("employee.getDepartmentId() " + employeeData.getDepartmentId());
+			   System.out.println("employee.getFirstName() " + employeeData.getFirstName());
+			   empDeductions = new EmpDeductionsService().getEmpDeductionsList(employeeData.getDepartmentId(), employeeData.getHeadId(), employeeData.getFirstName());
+		   }
+		   
+		   ModelAndView model = new ModelAndView("listEmpDeductions", "command", empDeductions);
+		   model.addObject("empDeductions", empDeductions);
+		   model.addObject("departments", depJSON);
+		   return model;
+	}
 	
 	@RequestMapping(value = "/viewEmpDeductions", method = RequestMethod.GET)
 	public String viewEmpDeductions(ModelMap model, HttpServletRequest request) {
-		
 		permissionForThis = "viewEmployeeDeduction";
 			
 		User loggedInUser = (User) request.getSession().getAttribute("user");
@@ -55,7 +105,6 @@ public class EmpDeductionsController {
 	
 	@RequestMapping(value = "/inputEmpDeductions", method = RequestMethod.POST)
 	public ModelAndView inputEmpDeductions(EmpDeductions empDeductions, HttpServletRequest request) {
-		
 		permissionForThis = "addEmployeeDeduction";
 		ModelAndView model = null;
 			
@@ -91,13 +140,11 @@ public class EmpDeductionsController {
 	@RequestMapping(value="/addEmpDeductions",method=RequestMethod.POST)
 	public @ResponseBody
 	String addEmpDeductions(@RequestBody EmpDeductions empDeductions, HttpServletRequest request){
-		
 		permissionForThis = "addEmployeeDeduction";
 			
 		User loggedInUser = (User) request.getSession().getAttribute("user");
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-			System.out.println("addEmpDeductions -- empDeductions:"+empDeductions);
 			   String result = new EmpDeductionsService().addUpdateEmpDeductions(empDeductions);
 			   System.out.println("result:"+result);
 			   return result;
@@ -111,7 +158,6 @@ public class EmpDeductionsController {
 	
 	@RequestMapping(value="/deleteEmpDeductions",method=RequestMethod.POST)
 	public String deleteEmpDeductions(EmpDeductions empDeductions, HttpServletRequest request){
-		
 		permissionForThis = "deleteEmployeeDeduction";
 		
 		User loggedInUser = (User) request.getSession().getAttribute("user");

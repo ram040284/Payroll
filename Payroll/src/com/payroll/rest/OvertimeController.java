@@ -113,6 +113,12 @@ public class OvertimeController {
 	   return employees;
 	}
 	
+	@RequestMapping(value="/loadAllEmployees", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<EmployeeVO> loadAllEmployees(){
+		List<EmployeeVO> employees = new EmployeeService().getAllEmployees();
+		return employees;
+    }
+	
 	@RequestMapping(value="/deleteOvertime",method=RequestMethod.POST)
 	public String deleteOvertime(OvertimeVO overtime, HttpServletRequest request){
 		

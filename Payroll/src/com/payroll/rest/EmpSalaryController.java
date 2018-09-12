@@ -74,8 +74,10 @@ public class EmpSalaryController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		if(salary.getEmployeeId() != "0")
+			if(!salary.getEmployeeId().equals("0")) {
 				salary = new SalaryService().getEmpSalary(salary.getEmployeeId());
+			}
+				
 			model = new ModelAndView("salary", "command", salary);
 			model.addObject("salary", salary);
 			model.addObject("departments", depJSON);
@@ -98,7 +100,7 @@ public class EmpSalaryController {
 		User loggedInUser = (User) request.getSession().getAttribute("user");
 		
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-			System.out.println("addSalary -- salary:"+salary);
+			//System.out.println("addSalary -- salary : "+salary.getAddUpdate());
 			   String result = new SalaryService().addUpdateSalary(salary);
 			   System.out.println("Add/Update Salary -- result:"+result);
 			   return result;

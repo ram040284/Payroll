@@ -77,7 +77,7 @@ public class EmployeeService {
 		return copyDBEmp(new EmployeeDAO().getEmployeeById(empId));
 	}
 	
-	public List<Employee> getEmployeeByEmployeeId(int id) {
+	public List<Employee> getEmployeeByEmployeeId(String id) {
 		return new EmployeeDAO().getEmployeeByEmployeeId(id);
 	}
 	
