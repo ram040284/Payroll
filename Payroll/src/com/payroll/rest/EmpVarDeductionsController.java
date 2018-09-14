@@ -78,8 +78,10 @@ public class EmpVarDeductionsController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		if(empVarDeductions.getEmployeeId() != "0")
-				empVarDeductions = new EmpVarDeductionsService().getEmpDeductionsById(empVarDeductions.getEmployeeId());
+		
+			if(!empVarDeductions.getEmployeeId().equals("0"))
+			
+			empVarDeductions = new EmpVarDeductionsService().getEmpDeductionsById(empVarDeductions.getEmployeeId());
 			System.out.println("empVarDeductions Employee id : "+ empVarDeductions.getEmployeeId() + "empVarDeductions Department : " + empVarDeductions.getDepartmentId());
 			model = new ModelAndView("empVarDeductions", "command", empVarDeductions);
 			model.addObject("empDeductions", empVarDeductions);
@@ -123,7 +125,7 @@ public class EmpVarDeductionsController {
 			System.out.println("deleteEmpDeductDtls -- empDeductions:"+empDeductions.getEmployeeId());
 			   String result = new EmpVarDeductionsService().deleteEmpDeductions(empDeductions.getEmployeeId());
 			   System.out.println("Result:"+result);
-			   return "listEmpDeductions";
+			   return "listVarEmpDeductions";
 		} else {
 			request.getSession().setAttribute("message", "You do not have access to delete employee's variable deductions. Please click home button to go back.");
 			request.getSession().setAttribute("unauthorizedMessage", true);

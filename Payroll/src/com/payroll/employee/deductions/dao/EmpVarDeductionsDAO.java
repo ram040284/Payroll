@@ -154,15 +154,19 @@ public class EmpVarDeductionsDAO {
 	public String deleteEmpDeductions(String empId){
 		String result = null;
 		Session session = null;
+		Transaction transaction = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
 			Query query = session.createQuery("update EmpVarDeductionsVO d set d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ?");
-			query.setParameter(0, "S");
+			query.setParameter(0, "I");
 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 			query.setParameter(2, empId);
 			int updated = query.executeUpdate();
 			if(updated > 0)
 				result = "Successfully deleted Employee Deduction details!";
+			session.flush();	
+			transaction.commit();
 		}catch(Exception e){
 			e.printStackTrace();
 			result = "Failed to delete Employee Deduction details!";
@@ -182,16 +186,16 @@ public class EmpVarDeductionsDAO {
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			//Employee employee = (Employee)session.load(Employee.class, empVarDeductions.getEmployeeId());
-			//empVarDeductions.setEmployee(employee);
+			Employee employee = (Employee)session.load(Employee.class, empVarDeductions.getEmployeeId());
+			empVarDeductions.setEmployee(employee);
 			empVarDeductions.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 			empVarDeductions.setStatus("A");
 			System.out.println("empVarDeductions.getAddUpdate()"+ empVarDeductions.getAddUpdate());
 			if(empVarDeductions.getAddUpdate() ==0)
 				session.save(empVarDeductions);
 			else
-				session.update(empVarDeductions);
-			transaction.commit();
+			 session.update(empVarDeductions);
+	         transaction.commit();
 			result = "Yes";
 		}catch(ConstraintViolationException cv){
 			cv.printStackTrace();
