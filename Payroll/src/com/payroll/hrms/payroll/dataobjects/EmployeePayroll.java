@@ -365,7 +365,7 @@ public class EmployeePayroll {
         
         this.totalAllowance = Math.round(this.cca + this.nonPracticingAllowance + this.washingAllowance + this.uniformAllowance + this.ca + this.familyPlanningAllowance + this.otherAllowance);
         
-        totalAllowance += this.arrearPay;
+        //totalAllowance += this.arrearPay;
     }
 
     /**
@@ -375,7 +375,7 @@ public class EmployeePayroll {
     private void calculateGrossPay(){
     	
 
-        this.grossPay = this.basic + this.gradePay + this.dearnessAllowance + this.travelAllowance + this.houseRentAllowance + this.totalAllowance + this.otherPayAmount + this.tAllowance;
+        this.grossPay = this.basic + this.gradePay + this.dearnessAllowance + this.travelAllowance + this.houseRentAllowance + this.totalAllowance + this.otherPayAmount + this.tAllowance + this.arrearPay;
         this.totalGrossPay = Math.round(this.grossPay + this.overTimeAmount);
         //if leave without pay or absent
         if(absentDays > 0.0)
@@ -391,9 +391,9 @@ public class EmployeePayroll {
     	this.netPay = 0;
     	
 		if(this.totalGrossPay>this.grossPay) {
-			this.netPay = Math.round(this.totalGrossPay - this.totalDeductions);
+			this.netPay = Math.round(this.totalGrossPay - this.totalDeductions - this.arrearDedu);
 		} else {
-			this.netPay = Math.round(this.grossPay - this.totalDeductions);
+			this.netPay = Math.round(this.grossPay - this.totalDeductions - this.arrearDedu);
 		}
 		
 		if (this.netPay <= 0 ) {
@@ -420,9 +420,6 @@ public class EmployeePayroll {
 		}
 		
 		this.totalDeductions = addDeductions();
-		this.totalDeductions -= this.arrearDedu;
-		
-    	
     }
     /**
      * Calculate over time

@@ -159,45 +159,33 @@ public class EmployeePayrollDAO {
     		for (Iterator<EmpArrears> iterator = empArrearsList.iterator(); iterator.hasNext();) {
     			EmpArrears arrears = (EmpArrears)iterator.next();
     			
-    			/*Date arrearDate = arrears.getRowUpdatedDate();
+    			Date arrearDate = arrears.getRowUpdatedDate();
     			cal = Calendar.getInstance();
         		cal.setTime(arrearDate); 
         		int arrearMonth = cal.get(Calendar.MONTH);
-        		System.out.println("arrearMonth : " + arrearMonth);
-        		System.out.println("report month : " + month);*/
-    			
-    			if (arrears.getArrearsType().equals("Rent")) {
-    				arrearsPay = arrears.getArrearsPay(); 
-    				arrearsDedu = arrears.getArrearsDeductions();
-    				
-    			} else if(arrears.getArrearsType().equals("AfkRent")) {
-    				arrearsPay = arrears.getArrearsPay(); 
-    				arrearsDedu = arrears.getArrearsDeductions();
-    				
-    			} else if(arrears.getArrearsType().equals("Other")) {
-    				otherPay = arrears.getArrearsPay(); 
-    				otherDedu = arrears.getArrearsDeductions();
-    				
-    			} else if(arrears.getArrearsType().equals("Misc")) {
-    				arrearsPay = arrears.getArrearsPay(); 
-    				arrearsDedu = arrears.getArrearsDeductions();
-    			}
-    			
-    			
-    			/*System.out.println("Other Pay : " + arrears.getArrearsPay() + " Arrears Type " + arrears.getArrearsType() 
-    			+ " Arrears Deductions " + arrears.getArrearsDeductions() + " Arrears Misc Pay " + arrears.getMiscPay());
-    			*/
-    			arrearsTotPay += arrearsPay;
-    			arrearsDedu+= arrearsDedu;
+        		
+        		if (arrearMonth == month) {
+        			
+        			if (arrears.getArrearsType().equals("Rent")) {
+        				arrearsPay = arrears.getArrearsPay(); 
+        				arrearsDedu = arrears.getArrearsDeductions();
+        				
+        			} else if(arrears.getArrearsType().equals("AfkRent")) {
+        				arrearsPay = arrears.getArrearsPay(); 
+        				arrearsDedu = arrears.getArrearsDeductions();
+        				
+        			} else if(arrears.getArrearsType().equals("Other")) {
+        				otherPay = arrears.getArrearsPay(); 
+        				otherDedu = arrears.getArrearsDeductions();
+        				
+        			} else if(arrears.getArrearsType().equals("Misc")) {
+        				arrearsPay = arrears.getArrearsPay(); 
+        				arrearsDedu = arrears.getArrearsDeductions();
+        			}
+        			arrearsTotPay += arrearsPay;
+        			arrearsDedu+= arrearsDedu;
+				}
     		}
-    		
-			System.out.println("this.employeeId " + this.employeeId);
-			System.out.println("handicapFlag " + handicapFlag);
-			System.out.println("salary.getBasic() " + salary.getBasic());
-			System.out.println("salary.getGradePay() " + salary.getGradePay());
-			System.out.println("salary.getScalePay() " + salary.getScalePay());
-			System.out.println("salary.getScaleCode() " + salary.getScaleCode());
-			System.out.println("otherPay " + otherPay);
 			
 			if (billType == 1) {
 				// Other pay need to add from Arrears
@@ -205,18 +193,15 @@ public class EmployeePayrollDAO {
 	   					employeeAllowances.getCca(), employeeAllowances.getCycleAlwance(), employeeAllowances.getOtherAllowance(), employeeAllowances.getFamilyPlanAlwance(),employeeAllowances.getNonPracAwance(),
 	   					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),employeeAllowances.getPFFlag(), employeeAllowances.getTaFlag(), employeeAllowances.gettAllowance(),
 	   					employeeFixedDeductions.getUnionFee(), employeeFixedDeductions.getKssUnionFee(), employeeFixedDeductions.getRent(), employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
-	   					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getPfLoanRecovery(), employeeVarDeductions.getOtherDeductions(),
+	   					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getPfLoanRecovery(), otherDedu, //employeeVarDeductions.getOtherDeductions(),
 	   					employeeVarDeductions.getSociety(), employeeVarDeductions.getIncomeTax(), licTotalInstallmentAmt, festAdvanceRecovery , bankLoanRecovery, employeeVarDeductions.getAbsenties(), overtimeAmount, bankVo.getBankName(), 
 	   					bankVo.getAccountNo(), bankVo.getBankId(), salary.getIncrementDate(), salary.getIncrementAmount(), month, employeeFixedDeductions.getApfAcpf(), arrearsTotPay, arrearsDedu);
 	   			
 			} else if (billType == 2) {
-				System.out.println("bankVo account number " + bankVo.getAccountNo());
-				
 				empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(),
 						salary.getEmpAbsentDays(), salary.getEmpPresentDays(), bankVo.getAccountNo(), bankVo.getEmployeeId(), billType, 
 						empDesignation.getDesignation().getDesignationId());
 			} else if (billType == 3) {
-				System.out.println("bankVo account number " + bankVo.getAccountNo());
 				empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(),
 						salary.getEmpAbsentDays(), salary.getEmpPresentDays(), bankVo.getAccountNo(), bankVo.getEmployeeId(), billType, 
 						empDesignation.getDesignation().getDesignationId());
