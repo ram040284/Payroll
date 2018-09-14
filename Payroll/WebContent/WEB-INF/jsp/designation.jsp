@@ -59,9 +59,6 @@ $(document).ready(function() {
 	    event.preventDefault();
 	});
 	
-	$('#backBtn').click(function(event) { 
-		window.location = "../Payroll/viewDesg";
-	});
 });
 
 function getHeads(){
@@ -112,7 +109,7 @@ function getHeadsByDept(deptId) {
 		<div class="formDiv" style="border: none;">
 			<div class="row">
 				<div class="text-left" style="margin-left: 15px;">
-					<button type="button" id="backBtn" class="btn">Back</button>
+					<button type="button" id="backBtn" class="btn" onclick="location.href='../Payroll/viewDesg';">Back</button>
 				</div>
 			</div>
 		</div>	

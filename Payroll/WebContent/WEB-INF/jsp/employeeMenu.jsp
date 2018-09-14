@@ -113,7 +113,8 @@
 						</h3>
 				</div>
 			</div>
-		</div>
+
+			</div>
 			<div class="row">
 				
 				<div class="col-xs-4 text-center">

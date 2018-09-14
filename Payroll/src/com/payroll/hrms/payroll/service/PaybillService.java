@@ -122,6 +122,7 @@ public class PaybillService {
 		if(empList == null)
 			empList = new ArrayList<>();
 		empList.add(empVO);
+		//sectionEmpList.add(empVO);
 		System.out.println("paybill:"+paybill);
 		if(paybill!=null){
 			if(paybillList == null)
@@ -203,20 +204,22 @@ public class PaybillService {
     		ReportDetails empPayroll = new ReportDetails(); 
     		org.apache.commons.beanutils.BeanUtils.copyProperties(empPayroll, paybill);
     		if(headId == 0){
-	    		for (EmployeeVO employee : sectionEmpList) {
-					if(employee.getEmployeeId() == paybill.getEmployeeId()){
-						empPayroll.setEmployeeName(employee.getFullName());
-			    		empPayroll.setPanNo(employee.getPan());
-			    		empPayroll.setDob(employee.getDob());
-			    		empPayroll.setJoiningDate(employee.getJoiningDate());
-			    		empPayroll.setRetirementDate(employee.getRetirementDate());
-			    		empPayroll.setGender(employee.getGender());
-			    		empPayroll.setPfNumber("");
-			    		empPayroll.setEmployeeNumber(employee.getEmployeeId()+"");
-			    		empPayroll.setEmployeeType(employee.getEmployeeType());
-			    		break;
+    			if(null != sectionEmpList) {  
+		    		for (EmployeeVO employee : sectionEmpList) {
+						if(employee.getEmployeeId().equals(paybill.getEmployeeId())){
+							empPayroll.setEmployeeName(employee.getFullName());
+				    		empPayroll.setPanNo(employee.getPan());
+				    		empPayroll.setDob(employee.getDob());
+				    		empPayroll.setJoiningDate(employee.getJoiningDate());
+				    		empPayroll.setRetirementDate(employee.getRetirementDate());
+				    		empPayroll.setGender(employee.getGender());
+				    		empPayroll.setPfNumber("");
+				    		empPayroll.setEmployeeNumber(employee.getEmployeeId()+"");
+				    		empPayroll.setEmployeeType(employee.getEmployeeType());
+				    		break;
+						}
 					}
-				}
+    			}
     		}
     		payrollTotals.addEmployeePayroll(empPayroll);
 		}

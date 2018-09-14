@@ -35,7 +35,7 @@
 	  }
       
       function deleteBank(id){
-    	  if(confirm("Are you sure to delete Department?")){
+    	  if(confirm("Are you sure to delete bank details?")){
     		  var f = document.forms['editForm'];
     		  f.departmentId.value=id;
     		  f.action="../Payroll/deleteBankDetails";
