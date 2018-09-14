@@ -11,19 +11,19 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
 import com.payroll.employee.dataobjects.Employee;
-import com.payroll.employee.lic.vo.EmpLicMasterVO;
-import com.payroll.employee.lic.vo.EmpLicVO;
+//import com.payroll.employee.lic.vo.EmpLicMasterVO;
+//import com.payroll.employee.lic.vo.EmpLicVO;
 import com.payroll.employee.lic.vo.EmployeeLIC;
 
 
 public class EmpLicDAO {
 	
-	public List<EmpLicVO> getEmpLicList(){
-		List<EmpLicVO> instlmtAmt = null;
+	public List<EmpLic> getEmpLicList(){
+		List<EmpLic> instlmtAmt = null;
 			Session session = null;
 			
 			try{
-				String queryString = " select new com.payroll.employee.lic.vo.EmpLicVO(l.employee.employeeId, "
+				String queryString = " select new com.payroll.employee.lic.dataobjects.EmpLic(l.employee.employeeId, "
 						+ "l.employee.firstName, l.employee.lastName, "
 						+ "l.policyNo, l.paymentDate, l.paymentAmount) from EmpLic l where l.status = ?";		
 				
@@ -49,7 +49,7 @@ public class EmpLicDAO {
 			Session session = null;
 			
 			try{
-				String queryString = " select new com.payroll.employee.lic.vo.EmployeeLIC(l.employeeId, "
+				String queryString = " select new com.payroll.employee.lic.dataobjects.EmployeeLIC(l.employeeId, "
 						+ "l.policyNo, l.instlmtAmt) from EmpLicMaster l where  l.employeeId = ? and l.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
@@ -66,33 +66,33 @@ public class EmpLicDAO {
 		return listEmpLICDeductions;
 	}
 	
-	public List<EmpLicMasterVO> getEmpLicMasterList(){
-		List<EmpLicMasterVO> instlmtAmt = null;
+	public List<EmpLicMaster> getEmpLicMasterList(){
+		List<EmpLicMaster> empLicMasterList = null;
 			Session session = null;
 			
 			try{
-				String queryString = " select new com.payroll.employee.lic.vo.EmpLicMasterVO(l.employee.employeeId, "
+				String queryString = " select new com.payroll.employee.lic.dataobjects.EmpLicMaster(l.employee.employeeId, "
 						+ "l.employee.firstName, l.employee.lastName, "
 						+ "l.policyNo, l.instlmtAmt) from EmpLicMaster l where l.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, "A");
-				instlmtAmt = query.list();
+				empLicMasterList = query.list();
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally{
 				HibernateConnection.closeSession(session);
 			}
 		
-		return instlmtAmt;
+		return empLicMasterList;
 	}
 	
-	public EmpLicVO getEmpLicById(String empId){
-		EmpLicVO empLicVO = null;
+	public EmpLic getEmpLicById(EmpLic empLic){
+		//EmpLic empLic = null;
 			Session session = null;
 			try{
-				String queryString = " select new com.payroll.employee.lic.vo.EmpLicVO(l.employee.employeeId, "
+				String queryString = " select new com.payroll.employee.lic.dataobjects.EmpLic(l.employee.employeeId, "
 						/*+ "(select dept.departmentId from Department dept where dept.departmentId = (select eDept.departmentId "
 						+ "from EmpDepartment eDept where eDept.empId = l.empId)), (select desg.designationId "
 						+ "from Designation desg where desg.designationId = (select eDesg.designationId from EmpDesignation eDesg "
@@ -100,29 +100,29 @@ public class EmpLicDAO {
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = l.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = l.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = l.employee.employeeId and dh.status = 'A'), "
-						+ "l.policyNo, l.paymentDate, l.paymentAmount) from EmpLic l where l.status = ? and l.employee.employeeId = ?";		
+						+ "l.policyNo, l.paymentDate, l.paymentAmount) from EmpLic l where l.status = ? and l.employee.employeeId =? and l.policyNo = ? ";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, "A");
-				query.setParameter(1, empId);
-				empLicVO = (EmpLicVO)(!(query.list().isEmpty()) ? query.list().get(0) : null);
+				query.setParameter(1, empLic.getEmployeeId());
+				query.setParameter(2, empLic.getPolicyNo());
+                empLic= (EmpLic)(!(query.list().isEmpty()) ? query.list().get(0) : null);
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally{
 				HibernateConnection.closeSession(session);
 			}
 		
-		return empLicVO;
+		return empLic;
 	}
 	
 	
-	public EmpLicMasterVO getEmpLicMasterById(String empId){
-		EmpLicMasterVO empLicMasterVO = null;
+	public EmpLicMaster getEmpLicMasterById(EmpLicMaster empLicMaster){
 			Session session = null;
 			try{
 
-				String queryString = " select new com.payroll.employee.lic.vo.EmpLicMasterVO(l.employee.employeeId, "
+				String queryString = " select new com.payroll.employee.lic.dataobjects.EmpLicMaster(l.employee.employeeId, "
 						/*+ "(select dept.departmentId from Department dept where dept.departmentId = (select eDept.departmentId "
 						+ "from EmpDepartment eDept where eDept.empId = l.empId)), (select desg.designationId "
 						+ "from Designation desg where desg.designationId = (select eDesg.designationId from EmpDesignation eDesg "
@@ -131,33 +131,36 @@ public class EmpLicDAO {
 						+ "dept.employee.employeeId = l.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = l.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = l.employee.employeeId and dh.status = 'A'), "
-						+ "l.policyNo, l.instlmtAmt) from EmpLicMaster l where l.status = ? and l.employee.employeeId = ?";		
+						+ "l.policyNo, l.instlmtAmt) from EmpLicMaster l where l.status = ? and l.employee.employeeId = ? and l.policyNo = ?";		
 
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, "A");
-				query.setParameter(1, empId);
-				empLicMasterVO = (EmpLicMasterVO)(!(query.list().isEmpty()) ? query.list().get(0) : null);
+				query.setParameter(1, empLicMaster.getEmployeeId());
+				query.setParameter(2, empLicMaster.getPolicyNo());
+				empLicMaster = (EmpLicMaster)(!(query.list().isEmpty()) ? query.list().get(0) : null);
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally{
 				HibernateConnection.closeSession(session);
 			}
 		
-		return empLicMasterVO;
+		return empLicMaster;
 	}
-	public String deleteEmpLicMaster(String empId){
+	
+	public String deleteEmpLicMaster(EmpLicMaster empLicMaster){
  		String result = null;
  		Session session = null;
 		Transaction transaction = null;
  		try{
  			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("update EmpLicMaster l set l.status = ?, l.rowUpdDate = ? where l.employee.employeeId = ?");
+			Query query = session.createQuery("update EmpLicMaster l set l.status = ?, l.rowUpdDate = ? where l.employee.employeeId = ? and l.policyNo = ?");
             query.setParameter(0, "I");
  			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
- 			query.setParameter(2, empId);
+			query.setParameter(2, empLicMaster.getEmployeeId());
+ 			query.setParameter(3, empLicMaster.getPolicyNo());
  			int updated = query.executeUpdate();
  			if(updated > 0)
  				result = "Successfully deleted LIC Details!";
@@ -173,18 +176,75 @@ public class EmpLicDAO {
 		return result;
 	}
 	
+	public String updateEmpLicMaster(EmpLicMaster empLicMaster){
+ 		String result = null;
+ 		Session session = null;
+		Transaction transaction = null;
+ 		try{
+ 			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			Query query = session.createQuery("update EmpLicMaster l set l.instlmtAmt = ?, l.rowUpdDate = ? where l.employee.employeeId = ? and l.policyNo = ?");
+ 			query.setParameter(0, empLicMaster.getInstlmtAmt());
+			query.setParameter(1, new Timestamp(System.currentTimeMillis())) ;
+			query.setParameter(2, empLicMaster.getEmployeeId());
+			query.setParameter(3, empLicMaster.getPolicyNo());
+
+ 			int updated = query.executeUpdate();
+ 			if(updated > 0)
+ 				result = "Successfully updated LIC Details!";
+			session.flush();
+			transaction.commit();
+			result = "Yes";
+		}catch(Exception e){
+			e.printStackTrace();
+			result = "Failed to update LIC details!";
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return result;
+	}
 	
-	public String deleteEmpLic(String empId){
+	public String updateEmpLic(EmpLic empLic){
+ 		String result = null;
+ 		Session session = null;
+		Transaction transaction = null;
+ 		try{
+ 			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			Query query = session.createQuery("update EmpLic l set l.paymentAmount = ?, l.paymentDate = ? where l.employee.employeeId = ? and l.policyNo = ?");
+ 			query.setParameter(0, empLic.getPaymentAmount());
+ 			query.setParameter(1, empLic.getPaymentDate());
+			query.setParameter(2, empLic.getEmployeeId());
+			query.setParameter(3, empLic.getPolicyNo());
+
+ 			int updated = query.executeUpdate();
+ 			if(updated > 0)
+ 				result = "Successfully updated LIC Details!";
+			session.flush();
+			transaction.commit();
+			result = "Yes";
+		}catch(Exception e){
+			e.printStackTrace();
+			result = "Failed to update LIC details!";
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return result;
+	}
+	
+	
+	public String deleteEmpLic(EmpLic empLic){
 		String result = null;
 		Session session = null;
 		Transaction transaction = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("update EmpLic l set l.status = ?, l.rowUpdDate = ? where l.employee.employeeId = ?");
+			Query query = session.createQuery("update EmpLic l set l.status = ?, l.rowUpdDate = ? where l.employee.employeeId = ? and l.policyNo= ?");
             query.setParameter(0, "I");
 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
-			query.setParameter(2, empId);
+			query.setParameter(2, empLic.getEmployeeId());
+			query.setParameter(3, empLic.getPolicyNo());
 			int updated = query.executeUpdate();
 			if(updated > 0)
 				result = "Successfully deleted LIC Details!";
@@ -221,13 +281,19 @@ public class EmpLicDAO {
 				session.update(licDB);
 			}
 			else {*/
+			System.out.println("empLic.toString()"+ empLic.toString());
 				empLic.setEmployee(employee);
 				empLic.setStatus("A");
 				empLic.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 				if(empLic.getAddUpdate() ==0)
-					session.save(empLic);
+				{
+					session.save(empLic);					
+				}
 				else
-					session.update(empLic);
+				{
+					updateEmpLic(empLic);
+					//session.update(empLic);					
+				}
 			//}
 			transaction.commit();
 			result = "Yes";
@@ -272,9 +338,14 @@ public class EmpLicDAO {
 			empLicMaster.setStatus("A");
 			empLicMaster.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 				if(empLicMaster.getAddUpdate() ==0)
+				{
 					session.save(empLicMaster);
+				}
 				else
-					session.update(empLicMaster);
+				{
+//					session.update(empLicMaster);
+					result = updateEmpLicMaster(empLicMaster);
+				}
 			//}
 			transaction.commit();
 			result = "Yes";

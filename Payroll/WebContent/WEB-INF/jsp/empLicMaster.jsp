@@ -100,9 +100,6 @@ $(document).ready(function() {
 	    event.preventDefault();
 	});
 });
-
-
-    
 </script>
 <jsp:include page="../jsp/public/master.jsp" />
 </head>
@@ -121,7 +118,7 @@ $(document).ready(function() {
 		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">
-				<c:if test="${empLic.employeeId != '0'}" >	Update</c:if><c:if test="${empLic.employeeId == '0'}">Add</c:if> Employee LIC
+				<c:if test='${empLic.employeeId eq "0"}' >	Add</c:if><c:if test='${!(empLic.employeeId eq "0")}' >Update</c:if> Employee LIC
 			</h4>
 
 		<div class="col-lg-12 card-block bg-faded" style="margin-bottom: 10px;">
@@ -132,21 +129,21 @@ $(document).ready(function() {
 							<div class="col-sm-4 form-group">
 								<label>Department</label>
 								<select id="departmentId" class="form-control" onchange="getHeads()"
-								<c:if test="${empLic.employeeId != '0'}" >disabled = "disabled" </c:if>>
+								<c:if test='${!(empLic.employeeId eq "0")}' >disabled = "disabled" </c:if>>
 									<option value="0">-- Select Department --</option>
 								</select>
 							</div>
 							<div class="col-sm-4 form-group">
 								<label>Head:</label>
 								<select id="headId" class="form-control" onchange="loadDesignations()"
-								<c:if test="${empLic.employeeId != '0'}" > disabled= "disabled" </c:if>>
+								<c:if test='${!(empLic.employeeId eq "0")}' > disabled= "disabled" </c:if>>
 								<option value="0">-- Select Head --</option></select>
 							</div>
 							
 							<div class="col-sm-4 form-group">
 								<label>Designation:</label>
 								<select id="designationId" class="form-control" onchange="getEmployees()"
-								<c:if test="${empLic.employeeId != '0'}" >disabled = "disabled" </c:if>>
+								<c:if test='${!(empLic.employeeId eq "0")}' >disabled = "disabled" </c:if>>
 									<option value="0">-- Select Designation --</option>
 								</select>
 							</div>
@@ -155,25 +152,32 @@ $(document).ready(function() {
 								<div class="col-sm-6 form-group">
 									<label>Employee:</label>
 									<select id="employeeId" class="form-control"
-									<c:if test="${empLic.employeeId != '0'}" >disabled = "disabled" </c:if>>
+									<c:if test='${!(empLic.employeeId eq "0")}'> disabled = "disabled"  </c:if>>
 										<option value="0">-- Select Employee --</option>
 									</select>
 								</div>
 								<div class="col-sm-6 form-group">
 									<label>Policy No:</label>
-									<form:input path="policyNo"  id="policyNo" placeholder="Enter Policy No" class="form-control"/>
+									 <c:if test='${empLic.employeeId eq "0"}'> 
+										<form:input path="policyNo"  id="policyNo" placeholder="Enter Policy No" class="form-control"/>
+									</c:if>
+									
+									<c:if test='${!(empLic.employeeId eq "0")}'> 
+										 <input path="policyNo"  id="policyNo" disabled="disabled" value="${empLic.policyNo}"
+										  class="form-control"/>
+									</c:if>
 								</div>
-								</div>
+							</div>
 							
 							<div class="row">
-							<div class="col-sm-6 form-group">
-								<label>Installment Amount:</label>
-							   <form:input path="instlmtAmt"  id="instlmtAmt" placeholder="Enter Installment Amount" class="form-control"/>
-								<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empLic.employeeId != '0'}" > value="1" </c:if>/>
+								<div class="col-sm-6 form-group">
+									<label>Installment Amount:</label>
+								   <form:input path="instlmtAmt"  id="instlmtAmt" placeholder="Enter Installment Amount" class="form-control"/>
+									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test='${!(empLic.employeeId eq "0")}' > value="1" </c:if>>
+								</div>
+								<div class="col-sm-6 form-group">
+								</div>
 							</div>
-							<div class="col-sm-6 form-group">
-							</div>
-						</div>
 					
 							
 						<div class="row">	

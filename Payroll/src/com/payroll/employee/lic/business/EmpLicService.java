@@ -6,43 +6,50 @@ import java.util.List;
 import com.payroll.employee.lic.dataobjects.EmpLic;
 import com.payroll.employee.lic.dataobjects.EmpLicDAO;
 import com.payroll.employee.lic.dataobjects.EmpLicMaster;
-import com.payroll.employee.lic.vo.EmpLicMasterVO;
-import com.payroll.employee.lic.vo.EmpLicVO;
+//import com.payroll.employee.lic.vo.EmpLicMasterVO;
+//import com.payroll.employee.lic.vo.EmpLicVO;
 
 public class EmpLicService {
-	public List<EmpLicVO> getEmpLicList(){
+	/*public List<EmpLicVO> getEmpLicList(){
+		return new EmpLicDAO().getEmpLicList();
+	}*/
+	public List<EmpLic> getEmpLicList(){
 		return new EmpLicDAO().getEmpLicList();
 	}
-	
-	public List<EmpLicMasterVO> getEmpLicMasterList(){
+	public List<EmpLicMaster> getEmpLicMasterList(){
 		return new EmpLicDAO().getEmpLicMasterList();
 	}
 	
-	public EmpLicVO getEmpLicById(String empId){
-		return new EmpLicDAO().getEmpLicById(empId);
+	/*public EmpLic getEmpLicById(EmpLic empLic){
+		return new EmpLicDAO().getEmpLicById(empLic);
+	}*/
+	
+	public EmpLicMaster getEmpLicMasterById(EmpLicMaster empLicMaster){
+		return new EmpLicDAO().getEmpLicMasterById(empLicMaster);
 	}
 	
-	public EmpLicMasterVO getEmpLicMasterById(String empId){
-		return new EmpLicDAO().getEmpLicMasterById(empId);
+	public EmpLic getEmpLicById(EmpLic empLic){
+		return new EmpLicDAO().getEmpLicById(empLic);
+	}
+	public String deleteLicMaster(EmpLicMaster empLicMaster){
+		return new EmpLicDAO().deleteEmpLicMaster(empLicMaster);
+	}
+	public String deleteLic(EmpLic empLic){
+		return new EmpLicDAO().deleteEmpLic(empLic);
 	}
 	
-	public String deleteLicMaster(String empId){
-		return new EmpLicDAO().deleteEmpLicMaster(empId);
-	}
-	public String deleteLic(String empId){
-		return new EmpLicDAO().deleteEmpLic(empId);
-	}
-	
-	public String addUpdateEmpLic(EmpLicVO licVO){
-		return new EmpLicDAO().addUpdateEmpLic(copyProperties(licVO));
+	public String addUpdateEmpLic(EmpLic empLic){
+		return new EmpLicDAO().addUpdateEmpLic(empLic);
+
+//		return new EmpLicDAO().addUpdateEmpLic(copyProperties(licVO));
 	}
 	
-	public String addUpdateEmpLicMaster(EmpLicMasterVO licVO){
-		System.out.println("Installment Amount :"+licVO.getInstlmtAmt());
-		return new EmpLicDAO().addUpdateEmpLicMaster(copyProperties(licVO));
+	public String addUpdateEmpLicMaster(EmpLicMaster empLicMaster){
+		//System.out.println("Installment Amount :"+empLicMaster.getInstlmtAmt());
+		return new EmpLicDAO().addUpdateEmpLicMaster(empLicMaster);
 	}
 	
-	private EmpLic copyProperties(EmpLicVO licVO){
+	/*private EmpLic copyProperties(EmpLic empLic){
 		EmpLic empLic = new EmpLic();
 		try{
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -59,10 +66,10 @@ public class EmpLicService {
 			e.printStackTrace();
 		}
 		return empLic;
-	}
+	}*/
 	
 	
-	private EmpLicMaster copyProperties(EmpLicMasterVO licMasterVO){
+	/*private EmpLicMaster copyProperties(EmpLicMaster licMasterVO){
 		EmpLicMaster empLicMaster = new EmpLicMaster();
 		try{
 			empLicMaster.setEmployeeId(licMasterVO.getEmployeeId());
@@ -73,5 +80,5 @@ public class EmpLicService {
 			e.printStackTrace();
 		}
 		return empLicMaster;
-	}
+	}*/
 }

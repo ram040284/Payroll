@@ -82,7 +82,8 @@ input[type=file] {
        				 'data': null, title:'<a href="#" onclick="addLicMaster()"><img style="vertical-align: middle;" src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
                      'render': function (employeeLicMasterData, type, row)
       				 {
-                         return '<a id= "' +row.Id +'" href="#" onclick="updateLicMaster('+employeeLicMasterData.employeeId+')"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/> <a id="' +row.Id+'"  href="#" onclick="deleteLicMaster('+employeeLicMasterData.employeeId+')"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/>'}
+                    	 /* alert('-------- Policy No----------'+employeeLicMasterData.policyNo); */
+                         return '<a id= "' +row.Id +'" href="#" onclick="updateLicMaster('+employeeLicMasterData.employeeId+', '+employeeLicMasterData.policyNo+')"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/> <a id="' +row.Id+'"  href="#" onclick="deleteLicMaster('+employeeLicMasterData.employeeId+', '+employeeLicMasterData.policyNo+')"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/>'}
 			         }
        			  
                  ]	  
@@ -91,21 +92,26 @@ input[type=file] {
 	  });
 });
   
-      function updateLicMaster(id){
+      function updateLicMaster(id,policyNo){
     	  var f = document.forms['editForm'];
+    	  alert('-----policyNo data-----'+policyNo);
 		  f.employeeId.value=id;
+		  f.policyNo.value=policyNo;
 		  f.action="../Payroll/inputEmpLicMaster";
 		  f.submit();
+		  
 	  }
       function addLicMaster(){
     	  var f = document.forms['editForm'];
+    	  alert("add lic master");
 		  f.action="../Payroll/inputEmpLicMaster";
 		  f.submit();
 	  }
-      function deleteLicMaster(id){
+      function deleteLicMaster(id,policyNo){
     	  if(confirm("Are you sure want to delete Employee LIC?")){
     		  var f = document.forms['editForm'];
-    		  f.employeeId.value=id
+    		  f.employeeId.value=id;
+    		  f.policyNo.value=policyNo;
     	      f.action="../Payroll/deleteEmpLicMaster";
     		  f.submit();
     	  }
@@ -129,6 +135,7 @@ input[type=file] {
 				<h4 style="color: #0101DF;">LIC Master</h4>
 		<form method="post" name="editForm" action="">
 		<input type="hidden" name="employeeId" value="0">
+        <input type="hidden" name="policyNo" value="0">      		      					
 					
 		</form>
 	<div id="licListDiv" class="licListMasterTableClass" style ="width:100%;">
