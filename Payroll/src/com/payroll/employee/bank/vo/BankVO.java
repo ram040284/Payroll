@@ -6,6 +6,10 @@ import com.payroll.Utils;
 
 public class BankVO {
 	
+	public void setEmployeeId(String employeeId) {          //code changed
+		this.employeeId = employeeId;
+	}
+
 	private String employeeId;
 	private String bankName;
 	private String ifscCode;

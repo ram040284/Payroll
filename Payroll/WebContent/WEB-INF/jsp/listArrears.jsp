@@ -1,34 +1,100 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page language="java" trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<jsp:include page="../jsp/public/postHeader.jsp" />
+<jsp:include page="../jsp/public/jqueryPluginMin.jsp"/>
+<script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
+<script src="../Payroll/resources/js/dataTables.bootstrap.min.js"></script>
 <title>Employee Arrears</title>
+<style type="text/css">
+select {
+	min-width: 200px;
+	min-height: 30px;
+}
+.buttonPadding {
+	padding: 5px;
+}
+.btn-color{
+	background-color: #0101DF;
+}
+.EmpArrearTableClass table {
+	border-collapse: collapse;
+	width: 100%;
+	float: left;
+	margin: 0;
+  	padding: 0;
+	border: 1px solid #aaa;
+	table-layout: auto;
+}
+
+.EmpArrearTableClass th, td {
+	text-align: left;
+	padding: 5px;
+}
+
+.EmpArrearTableClass tr:nth-child(odd) {
+	background-color: #f2f2f2; !important
+}
+
+.EmpArrearTableClass th {
+	background-color: #8B9DC3;
+	color: #fff;
+	cursor: pointer;
+}
+table.dataTable thead:first-child .sorting_asc { 
+	background: url('../Payroll/resources/images/uparrow.png') no-repeat right bottom 8px; 
+	background-size: 25px; 
+	background-color: #8B9DC3;
+	color: white;
+}
+table.dataTable thead:first-child .sorting_desc { 
+	background: url('../Payroll/resources/images/downarrow.png') no-repeat right bottom 8px; 
+	background-size: 25px; 
+	background-color: #8B9DC3;
+	color: white;
+}
+input[type=file] {
+	display: inline-block;
+}
+.dataTables_paginate {
+	text-align: right;
+}
+</style>
 <script type="text/javascript">
-	function getEmployeeArrersDetails() {
+$(document).ready(function() {
 		  $.ajax({
 	        url : '../Payroll/listArrears',
 	        type:"GET",
 	        contentType: "application/json;charset=utf-8",
-	        success : function(data) {
-	            var arrearsTab = $('<table style="margin-bottom: 10px;"/>').appendTo($('#arrearsListDiv'));
-	            $(data).each(function(i, arrears){
-	          	  $('<tr/>').appendTo(arrearsTab)
-	          	  		.append($('<td/>').text(arrears.fullName))
-	          	  		.append($('<td/>').text(arrears.arrearsType))
-	          	  		.append($('<td/>').text(arrears.arrearsPay))
-	          	  		.append($('<td/>').text(arrears.arrearsDeductions))
-	          	  		.append($('<td/>').text(arrears.miscPay))
-	          	  		.append($('<td/>').text(arrears.miscDeductions))
-	          	  		.append($('<td/>').text(arrears.arrearsPayNote))
-	          	  		.append($('<td/>').text(arrears.arrearsDeductionNote))
-	          			.append($('<td/>').append('<a href="#" onclick="viewArrear('+arrears.arrearId+')"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteArrear('+arrears.arrearId+')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'));
-	            });
-	        }
-	    });
-	}
-	function viewArrear(id){
+	        success : function(employeeArrearData) {
+	          	$('#EmpArrearTable').DataTable({
+					data: employeeArrearData,
+	                columns: [
+	                  {data: 'fullName', title: 'Employee Name'},
+	      			  {data: 'arrearsType', title: 'Arrears Type'},
+	      			  {data: 'arrearsPay',title: 'Arrears Pay'},
+	      			  {data: 'arrearsDeductions',title: 'Arrears Deduction'},
+	      			  {data: 'miscPay',title: 'Misc Pay'},
+	      			  {data: 'miscDeductions',title: 'Misc Deduction'},
+	      			  {data: 'arrearsPayNote',title: 'Arrears Note'},
+	      			  {data: 'arrearsDeductionNote',title: 'Arrears Deduction'},
+	      			{
+	 				     'data': null, title:
+	 			  	 
+	 	'<a href="#" onclick="createArrears()"><img style="vertical-align: middle;" src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg" /></a>',
+	    ' width' : '150px',
+	 	'render': function (employeeArrearData, type, row) {
+	         return '<a href="#" onclick=viewArrear('+employeeArrearData.arrearId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteArrear('+employeeArrearData.arrearId+ ')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'
+	 				               }
+	 				}
+	      			  
+	      			  ]
+				});
+	          }
+		  });
+	});
+	 function viewArrear(id){
 		  var f = document.forms['editForm'];
 		  f.arrearId.value=id;
 		  f.action="../Payroll/inputArrear";
@@ -49,8 +115,8 @@
 }
 </script>
 </head>
-<body onload="getEmployeeArrersDetails()">
-	<jsp:include page="../jsp/public/postHeader.jsp" />
+<body>
+	
 	<div class="contain-wrapp bodyDivCss">	
 			<div class="container" style="margin-top: 85px;">  
 				<div class="formDiv" style="border: none;">
@@ -60,33 +126,20 @@
 					</div>
 				</div>
 			</div>	
-			<div style="margin-top: 12px; float: left; width: 98%; margin-left: 15px;">
-				<h4 style="color: #0101DF;">Arrears Pay Details</h4>
-				<div>
-					
-				<div class="tblClass" id="arrearsListDiv">
-				<table>
-				<tr>
-					<th>Employee Name</th>
-					<th>Arrears Type </th>
-					<th>Arrears Pay</th>
-					<th>Arrears Deductions</th>
-					<th>Misc Pay</th>
-					<th>Misc Deductions</th>
-					<th>Arrears Note</th>
-					<th>Arrears Deductions</th>
-					<th><a href="#" onclick="createArrears()" title="Add">
-						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
-					</th>
-				</tr>
-				</table>
+			
+			<div  class="container" class="row" style="position: relative;">
+			<div style="margin-top: 12px; float: left; width: 98%;">
+				<h4 style="color: #0101DF;">Employee Arrears</h4>
+				
+				<div id="EmpArrearDiv" class="EmpArrearTableClass" style ="width:100%;">
+					<table id="EmpArrearTable" class="table table-striped table-bordered table-responsive"></table>
 				</div>
-		</div>
-	</div>
-	</div>
-	</div>
+				</div>
+	            </div>
+	   </div>
+	
 	<form action="" name="editForm" method="post">
-		<input type="hidden" name="arrearId" value="0">
+	<input type="hidden" name="arrearId" value="0">
 	</form>
 	<jsp:include page="../jsp/public/postFooter.jsp" />
 </body>

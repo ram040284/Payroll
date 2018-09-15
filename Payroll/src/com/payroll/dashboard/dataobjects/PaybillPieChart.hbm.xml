@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>
+	<class name="com.payroll.dashboard.dataobjects.PaybillPieChart">
+      <id name="deptName" type="java.lang.String" column="DEPT_NAME" ></id>
+	  <property name="monthDate" type="java.lang.String" column="MONTH_DATE" />
+      <property name="netPay" type="java.lang.Long" column="NET_PAY" />
+   </class>
+   <sql-query name="paybillPieChartQuery">
+       <return alias="pbpc" class="com.payroll.dashboard.dataobjects.PaybillPieChart" />
+       <![CDATA[ 
+			select DEPT_NAME as DEPT_NAME,
+				   MONTH_DATE as MONTH_DATE,
+                   SUM(NET_PAY) as NET_PAY
+              from pay_bill where MONTH_DATE = :monthDate GROUP BY DEPT_NAME
+       ]]>
+   </sql-query>
+ </hibernate-mapping>

@@ -310,6 +310,15 @@ function roleSelection() {
 	});
 }
 
+/* function loadEmployees(){
+	if($('#deptId').val() == 0){
+		$('#empId').val(0);
+		$('#deptId').focus();
+		return false;
+	}
+	var deptId = $('#deptId').val();
+	getEmployeesByDept(deptId);
+} */
 function loadEmployees(){
 	if($('#deptId').val() == 0){
 		$('#empId').val(0);
@@ -319,6 +328,26 @@ function loadEmployees(){
 	var deptId = $('#deptId').val();
 	getEmployeesByDept(deptId);
 }
+
+function assignUserId() {
+
+    if ($('#empId'.val() != 0)) {
+     $('#userId').val() = $('#empId'.val());
+
+    }
+    var empId = $('#empId').val();
+    alert("In assign user id");
+    }
+
+/* function assignUserId() {
+
+    if ($('#empId'.val() != 0)) {
+
+           $('#userId').val() = $('#empId'.val();
+
+    }
+
+} */
 
 function getEmployeesByDept(deptId) {
 	var deptId = $('#deptId').val();
@@ -422,7 +451,7 @@ function userIdAvailability() {
 							<div class="col-sm-6 form-group">
 								<label>Employee</label>
 								<div class="ui-widget">
-								<select id="empId" name="empId">
+								<select id="empId" name="empId" class="form-control" onchange="assignUserId()">
 								</select>
 								</div>
 							</div>

@@ -81,12 +81,20 @@ public class EmpBankController {
 				e.printStackTrace();
 			}
 			BankVO bankVO = null; 
-		bankVO = (bank.getEmployeeId() !="0") ? new BankService().getBankByEmpId(bank.getEmployeeId()): new BankVO();
+			
+			bankVO = (!bank.getEmployeeId().equals("0")) ? new BankService().getBankByEmpId(bank.getEmployeeId()): new BankVO();
 			model = new ModelAndView("bank", "command", bankVO);
 			model.addObject("bank", bankVO);
 			model.addObject("departments", depJSON);
-			//model.addObject("designations", desigJSON);
+			model.addObject("designations", desigJSON);
 			model.addObject("banks", banksJSON);
+			//return model
+	    
+			//model = new ModelAndView("bank", "command", bankVO);//code changed
+			//model.addObject("bank", bankVO);
+			//model.addObject("departments", depJSON);
+		   //model.addObject("designations", desigJSON);
+			//model.addObject("banks", banksJSON);
 			return model;
 		} else {
 		   model = new ModelAndView("unauthorized", "message", "You do not have access to add employee bank. Please click home button to go back.");

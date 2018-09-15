@@ -203,8 +203,9 @@ public class PaybillService {
     		ReportDetails empPayroll = new ReportDetails(); 
     		org.apache.commons.beanutils.BeanUtils.copyProperties(empPayroll, paybill);
     		if(headId == 0){
+    			if(null != sectionEmpList) {  
     			for (EmployeeVO employee : sectionEmpList) {
-					if(employee.getEmployeeId() == paybill.getEmployeeId()){
+						if(employee.getEmployeeId().equals(paybill.getEmployeeId())){
 						empPayroll.setEmployeeName(employee.getFullName());
 				    		empPayroll.setPanNo(employee.getPan());
 				    		empPayroll.setDob(employee.getDob());
@@ -217,6 +218,7 @@ public class PaybillService {
 				    		break;
 						}
 					}
+    		}
     		}
     		payrollTotals.addEmployeePayroll(empPayroll);
 		}

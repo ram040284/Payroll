@@ -64,6 +64,13 @@
 						<h3><a href="../Payroll/usersList">User</a></h3>
 					</div>
 				</div>
+				<div class="col-xs-4 text-center">
+					<div class="precess-column">
+						<a href="../Payroll/dashboard2"><img src="../Payroll/resources/images/userAdd.jpe" class="img-responsive imageMenuItem"
+					alt="theme logo" /></a>
+						<h3><a href="../Payroll/dashboard2">New Dashboard</a></h3>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
