@@ -91,6 +91,11 @@ public class EmployeeService {
 	public boolean deleteEmp(String empId){
 		return new EmployeeDAO().deleteEmp(empId);
 	}
+	
+	public com.payroll.employee.Employee getEmployeeServiceBook(String empId){
+		return copyDBEmp(new EmployeeDAO().getEmployeeServiceBook(empId));
+	}
+	
 	private Employee copyEmp(com.payroll.employee.Employee emp){
 		Employee dbEmp = null;
 		try{

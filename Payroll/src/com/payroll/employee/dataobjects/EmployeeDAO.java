@@ -514,4 +514,31 @@ public class EmployeeDAO {
 		}
 		return result;
 	}
+	
+	public EmployeeVO getEmployeeServiceBook(String empId){
+		//Session session = null;
+		EmployeeVO employee = null;
+		try{
+			//String queryString = " from Employee e where e.employeeId = ?";
+			String queryString = " select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName,"
+					//+ " e.email, e.phone, "
+					+ " e.pan, e.adharNo, e.dob, (select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = e.employeeId), "
+					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = e.employeeId), "
+					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId), "
+					//+ "e.addressLine1, e.addressLine2, e.addressLine3, "
+					+ "e.gender, e.joiningDate, e.retirementDate, e.handicapFlag, e.employeeType) from Employee e where e.employeeId = ? and e.status = ?";		
+			if(session == null || !session.isOpen()) 
+				session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, empId);
+			query.setParameter(1, "A");
+			employee = (EmployeeVO)(!(query.list().isEmpty()) ? query.list().get(0) : null);
+			System.out.println("employee:"+employee);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return employee;
+	}
 }

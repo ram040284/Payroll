@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>
+	<class name="com.payroll.employee.servicebill.dataobject.EmpServiceBill">
+	  <id name="employeeId" type="java.lang.String" column="EMP_ID"></id>
+       <property name="fName" type="java.lang.String" column="EMP_FNAME" />
+       <property name="mName" type="java.lang.String" column="EMP_MNAME" />
+       <property name="lName" type="java.lang.String" column="EMP_LNAME" />
+       <property name="empPan" type="java.lang.String" column="EMP_PAN" />
+       <property name="birthDate" type="timestamp" column="BIRTH_DATE" />
+       <property name="empAdhar" type="java.lang.String" column="EMP_AADHAR" />
+       <property name="empJoiningDate" type="timestamp" column="EMP_JOINING_DATE" />
+       <property name="empLastPromDate" type="timestamp" column="EMP_LST_PROMO_DT" />
+       <property name="deptName" type="java.lang.String" column="DEPT_NAME" />
+       <property name="desgname" type="java.lang.String" column="DESG_NAME" />
+       <property name="basic" type="java.lang.Double" column="BASIC" />
+       <property name="gradePay" type="java.lang.Double" column="GRD_PAY" />
+       <property name="scalePay" type="java.lang.Double" column="SCALE_PAY" />
+       <property name="scaleCode" type="java.lang.String" column="SCALE_CODE" />
+       <property name="accountNumber" type="java.lang.String" column="ACCT_NO" />
+       <property name="bankName" type="java.lang.String" column="BANK_NAME" />
+       <property name="ifscCode" type="java.lang.String" column="IFSC_CODE" />
+   </class>
+   <sql-query name="employeeServiceBookQuery">
+       <return alias="empbook" class="com.payroll.employee.servicebill.dataobject.EmpServiceBill" />
+       <![CDATA[ 
+			SELECT EMP_FNAME as EMP_FNAME 
+				from emp_master
+              	where EMP_ID = :employeeId
+       ]]>
+   </sql-query>
+ </hibernate-mapping>

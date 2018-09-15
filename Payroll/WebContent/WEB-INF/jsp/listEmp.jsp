@@ -49,6 +49,13 @@ function deleteEmp(id){
     	f.submit();
     }
 }
+
+function empServiceBook(id){
+    var f = document.forms['empSearch'];
+    f.employeeId.value=id;
+    f.action="../Payroll/generateEmpBook";
+    f.submit();
+}
 function searchEmps(){
 	if($('#departmentId').val() == 0 && $('#firstName').val().trim() == ""){
 		alert('Either Department or Name must be provided to get List!');
@@ -109,6 +116,9 @@ function searchEmps(){
 					<td> ${employee.retirementDate}</td>
 					<%-- <td> ${employee.phone}</td> --%>
 					<td><a href="#" onclick="viewEmp('${employee.employeeId}')" title="Edit">
+							<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/>
+						</a>
+						<a href="#" onclick="empServiceBook('${employee.employeeId}')" title="Edit">
 							<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/>
 						</a>
 						<a href="#" onclick="deleteEmp('${employee.employeeId}')">

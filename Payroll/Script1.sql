@@ -1133,3 +1133,12 @@ INSERT INTO `payroll`.`ROLES_PERMISSIONS`
 VALUES
 (60,1,60,'A',0,current_timestamp());
 
+INSERT INTO `payroll`.`PERMISSIONS` (`PERMISSION_ID`,`PERMISSION_NAME`,`PERMISSION_DESC`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(61,'generateEmpBook','Ability to Generate Employee E-Book','A',0,current_timestamp());
+
+INSERT INTO `payroll`.`ROLES_PERMISSIONS`
+(`ROLE_PERMISSION_ID`,`ROLE_ID`,`PERMISSION_ID`,`STATUS`,`UPD_USER_ID`,`ROW_UPD_DATE`)
+VALUES
+(61,1,61,'A',0,current_timestamp());
+
