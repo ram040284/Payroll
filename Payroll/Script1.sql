@@ -482,6 +482,10 @@ INSERT INTO ROLES
 (`ROLE_ID`, `ROLE_NAME`, `ROLE_DESC`, `STATUS`, `ROW_UPD_DATE`)
 VALUES (3, 'REPORT', 'User can access Report specific links', 'A', current_timestamp());
 
+INSERT INTO ROLES
+(`ROLE_ID`, `ROLE_NAME`, `ROLE_DESC`, `STATUS`, `ROW_UPD_DATE`)
+VALUES (4, 'CEO', 'User can access CEO dashboard and master section links', 'A', current_timestamp());
+
 CREATE TABLE EMP_CONTACT (
 	EMP_ID VARCHAR(10),
     EMP_CNT_ID INT,
