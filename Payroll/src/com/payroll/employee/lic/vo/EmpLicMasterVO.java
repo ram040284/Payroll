@@ -49,11 +49,11 @@ public class EmpLicMasterVO {
 	 */
 	public EmpLicMasterVO(String empId, int departmentId, int designationId,int headId, String policyNo,  double instlmtAmt) {
 		this.employeeId = empId;
-		this.policyNo = policyNo;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
 		this.headId = headId;
-		this.instlmtAmt = instlmtAmt;
+		this.policyNo = policyNo;
+        this.instlmtAmt = instlmtAmt;
 	}
 	public String getEmployeeId() {
 		return employeeId;

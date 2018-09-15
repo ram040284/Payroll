@@ -128,9 +128,14 @@ $(document).ready(function() {
 		</div>
 		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
+			<%-- <h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">
+ 				<c:if test="${bank.employeeId != '0'}" >Update</c:if>
+ 				<c:if test="${bank.employeeId == '0'}">Add</c:if> Employee Bank
+			</h4> --%>
 			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">
-				<c:if test="${bank.employeeId != '0'}" >	Update</c:if><c:if test="${bank.employeeId == '0'}">Add</c:if> Employee Bank
+				<c:if test='${bank.employeeId eq "0"}' >	Update</c:if><c:if test='${!bank.employeeId eq "0"}'>Add</c:if> Employee Bank
 			</h4>
+			
 
 		<div class="col-lg-12 card-block bg-faded" style="margin-bottom: 10px;">
 			<div class="row">
@@ -140,14 +145,14 @@ $(document).ready(function() {
 							<div class="col-sm-6 form-group">
 								<label>Department</label>
 								<select id="departmentId" class="form-control" onchange="getHeads()"
-								<c:if test="${bank.employeeId != '0'}" >disabled = "disabled" </c:if>>
+								<c:if test='${!bank.employeeId eq "0"}' >disabled = "disabled" </c:if>>
 									<option value="0">-- Select Department --</option>
 								</select>
 							</div>
 							<div class="col-sm-6 form-group">
 								<label>Head:</label>
 								<select id="headId" class="form-control" onchange="loadDesignations()"
-								<c:if test="${bank.employeeId != '0'}" > disabled= "disabled" </c:if>>
+								<c:if test='${!bank.employeeId eq "0"}' > disabled= "disabled" </c:if>>
 								<option value="0">-- Select Head --</option></select>
 							</div>
 							</div>
@@ -155,7 +160,7 @@ $(document).ready(function() {
 								<div class="col-sm-6 form-group">
 								<label>Designation:</label>
 								<select id="designationId" class="form-control" onchange="getEmployees()"
-								<c:if test="${bank.employeeId != '0'}" >disabled = "disabled" </c:if>>
+								<c:if test='${!bank.employeeId eq "0"}' >disabled = "disabled" </c:if>>
 									<option value="0">-- Select Designation --</option>
 								</select>
 							</div>
@@ -163,7 +168,7 @@ $(document).ready(function() {
 								<div class="col-sm-6 form-group">
 									<label>Employee:</label>
 									<select id="employeeId" class="form-control"
-									<c:if test="${bank.employeeId != '0'}" >disabled = "disabled" </c:if>>
+									<c:if test='${!bank.employeeId eq "0"}' >disabled = "disabled" </c:if>>
 										<option value="0">-- Select Employee --</option>
 									</select>
 								</div>

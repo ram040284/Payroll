@@ -78,8 +78,9 @@ public class EmpFixedDeductionsController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		if(empFixedDeductions.getEmployeeId() != "0")
-				empFixedDeductions = new EmpFixedDeductionsService().getEmpDeductionsById(empFixedDeductions.getEmployeeId());
+		//if(empFixedDeductions.getEmployeeId() != "0")
+	     if(!"0".equals( empFixedDeductions.getEmployeeId()))
+           empFixedDeductions = new EmpFixedDeductionsService().getEmpDeductionsById(empFixedDeductions.getEmployeeId());
 			System.out.println("empFixedDeductions Employee id : "+ empFixedDeductions.getEmployeeId() + "empFixedDeductions Department : " + empFixedDeductions.getDepartmentId());
 			model = new ModelAndView("empFixedDeductions", "command", empFixedDeductions);
 			model.addObject("empDeductions", empFixedDeductions);

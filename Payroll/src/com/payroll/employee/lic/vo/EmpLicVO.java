@@ -8,7 +8,7 @@ import com.payroll.Utils;
 public class EmpLicVO {
 	@Override
 	public String toString() {
-		return "EmpLicMasterVO [employeeId=" + employeeId + ", policyNo=" + policyNo
+		return "EmpLicVO [employeeId=" + employeeId + ", policyNo=" + policyNo
 				+ ", paymentDate=" + paymentDate + ", paymentAmount=" + paymentAmount
 				+ ", fullName=" + fullName + ", addUpdate=" + addUpdate + ", designationId=" + designationId
 				+ ", departmentId=" + departmentId + ", headId=" + headId + "]";
@@ -59,6 +59,7 @@ public class EmpLicVO {
 		this.policyNo = policyNo;
 		if (paymentDate != null)
 			this.paymentDate = dateFormat.format(paymentDate);
+		this.paymentAmount = paymentAmount;
 	}
 
 	public String getEmployeeId() {

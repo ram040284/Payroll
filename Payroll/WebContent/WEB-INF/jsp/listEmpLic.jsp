@@ -81,7 +81,7 @@ input[type=file] {
             		   'data': null, title:'<a href="#" onclick="addLic()"><img style="vertical-align: middle;" src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
                        'render': function (employeeLicData, type, row)
            				{
-                         return '<a id= "' +row.Id +'" href="#" onclick="updateLic('+employeeLicData.employeeId+')"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/> <a id="' +row.Id+'"  href="#" onclick="deleteLic('+employeeLicData.employeeId+')"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/>'}
+                         return '<a id= "' +row.Id +'" href="#" onclick="updateLic('+employeeLicData.employeeId+', '+employeeLicData.policyNo+')"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/> <a id="' +row.Id+'"  href="#" onclick="deleteLic('+employeeLicData.employeeId+', '+employeeLicData.policyNo+')"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/>'}
      			        }
             			  
                       ]	  
@@ -89,9 +89,10 @@ input[type=file] {
               }
      	  });
      });
-       function updateLic(id){
+       function updateLic(id,policyNo){
     	  var f = document.forms['editForm'];
 		  f.employeeId.value=id;
+		  f.policyNo.value=policyNo;
 		  f.action="../Payroll/inputEmpLic";
 		  f.submit();
 	  }
@@ -100,10 +101,12 @@ input[type=file] {
 		  f.action="../Payroll/inputEmpLic";
 		  f.submit();
 	  }
-      function deleteLic(id){
+      function deleteLic(id,policyNo){
     	  if(confirm("Are you sure want to delete Employee LIC?")){
     		  var f = document.forms['editForm'];
     		  f.employeeId.value=id;
+    		  f.policyNo.value=policyNo;
+    		  alert("delete");
     		  f.action="../Payroll/deleteLic";
     		  f.submit();
     	  }
@@ -126,7 +129,7 @@ input[type=file] {
       				<h4 style="color: #0101DF;">LIC Details</h4>
       		<form method="post" name="editForm" action="">
       		<input type="hidden" name="employeeId" value="0">
-      					
+      		<input type="hidden" name="policyNo" value="0">      		      					
       		</form>
       	<div id="licListDiv" class="licTableClass" style ="width:100%;">
       			<table id="licTable" class="table table-striped table-bordered table-responsive"></table>

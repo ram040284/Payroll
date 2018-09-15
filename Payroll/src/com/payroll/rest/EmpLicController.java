@@ -19,8 +19,8 @@ import com.payroll.designation.dataobjects.Designation;
 import com.payroll.employee.lic.business.EmpLicService;
 import com.payroll.employee.lic.dataobjects.EmpLic;
 import com.payroll.employee.lic.dataobjects.EmpLicMaster;
-import com.payroll.employee.lic.vo.EmpLicMasterVO;
-import com.payroll.employee.lic.vo.EmpLicVO;
+//import com.payroll.employee.lic.vo.EmpLicMasterVO;
+//import com.payroll.employee.lic.vo.EmpLicVO;
 import com.payroll.login.dao.PermissionsDAO;
 import com.payroll.login.dataobjects.User;
 
@@ -30,14 +30,14 @@ public class EmpLicController {
 	String permissionForThis = null;
 	
 	@RequestMapping(value="/listEmpLic", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<EmpLicVO> getEmpLicList(){
-	   List<EmpLicVO> empLic = new EmpLicService().getEmpLicList();
+    public @ResponseBody List<EmpLic> getEmpLicList(){
+	   List<EmpLic> empLic = new EmpLicService().getEmpLicList();
 	   return empLic;
     }
 
 	@RequestMapping(value="/listEmpLicMaster", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<EmpLicMasterVO> getEmpLicListMaster(){
-	   List<EmpLicMasterVO> empLics = new EmpLicService().getEmpLicMasterList();
+    public @ResponseBody List<EmpLicMaster> getEmpLicListMaster(){
+	   List<EmpLicMaster> empLics = new EmpLicService().getEmpLicMasterList();
 	   return empLics;
     }
 	
@@ -59,7 +59,7 @@ public class EmpLicController {
 	
 	
 	@RequestMapping(value = "/viewEmpLicMaster", method = RequestMethod.GET)
-	public String viewEmpLicMaster(ModelMap mode, HttpServletRequest request) {
+	public String viewEmpLicMaster(ModelMap model, HttpServletRequest request) {
 		
 		permissionForThis = "viewEmployeeLIC";
 		
@@ -97,13 +97,17 @@ public class EmpLicController {
 				e.printStackTrace();
 			}
 			
-			EmpLicVO empLicVO = new EmpLicVO(); 
-			if(empLic.getEmployeeId()!="0")
-				empLicVO = new EmpLicService().getEmpLicById(empLic.getEmployeeId());
-			model = new ModelAndView("empLic", "command", empLicVO);
-			model.addObject("empLic", empLicVO);
+			//EmpLicVO empLicVO = null; 
+			 if(!"0".equals(empLic.getEmployeeId()))
+			 {
+				 empLic = new EmpLicService().getEmpLicById(empLic);
+			 }
+//if(empLic.getEmployeeId()!="0")
+			//empLicVO = new EmpLicService().getEmpLicById(empLic.getEmployeeId());
+			model = new ModelAndView("empLic", "command", empLic);
+			model.addObject("empLic", empLic);
 			model.addObject("departments", depJSON);
-			model.addObject("designations", desigJSON);
+		    model.addObject("designations", desigJSON);
 
 			return model;
 		} else {
@@ -114,7 +118,6 @@ public class EmpLicController {
 		
 	}
 	
-
 /**
  * 
  * @param empLicVO
@@ -140,11 +143,22 @@ public class EmpLicController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			EmpLicMasterVO empLicMasterVO = new EmpLicMasterVO(); 
-	         if(empLicMaster.getEmployeeId()!="0")
+			/*EmpLicMasterVO empLicMasterVO = new EmpLicMasterVO(); 	      
+			   if(empLicMaster.getEmployeeId()!="0")
+			
+
+			//if(!"0".equals( empLicMaster.getEmployeeId())) 
+			{
 				empLicMasterVO = new EmpLicService().getEmpLicMasterById(empLicMaster.getEmployeeId());
-			model = new ModelAndView("empLicMaster", "command", empLicMasterVO);
-			model.addObject("empLic", empLicMasterVO);
+			}*/
+			
+			 if(!"0".equals(empLicMaster.getEmployeeId()))
+			 {
+				 empLicMaster = new EmpLicService().getEmpLicMasterById(empLicMaster);
+			 }
+
+			model = new ModelAndView("empLicMaster", "command", empLicMaster);
+			model.addObject("empLic", empLicMaster);
 			model.addObject("departments", depJSON);
 			model.addObject("designations", desigJSON);
 			return model;
@@ -159,14 +173,14 @@ public class EmpLicController {
 	
 	@RequestMapping(value="/addEmpLic",method=RequestMethod.POST)
 	public @ResponseBody
-	String addEmpLic(@RequestBody EmpLicVO empLicVO, HttpServletRequest request){
+	String addEmpLic(@RequestBody EmpLic empLic, HttpServletRequest request){
 		
 		permissionForThis = "addEmployeeLIC";
 			
 		User loggedInUser = (User) request.getSession().getAttribute("user");
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-			String result = new EmpLicService().addUpdateEmpLic(empLicVO);
+			String result = new EmpLicService().addUpdateEmpLic(empLic);
 			return result;
 		} else {
 			request.getSession().setAttribute("message", "You do not have access to delete employee LIC. Please click home button to go back.");
@@ -178,13 +192,13 @@ public class EmpLicController {
 	
 	@RequestMapping(value="/addEmpLicMaster",method=RequestMethod.POST)
 	public @ResponseBody
-	String addEmpLicMaster(@RequestBody EmpLicMasterVO empLicMasterVO, HttpServletRequest request){
+	String addEmpLicMaster(@RequestBody EmpLicMaster empLicMaster, HttpServletRequest request){
 		permissionForThis = "addMasterLIC";
 		
 		User loggedInUser = (User) request.getSession().getAttribute("user");
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-			String result = new EmpLicService().addUpdateEmpLicMaster(empLicMasterVO);
+			String result = new EmpLicService().addUpdateEmpLicMaster(empLicMaster);
 			   return result;
 		} else {
 			request.getSession().setAttribute("message", "You do not have access to add Master LIC. Please click home button to go back.");
@@ -202,8 +216,12 @@ public class EmpLicController {
 		User loggedInUser = (User) request.getSession().getAttribute("user");
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-			String result = new EmpLicService().deleteLic(empLic.getEmployeeId());
+			String result = new EmpLicService().deleteLic(empLic);
+			System.out.println("EmpLic -- empLic:"+empLic.getEmployeeId());
+
 			   //FIXME: Prasad - add logic in UI based on result return value
+			   System.out.println("Result:"+result);
+
 			  return "listEmpLic";
 		} else {
 			request.getSession().setAttribute("message", "You do not have access to delete employee LIC. Please click home button to go back.");
@@ -223,7 +241,7 @@ public class EmpLicController {
 		User loggedInUser = (User) request.getSession().getAttribute("user");
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-			String result = new EmpLicService().deleteLicMaster(empLicMaster.getEmployeeId());
+			String result = new EmpLicService().deleteLicMaster(empLicMaster);
 			 //FIXME: Prasad - add logic in UI based on result return value
 			   return "listEmpLicMaster";
 		} else {
