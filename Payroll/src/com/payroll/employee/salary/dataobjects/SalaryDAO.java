@@ -96,9 +96,9 @@ public class SalaryDAO {
 		Session session = null;
 		try{
 			String queryString = " select new com.payroll.employee.salary.vo.SalaryVO(s.employee.employeeId, "+
-					"(select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = s.employee.employeeId), "
-					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = s.employee.employeeId), "
-					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = s.employee.employeeId), "
+					"(select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = s.employee.employeeId and eDept.status = 'A'), "
+					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = s.employee.employeeId and eDesg.status='A'), "
+					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = s.employee.employeeId and dh.status = 'A'), "
 					+ "s.year, s.basic, s.gradePay, s.scalePay, s.incrementAmount, s.incrementDate) from Salary s where s.employee.employeeId = ? and s.status = ?";		
 			
 			session = HibernateConnection.getSessionFactory().openSession();
