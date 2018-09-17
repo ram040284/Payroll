@@ -63,6 +63,7 @@ function drawVisualization() {
           	vAxis: {title: 'Amount'},
           	hAxis: {title: 'Month'},
           	seriesType: 'bars',
+          	bar: {groupWidth: "25%"},
           	series: {5: {type: 'line'}}
           	};
 
