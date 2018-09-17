@@ -68,10 +68,12 @@ $(document).ready(function() {
 		contentType : "application/json;charset=utf-8", 
 		success : function(employeeDeductionData) {  
 			$('#EmpDeductionTable').DataTable({
+				columnDefs: [
+        		    { className: 'text-right', targets: [1, 2, 3, 4, 5] }, // 1-  AFK Rent, 2- Society, 3- PF Loan Recovery, 4- Other Deduction, 5- Misc Recover
+        		  ],
 				"sScrollX": "100%",
 		        "sScrollXInner": "110%",
 		        "bScrollCollapse": true, 
-				  
                 data: employeeDeductionData,
                 columns: [
                   {data: 'fullName', title: 'Employee',"autowidth":true},

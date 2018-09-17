@@ -69,7 +69,10 @@ $(document).ready(function() {
 	        contentType: "application/json;charset=utf-8",
 	        success : function(employeeArrearData) {
 	          	$('#EmpArrearTable').DataTable({
-					data: employeeArrearData,
+	          		columnDefs: [
+            		    { className: 'text-right', targets: [2, 3, 4, 5] }, // 2- Arrear Pay, 3- Arrears Deduction, 4- Misc Pay, 5- Misc Deduction
+            		  ],
+	          		data: employeeArrearData,
 	                columns: [
 	                  {data: 'fullName', title: 'Employee Name'},
 	      			  {data: 'arrearsType', title: 'Arrears Type'},
