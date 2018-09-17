@@ -69,13 +69,20 @@ table.dataTable thead:first-child .sorting_desc {
               contentType: "application/json;charset=utf-8",
               success : function(salaryData) {
              $('#salaryListTable').DataTable({
+            	 columnDefs: [
+            		    { className: 'text-right', targets: [2,3,4] }, // 2- Basic Pay, 3- Grade Pay, 4- Scale Pay
+            		  ],
             	 "scrollY": "300px",
-                    data: salaryData,
+                  data: salaryData,
                       columns: [
       					{ data: 'fullName', title: 'Employee',"autoWidth": false},
                       	{ data: 'year', title: 'Year',"autoWidth": false},
-                        { data: 'basic', title: 'Basic Pay',"autoWidth": false},
-                        { data: 'gradePay', title: 'Grade Pay',"autoWidth": false},
+                        { data: 'basic', title: 'Basic Pay',"autoWidth": false, render: function(basicToFormat) {
+                        	return basicToFormat.toString().replace(/[0-9]/g, '\u2022');
+                        }},
+                        { data: 'gradePay', title: 'Grade Pay',"autoWidth": false, render: function(gradePayToFormat) {
+                        	return gradePayToFormat.toString().replace(/[0-9]/g, '\u2022');
+                        }},
                         { data: 'scalePay', title: 'Scale Pay',"autoWidth": false},
                         {
 						 'data': null,title:'<a href="#" onclick="addSalary()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',

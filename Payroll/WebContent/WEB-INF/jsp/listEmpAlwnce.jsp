@@ -69,7 +69,10 @@ table.dataTable thead:first-child .sorting_desc {
               contentType: "application/json;charset=utf-8",
               success : function(allowanceData) {
                  $('#allowanceListTable').DataTable({
-                 "scrollX": true,
+               	 columnDefs: [
+            		    { className: 'text-right', targets: [1, 2, 3, 4, 5, 6] }, // 1- CCA, 2- Washing Allowance, 3- NPA, 4- Uniform Allowance, 5-  Family Planning Allowance, 6- Cycle Allowance
+            		  ],
+               	 "scrollX": true,
                  "scrollY": "350px",	 
                       data: allowanceData,
                       columns: [
