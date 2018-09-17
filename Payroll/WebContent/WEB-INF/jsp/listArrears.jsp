@@ -118,15 +118,15 @@ $(document).ready(function() {
 <body>
 	
 	<div class="contain-wrapp bodyDivCss">	
-			<div class="container" style="margin-top: 85px;">  
-				<div class="formDiv" style="border: none;">
+			<div class="container">
+			<div class="formDiv" style="border: none;">
 				<div class="row">
-					<div class="text-left" style="margin-left: 33px;">
+					<div class="text-left" style="margin-left: 15px;">
 						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/employeeMenu')">Back</button>
 					</div>
 				</div>
 			</div>	
-			
+		</div>
 			<div  class="container" class="row" style="position: relative;">
 			<div style="margin-top: 12px; float: left; width: 98%;">
 				<h4 style="color: #0101DF;">Employee Arrears</h4>
