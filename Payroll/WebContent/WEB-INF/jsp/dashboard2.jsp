@@ -29,7 +29,10 @@ $(document).ready(function() {
         		}
         	}
         	 $('#monthlyDashboard').DataTable( {
-        	        "data": monthlySummaryDate,
+        		 columnDefs: [
+         		    { className: 'text-right', targets: [2,3,4,5] }, // 2- No. of employees, 3- Total Gross Pay, 4- Total Deductions, 5- Total Net Pay
+         		  ],   
+        		 "data": monthlySummaryDate,
         	        "columns": [
         	            { "data": "month" },
         	            { "data": "department" },
@@ -51,6 +54,14 @@ function drawVisualization() {
         type: "GET", 
         contentType: "application/json;charset=utf-8",
         success: function(data){
+        	
+        	//FIXME: PrasadS - Fix below hardcoded values
+        	if (data[0]["monthDate"] == '2018-04-01') {
+        		data[0]["monthDate"] = "April 2018";
+        	}
+        	if (data[1]["monthDate"] == '2018-05-01') {
+        		data[1]["monthDate"] = "May 2018";
+        	}
         	
         	var paybillChartData = google.visualization.arrayToDataTable([
         		['Month', 'Gross Pay', 'Deductions', 'Net Pay'],

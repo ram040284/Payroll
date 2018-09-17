@@ -72,6 +72,9 @@ input[type=file] {
          contentType: "application/json;charset=utf-8",
          success : function(employeeLicMasterData) {
        	  $('#licListTable').DataTable({
+     		columnDefs: [
+    		    { className: 'text-right', targets: [2] }, // 2- Installment Amount
+    		  ],
        		  data:employeeLicMasterData,
        		  columns:[
                   {data:'fullName',title:'Employee'},
