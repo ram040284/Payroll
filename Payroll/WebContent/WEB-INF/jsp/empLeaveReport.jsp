@@ -95,6 +95,7 @@ function inputPage(){
 </script>
 </head>
 <body><%-- onload="getList()">--%>
+	<div class="contain-wrapp bodyDivCss">
 		<div class="container">
 			<div class="formDiv" style="border: none;">
 				<div class="row">
@@ -103,8 +104,7 @@ function inputPage(){
 					</div>
 				</div>
 			</div>	
-		</div>
-	<div class="contain-wrapp bodyDivCss">	
+		</div>	
 		<div class="container">
 		<h5 style="color: #0101DF;">Employee Leave Request Report</h5>
 		<jsp:include page="../jsp/public/searchCriteria.jsp" />
