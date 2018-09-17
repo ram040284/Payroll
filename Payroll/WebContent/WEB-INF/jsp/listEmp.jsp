@@ -51,10 +51,11 @@ function deleteEmp(id){
 }
 
 function empServiceBook(id){
-    var f = document.forms['empSearch'];
+	window.location = "./resources/images/"+id+".pdf";
+    /* var f = document.forms['empSearch'];
     f.employeeId.value=id;
     f.action="../Payroll/generateEmpBook";
-    f.submit();
+    f.submit(); */
 }
 function searchEmps(){
 	if($('#departmentId').val() == 0 && $('#firstName').val().trim() == ""){
@@ -119,7 +120,7 @@ function searchEmps(){
 							<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/>
 						</a>
 						<a href="#" onclick="empServiceBook('${employee.employeeId}')" title="Edit">
-							<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/>
+							<img src="../Payroll/resources/images/empProcessAttendance.png" alt="Edit" class="listImg"/>
 						</a>
 						<a href="#" onclick="deleteEmp('${employee.employeeId}')">
 							<img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/>

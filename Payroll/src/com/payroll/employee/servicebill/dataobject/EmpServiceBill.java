@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class EmpServiceBill {
 	
-	private String employeeId;
 	private String fName;
 	private String mName;
 	private String lName;
@@ -17,7 +16,7 @@ public class EmpServiceBill {
 	private String desgname;
 	private double basic;
 	private double gradePay;
-	private double scalePay;
+	private String scalePay;
 	private String scaleCode;
 	private String accountNumber;
 	private String bankName;
@@ -25,10 +24,9 @@ public class EmpServiceBill {
 	
 	public EmpServiceBill() {}
 	
-	public EmpServiceBill(String employeeId, String fName, String mName, String lName, String empPan, Date birthDate,
+	public EmpServiceBill(String fName, String mName, String lName, String empPan, Date birthDate,
 			String empAdhar, Date empJoiningDate, Date empLastPromDate, String deptName, String desgname, double basic,
-			double gradePay, double scalePay, String scaleCode, String accountNumber, String bankName, String ifscCode) {
-		this.employeeId = employeeId;
+			double gradePay, String scalePay, String scaleCode, String accountNumber, String bankName, String ifscCode) {
 		this.fName = fName;
 		this.mName = mName;
 		this.lName = lName;
@@ -46,12 +44,6 @@ public class EmpServiceBill {
 		this.accountNumber = accountNumber;
 		this.bankName = bankName;
 		this.ifscCode = ifscCode;
-	}
-	public String getEmployeeId() {
-		return employeeId;
-	}
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
 	}
 	public String getfName() {
 		return fName;
@@ -125,10 +117,10 @@ public class EmpServiceBill {
 	public void setGradePay(double gradePay) {
 		this.gradePay = gradePay;
 	}
-	public double getScalePay() {
+	public String getScalePay() {
 		return scalePay;
 	}
-	public void setScalePay(double scalePay) {
+	public void setScalePay(String scalePay) {
 		this.scalePay = scalePay;
 	}
 	public String getAccountNumber() {

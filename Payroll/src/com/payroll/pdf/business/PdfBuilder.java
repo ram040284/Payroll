@@ -23,10 +23,12 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.payroll.Utils;
+import com.payroll.employee.servicebill.dataobject.EmpServiceBill;
 import com.payroll.hrms.payroll.dataobjects.EmployeePayroll;
 import com.payroll.hrms.payroll.dataobjects.PaybillDetails;
 import com.payroll.paybill.vo.PaybillBean;
 import com.payroll.pdf.report.BankwiseReport;
+import com.payroll.pdf.report.EmpServiceBook;
 import com.payroll.pdf.report.HeadwiseReport;
 import com.payroll.pdf.report.MonthlyPdfRep;
 import com.payroll.pdf.report.PaybillPdfRep;
@@ -76,6 +78,12 @@ public class PdfBuilder extends AbstractITextPdfView {
         	PaybillDetails payslip = (PaybillDetails) model.get("payslip");
         	if(payslip != null)
         		new PayslipReport().getPayslip(doc, payslip, imgPath);
+        }
+        if(model.get("empServiceBook") !=null){
+        	System.out.println("Generating service book for employee *****");
+        	EmpServiceBill empServiceBill = (EmpServiceBill) model.get("empServiceBook");
+        	if(empServiceBill != null)
+        		new EmpServiceBook().empServiceBook(doc, empServiceBill, imgPath);
         }
         
     }
