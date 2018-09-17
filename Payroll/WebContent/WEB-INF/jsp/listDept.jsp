@@ -85,9 +85,7 @@ table.dataTable thead:first-child .sorting_desc {
               });
   		   }
   	   });
-  });   	      
-      
-      
+  });   	            
       function viewDept(id){
     	  var f = document.forms['editForm'];
     	  f.departmentId.value=id;
