@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.payroll.employee.dataobjects.Employee;
 import com.payroll.employee.dataobjects.EmployeeDAO;
 import com.payroll.employee.vo.EmployeeVO;
+import com.payroll.login.dao.PermissionsDAO;
 import com.payroll.login.dataobjects.User;
 import com.payroll.login.dataobjects.UserDAO;
 import com.payroll.login.vo.UserVO;
@@ -50,7 +51,14 @@ public class LoginController
 		 
 		 Employee employee  = new EmployeeDAO().getById(retrievedUser.getEmpId());
 		 
-	     model = new ModelAndView("dashboard");
+		 String permissionForCEODashboard = "viewCEODashboard";
+		 
+		 if (new PermissionsDAO().getPermissions(retrievedUser.getEmpId()).contains(permissionForCEODashboard)) {
+			 model = new ModelAndView("dashboard2");
+		 } else {
+			 model = new ModelAndView("dashboard");
+		 }
+	     
 	     model.addObject("welcomeMsg", true);
 	     byte handicapFlag = 0;
 	     user.setEmployee(new EmployeeVO(employee.getEmployeeId(), employee.getFirstName(), employee.getLastName(), "", handicapFlag));
