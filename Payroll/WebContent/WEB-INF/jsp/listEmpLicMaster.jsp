@@ -72,6 +72,9 @@ input[type=file] {
          contentType: "application/json;charset=utf-8",
          success : function(employeeLicMasterData) {
        	  $('#licListTable').DataTable({
+     		columnDefs: [
+    		    { className: 'text-right', targets: [2] }, // 2- Installment Amount
+    		  ],
        		  data:employeeLicMasterData,
        		  columns:[
                   {data:'fullName',title:'Employee'},
@@ -82,7 +85,6 @@ input[type=file] {
        				 'data': null, title:'<a href="#" onclick="addLicMaster()"><img style="vertical-align: middle;" src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
                      'render': function (employeeLicMasterData, type, row)
       				 {
-                    	 /* alert('-------- Policy No----------'+employeeLicMasterData.policyNo); */
                          return '<a id= "' +row.Id +'" href="#" onclick="updateLicMaster('+employeeLicMasterData.employeeId+', '+employeeLicMasterData.policyNo+')"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/> <a id="' +row.Id+'"  href="#" onclick="deleteLicMaster('+employeeLicMasterData.employeeId+', '+employeeLicMasterData.policyNo+')"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/>'}
 			         }
        			  
@@ -94,7 +96,6 @@ input[type=file] {
   
       function updateLicMaster(id,policyNo){
     	  var f = document.forms['editForm'];
-    	  alert('-----policyNo data-----'+policyNo);
 		  f.employeeId.value=id;
 		  f.policyNo.value=policyNo;
 		  f.action="../Payroll/inputEmpLicMaster";
@@ -103,7 +104,6 @@ input[type=file] {
 	  }
       function addLicMaster(){
     	  var f = document.forms['editForm'];
-    	  alert("add lic master");
 		  f.action="../Payroll/inputEmpLicMaster";
 		  f.submit();
 	  }

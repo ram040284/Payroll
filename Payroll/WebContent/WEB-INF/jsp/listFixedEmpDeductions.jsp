@@ -71,8 +71,11 @@ $(document).ready(function() {
               contentType: "application/json;charset=utf-8",
 			   success : function(empDeductionData){
             	  $('#deductionListTable').DataTable({
+            		  columnDefs: [
+              		    { className: 'text-right', targets: [1, 2, 3, 4, 5, 6] }, // 1- KSS Union Fee, 2- Rent, 3- Court Recovery, 4- Union Fee, 5- GIS, 6- Additional PF
+              		  ],
             		  data:empDeductionData,
-				  columns:[
+				  	  columns:[
             			  {data:'fullName',title:'Employee'},
 					      {data:'kssUnionFee',title:'KSS Union Fee'},
             			  {data:'rent',title:'Rent'},

@@ -72,6 +72,9 @@ $(document).ready(function() {
               contentType: "application/json;charset=utf-8",
               success : function(employeeBankData) {
             	  $('#bankListTable').DataTable({
+            		  columnDefs: [
+              		    { className: 'text-right', targets: [3] }, // 3- Account #
+              		  ],
             		  data:employeeBankData,
             		  columns:[
             			  {data:'fullName',title:'Employee'},
