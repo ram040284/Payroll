@@ -214,11 +214,12 @@ function checkAmount(value){
 								<div class="col-sm-4 form-group">
 									<label>Basic Pay:</label>
 									<form:input path="basic"  id="basic" placeholder="Enter Basic Pay" class="form-control"/>
-									
+									<input type="hidden" name="addUpdate" id=addUpdate <c:if test="${salary.employeeId != '0'}" > value="1" </c:if>/>
 								</div>
 								<div class="col-sm-4 form-group">
 									<label>Grade Pay:</label>
 									<form:input path="gradePay"  id="gradePay" placeholder="Enter Grade Pay" class="form-control"/>
+									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${salary.employeeId != '0'}" > value="1" </c:if>/>
 								</div>
 								<div class="col-sm-4 form-group">
 									<label>Scale Pay:</label>

@@ -292,4 +292,46 @@ public class EmployeeController {
 	     }
 	     return model;
 	   }
+	   
+	   @RequestMapping(value = "/getEmployeeServiceBook", method = RequestMethod.POST)
+	   public ModelAndView  getEmployeeServiceBook(com.payroll.employee.Employee employee, HttpServletRequest request) {
+		   
+		   permissionForThis = "addEmployee";
+		   ModelAndView model = null;
+			
+		   User loggedInUser = (User) request.getSession().getAttribute("user");
+			
+		   if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			   ObjectMapper mapper = new ObjectMapper();
+			   
+			   List<Department> deptList = new DepartmentService().getDepartments();
+			   //List<Designation> desigList = new DesignationService().getDesignationList();
+			   
+			   String depJSON = "";
+			   String desigJSON = "";
+				try {
+					depJSON = mapper.writeValueAsString(deptList);
+					//desigJSON = mapper.writeValueAsString(desigList);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			if(!employee.getEmployeeId().equalsIgnoreCase("0")){
+					employee = new EmployeeService().getEmployeeById(employee.getEmployeeId());
+				//System.out.println("employee type is :"+employee.getEmployeeType());
+				}
+			//System.out.println("employee type is :"+employee.getEmployeeType());
+				  
+				model = new ModelAndView("employee", "command", employee);
+				model.addObject(employee);
+				model.addObject("departments", depJSON);
+				//model.addObject("designations", desigJSON);
+			 
+				return model;
+		   } else {
+			   model = new ModelAndView("unauthorized", "message", "You do not have access to add employee. Please click home button to go back.");
+			   model.addObject("unauthorizedMessage", true);
+			   return model;
+		   }
+		   
+	   }
 }	

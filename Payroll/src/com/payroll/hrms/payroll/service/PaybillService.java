@@ -122,7 +122,6 @@ public class PaybillService {
 		if(empList == null)
 			empList = new ArrayList<>();
 		empList.add(empVO);
-		//sectionEmpList.add(empVO);
 		System.out.println("paybill:"+paybill);
 		if(paybill!=null){
 			if(paybillList == null)
@@ -205,9 +204,9 @@ public class PaybillService {
     		org.apache.commons.beanutils.BeanUtils.copyProperties(empPayroll, paybill);
     		if(headId == 0){
     			if(null != sectionEmpList) {  
-		    		for (EmployeeVO employee : sectionEmpList) {
+    			for (EmployeeVO employee : sectionEmpList) {
 						if(employee.getEmployeeId().equals(paybill.getEmployeeId())){
-							empPayroll.setEmployeeName(employee.getFullName());
+						empPayroll.setEmployeeName(employee.getFullName());
 				    		empPayroll.setPanNo(employee.getPan());
 				    		empPayroll.setDob(employee.getDob());
 				    		empPayroll.setJoiningDate(employee.getJoiningDate());
@@ -219,7 +218,7 @@ public class PaybillService {
 				    		break;
 						}
 					}
-    			}
+    		}
     		}
     		payrollTotals.addEmployeePayroll(empPayroll);
 		}

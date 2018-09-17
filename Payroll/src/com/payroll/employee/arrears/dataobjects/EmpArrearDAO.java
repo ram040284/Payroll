@@ -125,7 +125,7 @@ public class EmpArrearDAO {
 		Session session = null;
 			try{
 				String queryString = "select new com.payroll.employee.arrears.dataobjects.EmpArrears(empArr.employee.employeeId, empArr.arrearId, empArr.arrearsType, empArr.arrearsPay, empArr.arrearsDeductions, empArr.miscPay, " + 
-						" empArr.miscDeductions, empArr.arrearsPayNote, empArr.arrearsDeductionNote ) from EmpArrears empArr where empArr.status = ? and empArr.employee.employeeId = ?";			
+						" empArr.miscDeductions, empArr.arrearsPayNote, empArr.arrearsDeductionNote, empArr.rowUpdatedDate) from EmpArrears empArr where empArr.status = ? and empArr.employee.employeeId = ?";			
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, "A");

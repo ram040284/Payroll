@@ -59,6 +59,11 @@ public class EmployeeVO implements Serializable{
 		this.fullName = getName(firstName, middleName, lastName);
 	}
 	
+	public EmployeeVO (String employeeId, String firstName, String lastName, String middleName){
+		this.employeeId = employeeId;
+		this.fullName = getName(firstName, middleName, lastName);
+	}
+	
 	public EmployeeVO(String employeeId, String firstName, String lastName, String middleName, int employeeType,
 			String pan, Date dob, Date retirementDate, String department,
 			String headName, String designation,  Date joiningDate, byte handicapFlag){

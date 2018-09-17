@@ -33,6 +33,7 @@ public class PaybillDAO {
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			Employee employee = (Employee)session.load(Employee.class, paybill.getEmployeeId());
+			
 			paybill.setEmployee(employee);
 			paybill.setConOtherded(0);
 			paybill.setRowUpdDate(new Timestamp(System.currentTimeMillis()));

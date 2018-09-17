@@ -2,6 +2,7 @@ package com.payroll.employee.arrears.dataobjects;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import com.payroll.employee.dataobjects.Employee;
 
@@ -16,7 +17,7 @@ public class EmpArrears implements Serializable{
 	private String arrearsPayNote;
 	private String arrearsDeductionNote;
 	private String status;
-	private Timestamp rowUpdatedDate;
+	private Date rowUpdatedDate;
 	private EmpArrearsEnumData arrearsEnumData;
 	private String fullName;
 	private Employee employee;
@@ -27,7 +28,7 @@ public class EmpArrears implements Serializable{
 	}
 	
 	public EmpArrears(String employeeId, int arrearId, String arrearsType, double arrearsPay, double arrearsDeductions,
-			double miscPay, double miscDeductions, String arrearsPayNote, String arrearsDeductionNote) {
+			double miscPay, double miscDeductions, String arrearsPayNote, String arrearsDeductionNote, Date rowUpdatedDate) {
 		this.employeeId = employeeId;
 		this.arrearId = arrearId;
 		this.arrearsType = arrearsType;
@@ -37,6 +38,7 @@ public class EmpArrears implements Serializable{
 		this.miscDeductions = miscDeductions;
 		this.arrearsPayNote = arrearsPayNote;
 		this.arrearsDeductionNote = arrearsDeductionNote;
+		this.rowUpdatedDate = rowUpdatedDate;
 	}
 	public String getFullName() {
 		return fullName;
@@ -103,10 +105,10 @@ public class EmpArrears implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Timestamp getRowUpdatedDate() {
+	public Date getRowUpdatedDate() {
 		return rowUpdatedDate;
 	}
-	public void setRowUpdatedDate(Timestamp rowUpdatedDate) {
+	public void setRowUpdatedDate(Date rowUpdatedDate) {
 		this.rowUpdatedDate = rowUpdatedDate;
 	}
 	public EmpArrearsEnumData getArrearsEnumData() {
@@ -137,7 +139,7 @@ public class EmpArrears implements Serializable{
 		// TODO Auto-generated method stub
 		return "employeeId:"+employeeId+" |  arrearId:"+this.arrearId+" | arrearsType:"+this.arrearsType 
 				+" | arrearsPay:"+this.arrearsPay+" | arrearsDeductions:"+this.arrearsDeductions+" | miscPay:"+this.miscPay
-				+" | miscDeductions:"+this.miscDeductions+" | arrearsPayNote:"+this.arrearsPayNote+" | arrearsDeductionNote:"+this.arrearsDeductionNote ;
+				+" | miscDeductions:"+this.miscDeductions+" | arrearsPayNote:"+this.arrearsPayNote+" | arrearsDeductionNote:"+this.arrearsDeductionNote +" | rowUpdatedDate:"+this.rowUpdatedDate;
 	}
 	
 }

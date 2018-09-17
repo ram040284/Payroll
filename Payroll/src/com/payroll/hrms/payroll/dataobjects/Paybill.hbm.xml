@@ -63,5 +63,12 @@
     <property name="incrementAmt" column="INC_AMT"  />  
     <property name="incrementDate" column="INC_DATE"  />  
     <property name="rowUpdDate" column="ROW_UPD_DATE"  />
+    <property name="contAbsDedAmt" column="CON_ABS_DED_AMT"  />  
+    <property name="contTDS" column="CON_TDS"  />  
+    <property name="conOtherded" column="CON_OTHER_DED"  />  
+    <property name="empAbsentDays" column="ABSENT_DAYS" not-null="true"/> 
+    <property name="empPresentDays" column="PRESENT_DAYS" not-null="true"/>  
+    <property name="contPan" column="CON_PAN_NUM"  />
+    <property name="contBankAcNumber" column="CON_BANK_NUM"/>
   </class>  
  </hibernate-mapping>
