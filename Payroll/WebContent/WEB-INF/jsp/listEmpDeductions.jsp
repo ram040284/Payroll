@@ -125,7 +125,7 @@ display: none;
 	<div class="contain-wrapp bodyDivCss">	
 		<div class="container">
 			<%--<div style="margin-top: 12px; float: left;"> --%>
-				<h4 style="color: #0101DF;">Employee Deduction Details</h4>
+				<h4 style="color: #0101DF;">Employee Exemptions Details</h4>
 			<%--<div><div class="tblClass" id="deductionListDiv" style="overflow-x:auto;"> --%>
 			<div style="width:100%;"> 
 				<h6 style="color: #0101DF;margin-bottom:0px;"><a id="closeBtn" href="#" style="color: #0101DF;"><label id="collapse" style="color: #0101DF;" class="glyphicon-plus">&nbsp;Show</label> <label id="expand" class="glyphicon-minus" style="color: #0101DF;">&nbsp;Hide</label> </a></h6>

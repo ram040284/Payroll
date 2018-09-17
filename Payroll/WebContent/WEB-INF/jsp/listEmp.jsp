@@ -116,7 +116,7 @@ function searchEmps(){
 					<td> ${employee.joiningDate}</td>
 					<td> ${employee.retirementDate}</td>
 					<%-- <td> ${employee.phone}</td> --%>
-					<td><a href="#" onclick="viewEmp('${employee.employeeId}')" title="Edit">
+					<td style="padding: 0px;"><a href="#" onclick="viewEmp('${employee.employeeId}')" title="Edit">
 							<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/>
 						</a>
 						<a href="#" onclick="empServiceBook('${employee.employeeId}')" title="Edit">
