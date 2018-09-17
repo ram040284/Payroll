@@ -101,7 +101,6 @@ $(document).ready(function() {
 });
   
 function addUpdateDeductions(id) {
-	alert("viewDeductions" +id);
 	var f = document.forms['editForm'];
 	f.employeeId.value = id;
     f.action = "../Payroll/inputEmpVarDeductions";
