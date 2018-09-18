@@ -206,12 +206,12 @@ h3 {font-size:16pt;}
 						<ul class="dropdown-menu">
 							<%--<li><a href="#" onclick="inputAction('../Payroll/viewEmp')">New Employee</a></li> --%>
 							<li><a href="#" onclick="getList('../Payroll/employee')">Employee Master</a></li>
-<!-- TODO: Needs to be ebable afterwards: Prasad							<li><a href="../Payroll/empContactList">Employee Contact Info</a></li> -->
+<!-- TODO: Needs to be enabled afterwards: Prasad							<li><a href="../Payroll/empContactList">Employee Contact Info</a></li> -->
 							<li><a href="../Payroll/viewBank">Employee Bank</a></li>
 							<li><a href="../Payroll/viewSalary">Employee Salary</a></li>
 							<li><a href="#" onclick="getList('../Payroll/viewLeave_1')">Employee Leave</a></li>
 							<li><a href="../Payroll/viewEmpPf">Employee PF</a></li>
-							<li><a href="../Payroll/viewEmpQtr">Employee Festival Advance</a></li>
+<!-- TODO: Needs to be enabled afterwards: Prasad	<li><a href="../Payroll/viewEmpQtr">Employee Festival Advance</a></li> -->
 							<li><a href="../Payroll/viewEmpLicMaster">Employee LIC Master</a></li>
 							<li><a href="../Payroll/viewEmpLic">Employee LIC Details</a></li>
 							<li><a href="../Payroll/viewEmpAlwnce">Employee Fixed Allowances</a></li>
