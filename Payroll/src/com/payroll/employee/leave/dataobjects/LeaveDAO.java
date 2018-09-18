@@ -244,7 +244,7 @@ public class LeaveDAO {
 						session.save(leave);
 //					}
 				}
-				
+				session.flush();
 				transaction.commit();
 				result = "Yes";
 			}catch(ConstraintViolationException cv){
