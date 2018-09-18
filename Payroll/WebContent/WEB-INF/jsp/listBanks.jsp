@@ -118,7 +118,7 @@ table.dataTable thead:first-child .sorting_desc {
       function deleteBank(id){
     	  if(confirm("Are you sure to delete bank details?")){
     		  var f = document.forms['editForm'];
-    		  f.departmentId.value=id;
+    		  f.bankId.value=id;
     		  f.action="../Payroll/deleteBankDetails";
     		  f.submit();
     	  }

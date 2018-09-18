@@ -138,7 +138,7 @@ $(document).ready(function() {
 	    });
 	    event.preventDefault();
 	});
-});
+});	
 
 function showDate(date) {
 	alert('The date chosen is ' + date);
@@ -156,6 +156,15 @@ function checkAmount(value){
 </head>
 <body>
 	<div class="contain-wrapp bodyDivCss">	
+		<div class="container">
+			<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/viewAdvance')">Back</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="container">
 		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
@@ -211,11 +220,11 @@ function checkAmount(value){
 								</div>
 							</div>
 							<div class="row">
-														<div class="col-sm-6 form-group">
+								<div class="col-sm-6 form-group">
 									<label>Advance Amount:</label>
 									<form:input path="advanceAmount"  id="advanceAmount" placeholder="Enter Advance Amount" class="form-control"/>
 									<form:input type="hidden" path="advanceId" id="advanceId" />
-							</div>							
+								</div>							
 								<div class="col-sm-6 form-group">
 									<label>Installment Amount:</label>
 									<form:input path="installAmount" id="installAmount" placeholder="Enter Installment Amount" class="form-control"/>

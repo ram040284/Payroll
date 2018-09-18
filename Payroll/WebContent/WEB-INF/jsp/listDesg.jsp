@@ -121,7 +121,7 @@ table.dataTable thead:first-child .sorting_desc {
 		<div class="container">
 			<div style="margin-top: 12px; float: left; width: 98%;">
 			<h4 style="color: #0101DF;">Designation Details</h4>
-			<div id="desgListDiv" class="desgListTable" style ="width:100%; margin-top: 25px">
+			<div id="desgListDiv" class="desgListTableClass" style ="width:100%; margin-top: 25px">
 							<table id="desgListTable" class="table table-striped table-bordered table-responsive"></table>
 						</div>
 				</div>
