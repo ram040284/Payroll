@@ -70,11 +70,11 @@ public class Paybill implements Serializable{
 	private int employeeType;
 	
 	//new columns added for contract
-	private double contAbsDedAmt;
-	private double contTDS;
-	private double conOtherded;
-	private int empAbsentDays;
-	private int empPresentDays;
+	private Double contAbsDedAmt;
+	private Double contTDS;
+	private Double conOtherded;
+	private Integer empAbsentDays;
+	private Integer empPresentDays;
 	private String contPan;
 	private String contBankAcNumber;
 	
@@ -429,34 +429,34 @@ public class Paybill implements Serializable{
 	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
-	public double getContAbsDedAmt() {
+	public Double getContAbsDedAmt() {
 		return contAbsDedAmt;
 	}
-	public void setContAbsDedAmt(double contAbsDedAmt) {
+	public void setContAbsDedAmt(Double contAbsDedAmt) {
 		this.contAbsDedAmt = contAbsDedAmt;
 	}
-	public double getContTDS() {
+	public Double getContTDS() {
 		return contTDS;
 	}
-	public void setContTDS(double contTDS) {
+	public void setContTDS(Double contTDS) {
 		this.contTDS = contTDS;
 	}
-	public double getConOtherded() {
+	public Double getConOtherded() {
 		return conOtherded;
 	}
-	public void setConOtherded(double conOtherded) {
+	public void setConOtherded(Double conOtherded) {
 		this.conOtherded = conOtherded;
 	}
-	public int getEmpAbsentDays() {
+	public Integer getEmpAbsentDays() {
 		return empAbsentDays;
 	}
-	public void setEmpAbsentDays(int empAbsentDays) {
+	public void setEmpAbsentDays(Integer empAbsentDays) {
 		this.empAbsentDays = empAbsentDays;
 	}
-	public int getEmpPresentDays() {
+	public Integer getEmpPresentDays() {
 		return empPresentDays;
 	}
-	public void setEmpPresentDays(int empPresentDays) {
+	public void setEmpPresentDays(Integer empPresentDays) {
 		this.empPresentDays = empPresentDays;
 	}
 	public String getContPan() {
