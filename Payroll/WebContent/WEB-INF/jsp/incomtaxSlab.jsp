@@ -82,7 +82,7 @@ $(document).ready(function() {
 		var incomtaxPercentVal = $('#incomtaxPercent').val().trim();
 		
 		if(incomtaxPercentVal && incomtaxPercentVal > 0){
-			alert('incomtaxPercentVal:'+incomtaxPercentVal);
+			//alert('incomtaxPercentVal:'+incomtaxPercentVal);
 			if(!checkAmount(incomtaxPercentVal)){
 				alert("Invalid Incometax Percentage!");
 				$('#incomtaxPercent').focus();

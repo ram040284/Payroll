@@ -94,8 +94,8 @@ public class EmpAllowanceDAO {
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("update EmpAllowance a set a.status = ?, a.rowUpdDate = ? where a.employee.employeeId = ?");
-			query.setParameter(0, "I");
+			Query query = session.createQuery("update EmpAllowance a set a.status = ?, a.rowUpdDate = ?  where a.employee.employeeId = ?");
+            query.setParameter(0, "I");
 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 			query.setParameter(2, empId);
 			int updated = query.executeUpdate();
@@ -124,12 +124,16 @@ public class EmpAllowanceDAO {
 			empAllowance.setStatus("A");
 			empAllowance.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 			if(empAllowance.getAddUpdate() ==0)
+			{
 				session.save(empAllowance);
-			else
+			}
+			else {
 				session.update(empAllowance);
+			}
+			session.flush();
 			transaction.commit();
 			result = "Yes";
-		}catch(ConstraintViolationException cv){
+			}catch(ConstraintViolationException cv){
 			cv.printStackTrace();
 			transaction.rollback();
 			result = "Allowances are exist for selected Employee!";

@@ -17,6 +17,7 @@ import com.payroll.login.dao.PermissionsDAO;
 import com.payroll.login.dataobjects.User;
 import com.payroll.login.dataobjects.UserDAO;
 import com.payroll.login.vo.UserVO;
+import com.payroll.utils.PasswordUtils;
 
 @Controller
 public class LoginController
@@ -47,7 +48,7 @@ public class LoginController
 		 model = new ModelAndView("dashboard");
 		 model.addObject("welcomeMsg", true);
 	     request.getSession().setAttribute("user", userDb);
-	 } else*/ if (userMap.get(user.getUserName())!=null && userMap.get(user.getUserName().toLowerCase()).equals(user.getPassword())) {
+	 } else*/ if (userMap.get(user.getUserName())!=null && userMap.get(user.getUserName().toLowerCase()).equals(PasswordUtils.getEncryptedPassword(user.getPassword()))) {
 		 
 		 Employee employee  = new EmployeeDAO().getById(retrievedUser.getEmpId());
 		 
@@ -55,8 +56,10 @@ public class LoginController
 		 
 		 if (new PermissionsDAO().getPermissions(retrievedUser.getEmpId()).contains(permissionForCEODashboard)) {
 			 model = new ModelAndView("dashboard2");
+			 request.getSession().setAttribute("isCEO", true);
 		 } else {
 			 model = new ModelAndView("dashboard");
+			 request.getSession().setAttribute("isCEO", false);
 		 }
 	     
 	     model.addObject("welcomeMsg", true);

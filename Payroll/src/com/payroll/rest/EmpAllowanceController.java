@@ -68,7 +68,7 @@ public class EmpAllowanceController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		if(empAllowance.getEmployeeId()!="0")
+		if(!empAllowance.getEmployeeId().equals("0"))
 				empAllowance = new EmpAllowanceService().getEmpAllowanceById(empAllowance.getEmployeeId());
 			model = new ModelAndView("empAllowance", "command", empAllowance);
 			model.addObject("empAllowance", empAllowance);

@@ -120,7 +120,7 @@ public class User implements Serializable
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", password=" + password + ", confirmPassword=" + confirmPassword
-				+ ", userIdPk=" + userId + ", empId=" + empId + ", roleId=" + roleId + ", deptId=" + deptId
+				+ ", userId=" + userId + ", empId=" + empId + ", roleId=" + roleId + ", deptId=" + deptId
 				+ ", listRoleId=" + listRoleId + ", listDeptId=" + listDeptId + ", status=" + status + ", deptIds="
 				+ deptIds + ", rowUpdatedDate=" + rowUpdatedDate + ", userNameAvailabe=" + userNameAvailabe
 				+ ", employee=" + employee + ", roles=" + roles + " Depts =" + deptNames + "]";
