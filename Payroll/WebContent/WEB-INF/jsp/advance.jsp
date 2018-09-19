@@ -144,7 +144,7 @@ function showDate(date) {
 	alert('The date chosen is ' + date);
 }
 function checkAmount(value){
-	var decimal=  /^\d+(\.\d{2,2})?$/;   
+	var decimal=  /^\d+(\.\d{1,2})?$/;   
 	if(value.match(decimal)) {   
 		return true;  
 	}

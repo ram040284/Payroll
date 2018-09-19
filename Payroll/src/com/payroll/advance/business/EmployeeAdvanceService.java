@@ -58,7 +58,7 @@ public class EmployeeAdvanceService {
 			//empAdvanceVO.set
 			
 			empAdvanceVO.setAdvanceDate((empAdvance.getAdvanceDate()!= null ? dateFormat.parse(empAdvance.getAdvanceDate()): new Date()));
-			empAdvanceVO.setInstallStartDate((empAdvance.getAdvanceDate()!= null ? dateFormat.parse(empAdvance.getAdvanceDate()): new Date()));
+			empAdvanceVO.setInstallStartDate((empAdvance.getInstallStartDate()!= null ? dateFormat.parse(empAdvance.getInstallStartDate()): new Date()));
 
 		}catch(Exception e){
 			

@@ -276,8 +276,8 @@ public class PaybillPdfRep extends PdfBuilder{
 		
 		table.addCell(addToCell(PdfUtils.PFSCPFS, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getProvidentFund()), font));
-		table.addCell(addToCell(PdfUtils.APFACPF, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getApfacpf()), font));
+		/*table.addCell(addToCell(PdfUtils.APFACPF, font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getApfacpf()), font));*/
 		
 		/*table.addCell(addToCell(PdfUtils.PFLOANREC, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfLoanRecovery()), font));
@@ -412,6 +412,9 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getLic()), font));
 		table.addCell(addToCell(PdfUtils.SOCIETY, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getSocity()), font));
+		
+		table.addCell(addToCell(PdfUtils.PFSCPFS, font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getProvidentFund()), font));
 		
 		table.addCell(addToCell(PdfUtils.GIS, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getGis()), font));

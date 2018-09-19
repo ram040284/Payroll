@@ -36,10 +36,10 @@ public class PaybillDetails {
 	private double vlr;
 	private double apfAcf;
 	private double pfLoanRcry;
-	/*private double pfsCpf;
+	private double pfsCpf;
 	
 	
-	private double cpfRcry;*/
+	/*private double cpfRcry;*/
 //	private double incomTax;
 	private double unionFee;
 	private double unionFeeKss;
@@ -125,10 +125,10 @@ public class PaybillDetails {
 		vlr += payroll.getVlr();
 		apfAcf+= payroll.getApfAcf();
 		pfLoanRcry+= payroll.getPfLoanRcry();
-		/*pfsCpf +=payroll.getPfsCpf();
+		pfsCpf +=payroll.getPfsCpf();
 		
 		
-		cpfRcry+= payroll.getCpfRcry();*/
+		/*cpfRcry+= payroll.getCpfRcry();*/
 //		incomTax += payroll.getIncomTax();
 		unionFee += payroll.getUnionFee();
 		unionFeeKss += payroll.getUnionFeeKss();
@@ -146,6 +146,7 @@ public class PaybillDetails {
 		contBankAcNumber +=payroll.getContBankAcNumber();
 		employeeId +=payroll.getEmployeeId();
 	}
+	
 	public void addEmployeePayroll(ReportDetails payroll){
 		if(Utils.isEmpty(deptName))
 			deptName = payroll.getDepartment();
@@ -181,10 +182,10 @@ public class PaybillDetails {
 		vlr += payroll.getVehclLoanRcry();
 		apfAcf+= payroll.getApfacpf();
 		pfLoanRcry+= payroll.getPfLoanRecovery();
-		/*pfsCpf +=payroll.getProvidentFund();
+		pfsCpf +=payroll.getProvidentFund();
 		
 		
-		cpfRcry+= payroll.getCpfRecovery();*/
+	/*	cpfRcry+= payroll.getCpfRecovery();*/
 		incomeTax += payroll.getIncomeTax();
 		unionFee += payroll.getUnionFee();
 		unionFeeKss += payroll.getUnionFeeKss();
@@ -220,7 +221,7 @@ public class PaybillDetails {
 	
     public double getTotalGrossPay(){
 
-        this.grossPay = this.basicPay + this.gradePay + this.da + this.ta  + this.totallw + this.tAllowance + this.others;
+        this.grossPay = this.basicPay + this.gradePay + this.da + this.ta  + this.totallw + this.tAllowance + this.others+this.hra;
         //System.out.println("***** GrossPay -> Basic: " + this.basicPay + " GradePay: " + this.gradePay + " DA: " + this.da + " TA: " + this.ta + " TotalAllowance: " + this.totallw);
         this.totalGrossPay = this.grossPay + this.otAmt;
         //System.out.println("***** Total Gross Pay -> GrossPay " + this.grossPay + " OverTimeAmount: " + this.otAmt + " Others/OtherPayment: " + this.others);
@@ -242,10 +243,10 @@ public class PaybillDetails {
     						+ this.vlr
     						+ this.apfAcf
     						+ this.pfLoanRcry
-    						/*+ this.pfsCpf
+    						+ this.pfsCpf
     						
     						
-    						+ this.cpfRcry*/
+    						/*+ this.cpfRcry*/
     						+ this.incomeTax
     						+ this.unionFee
     						+ this.elecRcry
@@ -369,11 +370,11 @@ public class PaybillDetails {
 	public double getPfLoanRcry() {
 		return pfLoanRcry;
 	}
-	/*public double getPfsCpf() {
+	public double getPfsCpf() {
 		return pfsCpf;
 	}
 
-	public double getCpfRcry() {
+	/*	public double getCpfRcry() {
 		return cpfRcry;
 	}*/
 
@@ -498,5 +499,9 @@ public class PaybillDetails {
 	}
 	public void setContBankAcNumber(String contBankAcNumber) {
 		this.contBankAcNumber = contBankAcNumber;
+	}
+
+	public double getProvidentFund() {
+		return pfsCpf;
 	}
 }
