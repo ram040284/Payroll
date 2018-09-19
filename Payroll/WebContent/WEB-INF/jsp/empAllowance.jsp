@@ -36,11 +36,20 @@ $(document).ready(function() {
 	var qtrFlag = "${empAllowance.qtrFlag}";
 	var afkFlag = "${empAllowance.afkFlag}";
 	var taFlag = "${empAllowance.taFlag}";
+	var pfFlag = "${empAllowance.pfFlag}";
+
 	$('#hraFlag').val(hraFlag);
 	$('#qtrFlag').val(qtrFlag);
 	$('#afkFlag').val(afkFlag);
-	$('#taFlag').val(taFlag);
 	
+	/* if (taFlag == 1) {
+		taFlag = "true";
+	}else {
+		taFlag = "false";
+	} */
+	$('#taFlag').val(taFlag);
+	/* alert(taFlag); */
+	$('#pfFlag').val(pfFlag);
 	if(empId != 0)
 		$('#hraFlag').val(hraFlag);
 	$('#addAllowanceBtn').click(function(event) {
@@ -49,13 +58,13 @@ $(document).ready(function() {
 				var washingAlwance = "${empAllowance.washingAlwance}";
 				var nonPracAwance = "${empAllowance.nonPracAwance}";
 				var uniformAlwance = "${empAllowance.uniformAlwance}";
-				var familyPlanAlwance = "${empAllowance.familyPlanAlwance}";
+				var familyPlanAlwance ="${empAllowance.familyPlanAlwance}";
 				var cycleAlwance = "${empAllowance.cycleAlwance}";
 				
 				if(empId != 0){
 					if(cca == $('#cca').val() && familyPlanAlwance == $('#familyPlanAlwance').val() && cycleAlwance == $('#cycleAlwance').val() &&
 							washingAlwance == $('#washingAlwance').val()  && nonPracAwance == $('#nonPracAwance').val() && uniformAlwance == $('#uniformAlwance').val() && 
-							hraFlag == $('#hraFlag').val() && qtrFlag == $('#qtrFlag').val() && afkFlag == $('#afkFlag').val() && taFlag == $('#taFlag').val()){
+							hraFlag == $('#hraFlag').val() && qtrFlag == $('#qtrFlag').val() && afkFlag == $('#afkFlag').val() && taFlag == $('#taFlag').val() && pfFlag == $('#pfFlag').val()){
 						alert('Nothing was changed');
 						$('#employeeId').focus();
 						return false;
@@ -86,15 +95,15 @@ $(document).ready(function() {
 		
 		if($('#cca').val() < 1 && $('#washingAlwance').val() < 1  &&
 				$('#familyPlanAlwance').val() < 1 && $('#cycleAlwance').val() < 1 &&
-				 $('#nonPracAwance').val() < 1 && $('#uniformAlwance').val() < 1 && $('#hraFlag').val()=='0'  && $('#qtrFlag').val()=='0'  && $('#afkFlag').val()=='0' && $('#taFlag').val()=='0'){
+				 $('#nonPracAwance').val() < 1 && $('#uniformAlwance').val() < 1 && $('#hraFlag').val()=='0'  && $('#qtrFlag').val()=='0'  && $('#afkFlag').val()=='0' && $('#taFlag').val()=='0' && $('#pfFlag').val()=='0'){
 			alert("Please provide atleast one allowance amount or select HRA!");
 			$('#cca').focus();
 			return false;
 		}
 		var inputJson = { "employeeId" : $('#employeeId').val(), "cca" : $('#cca').val(),  
-				"washingAlwance" : $('#washingAlwance').val(),"familyPlanAlwance" : $('#familyPlanAlwance').val(), "cycleAlwance" : $('#cycleAlwance').val(),
+				"washingAlwance" : $('#washingAlwance').val(), "familyPlanAlwance" : $('#familyPlanAlwance').val(), "cycleAlwance" : $('#cycleAlwance').val(),
 				"nonPracAwance" : $('#nonPracAwance').val(), "uniformAlwance" : $('#uniformAlwance').val(), 
-				"hraFlag": $('#hraFlag').val(),"qtrFlag": $('#qtrFlag').val(),"afkFlag": $('#afkFlag').val(),"taFlag": $('#taFlag').val(), "addUpdate": $('#addUpdate').val()};
+				"hraFlag": $('#hraFlag').val(),"qtrFlag": $('#qtrFlag').val(),"afkFlag": $('#afkFlag').val(),"taFlag": $('#taFlag').val(), "pfFlag": $('#pfFlag').val(), "addUpdate": $('#addUpdate').val()};
 		$.ajax({
 	        url: '../Payroll/addEmpAllowance',
 	        data: JSON.stringify(inputJson),
@@ -189,9 +198,8 @@ $(document).ready(function() {
 
 								</div>
 								<div class="row">
-
-									<div class="col-sm-4 form-group">
-										<label>Non-Prac Allowance:</label>
+                                     <div class="col-sm-4 form-group">
+									   	<label>Non-Prac Allowance:</label>
 										<form:input path="nonPracAwance" id="nonPracAwance"
 											placeholder="Enter Non-Prac Allowance" class="form-control" />
 
@@ -202,9 +210,7 @@ $(document).ready(function() {
 											placeholder="Enter Uniform Allowance" class="form-control" />
 										<input type="hidden" name="addUpdate" id="addUpdate"
 											<c:if test="${empAllowance.employeeId != '0'}" > value="1" </c:if> />
-									</div>
-								</div>
-								<div class="row">
+                                   </div>
 									<div class="col-sm-4 form-group">
 										<label>Family Planning Allowance:</label>
 										<form:input path="familyPlanAlwance" id="familyPlanAlwance"
@@ -212,6 +218,8 @@ $(document).ready(function() {
 											class="form-control" />
 
 									</div>
+									</div>
+								<div class="row">
 									<div class="col-sm-4 form-group">
 										<label>Cycle Allowance:</label>
 										<form:input path="cycleAlwance" id="cycleAlwance"
@@ -221,34 +229,38 @@ $(document).ready(function() {
 										<label>HRA:</label>
 										<select id="hraFlag" class="form-control">
 											<option value="0">-- Select HRA --</option>
-											<option value="true">TRUE</option>
-											<option value="false">FALSE</option>
+											<option value="true">1</option>
+											<option value="false">0</option>
 										</select>
 									</div>
 									<div class="col-sm-4 form-group">
 										<label>QTR FLag:</label>
 										<select id="qtrFlag" class="form-control">
 											<option value="0">-- Select QTR Flag --</option>
-											<option value="true">TRUE</option>
-											<option value="false">FALSE</option>
+											<option value="true">1</option>
+											<option value="false">0</option>
 										</select>
 									</div>
-
-									<div class="col-sm-4 form-group">
+                                    </div>
+                                  
+                                  <div class="row">
+                                    <div class="col-sm-4 form-group">
 										<label>AFK Flag:</label>
 										<select id="afkFlag" class="form-control">
 											<option value="0">-- Select AFK Flag --</option>
-											<option value="true">TRUE</option>
-											<option value="false">FALSE</option>
+											<option value="true">1</option>
+											<option value="false">0</option>
 										</select>
 									</div>
 									<div class="col-sm-4 form-group">
 										<label>TA Flag</label>
-										<select id="taFlag" class="form-control">
-											<option value="0">-- Select TA Flag --</option>
-											<option value="true">TRUE</option>
-											<option value="false">FALSE</option>
-										</select>
+										<form:input path="taFlag" id="taFlag"
+										placeholder="Enter TA" class="form-control"/>
+                                    </div>
+									<div class="col-sm-4 form-group">
+										<label>PF Flag</label>
+ 										<form:input path="pfFlag" id="pfFlag"
+										placeholder="Enter PF" class="form-control"/>
 									</div>
 								</div>
 								<div class="row">
