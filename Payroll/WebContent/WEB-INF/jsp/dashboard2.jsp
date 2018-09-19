@@ -185,7 +185,7 @@ input[type=file] {
 		<c:if test="${sessionScope.user != null}">
 				<div class="row">
 					<div class="col-md-12 text-center">
-						<h3 style="color:blue;">Welcome ${sessionScope.user.employee.fullName}!</h3>
+						<h3 style="color:blue;">Welcome CEO!</h3>
 					</div>
 				</div>
 		</c:if>

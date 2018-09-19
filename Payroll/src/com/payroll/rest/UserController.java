@@ -82,7 +82,7 @@ public class UserController
 	  {
 		  	User user = new User();
 		  	if (userVo.getUserId()!=null && userVo.getUserId()!=0) {
-		  		user = new UserDAO().getUserByUserIdPk(userVo);
+		  		user = new UserDAO().getUserRoleByUserId(userVo);
 		  		user.setPassword("");
 		  		user.setConfirmPassword("");
 		  	}
@@ -105,6 +105,7 @@ public class UserController
 		  	boolean userExt = false;
 		  	if (userExist == null) {
 			  	userVo.setPassword(PasswordUtils.getEncryptedPassword(userVo.getPassword()));
+			  	userVo.setUserName(userVo.getUserId().toString());
 			  	result = new UserDAO().addUser(userVo);
 		  	} else {
 		  		userExt = true;

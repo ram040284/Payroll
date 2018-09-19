@@ -35,7 +35,6 @@ public class PaybillDAO {
 			Employee employee = (Employee)session.load(Employee.class, paybill.getEmployeeId());
 			
 			paybill.setEmployee(employee);
-			paybill.setConOtherded(0);
 			paybill.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 			session.save(paybill);
 			transaction.commit();

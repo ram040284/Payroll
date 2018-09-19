@@ -42,6 +42,16 @@ $(document).ready(function() {
 	
 	$(document).keypress(function(e) {
 	    if(e.which == 13) {
+	    	if($('#userName').val().trim() == ""){
+				alert("User Name must be provided!");
+				$('#userName').focus();
+				return false;
+			}
+			if($('#password').val().trim() == ""){
+				alert("Password must be provided!");
+				$('#password').focus();
+				return false;
+			}
 	        $("#formLogin").attr("action", "../Payroll/home");
 	        $("#formLogin").submit();
 	    }

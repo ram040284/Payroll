@@ -243,7 +243,7 @@ function roleSelection() {
 						</div>	
 						</div>			
 					</div>	
-					<form:input type="hidden" path="userIdPk"/> 
+					<form:input type="hidden" path="userId"/> 
 			</form:form> 
 		</div>
 	</div>

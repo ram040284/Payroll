@@ -185,6 +185,7 @@ h3 {font-size:16pt;}
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-left">
+				<c:if test="${isCEO eq false}">
 					<li><a href="../Payroll/dashboard">Home</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Masters <span class="caret"></span></a>
@@ -206,12 +207,16 @@ h3 {font-size:16pt;}
 						<ul class="dropdown-menu">
 							<%--<li><a href="#" onclick="inputAction('../Payroll/viewEmp')">New Employee</a></li> --%>
 							<li><a href="#" onclick="getList('../Payroll/employee')">Employee Master</a></li>
-<!-- TODO: Needs to be ebable afterwards: Prasad							<li><a href="../Payroll/empContactList">Employee Contact Info</a></li> -->
+<!-- TODO: Needs to be enabled afterwards: Prasad							<li><a href="../Payroll/empContactList">Employee Contact Info</a></li> -->
 							<li><a href="../Payroll/viewBank">Employee Bank</a></li>
 							<li><a href="../Payroll/viewSalary">Employee Salary</a></li>
 							<li><a href="#" onclick="getList('../Payroll/viewLeave_1')">Employee Leave</a></li>
 							<li><a href="../Payroll/viewEmpPf">Employee PF</a></li>
+<<<<<<< HEAD
 							<li><a href="../Payroll/viewAdvance">Employee Festival Advance</a></li>
+=======
+<!-- TODO: Needs to be enabled afterwards: Prasad	<li><a href="../Payroll/viewEmpQtr">Employee Festival Advance</a></li> -->
+>>>>>>> ae486c65e9b5cb03d2fda67700513b7be39d6393
 							<li><a href="../Payroll/viewEmpLicMaster">Employee LIC Master</a></li>
 							<li><a href="../Payroll/viewEmpLic">Employee LIC Details</a></li>
 							<li><a href="../Payroll/viewEmpAlwnce">Employee Fixed Allowances</a></li>
@@ -254,6 +259,7 @@ h3 {font-size:16pt;}
 							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
 						</ul>
 					</li>
+				</c:if>
 				</ul>
 				<!--<div class="navlink-right">
 						<div class="dropdown shopping-cart">

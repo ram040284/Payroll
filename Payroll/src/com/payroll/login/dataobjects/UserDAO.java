@@ -116,13 +116,13 @@ public class UserDAO {
 		return user;
 	}*/
 	
-	public User getUserByUserIdPk(User userVo){
+	public User getUserRoleByUserId(User userVo){
 		Session session = null;
 		Transaction transaction = null;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			String queryString = " from UserRoles usrRoles where usrRoles.user.userIdPk = ? and usrRoles.status = ? ";
+			String queryString = " from UserRoles usrRoles where usrRoles.user.userId = ? and usrRoles.status = ? ";
 			Query query = session.createQuery(queryString);
 			query.setParameter(0, userVo.getUserId());
 			query.setParameter(1, "A");
@@ -198,7 +198,7 @@ public class UserDAO {
 		return null;
 	}
 	
-	public boolean deleteUser(int userIdPk){
+	public boolean deleteUser(int userId){
 		boolean result = false;
 		Session session = null;
 		Transaction transaction = null;
@@ -206,17 +206,17 @@ public class UserDAO {
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			
-			String queryString = "Update User usr set usr.status = ? where usr.userIdPk = ?";
+			String queryString = "Update User usr set usr.status = ? where usr.userId = ?";
 			Query query = session.createQuery(queryString);
-			query.setParameter(0, "S");
-			query.setParameter(1, userIdPk);
+			query.setParameter(0, "I");
+			query.setParameter(1, userId);
 			
 			int recordCount = query.executeUpdate();
 			
-			String queryString1 = "Update UserRoles usrRoles set usrRoles.status = ? where usrRoles.user.userIdPk = ?";
+			String queryString1 = "Update UserRoles usrRoles set usrRoles.status = ? where usrRoles.user.userId = ?";
 			Query query1 = session.createQuery(queryString1);
-			query1.setParameter(0, "S");
-			query1.setParameter(1, userIdPk);
+			query1.setParameter(0, "I");
+			query1.setParameter(1, userId);
 			
 			int recordCount2 = query1.executeUpdate();
 					
@@ -238,7 +238,7 @@ public class UserDAO {
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			String queryString = " from UserRoles usrRoles where usrRoles.user.userIdPk = ? and usrRoles.status = ? ";
+			String queryString = " from UserRoles usrRoles where usrRoles.user.userId = ? and usrRoles.status = ? ";
 			Query query = session.createQuery(queryString);
 			query.setParameter(0, userVo.getUserId());
 			query.setParameter(1, "A");
@@ -251,7 +251,7 @@ public class UserDAO {
 			for (UserRoles userRole:userList) {
 				rolesArrayDB.add(userRole.getRole().getRoleId());
 				if (!rolesArray.contains(userRole.getRole().getRoleId())) {
-					userRole.setStatus("S");
+					userRole.setStatus("I");
 					userRole.setRowUpdatedDate(new Timestamp(System.currentTimeMillis()));
 					session.update(userRole);
 				}
@@ -260,7 +260,7 @@ public class UserDAO {
 			rolesArray.removeAll(rolesArrayDB);
 			System.out.println("rolesArray after:" + rolesArray);
 			session.clear();
-			User user = new UserDAO().getUserByUserIdPk(userVo);
+			User user = new UserDAO().getUserRoleByUserId(userVo);
 			for (Integer roleId : rolesArray) {
 				Roles role = getRole(roleId);
 				UserRoles userRoles = new UserRoles();
@@ -289,7 +289,7 @@ public class UserDAO {
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			System.out.println("user before:" + userVo);
-			User user = new UserDAO().getUserByUserIdPk(userVo);
+			User user = new UserDAO().getUserRoleByUserId(userVo);
 			System.out.println("user :" + user);
 			System.out.println("user after:" + userVo);
 			user.setDeptIds(userVo.getDeptIds());
