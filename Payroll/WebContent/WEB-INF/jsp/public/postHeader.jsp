@@ -185,6 +185,7 @@ h3 {font-size:16pt;}
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-left">
+				<c:if test="${isCEO eq false}">
 					<li><a href="../Payroll/dashboard">Home</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Masters <span class="caret"></span></a>
@@ -254,6 +255,7 @@ h3 {font-size:16pt;}
 							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
 						</ul>
 					</li>
+				</c:if>
 				</ul>
 				<!--<div class="navlink-right">
 						<div class="dropdown shopping-cart">

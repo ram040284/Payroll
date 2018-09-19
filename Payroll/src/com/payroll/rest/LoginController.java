@@ -56,8 +56,10 @@ public class LoginController
 		 
 		 if (new PermissionsDAO().getPermissions(retrievedUser.getEmpId()).contains(permissionForCEODashboard)) {
 			 model = new ModelAndView("dashboard2");
+			 request.getSession().setAttribute("isCEO", true);
 		 } else {
 			 model = new ModelAndView("dashboard");
+			 request.getSession().setAttribute("isCEO", false);
 		 }
 	     
 	     model.addObject("welcomeMsg", true);
