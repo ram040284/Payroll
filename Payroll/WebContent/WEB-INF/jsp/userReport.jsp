@@ -121,7 +121,7 @@ $(document).ready(function() {
 function deleteUser(id){
 	if(confirm("Are you sure want to delete User?")){
     	var f = document.forms['editForm'];
-    	f.userIdPk.value=id;
+    	f.userId.value=id;
     	f.action="../Payroll/deleteUser";
     	f.submit();
     }
@@ -134,7 +134,7 @@ function inputPage() {
 
 function editUser(id){
 	var f = document.forms['editForm'];
-	f.userIdPk.value=id;
+	f.userId.value=id;
 	f.action="../Payroll/editUser";
 	f.submit();
 }
@@ -188,7 +188,7 @@ alert("${message}");
 		<thead>
 			<tr>
 			<th>Name</th>
-			<th>User ID</th>
+			<th>User Name</th>
 			<th>Roles</th>
 			<th>Depts Access</th>
 			<th>Department</th>
@@ -201,15 +201,15 @@ alert("${message}");
 		<c:forEach var="user" items="${users}">
 			<tr>
 			<td> ${user.employee.fullName} </td>
-			<td> ${user.userId}</td>
+			<td> ${user.userName}</td>
 			<td> ${user.roleNames} </td>
 			<td> ${user.deptNames} </td>
 			<td> ${user.employee.department}</td>
 			<td> ${user.employee.headName}</td>
 			<td> ${user.employee.designation}</td>
-			<td><a href="#" onclick="editUser('${user.userIdPk}')" title="Edit">
+			<td><a href="#" onclick="editUser('${user.userId}')" title="Edit">
 					<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a>
-				<a href="#" onclick="deleteUser('${user.userIdPk}')">
+				<a href="#" onclick="deleteUser('${user.userId}')">
 					<img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>
 			</td>
 			</tr>
@@ -220,7 +220,7 @@ alert("${message}");
 	</div>			
 	
 	<form action="" name="editForm" method="post">
-		<input type="hidden" name="userIdPk" value="0">
+		<input type="hidden" name="userId" value="0">
 		<input type="hidden" name="listDeptId" value="${user.listDeptId}" />
 		<input type="hidden" name="listRoleId" value="${user.listRoleId}"/>
 	</form>

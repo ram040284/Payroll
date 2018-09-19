@@ -67,7 +67,7 @@ td, th {
 </style>
 <script type="text/javascript">
 var rolesList ;
-var userNameAvailable = false;
+//var userNameAvailable = false;
 $(document).ready(function() {
 	var departmentList = ${sessionScope.departments};
 	$.each(departmentList, function( index, value ) {
@@ -90,137 +90,137 @@ $(document).ready(function() {
 	$('#roleId').val(roleId);
 	if (roleId != 0) roleSelection();
 	
-	$.widget( "custom.combobox", {
-	      _create: function() {
-	        this.wrapper = $( "<span>" )
-	          .addClass( "custom-combobox" )
-	          .insertAfter( this.element );
+// 	$.widget( "custom.combobox", {
+// 	      _create: function() {
+// 	        this.wrapper = $( "<span>" )
+// 	          .addClass( "custom-combobox" )
+// 	          .insertAfter( this.element );
 	 
-	        this.element.hide();
-	        this._createAutocomplete();
-	        this._createShowAllButton();
-	      },
+// 	        this.element.hide();
+// 	        this._createAutocomplete();
+// 	        this._createShowAllButton();
+// 	      },
 	 
-	      _createAutocomplete: function() {
-	        var selected = this.element.children( ":selected" ),
-	          value = selected.val() ? selected.text() : "";
+// 	      _createAutocomplete: function() {
+// 	        var selected = this.element.children( ":selected" ),
+// 	          value = selected.val() ? selected.text() : "";
 	 
-	        this.input = $( "<input id='autoIn'>" )
-	          .appendTo( this.wrapper )
-	          .val( value )
-	          .attr( "title", "" )
-	          .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
-	          .autocomplete({
-	            delay: 0,
-	            minLength: 0,
-	            source: $.proxy( this, "_source" )
-	          })
-	          .tooltip({
-	            classes: {
-	              "ui-tooltip": "ui-state-highlight"
-	            }
-	          });
+// 	        this.input = $( "<input id='autoIn'>" )
+// 	          .appendTo( this.wrapper )
+// 	          .val( value )
+// 	          .attr( "title", "" )
+// 	          .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+// 	          .autocomplete({
+// 	            delay: 0,
+// 	            minLength: 0,
+// 	            source: $.proxy( this, "_source" )
+// 	          })
+// 	          .tooltip({
+// 	            classes: {
+// 	              "ui-tooltip": "ui-state-highlight"
+// 	            }
+// 	          });
 	 
-	        this._on( this.input, {
-	          autocompleteselect: function( event, ui ) {
-	            ui.item.option.selected = true;
-	            this._trigger( "select", event, {
-	              item: ui.item.option
-	            });
-	          },
+// 	        this._on( this.input, {
+// 	          autocompleteselect: function( event, ui ) {
+// 	            ui.item.option.selected = true;
+// 	            this._trigger( "select", event, {
+// 	              item: ui.item.option
+// 	            });
+// 	          },
 	 
-	          autocompletechange: "_removeIfInvalid"
-	        });
-	      },
+// 	          autocompletechange: "_removeIfInvalid"
+// 	        });
+// 	      },
 	 
-	      _createShowAllButton: function() {
-	        var input = this.input,
-	          wasOpen = false;
+// 	      _createShowAllButton: function() {
+// 	        var input = this.input,
+// 	          wasOpen = false;
 	 
-	        $( "<a>" )
-	          .attr( "tabIndex", -1 )
-	          .attr( "title", "" )
-	          .tooltip()
-	          .appendTo( this.wrapper )
-	          .button({
-	            icons: {
-	              primary: "ui-icon-triangle-1-s"
-	            },
-	            text: false
-	          })
-	          .removeClass( "ui-corner-all" )
-	          .addClass( "custom-combobox-toggle ui-corner-right" )
-	          .on( "mousedown", function() {
-	            wasOpen = input.autocomplete( "widget" ).is( ":visible" );
-	          })
-	          .on( "click", function() {
-	            input.trigger( "focus" );
+// 	        $( "<a>" )
+// 	          .attr( "tabIndex", -1 )
+// 	          .attr( "title", "" )
+// 	          .tooltip()
+// 	          .appendTo( this.wrapper )
+// 	          .button({
+// 	            icons: {
+// 	              primary: "ui-icon-triangle-1-s"
+// 	            },
+// 	            text: false
+// 	          })
+// 	          .removeClass( "ui-corner-all" )
+// 	          .addClass( "custom-combobox-toggle ui-corner-right" )
+// 	          .on( "mousedown", function() {
+// 	            wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+// 	          })
+// 	          .on( "click", function() {
+// 	            input.trigger( "focus" );
 	 
-	            // Close if already visible
-	            if ( wasOpen ) {
-	              return;
-	            }
+// 	            // Close if already visible
+// 	            if ( wasOpen ) {
+// 	              return;
+// 	            }
 	 
-	            // Pass empty string as value to search for, displaying all results
-	            input.autocomplete( "search", "" );
-	          });
-	      },
+// 	            // Pass empty string as value to search for, displaying all results
+// 	            input.autocomplete( "search", "" );
+// 	          });
+// 	      },
 	 
-	      _source: function( request, response ) {
-	        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-	        response( this.element.children( "option" ).map(function() {
-	          var text = $( this ).text();
-	          if ( this.value && ( !request.term || matcher.test(text) ) )
-	            return {
-	              label: text,
-	              value: text,
-	              option: this
-	            };
-	        }) );
-	      },
+// 	      _source: function( request, response ) {
+// 	        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+// 	        response( this.element.children( "option" ).map(function() {
+// 	          var text = $( this ).text();
+// 	          if ( this.value && ( !request.term || matcher.test(text) ) )
+// 	            return {
+// 	              label: text,
+// 	              value: text,
+// 	              option: this
+// 	            };
+// 	        }) );
+// 	      },
 	 
-	      _removeIfInvalid: function( event, ui ) {
+// 	      _removeIfInvalid: function( event, ui ) {
 	 
-	        // Selected an item, nothing to do
-	        if ( ui.item ) {
-	          return;
-	        }
+// 	        // Selected an item, nothing to do
+// 	        if ( ui.item ) {
+// 	          return;
+// 	        }
 	 
-	        // Search for a match (case-insensitive)
-	        var value = this.input.val(),
-	          valueLowerCase = value.toLowerCase(),
-	          valid = false;
-	        this.element.children( "option" ).each(function() {
-	          if ( $( this ).text().toLowerCase() === valueLowerCase ) {
-	            this.selected = valid = true;
-	            return false;
-	          }
-	        });
+// 	        // Search for a match (case-insensitive)
+// 	        var value = this.input.val(),
+// 	          valueLowerCase = value.toLowerCase(),
+// 	          valid = false;
+// 	        this.element.children( "option" ).each(function() {
+// 	          if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+// 	            this.selected = valid = true;
+// 	            return false;
+// 	          }
+// 	        });
 	 
-	        // Found a match, nothing to do
-	        if ( valid ) {
-	          return;
-	        }
+// 	        // Found a match, nothing to do
+// 	        if ( valid ) {
+// 	          return;
+// 	        }
 	 
-	        // Remove invalid value
-	        this.input
-	          .val( "" );
-	          //.attr( "title", value + " didn't match any item" )
-	          //.tooltip( "open" );
-	        this.element.val( "" );
-	        this._delay(function() {
-	          this.input.tooltip( "close" ).attr( "title", "" );
-	        }, 2500 );
-	        this.input.autocomplete( "instance" ).term = "";
-	      },
+// 	        // Remove invalid value
+// 	        this.input
+// 	          .val( "" );
+// 	          //.attr( "title", value + " didn't match any item" )
+// 	          //.tooltip( "open" );
+// 	        this.element.val( "" );
+// 	        this._delay(function() {
+// 	          this.input.tooltip( "close" ).attr( "title", "" );
+// 	        }, 2500 );
+// 	        this.input.autocomplete( "instance" ).term = "";
+// 	      },
 	 
-	      _destroy: function() {
-	        this.wrapper.remove();
-	        this.element.show();
-	      }
-	    });
+// 	      _destroy: function() {
+// 	        this.wrapper.remove();
+// 	        this.element.show();
+// 	      }
+// 	    });
 	 
-	    $( "#empId" ).combobox();
+// 	    $( "#empId" ).combobox();
 	    
 	    $("#resetBtn").click(function() {       // apply to reset button's click event
 	        this.form.reset();   
@@ -255,16 +255,16 @@ $(document).ready(function() {
 	    		$('#empId').focus();
 	    		return false;
 	    	}
-	    	if($('#userId').val() == ''){
-	    		alert("User Id must be entered");
-	    		$('#userId').focus();
-	    		return false;
-	    	}
-	    	if (!userNameAvailable) {
-	    		alert("User Id is not available. Please try with other user id.");
+// 	    	if($('#userId').val() == ''){
+// 	    		alert("User Id must be entered");
 	    		//$('#userId').focus();
-	    		return false;
-	    	}
+// 	    		return false;
+// 	    	}
+// 	    	if (!userNameAvailable) {
+// 	    		alert("User Id is not available. Please try with other user id.");
+// 	    		//$('#userId').focus();
+// 	    		return false;
+// 	    	}
 	    	if($('#password').val() == ''){
 	    		alert("Password must be entered");
 	    		$('#Password').focus();
@@ -287,9 +287,9 @@ $(document).ready(function() {
 	    		return false;
 	    	}
 	    	
-	    	var passReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,16}$/; ///^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/;
+	    	var passReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/; ///^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/;
 	    	if (!passReg.test($('#password').val())) {
-	    		alert("Password must have atleast one letter, one number ");
+	    		alert("Password length should be more than 6 and less than 20 characters and should not contain special characters.");
 	    		$('#Password').focus();
 	    		return false;
 	    		
@@ -310,15 +310,6 @@ function roleSelection() {
 	});
 }
 
-/* function loadEmployees(){
-	if($('#deptId').val() == 0){
-		$('#empId').val(0);
-		$('#deptId').focus();
-		return false;
-	}
-	var deptId = $('#deptId').val();
-	getEmployeesByDept(deptId);
-} */
 function loadEmployees(){
 	if($('#deptId').val() == 0){
 		$('#empId').val(0);
@@ -328,26 +319,6 @@ function loadEmployees(){
 	var deptId = $('#deptId').val();
 	getEmployeesByDept(deptId);
 }
-
-function assignUserId() {
-
-    if ($('#empId'.val() != 0)) {
-     $('#userId').val() = $('#empId'.val());
-
-    }
-    var empId = $('#empId').val();
-    alert("In assign user id");
-    }
-
-/* function assignUserId() {
-
-    if ($('#empId'.val() != 0)) {
-
-           $('#userId').val() = $('#empId'.val();
-
-    }
-
-} */
 
 function getEmployeesByDept(deptId) {
 	var deptId = $('#deptId').val();
@@ -375,58 +346,63 @@ function getEmployeesByDept(deptId) {
 	});
 }
 
-function userIdAvailability() {
-	var userId = $('#userId').val();
-	
-	$('#available').hide();
-	$('#notAvailable').hide();
-	$('#available').html('');
-	$('#notAvailable').html('');
-	
-	if (userId.length == 0) {
-		return false;
-	}
-	if (userId.length < 6) {
-		$('#notAvailable').html('<br>' + userId+' is invalid. <br>It must be minimum 6 chars.');
-		$('#notAvailable').show();
-		return false;
-	} else {
-		var usernameRegex = /^[A-Za-z0-9._-]{6,20}$/;
-		if (usernameRegex.test(userId) == false) {
-			$('#notAvailable').html('<br>' + userId+' is invalid. <br>It contains invalid characters.');
-			$('#notAvailable').show();
-			return false;
-		}
-	}
-	
-	var inputJson = { "userId" : userId};
-	  $.ajax({
-	    url: '../Payroll/userNameCheck',
-	    data: JSON.stringify(inputJson),
-	    type: "POST",           
-	    beforeSend: function(xhr) {
-	        xhr.setRequestHeader("Accept", "application/json");
-	        xhr.setRequestHeader("Content-Type", "application/json");
-	    },
-	    success: function(data){ 
-	    	if (data.userNameAvailabe) {
-	    		$('#available').html('<br>' + userId+' available');
-	    		$('#available').show();
-	    		userNameAvailable = true;
-	    	} else {
-	    		$('#notAvailable').html('<br>' + userId+' is not available. <br>Please try with other user id.');
-	    		$('#notAvailable').show();
-	    		userNameAvailable = false;
-	    	}
-	    	
-	    },
-	    failure: function (){
-	    	$('#notAvailable').html('<br> A System problem occurred ');
-    		$('#notAvailable').show();
-	    	userNameAvailable = false;
-	    }
-	});
+function assignUserId() {
+	jQuery("#userId").val(jQuery("#empId").val());
 }
+
+//  function userIdAvailability() {
+// 	 alert("userIdAvailability");
+// 	var userId = $('#userId').val();
+	
+// 	$('#available').hide();
+// 	$('#notAvailable').hide();
+// 	$('#available').html('');
+// 	$('#notAvailable').html('');
+	
+// 	if (userId.length == 0) {
+// 		return false;
+// 	}
+// 	if (userId.length < 6) {
+// 		$('#notAvailable').html('<br>' + userId+' is invalid. <br>It must be minimum 6 chars.');
+// 		$('#notAvailable').show();
+// 		return false;
+// 	} else {
+// 		var usernameRegex = /^[A-Za-z0-9._-]{6,20}$/;
+// 		if (usernameRegex.test(userId) == false) {
+// 			$('#notAvailable').html('<br>' + userId+' is invalid. <br>It contains invalid characters.');
+// 			$('#notAvailable').show();
+// 			return false;
+// 		}
+// 	}
+	
+// 	var inputJson = { "userId" : userId};
+// 	  $.ajax({
+// 	    url: '../Payroll/userNameCheck',
+// 	    data: JSON.stringify(inputJson),
+// 	    type: "POST",           
+// 	    beforeSend: function(xhr) {
+// 	        xhr.setRequestHeader("Accept", "application/json");
+// 	        xhr.setRequestHeader("Content-Type", "application/json");
+// 	    },
+// 	    success: function(data){ 
+// 	    	if (data.userNameAvailabe) {
+// 	    		$('#available').html('<br>' + userId+' available');
+// 	    		$('#available').show();
+// 	    		userNameAvailable = true;
+// 	    	} else {
+// 	    		$('#notAvailable').html('<br>' + userId+' is not available. <br>Please try with other user id.');
+// 	    		$('#notAvailable').show();
+// 	    		userNameAvailable = false;
+// 	    	}
+	    	
+// 	    },
+// 	    failure: function (){
+// 	    	$('#notAvailable').html('<br> A System problem occurred ');
+//     		$('#notAvailable').show();
+// 	    	userNameAvailable = false;
+// 	    }
+// 	});
+//  }
 
 </script>
 </head>
@@ -446,13 +422,13 @@ function userIdAvailability() {
 							<div class="col-sm-6 form-group">
 								<label>Department</label>
 								<select id="deptId" name="deptId" class="form-control" onchange="loadEmployees()">
-								<option value="0">-- Select Department --</option></select>
+									<option value="0">-- Select Department --</option>
+								</select>
 							</div>
 							<div class="col-sm-6 form-group">
 								<label>Employee</label>
 								<div class="ui-widget">
-								<select id="empId" name="empId" class="form-control" onchange="assignUserId()">
-								</select>
+								<select id="empId" name="empId" class="form-control" onchange="assignUserId()"></select>
 								</div>
 							</div>
 							
@@ -461,13 +437,13 @@ function userIdAvailability() {
 						<div class="row">
 							<div class="col-sm-6 form-group">
 							<label>User Name</label>
-							<form:input type="text" id="userId" path="userId" placeholder="Enter User Name" class="form-control" onblur="userIdAvailability()"/>
+							<form:input readonly="true" type="text" id="userId" path="userId" placeholder="Enter User Name" class="form-control" />
 							</div>
 							
 							<div class="col-sm-6 form-group">
-							<span style="color: blue;font-weight:bold;">Valid characters are A-Z a-z 0-9 . _ -</span>
-							<span style="color: green;font-weight:bold;display:none;" id="available"></span>
-							<span style="color: red;font-weight:bold;display:none;" id="notAvailable"></span>
+<!-- 							<span style="color: blue;font-weight:bold;">Valid characters are A-Z a-z 0-9 . _ -</span> -->
+<!-- 							<span style="color: green;font-weight:bold;display:none;" id="available"></span> -->
+<!-- 							<span style="color: red;font-weight:bold;display:none;" id="notAvailable"></span> -->
 							</div>
 						</div>
 						
