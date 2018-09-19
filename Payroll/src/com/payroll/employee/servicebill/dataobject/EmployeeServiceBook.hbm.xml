@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+ "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+ "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+  
+ <hibernate-mapping>
+	<class name="com.payroll.employee.servicebill.dataobject.EmpServiceBill">
+	   <id name="fName" type="java.lang.String" column="EMP_FNAME"></id>
+       <property name="mName" type="java.lang.String" column="EMP_MNAME" />
+       <property name="lName" type="java.lang.String" column="EMP_LNAME" />
+       <property name="empPan" type="java.lang.String" column="EMP_PAN" />
+       <property name="birthDate" type="timestamp" column="BIRTH_DATE" />
+       <property name="empAdhar" type="java.lang.String" column="EMP_AADHAR" />
+       <property name="empJoiningDate" type="timestamp" column="EMP_JOINING_DATE" />
+       <property name="empLastPromDate" type="timestamp" column="EMP_LST_PROMO_DT" />
+       <property name="deptName" type="java.lang.String" column="DEPT_NAME" />
+       <property name="desgname" type="java.lang.String" column="DESG_NAME" />
+       <property name="basic" type="java.lang.Double" column="BASIC" />
+       <property name="gradePay" type="java.lang.Double" column="GRD_PAY" />
+       <property name="scalePay" type="java.lang.String" column="SCALE_PAY" />
+       <property name="scaleCode" type="java.lang.String" column="SCALE_CODE" />
+       <property name="accountNumber" type="java.lang.String" column="ACCT_NO" />
+       <property name="bankName" type="java.lang.String" column="BANK_NAME" />
+       <property name="ifscCode" type="java.lang.String" column="IFSC_CODE" />
+   </class>
+   <sql-query name="employeeServiceBookQuery">
+       <return alias="empbook" class="com.payroll.employee.servicebill.dataobject.EmpServiceBill" />
+       <![CDATA[ 
+			SELECT 
+		    emp.EMP_FNAME,
+		    emp.EMP_MNAME,
+		    emp.EMP_LNAME,
+		    emp.EMP_PAN,
+		    emp.BIRTH_DATE,
+		    emp.EMP_AADHAR,
+		    emp.EMP_JOINING_DATE,
+		    emp.EMP_LST_PROMO_DT,
+		    dept.DEPT_NAME,
+		    desg.DESG_NAME,
+		    empSal.BASIC,
+		    empSal.GRD_PAY,
+		    empSal.SCALE_PAY,
+		    empSal.SCALE_CODE,
+		    empBank.ACCT_NO,
+		    bank.BANK_NAME,
+		    bank.IFSC_CODE
+		FROM
+		    emp_master AS emp
+		        INNER JOIN
+		    emp_dept_details AS empDept ON emp.EMP_ID = empDept.EMP_ID
+		        INNER JOIN
+		    dept_master AS dept ON empDept.DEPT_ID = dept.DEPT_ID
+		        INNER JOIN
+		    emp_desg_details AS empDesDet ON emp.EMP_ID = empDesDet.EMP_ID
+		        INNER JOIN
+		    desg_master AS desg ON desg.DESG_ID = empDesDet.DESG_ID
+		        INNER JOIN
+		    emp_sal_master AS empSal ON emp.emp_id = empSal.emp_id
+		        INNER JOIN
+		    emp_bank_details AS empBank ON emp.EMP_ID = empBank.emp_id
+		        INNER JOIN
+		    bank_master AS bank ON empBank.bank_id = bank.bank_id
+		WHERE
+		    emp.emp_id = :employeeId
+       ]]>
+   </sql-query>
+ </hibernate-mapping>

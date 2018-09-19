@@ -69,7 +69,10 @@ $(document).ready(function() {
 	        contentType: "application/json;charset=utf-8",
 	        success : function(employeeArrearData) {
 	          	$('#EmpArrearTable').DataTable({
-					data: employeeArrearData,
+	          		columnDefs: [
+            		    { className: 'text-right', targets: [2, 3, 4, 5] }, // 2- Arrear Pay, 3- Arrears Deduction, 4- Misc Pay, 5- Misc Deduction
+            		  ],
+	          		data: employeeArrearData,
 	                columns: [
 	                  {data: 'fullName', title: 'Employee Name'},
 	      			  {data: 'arrearsType', title: 'Arrears Type'},
@@ -118,15 +121,15 @@ $(document).ready(function() {
 <body>
 	
 	<div class="contain-wrapp bodyDivCss">	
-			<div class="container" style="margin-top: 85px;">  
-				<div class="formDiv" style="border: none;">
+			<div class="container">
+			<div class="formDiv" style="border: none;">
 				<div class="row">
-					<div class="text-left" style="margin-left: 33px;">
+					<div class="text-left" style="margin-left: 15px;">
 						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/employeeMenu')">Back</button>
 					</div>
 				</div>
 			</div>	
-			
+		</div>
 			<div  class="container" class="row" style="position: relative;">
 			<div style="margin-top: 12px; float: left; width: 98%;">
 				<h4 style="color: #0101DF;">Employee Arrears</h4>

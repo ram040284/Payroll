@@ -49,6 +49,14 @@ function deleteEmp(id){
     	f.submit();
     }
 }
+
+function empServiceBook(id){
+	window.location = "./resources/images/"+id+".pdf";
+    /* var f = document.forms['empSearch'];
+    f.employeeId.value=id;
+    f.action="../Payroll/generateEmpBook";
+    f.submit(); */
+}
 function searchEmps(){
 	if($('#departmentId').val() == 0 && $('#firstName').val().trim() == ""){
 		alert('Either Department or Name must be provided to get List!');
@@ -108,8 +116,11 @@ function searchEmps(){
 					<td> ${employee.joiningDate}</td>
 					<td> ${employee.retirementDate}</td>
 					<%-- <td> ${employee.phone}</td> --%>
-					<td><a href="#" onclick="viewEmp('${employee.employeeId}')" title="Edit">
+					<td style="padding: 0px;"><a href="#" onclick="viewEmp('${employee.employeeId}')" title="Edit">
 							<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/>
+						</a>
+						<a href="#" onclick="empServiceBook('${employee.employeeId}')" title="Edit">
+							<img src="../Payroll/resources/images/empProcessAttendance.png" alt="Edit" class="listImg"/>
 						</a>
 						<a href="#" onclick="deleteEmp('${employee.employeeId}')">
 							<img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/>

@@ -36,11 +36,14 @@ $(document).ready(function() {
 	}
 	
 	var empId = "${empDeductions.employeeId}";
-	if(empId != 0){
-		getEmployeesByIds(deptId, desgId, empId);
+	if(empId != 0) {
+		//getEmployeesByIds(deptId, desgId, empId);
+		// need to fix this
+		getAllEmployees();
 	}else {
 		getAllEmployees();
 	}
+	$('#employeeId').val(empId);
 	
 	$('#addQtrBtn').click(function(event) {
 		var section80CVal = $('#section80C').val().trim();
@@ -422,6 +425,7 @@ function getAllEmployees(){
 	 $.ajax({
          url : '../Payroll/loadAllEmployees',
          type:"GET",
+         async: false,
          contentType: "application/json;charset=utf-8",
          success : function(data) {
         	$('#employeeId').empty();
@@ -472,6 +476,15 @@ function getEmployeesByIds(deptId, desgId, empId){
 </head>
 <body>
 	<div class="contain-wrapp bodyDivCss">	
+		<div class="container">
+			<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="getList('../Payroll/listEmpDeductions')">Back</button>
+					</div>
+				</div>
+			</div>	
+		</div>
 		<div class="container">
 		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">

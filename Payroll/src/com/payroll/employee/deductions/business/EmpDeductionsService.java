@@ -7,8 +7,12 @@ import com.payroll.employee.deductions.dataobjects.EmpDeductionsDAO;
 import com.payroll.employee.deductions.vo.EmpDeductionsVO;
 
 public class EmpDeductionsService {
-	public List<EmpDeductionsVO> getEmpDeductionsList(){
-		return new EmpDeductionsDAO().getEmpDeductionsList();
+	public List<EmpDeductionsVO> getEmpDeductionsList(int deptId, int headId, String name){
+		return new EmpDeductionsDAO().getEmpDeductionsList(deptId, headId, name);
+	}
+	
+	public List<EmpDeductionsVO> getAllExemptions(){
+		return new EmpDeductionsDAO().getAllExemptionList();
 	}
 	
 	public String addUpdateEmpDeductions(EmpDeductions empDeductions){

@@ -2,10 +2,65 @@
 <html>
 <head>
 <title>Incometax Slabs</title>
+<jsp:include page="../jsp/public/postHeader.jsp" />
+<jsp:include page="../jsp/public/jqueryPluginMin.jsp"/>
+<script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
+<script src="../Payroll/resources/js/dataTables.bootstrap.min.js"></script>
+
 <style type="text/css">
+select {
+	min-width: 200px;
+	min-height: 30px;
+}
+
+.buttonPadding {
+	padding: 5px;
+}
+.btn-color{
+	background-color: #0101DF;
+}
+
+.taxSlabsListTableClass table {
+	border-collapse: collapse;
+	width: 100%;
+	float: left;
+	margin: 0;
+  	padding: 0;
+	border: 1px solid #aaa;
+	table-layout: auto;
+}
+
+.taxSlabsListTableClass th,td {
+	text-align: left;
+	padding: 5px;
+}
+
+.taxSlabsListTableClass tr:nth-child(odd) {
+	background-color: #f2f2f2; !important
+}
+
+.taxSlabsListTableClass th {
+	background-color: #8B9DC3;
+	color: #fff;
+	cursor: pointer;
+}
+table.dataTable thead:first-child .sorting_asc { 
+	background: url('../Payroll/resources/images/uparrow.png') no-repeat right bottom 8px; 
+	background-size: 25px; 
+	background-color: #8B9DC3;
+	color: white;
+}
+table.dataTable thead:first-child .sorting_desc { 
+	background: url('../Payroll/resources/images/downarrow.png') no-repeat right bottom 8px; 
+	background-size: 25px; 
+	background-color: #8B9DC3;
+	color: white;
+}
+.dataTables_paginate {
+	text-align: right;
+}
 </style>
-<script type="text/javascript">
-      function getTaxSlabsList() {
+     <!--  /* function getTaxSlabsList() {
           $.ajax({
               url : '../Payroll/listTaxSlabs',
               type:"GET",
@@ -26,8 +81,38 @@
                   });
               }
           });
-      }
-      function viewTaxSlab(id){
+      } */ -->
+      
+      <script type="text/javascript">
+      $(document).ready(function(){
+	  $.ajax({
+      url : '../Payroll/listTaxSlabs',
+      type:"GET",
+      contentType: "application/json;charset=utf-8",
+      success : function(taxData) {
+     $('#taxSlabsListTable').DataTable({
+    	 "scrollY": "300px",
+            data: taxData,
+              columns: [
+				{ data: 'financialYear', title: 'Financial Year',"autoWidth": false},
+              	{ data: 'lowerSlab', title: 'Lower Slab',"autoWidth": false},
+                { data: 'higherSlab', title: 'Higher Slab',"autoWidth": false},
+                { data: 'incomtaxPercent', title: 'Incometax Percentage',"autoWidth": false},
+                { data: 'surcharge', title: 'Surcharges',"autoWidth": false},
+              	{ data: 'educationCess', title: 'Education Cess',"autoWidth": false},
+                { data: 'otherCess', title: 'Other Cess',"autoWidth": false},
+                {
+				 'data': null,title:'<a href="#" onclick="inputTaxSlab()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
+				 'render': function (taxData, type, row) {
+    			   return '<a id="' + row.Id +'" href="#" onclick="viewTaxSlab('+taxData.incomtaxId+')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteTaxSlab('+taxData.incomtaxId+')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
+	            	}
+				}
+             ] 
+          });
+		   }
+	   });
+});   	      
+     function viewTaxSlab(id){
     	  var f = document.forms['editForm'];
     	  f.incomtaxId.value=id;
 		  f.action="../Payroll/inputTaxSlab";
@@ -48,8 +133,7 @@
       }
       </script>
 </head>
-<body onload="getTaxSlabsList()">
-	<jsp:include page="../jsp/public/postHeader.jsp" />
+<body>
 	 <div class="contain-wrapp bodyDivCss">	
 		<div class="container">
 			<div class="formDiv" style="border: none;">
@@ -59,29 +143,15 @@
 					</div>
 				</div>
 			</div>	
-			<div style="margin-top: 12px; float: left; width: 98%;">
-			<h4 style="color: #0101DF;">Incometax Slabs</h4>
-			<div>
-			
-				<div class="tblClass" id="taxSlabsListDiv">
-				<table>
-				<tr>
-					<th>Financial Year</th>
-					<th>Lower Slab</th>
-					<th>Higher Slab</th>
-					<th>Incometax Percentage</th>
-					<th>Surcharges</th>
-					<th>Education Cess</th>
-					<th>Other Cess</th>
-					<th><a href="#" onclick="inputTaxSlab()" title="Add">
-						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
-					</th>
-				</tr>
-				</table>
-				</div>
 		</div>
-	</div>
-	</div>
+		<div class="container">
+			<div style="margin-top: 12px; float: left; width: 98%;">
+				<h4 style="color: #0101DF;">Incometax Slabs</h4>
+					<div id="taxSlabsListDiv" class="taxSlabsListTableClass" style ="width:100%; margin-top: 25px">
+							<table id="taxSlabsListTable" class="table table-striped table-bordered table-responsive"></table>
+					</div>
+			</div>
+		</div>
 	</div>
 	<form action="" name="editForm" method="post">
 		<input type="hidden" name="incomtaxId" value="0">
