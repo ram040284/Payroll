@@ -51,11 +51,7 @@ function deleteEmp(id){
 }
 
 function empServiceBook(id){
-	window.location = "./resources/images/"+id+".pdf";
-    /* var f = document.forms['empSearch'];
-    f.employeeId.value=id;
-    f.action="../Payroll/generateEmpBook";
-    f.submit(); */
+	window.open('./resources/images/'+id+'.pdf', '');
 }
 function searchEmps(){
 	if($('#departmentId').val() == 0 && $('#firstName').val().trim() == ""){
