@@ -87,6 +87,7 @@ $(document).ready(function() {
 		}
 		var oHoursVal = $('#overtimeHours').val();
 		if(oHoursVal){
+			
 			if(!checkAmount(oHoursVal)){
 				alert("Invalid Overtime Hours!");
 				$('#overtimeHours').focus();

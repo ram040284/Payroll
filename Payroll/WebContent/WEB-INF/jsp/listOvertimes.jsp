@@ -124,7 +124,8 @@ table.dataTable thead:first-child .sorting_desc {
 		</div>
 		<div class="container">
 				<div style="margin-top: 12px; float: left; width: 98%;">
-					<h4 style="color: #0101DF;">Overtime Details</h4>	
+
+				<h4 style="color: #0101DF;">Overtime Details</h4>	
 					<div id="otimeListDiv" class="overtimeListTableClass" style ="width:100%; margin-top: 25px">
 						<table id="overtimeListTable" class="table table-striped table-bordered table-responsive"></table>
  			</div>
