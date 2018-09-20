@@ -96,7 +96,7 @@ public class OvertimeDAO {
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 				Query query = session.createQuery("update Overtime o set o.status = ?, o.rowUpdDate = ? where o.overtimeId = ? ");
-				query.setParameter(0, "S");
+				query.setParameter(0, "I");
 				query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 				query.setParameter(2, overtimeId);
 				int updated = query.executeUpdate();
