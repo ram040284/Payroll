@@ -99,7 +99,7 @@ $(document).ready(function() {
 		}
 		
 		var oDayHoursVal = $('#overtimeDayHours').val();
-		alert(oDayHoursVal);
+		
 		if(oDayHoursVal){
 			if(!checkAmount(oDayHoursVal)){
 				alert("Invalid Overtime Hours!");
@@ -235,16 +235,19 @@ function checkAmount(value){
 									<form:input path="overtimeAmount"  id="overtimeAmount" placeholder="Enter Ovetime Amount" class="form-control"/>
 									<form:input type="hidden" path="overtimeId" id="overtimeId" />
 								</div>
-								<div class="col-sm-4 form-group">
-									<label>Office Day Hours</label>
-									<select id="overtimeDayHours" class="form-control">
-											<option value="0">-- Select Day Office Hrs --</option>
-											<option value="8">8Hrs</option>
-											<option value="7">7Hrs</option>
-										</select>
-								</div>			
 								
-						</div>
+								<div class="col-sm-6 form-group">
+									<label>Office Day Hours</label>
+									<select id="overtimeDayHours" class="form-control" 
+									<c:if test="${overtime.overtimeId != '0'}" ></c:if>>
+									
+										<option value="7">${overtime.overtimeDayHours}Hrs</option>
+										<option value="7">7Hrs</option>
+										<option value="8">8Hrs</option>
+									</select>
+								</div>
+										
+								</div>
 						<div class="row">	
 							<div class="text-right">
 								<button type="button" id="addOtimeBtn" class="btn">Submit</button>
