@@ -122,7 +122,7 @@ function getHeadsByDept(deptId) {
 			<div class="formDiv" style="border: none;">
 				<div class="row">
 					<div class="text-left" style="margin-left: 15px;">
-						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/reportsMenu')">Back</button>
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/payrollMenu')">Back</button>
 					</div>
 				</div>
 			</div>	
