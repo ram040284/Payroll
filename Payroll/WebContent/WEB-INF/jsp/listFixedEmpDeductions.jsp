@@ -89,7 +89,7 @@ $(document).ready(function() {
                                  ' width' : '150px',
                                  'render': function (empDeductionData, type, row)
             				     {
-                               return '<a id= "' +row.Id +'" href="#" onclick="updateDeductions('+empDeductionData.employeeId+')"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/> <a id="' +row.Id+'"  href="#" onclick="deleteDeductions('+empDeductionData.employeeId+')"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/>'}
+                               return '<a id= "' +row.Id +'" href="#" onclick="updateDeductions(\'' + empDeductionData.employeeId + '\')"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/> <a id="' +row.Id+'"  href="#" onclick="deleteDeductions(\'' + empDeductionData.employeeId + '\')"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/>'}
        
                                 }
 						  

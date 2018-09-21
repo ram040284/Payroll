@@ -54,7 +54,7 @@ public class EmpDeductionsDAO {
 						+ "d.otWages, d.hra_section10_13A, d.income_tax_rebate_section_87C, d.child_trans_allw_10_14, "
 						+ "d.home_loan_section_24B, d.hlp_pf_lic_80C, d.nps_80CCD_1B, d.health_insu_80D, d.des_dep_80DD, "
 						+ "d.medical_80DDB, d.edu_load_80D, d.donation_80G, d.rent_80GG, d.int_bank_section_80TTA, "
-						+ "d.phys_dis_per_section_80U ) from EmpDeductions d where d.status = ? ");	
+						+ "d.phys_dis_per_section_80U, d.rowUpdDate, d.status ) from EmpDeductions d where d.status = ? ");	
 				
 				if(deptId != 0)
 					searchCriteria.append(" and d.employee.employeeId = (select eDept.employee.employeeId from EmpDepartment eDept where d.employee.employeeId = eDept.employee.employeeId and eDept.department.departmentId = ?)");
@@ -103,7 +103,7 @@ public class EmpDeductionsDAO {
 						+ "d.otWages, d.hra_section10_13A, d.income_tax_rebate_section_87C, d.child_trans_allw_10_14, "
 						+ "d.home_loan_section_24B, d.hlp_pf_lic_80C, d.nps_80CCD_1B, d.health_insu_80D, d.des_dep_80DD, "
 						+ "d.medical_80DDB, d.edu_load_80D, d.donation_80G, d.rent_80GG, d.int_bank_section_80TTA, "
-						+ "d.phys_dis_per_section_80U ) from EmpDeductions d where d.status = ? ");	
+						+ "d.phys_dis_per_section_80U, d.rowUpdDate, d.status ) from EmpDeductions d where d.status = ? ");	
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(searchCriteria.toString());
@@ -134,7 +134,7 @@ public class EmpDeductionsDAO {
 						+ "d.otWages, d.hra_section10_13A, d.income_tax_rebate_section_87C, d.child_trans_allw_10_14, "
 						+ "d.home_loan_section_24B, d.hlp_pf_lic_80C, d.nps_80CCD_1B, d.health_insu_80D, d.des_dep_80DD, "
 						+ "d.medical_80DDB, d.edu_load_80D, d.donation_80G, d.rent_80GG, d.int_bank_section_80TTA, "
-						+ "d.phys_dis_per_section_80U ) from EmpDeductions d where d.employee.employeeId = ? and d.status = ? ";
+						+ "d.phys_dis_per_section_80U, d.rowUpdDate, d.status ) from EmpDeductions d where d.employee.employeeId = ? and d.status = ? ";
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -208,16 +208,20 @@ public class EmpDeductionsDAO {
 		Session session = null;
 		Transaction transaction = null;
 		try{
+			EmpDeductionsVO empDeductions = getEmpDeductionsById(empId);
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("update EmpDeductions d set d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ?");
+			Query query = session.createQuery("update EmpDeductions d set d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ? and d.rowUpdDate = ? and d.status = ? " );
 			query.setParameter(0, "I");
 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 			query.setParameter(2, empId);
+			query.setParameter(3, empDeductions.getRowUpdDate());
+			query.setParameter(4, "A");
 			int updated = query.executeUpdate();
 			if(updated > 0) {
 				result = "Successfully deleted Employee Deductions!";
 			}
+			session.flush();
 			transaction.commit();
 		}catch(Exception e){
 			e.printStackTrace();

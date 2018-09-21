@@ -2,7 +2,7 @@ package com.payroll.employee.allowance.dataobjects;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-
+import java.util.Date;
 
 import com.payroll.employee.dataobjects.Employee;
 
@@ -19,7 +19,7 @@ public class EmpAllowance implements Serializable {
 	private Boolean afkFlag;
 	private byte taFlag;
 	private byte pfFlag;
-	private Timestamp rowUpdDate;
+	private Date rowUpdDate;
 	private String status;
 	private short addUpdate; // 0 - Add / 1 - update
 	private Employee employee;
@@ -101,10 +101,10 @@ public class EmpAllowance implements Serializable {
 	public void setHraFlag(Boolean hraFlag) {
 		this.hraFlag = hraFlag;
 	}
-	public Timestamp getRowUpdDate() {
+	public Date getRowUpdDate() {
 		return rowUpdDate;
 	}
-	public void setRowUpdDate(Timestamp rowUpdDate) {
+	public void setRowUpdDate(Date rowUpdDate) {
 		this.rowUpdDate = rowUpdDate;
 	}
 	public String getStatus() {

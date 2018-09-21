@@ -1,6 +1,7 @@
 package com.payroll.employee.deductions.dataobjects;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import com.payroll.Utils;
 import com.payroll.employee.dataobjects.Employee;
@@ -19,13 +20,13 @@ public class EmpFixedDeductions {
 	private String fullName;
 	private String status;
 	private short addUpdate;
-	private Timestamp rowUpdDate;
+	private Date rowUpdDate;
 	private Employee employee;
 	//FIXME: Review Comments - Chetan - Review nemaing conventions
 	private double ApfAcpf;
 
 	public EmpFixedDeductions(String employeeId, String firstName, String lastName, double kssUnionFee, double rent, 
-			 double courtRecovery, double unionFee, double gis, double additionalPF, double ApfAcpf){
+			 double courtRecovery, double unionFee, double gis, double additionalPF, double ApfAcpf, Date rowUpdDate){
 		this.employeeId = employeeId;
 		this.kssUnionFee = kssUnionFee;
 		this.rent = rent;
@@ -38,10 +39,11 @@ public class EmpFixedDeductions {
 		this.fullName = nameSB.toString();
 		this.additionalPF = additionalPF;
 		this.ApfAcpf = ApfAcpf;
+		this.rowUpdDate = rowUpdDate;
 	}
 	
 	public EmpFixedDeductions(String employeeId, int departmentId , int designationId, int headId, double kssUnionFee, 
-			double rent, double courtRecovery, double unionFee, double gis, double additionalPF, double ApfAcpf){
+			double rent, double courtRecovery, double unionFee, double gis, double additionalPF, double ApfAcpf, Date rowUpdDate){
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -53,6 +55,7 @@ public class EmpFixedDeductions {
 		this.gis = gis;
 		this.additionalPF = additionalPF;
 		this.ApfAcpf = ApfAcpf;
+		this.rowUpdDate = rowUpdDate;
 	}
 
 	public String getEmployeeId() {
@@ -171,11 +174,11 @@ public class EmpFixedDeductions {
 		this.employee = employee;
 	}
 
-	public Timestamp getRowUpdDate() {
+	public Date getRowUpdDate() {
 		return rowUpdDate;
 	}
 
-	public void setRowUpdDate(Timestamp rowUpdDate) {
+	public void setRowUpdDate(Date rowUpdDate) {
 		this.rowUpdDate = rowUpdDate;
 	}
 

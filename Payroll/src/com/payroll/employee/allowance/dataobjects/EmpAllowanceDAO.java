@@ -45,7 +45,7 @@ public class EmpAllowanceDAO {
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = a.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = a.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = a.employee.employeeId and dh.status = 'A'), "
-						+ "a.cca, a.washingAlwance, a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag, a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance) from EmpAllowance a "
+						+ "a.cca, a.washingAlwance, a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag, a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance, a.rowUpdDate) from EmpAllowance a "
 						+ "where a.status = ? and a.employee.employeeId = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
@@ -92,12 +92,15 @@ public class EmpAllowanceDAO {
 		Session session = null;
 		Transaction transaction = null;
 		try{
+			EmpAllowanceVO allowanceVO = getEmpAllowanceById(empId);
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("update EmpAllowance a set a.status = ?, a.rowUpdDate = ?  where a.employee.employeeId = ?");
+			Query query = session.createQuery("update EmpAllowance a set a.status = ?, a.rowUpdDate = ?  where a.employee.employeeId = ? and a.status = ? and a.rowUpdDate = ?");
             query.setParameter(0, "I");
 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 			query.setParameter(2, empId);
+			query.setParameter(3, "A");
+			query.setParameter(4, allowanceVO.getRowUpdDate());
 			int updated = query.executeUpdate();
 			if(updated > 0)
 				result = "Successfully deleted EMP Allowance Details!";

@@ -1,5 +1,7 @@
 package com.payroll.employee.allowance.vo;
 
+import java.util.Date;
+
 import com.payroll.Utils;
 
 public class EmpAllowanceVO {
@@ -21,6 +23,7 @@ public class EmpAllowanceVO {
 	private String fullName;
 	private double otherAllowance;
 	private double tAllowance;
+	private Date rowUpdDate;
 	
 	public byte getPfFlag() {
 		return pfFlag;
@@ -97,7 +100,7 @@ public class EmpAllowanceVO {
 	}
 	
 	public EmpAllowanceVO(String employeeId, int departmentId, int designationId, int headId, double cca, double washingAlwance, double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, double otherAllowance, double tAllowance) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, double otherAllowance, double tAllowance, Date rowUpdDate) {
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -115,6 +118,7 @@ public class EmpAllowanceVO {
 		this.pfFlag = pfFlag;
 		this.otherAllowance = otherAllowance;
 		this.tAllowance = tAllowance;
+		this.rowUpdDate = rowUpdDate;
 	}
 	
 	public String getEmployeeId() {
@@ -202,6 +206,14 @@ public class EmpAllowanceVO {
 
 	public void settAllowance(double tAllowance) {
 		this.tAllowance = tAllowance;
+	}
+
+	public Date getRowUpdDate() {
+		return rowUpdDate;
+	}
+
+	public void setRowUpdDate(Date rowUpdDate) {
+		this.rowUpdDate = rowUpdDate;
 	}
 
 }

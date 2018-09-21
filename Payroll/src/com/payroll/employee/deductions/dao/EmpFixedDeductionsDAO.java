@@ -18,7 +18,7 @@ public class EmpFixedDeductionsDAO {
 			Session session = null;
 			try{
 				String queryString = " select new com.payroll.employee.deductions.dataobjects.EmpFixedDeductions(d.employee.employeeId, "
-						+"d.employee.firstName, d.employee.lastName, d.kssUnionFee, d.rent, d.courtRecovery, d.unionFee, d.gis,d.additionalPF, d.ApfAcpf)"
+						+"d.employee.firstName, d.employee.lastName, d.kssUnionFee, d.rent, d.courtRecovery, d.unionFee, d.gis,d.additionalPF, d.ApfAcpf, d.rowUpdDate)"
 						+ " from EmpFixedDeductions d where d.status = ? ";
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -45,7 +45,7 @@ public class EmpFixedDeductionsDAO {
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = d.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = d.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = d.employee.employeeId and dh.status = 'A'), "
-						+" d.kssUnionFee, d.rent,d.courtRecovery,d.unionFee, d.gis,d.additionalPF, d.ApfAcpf)"
+						+" d.kssUnionFee, d.rent,d.courtRecovery,d.unionFee, d.gis,d.additionalPF, d.ApfAcpf, d.rowUpdDate)"
 						+ " from EmpFixedDeductions d where d.employee.employeeId = ? and d.status = ? ";
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -117,12 +117,17 @@ public class EmpFixedDeductionsDAO {
 		Session session = null;
 		Transaction transaction = null;
         try{
+        	
+        	EmpFixedDeductions fixedDeductions = getEmpDeductionsByEmpId(empId);
+        	
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("update EmpFixedDeductions d set d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ?");
+			Query query = session.createQuery("update EmpFixedDeductions d set d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ? and d.status = ? and d.rowUpdDate = ?");
 			query.setParameter(0, "I");
 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 			query.setParameter(2, empId);
+			query.setParameter(3, "A");
+			query.setParameter(4, fixedDeductions.getRowUpdDate());
 			int updated = query.executeUpdate();
 			if(updated > 0)
 				result = "Successfully deleted Employee Deduction details!";
@@ -146,6 +151,7 @@ public class EmpFixedDeductionsDAO {
 		Session session = null;
 		Transaction transaction = null;
 		try{
+			
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			Employee employee = (Employee)session.load(Employee.class, empFixedDeductions.getEmployeeId());

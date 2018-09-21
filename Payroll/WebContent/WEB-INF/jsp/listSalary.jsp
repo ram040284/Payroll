@@ -87,7 +87,7 @@ table.dataTable thead:first-child .sorting_desc {
                         {
 						 'data': null,title:'<a href="#" onclick="addSalary()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
 						 'render': function (salaryData, type, row) {
-            			   return '<a id="' + row.Id +'" href="#" onclick="updateSalary('+salaryData.employeeId+')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteSalary('+salaryData.employeeId+')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
+            			   return '<a id="' + row.Id +'" href="#" onclick="updateSalary(\'' + salaryData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteSalary(\'' + salaryData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
 			            	}
 						}
                      ] 

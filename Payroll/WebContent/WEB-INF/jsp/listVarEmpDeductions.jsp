@@ -90,7 +90,7 @@ $(document).ready(function() {
  	'<a href="#" onclick="inputDeductDtls()"><img style="vertical-align: middle;" src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg" /></a>',
     ' width' : '150px',
  	'render': function (employeeDeductionData, type, row) {
-         return '<a href="#" onclick=addUpdateDeductions('+employeeDeductionData.employeeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDeductions('+employeeDeductionData.employeeId+ ')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'
+         return '<a href="#" onclick=addUpdateDeductions(\'' + employeeDeductionData.employeeId + '\')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDeductions(\'' + employeeDeductionData.employeeId + '\')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'
  				               }
  				}
       			  

@@ -1,6 +1,7 @@
 package com.payroll.employee.deductions.vo;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import com.payroll.Utils;
 import com.payroll.employee.dataobjects.Employee;
@@ -32,7 +33,7 @@ public class EmpDeductionsVO {
 	private String status;
 	
 	private short addUpdate; // 0 - Add / 1 - update
-	private Timestamp rowUpdDate;
+	private Date rowUpdDate;
 	private Employee employee;
 
 	// added new fields as per the requirements.
@@ -66,7 +67,7 @@ public class EmpDeductionsVO {
 			double income_tax_rebate_section_87C, double child_trans_allw_10_14, double home_loan_section_24B,
 			double hlp_pf_lic_80C, double nps_80CCD_1B, double health_insu_80D, double des_dep_80DD,
 			double medical_80DDB, double edu_load_80D, double donation_80G, double rent_80GG,
-			double int_bank_section_80TTA, double phys_dis_per_section_80U) {
+			double int_bank_section_80TTA, double phys_dis_per_section_80U, Date rowUpdDate, String status) {
 		this.employeeId = employeeId;
 		this.section80C = section80C;
 		this.cess = cess;
@@ -106,6 +107,8 @@ public class EmpDeductionsVO {
 		this.rent_80GG = rent_80GG;
 		this.int_bank_section_80TTA = int_bank_section_80TTA;
 		this.phys_dis_per_section_80U = phys_dis_per_section_80U;
+		this.rowUpdDate = rowUpdDate;
+		this.status = status;
 	}
 
 	public EmpDeductionsVO(String employeeId, int deptId, int desgId, int headId, double section80C, double cess,
@@ -381,11 +384,11 @@ public class EmpDeductionsVO {
 		this.addUpdate = addUpdate;
 	}
 
-	public Timestamp getRowUpdDate() {
+	public Date getRowUpdDate() {
 		return rowUpdDate;
 	}
 
-	public void setRowUpdDate(Timestamp rowUpdDate) {
+	public void setRowUpdDate(Date rowUpdDate) {
 		this.rowUpdDate = rowUpdDate;
 	}
 

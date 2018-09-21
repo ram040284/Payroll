@@ -2,6 +2,7 @@ package com.payroll.employee.deductions.dataobjects;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import com.payroll.employee.dataobjects.Employee;
 
@@ -27,7 +28,7 @@ public class EmpDeductions implements Serializable{
 	private Double otAmount;
 	private String status;
 	private short addUpdate; // 0 - Add / 1 - update
-	private Timestamp rowUpdDate;
+	private Date rowUpdDate;
 	private Employee employee;
 	
 	// added new fields as per the requirements.
@@ -95,10 +96,10 @@ public class EmpDeductions implements Serializable{
 	public void setAddUpdate(short addUpdate) {
 		this.addUpdate = addUpdate;
 	}
-	public Timestamp getRowUpdDate() {
+	public Date getRowUpdDate() {
 		return rowUpdDate;
 	}
-	public void setRowUpdDate(Timestamp rowUpdDate) {
+	public void setRowUpdDate(Date rowUpdDate) {
 		this.rowUpdDate = rowUpdDate;
 	}
 	public Employee getEmployee() {

@@ -91,7 +91,7 @@ table.dataTable thead:first-child .sorting_desc {
                           {
 								 'data': null,title:'<a href="#" onclick="addAllowance()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
 								 'render': function (allowanceData, type, row) {
-											   return '<a id="' + row.Id +'" href="#" onclick="UpdateAllowance('+allowanceData.employeeId+')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteAllowance('+allowanceData.employeeId+')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
+											   return '<a id="' + row.Id +'" href="#" onclick="UpdateAllowance(\'' + allowanceData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteAllowance(\'' + allowanceData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
 										   }
 					       }
                       ]
