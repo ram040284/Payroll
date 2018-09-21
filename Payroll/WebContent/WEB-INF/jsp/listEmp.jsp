@@ -51,7 +51,19 @@ function deleteEmp(id){
 }
 
 function empServiceBook(id){
-	window.open('./resources/images/'+id+'.pdf', '');
+	var employeeIds = ['197810030', '198005008', '198505019', '198712210', 
+		          '198811034', '198901028', '198901211', '198905457',
+		          '199105024', '199106011', '199106025', '199508018',
+		          '199709853', '199712856', '201207284', '201207290',
+		          '201212312', '201212314', '201212319', '201212324',
+		          '201307348', '201406042', '201408013'];
+	
+	if(employeeIds.includes(id)){
+		window.open('./resources/images/'+id+'.pdf', '');
+	}else {
+		alert("No E-Book Found for this employee!!!");
+	}
+	
 }
 function searchEmps(){
 	if($('#departmentId').val() == 0 && $('#firstName').val().trim() == ""){
