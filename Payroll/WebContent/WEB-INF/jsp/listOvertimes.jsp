@@ -81,8 +81,8 @@ table.dataTable thead:first-child .sorting_desc {
 	                           {
 	 								 'data': null,title:'<a href="#" onclick="addOvertime()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
 	 								 'render': function (overtimeData, type, row) {
-	 				              	return '<a id="' + row.Id +'" href="#" onclick="UpdateOvertime('+overtimeData.overtimeId+')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteOvertime('+overtimeData.overtimeId+')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
-		  
+	 				    
+	 				               return '<a href="#" onclick=UpdateOvertime('+overtimeData.overtimeId+')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteOvertime('+overtimeData.overtimeId+ ')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'
 	 								 }
 	 					       }
 	                       ]
@@ -92,8 +92,7 @@ table.dataTable thead:first-child .sorting_desc {
       });
       function UpdateOvertime(id){
     	  var f = document.forms['editForm'];
-    	  alert('id:'+id);
-		  f.overtimeId.value=id;
+    	  f.overtimeId.value=id;
 		  f.action="../Payroll/inputOvertime";
 		  f.submit();
 	  }
@@ -125,7 +124,8 @@ table.dataTable thead:first-child .sorting_desc {
 		</div>
 		<div class="container">
 				<div style="margin-top: 12px; float: left; width: 98%;">
-					<h4 style="color: #0101DF;">Overtime Details</h4>	
+
+				<h4 style="color: #0101DF;">Overtime Details</h4>	
 					<div id="otimeListDiv" class="overtimeListTableClass" style ="width:100%; margin-top: 25px">
 						<table id="overtimeListTable" class="table table-striped table-bordered table-responsive"></table>
  			</div>
