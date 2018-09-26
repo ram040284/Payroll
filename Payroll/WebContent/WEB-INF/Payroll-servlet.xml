@@ -44,5 +44,11 @@ http://www.springframework.org/schema/aop http://www.springframework/aop/config/
 	<mvc:interceptors>
 		<bean class="com.payroll.interceptor.LoginInterceptor"/>
 	</mvc:interceptors>
+	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		 <!-- setting maximum upload size -->
+		<property name="maxUploadSize" value="100000" />
+	</bean>
 
 </beans>
