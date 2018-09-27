@@ -98,6 +98,7 @@ public class EmployeeService {
 	
 	private Employee copyEmp(com.payroll.employee.Employee emp){
 		Employee dbEmp = null;
+		String empID = "";
 		try{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			dbEmp =  new Employee();
@@ -116,7 +117,17 @@ public class EmployeeService {
 			dbEmp.setMiddleName(emp.getMiddleName());
 			dbEmp.setPhone(emp.getPhone());
 			dbEmp.setPan(emp.getPan());
-			dbEmp.setEmployeeId(emp.getEmployeeId());
+			
+			//Create employee id -> Concatenate Year + Month (from joining date) + kcbID received in employeeId
+			if(emp.getEmployeeId().length() == 3) {
+				empID = emp.getJoiningDate().substring(6, 10).concat(emp.getJoiningDate().substring(3, 5)).concat(emp.getEmployeeId());
+				dbEmp.setEmployeeId(empID);
+			}
+			else {
+				dbEmp.setEmployeeId(emp.getEmployeeId());
+			}
+			//dbEmp.setEmployeeId(emp.getEmployeeId());
+			
 			dbEmp.setDesignationId(emp.getDesignationId());
 			dbEmp.setGender(emp.getGender());
 			dbEmp.setHeadId(emp.getHeadId());

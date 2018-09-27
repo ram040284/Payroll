@@ -188,6 +188,20 @@ $(document).ready(function() {
 			    return false;
 			}
 		}
+		
+		if($('#employeeId').val() == 0){
+						var	kcb_Id = $('#kcbId').val().trim();
+						if(kcb_Id.length!= 3){
+							alert("Employee ID# must be 3 characters!")  
+							$('#kcbId').focus();
+						    return false;
+						}
+						if(!allNumeric(kcb_Id)){
+							alert("Employee ID# must be only Numbers!")  
+							$('#kcbId').focus();
+						    return false;
+						}
+					}
 	
 		var panValue = $('#pan').val().trim();
 		if(panValue){
@@ -202,10 +216,22 @@ $(document).ready(function() {
 			    return false;
 			}
 		}
-		var inputJson = { "firstName" : $('#fname').val(), "middleName" : $('#mname').val(), "lastName" : $('#lname').val(),"designationId" : $('#designationId').val(), 
+		
+		if($('#employeeId').val() != 0){
+						var inputJson = { "firstName" : $('#fname').val(), "middleName" : $('#mname').val(), "lastName" : $('#lname').val(),"designationId" : $('#designationId').val(), 
 				"departmentId": $('#departmentId').val(), "pan":panValue,				
 				"adharNo":$('#aadhar').val(),"dob":$('#dob').val(), "employeeId":$('#employeeId').val(), "gender":$('#gender').val(),
 				"joiningDate":$('#joiningDate').val(), "headId":$('#headId').val(), "retirementDate":$('#retirementDate').val(), "employeeType" : $('#employeeType').val()};
+						
+				}
+				else {
+					//var combinedId = $('#joiningDate').val().substring(6, 10) + $('#joiningDate').val().substring(3, 5) + $('#kcbID').val();
+					var inputJson = { "firstName" : $('#fname').val(), "middleName" : $('#mname').val(), "lastName" : $('#lname').val(),"designationId" : $('#designationId').val(), 
+							"departmentId": $('#departmentId').val(), "pan":panValue,				
+							"adharNo":$('#aadhar').val(),"dob":$('#dob').val(), "employeeId":$('#kcbId').val(), "gender":$('#gender').val(),
+							"joiningDate":$('#joiningDate').val(), "headId":$('#headId').val(), "retirementDate":$('#retirementDate').val(), "employeeType" : $('#employeeType').val()};
+				}		
+						
 		// "addressLine1":$('#addressLine1').val(),"addressLine2":$('#addressLine2').val(),"addressLine3":$('#addressLine3').val(),
 		//"email": $('#email').val(), "phone":phoneValue,
 	    $.ajax({
@@ -466,8 +492,8 @@ function getEmployeesByIds(deptId, desgId, empId){
 							</div>
 							
 							<div class="col-sm-4 form-group">
-								<label>Joining Date</label>
-								<form:input type="text" id="joiningDate" path="joiningDate" placeholder="Enter Joing Date (DD/MM/YYYY)" class="form-control"/>
+								<label>Joining Date</label> 
+									<form:input type="text" id="joiningDate" path="joiningDate" placeholder="Enter Joing Date (DD/MM/YYYY)" class="form-control"/>
 							</div>
 						</div>
 						<div class="row">
@@ -503,6 +529,14 @@ function getEmployeesByIds(deptId, desgId, empId){
 									<option value="3">Honorary</option>
 								</select>
 							</div>	
+						
+						<div class="col-sm-4 form-group">
+								<c:if test='${employee.employeeId eq "0"}'>
+									<label>KCB ID</label> 
+									<form:input type="text" id="kcbId" path="employeeId" placeholder="Enter KCB ID" class="form-control" />
+								</c:if>
+								
+							</div>
 						
 						</div>		
 						
