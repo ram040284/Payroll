@@ -99,6 +99,7 @@ public class EmployeeService {
 	private Employee copyEmp(com.payroll.employee.Employee emp){
 		Employee dbEmp = null;
 		String empID = "";
+		String empPrefix="";
 		try{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			dbEmp =  new Employee();
@@ -119,10 +120,24 @@ public class EmployeeService {
 			dbEmp.setPan(emp.getPan());
 			
 			//Create employee id -> Concatenate Year + Month (from joining date) + kcbID received in employeeId
-			if(emp.getEmployeeId().length() == 3) {
-				empID = emp.getJoiningDate().substring(6, 10).concat(emp.getJoiningDate().substring(3, 5)).concat(emp.getEmployeeId());
-				dbEmp.setEmployeeId(empID);
-			}
+			if(emp.getEmployeeId().length() == 3 && emp.getEmployeeType()== 1){
+					empPrefix = "";
+					empID = empPrefix.concat(emp.getJoiningDate().substring(6, 10)).concat(emp.getJoiningDate().substring(3, 5)).concat(emp.getEmployeeId());
+					dbEmp.setEmployeeId(empID);
+				}
+				
+			else if(emp.getEmployeeId().length() == 3 && emp.getEmployeeType()== 2) {
+					empPrefix = "C";
+					empID = empPrefix.concat(emp.getJoiningDate().substring(6, 10)).concat(emp.getJoiningDate().substring(3, 5)).concat(emp.getEmployeeId());
+					dbEmp.setEmployeeId(empID);
+				}
+				
+			else if(emp.getEmployeeId().length() == 3 && emp.getEmployeeType()== 3) {
+					empPrefix = "H";
+					empID = empPrefix.concat(emp.getEmployeeId());
+					dbEmp.setEmployeeId(empID);
+				}
+		
 			else {
 				dbEmp.setEmployeeId(emp.getEmployeeId());
 			}
