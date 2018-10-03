@@ -94,10 +94,11 @@ public class PdfBuilder extends AbstractITextPdfView {
     protected PdfPCell addToCell(String value, Font font, boolean alignRight){
     	PdfPCell cell1 = new PdfPCell();
         cell1.setBorder(0);
-        cell1.setPadding(5);
+        cell1.setPadding(3);
         if(alignRight)
         	cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
         cell1.setPhrase(new Phrase(value, font));
+       
         return cell1;
     }
     
@@ -107,6 +108,7 @@ public class PdfBuilder extends AbstractITextPdfView {
 	    	firstLine = new PdfPTable(noOfCols);
 	        firstLine.setWidthPercentage(100.0f);
 	        firstLine.setWidths(widths);
+	       
 	        firstLine.setSpacingBefore(spacing);
 	        firstLine.getDefaultCell().setBorder(0);
     	}catch(Exception e){
