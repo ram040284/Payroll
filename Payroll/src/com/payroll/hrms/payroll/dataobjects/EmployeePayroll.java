@@ -404,9 +404,9 @@ public class EmployeePayroll {
     	this.netPay = 0;
     	
 		if(this.totalGrossPay>this.grossPay) {
-			this.netPay = Math.round(this.totalGrossPay - this.totalDeductions - this.arrearDedu);
+			this.netPay = Math.round(this.totalGrossPay - this.totalDeductions);
 		} else {
-			this.netPay = Math.round(this.grossPay - this.totalDeductions - this.arrearDedu);
+			this.netPay = Math.round(this.grossPay - this.totalDeductions);
 		}
 		
 		if (this.netPay <= 0 ) {
@@ -515,7 +515,8 @@ public class EmployeePayroll {
 				+ this.otherDeductions
 				+ this.miscAllowance
 				+ this.unionFeeKss
-				+ this.pfInstment);
+				+ this.pfInstment
+				+ this.arrearDedu);
     }
     
 	public String getEmployeeName() {
