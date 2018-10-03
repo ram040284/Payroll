@@ -49,7 +49,7 @@ public class EmpLicDAO {
 			Session session = null;
 			
 			try{
-				String queryString = " select new com.payroll.employee.lic.dataobjects.EmployeeLIC(l.employeeId, "
+				String queryString = " select new com.payroll.employee.lic.vo.EmployeeLIC(l.employeeId, "
 						+ "l.policyNo, l.instlmtAmt) from EmpLicMaster l where  l.employeeId = ? and l.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
