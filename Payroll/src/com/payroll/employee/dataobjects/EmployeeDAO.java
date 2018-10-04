@@ -131,6 +131,31 @@ public class EmployeeDAO {
 		return employee;
 	}
 	
+	//To check if employeeId already exists - to decide add or update 
+		public boolean existEmpId(String empId) {
+			boolean exist = false;
+			
+			Session session = null;
+			//Employee employee = null;
+			try{
+				String queryString = " from Employee e where e.employeeId = ?";
+				session = HibernateConnection.getSessionFactory().openSession();
+				Query query = session.createQuery(queryString);
+				query.setParameter(0, empId);
+				//query.setParameter(1, "A");
+				//employee = (Employee)(!(query.list().isEmpty()) ? query.list().get(0) : null);
+				if(!(query.list().isEmpty())) {
+					exist = true;
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				HibernateConnection.closeSession(session);
+			}
+			
+			return exist;
+		}
+	
 	public EmployeeVO getEmployeeById(String empId){
 		//Session session = null;
 		EmployeeVO employee = null;
@@ -227,9 +252,9 @@ public class EmployeeDAO {
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			if(empId != "0"){
+			if(!empId.equals("0")){
 				Query query = session.createQuery("Update Employee e set e.status = ?, e.rowUpdatedDate = ? where e.employeeId = ?");
-				query.setParameter(0, "S");
+				query.setParameter(0, "I");
 				query.setParameter(1, new Date());
 				query.setParameter(2, empId);
 				int updated = query.executeUpdate();
@@ -285,6 +310,7 @@ public class EmployeeDAO {
 					updated = queryLic.executeUpdate();
 				}
 			}
+			session.flush();
 			transaction.commit();
 			success = true;
 		}catch(Exception e){
@@ -310,7 +336,7 @@ public class EmployeeDAO {
 			Department dept = (Department)session.load(Department.class, emp.getDepartmentId());
 			HeadInfo headInfo = (HeadInfo)session.load(HeadInfo.class, emp.getHeadId());
 			Designation designation =(Designation)session.load(Designation.class, emp.getDesignationId());
-			if(emp.getEmployeeId() != "0") {
+			if(existEmpId(emp.getEmployeeId())) {
 				EmployeeVO empDB = getEmployeeById(emp.getEmployeeId());
 
 				emp.setStatus("A");
@@ -350,6 +376,7 @@ public class EmployeeDAO {
 				session.save(empDesg);
 				
 			}
+			session.flush();
 			transaction.commit();
 			result = "Yes";
 		}catch(Exception e){

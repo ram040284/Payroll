@@ -363,7 +363,7 @@ public class EmployeePayroll {
 
         this.totalAllowance = 0.0;
         
-        this.totalAllowance = Math.round(this.cca + this.nonPracticingAllowance + this.washingAllowance + this.uniformAllowance + this.ca + this.familyPlanningAllowance + this.otherAllowance);
+        this.totalAllowance = Math.round(this.cca + this.nonPracticingAllowance + this.washingAllowance + this.uniformAllowance + this.ca + this.familyPlanningAllowance + this.otherAllowance + this.arrearPay);
         
         //totalAllowance += this.arrearPay;
     }
@@ -374,9 +374,22 @@ public class EmployeePayroll {
      */
     private void calculateGrossPay(){
     	
-
-        this.grossPay = this.basic + this.gradePay + this.dearnessAllowance + this.travelAllowance + this.houseRentAllowance + this.totalAllowance + this.otherPayAmount + this.tAllowance + this.arrearPay;
+        this.grossPay = this.basic + this.gradePay + this.dearnessAllowance + this.travelAllowance + this.houseRentAllowance + this.totalAllowance + this.tAllowance;
         this.totalGrossPay = Math.round(this.grossPay + this.overTimeAmount);
+        
+        System.out.println("Employee Id " + this.employeeId);
+        System.out.println("this.basic " + this.basic);
+    	System.out.println("this.gradePay " + this.gradePay);
+    	System.out.println("this.dearnessAllowance " + this.dearnessAllowance);
+    	System.out.println("this.travelAllowance " + this.travelAllowance);
+    	System.out.println("this.houseRentAllowance " + this.houseRentAllowance);
+    	System.out.println("this.totalAllowance " + this.totalAllowance);
+    	System.out.println("this.otherPayAmount " + this.otherPayAmount);
+    	System.out.println("this.tAllowance " + this.tAllowance);
+    	System.out.println("this.arrearPay " + this.arrearPay);
+    	System.out.println("this.totalGrossPay " + this.totalGrossPay);
+    	System.out.println("this.overTimeAmount " + this.overTimeAmount);
+        
         //if leave without pay or absent
         if(absentDays > 0.0)
             processAbsentee();
@@ -391,9 +404,9 @@ public class EmployeePayroll {
     	this.netPay = 0;
     	
 		if(this.totalGrossPay>this.grossPay) {
-			this.netPay = Math.round(this.totalGrossPay - this.totalDeductions - this.arrearDedu);
+			this.netPay = Math.round(this.totalGrossPay - this.totalDeductions);
 		} else {
-			this.netPay = Math.round(this.grossPay - this.totalDeductions - this.arrearDedu);
+			this.netPay = Math.round(this.grossPay - this.totalDeductions);
 		}
 		
 		if (this.netPay <= 0 ) {
@@ -502,7 +515,8 @@ public class EmployeePayroll {
 				+ this.otherDeductions
 				+ this.miscAllowance
 				+ this.unionFeeKss
-				+ this.pfInstment);
+				+ this.pfInstment
+				+ this.arrearDedu);
     }
     
 	public String getEmployeeName() {
