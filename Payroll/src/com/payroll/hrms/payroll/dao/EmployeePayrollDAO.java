@@ -189,13 +189,13 @@ public class EmployeePayrollDAO {
 			
 			if (billType == 1) {
 				// Other pay need to add from Arrears
-	   			empPayroll = new EmployeePayroll(this.employeeId, handicapFlag, salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(), otherPay,
+	   			empPayroll = new EmployeePayroll(this.employeeId, handicapFlag, salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(), employeeAllowances.getOtherAllowance(),
 	   					employeeAllowances.getCca(), employeeAllowances.getCycleAlwance(), employeeAllowances.getOtherAllowance(), employeeAllowances.getFamilyPlanAlwance(),employeeAllowances.getNonPracAwance(),
 	   					employeeAllowances.getWashingAlwance(), employeeAllowances.getUniformAlwance(), employeeAllowances.getHraFlag(),employeeAllowances.getPFFlag(), employeeAllowances.getTaFlag(), employeeAllowances.gettAllowance(),
 	   					employeeFixedDeductions.getUnionFee(), employeeFixedDeductions.getKssUnionFee(), employeeFixedDeductions.getRent(), employeeFixedDeductions.getElectricityRecovery(), employeeFixedDeductions.getCourtRecovery(),
-	   					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getPfLoanRecovery(), otherDedu, //employeeVarDeductions.getOtherDeductions(),
+	   					employeeFixedDeductions.getGis(), employeeVarDeductions.getAfkRent(), employeeVarDeductions.getPfLoanRecovery(), employeeVarDeductions.getOtherDeductions(),
 	   					employeeVarDeductions.getSociety(), employeeVarDeductions.getIncomeTax(), licTotalInstallmentAmt, festAdvanceRecovery , bankLoanRecovery, employeeVarDeductions.getAbsenties(), overtimeAmount, bankVo.getBankName(), 
-	   					bankVo.getAccountNo(), bankVo.getBankId(), salary.getIncrementDate(), salary.getIncrementAmount(), month, employeeFixedDeductions.getApfAcpf(), arrearsTotPay, arrearsDedu);
+	   					bankVo.getAccountNo(), bankVo.getBankId(), salary.getIncrementDate(), salary.getIncrementAmount(), month, employeeFixedDeductions.getApfAcpf(), otherPay, otherDedu);
 	   			
 			} else if (billType == 2) {
 				empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(),

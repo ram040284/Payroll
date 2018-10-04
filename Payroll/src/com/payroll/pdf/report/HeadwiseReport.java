@@ -45,8 +45,8 @@ public class HeadwiseReport extends PaybillPdfRep{
 	        doc.add(dottedline);
 	        PdfPTable pbDtlsTab = null;
 	        float pbDtlsTabW[] = {3f};
-	        float pbDtls1TabW[] = {0.8f, 0.7f, 0.8f, 0.7f, 0.9f, 0.6f, 0.8f, 0.6f, 0.7f, 0.5f, 0.5f, 0.5f, 0.6f, 0.5f};
-	        for (Iterator iterator = paybillDetails.iterator(); iterator.hasNext();) {
+	        float pbDtls1TabW[] = {0.6f, 0.7f, 0.8f, 0.6f, 0.8f, 0.7f, 0.8f, 0.6f, 0.5f, 0.6f, 0.7f, 0.6f, 0.6f, 0.6f};
+	         for (Iterator iterator = paybillDetails.iterator(); iterator.hasNext();) {
 	        	PaybillDetails pbDetails = (PaybillDetails)iterator.next();
 	        	pbDtlsTab = createPdfPTable(1, 3, pbDtlsTabW);
 		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -54,6 +54,7 @@ public class HeadwiseReport extends PaybillPdfRep{
 		        pbDtlsTab.addCell(addToCell(PdfUtils.EARNINGS, headHdFont));
 		        doc.add(pbDtlsTab);
 		        pbDtlsTab = createPdfPTable(14, 3, pbDtls1TabW);
+		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		        addTotalDetails(pbDtlsTab, pbDetails, frtHdFont);
 		        doc.add(pbDtlsTab);
 		        pbDtlsTab = createPdfPTable(1, 3, pbDtlsTabW);
@@ -61,9 +62,15 @@ public class HeadwiseReport extends PaybillPdfRep{
 		        pbDtlsTab.addCell(addToCell(PdfUtils.DEDUCTIONS, headHdFont));
 		        doc.add(pbDtlsTab);
 		        pbDtlsTab = createPdfPTable(14, 3, pbDtls1TabW);
+		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		        addDeductionTotals(pbDtlsTab, pbDetails, frtHdFont);
 		        doc.add(pbDtlsTab);
 		        doc.add(dottedline);
+		        
+		        
+		        
+		        
+		        
 		        float pbTotDtlsTabW[] = {2.5f, 2.5f, 2.5f};
 		        pbDtlsTab = createPdfPTable(3, 5, pbTotDtlsTabW);
 		        pbDtlsTab.addCell(addToCell(PdfUtils.GROSS+" "+Utils.getDecimalFormat(pbDetails.getTotalGrossPay()), headHdFont, true));

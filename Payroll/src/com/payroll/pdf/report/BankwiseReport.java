@@ -46,7 +46,7 @@ public class BankwiseReport extends PaybillPdfRep{
 	        doc.add(dottedline);
 	        PdfPTable pbDtlsTab = null;
 	        float pbDtlsTabW[] = {3f};
-	        float pbDtls1TabW[] = {0.8f, 0.7f, 0.8f, 0.7f, 0.9f, 0.6f, 0.8f, 0.6f, 0.7f, 0.5f, 0.5f, 0.5f, 0.6f, 0.5f};
+	        float pbDtls1TabW[] = {0.6f, 0.7f, 0.8f, 0.7f, 0.8f, 0.7f, 0.8f, 0.6f, 0.5f, 0.6f, 0.7f, 0.6f, 0.6f, 0.6f};
 	        for (Iterator iterator = paybillDetails.iterator(); iterator.hasNext();) {
 	        	PaybillDetails pbDetails = (PaybillDetails)iterator.next();
 	        	pbDtlsTab = createPdfPTable(1, 3, pbDtlsTabW);
@@ -55,6 +55,7 @@ public class BankwiseReport extends PaybillPdfRep{
 		        pbDtlsTab.addCell(addToCell(PdfUtils.EARNINGS, headHdFont));
 		        doc.add(pbDtlsTab);
 		        pbDtlsTab = createPdfPTable(14, 3, pbDtls1TabW);
+		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		        addTotalDetails(pbDtlsTab, pbDetails, frtHdFont);
 		        doc.add(pbDtlsTab);
 		        pbDtlsTab = createPdfPTable(1, 3, pbDtlsTabW);
@@ -62,8 +63,11 @@ public class BankwiseReport extends PaybillPdfRep{
 		        pbDtlsTab.addCell(addToCell(PdfUtils.DEDUCTIONS, headHdFont));
 		        doc.add(pbDtlsTab);
 		        pbDtlsTab = createPdfPTable(14, 3, pbDtls1TabW);
+		        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_RIGHT);
 		        addDeductionTotals(pbDtlsTab, pbDetails, frtHdFont);
 		        doc.add(pbDtlsTab);
+		        
+		        
 		        doc.add(dottedline);
 		        totPBDetails.addTotals(pbDetails);
 /*		        float pbTotDtlsTabW[] = {2.5f, 2.5f, 2.5f};
@@ -78,16 +82,22 @@ public class BankwiseReport extends PaybillPdfRep{
 	        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
 	        pbDtlsTab.addCell(addToCell(PdfUtils.EARNINGSTOT, headHdFont));
 	        doc.add(pbDtlsTab);
+	        
 	        pbDtlsTab = createPdfPTable(14, 3, pbDtls1TabW);
+	        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_RIGHT);
 	        addTotalDetails(pbDtlsTab, totPBDetails, frtHdFont);
 	        doc.add(pbDtlsTab);
+	        
 	        pbDtlsTab = createPdfPTable(1, 3, pbDtlsTabW);
 	        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_LEFT);
 	        pbDtlsTab.addCell(addToCell(PdfUtils.DEDUCTIONSTOT, headHdFont));
 	        doc.add(pbDtlsTab);
+	        
 	        pbDtlsTab = createPdfPTable(14, 3, pbDtls1TabW);
+	        pbDtlsTab.setHorizontalAlignment(Element.ALIGN_RIGHT);
 	        addDeductionTotals(pbDtlsTab, totPBDetails, frtHdFont);
 	        doc.add(pbDtlsTab);
+	        
 	        doc.add(dottedline);
 	   }catch(Exception e){
 			e.printStackTrace();

@@ -240,42 +240,42 @@ public class PaybillPdfRep extends PdfBuilder{
 	private void addDeduct1Details(PdfPTable table, ReportDetails payroll, Font font){
 		
 		table.addCell(addToCell(PdfUtils.L_FEES, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getLfee()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getLfee()), font, true));
 		table.addCell(addToCell(PdfUtils.AFKRENT, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getAfkRent()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getAfkRent()), font, true));
 		
 		table.addCell(addToCell(PdfUtils.ABSDED, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getAbsentAmount()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getAbsentAmount()), font,true));
 		table.addCell(addToCell(PdfUtils.FAREC, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getFestAdvRecovery()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getFestAdvRecovery()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.PTAX, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getProfTax()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getProfTax()), font,true));
 		table.addCell(addToCell(PdfUtils.LIC, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getLic()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getLic()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.SOCIETY, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getSocietyInstallment()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getSocietyInstallment()), font,true));
 		table.addCell(addToCell(PdfUtils.GIS, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getGrpInsurance()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getGrpInsurance()), font, true));
 		
 		table.addCell(addToCell(PdfUtils.BANKLOANREC, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBankLoanRcry()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBankLoanRcry()), font ,true));
 		table.addCell(addToCell(PdfUtils.VEHLOANREC, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getVehclLoanRcry()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getVehclLoanRcry()), font,true));
 	}
 	
 	private void addDeduct2Details(PdfPTable table, ReportDetails payroll, Font font){
 		// add employee pf recovery from emp fixed ded table and emp var ded
 		
 		table.addCell(addToCell(PdfUtils.APFACPF, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getApfacpf()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getApfacpf()), font ,true));
 		
 		table.addCell(addToCell(PdfUtils.PFLOANREC, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfLoanRecovery()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfLoanRecovery()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.PFSCPFS, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getProvidentFund()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getProvidentFund()), font,true));
 		/*table.addCell(addToCell(PdfUtils.APFACPF, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getApfacpf()), font));*/
 		
@@ -287,25 +287,25 @@ public class PaybillPdfRep extends PdfBuilder{
 		
 		
 		table.addCell(addToCell(PdfUtils.INCTAX, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getIncomeTax()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getIncomeTax()), font, true));
 		table.addCell(addToCell(PdfUtils.UNIONFEE, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUnionFee()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUnionFee()), font, true));
 		
 		table.addCell(addToCell(PdfUtils.ELECREC, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getElectricityRecovery()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getElectricityRecovery()), font, true));
 		table.addCell(addToCell(PdfUtils.COURTREC, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCourtRecovery()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCourtRecovery()), font ,true));
 		
 		table.addCell(addToCell(PdfUtils.OTHERDED, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtherDeductions()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtherDeductions()), font ,true));
 		table.addCell(addToCell(PdfUtils.MISC, font));
-		table.addCell(addToCell("0.00", font));
+		table.addCell(addToCell("0.00", font,true));
 		
 		table.addCell(addToCell(PdfUtils.UNFEE_KSS, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUnionFeeKss()), font)); // Kss fee yet to add
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUnionFeeKss()), font ,true)); // Kss fee yet to add
 		table.addCell(addToCell(PdfUtils.PFINST, font));
 		//table.addCell(addToCell(payroll.getPfInstment()+"", font));
-		table.addCell(addToCell("0.00", font));
+		table.addCell(addToCell("0.00", font, true));
 		
 		//table.addCell(addToCell(PdfUtils.TOTDEDUCTION, font));
 		//table.addCell(addToCell(payroll.getTotalDeductions()+"", font));
@@ -316,41 +316,41 @@ public class PaybillPdfRep extends PdfBuilder{
 	private void addGrossDetails(PdfPTable table, ReportDetails payroll, Font font){
 		
 		table.addCell(addToCell(PdfUtils.BASICS, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBasic()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBasic()), font,true));
 		table.addCell(addToCell(PdfUtils.GRADEPAY, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getGradePay()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getGradePay()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.DA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getDearnessAllowance()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getDearnessAllowance()), font,true));
 		table.addCell(addToCell(PdfUtils.HRA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getHouseRentAllowance()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getHouseRentAllowance()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.CCA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCca()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCca()), font,true));
 		table.addCell(addToCell(PdfUtils.TA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getTravelAllowance()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getTravelAllowance()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.NPA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getNonPracticingAllowance()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getNonPracticingAllowance()), font, true));
 		table.addCell(addToCell(PdfUtils.WA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getWashingAllowance()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getWashingAllowance()), font ,true));
 		
 //		table.addCell(addToCell(PdfUtils.CA, font));
 //		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getConveyanceAllowance()), font));
 		table.addCell(addToCell(PdfUtils.CA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCa()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCa()), font ,true));
 		table.addCell(addToCell(PdfUtils.UNIFORMALW, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUniformAllowance()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUniformAllowance()), font ,true));
 		
 		table.addCell(addToCell(PdfUtils.FLYPLGALW, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getFamilyPlanningAllowance()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getFamilyPlanningAllowance()), font ,true));
 		table.addCell(addToCell(PdfUtils.TALW, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.gettAllowance()), font)); //TODO - Prasad
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.gettAllowance()), font ,true)); //TODO - Prasad
 		
 		table.addCell(addToCell(PdfUtils.OTAMT, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOverTimeAmount()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOverTimeAmount()), font ,true));
 		table.addCell(addToCell(PdfUtils.OTHERS, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtherPayAmount()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtherPayAmount()), font ,true));
 		
 		//table.addCell(addToCell(PdfUtils.GROSS, font));
 		//table.addCell(addToCell(payroll.getGrossPay()+"", font));
@@ -360,66 +360,66 @@ public class PaybillPdfRep extends PdfBuilder{
 	protected void addTotalDetails(PdfPTable table, PaybillDetails payroll, Font font){
 		
 		table.addCell(addToCell(PdfUtils.BASICS, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBasicPay()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBasicPay()), font,true));
 		table.addCell(addToCell(PdfUtils.GRADEPAY, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getGradePay()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getGradePay()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.DA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getDa()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getDa()), font,true));
 		table.addCell(addToCell(PdfUtils.HRA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getHra()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getHra()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.CCA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCca()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCca()), font,true));
 		table.addCell(addToCell(PdfUtils.TA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getTa()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getTa()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.NPA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getNpa()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getNpa()), font,true));
 		table.addCell(addToCell(PdfUtils.WA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getWa()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getWa()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.CA, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCa()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getCa()), font,true));
 		table.addCell(addToCell(PdfUtils.UNIFORMALW, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUniformAlw()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUniformAlw()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.FLYPLGALW, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getFamilyPlaningAlw()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getFamilyPlaningAlw()), font,true));
 		table.addCell(addToCell(PdfUtils.TALW, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.gettAllowance()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.gettAllowance()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.OTAMT, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtAmt()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtAmt()), font,true));
 		table.addCell(addToCell(PdfUtils.OTHERS, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOthers()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOthers()), font,true));
 		
 	}
 	
 	protected void addDeductionTotals(PdfPTable table, PaybillDetails payroll, Font font){
 		
 		table.addCell(addToCell(PdfUtils.RENT, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getRent()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getRent()), font,true));
 		table.addCell(addToCell(PdfUtils.AFKRENT, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getAfkRent()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getAfkRent()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.ABSDED, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getAbsentDed()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getAbsentDed()), font,true));
 		table.addCell(addToCell(PdfUtils.FAREC, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getFestAdvRcry()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getFestAdvRcry()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.LIC, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getLic()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getLic()), font,true));
 		table.addCell(addToCell(PdfUtils.SOCIETY, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getSocity()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getSocity()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.PFSCPFS, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getProvidentFund()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getProvidentFund()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.GIS, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getGis()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getGis()), font,true));
 		table.addCell(addToCell(PdfUtils.BANKLOANREC, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBankLoanRcry()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getBankLoanRcry()), font,true));
 		
 		/*table.addCell(addToCell(PdfUtils.VEHLOANREC, font));
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getVlr()), font));
@@ -432,16 +432,16 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getPfLoanRcry()), font));*/
 		
 		table.addCell(addToCell(PdfUtils.INCTAX, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getIncomeTax()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getIncomeTax()), font,true));
 		table.addCell(addToCell(PdfUtils.OTHERDED, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtherDeducs()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getOtherDeducs()), font,true));
 		
 		table.addCell(addToCell(PdfUtils.MISC, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getMisc()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getMisc()), font,true));
 		table.addCell(addToCell(PdfUtils.UNIONFEE, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUnionFee()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUnionFee()), font,true));
 		table.addCell(addToCell(PdfUtils.UNFEE_KSS, font));
-		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUnionFeeKss()), font));
+		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getUnionFeeKss()), font,true));
 		
 	}
 	
@@ -568,7 +568,7 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell(Utils.getDecimalFormat(payroll.getContAbsDedAmt()), font));
 		
 		table.addCell(addToCell(PdfUtils.MISC, font));
-		table.addCell(addToCell("0", font));
+		table.addCell(addToCell("0", font,true));
 		
 		table.addCell(addToCell(PdfUtils.PT, font));
 		table.addCell(addToCell("0", font));
@@ -580,7 +580,7 @@ public class PaybillPdfRep extends PdfBuilder{
 		table.addCell(addToCell("FLASE", font));
 		
 		table.addCell(addToCell(PdfUtils.PT_FLAG, font));
-		table.addCell(addToCell("FLASE", font));
+		table.addCell(addToCell("FLASE", font,true));
 		
 		table.addCell(addToCell(PdfUtils.DP_FLAG, font));
 		table.addCell(addToCell("FALSE", font));
