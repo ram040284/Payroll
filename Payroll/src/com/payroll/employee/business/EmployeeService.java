@@ -71,7 +71,7 @@ public class EmployeeService {
 	}
 	
 	public String addUpdateEmployee(com.payroll.employee.Employee emp){
-		return new EmployeeDAO().addUpdateEmployee(copyEmp(emp));
+			return new EmployeeDAO().addUpdateEmployee(copyEmp(emp));
 	}
 	public com.payroll.employee.Employee getEmployeeById(String empId){
 		return copyDBEmp(new EmployeeDAO().getEmployeeById(empId));
@@ -95,7 +95,7 @@ public class EmployeeService {
 	public com.payroll.employee.Employee getEmployeeServiceBook(String empId){
 		return copyDBEmp(new EmployeeDAO().getEmployeeServiceBook(empId));
 	}
-	
+		
 	private Employee copyEmp(com.payroll.employee.Employee emp){
 		Employee dbEmp = null;
 		String empID = "";
@@ -119,30 +119,8 @@ public class EmployeeService {
 			dbEmp.setPhone(emp.getPhone());
 			dbEmp.setPan(emp.getPan());
 			
-			//Create employee id -> Concatenate Year + Month (from joining date) + kcbID received in employeeId
-			if(emp.getEmployeeId().length() == 3 && emp.getEmployeeType()== 1){
-					empPrefix = "";
-					empID = empPrefix.concat(emp.getJoiningDate().substring(6, 10)).concat(emp.getJoiningDate().substring(3, 5)).concat(emp.getEmployeeId());
-					dbEmp.setEmployeeId(empID);
-				}
-				
-			else if(emp.getEmployeeId().length() == 3 && emp.getEmployeeType()== 2) {
-					empPrefix = "C";
-					empID = empPrefix.concat(emp.getJoiningDate().substring(6, 10)).concat(emp.getJoiningDate().substring(3, 5)).concat(emp.getEmployeeId());
-					dbEmp.setEmployeeId(empID);
-				}
-				
-			else if(emp.getEmployeeId().length() == 3 && emp.getEmployeeType()== 3) {
-					empPrefix = "H";
-					empID = empPrefix.concat(emp.getEmployeeId());
-					dbEmp.setEmployeeId(empID);
-				}
-		
-			else {
-				dbEmp.setEmployeeId(emp.getEmployeeId());
-			}
-			//dbEmp.setEmployeeId(emp.getEmployeeId());
-			
+			dbEmp.setEmployeeId(emp.getEmployeeId());
+						
 			dbEmp.setDesignationId(emp.getDesignationId());
 			dbEmp.setGender(emp.getGender());
 			dbEmp.setHeadId(emp.getHeadId());

@@ -1,6 +1,7 @@
 package com.payroll.employee.dataobjects;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -323,6 +324,29 @@ public class EmployeeDAO {
 		return success;
 	}
 	
+	private String createEmployeeId(Employee emp) {
+		String empID="";
+		String empPrefix="";
+		String joiningDate = "";
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		joiningDate = dateFormat.format(emp.getJoiningDate());
+		
+		if(emp.getEmployeeType() == 1) {
+			empPrefix = "";
+			empID = empPrefix.concat(joiningDate.substring(6, 10)).concat(joiningDate.substring(3, 5)).concat(emp.getEmployeeId()); 
+		}
+		if(emp.getEmployeeType() == 2) {
+			empPrefix = "C";
+			empID = empPrefix.concat(joiningDate.substring(6, 10)).concat(joiningDate.substring(3, 5)).concat(emp.getEmployeeId()); 
+		}
+		if(emp.getEmployeeType() == 3) {
+			empPrefix = "H";
+			empID = empPrefix.concat(emp.getEmployeeId()); 
+		}
+		return empID;
+	}
+	
 	public String addUpdateEmployee(Employee emp){
 		String result = null;
 		Session session = null;
@@ -336,15 +360,18 @@ public class EmployeeDAO {
 			Department dept = (Department)session.load(Department.class, emp.getDepartmentId());
 			HeadInfo headInfo = (HeadInfo)session.load(HeadInfo.class, emp.getHeadId());
 			Designation designation =(Designation)session.load(Designation.class, emp.getDesignationId());
-			if(existEmpId(emp.getEmployeeId())) {
-				EmployeeVO empDB = getEmployeeById(emp.getEmployeeId());
-
+			
+			// if length of employee id 3 then it is add request else it's an update request
+			if(emp.getEmployeeId().length()!=3) {  					
+				//EmployeeVO empDB = getEmployeeById(emp.getEmployeeId());
 				emp.setStatus("A");
 				emp.setRowUpdatedDate(new Timestamp(System.currentTimeMillis()));
-				session.update(emp);
-				
+				session.update(emp);				
 			}else {
 				//emp.setEmployeeId(getMaxEmpId(session));
+				String empId = "";
+				empId = createEmployeeId(emp);
+				emp.setEmployeeId(empId);
 				emp.setStatus("A");
 				emp.setRowUpdatedDate(new Timestamp(System.currentTimeMillis()));
 				session.save(emp);

@@ -6,6 +6,65 @@
 <title>Employee Details</title>
 <jsp:include page="../jsp/public/postHeader.jsp" />
 <jsp:include page="../jsp/public/jqueryPluginMin.jsp"/>
+<script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
+<script src="../Payroll/resources/js/dataTables.bootstrap.min.js"></script>
+
+<style type="text/css">
+select {
+	min-width: 200px;
+	min-height: 30px;
+}
+
+.buttonPadding {
+	padding: 5px;
+}
+.btn-color{
+	background-color: #0101DF;
+}
+
+.empListTableClass table {
+	border-collapse: collapse;
+	width: 100%;
+	float: left;
+	margin: 0;
+  	padding: 0;
+	border: 1px solid #aaa;
+	table-layout: auto;
+}
+
+.empListTableClass th,td {
+	text-align: left;
+	padding: 5px;
+}
+
+.empListTableClass tr:nth-child(odd) {
+	background-color: #f2f2f2; !important
+}
+
+.empListTableClass th {
+	background-color: #8B9DC3;
+	color: #fff;
+	cursor: pointer;
+}
+table.dataTable thead:first-child .sorting_asc { 
+	background: url('../Payroll/resources/images/uparrow.png') no-repeat right bottom 8px; 
+	background-size: 25px; 
+	background-color: #8B9DC3;
+	color: white;
+}
+table.dataTable thead:first-child .sorting_desc { 
+	background: url('../Payroll/resources/images/downarrow.png') no-repeat right bottom 8px; 
+	background-size: 25px; 
+	background-color: #8B9DC3;
+	color: white;
+}
+.dataTables_paginate {
+	text-align: right;
+}
+</style>
+
+
+
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -28,9 +87,43 @@ $(document).ready(function() {
 		   $("#collapse").toggle();
 		   $("#expand").toggle();
 	});
+	
+	$.ajax({
+		  url : '../Payroll/view',
+		  type : "GET",
+		  contentType: "application/json;charset=utf-8",
+		  success : function(empData) {
+		 var table = $('#empListTable').DataTable({
+			 "scrollY": "300px",
+			 "searching": false,
+		        data: empData,
+		          columns: [
+		         		{ data: 'fullName', title: 'Name',"autoWidth": false},
+		          		{ data: 'department', title: 'Department',"autoWidth": false},
+		            	{ data: 'headName', title: 'Head',"autoWidth": false},
+		            	{ data: 'designation', title: 'Designation',"autoWidth": false},
+		          		{ data: 'dob', title: 'DOB',"autoWidth": false},
+		            	{ data: 'gender', title: 'Gender',"autoWidth": false},
+		            	{ data: 'joiningDate', title: 'Joining Date',"autoWidth": false},
+		          		{ data: 'retirementDate', title: 'Retirement Date',"autoWidth": false},
+		            	{
+						 'data': null,title:'<a href="#" onclick="inputPage()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
+						 'render': function (empData, type, row) {
+						 return '<a id="' + row.Id +'" href="#" onclick="viewEmp(\'' + empData.employeeId +'\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'" href="#" onclick="empServiceBook(\'' + empData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/empProcessAttendance.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteEmp(\'' + empData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
+
+						 }
+						}
+		         ]
+		      }); 
+		   }
+	 });
+	 
+	 
+	
 });
 
 function viewEmp(id){
+	alert("id="+id);
 	var f = document.forms['empSearch'];
 	f.employeeId.value=id;
 	f.action="../Payroll/viewEmp";
@@ -71,9 +164,46 @@ function searchEmps(){
 		$('#departmentId').focus();
 		return false;
 	}
-	var f = document.forms['empSearch'];
+	/* var f = document.forms['empSearch'];
 	f.action="../Payroll/employee";
-	f.submit();
+	f.submit(); */
+	
+	$('#searchBtn').on('click',function(e){
+		e.preventDefault();
+		var inputJson = { "firstName" : $('#firstName').val(),"departmentId": $('#departmentId').val(), "headId":$('#headId').val()};
+		
+		$.ajax({
+			url : '../Payroll/getEmployeeList',
+		    data : JSON.stringify(inputJson),
+		    type : "POST",
+		    contentType: "application/json;charset=utf-8",
+		    success : function(empData) {
+			 var table = $('#empListTable').DataTable({
+				 destroy: true,
+				 "searching": false,
+				 "scrollY": "300px",
+			        data: empData,
+			          columns: [
+			         		{ data: 'fullName', title: 'Name',"autoWidth": false},
+			          		{ data: 'department', title: 'Department',"autoWidth": false},
+			            	{ data: 'headName', title: 'Head',"autoWidth": false},
+			            	{ data: 'designation', title: 'Designation',"autoWidth": false},
+			          		{ data: 'dob', title: 'DOB',"autoWidth": false},
+			            	{ data: 'gender', title: 'Gender',"autoWidth": false},
+			            	{ data: 'joiningDate', title: 'Joining Date',"autoWidth": false},
+			          		{ data: 'retirementDate', title: 'Retirement Date',"autoWidth": false},
+			            	{
+							  'data': null, title:'<a href="#" onclick="inputPage()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
+							  'render': function (empData, type, row) {
+							     return '<a id="' + row.Id +'" href="#" onclick="viewEmp(\'' + empData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'" href="#" onclick="empServiceBook(\'' + empData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/empProcessAttendance.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteEmp(\'' + empData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
+				              }
+							}
+			         ]
+			      }); 
+			   }  
+		 });	
+	});
+	
 }
 
 
@@ -92,55 +222,12 @@ function searchEmps(){
 			</div>	
 		</div>
 		<div class="container">
-		<h5 style="color: #0101DF;">Employee Details</h5>
-		<jsp:include page="../jsp/public/searchCriteria.jsp" />
-		<c:if test="${employees.size() gt 0}">
-		<div style="margin-top: 6px; float: left; max-width: 100%;">
-			
-			<div id="empListDiv" class="tblClass" style="max-width: 100%;">
-				<table>
-				<tr>
-					<th>Name</th>
-					<th>Department</th>
-					<th>Head</th>
-					<th>Designation</th>
-					<th>DOB</th>
-					<th>Gender</th>
-					<th>Joining Date</th>
-					<th>Retirement Date</th>
-					<%-- <th>Phone#</th> --%>
-					<th><a href="#" onclick="inputPage()" title="Add">
-						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/>
-					</a></th>
-				</tr>
-				<c:forEach var="employee" items="${employees}">
-				<tr>
-					<td> ${employee.fullName} </td>
-					<td> ${employee.department}</td>
-					<td> ${employee.headName}</td>
-					<td> ${employee.designation}</td>
-					<td> ${employee.dob} </td>
-					<td> ${employee.gender}</td>
-					<td> ${employee.joiningDate}</td>
-					<td> ${employee.retirementDate}</td>
-					<%-- <td> ${employee.phone}</td> --%>
-					<td style="padding: 0px;"><a href="#" onclick="viewEmp('${employee.employeeId}')" title="Edit">
-							<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/>
-						</a>
-						<a href="#" onclick="empServiceBook('${employee.employeeId}')" title="Edit">
-							<img src="../Payroll/resources/images/empProcessAttendance.png" alt="Edit" class="listImg"/>
-						</a>
-						<a href="#" onclick="deleteEmp('${employee.employeeId}')">
-							<img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/>
-						</a>
-					</td>
-				</tr>
-				</c:forEach>
-			</table>
-		</div>
-	</div>
-	</c:if>
-	</div>
+			<h5 style="color: #0101DF;">Employee Details</h5>
+			<jsp:include page="../jsp/public/searchCriteria.jsp" />
+			<div id="empListDiv" class="empListTableClass" style ="width:100%; margin-top: 25px">
+					<table id="empListTable" class="table table-striped table-bordered table-responsive"></table>
+			</div>
+ 		</div>
 	</div>
 	<form action="" name="editForm" method="post">
 		<input type="hidden" name="employeeId" value="0">

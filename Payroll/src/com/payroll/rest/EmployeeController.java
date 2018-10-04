@@ -71,6 +71,17 @@ public class EmployeeController {
 			    return model;
 			}
 	   }
+		
+		 @RequestMapping(value="/getEmployeeList", method = RequestMethod.POST, produces = "application/json")
+		    public @ResponseBody List<EmployeeVO> getEmployeeList(@RequestBody Employee employee){
+			//   List<EmployeeVO> employees = new EmployeeService().getEmployees(0,0,null);		
+			 List<EmployeeVO> employees = null;
+			   if(employee.getDepartmentId() !=0 || !Utils.isEmpty(employee.getFirstName())){
+				   employees = new EmployeeService().getEmployees(
+					   employee.getDepartmentId(), employee.getHeadId(), employee.getFirstName());
+			   }
+		       return employees;
+		    }
 	   
 	   @RequestMapping(value="/view", method = RequestMethod.GET, produces = "application/json")
 	    public @ResponseBody List<EmployeeVO> getEmployees(){

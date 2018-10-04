@@ -192,12 +192,12 @@ $(document).ready(function() {
 		if($('#employeeId').val() == 0){
 						var	kcb_Id = $('#kcbId').val().trim();
 						if(kcb_Id.length!= 3){
-							alert("Employee ID# must be 3 characters!")  
+							alert("KCB ID# must be 3 characters!")  
 							$('#kcbId').focus();
 						    return false;
 						}
 						if(!allNumeric(kcb_Id)){
-							alert("Employee ID# must be only Numbers!")  
+							alert("KCB ID# must be only Numbers!")  
 							$('#kcbId').focus();
 						    return false;
 						}
