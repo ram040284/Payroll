@@ -1,5 +1,6 @@
 package com.payroll.rest;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.payroll.department.business.DepartmentService;
@@ -120,5 +123,14 @@ public class EmpAllowanceController {
 			request.getSession().setAttribute("unauthorizedMessage", true);
 			return "unauthorized";
 		}
+	}
+	
+	@RequestMapping(value = "/addEmployeeAllowances", method= RequestMethod.POST)
+	public String addEmployeeAllowances(@RequestPart(value = "file") MultipartFile multipartFile) throws ParseException {
+		System.out.println("Inside addEmployeeAllowances controller ***");
+		new EmpAllowanceService().addEmployeeAllowances(multipartFile);
+		System.out.println("After addEmployeeAllowances controller ***");
+		return "redirect:/viewEmpAlwnce";
+		//return "viewEmpAlwnce";
 	}
 }

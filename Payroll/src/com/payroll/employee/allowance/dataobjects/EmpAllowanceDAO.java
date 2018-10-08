@@ -1,6 +1,7 @@
 package com.payroll.employee.allowance.dataobjects;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -11,7 +12,10 @@ import org.hibernate.exception.ConstraintViolationException;
 import com.payroll.HibernateConnection;
 import com.payroll.employee.allowance.vo.EmpAllowanceVO;
 import com.payroll.employee.allowance.vo.EmployeeAllowances;
+import com.payroll.employee.business.EmployeeService;
 import com.payroll.employee.dataobjects.Employee;
+import com.payroll.employee.deductions.dataobjects.EmpVarDeductions;
+import com.payroll.employee.deductions.dataobjects.EmpVarDeductionsVO;
 
 public class EmpAllowanceDAO {
 	
@@ -147,6 +151,45 @@ public class EmpAllowanceDAO {
 		}finally {
 			HibernateConnection.closeSession(session);
 		}
+		return result;
+	}
+	
+	public String addOrUpdateEmpAllowances(List<EmpAllowance> allowances) {
+		
+		Session session = null;
+		Transaction transaction = null;
+		
+		String result;
+		try {
+			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			for (EmpAllowance alEmpAllowance: allowances) {
+				EmployeeAllowances empAllowance = getEmployeeAllowances(alEmpAllowance.getEmployeeId());
+				if (empAllowance != null) {
+					List<Employee> employee = new EmployeeService().getEmployeeByEmployeeId(alEmpAllowance.getEmployeeId());
+					alEmpAllowance.setEmployee(employee.get(0));
+					alEmpAllowance.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+					session.update(alEmpAllowance);
+					session.flush();
+				}else {
+					List<Employee> employee = new EmployeeService().getEmployeeByEmployeeId(alEmpAllowance.getEmployeeId());
+					alEmpAllowance.setEmployee(employee.get(0));
+					alEmpAllowance.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+					session.save(alEmpAllowance);
+					session.flush();
+				}
+				
+			}
+			transaction.commit();
+			result = "success";
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			transaction.rollback();
+			result = "failure";
+		} finally {
+			HibernateConnection.closeSession(session);
+		}
+		
 		return result;
 	}
 }

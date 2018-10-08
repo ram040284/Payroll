@@ -23,6 +23,6 @@
 		<property name="incomeTax" column="INCOME_TAX" />
 		<property name="absenties" column="ABS_DED" />
 		<property name="status" column="STATUS" not-null="true" />
-		<property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true" />
+		<property name="rowUpdDate" column="ROW_UPD_DATE" />
 	</class>
 </hibernate-mapping>

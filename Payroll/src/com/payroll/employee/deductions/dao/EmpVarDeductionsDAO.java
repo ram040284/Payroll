@@ -1,6 +1,7 @@
 package com.payroll.employee.deductions.dao;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -9,10 +10,14 @@ import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
+import com.payroll.employee.attendance.dataobjects.EmployeeAttendance;
+import com.payroll.employee.business.EmployeeService;
 import com.payroll.employee.dataobjects.Employee;
+import com.payroll.employee.dataobjects.EmployeeDAO;
 import com.payroll.employee.deductions.dataobjects.EmpVarDeductions;
 import com.payroll.employee.deductions.dataobjects.EmpVarDeductionsVO;
 import com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions;
+import com.payroll.employee.vo.EmployeeVO;
 
 public class EmpVarDeductionsDAO {
 	public List<EmpVarDeductions> getEmpVarDeductions(){
@@ -208,6 +213,52 @@ public class EmpVarDeductionsDAO {
 		}finally {
 			HibernateConnection.closeSession(session);
 		}
+		return result;
+	}
+	
+	public String addOrUpdateEmpVarDeductions(List<EmpVarDeductionsVO> deductions) {
+		
+		Session session = null;
+		Transaction transaction = null;
+		
+		String result;
+		try {
+
+			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			for (EmpVarDeductionsVO varDeductions: deductions) {
+				EmpVarDeductions deductionsVO = getEmpVarDeductions(varDeductions.getEmployeeId());
+				if (deductionsVO != null) {
+					Date date = new Date();
+					List<Employee> employee = new EmployeeService().getEmployeeByEmployeeId(varDeductions.getEmployeeId());
+					varDeductions.setEmployee(employee.get(0));
+					varDeductions.setNote("");
+					varDeductions.setMonthDate(date);
+					varDeductions.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+					session.update(varDeductions);
+					session.flush();
+				}else {
+					Date date = new Date();
+					List<Employee> employee = new EmployeeService().getEmployeeByEmployeeId(varDeductions.getEmployeeId());
+					varDeductions.setEmployee(employee.get(0));
+					varDeductions.setNote("");
+					varDeductions.setMonthDate(date);
+					varDeductions.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+					session.save(varDeductions);
+					session.flush(); 
+				}
+				
+			}
+			transaction.commit();
+			result = "success";
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			transaction.rollback();
+			result = "failure";
+		} finally {
+			HibernateConnection.closeSession(session);
+		}
+		
 		return result;
 	}
 }

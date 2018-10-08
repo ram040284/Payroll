@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.opencsv.bean.CsvBindByName;
 import com.payroll.Utils;
 import com.payroll.employee.dataobjects.Employee;
 /**
@@ -14,19 +15,29 @@ import com.payroll.employee.dataobjects.Employee;
  *
  */
 public class EmpVarDeductions {
+	
+	@CsvBindByName(column= "EMP_ID")
 	private String employeeId;
+	@CsvBindByName(column= "AFK_RENT")
 	private double afkRent;
+	@CsvBindByName(column= "SOCITY")
 	private double society;
+	@CsvBindByName(column= "PF_LOAN_REC")
 	private double pfLoanRecovery;
+	@CsvBindByName(column= "OTHER_DEDUCTION")
 	private double otherDeductions;
+	@CsvBindByName(column= "MIS_RCVRY")
 	private double miscRecovery;
 	private String monthDate;
+	@CsvBindByName(column= "NOTE")
 	private String note;
 	private int departmentId;
 	private int headId;
 	private int designationId;
 	private String fullName;
+	@CsvBindByName(column= "INCOME_TAX")
 	private double incomeTax;
+	@CsvBindByName(column= "STATUS")
 	private String status;
 	private short addUpdate;
 	private Timestamp rowUpdDate;
@@ -34,7 +45,25 @@ public class EmpVarDeductions {
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
 	private static SimpleDateFormat monthYearFormat = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
+	@CsvBindByName(column= "ABS_DED")
 	private double absenties;
+	String rowUpdateTime;
+	
+	public EmpVarDeductions(String employeeId, double afkRent, double society, double pfLoanRecovery,
+			 double otherDeductions, double miscRecovery, double incomeTax, String status, double absenties, String rowUpdateTime) {
+		
+		this.employeeId = employeeId;
+		this.afkRent = afkRent;
+		this.society = society;
+		this.pfLoanRecovery = pfLoanRecovery;
+		this.otherDeductions = otherDeductions;
+		this.miscRecovery = miscRecovery;
+		this.incomeTax = incomeTax;
+		this.absenties = absenties;
+		this.status = status;
+		this.rowUpdateTime = rowUpdateTime;
+		
+	}
 	
 	public EmpVarDeductions(String employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
 			 double otherDeductions, double miscRecovery, String monthDate,String note, double incomeTax, double absenties){
@@ -289,6 +318,14 @@ public class EmpVarDeductions {
 
 	public void setAbsenties(double absenties) {
 		this.absenties = absenties;
+	}
+
+	public String getRowUpdateTime() {
+		return rowUpdateTime;
+	}
+
+	public void setRowUpdateTime(String rowUpdateTime) {
+		this.rowUpdateTime = rowUpdateTime;
 	}
 
 }

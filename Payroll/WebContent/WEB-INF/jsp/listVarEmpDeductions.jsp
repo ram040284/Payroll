@@ -122,6 +122,12 @@ function deleteDeductions(id) {
 	}
 }
 
+function addEmployeeVarDeductions() {
+	var f = document.forms['uploadForm'];
+	f.action = "../Payroll/addEmployeeVarDeductions";
+	f.submit();
+}
+
 </script>
 </head>
 <body>
@@ -142,8 +148,12 @@ function deleteDeductions(id) {
 		<div  class="container" class="row" style="position: relative;">
 			<div style="margin-top: 12px; float: left; width: 98%;">
 				<h4 style="color: #0101DF;">Employee Variable Deduction</h4>
-				
-				
+				<form method="POST" name="uploadForm" action="" enctype="multipart/form-data">
+					File to upload: <input type="file" name="file">
+					<a href="#" onclick="addEmployeeVarDeductions()" title="Upload file">
+						<img src="../Payroll/resources/images/add.jpg" alt="Upload file" class="addImg" />
+					</a>
+				</form>
 				<div id="EmpDeductionDiv" class="EmpDeductionTableClass" style ="width:100%;">
 					<table id="EmpDeductionTable" class="table table-striped table-bordered table-responsive"></table>
 				</div>
