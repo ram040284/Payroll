@@ -23,10 +23,10 @@ public class EmpFixedDeductions {
 	private Date rowUpdDate;
 	private Employee employee;
 	//FIXME: Review Comments - Chetan - Review nemaing conventions
-	private double ApfAcpf;
+	private double apfAcpf;
 
 	public EmpFixedDeductions(String employeeId, String firstName, String lastName, double kssUnionFee, double rent, 
-			 double courtRecovery, double unionFee, double gis, double additionalPF, double ApfAcpf, Date rowUpdDate){
+			 double courtRecovery, double unionFee, double gis, double additionalPF, double apfAcpf, Date rowUpdDate){
 		this.employeeId = employeeId;
 		this.kssUnionFee = kssUnionFee;
 		this.rent = rent;
@@ -38,12 +38,12 @@ public class EmpFixedDeductions {
 		nameSB.append(Utils.safeTrim(lastName));
 		this.fullName = nameSB.toString();
 		this.additionalPF = additionalPF;
-		this.ApfAcpf = ApfAcpf;
+		this.apfAcpf = apfAcpf;
 		this.rowUpdDate = rowUpdDate;
 	}
 	
 	public EmpFixedDeductions(String employeeId, int departmentId , int designationId, int headId, double kssUnionFee, 
-			double rent, double courtRecovery, double unionFee, double gis, double additionalPF, double ApfAcpf, Date rowUpdDate){
+			double rent, double courtRecovery, double unionFee, double gis, double additionalPF, double apfAcpf, Date rowUpdDate){
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -54,7 +54,7 @@ public class EmpFixedDeductions {
 		this.unionFee = unionFee;
 		this.gis = gis;
 		this.additionalPF = additionalPF;
-		this.ApfAcpf = ApfAcpf;
+		this.apfAcpf = apfAcpf;
 		this.rowUpdDate = rowUpdDate;
 	}
 
@@ -183,10 +183,10 @@ public class EmpFixedDeductions {
 	}
 
 	public double getApfAcpf() {
-		return ApfAcpf;
+		return apfAcpf;
 	}
 
 	public void setApfAcpf(double apfAcpf) {
-		ApfAcpf = apfAcpf;
+		this.apfAcpf = apfAcpf;
 	}
 }

@@ -83,6 +83,7 @@ $(document).ready(function() {
 						  {data:'unionFee',title:'Union Fee'},
 						  {data:'gis',title:'GIS'},
 						  {data:'additionalPF',title:'Additional PF'},
+						  {data:'apfAcpf',title:'APF/ ACPF'},
                           { 
 						   'data': null, 
 						   title:'<a href="#" onclick="addDeductDtls()"><img style="vertical-align: middle;" src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
