@@ -74,7 +74,7 @@ public class SalaryDAO {
 				}
 				else{
 					//System.out.println("Inside update function");
-					salary.setStatus("I");
+					salary.setStatus("A");
 					session.update(salary);
 					salary.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 					transaction.commit();
@@ -110,7 +110,7 @@ public class SalaryDAO {
 					"(select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = s.employee.employeeId and eDept.status = 'A'), "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = s.employee.employeeId and eDesg.status='A'), "
 					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = s.employee.employeeId and dh.status = 'A'), "
-					+ "s.year, s.basic, s.gradePay, s.scalePay, s.incrementAmount, s.incrementDate) from Salary s where s.employee.employeeId = ? and s.status = ?";		
+					+ "s.year, s.basic, s.gradePay, s.scalePay,s.scaleCode, s.incrementAmount, s.incrementDate) from Salary s where s.employee.employeeId = ? and s.status = ?";		
 			
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);

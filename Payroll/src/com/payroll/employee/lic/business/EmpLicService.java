@@ -1,28 +1,19 @@
 package com.payroll.employee.lic.business;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-
 import com.payroll.employee.lic.dataobjects.EmpLic;
 import com.payroll.employee.lic.dataobjects.EmpLicDAO;
 import com.payroll.employee.lic.dataobjects.EmpLicMaster;
-//import com.payroll.employee.lic.vo.EmpLicMasterVO;
-//import com.payroll.employee.lic.vo.EmpLicVO;
+
 
 public class EmpLicService {
-	/*public List<EmpLicVO> getEmpLicList(){
-		return new EmpLicDAO().getEmpLicList();
-	}*/
+	
 	public List<EmpLic> getEmpLicList(){
 		return new EmpLicDAO().getEmpLicList();
 	}
 	public List<EmpLicMaster> getEmpLicMasterList(){
 		return new EmpLicDAO().getEmpLicMasterList();
 	}
-	
-	/*public EmpLic getEmpLicById(EmpLic empLic){
-		return new EmpLicDAO().getEmpLicById(empLic);
-	}*/
 	
 	public EmpLicMaster getEmpLicMasterById(EmpLicMaster empLicMaster){
 		return new EmpLicDAO().getEmpLicMasterById(empLicMaster);

@@ -30,9 +30,7 @@ public class EmpAllowanceController {
 	
 	@RequestMapping(value="/listEmpAlwnce", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<EmpAllowanceVO> listEmpAlwnce(){
-		System.out.println("listEmpLic-- getEmpLicList");
 	   List<EmpAllowanceVO> empAllowances = new EmpAllowanceService().getEmpAllowanceList();
-	   System.out.println("Allowanes List: "+ empAllowances.size());
 	   return empAllowances;
     }
 	
@@ -63,7 +61,6 @@ public class EmpAllowanceController {
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
 			ObjectMapper mapper = new ObjectMapper();
-			System.out.println("inputEmpAlwnce -- empAllowance:"+empAllowance);
 			List<Department> deptList = new DepartmentService().getDepartments();
 			String depJSON = "";
 			try {
@@ -94,7 +91,6 @@ public class EmpAllowanceController {
 		User loggedInUser = (User) request.getSession().getAttribute("user");
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-			System.out.println("addEmpAllowance -- EmpAllowance:"+empAllowance);
 			   String result = new EmpAllowanceService().addUpdateEmpAllowance(empAllowance);
 			   System.out.println("Result:"+result);
 			   return result;
@@ -114,7 +110,6 @@ public class EmpAllowanceController {
 		User loggedInUser = (User) request.getSession().getAttribute("user");
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-			System.out.println("deleteEmpAllowance -- EmpAllowanceVO:"+empAllowance.getEmployeeId());
 			   String result = new EmpAllowanceService().deleteEmpAllowance(empAllowance.getEmployeeId());
 			   System.out.println("Result:"+result);
 			   return "listEmpAlwnce";
@@ -127,9 +122,7 @@ public class EmpAllowanceController {
 	
 	@RequestMapping(value = "/addEmployeeAllowances", method= RequestMethod.POST)
 	public String addEmployeeAllowances(@RequestPart(value = "file") MultipartFile multipartFile) throws ParseException {
-		System.out.println("Inside addEmployeeAllowances controller ***");
 		new EmpAllowanceService().addEmployeeAllowances(multipartFile);
-		System.out.println("After addEmployeeAllowances controller ***");
 		return "redirect:/viewEmpAlwnce";
 		//return "viewEmpAlwnce";
 	}

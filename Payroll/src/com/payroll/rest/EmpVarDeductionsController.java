@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
-import com.payroll.employee.attendance.business.EmployeeAttendanceService;
 import com.payroll.employee.deductions.business.EmpVarDeductionsService;
 import com.payroll.employee.deductions.dataobjects.EmpVarDeductions;
 import com.payroll.login.dao.PermissionsDAO;
@@ -120,15 +118,14 @@ public class EmpVarDeductionsController {
 	}
 	
 	@RequestMapping(value="/deleteEmpVarDeductions",method=RequestMethod.POST)
-	public String deleteEmpDeductDtls(EmpVarDeductions empDeductions, HttpServletRequest request){
+	public String deleteEmpDeductDtls(EmpVarDeductions empVarDeductions, HttpServletRequest request){
 		
 		permissionForThis = "deleteEmployeeVarDeductions";
 		
 		User loggedInUser = (User) request.getSession().getAttribute("user");
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-			System.out.println("deleteEmpDeductDtls -- empDeductions:"+empDeductions.getEmployeeId());
-			   String result = new EmpVarDeductionsService().deleteEmpDeductions(empDeductions.getEmployeeId());
+			   String result = new EmpVarDeductionsService().deleteEmpDeductions(empVarDeductions.getEmployeeId());
 			   System.out.println("Result:"+result);
 			   return "listVarEmpDeductions";
 		} else {
@@ -140,7 +137,6 @@ public class EmpVarDeductionsController {
 	
 	@RequestMapping(value = "/addEmployeeVarDeductions", method= RequestMethod.POST)
 	private String addEmployeeVarDeductions(@RequestPart(value = "file") MultipartFile multipartFile) throws ParseException {
-		System.out.println("addEmployeeVarDeductions called***");
 		new EmpVarDeductionsService().addEmployeeVarDeductions(multipartFile);
 		return "listVarEmpDeductions";
 	}

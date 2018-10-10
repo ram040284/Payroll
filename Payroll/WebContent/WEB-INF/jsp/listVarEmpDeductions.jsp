@@ -87,10 +87,10 @@ $(document).ready(function() {
       			{
  				     'data': null, title:
  				    	 
- 	'<a href="#" onclick="inputDeductDtls()"><img style="vertical-align: middle;" src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg" /></a>',
+ 	'<a href="#" onclick="addDeductions()"><img style="vertical-align: middle;" src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg" /></a>',
     ' width' : '150px',
  	'render': function (employeeDeductionData, type, row) {
-         return '<a href="#" onclick=addUpdateDeductions(\'' + employeeDeductionData.employeeId + '\')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDeductions(\'' + employeeDeductionData.employeeId + '\')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'
+         return '<a href="#" onclick=UpdateDeductions(\'' + employeeDeductionData.employeeId + '\')><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a><a href="#" onclick=deleteDeductions(\'' + employeeDeductionData.employeeId + '\')><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/></a>'
  				               }
  				}
       			  
@@ -102,18 +102,18 @@ $(document).ready(function() {
 	
 });
   
-function addUpdateDeductions(id) {
+function UpdateDeductions(id) {
 	var f = document.forms['editForm'];
 	f.employeeId.value = id;
     f.action = "../Payroll/inputEmpVarDeductions";
 	f.submit();
 }
-function inputDeductDtls() {
+function addDeductions() {
 	var f = document.forms['editForm'];
 	f.action = "../Payroll/inputEmpVarDeductions";
 	f.submit();
 }
-function deleteDeductions(id) {
+function deleteDeductions(id,monthDate) {
 	if (confirm("Are you sure want to delete Employee Deduction Details?")) {
 		var f = document.forms['editForm'];
 		f.employeeId.value = id;

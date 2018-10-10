@@ -2,6 +2,8 @@ package com.payroll.employee.lic.dataobjects;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import com.payroll.Utils;
 import com.payroll.employee.dataobjects.Employee;
@@ -10,12 +12,9 @@ public class EmpLicMaster implements Serializable {
 
 	@Override
 	public String toString() {
-		/*return "EmpLicMaster [employeeId=" + employeeId + ", policyNo=" + policyNo + ", instlmtAmt=" + instlmtAmt
-				+ ", status=" + status + ", rowUpdDate=" + rowUpdDate + ", addUpdate=" + addUpdate + ", employee="
-				+ employee + "]";*/
 		
 		return "EmpLicMaster [employeeId=" + employeeId + ", instlmtAmt=" + instlmtAmt + ", policyNo=" + policyNo
-				+ ", fullName=" + fullName + ", addUpdate=" + addUpdate + ", designationId=" + designationId
+				+ ", fullName=" + fullName + ", addUpdate=" + addUpdate + ",policyStartDate=" + policyStartDate + ",policyMaturityDate=" + policyMaturityDate + ", designationId=" + designationId
 				+ ", departmentId=" + departmentId + ", headId=" + headId + "]";
 	}
 
@@ -25,17 +24,23 @@ public class EmpLicMaster implements Serializable {
 	private String status;
 	private Timestamp rowUpdDate;
 	private short addUpdate; // 0 - Add / 1 - update
+	private String policyStartDate;
+	private String policyMaturityDate;;
 	private Employee employee;
 	private int designationId;
 	private int departmentId;
 	private int headId;
 	private String fullName;
+	
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-MM-dd");
+
 
 	public EmpLicMaster()
 	{
 	}
 
-	public EmpLicMaster(String empId, String fName, String lName, String policyNo, double instlmtAmt) {
+	public EmpLicMaster(String empId, String fName, String lName, String policyNo, double instlmtAmt,String policyStartDate,String policyMaturityDate ) {
 		this.employeeId = empId;
 		StringBuffer fullNameSB = new StringBuffer(fName);
 		fullNameSB.append(" ");
@@ -43,6 +48,26 @@ public class EmpLicMaster implements Serializable {
 		this.fullName = fullNameSB.toString();
 		this.policyNo = policyNo;
 		this.instlmtAmt = instlmtAmt;
+		if (policyStartDate != null)
+		{
+				try {
+					this.policyStartDate = dateFormat.format(dateFormatRead.parse(policyStartDate));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+		if (policyMaturityDate != null)
+		{
+				try {
+					this.policyMaturityDate = dateFormat.format(dateFormatRead.parse(policyMaturityDate));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+		
+		
 	}
 	/** 
 	 * @param empId
@@ -51,14 +76,34 @@ public class EmpLicMaster implements Serializable {
 	 * @param policyNo
 	 * @param instlmtAmt
 	 */
-	public EmpLicMaster(String empId, int departmentId, int designationId,int headId, String policyNo,  double instlmtAmt) {
+	public EmpLicMaster(String empId, int departmentId, int designationId,int headId, String policyNo,  double instlmtAmt,String policyStartDate,String policyMaturityDate) {
 		this.employeeId = empId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
 		this.headId = headId;
 		this.policyNo = policyNo;
         this.instlmtAmt = instlmtAmt;
-	}
+        if (policyStartDate != null)
+		{
+				try {
+					this.policyStartDate = dateFormat.format(dateFormatRead.parse(policyStartDate));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+		if (policyMaturityDate != null)
+		{
+				try {
+					this.policyMaturityDate = dateFormat.format(dateFormatRead.parse(policyMaturityDate));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+		
+		
+       	}
 	
 	public String getFullName() {
 		return fullName;
@@ -105,6 +150,32 @@ public class EmpLicMaster implements Serializable {
 	public void setInstlmtAmt(double instlmtAmt) {
 		this.instlmtAmt = instlmtAmt;
 	}
+	public String getPolicyStartDate() {
+		return policyStartDate;
+	}
+
+	public void setPolicyStartDate(String policyStartDate) {
+		try {
+			this.policyStartDate = dateFormatRead.format(dateFormat.parse(policyStartDate));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public String getPolicyMaturityDate() {
+		return policyMaturityDate;
+	}
+
+	public void setPolicyMaturityDate(String policyMaturityDate) {
+		try {
+			this.policyMaturityDate = dateFormatRead.format(dateFormat.parse(policyMaturityDate));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 
 	public String getPolicyNo() {
 		return policyNo;

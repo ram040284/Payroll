@@ -84,6 +84,7 @@ table.dataTable thead:first-child .sorting_desc {
                         	return gradePayToFormat.toString().replace(/[0-9]/g, '\u2022');
                         }},
                         { data: 'scalePay', title: 'Scale Pay',"autoWidth": false},
+                        { data: 'scaleCode', title: 'Scale Code',"autoWidth": false},
                         {
 						 'data': null,title:'<a href="#" onclick="addSalary()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
 						 'render': function (salaryData, type, row) {

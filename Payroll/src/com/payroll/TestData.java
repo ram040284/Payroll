@@ -37,7 +37,7 @@ public class TestData {
 		EmpLic empLic = new EmpLic();
 		empLic.setEmployeeId(empId);
 		empLic.setPaymentAmount(0);
-		empLic.setPaymentDate("");
+		empLic.setPaymentDate(new Date());
 		empLic.setPolicyNo("");
 		return empLic;
 	}
@@ -45,8 +45,7 @@ public class TestData {
 	public static EmpAllowance getAllowance(String empId){
 		EmpAllowance alw = new EmpAllowance();
 		alw.setCca(0);
-
-		alw.setCycleAlwance(0);
+        alw.setCycleAlwance(0);
 		alw.setEmployeeId(empId);
 		alw.setFamilyPlanAlwance(0);
 		//alw.setHraFlag(false);

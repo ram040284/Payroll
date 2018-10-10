@@ -80,6 +80,8 @@ input[type=file] {
                   {data:'fullName',title:'Employee'},
        			  {data:'policyNo',title:'Policy No'},
        			  {data:'instlmtAmt',title:'Installment Amount'},
+       			  {data:'policyStartDate',title:'Policy StartDate'},
+       			  {data:'policyMaturityDate',title:'Policy MaturityDate'}, 
        			 
        			  {
        				 'data': null, title:'<a href="#" onclick="addLicMaster()"><img style="vertical-align: middle;" src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',

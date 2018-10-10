@@ -44,10 +44,10 @@ public class EmpVarDeductions {
 	private Employee employee;
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
-	private static SimpleDateFormat monthYearFormat = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
+	//private static SimpleDateFormat monthYearFormat = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
 	@CsvBindByName(column= "ABS_DED")
 	private double absenties;
-	String rowUpdateTime;
+	private String rowUpdateTime;
 	
 	public EmpVarDeductions(String employeeId, double afkRent, double society, double pfLoanRecovery,
 			 double otherDeductions, double miscRecovery, double incomeTax, String status, double absenties, String rowUpdateTime) {
@@ -105,10 +105,10 @@ public class EmpVarDeductions {
 		this.note = note;
 		
 		if (monthDate!=null){
-				this.monthDate = monthYearFormat.format(monthDate);
-		} else
-			this.monthDate = "";
-		
+			this.monthDate = dateFormat.format(monthDate);
+	} else
+		this.monthDate = "";
+	
 		StringBuffer nameSB = new StringBuffer(Utils.safeTrim(firstName));
 		nameSB.append(" ");
 		nameSB.append(Utils.safeTrim(lastName));
@@ -118,7 +118,7 @@ public class EmpVarDeductions {
 	}
 
 	public EmpVarDeductions(String employeeId, int departmentId , int designationId, int headId, double afkRent, 
-			double society, double pfLoanRecovery, double otherDeductions, double miscRecovery, String monthDate, String note, double incomeTax, double absenties){
+			double society, double pfLoanRecovery, double otherDeductions, double miscRecovery, String monthDate, String note, double incomeTax, double absenties) throws ParseException{
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
@@ -132,12 +132,8 @@ public class EmpVarDeductions {
 		Date dateMonthDate;
 		
 		if (monthDate!=null){
-			try {
-				dateMonthDate =  dateFormatRead.parse(monthDate);
-				this.monthDate =  dateFormat.format(dateMonthDate);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			//dateMonthDate =  dateFormatRead.parse(monthDate);
+			this.monthDate =  dateFormat.format(monthDate);
 		} else
 			this.monthDate = "";
 		System.out.println("3 Month Date: " + this.monthDate);
