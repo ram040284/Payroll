@@ -94,7 +94,6 @@ function loadDesgByHead(headId, designationId) {
 	    url: '../Payroll/loadDesignations',
 	    data: JSON.stringify(inputJson),
 	    type: "POST", 
-	    async:false,
 	    beforeSend: function(xhr) {
 	        xhr.setRequestHeader("Accept", "application/json");
 	        xhr.setRequestHeader("Content-Type", "application/json");
