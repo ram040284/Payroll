@@ -91,6 +91,18 @@ public class PdfBuilder extends AbstractITextPdfView {
     protected PdfPCell addToCell(String value, Font font){
     	return addToCell(value, font, false);
     }
+    
+    protected PdfPCell addToCellCenter(String value, Font font, boolean alignRight){
+    	PdfPCell cell1 = new PdfPCell();
+        cell1.setBorder(0);
+        cell1.setPadding(3);
+        if(alignRight)
+        	cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell1.setPhrase(new Phrase(value, font));
+       
+        return cell1;
+    }
+    
     protected PdfPCell addToCell(String value, Font font, boolean alignRight){
     	PdfPCell cell1 = new PdfPCell();
         cell1.setBorder(0);

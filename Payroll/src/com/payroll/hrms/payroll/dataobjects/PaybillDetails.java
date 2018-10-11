@@ -92,7 +92,36 @@ public class PaybillDetails {
 	public void setEmployeeNumber(String employeeNumber) {
 		this.employeeNumber = employeeNumber;
 	}*/
-
+	
+	private double totalPT;
+	private double totalLIC;
+	private double totalBankLoan;
+	private double totalGIS;
+	private double totalSociety;
+	private double totalPFS;
+	private double totalAPF;
+	private double totalPFLoan;
+	private double totalCpfAcpf;
+	private double totalCPFRecovery;
+	private double totalIncomeTax;
+	private double totalUnionFees;
+	private double totalUnionFeesKSS;
+	private double totalAfkRecovery;
+	private double totalCountRecovery;
+	private double totalCashPay;
+	private double subtotal;
+	private double pfPention;
+	private double total;
+	private double cashPayment;
+	private double bankOfIndia;
+	private double canaraBank;
+	private double indianBank;
+	private double vijayaBank;
+	private double TotalbankCash;
+	private double recoveries;
+	private double bankTotal;
+	private double pensionContCF;
+	
 	
 	
 	private List<ReportDetails> payrollList;
@@ -504,4 +533,133 @@ public class PaybillDetails {
 	public double getProvidentFund() {
 		return pfsCpf;
 	}
+	
+	// Paybill last page changes - chetan
+	
+	public double getTotalPT(){
+    	this.totalPT = this.pt;
+    	return this.totalPT;
+    }
+	
+	public double getTotalLIC(){
+    	this.totalLIC = this.lic;
+    	return this.totalLIC;
+    }
+	
+	public double getTotalbankLoan(){
+    	this.totalBankLoan = this.bankLoanRcry;
+    	return this.totalBankLoan;
+    }
+	
+	public double getTotalGIS(){
+    	this.totalGIS = this.gis;
+    	return this.totalGIS;
+    }
+	
+	public double getTotalSociety(){
+    	this.totalSociety = this.socity;
+    	return this.totalSociety;
+    }
+	
+	public double getTotalPFS(){
+    	this.totalPFS = this.pfsCpf;
+    	return this.totalPFS;
+    }
+	
+	public double getTotalPFLoan(){
+    	this.totalPFLoan = this.pfLoanRcry;
+    	return this.totalPFLoan;
+    }
+	
+	public double getTotalPfsAcpf(){
+    	this.totalCpfAcpf = this.apfAcf;
+    	return this.totalCpfAcpf;
+    }
+	
+	public double getTotalCPFRecovery(){
+    	this.totalCPFRecovery = this.pfLoanRcry;
+    	return this.totalCPFRecovery;
+    }
+	
+	public double getTotalIncomeTax(){
+    	this.totalIncomeTax = this.incomeTax;
+    	return this.totalIncomeTax;
+    }
+	
+	public double getTotalUnionFees(){
+    	this.totalUnionFees = this.unionFee;
+    	return this.totalUnionFees;
+    }
+	
+	public double getTotalUnionFeesKSS(){
+    	this.totalUnionFeesKSS = this.unionFeeKss;
+    	return this.totalUnionFeesKSS;
+    }
+	
+	public double getTotalAFKRecovery(){
+    	this.totalAfkRecovery = this.afkRent;
+    	return this.totalAfkRecovery;
+    }
+	
+	public double getTotalCourtRecovery(){
+    	this.totalCountRecovery = this.courtRcry;
+    	return this.totalCountRecovery;
+    }
+	
+	public double getCashPayment(){
+    	this.cashPayment = 0.0;
+    	return this.cashPayment;
+    }
+	
+	public double getBankOfIndia(){
+    	return this.bankOfIndia;
+    }
+	
+	public double getCanaraBank(){
+    	return this.canaraBank;
+    }
+	
+	public double getIndianBank(){
+    	return this.indianBank;
+    }
+	
+	public double getVijayaBank(){
+    	return this.vijayaBank;
+    }
+	
+	public double getTotalbankCash(){
+    	this.TotalbankCash = this.bankOfIndia + this.canaraBank + this.vijayaBank + this.indianBank;
+    	return this.TotalbankCash;
+    }
+	
+	public double getRecoveries(){
+    	this.recoveries = 0.0;
+    	return this.recoveries;
+    }
+	
+	public double getCashTotal(){
+    	this.totalCashPay = 0.0;
+    	return this.totalCashPay;
+    }
+	
+	public double getPensionContrCF(){
+    	this.pensionContCF = 0.0;
+    	return this.pensionContCF;
+    }
+	
+	public double getSubTotal(){
+    	this.subtotal = this.pt = this.lic + this.bankLoanRcry + this.gis + this.socity + this.pfsCpf + this.apfAcf + this.pfLoanRcry + this.incomeTax + this.unionFee +
+    			this.unionFeeKss + this.afkRent + this.courtRcry;
+    	return this.subtotal;
+    }
+	
+	public double getPFPension(){
+    	this.pfPention = 0.0;
+    	return this.pfPention;
+    }
+	
+	public double getAllTotal(){
+    	this.total = this.subtotal + this.pfPention;
+    	return this.total;
+    }
 }

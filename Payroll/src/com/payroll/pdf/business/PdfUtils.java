@@ -129,14 +129,55 @@ public class PdfUtils {
 	public static final String DA_FLAG = "Da Flag";
 	public static final String SUSPENSE = "Suspense";
 	public static final String PT_FLAG = "Pt Flag";
-	public static final String PT = "Pt";
+	public static final String PT = "PT";
 	public static final String DP_FLAG = "Dp flag";
 	public static final String NOD = "Nod";
 	public static final String RAYE_OF_PAY = "Rate of pay";
 	public static final String APPOINTED = "Appointed";
 	public static final String ICE_REMARK = "Ice Remark";
 	public static final String DP = "Dp";
+	public static final String PAYBILL_SUMMARY = "PAYBILL SUMARY FOR THE MONTH OF ";
 	
+	public static final String CASH_PAYMENT = "Cash Payment";
+	public static final String BANK_OF_INDIA = "Bank of India";
+	public static final String CANARA_BANK = "Canara Bank";
+	public static final String INDIAN_BANK = "Indian Bank";
+	public static final String VIJAYA_BANK = "Vijaya Bank";
+	public static final String TOTAl_BANK_CASH = "Total bank Cash";
+	public static final String RECOVERIES = "Recoveries";
+	public static final String TOTAL = "Total";
+	public static final String PENSION_CONTR_CF = "Pension Contriution od CF";
+	public static final String PFS_CPF = "PFS/CPF";
+	public static final String BANK_LOAN = "Bank Loan";
+	public static final String APF = "APF";
+	public static final String PF_LOAN_CPF_LOAN = "PF Loan / CPF Recovery";
+	public static final String CPF_RECOVERY = "CPF Recovery";
+	public static final String INCOME_TAX = "Income Tax";
+	public static final String UNION_FEES = "Unios Fees";
+	public static final String UNIOS_FEES_KSS = "Unios Fees KSS";
+	public static final String AFK_RECOVERY = "AFK Recovery";
+	public static final String SUB_TOTAL = "Sub Total";
+	public static final String PF_PENSION = "PF Pension";
+	
+	public static final String CERTIFICATE_NOTE = "This is to certify that the Cantt.Board employees for whom the House rent allowances have been drwn in this paybill "
+			+ "are not provided whith any acoomodation by this Cantonment Board. Khadki";
+	
+	public static final String CERTIFICATE_NOTE_TWO = "This is to clarify that while preparing this paybill for the current month the following "
+			+ "documents have been thoroghjly checked";
+	
+	public static final String CHIEF_EXECUTIVE = "CHIEF EXECUTIVE OFFICER.Khadki";
+	public static final String POERED_BY = "Powered By:";
+	public static final String CERTIFICATE = "CERTIFICATE";
+	
+	public static final String MASTER_ROLLS = "1. Master Rolls";
+	public static final String EARNED_LEAVE_APPLI = "3. Earn Leave Application";
+	public static final String NO_EXCESS = "5. No excesss salary drawn in this paybill";
+	public static final String OVERTIME_ORDERS = "2. Overtime orders";
+	public static final String LAST_MONTH_SAL_DRAWN = "4. Last month salary drawn, No. Of Employees cureent months salary drawn and no. of employees.";
+	public static final String NO_OVERPAT = "6. No overpayment is made on account of OT wages.";
+	
+	public static final String PAY_CLEARK = "Pay Cleark:";
+	public static final String CHECKED_BY = "Checked by:";
 	
 	public static com.itextpdf.text.Image getWaterMarkImg(String waterMarkImg){
 		com.itextpdf.text.Image wmarkimge = null;

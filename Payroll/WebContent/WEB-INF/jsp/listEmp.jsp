@@ -169,7 +169,6 @@ $(document).ready(function() {
 });
 
 function viewEmp(id){
-	alert("id="+id);
 	var f = document.forms['empSearch'];
 	f.employeeId.value=id;
 	f.action="../Payroll/viewEmp";
