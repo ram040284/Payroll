@@ -81,6 +81,22 @@ public class DashboardController {
 		 
 	 }
 	 
+	 @RequestMapping(value = "/pensionMenu", method = RequestMethod.GET)
+	 public String pensionDashboard(ModelMap model, HttpServletRequest request) {
+		 
+		 String permissionForThis = "viewPensionMenu";
+		 User loggedInUser = (User) request.getSession().getAttribute("user");
+			
+		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			return "pensionMenu";
+		} else {
+			request.getSession().setAttribute("message", "You do not have access to view pension details. Please click home button to go back.");
+			request.getSession().setAttribute("unauthorizedMessage", true);
+			return "unauthorized";
+		}
+		 
+	 }
+	 
 	 @RequestMapping(value = "/reportsMenu", method = RequestMethod.GET)
 	 public String reportsDashboard(ModelMap model, HttpServletRequest request) {
 		 
