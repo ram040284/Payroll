@@ -20,6 +20,23 @@ public class EmployeeAdvanceVO {
 	private double installAmount;
 	private Date advanceDate;
 	private Date installStartDate;
+	private Date installEndDate;
+	
+	public Date getInstallEndDate() {
+		return installEndDate;
+	}
+
+	public void setInstallEndDate(Date installEndDate) {
+		this.installEndDate = installEndDate;
+	}
+
+	public SimpleDateFormat getDateFormat() {
+		return dateFormat;
+	}
+
+	public void setDateFormat(SimpleDateFormat dateFormat) {
+		this.dateFormat = dateFormat;
+	}
 	private String status;
 	private Timestamp rowUpdDate;
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

@@ -19,6 +19,7 @@
     <property name="installAmount" column="ADV_INSTALL_AMT" not-null="true"></property>
     <property name="advanceDate" column="ADVANCE_DATE" not-null="true"></property>
     <property name="installStartDate" column="INST_START_DATE" not-null="true"></property>
+    <property name="installEndDate" column="INST_END_DATE" not-null="true"></property>
     <property name="status" column="STATUS" not-null="true"></property>  
     <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"></property>
   </class>  

@@ -9,8 +9,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.payroll.HibernateConnection;
+import com.payroll.advance.dataobjects.EmployeeAdvance;
+import com.payroll.advance.dataobjects.EmployeeAdvanceDAO;
+import com.payroll.advance.dataobjects.EmployeeAdvanceVO;
 import com.payroll.designation.dataobjects.Designation;
 import com.payroll.employee.advances.dataobjects.EmpAdvances;
+import com.payroll.employee.advances.dataobjects.EmpAdvancesDAO;
 import com.payroll.employee.allowance.dataobjects.EmpAllowance;
 import com.payroll.employee.allowance.dataobjects.EmpAllowanceDAO;
 import com.payroll.employee.allowance.vo.EmployeeAllowances;
@@ -86,7 +90,7 @@ public class EmployeePayrollDAO {
 		//System.out.println("loadPayrollInfo employeeId " + employeeId);
     	Salary salary = null;
 		
-		EmpAdvances empAdvances = null;
+    	EmployeeAdvanceVO employeeAdvanceVO = null;
 		//EmpLic empLic = null;
 		List<Overtime> overtimeList = null;
 		List<LeaveRequest> leaves = null;
@@ -127,8 +131,11 @@ public class EmployeePayrollDAO {
 					" from Overtime o where o.employee.employeeId = ? and o.status = ? and o.overtimeDate >= ?");
 			this.date = null;
 			leaves = (List)getObjectsByEmpId(" from LeaveRequest l where l.employee.employeeId = ? and l.status = ?");
-			empAdvances = (EmpAdvances) getObjectByEmpId(
-					" from EmpAdvances a where a.employee.employeeId = ? and a.status = ?");
+			/*empAdvance = (EmpAdvances) getObjectByEmpId(
+					" from EmployeeAdvanceVO a where a.employee.employeeId = ? and a.status = ?");*/
+			
+			employeeAdvanceVO = new EmployeeAdvanceDAO().getAdvancebyEmpId(employeeId);
+			
 			bankVo = (BankVO) getObjectByEmpId(
 					"select new com.payroll.employee.bank.vo.BankVO(b.bankDetails.bankId, b.bankDetails.bankName, b.accountNo) "
    					+ "from EmpBank b where b.employee.employeeId = ? and b.status = ?");
@@ -138,7 +145,16 @@ public class EmployeePayrollDAO {
 //			double abcenties = com.payroll.hrms.payroll.service.EmployeePayrollService.getabcenties(leaves);
 			
 			// This need to check 
-			double festAdvanceRecovery = (empAdvances != null) ? empAdvances.getInstallAmount() : 0;
+			double festAdvanceRecovery = 0; 			
+			if(employeeAdvanceVO!= null && employeeAdvanceVO.getAdvanceAmount()!=0) {
+				EmpAdvancesDAO empAdvancesDAO = new EmpAdvancesDAO();
+				if(!empAdvancesDAO.checkTotalRecovery(employeeAdvanceVO)) {
+					festAdvanceRecovery = employeeAdvanceVO.getInstallAmount();
+					empAdvancesDAO.addAdvanceDetail(employeeAdvanceVO, employeeId);
+				}
+			}
+			
+			//double festAdvanceRecovery = (empAdvances != null) ? empAdvances.getInstallAmount() : 0;)
 			double bankLoanRecovery = 0;
 //			double cpfRecovery = 0;
 			
