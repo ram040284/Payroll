@@ -93,7 +93,7 @@ function loadDesgByHead(headId, designationId) {
 	  $.ajax({
 	    url: '../Payroll/loadDesignations',
 	    data: JSON.stringify(inputJson),
-	    type: "POST",           
+	    type: "POST", 
 	    beforeSend: function(xhr) {
 	        xhr.setRequestHeader("Accept", "application/json");
 	        xhr.setRequestHeader("Content-Type", "application/json");

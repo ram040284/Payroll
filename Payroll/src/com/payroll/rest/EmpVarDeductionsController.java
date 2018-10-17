@@ -1,5 +1,6 @@
 package com.payroll.rest;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.payroll.department.business.DepartmentService;
@@ -115,15 +118,14 @@ public class EmpVarDeductionsController {
 	}
 	
 	@RequestMapping(value="/deleteEmpVarDeductions",method=RequestMethod.POST)
-	public String deleteEmpDeductDtls(EmpVarDeductions empDeductions, HttpServletRequest request){
+	public String deleteEmpDeductDtls(EmpVarDeductions empVarDeductions, HttpServletRequest request){
 		
 		permissionForThis = "deleteEmployeeVarDeductions";
 		
 		User loggedInUser = (User) request.getSession().getAttribute("user");
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-			System.out.println("deleteEmpDeductDtls -- empDeductions:"+empDeductions.getEmployeeId());
-			   String result = new EmpVarDeductionsService().deleteEmpDeductions(empDeductions.getEmployeeId());
+			   String result = new EmpVarDeductionsService().deleteEmpDeductions(empVarDeductions.getEmployeeId());
 			   System.out.println("Result:"+result);
 			   return "listVarEmpDeductions";
 		} else {
@@ -131,5 +133,11 @@ public class EmpVarDeductionsController {
 			request.getSession().setAttribute("unauthorizedMessage", true);
 			return "unauthorized";
 		}
+	}
+	
+	@RequestMapping(value = "/addEmployeeVarDeductions", method= RequestMethod.POST)
+	private String addEmployeeVarDeductions(@RequestPart(value = "file") MultipartFile multipartFile) throws ParseException {
+		new EmpVarDeductionsService().addEmployeeVarDeductions(multipartFile);
+		return "listVarEmpDeductions";
 	}
 }

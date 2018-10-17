@@ -75,7 +75,7 @@ tr > td:last-of-type {
 	<jsp:include page="../public/postHeader.jsp" />
 	<div class="wrapper">
 	<div style="margin-top: 12px; float: left; width: 98%;">
-			<h4 style="color: #0101DF;">Designation Details</h4>
+			<h4 style="color: #0101DF;">Conveyance  Details</h4>
 		<div>
 			
 			<div class="rTable" id="desgListDiv">

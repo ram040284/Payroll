@@ -68,6 +68,52 @@ table.dataTable thead:first-child .sorting_desc {
 <script type="text/javascript">
 
 $(document).ready(function() {
+	
+	$('#searchBtn').on('click',function(e){
+		
+		if($('#departmentId').val() == 0 && $('#firstName').val().trim() == ""){
+			alert('Either Department or Name must be provided to get List!');
+			$('#departmentId').focus();
+			return false;
+		}
+		
+		e.preventDefault();
+		var inputJson = { "firstName" : $('#firstName').val(),"departmentId": $('#departmentId').val(), "headId":$('#headId').val()};
+		
+		$.ajax({
+			async:false,
+			url : '../Payroll/getEmployeeList',
+		    data : JSON.stringify(inputJson),
+		    type : "POST",
+		    contentType: "application/json;charset=utf-8",
+		    success : function(empData) {
+			 var table = $('#empListTable').DataTable({
+				 destroy: true,
+				 "searching": false,
+				 "scrollY": "300px",
+			        data: empData,
+			          columns: [
+			         		{ data: 'fullName', title: 'Name',"autoWidth": false},
+			          		{ data: 'department', title: 'Department',"autoWidth": false},
+			            	{ data: 'headName', title: 'Head',"autoWidth": false},
+			            	{ data: 'designation', title: 'Designation',"autoWidth": false},
+			          		{ data: 'dob', title: 'DOB',"autoWidth": false},
+			            	{ data: 'gender', title: 'Gender',"autoWidth": false},
+			            	{ data: 'joiningDate', title: 'Joining Date',"autoWidth": false},
+			          		{ data: 'retirementDate', title: 'Retirement Date',"autoWidth": false},
+			            	{
+							  'data': null, title:'<a href="#" onclick="inputPage()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
+							  'render': function (empData, type, row) {
+							     return '<a id="' + row.Id +'" href="#" onclick="viewEmp(\'' + empData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'" href="#" onclick="empServiceBook(\'' + empData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/empProcessAttendance.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteEmp(\'' + empData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
+				              }
+							}
+			         ]
+			      }); 
+			   }  
+		 });	
+	});
+	
+	
 	$("#collapse").hide();
 	$("#expand").show();
 	var departmentList = ${departments};
@@ -123,7 +169,6 @@ $(document).ready(function() {
 });
 
 function viewEmp(id){
-	alert("id="+id);
 	var f = document.forms['empSearch'];
 	f.employeeId.value=id;
 	f.action="../Payroll/viewEmp";
@@ -156,53 +201,6 @@ function empServiceBook(id){
 	}else {
 		alert("No E-Book Found for this employee!!!");
 	}
-	
-}
-function searchEmps(){
-	if($('#departmentId').val() == 0 && $('#firstName').val().trim() == ""){
-		alert('Either Department or Name must be provided to get List!');
-		$('#departmentId').focus();
-		return false;
-	}
-	/* var f = document.forms['empSearch'];
-	f.action="../Payroll/employee";
-	f.submit(); */
-	
-	$('#searchBtn').on('click',function(e){
-		e.preventDefault();
-		var inputJson = { "firstName" : $('#firstName').val(),"departmentId": $('#departmentId').val(), "headId":$('#headId').val()};
-		
-		$.ajax({
-			url : '../Payroll/getEmployeeList',
-		    data : JSON.stringify(inputJson),
-		    type : "POST",
-		    contentType: "application/json;charset=utf-8",
-		    success : function(empData) {
-			 var table = $('#empListTable').DataTable({
-				 destroy: true,
-				 "searching": false,
-				 "scrollY": "300px",
-			        data: empData,
-			          columns: [
-			         		{ data: 'fullName', title: 'Name',"autoWidth": false},
-			          		{ data: 'department', title: 'Department',"autoWidth": false},
-			            	{ data: 'headName', title: 'Head',"autoWidth": false},
-			            	{ data: 'designation', title: 'Designation',"autoWidth": false},
-			          		{ data: 'dob', title: 'DOB',"autoWidth": false},
-			            	{ data: 'gender', title: 'Gender',"autoWidth": false},
-			            	{ data: 'joiningDate', title: 'Joining Date',"autoWidth": false},
-			          		{ data: 'retirementDate', title: 'Retirement Date',"autoWidth": false},
-			            	{
-							  'data': null, title:'<a href="#" onclick="inputPage()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
-							  'render': function (empData, type, row) {
-							     return '<a id="' + row.Id +'" href="#" onclick="viewEmp(\'' + empData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'" href="#" onclick="empServiceBook(\'' + empData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/empProcessAttendance.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteEmp(\'' + empData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
-				              }
-							}
-			         ]
-			      }); 
-			   }  
-		 });	
-	});
 	
 }
 

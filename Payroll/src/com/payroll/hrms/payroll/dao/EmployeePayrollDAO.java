@@ -1,5 +1,6 @@
 //package com.kcb.hrms.payroll.dao;
 package com.payroll.hrms.payroll.dao;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -12,7 +13,6 @@ import com.payroll.HibernateConnection;
 import com.payroll.advance.dataobjects.EmployeeAdvance;
 import com.payroll.advance.dataobjects.EmployeeAdvanceDAO;
 import com.payroll.advance.dataobjects.EmployeeAdvanceVO;
-import com.payroll.designation.dataobjects.Designation;
 import com.payroll.employee.advances.dataobjects.EmpAdvances;
 import com.payroll.employee.advances.dataobjects.EmpAdvancesDAO;
 import com.payroll.employee.allowance.dataobjects.EmpAllowance;
@@ -29,7 +29,7 @@ import com.payroll.employee.deductions.dataobjects.EmployeeVarDeductions;
 import com.payroll.employee.leave.dataobjects.LeaveRequest;
 import com.payroll.employee.lic.dataobjects.EmpLic;
 import com.payroll.employee.lic.dataobjects.EmpLicDAO;
-import com.payroll.employee.lic.vo.EmployeeLIC;
+import com.payroll.employee.lic.dataobjects.EmpLicMaster;
 import com.payroll.employee.salary.dataobjects.Salary;
 import com.payroll.employee.vo.EmployeeVO;
 /*import com.kcb.hrms.payroll.dataobjects.EmployeePayroll;
@@ -81,8 +81,8 @@ public class EmployeePayrollDAO {
 	private double courtRcry;
 	private double otherDeducs;
 	private double misc;
-	
 	private double incomeTax;
+	
 	
 	@SuppressWarnings("unchecked")
 	public EmployeePayroll loadPayrollInfo(String employeeId, byte handicapFlag, Date date, int billType){
@@ -115,15 +115,36 @@ public class EmployeePayrollDAO {
 			EmployeeVarDeductions employeeVarDeductions = new EmpVarDeductionsDAO()
 					.getEmpVarDeductionsNew(employeeId);
 	    	
-	    	// Employee Lic Deductions details
-	    	List <EmployeeLIC> listEmployeeLICDeductions = new EmpLicDAO().getEmployeeLicDeductions(employeeId);
+			//Employee Lic Master selectMatured Policies
+			List<EmpLicMaster> empLicMasterList = new EmpLicDAO().getEmpLicMasterListById(employeeId);
 	    	double licTotalInstallmentAmt = 0;
-	    	if (listEmployeeLICDeductions!=null){
-	    		Iterator<EmployeeLIC> listEmpLicIterator = listEmployeeLICDeductions.iterator();
 	    		
-	    		while (listEmpLicIterator.hasNext()){
-	    			EmployeeLIC employeeLIC = listEmpLicIterator.next();
-	    			licTotalInstallmentAmt =licTotalInstallmentAmt + employeeLIC.getInstlmtAmt();
+			if ( !empLicMasterList.isEmpty())
+			{
+	    		Iterator<EmpLicMaster> listEmpLicMasterIterator = empLicMasterList.iterator();
+	    		while (listEmpLicMasterIterator.hasNext()){
+	    			
+	    		  EmpLicMaster empLicMaster = listEmpLicMasterIterator.next();
+	    				    			  
+	    		  licTotalInstallmentAmt = licTotalInstallmentAmt + empLicMaster.getInstlmtAmt();
+							
+		    			  EmpLic empLic = new EmpLic();
+		    			  
+		    			 empLic.setPolicyNo(empLicMaster.getPolicyNo());
+		    			 empLic.setEmployeeId(empLicMaster.getEmployeeId());
+		    			 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		    			 Calendar cal = Calendar.getInstance();
+		    		     month = cal.get(Calendar.MONTH);
+		    		     month = month+1;
+		    		      int year = cal.get(Calendar.YEAR);
+		    			 
+		    			 String dateInString = year+"-"+month+"-25";
+                         Date pdate = sdf.parse(dateInString);
+		    			
+		    		     empLic.setPaymentDate(pdate);
+                         empLic.setPaymentAmount(empLicMaster.getInstlmtAmt());
+                         new EmpLicDAO().addUpdateEmpLic(empLic);
+
 	    		}
 	    	}
 	    	
@@ -131,9 +152,7 @@ public class EmployeePayrollDAO {
 					" from Overtime o where o.employee.employeeId = ? and o.status = ? and o.overtimeDate >= ?");
 			this.date = null;
 			leaves = (List)getObjectsByEmpId(" from LeaveRequest l where l.employee.employeeId = ? and l.status = ?");
-			/*empAdvance = (EmpAdvances) getObjectByEmpId(
-					" from EmployeeAdvanceVO a where a.employee.employeeId = ? and a.status = ?");*/
-			
+		
 			employeeAdvanceVO = new EmployeeAdvanceDAO().getAdvancebyEmpId(employeeId);
 			
 			bankVo = (BankVO) getObjectByEmpId(

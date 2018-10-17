@@ -46,8 +46,8 @@ public class EmployeeVarDeductions {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} /*else
-			this.monthDate = "";*/
+		} else
+			this.monthDate = "";
 		this.incomeTax = incomeTax;
 		this.pfLoanRecovery = pfLoanRecovery;
 		this.absenties = absenties;

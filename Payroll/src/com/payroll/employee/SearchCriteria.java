@@ -9,6 +9,7 @@ public class SearchCriteria {
 	private int listHeadId;
 	private String listName;
 	private String employeeId;
+	private int employeeType;
 	
 	public SearchCriteria(){
 		
@@ -65,6 +66,12 @@ public class SearchCriteria {
 	}
 	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
+	}
+	public int getEmployeeType() {
+		return employeeType;
+	}
+	public void setEmployeeType(int employeeType) {
+		this.employeeType = employeeType;
 	}
 
 	

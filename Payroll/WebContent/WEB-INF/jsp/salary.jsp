@@ -41,7 +41,8 @@ $(document).ready(function() {
 			if(empId !=0){
 				if(year == $('#year').val() && 
 						basic == $('#basic').val() && gradePay == $('#gradePay').val() && 
-						scalePay == $('#scalePay').val() && scaleInc == $('#scaleInc').val()){
+						scalePay == $('#scalePay').val() && scaleCode == $('#scaleCode').val()
+						&& scaleInc == $('#scaleInc').val()){
 					alert('Nothing was changed');
 					$('#employeeId').focus();
 					return false;
@@ -111,6 +112,11 @@ $(document).ready(function() {
 		if($('#scalePay').val().trim() == ""){
 			alert("Scale Pay must be provided!");
 			$('#scalePay').focus();
+			return false;
+		}
+		if($('#scaleCode').val().trim() == ""){
+			alert("Scale Code must be provided!");
+			$('#scaleCode').focus();
 			return false;
 		}
 		var empIdInput = 0;
@@ -227,6 +233,15 @@ function checkAmount(value){
 									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${salary.employeeId != '0'}" > value="1" </c:if>/>
 								</div>
 							</div>
+							
+							<div class="row">
+							<div class="col-sm-4 form-group">
+									<label>Scale Code:</label>
+									<form:input path="scaleCode"  id="scaleCode" placeholder="Enter Scale Code" class="form-control"/>
+									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${salary.employeeId != '0'}" > value="1" </c:if>/>
+								</div>
+								</div>
+							
 							<%--<div class="row">
 								<div class="col-sm-6 form-group">
 									<label>Scale Increment:</label>
@@ -243,8 +258,8 @@ function checkAmount(value){
 								</div>	
 							</div>
 					</div>
-					<input type="hidden" id="scaleCode" name="scaleCode" value="${salary.scaleCode}">
-				</form:form>
+<%-- 					<input type="hidden" id="scaleCode" name="scaleCode" value="${salary.scaleCode}">
+ --%>				</form:form>
 			</div>
 		</div>
 	</div>

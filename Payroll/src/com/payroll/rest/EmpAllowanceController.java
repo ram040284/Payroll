@@ -1,5 +1,6 @@
 package com.payroll.rest;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.payroll.department.business.DepartmentService;
@@ -27,9 +30,7 @@ public class EmpAllowanceController {
 	
 	@RequestMapping(value="/listEmpAlwnce", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<EmpAllowanceVO> listEmpAlwnce(){
-		System.out.println("listEmpLic-- getEmpLicList");
 	   List<EmpAllowanceVO> empAllowances = new EmpAllowanceService().getEmpAllowanceList();
-	   System.out.println("Allowanes List: "+ empAllowances.size());
 	   return empAllowances;
     }
 	
@@ -60,7 +61,6 @@ public class EmpAllowanceController {
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
 			ObjectMapper mapper = new ObjectMapper();
-			System.out.println("inputEmpAlwnce -- empAllowance:"+empAllowance);
 			List<Department> deptList = new DepartmentService().getDepartments();
 			String depJSON = "";
 			try {
@@ -91,7 +91,6 @@ public class EmpAllowanceController {
 		User loggedInUser = (User) request.getSession().getAttribute("user");
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-			System.out.println("addEmpAllowance -- EmpAllowance:"+empAllowance);
 			   String result = new EmpAllowanceService().addUpdateEmpAllowance(empAllowance);
 			   System.out.println("Result:"+result);
 			   return result;
@@ -111,7 +110,6 @@ public class EmpAllowanceController {
 		User loggedInUser = (User) request.getSession().getAttribute("user");
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-			System.out.println("deleteEmpAllowance -- EmpAllowanceVO:"+empAllowance.getEmployeeId());
 			   String result = new EmpAllowanceService().deleteEmpAllowance(empAllowance.getEmployeeId());
 			   System.out.println("Result:"+result);
 			   return "listEmpAlwnce";
@@ -120,5 +118,12 @@ public class EmpAllowanceController {
 			request.getSession().setAttribute("unauthorizedMessage", true);
 			return "unauthorized";
 		}
+	}
+	
+	@RequestMapping(value = "/addEmployeeAllowances", method= RequestMethod.POST)
+	public String addEmployeeAllowances(@RequestPart(value = "file") MultipartFile multipartFile) throws ParseException {
+		new EmpAllowanceService().addEmployeeAllowances(multipartFile);
+		return "redirect:/viewEmpAlwnce";
+		//return "viewEmpAlwnce";
 	}
 }

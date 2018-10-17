@@ -1,33 +1,63 @@
 package com.payroll.employee.deductions.dataobjects;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvDate;
 import com.payroll.Utils;
 import com.payroll.employee.dataobjects.Employee;
 
 public class EmpVarDeductionsVO {
+	@CsvBindByName(column= "EMP_ID")
 	private String employeeId;
+	@CsvBindByName(column= "AFK_RENT")
 	private double afkRent;
+	@CsvBindByName(column= "SOCITY")
 	private double society;
+	@CsvBindByName(column= "PF_LOAN_REC")
 	private double pfLoanRecovery;
+	@CsvBindByName(column= "OTHER_DEDUCTION")
 	private double otherDeductions;
+	@CsvBindByName(column= "MIS_RCVRY")
 	private double miscRecovery;
+//	@CsvBindByName(column = "MONTH_DATE")
+//	@CsvDate("MM-dd-yyyy")
 	private Date monthDate;
+//	@CsvBindByName(column= "NOTE")
 	private String note;
 	private int departmentId;
 	private int headId;
 	private int designationId;
 	private String fullName;
+	@CsvBindByName(column= "INCOME_TAX")
 	private double incomeTax;
+	@CsvBindByName(column= "STATUS")
 	private String status;
 	private short addUpdate;
 	private Timestamp rowUpdDate;
 	private Employee employee;
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
+	@CsvBindByName(column= "ABS_DED")
 	private double absenties;
+	
+	public EmpVarDeductionsVO(String employeeId, double afkRent, double society, double pfLoanRecovery,
+			 double otherDeductions, double miscRecovery, double incomeTax, double absenties,String status) {
+		
+		this.employeeId = employeeId;
+		this.afkRent = afkRent;
+		this.society = society;
+		this.pfLoanRecovery = pfLoanRecovery;
+		this.otherDeductions = otherDeductions;
+		this.miscRecovery = miscRecovery;
+		this.monthDate = monthDate;
+		this.incomeTax = incomeTax;
+		this.absenties = absenties;
+		this.status = status;
+		
+	}
 
 	public EmpVarDeductionsVO(String employeeId, String firstName, String lastName, double afkRent, double society, double pfLoanRecovery,
 			 double otherDeductions, double miscRecovery, Date monthDate, double incomeTax, double absenties){
@@ -221,7 +251,6 @@ public class EmpVarDeductionsVO {
 	public void setAbsenties(double absenties) {
 		this.absenties = absenties;
 	}
-
 
 
 }

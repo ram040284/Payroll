@@ -37,12 +37,18 @@ $(document).ready(function() {
 		getEmployeesByIds(deptId, desgId, empId);
 	}
 	
+	$('#policyStartDate').datepick({dateFormat: 'dd/mm/yyyy'});
+	$('#policyMaturityDate').datepick({dateFormat: 'dd/mm/yyyy'});
+	$('#inlineDatepicker').datepick({onSelect: showDate});	
+	
 	$('#addLicBtn').click(function(event) {
 				var policyNo = "${empLic.policyNo}";
 				var instlmtAmt = "${empLic.instlmtAmt}";
+				var policyStartDate = "${empLic.policyStartDate}";
+				var policyMaturityDate = "${empLic.policyMaturityDate}";
 				if(empId != 0){
 					if(policyNo == $('#policyNo').val() && 
-							instlmtAmt == $('#instlmtAmt').val()){
+							instlmtAmt == $('#instlmtAmt').val() && policyStartDate == $('#policyStartDate').val() && policyMaturityDate == $('#policyMaturityDate').val() ){
 						alert('Nothing was changed');
 						$('#policyNo').focus();
 						return false;
@@ -81,8 +87,18 @@ $(document).ready(function() {
 			$('#instlmtAmt').focus();
 			return false;
 		}
+		if($('#policyStartDate').val() == ''){
+			alert("Policy StartDate must be provided!");
+			$('#policyStartDate').focus();
+			return false;
+		}
+		if($('#policyMaturityDate').val() == ''){
+			alert("Policy MaturityDate must be provided!");
+			$('#policyMaturityDate').focus();
+			return false;
+		}
 		var inputJson = { "employeeId" : $('#employeeId').val(), "policyNo" : $('#policyNo').val()  , "instlmtAmt" : $('#instlmtAmt').val(),
-				 "addUpdate": $('#addUpdate').val()};
+				 "addUpdate": $('#addUpdate').val(), "policyStartDate": $('#policyStartDate').val(),"policyMaturityDate": $('#policyMaturityDate').val()};
 		$.ajax({
 	        url: '../Payroll/addEmpLicMaster',
 	        data: JSON.stringify(inputJson),
@@ -100,6 +116,10 @@ $(document).ready(function() {
 	    event.preventDefault();
 	});
 });
+
+function showDate(date) {
+	alert('The date chosen is ' + date);
+}
 </script>
 <jsp:include page="../jsp/public/master.jsp" />
 </head>
@@ -176,18 +196,24 @@ $(document).ready(function() {
 									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test='${!(empLic.employeeId eq "0")}' > value="1" </c:if>>
 								</div>
 								<div class="col-sm-6 form-group">
+									<label>Policy StartDate:</label>
+									<form:input path="policyStartDate"  id="policyStartDate" placeholder="Enter Policy StartDate" class="form-control"/>
+									
 								</div>
-							</div>
-					
+								<div class="col-sm-6 form-group">
+									<label>Policy MaturityDate:</label>
+									<form:input path="policyMaturityDate"  id="policyMaturityDate" placeholder="Enter Policy MaturityDate" class="form-control"/>
+									
+								</div>
+								</div>
 							
-						<div class="row">	
+					         <div class="row">	
 							<div class="text-right">
 								<button type="button" id="addLicBtn" class="btn">Submit</button>
 								<button type="reset" class="btn">Reset</button>	
 							</div>	
-						</div>
-					</div>
-						
+							</div>
+					   </div>
 				</form:form>
 			</div>
 		</div>

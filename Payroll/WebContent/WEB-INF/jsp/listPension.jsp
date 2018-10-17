@@ -39,7 +39,7 @@ select {
 	background-color: #f2f2f2; !important
 }
 
-.salaryListTableClass th {
+.pensionListTableClass th {
 	background-color: #8B9DC3;
 	color: #fff;
 	cursor: pointer;
@@ -64,29 +64,30 @@ table.dataTable thead:first-child .sorting_desc {
 <script type="text/javascript">
     	 $(document).ready(function(){
     		  $.ajax({
-              url : '../Payroll/listSalary',
+              url : '../Payroll/listPension',
               type:"GET",
               contentType: "application/json;charset=utf-8",
-              success : function(salaryData) {
-             $('#salaryListTable').DataTable({
+              success : function(pensionData) {
+             $('#pensionListTable').DataTable({
             	 columnDefs: [
             		    { className: 'text-right', targets: [2,3,4] }, // 2- Basic Pay, 3- Grade Pay, 4- Scale Pay
             		  ],
             	 "scrollY": "300px",
-                  data: salaryData,
+                  data: pensionData,
                       columns: [
       					{ data: 'fullName', title: 'Employee',"autoWidth": false},
-                      	{ data: 'year', title: 'Year',"autoWidth": false},
-                        { data: 'basic', title: 'Basic Pay',"autoWidth": false, render: function(basicToFormat) {
+                        { data: 'basicPension', title: 'Basic Pension',"autoWidth": false, render: function(basicToFormat) {
                         	return basicToFormat.toString().replace(/[0-9]/g, '\u2022');
                         }},
-                        { data: 'gradePay', title: 'Grade Pay',"autoWidth": false, render: function(gradePayToFormat) {
-                        	return gradePayToFormat.toString().replace(/[0-9]/g, '\u2022');
+                        { data: 'residualPension', title: 'Residual Pension',"autoWidth": false, render: function(basicToFormat) {
+                        	return basicToFormat.toString().replace(/[0-9]/g, '\u2022');
                         }},
-                        { data: 'scalePay', title: 'Scale Pay',"autoWidth": false},
-                        { data: 'scaleCode', title: 'Scale Code',"autoWidth": false},
+                        { data: 'medicalAllowance', title: 'Medical Allowance',"autoWidth": false, render: function(basicToFormat) {
+                        	return basicToFormat.toString().replace(/[0-9]/g, '\u2022');
+                        }},
+                        { data: 'commutationAmount', title: 'Commutation Amount',"autoWidth": false},
                         {
-						 'data': null,title:'<a href="#" onclick="addSalary()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
+						 'data': null,title:'<a href="#" onclick="addPension()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
 						 'render': function (salaryData, type, row) {
             			   return '<a id="' + row.Id +'" href="#" onclick="updateSalary(\'' + salaryData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteSalary(\'' + salaryData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
 			            	}
@@ -97,24 +98,24 @@ table.dataTable thead:first-child .sorting_desc {
       	   });
       });   	                 
 	
-      function addSalary(){
+      function addPension(){
        	  var f = document.forms['editForm'];
-   		  f.action="../Payroll/inputSalary";
+   		  f.action="../Payroll/inputPension";
    		  f.submit();
    	  }
 
-      function updateSalary(id){
+      function updatePension(id){
     	  var f = document.forms['editForm'];
 		  f.employeeId.value=id;
-		  f.action="../Payroll/inputSalary";
+		  f.action="../Payroll/inputPension";
 		  f.submit();
 	  }
       
-      function deleteSalary(id){
-    	  if(confirm("Are you sure want to delete Employee Salary?")){
+      function deletePension(id){
+    	  if(confirm("Are you sure want to delete Employee Pension?")){
     		  var f = document.forms['editForm'];
     		  f.employeeId.value=id;
-    		  f.action="../Payroll/deleteSalary";
+    		  f.action="../Payroll/deletePension";
     		  f.submit();
     	  }
       }
@@ -126,16 +127,16 @@ table.dataTable thead:first-child .sorting_desc {
 			<div class="formDiv" style="border: none;">
 				<div class="row">
 					<div class="text-left" style="margin-left: 15px;">
-						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/employeeMenu')">Back</button>
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/pensionMenu')">Back</button>
 					</div>
 				</div>
 			</div>	
 		</div>
 		<div class="container">
 			<div style="margin-top: 12px; float: left; width: 98%;">
-				<h4 style="color: #0101DF;">Salary Details</h4>
-				<div id="salaryListDiv" class="salaryListTableClass" style ="width:100%; margin-top: 25px">
-					<table id="salaryListTable" class="table table-striped table-bordered table-responsive"></table>
+				<h4 style="color: #0101DF;">Pension Details</h4>
+				<div id="pensionListDiv" class="pensionListTableClass" style ="width:100%; margin-top: 25px">
+					<table id="pensionListTable" class="table table-striped table-bordered table-responsive"></table>
 				</div>
 			</div>
 		</div>

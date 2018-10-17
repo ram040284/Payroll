@@ -43,15 +43,13 @@ td, th {
 						$('#addDeductBtn')
 								.click(
 										function(event) {
-											var kssUnionFeeVal = $(
-													'#kssUnionFee').val();
-											var rentVal = $('#rent').val()
-													.trim();
-											var courtRecoveryVal = $(
-													'#courtRecovery').val();
+											var kssUnionFeeVal = $('#kssUnionFee').val();
+											var rentVal = $('#rent').val().trim();
+											var courtRecoveryVal = $('#courtRecovery').val();
 											var unionFeeVal = $('#unionFee').val();
 											var gisVal = $('#gis').val();
 											var additionalPFVal = $('#additionalPF').val();
+											var apfAcpfVal = $('#apfAcpf').val();
 											
 											if (empId != 0) {
 												var kssUnionFee = "${empDeductions.kssUnionFee}";
@@ -60,12 +58,14 @@ td, th {
 												var unionFee = "${empDeductions.unionFee}";
 												var gis = "${empDeductions.gis}";
 												var additionalPF = "${empDeductions.additionalPF}";
+												var apfAcpf = "${empDeductions.apfAcpf}";
 												if (kssUnionFee == kssUnionFeeVal
 														&& rent == rentVal
 														&& courtRecovery == courtRecoveryVal
 														&& unionFee == unionFeeVal
 														&& gis == gisVal
-														&&additionalPF == additionalPFVal) {
+														&& additionalPF == additionalPFVal
+														&& apfAcpf == apfAcpfVal) {
 													alert('Nothing was changed');
 													$('#kssUnionFee').focus();
 													return false;
@@ -124,6 +124,11 @@ td, th {
 												$('#additionalPF').focus();
 												return false;
 											}
+											if (apfAcpfVal && isNaN(apfAcpfVal)) {
+												alert("Please enter valid APF /ACPF Value!");
+												$('#apfAcpf').focus();
+												return false;
+											}
 											
 											var inputJson = {
 												"employeeId" : $('#employeeId').val(),
@@ -133,7 +138,8 @@ td, th {
 												"unionFee" : unionFeeVal,
 												"courtRecovery" : courtRecoveryVal,
 												"gis" : gisVal,
-												"additionalPF" : additionalPFVal
+												"additionalPF" : additionalPFVal,
+												"apfAcpf" : apfAcpfVal
 											};
 											$
 													.ajax({
@@ -256,7 +262,13 @@ td, th {
 											placeholder="Enter Additional PF value" class="form-control" />
 										<input type="hidden" name="addUpdate" id="addUpdate"
 											<c:if test="${empDeductions.employeeId != '0'}" > value="1" </c:if> />
-											
+									</div>
+									<div class="col-sm-4 form-group">
+										<label>APF/ ACPF</label>
+										<form:input path="apfAcpf" id="apfAcpf"
+											placeholder="Enter APF/ ACPF value" class="form-control" />
+										<input type="hidden" name="addUpdate" id="addUpdate"
+											<c:if test="${empDeductions.employeeId != '0'}" > value="1" </c:if> />
 									</div>
 								</div>
 								<div class="row">

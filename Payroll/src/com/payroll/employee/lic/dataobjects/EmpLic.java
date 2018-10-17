@@ -2,8 +2,8 @@ package com.payroll.employee.lic.dataobjects;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.payroll.Utils;
 import com.payroll.employee.dataobjects.Employee;
@@ -12,10 +12,7 @@ public class EmpLic implements Serializable {
 	private String employeeId;
 	@Override
 	public String toString() {
-         /* return "EmpLic [employeeId=" + employeeId + ", paymentAmount=" + paymentAmount
-				+ ", policyNo=" + policyNo + ", paymentDate=" + paymentDate + ", status=" + status + ", rowUpdDate="
-				+ rowUpdDate + ", addUpdate=" + addUpdate + ", employee=" + employee + "]";
-	*/
+       
 		return "EmpLic[employeeId=" + employeeId + ", policyNo=" + policyNo
 				+ ", paymentDate=" + paymentDate + ", paymentAmount=" + paymentAmount
 				+ ", fullName=" + fullName + ", addUpdate=" + addUpdate + ", designationId=" + designationId
@@ -26,7 +23,7 @@ public class EmpLic implements Serializable {
 	private double instlmtAmt;
 	private double paymentAmount;
 	private String policyNo;
-	private String paymentDate;
+	private Date paymentDate;
 	private String fullName;
 	private String status;
 	private Timestamp rowUpdDate;
@@ -35,50 +32,31 @@ public class EmpLic implements Serializable {
 	private int designationId;
 	private int departmentId;
 	private int headId;
-	
-	
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	private static SimpleDateFormat dateFormatRead = new SimpleDateFormat("yyyy-mm-dd");
+	 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	public EmpLic()
 	{
 		
 	}
 
-
-	public EmpLic(String empId, String fName, String lName, String policyNo, String paymentDate,double paymentAmount) {
+   public EmpLic(String empId, String fName, String lName, String policyNo, Date paymentDate,double paymentAmount) {
 		this.employeeId = empId;
 		StringBuffer fullNameSB = new StringBuffer(fName);
 		fullNameSB.append(" ");
 		fullNameSB.append(Utils.safeTrim(lName));
 		this.fullName = fullNameSB.toString();
 		this.policyNo = policyNo;
-		if (paymentDate != null)
-		{
-				try {
-					this.paymentDate = dateFormat.format(dateFormatRead.parse(paymentDate));
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		}
-		this.paymentAmount = paymentAmount;
+		this.paymentDate = paymentDate;
+	    this.paymentAmount = paymentAmount;
 	}
 
-	public EmpLic(String empId, int departmentId, int designationId, int headId, String policyNo, String paymentDate, double paymentAmount) {
+	public EmpLic(String empId, int departmentId, int designationId, int headId, String policyNo, Date paymentDate, double paymentAmount) {
 		this.employeeId = empId;
 		this.departmentId = departmentId;
 		this.designationId = designationId;
 		this.headId = headId;
 		this.policyNo = policyNo;
-		if (paymentDate != null)
-		{
-			try {
-				this.paymentDate = dateFormat.format(dateFormatRead.parse(paymentDate));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}		}
+		this.paymentDate = paymentDate;
 		this.paymentAmount = paymentAmount;
 	}
 
@@ -98,20 +76,16 @@ public class EmpLic implements Serializable {
 	public void setPolicyNo(String policyNo) {
 		this.policyNo = policyNo;
 	}
-
-	public String getPaymentDate() {
+		
+	public Date getPaymentDate() {
 		return paymentDate;
 	}
 
-	public void setPaymentDate(String paymentDate) {
-//		this.paymentDate = paymentDate;
-		try {
-			this.paymentDate = dateFormatRead.format(dateFormat.parse(paymentDate));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+	public void setPaymentDate(Date paymentDate) {
+		this.paymentDate = paymentDate;
 	}
+
 
 	public String getStatus() {
 		return status;
@@ -186,6 +160,4 @@ public class EmpLic implements Serializable {
 	}
 
 
-
-
-	}
+}

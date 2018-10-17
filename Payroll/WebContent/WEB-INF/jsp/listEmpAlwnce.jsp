@@ -120,6 +120,12 @@ table.dataTable thead:first-child .sorting_desc {
     		  f.submit();
     	  }
       }
+      
+      function addEmployeeAllowances() {
+    		var f = document.forms['uploadForm'];
+    		f.action = "../Payroll/addEmployeeAllowances";
+    		f.submit();
+     	}
       </script>
 </head>
 <body>
@@ -136,6 +142,12 @@ table.dataTable thead:first-child .sorting_desc {
 			<div class="container">
 				<div style="margin-top: 12px; float: left; width: 98%;">
 					<h4 style="color: #0101DF;">Employee Fixed Allowances</h4>	
+					<form method="POST" name="uploadForm" action="" enctype="multipart/form-data">
+						File to upload: <input type="file" name="file">
+						<a href="#" onclick="addEmployeeAllowances()" title="Upload file">
+							<img src="../Payroll/resources/images/add.jpg" alt="Upload file" class="addImg" />
+						</a>
+					</form>
 					<div id="allowanceListDiv" class="allowanceListTableClass" style ="width:100%; margin-top: 25px">
 						<table id="allowanceListTable" class="table table-striped table-bordered table-responsive"></table>
 					</div>

@@ -11,7 +11,9 @@ import org.hibernate.exception.ConstraintViolationException;
 import com.payroll.HibernateConnection;
 import com.payroll.employee.allowance.vo.EmpAllowanceVO;
 import com.payroll.employee.allowance.vo.EmployeeAllowances;
+import com.payroll.employee.business.EmployeeService;
 import com.payroll.employee.dataobjects.Employee;
+import com.payroll.employee.deductions.dataobjects.EmpVarDeductionsVO;
 
 public class EmpAllowanceDAO {
 	
@@ -71,7 +73,11 @@ public class EmpAllowanceDAO {
 			EmployeeAllowances employeeAllowances = null;
 			Session session = null;
 			try{
-				String queryString = "select new com.payroll.employee.allowance.vo.EmployeeAllowances(a.employeeId, a.cca, a.washingAlwance,a.nonPracAwance,a.uniformAlwance,a.familyPlanAlwance, a.cycleAlwance,a.hraFlag,a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance) from EmpAllowance a where a.employee.employeeId = ? and a.status = ?";		
+				String queryString = "select new com.payroll.employee.allowance.vo.EmployeeAllowances(a.employeeId, a.cca, a.washingAlwance,"
+						+ "a.nonPracAwance,a.uniformAlwance,a.familyPlanAlwance,"
+						+ " a.cycleAlwance,a.hraFlag,a.qtrFlag,a.afkFlag, a.taFlag,"
+						+ " a.pfFlag, a.otherAllowance, a.tAllowance) from EmpAllowance a"
+						+ " where a.employee.employeeId = ? and a.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -86,6 +92,49 @@ public class EmpAllowanceDAO {
 			}	
 		return employeeAllowances;
 	}
+	//new code added
+	public String updateEmpAllowance(EmpAllowance empAllowance){
+ 		String result = null;
+ 		Session session = null;
+		Transaction transaction = null;
+ 		try{
+ 			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			
+			Query query = session.createQuery("update EmpAllowance a set a.cca = ?, a.washingAlwance = ?,a.nonPracAwance = ? , a.uniformAlwance = ?, a.familyPlanAlwance = ? ,a.cycleAlwance = ?, a.hraFlag =?, a.qtrFlag = ?,a.afkFlag = ?,a.taFlag = ?, a.pfFlag = ?, a.otherAllowance = ?,a.tAllowance = ?,a.rowUpdDate = ? "
+					+ "where a.employeeId = ? and a.status = ?");
+            query.setParameter(0,empAllowance.getCca()) ;
+			query.setParameter(1,empAllowance.getWashingAlwance());
+			query.setParameter(2,empAllowance.getNonPracAwance());
+			query.setParameter(3,empAllowance.getUniformAlwance());
+			query.setParameter(4,empAllowance.getFamilyPlanAlwance());
+			query.setParameter(5,empAllowance.getCycleAlwance());
+			query.setParameter(6,empAllowance.getHraFlag());
+			query.setParameter(7,empAllowance.getQtrFlag());
+			query.setParameter(8,empAllowance.getAfkFlag());
+			query.setParameter(9,empAllowance.getTaFlag());
+			query.setParameter(10,empAllowance.getPfFlag());
+            query.setParameter(11,empAllowance.getOtherAllowance());
+			query.setParameter(12,empAllowance.gettAllowance());
+			query.setParameter(13,empAllowance.getRowUpdDate());
+            query.setParameter(14,empAllowance.getEmployeeId());
+			query.setParameter(15,"A");
+          int updated = query.executeUpdate();
+ 			if(updated > 0)
+ 				result = "Successfully updated var allowance Details!";
+			  session.flush();
+			transaction.commit();
+			result = "Yes";
+		}catch(Exception e){
+			e.printStackTrace();
+			result = "Failed to update var allowance Details!";
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return result;
+	}
+
+
 
 	public String deleteEmpAllowance(String empId){
 		String result = null;
@@ -131,7 +180,7 @@ public class EmpAllowanceDAO {
 				session.save(empAllowance);
 			}
 			else {
-				session.update(empAllowance);
+				updateEmpAllowance(empAllowance);
 			}
 			session.flush();
 			transaction.commit();
@@ -147,6 +196,45 @@ public class EmpAllowanceDAO {
 		}finally {
 			HibernateConnection.closeSession(session);
 		}
+		return result;
+	}
+	
+	public String addOrUpdateEmpAllowances(List<EmpAllowance> allowances) {
+		
+		Session session = null;
+		Transaction transaction = null;
+		
+		String result;
+		try {
+			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			for (EmpAllowance alEmpAllowance: allowances) {
+				EmployeeAllowances empAllowance = getEmployeeAllowances(alEmpAllowance.getEmployeeId());
+				if (empAllowance != null) {
+					List<Employee> employee = new EmployeeService().getEmployeeByEmployeeId(alEmpAllowance.getEmployeeId());
+					alEmpAllowance.setEmployee(employee.get(0));
+					alEmpAllowance.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+					session.update(alEmpAllowance);
+					session.flush();
+				}else {
+					List<Employee> employee = new EmployeeService().getEmployeeByEmployeeId(alEmpAllowance.getEmployeeId());
+					alEmpAllowance.setEmployee(employee.get(0));
+					alEmpAllowance.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+					session.save(alEmpAllowance);
+					session.flush();
+				}
+				
+			}
+			transaction.commit();
+			result = "success";
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			transaction.rollback();
+			result = "failure";
+		} finally {
+			HibernateConnection.closeSession(session);
+		}
+		
 		return result;
 	}
 }

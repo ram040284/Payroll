@@ -16,5 +16,7 @@
     <property name="instlmtAmt" column="INSTALL_AMT" not-null="true"/> 
     <property name="status" column="STATUS" not-null="true"/>  
     <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/> 
+    <property name="policyStartDate" column="POLICY_STARTDATE" not-null="true"/>
+    <property name="policyMaturityDate" column="POLICY_MATURITYDATE" not-null="true"/>  
   </class>  
  </hibernate-mapping> 

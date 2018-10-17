@@ -41,7 +41,7 @@ public class SalaryVO implements Serializable{
 	}
 	
 	public SalaryVO (String empId, int deptId, int desgId, int headId, int year, double basic, 
-			double gradePay, String scalePay, double incrementAmount, Date incrementDate){
+			double gradePay, String scalePay,String scaleCode, double incrementAmount, Date incrementDate){
 		this.employeeId = empId;
 		this.departmentId = deptId;
 		this.designationId = desgId;
@@ -50,7 +50,8 @@ public class SalaryVO implements Serializable{
 		this.gradePay = gradePay;
 		//this.scaleInc = scaleInc;
 		this.scalePay = scalePay;
-		this.headId = headId;
+		this.scaleCode= scaleCode;
+        this.headId = headId;
 		this.incrementAmount = incrementAmount;
 		this.incrementDate = incrementDate;
 	}

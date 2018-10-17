@@ -4,27 +4,71 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import com.opencsv.bean.CsvBindByName;
 import com.payroll.employee.dataobjects.Employee;
 
 public class EmpAllowance implements Serializable {
+	@CsvBindByName(column= "EMP_ID")
 	private String employeeId;
+	@CsvBindByName(column= "CCA")
 	private double cca;
+	@CsvBindByName(column= "WASHING_ALLOWANCE")
 	private double washingAlwance;
+	@CsvBindByName(column= "NON_PRACT_ALLOWANCE")
 	private double nonPracAwance;
+	@CsvBindByName(column= "UNIFORM_ALLOWANCE")
 	private double uniformAlwance;
+	@CsvBindByName(column= "FAMILY_PLANNING_ALLOWANCE")
 	private double familyPlanAlwance;
+	@CsvBindByName(column= "CYCLE_ALLOWANCE")
 	private double cycleAlwance;
+	
+	@CsvBindByName(column= "HRA_FLAG")
 	private Boolean hraFlag;
+	
+//	@CsvBindByName(column= "QTR_FLAG")
 	private Boolean qtrFlag;
+	
+//	@CsvBindByName(column= "AFK_FLAG")
 	private Boolean afkFlag;
+	
+	@CsvBindByName(column= "TA_FLAG")
 	private byte taFlag;
+	
+	@CsvBindByName(column= "PF_FLAG")
 	private byte pfFlag;
+	
 	private Date rowUpdDate;
+	@CsvBindByName(column= "STATUS")
 	private String status;
 	private short addUpdate; // 0 - Add / 1 - update
 	private Employee employee;
+	@CsvBindByName(column= "OTHER_ALLOWANCE")
 	private double otherAllowance;
+	@CsvBindByName(column= "T_ALLOWANCE")
 	private double tAllowance;
+	
+	public EmpAllowance() {}
+	
+	public EmpAllowance(String employeeId, double cca, double washingAlwance, double nonPracAwance,
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, double tAllowance, double otherAllowance, Boolean hraFlag,
+			Boolean qtrFlag, Boolean afkFlag, byte taFlag, byte pfFlag, String status) {
+		this.employeeId = employeeId;
+		this.cca = cca;
+		this.washingAlwance = washingAlwance;
+		this.nonPracAwance = nonPracAwance;
+		this.uniformAlwance = uniformAlwance;
+		this.familyPlanAlwance = familyPlanAlwance;
+		this.cycleAlwance = cycleAlwance;
+		this.hraFlag = hraFlag;
+		this.qtrFlag = qtrFlag;
+		this.afkFlag = afkFlag;
+		this.taFlag = taFlag;
+		this.pfFlag = pfFlag;
+		this.status = status;
+		this.otherAllowance = otherAllowance;
+		this.tAllowance = tAllowance;
+	}
 	
 	public byte getPfFlag() {
 		return pfFlag;

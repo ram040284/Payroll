@@ -75,7 +75,12 @@ input[type=file] {
            		  columns:[
                       {data:'fullName',title:'Employee'},
            			  {data:'policyNo',title:'Policy No'},
-           			  {data:'paymentDate',title:'Payment Date'},
+           			  {data:'paymentDate',"render": function (data) 
+           			  {
+           		        var date = new Date(data);
+           		        var month = date.getMonth() + 1;
+           		        return (month.length > 1 ? month :  + month) + "/" + date.getDate() + "/" + date.getFullYear();
+           		      }, title:'Payment Date'},
            			  {data:'paymentAmount',title:'Payment Amount'},
                       {
             		   'data': null, title:'<a href="#" onclick="addLic()"><img style="vertical-align: middle;" src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
