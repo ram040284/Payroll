@@ -18,6 +18,8 @@ import com.payroll.advance.dataobjects.EmployeeAdvance;
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.business.EmployeeService;
+import com.payroll.employee.salary.business.SalaryService;
+import com.payroll.employee.salary.vo.SalaryVO;
 import com.payroll.employee.vo.EmployeeVO;
 import com.payroll.login.dao.PermissionsDAO;
 import com.payroll.login.dataobjects.User;
@@ -69,6 +71,15 @@ public class EmployeeAdvanceController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			List<SalaryVO> salList = new SalaryService().getSalaries();
+			String salJSON = "";
+			try {
+				salJSON = mapper.writeValueAsString(salList);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}			
+			
 			/*if(overtime.getOvertimeDate() !=null)
 				overtime.setOvertimeDate(null);*/
 			if(employeeAdvance.getAdvanceId()!=0)
@@ -76,6 +87,7 @@ public class EmployeeAdvanceController {
 			model = new ModelAndView("advance", "command", employeeAdvance);
 			model.addObject("advance", employeeAdvance);
 			model.addObject("departments", depJSON);
+			model.addObject("salaries", salJSON);
 			return model;
 		} else {
 			model = new ModelAndView("unauthorized", "message", "You do not have access to add employee advance. Please click home button to go back.");

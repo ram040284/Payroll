@@ -72,25 +72,47 @@ public class EmployeeController {
 			}
 	   }
 		
-		 @RequestMapping(value="/getEmployeeList", method = RequestMethod.POST, produces = "application/json")
-		    public @ResponseBody List<EmployeeVO> getEmployeeList(@RequestBody Employee employee){
-			//   List<EmployeeVO> employees = new EmployeeService().getEmployees(0,0,null);		
-			 List<EmployeeVO> employees = null;
-			   if(employee.getDepartmentId() !=0 || !Utils.isEmpty(employee.getFirstName())){
-				   employees = new EmployeeService().getEmployees(
-					   employee.getDepartmentId(), employee.getHeadId(), employee.getFirstName());
-			   }
-		       return employees;
-		    }
+		@RequestMapping(value="/getEmployeeList", method = RequestMethod.POST, produces = "application/json")
+	    public @ResponseBody List<EmployeeVO> getEmployeeList(@RequestBody Employee employee, HttpServletRequest request){
+		 permissionForThis = "viewEmployees";
+			ModelAndView model = null;
+			
+			User loggedInUser = (User) request.getSession().getAttribute("user");
+			
+			if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+				List<EmployeeVO> employees = null;
+				 if(employee.getDepartmentId() !=0 || !Utils.isEmpty(employee.getFirstName())){
+					   employees = new EmployeeService().getEmployees(
+						   employee.getDepartmentId(), employee.getHeadId(), employee.getFirstName());
+				   }
+				return employees;
+			} else {
+				model = new ModelAndView("unauthorized", "message", "You do not have access to view employees. Please click home button to go back.");
+			    model.addObject("unauthorizedMessage", true);
+			    return (List<EmployeeVO>) model;
+			}
+	    }
 	   
 	   @RequestMapping(value="/view", method = RequestMethod.GET, produces = "application/json")
-	    public @ResponseBody List<EmployeeVO> getEmployees(){
-		   List<EmployeeVO> employees = new EmployeeService().getEmployees(0,0,null);/*new ArrayList<Employee>();
+	    public @ResponseBody List<EmployeeVO> getEmployees(HttpServletRequest request){  
+		   permissionForThis = "viewEmployees";
+			ModelAndView model = null;
+			
+			User loggedInUser = (User) request.getSession().getAttribute("user");
+			
+			if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+				List<EmployeeVO> employees = new EmployeeService().getEmployees(0,0,null);
+				return employees;
+			} else {
+				model = new ModelAndView("unauthorized", "message", "You do not have access to view employees. Please click home button to go back.");
+			    model.addObject("unauthorizedMessage", true);
+			    return (List<EmployeeVO>) model;
+			}
+		   /*new ArrayList<Employee>();
 		   employees.add(new Employee("Rajendra", "Gangarde", "", "Vice President", "raj@gmail.com", "9878687678"));
 		   employees.add(new Employee("Ramanjaneyulu", "Kummari", "", "Tech Lead", "ram040284@gmail.com", "8939345488"));
-		   employees.add(new Employee("Srinivasa", "Mukku", "", "Tech Lead", "srini.mukku@gmail.com", "98787687686"));*/
-				   
-	        return employees;
+		   employees.add(new Employee("Srinivasa", "Mukku", "", "Tech Lead", "srini.mukku@gmail.com", "98787687686"));*/		   
+	        //return employees;
 	    }
 	   @RequestMapping(value = "/viewEmp", method = RequestMethod.POST)
 	   public ModelAndView  viewEmp(com.payroll.employee.Employee employee, HttpServletRequest request) {

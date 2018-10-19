@@ -12,7 +12,6 @@ import org.hibernate.exception.ConstraintViolationException;
 import com.payroll.HibernateConnection;
 //import com.payroll.advance.vo.Advance;
 import com.payroll.employee.dataobjects.Employee;
-import com.payroll.overtime.vo.OvertimeVO;
 
 public class EmployeeAdvanceDAO {
 	
@@ -21,7 +20,7 @@ public class EmployeeAdvanceDAO {
 		Session session = null;		
 		try{
 			String queryString = " select new com.payroll.advance.dataobjects.EmployeeAdvance(o.advanceId, o.employee.employeeId, "
-					+" o.employee.firstName, o.employee.lastName, o.advanceName, o.advanceAmount,o.advanceDate, o.installAmount, o.installStartDate) from EmployeeAdvanceVO o where o.status = ?";		
+					+" o.employee.firstName, o.employee.lastName, o.advanceName, o.advanceAmount,o.advanceDate, o.installAmount, o.installStartDate, o.installEndDate) from EmployeeAdvanceVO o where o.status = ?";		
 			
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
@@ -34,9 +33,25 @@ public class EmployeeAdvanceDAO {
 		}
 		return employeeAdvanceList;
 	}
-
 	
-	public EmployeeAdvance getEmployeeAvanceById(int advanceId){
+	public EmployeeAdvanceVO getAdvancebyEmpId(String empId) {
+		EmployeeAdvanceVO employeeAdvanceVO = null;
+		Session session = null;
+		try{
+			session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery("from EmployeeAdvanceVO a where a.employee.employeeId = ? and a.status = ? and installStartDate <= current_date and installEndDate >= current_date");
+			query.setParameter(0, empId);
+			query.setParameter(1, "A");
+			if(query.list() !=null && !query.list().isEmpty() )
+			employeeAdvanceVO = (EmployeeAdvanceVO)query.list().get(0);
+		}catch(Exception e){
+			e.printStackTrace();
+		
+		}
+		return employeeAdvanceVO;
+	}
+	
+	public EmployeeAdvance getEmployeeAdvanceById(int advanceId){
 		EmployeeAdvance employeeAdvance = null;
 		Session session = null;
 		try{
@@ -44,7 +59,7 @@ public class EmployeeAdvanceDAO {
 				+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = o.employee.employeeId and dept.status = 'A'), "
 				+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = o.employee.employeeId and desg.status='A'), "
 				+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = o.employee.employeeId and dh.status = 'A'), "
-				+ "o.advanceName, o.advanceAmount,o.advanceDate, o.installAmount, o.installStartDate) from EmployeeAdvanceVO o where o.status = ? and o.advanceId = ?";
+				+ "o.advanceName, o.advanceAmount,o.advanceDate, o.installAmount, o.installStartDate, o.installEndDate) from EmployeeAdvanceVO o where o.status = ? and o.advanceId = ?";
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
 			query.setParameter(0, "A");
@@ -66,7 +81,7 @@ public class EmployeeAdvanceDAO {
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 				Query query = session.createQuery("update EmployeeAdvanceVO o set o.status = ?, o.rowUpdDate = ? where o.advanceId = ? ");
-				query.setParameter(0, "S");
+				query.setParameter(0, "I");
 				query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 				query.setParameter(2, advanceId);
 				int updated = query.executeUpdate();
