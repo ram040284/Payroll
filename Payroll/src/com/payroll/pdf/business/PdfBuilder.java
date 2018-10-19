@@ -23,9 +23,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.payroll.Utils;
+import com.payroll.employee.pension.dataobjects.PensionPaybill;
 import com.payroll.employee.servicebill.dataobject.EmpServiceBill;
 import com.payroll.hrms.payroll.dataobjects.EmployeePayroll;
 import com.payroll.hrms.payroll.dataobjects.PaybillDetails;
+import com.payroll.hrms.payroll.dataobjects.PensionPaybillDetails;
 import com.payroll.paybill.vo.PaybillBean;
 import com.payroll.pdf.report.BankwiseReport;
 import com.payroll.pdf.report.EmpServiceBook;
@@ -33,6 +35,7 @@ import com.payroll.pdf.report.HeadwiseReport;
 import com.payroll.pdf.report.MonthlyPdfRep;
 import com.payroll.pdf.report.PaybillPdfRep;
 import com.payroll.pdf.report.PayslipReport;
+import com.payroll.pdf.report.PensionPayBillReport;
  
 /**
  * This view class generates a PDF document 'on the fly' based on the data
@@ -84,6 +87,11 @@ public class PdfBuilder extends AbstractITextPdfView {
         	EmpServiceBill empServiceBill = (EmpServiceBill) model.get("empServiceBook");
         	if(empServiceBill != null)
         		new EmpServiceBook().empServiceBook(doc, empServiceBill, imgPath);
+        }
+        if(model.get("pensionPaybillDetails") !=null){
+        	PensionPaybillDetails paybillDetails = (PensionPaybillDetails) model.get("pensionPaybillDetails");
+        	if(paybillDetails != null)
+        		new PensionPayBillReport().pensionBillreport(doc, paybillDetails, imgPath);
         }
         
     }

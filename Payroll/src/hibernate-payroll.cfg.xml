@@ -14,7 +14,7 @@
 	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="connection.url">jdbc:mysql://localhost:3306/Payroll?zeroDateTimeBehavior=convertToNull</property>
     <property name="connection.username">root</property>
-   	<property name="connection.password">MySQL@2100</property>
+   	<property name="connection.password">chetan@123</property>
    	<property name="show_sql">true</property>
 	<mapping resource="com/payroll/employee/dataobjects/EmpContact.hbm.xml"/>
    	<mapping resource="com/payroll/department/dataobjects/Department.hbm.xml"/>
@@ -58,5 +58,6 @@
   	<mapping resource="com/payroll/dashboard/dataobjects/MonthlySummary.hbm.xml"/>
   	<mapping resource="/com/payroll/employee/servicebill/dataobject/EmployeeServiceBook.hbm.xml"/>
   	<mapping resource="com/payroll/employee/pension/dataobjects/Pension.hbm.xml"/>
+  	<mapping resource="com/payroll/employee/pension/dataobjects/PensionPaybill.hbm.xml"/>
 </session-factory>
 </hibernate-configuration>

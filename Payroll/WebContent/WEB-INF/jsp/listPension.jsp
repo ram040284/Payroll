@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Salary Details</title>
+<title>Pension Details</title>
 <jsp:include page="../jsp/public/postHeader.jsp" />
 <jsp:include page="../jsp/public/jqueryPluginMin.jsp"/>
 <script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
@@ -76,20 +76,15 @@ table.dataTable thead:first-child .sorting_desc {
                   data: pensionData,
                       columns: [
       					{ data: 'fullName', title: 'Employee',"autoWidth": false},
-                        { data: 'basicPension', title: 'Basic Pension',"autoWidth": false, render: function(basicToFormat) {
-                        	return basicToFormat.toString().replace(/[0-9]/g, '\u2022');
-                        }},
-                        { data: 'residualPension', title: 'Residual Pension',"autoWidth": false, render: function(basicToFormat) {
-                        	return basicToFormat.toString().replace(/[0-9]/g, '\u2022');
-                        }},
-                        { data: 'medicalAllowance', title: 'Medical Allowance',"autoWidth": false, render: function(basicToFormat) {
-                        	return basicToFormat.toString().replace(/[0-9]/g, '\u2022');
-                        }},
+                        { data: 'basicPension', title: 'Basic Pension',"autoWidth": false},
+                        { data: 'residualPension', title: 'Residual Pension',"autoWidth": false},
+                        { data: 'medicalAllowance', title: 'Medical Allowance',"autoWidth": false},
+                        { data: 'dearnessReliefArrears', title: 'Dearness Relief Arrears',"autoWidth": false},
                         { data: 'commutationAmount', title: 'Commutation Amount',"autoWidth": false},
                         {
 						 'data': null,title:'<a href="#" onclick="addPension()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
-						 'render': function (salaryData, type, row) {
-            			   return '<a id="' + row.Id +'" href="#" onclick="updateSalary(\'' + salaryData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteSalary(\'' + salaryData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
+						 'render': function (pensionData, type, row) {
+            			   return '<a id="' + row.Id +'" href="#" onclick="editPension(\'' + pensionData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deletePension(\'' + pensionData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
 			            	}
 						}
                      ] 
@@ -104,7 +99,7 @@ table.dataTable thead:first-child .sorting_desc {
    		  f.submit();
    	  }
 
-      function updatePension(id){
+      function editPension(id){
     	  var f = document.forms['editForm'];
 		  f.employeeId.value=id;
 		  f.action="../Payroll/inputPension";

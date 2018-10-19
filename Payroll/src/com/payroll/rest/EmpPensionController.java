@@ -20,6 +20,7 @@ import com.payroll.employee.pension.dataobjects.Pension;
 import com.payroll.employee.pension.vo.PensionVO;
 import com.payroll.login.dao.PermissionsDAO;
 import com.payroll.login.dataobjects.User;
+import com.payroll.paybill.vo.PaybillVO;
 
 @Controller
 public class EmpPensionController {
@@ -69,7 +70,7 @@ public class EmpPensionController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-if(!pension.getEmployeeId().equals("0"))
+		if(!pension.getEmployeeId().equals("0"))
 		/*if(pension.getEmployeeId() != "0")*/
 				pension = new PensionService().getEmpPension(pension.getEmployeeId());
 			model = new ModelAndView("pension", "command", pension);
@@ -125,4 +126,38 @@ if(!pension.getEmployeeId().equals("0"))
 			return "unauthorized";
 		}
 	}
+	
+	@RequestMapping(value = "/generatePensionPaybills", method = RequestMethod.POST)
+	public ModelAndView generatePensionPayBill(PensionVO pensionVO, HttpServletRequest request) {
+		
+		String permissionForThis = "generateBills";
+		
+		User loggedInUser = (User) request.getSession().getAttribute("user");
+		
+		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			return getInputForm(pensionVO, "generatePensionBills");
+		} else {
+		    ModelAndView model = new ModelAndView("unauthorized", "message", "You do not have access to generate paybills. Please click home button to go back.");
+		    model.addObject("unauthorizedMessage", true);
+			return model;
+		}
+	}
+	
+	private ModelAndView getInputForm(PensionVO pensionVO, String jspName){
+		ObjectMapper mapper = new ObjectMapper();
+		//List<Department> deptList = new DepartmentService().getDepartments();
+		List<Department> deptList = new DepartmentService().getDeptSections();
+		String depJSON = "";
+		try {
+			depJSON = mapper.writeValueAsString(deptList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		ModelAndView model = new ModelAndView(jspName, "command", pensionVO);
+		model.addObject(pensionVO);
+		model.addObject("departments", depJSON);
+		return model;
+	}
+	
+	
 }

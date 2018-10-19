@@ -12,7 +12,7 @@ public class PdfUtils {
     public static double HRA_PERCENT = 30.00;
     
 	public static final String IMG_PATH= "/resources/images/";
-	public static final String BASICS = "Basics:";
+	public static final String BASICS = "Basic:";
 	public static final String GRADEPAY = "Grade Pay/DP:";
 	public static final String DA = "DA:";
 	public static final String HRA = "HRA:";
@@ -178,6 +178,15 @@ public class PdfUtils {
 	
 	public static final String PAY_CLEARK = "Pay Cleark:";
 	public static final String CHECKED_BY = "Checked by:";
+	
+	public static final String PENSION_EMP_HEAD = "Code Name & Dt. of Retirement";
+	public static final String BASIC_PENION = "Basic Pension";
+	public static final String RESY_PENSION = "Res'y Pension";
+	public static final String D_R_ARREARS = "D. R. Arrears";
+	public static final String MEDICAL_ALLOWANCES = "Medical Allowances";
+	public static final String TOTAL_PENSION_DEDUCTIONS = "Total Pension Deductions";
+	public static final String NET_PENSION = "Net Pension";
+	public static final String COMMUTATION_AMT = "Commutation Amount";
 	
 	public static com.itextpdf.text.Image getWaterMarkImg(String waterMarkImg){
 		com.itextpdf.text.Image wmarkimge = null;
