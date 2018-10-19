@@ -59,9 +59,9 @@ public class PdfBuilder extends AbstractITextPdfView {
         }
         if(model.get("paybillDetails") !=null){
         	PaybillDetails paybillDetails = (PaybillDetails) model.get("paybillDetails");
-        	System.out.println("paybillDetails getEmployeeType : " + paybillDetails.getEmployeeType());
+        	//System.out.println("paybillDetails getEmployeeType : " + paybillDetails.getEmployeeType());
         	if(paybillDetails.getPayrollList() != null && !paybillDetails.getPayrollList().isEmpty())
-        		System.out.println("paybillDetails " + paybillDetails.getEmployeeType());
+        		//System.out.println("paybillDetails " + paybillDetails.getEmployeeType());
         		new PaybillPdfRep().paybillReport(doc, paybillDetails, imgPath);
         }
         
