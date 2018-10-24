@@ -275,7 +275,7 @@ public class PaybillController {
 		
 		try{
 			String month = Utils.getDateByMonth(Integer.parseInt(pensionPaybill.getMonthDate()));
-			int result = new PaybillService(pensionPaybill.getSection(), month).generatePensionPayBills();
+			int result = new PaybillService(pensionPaybill.getSection(), month).generatePensionPayBills(pensionPaybill.getPensionBillType());
 	 		model = new ModelAndView("pensionPaybillsResp", "command", pensionPaybill);
 	 		model.addObject("result", result);
 		}catch(Exception e){
@@ -297,8 +297,8 @@ public class PaybillController {
 		
 		try{
 			String month = Utils.getDateByMonth(Integer.parseInt(pensionPaybillVO.getMonthDate()));
-			pensionPaybill = new PaybillService(pensionPaybillVO.getSection(), month).getPensionPayBills();
-			if(pensionPaybill == null ){
+			pensionPaybill = new PaybillService(pensionPaybillVO.getSection(), month).getPensionPayBills(pensionPaybillVO.getPensionBillType());
+			if(pensionPaybill == null  || (pensionPaybill.getPayrollList() == null || pensionPaybill.getPayrollList().isEmpty())){
 				return new ModelAndView("noActivity", "", pensionPaybill);
 			}
 		

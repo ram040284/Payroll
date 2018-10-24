@@ -272,13 +272,13 @@ public class PaybillService {
         return pbDetailsList;
     }
     
-    public int generatePensionPayBills(){
+    public int generatePensionPayBills(byte pensionBIllType){
 		int success = 0;
 		
 		List<Department> departments = new DepartmentService().getDepartmentsBySection(section);
 		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
 			Department department = (Department) iterator.next();
-			if(checkPensionPayBills(department.getDepartmentId())){
+			if(checkPensionPayBills(department.getDepartmentId(), pensionBIllType)){
 				System.out.println("inside checkbills... success = true ");
 				success = 1;
 				continue;
@@ -290,11 +290,11 @@ public class PaybillService {
 		return success;
 	}
     
-    private boolean checkPensionPayBills(int deptId){
+    private boolean checkPensionPayBills(int deptId, byte pensionBillType){
     	
 		boolean billsExist = false;
-		pensionVOs = new EmployeePayrollDAO().getActivePensionEmployeesByDept(deptId, startDate);// get active penstion employee
-		List<PensionPaybill> paybillListTemp = new PaybillDAO(startDate, endDate, deptId).getPensionPaybillsByDept(headId, bankWise); // generate pension paybill as per the data
+		pensionVOs = new EmployeePayrollDAO().getActivePensionEmployeesByDept(deptId, startDate, pensionBillType);// get active penstion employee
+		List<PensionPaybill> paybillListTemp = new PaybillDAO(startDate, endDate, deptId).getPensionPaybillsByDept(headId, bankWise, pensionBillType); // generate pension paybill as per the data
 		if(paybillListTemp !=null && !paybillListTemp.isEmpty()){
 			billsExist = true;
 		}
@@ -308,14 +308,14 @@ public class PaybillService {
 		return billsExist;
 	}
     
-    public PensionPaybillDetails getPensionPayBills(){
+    public PensionPaybillDetails getPensionPayBills(byte pensionBillType){
     	PensionPaybillDetails details = null;
 		
 		List<Department> departments = new DepartmentService().getDepartmentsBySection(section);
 		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
 			System.out.println("inside for");
 			Department department = (Department) iterator.next();
-			checkPensionPayBills(department.getDepartmentId());
+			checkPensionPayBills(department.getDepartmentId(), pensionBillType);
 		}
 		details = getPensionPaybillDetails();
 		return details;
@@ -337,13 +337,14 @@ public class PaybillService {
     					empPayroll.setEmployeeId(penVO.getEmployeeId());
     					empPayroll.setBasicPension(penVO.getBasicPension());
     					empPayroll.setResidualPension(penVO.getResidualPension());
-    					empPayroll.setDearnessReliefArrears(penVO.getDearnessReliefArrears());
+    					empPayroll.setDearnessRelief(penVO.getDearnessRelief());
     					empPayroll.setCommutationAmount(penVO.getCommutationAmount());
     					empPayroll.setMedicalAllowance(penVO.getMedicalAllowance());
     					empPayroll.setFamilyPensionFlag(penVO.getFamilyPensionFlag());
     					empPayroll.setFamilyPensionName(penVO.getFamilyPensionName());
     					empPayroll.setDesignation(penVO.getDesignation());
     					empPayroll.setRetirementDate(penVO.getRetirementDate());
+    					empPayroll.setArrears(penVO.getArrears());
     					break;
     				}
     			}

@@ -50,7 +50,7 @@ function generatePensionPaybill(){
 			<div class="formDiv" style="border: none;">
 				<div class="row">
 					<div class="text-left" style="margin-left: 15px;">
-						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/payrollMenu')">Back</button>
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/pensionMenu')">Back</button>
 					</div>
 				</div>
 			</div>	
@@ -66,10 +66,15 @@ function generatePensionPaybill(){
 		<div style="margin-left: 10px;">
 		<div class="row">
 			<div class="col-sm-10 form-group">
-				<label style="margin-top: 10px;">Bills Type: </label> 
+				<label style="margin-top: 10px;">Employee Type: </label> 
 				<input type="radio" name= "billType" style="margin-left: 8px;" checked="checked" value="1"/> Permanent
-<!-- 				<input type="radio" name= "billType" style="margin-left: 8px;" value="2"/> Contract -->
-<!-- 				<input type="radio" name= "billType" style="margin-left: 8px;" value="3"/> Honorary -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-10 form-group">
+				<label style="margin-top: 10px;">Pension Bill Type: </label> 
+				<input type="radio" name= "pensionBillType" style="margin-left: 8px;" checked="checked" value="1"/> Self
+				<input type="radio" name= "pensionBillType" style="margin-left: 8px;" value="2"/> Family
 			</div>
 		</div>
 	<div class="row">
@@ -103,7 +108,7 @@ function generatePensionPaybill(){
 		
 	<div class="row">
 		<div class="col-sm" style="float: right; margin-right: 20px; margin-bottom: 5px;">
-			<button type="button" id="searchBtn"  class="btn" onclick="generatePensionPaybill()">Get Report</button>
+			<button type="button" id="searchBtn"  class="btn" onclick="generatePensionPaybill()">Generate Report</button>
 			
 		</div>
 	</div>

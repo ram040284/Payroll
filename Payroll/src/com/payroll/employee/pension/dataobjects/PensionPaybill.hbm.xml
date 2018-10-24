@@ -18,7 +18,8 @@
     <property name="totalPensionDeduction" column="TOTAL_PENSION_DEDUCTION" not-null="true"/>
     <property name="netPension" column="NET_PENSION" not-null="true"/>
     <property name="residualPension" column="RESIDUAL_PENSION"/>
-    <property name="dearnessReliefArrears" column="DEARNESS_RELIEF_ARREARS"/>
+    <property name="dearnessRelief" column="DEARNESS_RELIEF"/>
+    <property name="arrears" column="ARREARS"/>
     <property name="commutationAmount" column="COMMUTATION_AMT" /> 
     <property name="medicalAllowance" column="MEDICAL_ALLOWANCE" not-null="true"/>
     <property name="familyPensionFlag" column="FAMILY_PENSION_FLAG"/>

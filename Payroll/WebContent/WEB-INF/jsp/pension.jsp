@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Employee Pension</title>
+<title>Pensioner Pension</title>
 <style type="text/css">
 td, th {
 	padding: 3px;
@@ -33,7 +33,7 @@ $(document).ready(function() {
 	        contentType: "application/json;charset=utf-8",
 	        success : function(data) {
 	        $('#employeeId').empty();
-	 	    $('<option>').val(0).text("-- Select Employee --").appendTo('#employeeId');
+	 	    $('<option>').val(0).text("-- Select Pensioner --").appendTo('#employeeId');
 	 	    $(data).each(function(i, employee){
 	 	    	$('<option>').val(employee.employeeId).text(employee.fullName).appendTo('#employeeId');
 	 	    });
@@ -49,14 +49,11 @@ $(document).ready(function() {
 			var medicalAllowance = "${pension.medicalAllowance}";
 			var familyPensionName = "${pension.familyPensionName}";
 			var pensionRemark = "${pension.pensionRemark}";
-			var commutationAmount = "${pension.commutationAmount}";
-			var residualPension = "${pension.residualPension}";
-			var dearnessReliefArrears = "${pension.dearnessReliefArrears}";
+			var arrears = "${pension.arrears}";
 			if(empId !=0){
 				if(basicPension == $('#basicPension').val() && medicalAllowance == $('#medicalAllowance').val() && 
 						familyPensionName == $('#familyPensionName').val() && pensionRemark == $('#pensionRemark').val()
-						&& commutationAmount == $('#commutationAmount').val() && residualPension == $('#residualPension').val()
-						&& dearnessReliefArrears == $('#dearnessReliefArrears').val()){
+						&& arrears == $('#arrears').val()){
 					alert('Nothing was changed');
 					$('#employeeId').focus();
 					return false;
@@ -64,7 +61,7 @@ $(document).ready(function() {
 			}
 			if(empId ==0){
 				if($('#employeeId').val() == 0){
-					alert("Employee must be selected!");
+					alert("Pensioner must be selected!");
 					$('#employeeId').focus();
 					return false;
 				}
@@ -93,30 +90,8 @@ $(document).ready(function() {
 				$('#medicalAllowance').focus();
 				return false;
 			}
-			var commutationAmountVal = $('#commutationAmount').val().trim();
-			if(commutationAmountVal){
-				if(isNaN(commutationAmountVal)){
-					alert("Invalid Commutation Amount!");
-					$('#commutationAmount').focus();
-					return false;
-				}
-			}else {
-				alert("Medical Commutation Amount must be provided!");
-				$('#commutationAmount').focus();
-				return false;
-			}
-			var residualPensionVal = $('#residualPension').val().trim();
-			if(residualPensionVal){
-				if(isNaN(residualPensionVal)){
-					alert("Invallid Residual Pension!");
-					$('#residualPension').focus();
-					return false;
-				}
-			}else {
-				alert("Medical Residual Pension must be provided!");
-				$('#residualPension').focus();
-				return false;
-			}
+			
+			
 			/* if($('#familyPensionName').val().trim() == ""){
 				alert("Fami;ly Pensioner must be provided!");
 				$('#familyPensionName').focus();
@@ -127,16 +102,16 @@ $(document).ready(function() {
 				$('#pensionRemark').focus();
 				return false;
 			}
-			var dearnessReliefArrearsVal = $('#dearnessReliefArrears').val().trim();
-			if(dearnessReliefArrearsVal){
-				if(isNaN(dearnessReliefArrearsVal)){
-					alert("Invalid Dearness relief arrears!");
-					$('#dearnessReliefArrears').focus();
+			var arrearsVal = $('#arrears').val().trim();
+			if(arrearsVal){
+				if(isNaN(arrearsVal)){
+					alert("Invalid Aarrears!");
+					$('#arrears').focus();
 					return false;
 				}
 			}else {
-				alert("Dearness relief arrears must be provided!");
-				$('#dearnessReliefArrears').focus();
+				alert("Dearness arrears must be provided!");
+				$('#arrears').focus();
 				return false;
 			}
 			var empIdInput = 0;
@@ -147,9 +122,8 @@ $(document).ready(function() {
 			
 			var inputJson = { "employeeId" : empIdInput, "basicPension" : $('#basicPension').val(),  
 					"medicalAllowance" : $('#medicalAllowance').val(), "familyPensionName" : $('#familyPensionName').val(), 
-					"pensionRemark": $('#pensionRemark').val(), "commutationAmount": $('#commutationAmount').val(), "residualPension": $('#residualPension').val(),
-					"addUpdate": $('#addUpdate').val(),"familyPensionFlag": $("input[name='pensionerType']:checked").val(), 
-					"dearnessReliefArrears": $('#dearnessReliefArrears').val()};
+					"pensionRemark": $('#pensionRemark').val(), "addUpdate": $('#addUpdate').val(),"familyPensionFlag": $("input[name='pensionerType']:checked").val(), 
+					"arrears": $('#arrears').val()};
 			$.ajax({
 		        url: '../Payroll/addPension',
 		        data: JSON.stringify(inputJson),
@@ -203,7 +177,7 @@ function checkAmount(value){
 		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">
-				<c:if test="${pension.employeeId != '0'}" >	Update</c:if><c:if test="${pension.employeeId == '0'}">Add</c:if> Employee Pension
+				<c:if test="${pension.employeeId != '0'}" >	Update</c:if><c:if test="${pension.employeeId == '0'}">Add</c:if> Pensioner Pension
 			</h4>
 
 		<div class="col-lg-12 card-block bg-faded" style="margin-bottom: 10px;">
@@ -219,10 +193,10 @@ function checkAmount(value){
 							</div>
 							<div class="row">
 								<div class="col-sm-4 form-group">
-									<label>Employee:</label>
+									<label>Pensioner:</label>
 									<select id="employeeId" class="form-control"
 									<c:if test="${pension.employeeId != '0'}" >disabled = "disabled" </c:if>>
-										<option value="0">-- Select Employee --</option>
+										<option value="0">-- Select Pensioner --</option>
 									</select>
 								</div>
 								<div class="col-sm-4 form-group"  style="visibility:hidden;" id = "familyDiv">
@@ -244,23 +218,12 @@ function checkAmount(value){
 									<input type="hidden" name="addUpdate" id=addUpdate <c:if test="${pension.employeeId != '0'}" > value="1" </c:if>/>
 								</div>
 								<div class="col-sm-4 form-group">
-									<label>Dearness Relief Arrears:</label>
-									<form:input path="dearnessReliefArrears"  id="dearnessReliefArrears" placeholder="Enter Dearness Relief Arrears" class="form-control"/>
+									<label>Arrears:</label>
+									<form:input path="arrears"  id="arrears" placeholder="Enter Arrears" class="form-control"/>
 									<input type="hidden" name="addUpdate" id=addUpdate <c:if test="${pension.employeeId != '0'}" > value="1" </c:if>/>
 								</div>
 							</div>
 							<div class="row">
-								
-								<div class="col-sm-4 form-group">
-									<label>Commutation Amount</label>
-									<form:input path="commutationAmount"  id="commutationAmount" placeholder="Enter Commutation Amount" class="form-control"/>
-									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${pension.employeeId != '0'}" > value="1" </c:if>/>
-								</div>
-								<div class="col-sm-4 form-group">
-									<label>Residual Pension:</label>
-									<form:input path="residualPension"  id="residualPension" placeholder="Enter Residual Pension" class="form-control"/>
-									<input type="hidden" name="addUpdate" id=addUpdate <c:if test="${pension.employeeId != '0'}" > value="1" </c:if>/>
-								</div>
 								<div class="col-sm-4 form-group">
 									<label>Pension remark:</label>
 									<form:textarea path="pensionRemark"  id="pensionRemark" placeholder="Enter Remark" class="form-control"/>

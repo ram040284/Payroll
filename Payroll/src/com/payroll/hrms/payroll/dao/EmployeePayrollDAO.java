@@ -469,24 +469,24 @@ public class EmployeePayrollDAO {
     	return employeeList;
     }   
     
-    public List<PensionVO> getActivePensionEmployeesByDept(int deptId, Date startDate) {
+    public List<PensionVO> getActivePensionEmployeesByDept(int deptId, Date startDate, byte pensionBillType) {
     	List<PensionVO> pensionVOs = null;
     	
     	try{
     		session = HibernateConnection.getSessionFactory().openSession();
 			String queryString = "select new com.payroll.employee.pension.vo.PensionVO(pen.employeeId, pen.employee.firstName, pen.employee.lastName, "
-					+ " pen.basicPension, pen.residualPension, pen.medicalAllowance, pen.commutationAmount, pen.dearnessReliefArrears, "
+					+ " pen.basicPension, pen.residualPension, pen.medicalAllowance, pen.commutationAmount, pen.dearnessRelief, "
 					+ "(select dept.departmantName from Department dept where dept.departmentId = (select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = pen.employeeId)),"
 					+ "(select h.headName from HeadInfo h where h.headId = (select eMas.headInfo.headId from EmpHeadInfo eMas where eMas.employee.employeeId = pen.employeeId)),"
 					+ "(select desg.designationName from Designation desg where desg.designationId = "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = pen.employeeId)),"
-					+ " pen.employee.joiningDate, pen.employee.retirementDate, pen.familyPensionName"
-					+ ") from Pension pen where pen.status = ? and pen.employeeId in "
+					+ " pen.employee.joiningDate, pen.employee.retirementDate, pen.familyPensionName, pen.arrears, pen.familyPensionFlag "
+					+ ") from Pension pen where pen.status = ? and pen.familyPensionFlag = ? and pen.employeeId in "
 					+ "(select eDept.employee.employeeId from EmpDepartment eDept where eDept.department.departmentId = ?)";
     		Query query = session.createQuery(queryString);
 			query.setParameter(0, "A");
-			//query.setParameter(1, startDate);
-			query.setParameter(1, deptId);
+			query.setParameter(1, pensionBillType);
+			query.setParameter(2, deptId);
 			pensionVOs = query.list();
     	}catch(Exception e){ 
     		e.printStackTrace();
@@ -503,8 +503,8 @@ public class EmployeePayrollDAO {
     		this.employeeId = employeeId;
 			session = HibernateConnection.getSessionFactory().openSession();
 			PensionVO pensionVO =  new PensionDAO().getEmpPension(employeeId);
-			empPayroll = new EmployeePensionPayroll(employeeId, pensionVO.getBasicPension(), pensionVO.getResidualPension(), pensionVO.getDearnessReliefArrears(), pensionVO.getFullName()
-					, pensionVO.getCommutationAmount(), pensionVO.getMedicalAllowance(), pensionVO.getFamilyPensionFlag(), pensionVO.getFamilyPensionName(), pensionVO.getPensionRemark());
+			empPayroll = new EmployeePensionPayroll(employeeId, pensionVO.getBasicPension(), pensionVO.getResidualPension(), pensionVO.getDearnessRelief(), pensionVO.getFullName()
+					, pensionVO.getCommutationAmount(), pensionVO.getMedicalAllowance(), pensionVO.getFamilyPensionFlag(), pensionVO.getFamilyPensionName(), pensionVO.getPensionRemark(), pensionVO.getArrears());
    		}catch(Exception e){
 			e.printStackTrace();
 		}finally {

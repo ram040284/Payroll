@@ -182,11 +182,13 @@ public class PdfUtils {
 	public static final String PENSION_EMP_HEAD = "Code Name & Dt. of Retirement";
 	public static final String BASIC_PENION = "Basic Pension";
 	public static final String RESY_PENSION = "Res'y Pension";
-	public static final String D_R_ARREARS = "D. R. Arrears";
+	public static final String DR = "D.R";
+	public static final String ARREARS = "Arrears";
 	public static final String MEDICAL_ALLOWANCES = "Medical Allowances";
 	public static final String TOTAL_PENSION_DEDUCTIONS = "Total Pension Deductions";
 	public static final String NET_PENSION = "Net Pension";
 	public static final String COMMUTATION_AMT = "Commutation Amount";
+	public static final String CF_TOTAL = "C/F Total:";
 	
 	public static com.itextpdf.text.Image getWaterMarkImg(String waterMarkImg){
 		com.itextpdf.text.Image wmarkimge = null;

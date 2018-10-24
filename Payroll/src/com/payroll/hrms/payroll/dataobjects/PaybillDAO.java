@@ -129,12 +129,12 @@ public class PaybillDAO {
 		return paybill;
 	}
 	
-	public List<PensionPaybill> getPensionPaybillsByDept(int headId, boolean bankWise){
+	public List<PensionPaybill> getPensionPaybillsByDept(int headId, boolean bankWise, byte pensionBillType){
 		this.headId = headId;
-		return getPensionPaybillsByDept(deptId);
+		return getPensionPaybillsByDept(deptId, pensionBillType);
 	}
 	
-	public List<PensionPaybill> getPensionPaybillsByDept(int deptId){
+	public List<PensionPaybill> getPensionPaybillsByDept(int deptId, byte pensionBillType){
 		System.out.println("get pension paybill by dept id...");
 		List<PensionPaybill> pensionPaybills = null;
 			Session session = null;
@@ -143,7 +143,7 @@ public class PaybillDAO {
 				if(this.headId != 0)
 					queryString.append("(select eHead.employee.employeeId from EmpHeadInfo eHead where eHead.headInfo.headId = ?) and ");
 				else
-					queryString.append("(select eDept.employee.employeeId from EmpDepartment eDept where eDept.department.departmentId = ?) and ");
+					queryString.append("(select eDept.employee.employeeId from EmpDepartment eDept where eDept.department.departmentId = ?) and p.familyPensionFlag = ? and ");
 				queryString.append("p.month >= :startDate and p.month <= :endDate ");
 				
 				session = HibernateConnection.getSessionFactory().openSession();
@@ -157,6 +157,7 @@ public class PaybillDAO {
 				
 				query.setTimestamp("startDate", startDate);
 				query.setTimestamp("endDate", endDate);
+				query.setParameter(1, pensionBillType);
 				pensionPaybills = query.list();
 				System.out.println("Report data " + pensionPaybills.toString());
 				System.out.println("**** getPensionPaybillsByDept Query Count: " + query.list().size());

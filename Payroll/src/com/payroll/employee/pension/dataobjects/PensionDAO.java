@@ -14,15 +14,16 @@ import com.payroll.employee.pension.vo.EmployeePension;
 import com.payroll.employee.pension.vo.PensionVO;
 
 public class PensionDAO {
-	
+	public static double DR_PERCENT = 139.00;
+	public static double COMMUTATION_PERCENT = 139.00;
 	public List<com.payroll.employee.pension.vo.PensionVO> getPensionList(){
 		List<com.payroll.employee.pension.vo.PensionVO> salaries = null;
 			Session session = null;
 			
 			try{
 				String queryString = " select new com.payroll.employee.pension.vo.PensionVO(s.employee.employeeId, s.employee.firstName, s.employee.lastName, "
-						+ "s.basicPension, s.residualPension, s.medicalAllowance,s.commutationAmount,s.dearnessReliefArrears, s.familyPensionFlag, "
-						+ "s.familyPensionName, s.pensionRemark) from Pension s where s.status = ?";
+						+ "s.basicPension, s.residualPension, s.medicalAllowance,s.commutationAmount,s.dearnessRelief, s.familyPensionFlag, "
+						+ "s.familyPensionName, s.pensionRemark,s.arrears) from Pension s where s.status = ?";
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, "A");
@@ -40,6 +41,8 @@ public class PensionDAO {
 		String result = null;
 		Session session = null;
 		Transaction transaction = null;
+		double commutationAMT = 0;
+		double DR;
 		try{
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
@@ -47,13 +50,32 @@ public class PensionDAO {
 				pension.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 				pension.setStatus("A");
 				if(pension.getAddUpdate() == 0){
+					if (pension.getFamilyPensionFlag()==2) {
+						pension.setCommutationAmount(commutationAMT);
+						pension.setResidualPension(pension.getBasicPension());
+					}else {
+						commutationAMT = Math.round(COMMUTATION_PERCENT * (pension.getBasicPension())/100);
+						pension.setCommutationAmount(commutationAMT);
+						pension.setResidualPension(pension.getBasicPension()-commutationAMT);
+					}
+					DR = Math.round(DR_PERCENT * (pension.getBasicPension())/100);
+					pension.setDearnessRelief(DR);
 					pension.setEmployee(employee);
-					System.out.println("Inside add function");
 					session.save(pension);
 					transaction.commit();
 					session.flush();
 				}
 				else{
+					if (pension.getFamilyPensionFlag()==2) {
+						pension.setCommutationAmount(commutationAMT);
+						pension.setResidualPension(pension.getBasicPension());
+					}else {
+						commutationAMT = Math.round(COMMUTATION_PERCENT * (pension.getBasicPension())/100);
+						pension.setCommutationAmount(commutationAMT);
+						pension.setResidualPension(pension.getBasicPension()-commutationAMT);
+					}
+					DR = Math.round(DR_PERCENT * (pension.getBasicPension())/100);
+					pension.setDearnessRelief(DR);
 					session.update(pension);
 					UpdateEmpPension(pension);
 		            transaction.commit();
@@ -80,7 +102,7 @@ public class PensionDAO {
 		try{
 			String queryString = " select new com.payroll.employee.pension.vo.PensionVO(s.employee.employeeId,"
 					+ "s.basicPension, s.residualPension, s.medicalAllowance, s.commutationAmount, s.pensionRemark, "
-					+ "s.familyPensionFlag, s.familyPensionName, s.dearnessReliefArrears) from Pension s where s.employee.employeeId = ? and s.status = ?";		
+					+ "s.familyPensionFlag, s.familyPensionName, s.dearnessRelief,s.arrears) from Pension s where s.employee.employeeId = ? and s.status = ?";		
 			
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
@@ -106,7 +128,7 @@ public class PensionDAO {
 		Session session = null;
 		try{
 			String queryString = "select new com.payroll.employee.pension.vo.EmployeePension(s.employeeId, s.basicPension, s.residualPension, "
-					+ " s.medicalAllowance, s.commutationAmount, s.pensionRemark, s.familyPensionFlag, s.familyPensionName, s.dearnessReliefArrears) from Pension s where s.employeeId = ? and s.status = ?";
+					+ " s.medicalAllowance, s.commutationAmount, s.pensionRemark, s.familyPensionFlag, s.familyPensionName, s.dearnessRelief,s.arrears) from Pension s where s.employeeId = ? and s.status = ?";
 			session = HibernateConnection.getSessionFactory().openSession();
 			Query query = session.createQuery(queryString);
 			query.setParameter(0, empId);

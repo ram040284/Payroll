@@ -117,7 +117,7 @@ function bankwiseRpt(){
 	
 	<div class="row">
 		<div class="col-sm" style="float: right; margin-right: 20px; margin-bottom: 5px;">
-			<button type="button" id="searchBtn"  class="btn" onclick="generateMonthlyRpt()">Get Report</button>
+			<button type="button" id="searchBtn"  class="btn" onclick="generateMonthlyRpt()">Generate Report</button>
 		</div>
 	</div>
 	</div>

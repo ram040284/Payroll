@@ -17,7 +17,7 @@ public class PensionPaybillDetails {
 	private double totalPensionDeduction;
 	private double netPension;
 	private double residualPension;
-	private double dearnessReliefArrears;
+	private double dearnessRelief;
 	private String fullName;
 	private double commutationAmount;
 	private double medicalAllowance;
@@ -27,7 +27,7 @@ public class PensionPaybillDetails {
 	private Date month;
 	private String designation;
 	private String retirementDate;
-	
+	private double arrears;
 	private List<PensionReportDetails> payrollList;
 	
 	public void addPensionEmployeePayroll(PensionReportDetails reportDetails){
@@ -39,7 +39,7 @@ public class PensionPaybillDetails {
 		totalPensionDeduction+=reportDetails.getTotalPensionDeduction();
 		netPension+=reportDetails.getNetPension();
 		residualPension+=reportDetails.getResidualPension();
-		dearnessReliefArrears+=reportDetails.getDearnessReliefArrears();
+		dearnessRelief+=reportDetails.getDearnessRelief();
 		fullName+=reportDetails.getFullName();
 		commutationAmount+=reportDetails.getCommutationAmount();
 		medicalAllowance+=reportDetails.getMedicalAllowance();
@@ -48,6 +48,7 @@ public class PensionPaybillDetails {
 		pensionRemark+=reportDetails.getPensionRemark();
 		designation+=reportDetails.getDesignation();
 		retirementDate+=reportDetails.getRetirementDate();
+		arrears+=reportDetails.getArrears();
 		//month+=reportDetails.getMonth();
 		
 		if(payrollList == null)
@@ -109,12 +110,6 @@ public class PensionPaybillDetails {
 	}
 	public void setResidualPension(double residualPension) {
 		this.residualPension = residualPension;
-	}
-	public double getDearnessReliefArrears() {
-		return dearnessReliefArrears;
-	}
-	public void setDearnessReliefArrears(double dearnessReliefArrears) {
-		this.dearnessReliefArrears = dearnessReliefArrears;
 	}
 	public String getFullName() {
 		return fullName;
@@ -181,5 +176,21 @@ public class PensionPaybillDetails {
 
 	public void setRetirementDate(String retirementDate) {
 		this.retirementDate = retirementDate;
+	}
+
+	public double getDearnessRelief() {
+		return dearnessRelief;
+	}
+
+	public void setDearnessRelief(double dearnessRelief) {
+		this.dearnessRelief = dearnessRelief;
+	}
+
+	public double getArrears() {
+		return arrears;
+	}
+
+	public void setArrears(double arrears) {
+		this.arrears = arrears;
 	}
 }

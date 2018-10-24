@@ -84,7 +84,7 @@ function bankwiseRpt(){
 			<div class="formDiv" style="border: none;">
 				<div class="row">
 					<div class="text-left" style="margin-left: 15px;">
-						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/payrollMenu')">Back</button>
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/pensionMenu')">Back</button>
 					</div>
 				</div>
 			</div>	
@@ -104,13 +104,20 @@ function bankwiseRpt(){
 				<input type="radio" name= "billType" style="margin-left: 8px;" checked="checked" value="1"/> Permanent
 			</div>
 		</div>
-	<div class="row">
-		<div class="col-sm-6 form-group">
-			<label>Department Section: </label> 
-			<select id="departmentId" class="form-control" name="section"><%-- onchange="getHeads()"> --%>
-			<option value="">-- Select Section --</option></select>
+		<div class="row">
+			<div class="col-sm-10 form-group">
+				<label style="margin-top: 10px;">Pension Bill Type: </label> 
+				<input type="radio" name= "pensionBillType" style="margin-left: 8px;" checked="checked" value="1"/> Self
+				<input type="radio" name= "pensionBillType" style="margin-left: 8px;" value="2"/> Family
+			</div>
 		</div>
-	</div>
+		<div class="row">
+			<div class="col-sm-6 form-group">
+				<label>Department Section: </label> 
+				<select id="departmentId" class="form-control" name="section"><%-- onchange="getHeads()"> --%>
+				<option value="">-- Select Section --</option></select>
+			</div>
+		</div>
 	<div class="row">
 		<div class="col-sm-6 form-group">
 			<label>Month:</label>
@@ -140,7 +147,7 @@ function bankwiseRpt(){
 	
 	<div class="row">
 		<div class="col-sm" style="float: right; margin-right: 20px; margin-bottom: 5px;">
-			<button type="button" id="searchBtn"  class="btn" onclick="generatePaybill()">Get Report</button>
+			<button type="button" id="searchBtn"  class="btn" onclick="generatePaybill()">Generate Report</button>
 			<%--<button type="button" id="searchBtn"  class="btn" onclick="generateMonthlyRpt()">Monthly Bill</button>
 			<button type="button" id="searchBtn"  class="btn" onclick="headwiseRpt()">Headwise Report</button>
 			<button type="button" id="searchBtn"  class="btn" onclick="bankwiseRpt()">Bankwise Report</button>

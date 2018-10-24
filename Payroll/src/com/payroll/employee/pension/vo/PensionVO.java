@@ -20,12 +20,13 @@ public class PensionVO implements Serializable{
 	private Timestamp rowUpdDate;
 	private short addUpdate;
 	private String status;
-	private double dearnessReliefArrears;
+	private double dearnessRelief;
 	private String department;
 	private String headName;
 	private String designation;
 	private String joiningDate;
 	private String retirementDate;
+	private double arrears;
 	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	
@@ -78,7 +79,7 @@ public class PensionVO implements Serializable{
 		
 	}
 	public PensionVO (String empId, String fName, String lName, double basicPension,double residualPension,double medicalAllowance,double commutationAmount
-			,double dearnessReliefArrears,byte familyPensionFlag,String familyPensionName,String pensionRemark){
+			,double dearnessRelief,byte familyPensionFlag,String familyPensionName,String pensionRemark,double arrears){
 		this.employeeId = empId;
 		this.basicPension = basicPension;
 		this.residualPension = residualPension;
@@ -88,14 +89,15 @@ public class PensionVO implements Serializable{
 		fullNameSB.append(" ");
 		fullNameSB.append(Utils.safeTrim(lName));
 		this.fullName = fullNameSB.toString();
-		this.dearnessReliefArrears = dearnessReliefArrears;
+		this.dearnessRelief = dearnessRelief;
 		this.familyPensionFlag = familyPensionFlag;
 		this.familyPensionName = familyPensionName;
 		this.pensionRemark = pensionRemark;
+		this.arrears = arrears;
 	}
 	
 	public PensionVO (String empId, double basicPension,double residualPension,double medicalAllowance,double commutationAmount, 
-			String pensionRemark, byte familyPensionFlag,String familyPensionName,double dearnessReliefArrears){
+			String pensionRemark, byte familyPensionFlag,String familyPensionName,double dearnessRelief, double arrears){
 		this.employeeId = empId;
 		this.basicPension = basicPension;
 		this.residualPension = residualPension;
@@ -104,11 +106,13 @@ public class PensionVO implements Serializable{
 		this.pensionRemark = pensionRemark;
 		this.familyPensionFlag = familyPensionFlag;
 		this.familyPensionName = familyPensionName;
-		this.dearnessReliefArrears = dearnessReliefArrears;
+		this.dearnessRelief = dearnessRelief;
+		this.arrears = arrears;
 	}
 	
 	public PensionVO(String empId, String fName, String lName, double basicPension, double residualPension, double medicalAllowance, double commutationAmount
-			,double dearnessReliefArrears, String department, String headName, String designation, Date joiningDate, Date retirementDate ,String familyPensionName){
+			,double dearnessRelief, String department, String headName, String designation, Date joiningDate, Date retirementDate 
+			,String familyPensionName, double arrears, byte familyPensionFlag){
 		this.employeeId = empId;
 		this.basicPension = basicPension;
 		this.residualPension = residualPension;
@@ -118,13 +122,15 @@ public class PensionVO implements Serializable{
 		fullNameSB.append(" ");
 		fullNameSB.append(Utils.safeTrim(lName));
 		this.fullName = fullNameSB.toString();
-		this.dearnessReliefArrears = dearnessReliefArrears;
+		this.dearnessRelief = dearnessRelief;
 		this.department = department;
 		this.headName = headName;
 		this.designation = designation;
 		this.joiningDate = (joiningDate != null) ? dateFormat.format(joiningDate) : "";
 		this.retirementDate = (retirementDate != null) ? dateFormat.format(retirementDate) : "";
 		this.familyPensionName = familyPensionName;
+		this.arrears = arrears;
+		this.familyPensionFlag = familyPensionFlag;
 	}
 	
 	public String getEmployeeId() {
@@ -155,12 +161,6 @@ public class PensionVO implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public double getDearnessReliefArrears() {
-		return dearnessReliefArrears;
-	}
-	public void setDearnessReliefArrears(double dearnessReliefArrears) {
-		this.dearnessReliefArrears = dearnessReliefArrears;
-	}
 	public String getDepartment() {
 		return department;
 	}
@@ -190,5 +190,17 @@ public class PensionVO implements Serializable{
 	}
 	public void setRetirementDate(String retirementDate) {
 		this.retirementDate = retirementDate;
+	}
+	public double getDearnessRelief() {
+		return dearnessRelief;
+	}
+	public void setDearnessRelief(double dearnessRelief) {
+		this.dearnessRelief = dearnessRelief;
+	}
+	public double getArrears() {
+		return arrears;
+	}
+	public void setArrears(double arrears) {
+		this.arrears = arrears;
 	}
 }

@@ -70,16 +70,17 @@ table.dataTable thead:first-child .sorting_desc {
               success : function(pensionData) {
              $('#pensionListTable').DataTable({
             	 columnDefs: [
-            		    { className: 'text-right', targets: [2,3,4] }, // 2- Basic Pay, 3- Grade Pay, 4- Scale Pay
+            		    { className: 'text-right', targets: [1,2,3,4,5,6] },
             		  ],
             	 "scrollY": "300px",
                   data: pensionData,
                       columns: [
-      					{ data: 'fullName', title: 'Employee',"autoWidth": false},
+      					{ data: 'fullName', title: 'Pensioner',"autoWidth": false},
                         { data: 'basicPension', title: 'Basic Pension',"autoWidth": false},
                         { data: 'residualPension', title: 'Residual Pension',"autoWidth": false},
                         { data: 'medicalAllowance', title: 'Medical Allowance',"autoWidth": false},
-                        { data: 'dearnessReliefArrears', title: 'Dearness Relief Arrears',"autoWidth": false},
+                        { data: 'dearnessRelief', title: 'Dearness Relief',"autoWidth": false},
+                        { data: 'arrears', title: 'Arrears',"autoWidth": false},
                         { data: 'commutationAmount', title: 'Commutation Amount',"autoWidth": false},
                         {
 						 'data': null,title:'<a href="#" onclick="addPension()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
@@ -107,7 +108,7 @@ table.dataTable thead:first-child .sorting_desc {
 	  }
       
       function deletePension(id){
-    	  if(confirm("Are you sure want to delete Employee Pension?")){
+    	  if(confirm("Are you sure want to delete Pensioner Pension?")){
     		  var f = document.forms['editForm'];
     		  f.employeeId.value=id;
     		  f.action="../Payroll/deletePension";

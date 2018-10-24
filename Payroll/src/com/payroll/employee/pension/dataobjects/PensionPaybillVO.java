@@ -6,7 +6,7 @@ public class PensionPaybillVO {
 	private String section;
 	private String monthDate;
 	private String employeeId;
-	
+	private byte pensionBillType;
 	
 	public int getDepartmentId() {
 		return departmentId;
@@ -31,6 +31,12 @@ public class PensionPaybillVO {
 	}
 	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
+	}
+	public byte getPensionBillType() {
+		return pensionBillType;
+	}
+	public void setPensionBillType(byte pensionBillType) {
+		this.pensionBillType = pensionBillType;
 	}
 	
 	

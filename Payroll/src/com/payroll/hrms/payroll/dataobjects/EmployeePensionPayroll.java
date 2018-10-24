@@ -15,7 +15,7 @@ public class EmployeePensionPayroll {
 	private double totalPensionDeduction;
 	private double netPension;
 	private double residualPension;
-	private double dearnessReliefArrears;
+	private double dearnessRelief;
 	private String fullName;
 	private double commutationAmount;
 	private double medicalAllowance;
@@ -33,6 +33,7 @@ public class EmployeePensionPayroll {
     private String department;
     private String joiningDate;
     private String retirementDate;
+    private double arrears;
     
 	public EmployeePensionPayroll() {}
 	
@@ -46,19 +47,21 @@ public class EmployeePensionPayroll {
     	this.employeeId = empVO.getEmployeeId();
     }
 	
-	public EmployeePensionPayroll(String employeeId, double basicPension, double residualPension, double dearnessReliefArrears,
-			String fullName, double commutationAmount, double medicalAllowance, byte familyPensionFlag, String familyPensionName, String pensionRemark) {
+	public EmployeePensionPayroll(String employeeId, double basicPension, double residualPension, double dearnessRelief,
+			String fullName, double commutationAmount, double medicalAllowance, byte familyPensionFlag, String familyPensionName, String pensionRemark,
+			double arrears) {
 		super();
 		this.employeeId = employeeId;
 		this.basicPension = basicPension;
 		this.residualPension = residualPension;
-		this.dearnessReliefArrears = dearnessReliefArrears;
+		this.dearnessRelief = dearnessRelief;
 		this.fullName = fullName;
 		this.commutationAmount = commutationAmount;
 		this.medicalAllowance = medicalAllowance;
 		this.familyPensionFlag = familyPensionFlag;
 		this.familyPensionName = familyPensionName;
 		this.pensionRemark = pensionRemark;
+		this.arrears = arrears;
 		
 		calculateDA();
 		calculateTotalPensionDeduction();
@@ -105,12 +108,6 @@ public class EmployeePensionPayroll {
 	}
 	public void setResidualPension(double residualPension) {
 		this.residualPension = residualPension;
-	}
-	public double getDearnessReliefArrears() {
-		return dearnessReliefArrears;
-	}
-	public void setDearnessReliefArrears(double dearnessReliefArrears) {
-		this.dearnessReliefArrears = dearnessReliefArrears;
 	}
 	public String getFullName() {
 		return fullName;
@@ -163,7 +160,7 @@ public class EmployeePensionPayroll {
 	
 	private void calculateTotalPensionDeduction(){
         this.totalPensionDeduction = 0.0;
-        this.totalPensionDeduction = this.basicPension + this.residualPension + this.dearnessReliefArrears + this.medicalAllowance;
+        this.totalPensionDeduction = this.basicPension + this.residualPension + this.dearnessRelief + this.medicalAllowance;
     }
 	
 	private void calculateNetPension(){
@@ -233,5 +230,21 @@ public class EmployeePensionPayroll {
 
 	public void setRetirementDate(String retirementDate) {
 		this.retirementDate = retirementDate;
+	}
+
+	public double getDearnessRelief() {
+		return dearnessRelief;
+	}
+
+	public void setDearnessRelief(double dearnessRelief) {
+		this.dearnessRelief = dearnessRelief;
+	}
+
+	public double getArrears() {
+		return arrears;
+	}
+
+	public void setArrears(double arrears) {
+		this.arrears = arrears;
 	}
 }

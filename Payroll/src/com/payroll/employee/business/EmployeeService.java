@@ -55,8 +55,8 @@ public class EmployeeService {
 		
 		return states;
 	}
-	public List<EmployeeVO> getEmployees(int deptId, int headId, String name){
-		return new EmployeeDAO().getEmployees(deptId, headId, name);
+	public List<EmployeeVO> getEmployees(int deptId, int headId, String name, int employeeType){
+		return new EmployeeDAO().getEmployees(deptId, headId, name, employeeType);
 	}
 	public List<EmployeeVO> getEmployees(int deptId, int desgId){
 		return new EmployeeDAO().getEmployees(deptId, desgId);

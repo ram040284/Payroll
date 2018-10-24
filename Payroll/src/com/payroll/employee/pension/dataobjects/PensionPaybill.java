@@ -13,7 +13,7 @@ public class PensionPaybill {
 	private double totalPensionDeduction;
 	private double netPension;
 	private double residualPension;
-	private double dearnessReliefArrears;
+	private double dearnessRelief;
 	private String fullName;
 	private double commutationAmount;
 	private double medicalAllowance;
@@ -21,6 +21,7 @@ public class PensionPaybill {
 	private String familyPensionName;
 	private String pensionRemark;
 	private Date month;
+	private double arrears;
 	
 	public String getEmployeeId() {
 		return employeeId;
@@ -57,12 +58,6 @@ public class PensionPaybill {
 	}
 	public void setResidualPension(double residualPension) {
 		this.residualPension = residualPension;
-	}
-	public double getDearnessReliefArrears() {
-		return dearnessReliefArrears;
-	}
-	public void setDearnessReliefArrears(double dearnessReliefArrears) {
-		this.dearnessReliefArrears = dearnessReliefArrears;
 	}
 	public String getFullName() {
 		return fullName;
@@ -111,5 +106,17 @@ public class PensionPaybill {
 	}
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+	public double getDearnessRelief() {
+		return dearnessRelief;
+	}
+	public void setDearnessRelief(double dearnessRelief) {
+		this.dearnessRelief = dearnessRelief;
+	}
+	public double getArrears() {
+		return arrears;
+	}
+	public void setArrears(double arrears) {
+		this.arrears = arrears;
 	}
 }

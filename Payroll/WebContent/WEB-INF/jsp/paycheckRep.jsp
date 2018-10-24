@@ -118,7 +118,7 @@ function generatePayslip(){
 	</div>
 	<div class="row">
 		<div class="col-sm" style="float: right; margin-right: 10px; margin-bottom: 5px;">
-			<button type="button" id="searchBtn"  class="btn" onclick="generatePayslip()">Get Report</button>
+			<button type="button" id="searchBtn"  class="btn" onclick="generatePayslip()">Generate Report</button>
 			
 		</div>
 	</div>
