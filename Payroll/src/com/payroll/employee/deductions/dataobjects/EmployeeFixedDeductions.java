@@ -2,9 +2,6 @@ package com.payroll.employee.deductions.dataobjects;
 
 import java.sql.Timestamp;
 
-import com.payroll.Utils;
-import com.payroll.employee.dataobjects.Employee;
-
 public class EmployeeFixedDeductions {
 	private String employeeId;
 	private double kssUnionFee;
@@ -15,10 +12,7 @@ public class EmployeeFixedDeductions {
 	private double electricityRecovery;
 	private String status;
 	private short addUpdate;
-	private double additionalPF;
-	public double getAdditionalPF() {
-		return additionalPF;
-	}
+	
 	//FIXME
 	private double ApfAcpf;
 
@@ -39,14 +33,13 @@ public class EmployeeFixedDeductions {
 	}
 
 	public EmployeeFixedDeductions(String employeeId,  Double kssUnionFee, Double rent, 
-			 Double courtRecovery, Double unionFee, Double gis, Double additionalPF, double ApfAcpf){
+			 Double courtRecovery, Double unionFee, Double gis, double ApfAcpf){
 		this.employeeId = employeeId;
 		this.kssUnionFee = kssUnionFee;
 		this.rent = rent;
 		this.courtRecovery = courtRecovery;
 		this.unionFee = unionFee;
 		this.gis = gis;
-		this.additionalPF = (additionalPF!= null ) ? additionalPF : 0;
 		this.ApfAcpf = ApfAcpf;
 	}
 	
