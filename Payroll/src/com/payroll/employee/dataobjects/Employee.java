@@ -193,7 +193,7 @@ public class Employee implements Serializable{
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "FName:"+this.firstName+", lName:"+this.lastName+", desigId:"+this.designationId+", "
-				+ "departId:"+this.departmentId+", email:"+this.email+", phone:"+this.phone+", employeeType:"+this.employeeType;
+				+ "departId:"+this.departmentId+", email:"+this.email+", phone:"+this.phone+" | handicapFlag:"+this.handicapFlag+" |employeeType:"+this.employeeType;
 	}
 
 	public String getAddressLine2() {
