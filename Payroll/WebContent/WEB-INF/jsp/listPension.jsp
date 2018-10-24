@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Salary Details</title>
+<title>Pension Details</title>
 <jsp:include page="../jsp/public/postHeader.jsp" />
 <jsp:include page="../jsp/public/jqueryPluginMin.jsp"/>
 <script src="../Payroll/resources/js/jquery.dataTables.min.js"></script>
@@ -70,26 +70,22 @@ table.dataTable thead:first-child .sorting_desc {
               success : function(pensionData) {
              $('#pensionListTable').DataTable({
             	 columnDefs: [
-            		    { className: 'text-right', targets: [2,3,4] }, // 2- Basic Pay, 3- Grade Pay, 4- Scale Pay
+            		    { className: 'text-right', targets: [1,2,3,4,5,6] },
             		  ],
             	 "scrollY": "300px",
                   data: pensionData,
                       columns: [
-      					{ data: 'fullName', title: 'Employee',"autoWidth": false},
-                        { data: 'basicPension', title: 'Basic Pension',"autoWidth": false, render: function(basicToFormat) {
-                        	return basicToFormat.toString().replace(/[0-9]/g, '\u2022');
-                        }},
-                        { data: 'residualPension', title: 'Residual Pension',"autoWidth": false, render: function(basicToFormat) {
-                        	return basicToFormat.toString().replace(/[0-9]/g, '\u2022');
-                        }},
-                        { data: 'medicalAllowance', title: 'Medical Allowance',"autoWidth": false, render: function(basicToFormat) {
-                        	return basicToFormat.toString().replace(/[0-9]/g, '\u2022');
-                        }},
+      					{ data: 'fullName', title: 'Pensioner',"autoWidth": false},
+                        { data: 'basicPension', title: 'Basic Pension',"autoWidth": false},
+                        { data: 'residualPension', title: 'Residual Pension',"autoWidth": false},
+                        { data: 'medicalAllowance', title: 'Medical Allowance',"autoWidth": false},
+                        { data: 'dearnessRelief', title: 'Dearness Relief',"autoWidth": false},
+                        { data: 'arrears', title: 'Arrears',"autoWidth": false},
                         { data: 'commutationAmount', title: 'Commutation Amount',"autoWidth": false},
                         {
 						 'data': null,title:'<a href="#" onclick="addPension()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
-						 'render': function (salaryData, type, row) {
-            			   return '<a id="' + row.Id +'" href="#" onclick="updateSalary(\'' + salaryData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteSalary(\'' + salaryData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
+						 'render': function (pensionData, type, row) {
+            			   return '<a id="' + row.Id +'" href="#" onclick="editPension(\'' + pensionData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deletePension(\'' + pensionData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
 			            	}
 						}
                      ] 
@@ -104,7 +100,7 @@ table.dataTable thead:first-child .sorting_desc {
    		  f.submit();
    	  }
 
-      function updatePension(id){
+      function editPension(id){
     	  var f = document.forms['editForm'];
 		  f.employeeId.value=id;
 		  f.action="../Payroll/inputPension";
@@ -112,7 +108,7 @@ table.dataTable thead:first-child .sorting_desc {
 	  }
       
       function deletePension(id){
-    	  if(confirm("Are you sure want to delete Employee Pension?")){
+    	  if(confirm("Are you sure want to delete Pensioner Pension?")){
     		  var f = document.forms['editForm'];
     		  f.employeeId.value=id;
     		  f.action="../Payroll/deletePension";

@@ -10,10 +10,13 @@ import com.payroll.employee.deductions.dataobjects.EmpDeductions;
 import com.payroll.employee.deductions.dataobjects.EmpDeductionsDAO;
 import com.payroll.employee.deductions.vo.EmpDeductionsVO;
 import com.payroll.employee.leave.dataobjects.LeaveRequest;
+import com.payroll.employee.pension.dataobjects.PensionPaybill;
+import com.payroll.employee.pension.vo.PensionVO;
 import com.payroll.employee.vo.EmployeeVO;
 import com.payroll.hrms.payroll.dao.EmployeePayrollDAO;
 import com.payroll.hrms.payroll.dataobjects.Allowance;
 import com.payroll.hrms.payroll.dataobjects.EmployeePayroll;
+import com.payroll.hrms.payroll.dataobjects.EmployeePensionPayroll;
 import com.payroll.hrms.payroll.dataobjects.Paybill;
 import com.payroll.hrms.payroll.dataobjects.PaybillDAO;
 import com.payroll.overtime.dataobjects.Overtime;
@@ -28,9 +31,11 @@ public class EmployeePayrollService {
 	public static final String ABCENTIES = "ABCENT";
 	List<Paybill> paybillList = null;
 	List<EmployeeVO> empList = null;
+	List<PensionVO> pensionVOs = null;
 	IncomeTaxCalculatorService incTaxservice = null;
-	public EmployeePayrollService(List<EmployeeVO> empList){
+	public EmployeePayrollService(List<EmployeeVO> empList, List<PensionVO> pensionVOs){
 		this.empList = empList;
+		this.pensionVOs = pensionVOs;
 	}
 	public String addPaybill(EmployeePayroll payroll, Date date){
 		String result = null;
@@ -144,5 +149,41 @@ public class EmployeePayrollService {
     	}
     	return allowanceList;
     }
+    
+    public boolean createPensionPaybills(int deptId, Date date){
+		boolean success = false;
+		try{
+			EmployeePayrollDAO payrollDAO = new EmployeePayrollDAO();
+			for (Iterator iterator = pensionVOs.iterator(); iterator.hasNext();) {
+				PensionVO pensionVO = (PensionVO) iterator.next();
+				EmployeePensionPayroll empPayroll = payrollDAO.loadPensionPayrollInfo(pensionVO.getEmployeeId(), date);
+				if(empPayroll!=null){
+					//empPayroll.setEmployee(employee);
+					addpensionPaybill(empPayroll, date);
+				}
+			}
+			success = true;
+		}catch(Exception e){
+			e.printStackTrace();
+			success = false;
+		}
+		return success;
+	}
+    
+    public String addpensionPaybill(EmployeePensionPayroll payroll, Date date){
+		String result = null;
+		PensionPaybill paybill = new PensionPaybill();
+		try{
+			org.apache.commons.beanutils.BeanUtils.copyProperties(paybill, payroll);
+			paybill.setMonth(date);
+			result = new PaybillDAO().addPensionPaybill(paybill);
+			
+			//System.out.println("***** Paybill TAllowance: " + paybill.gettAllowance() + " Payroll TAllowance: " + payroll.gettAllowance());
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
+	}
     
 }

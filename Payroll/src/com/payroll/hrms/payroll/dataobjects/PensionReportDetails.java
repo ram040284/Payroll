@@ -1,51 +1,43 @@
-package com.payroll.employee.pension.dataobjects;
+package com.payroll.hrms.payroll.dataobjects;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import com.payroll.employee.dataobjects.Employee;
 
-public class Pension implements Serializable{
+public class PensionReportDetails {
 	
+	private String department;
+	private String headName;
 	private String employeeId;
+	private Employee employee;
 	private double basicPension;
+	private double da;
+	private double totalPensionDeduction;
+	private double netPension;
 	private double residualPension;
+	private double dearnessRelief;
 	private String fullName;
 	private double commutationAmount;
 	private double medicalAllowance;
 	private byte familyPensionFlag;
 	private String familyPensionName;
 	private String pensionRemark;
-	private String status;
-	private Timestamp rowUpdDate;
-	private Employee employee;
-	private short addUpdate; // 0 - Add / 1 - update
-	private double dearnessRelief;
+	private Date month;
+	private String designation;
+	private String retirementDate;
 	private double arrears;
 	
-	public short getAddUpdate() {
-		return addUpdate;
+	public String getDepartment() {
+		return department;
 	}
-	public void setAddUpdate(short addUpdate) {
-		this.addUpdate = addUpdate;
+	public void setDepartment(String department) {
+		this.department = department;
 	}
-	public String getStatus() {
-		return status;
+	public String getHeadName() {
+		return headName;
 	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public Timestamp getRowUpdDate() {
-		return rowUpdDate;
-	}
-	public void setRowUpdDate(Timestamp rowUpdDate) {
-		this.rowUpdDate = rowUpdDate;
-	}
-	public Employee getEmployee() {
-		return employee;
-	}
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setHeadName(String headName) {
+		this.headName = headName;
 	}
 	public String getEmployeeId() {
 		return employeeId;
@@ -53,11 +45,35 @@ public class Pension implements Serializable{
 	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 	public double getBasicPension() {
 		return basicPension;
 	}
 	public void setBasicPension(double basicPension) {
 		this.basicPension = basicPension;
+	}
+	public double getDa() {
+		return da;
+	}
+	public void setDa(double da) {
+		this.da = da;
+	}
+	public double getTotalPensionDeduction() {
+		return totalPensionDeduction;
+	}
+	public void setTotalPensionDeduction(double totalPensionDeduction) {
+		this.totalPensionDeduction = totalPensionDeduction;
+	}
+	public double getNetPension() {
+		return netPension;
+	}
+	public void setNetPension(double netPension) {
+		this.netPension = netPension;
 	}
 	public double getResidualPension() {
 		return residualPension;
@@ -101,6 +117,24 @@ public class Pension implements Serializable{
 	public void setPensionRemark(String pensionRemark) {
 		this.pensionRemark = pensionRemark;
 	}
+	public Date getMonth() {
+		return month;
+	}
+	public void setMonth(Date month) {
+		this.month = month;
+	}
+	public String getDesignation() {
+		return designation;
+	}
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+	public String getRetirementDate() {
+		return retirementDate;
+	}
+	public void setRetirementDate(String retirementDate) {
+		this.retirementDate = retirementDate;
+	}
 	public double getDearnessRelief() {
 		return dearnessRelief;
 	}
@@ -113,5 +147,5 @@ public class Pension implements Serializable{
 	public void setArrears(double arrears) {
 		this.arrears = arrears;
 	}
-	
+
 }

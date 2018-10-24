@@ -1,8 +1,12 @@
 package com.payroll.employee.pension.business;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.payroll.employee.allowance.business.EmpAllowanceService;
+import com.payroll.employee.deductions.dataobjects.EmpVarDeductions;
+import com.payroll.employee.deductions.dataobjects.EmpVarDeductionsVO;
 import com.payroll.employee.pension.dataobjects.Pension;
 import com.payroll.employee.pension.dataobjects.PensionDAO;
 import com.payroll.employee.pension.vo.PensionVO;
@@ -44,5 +48,23 @@ public class PensionService {
 		
 		
 		return empGrossPension;
+	}
+	
+	private PensionVO copyProperties(Pension pension){
+		PensionVO pensionVO = new PensionVO();
+		try{
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			pensionVO.setBasicPension(pension.getBasicPension());
+			pensionVO.setResidualPension(pension.getResidualPension());
+			pensionVO.setCommutationAmount(pension.getCommutationAmount());
+			pensionVO.setMedicalAllowance(pension.getMedicalAllowance());
+			pensionVO.setFamilyPensionFlag(pension.getFamilyPensionFlag());
+			pensionVO.setFamilyPensionName(pension.getFamilyPensionName());
+			
+			
+		}catch(Exception e){
+			
+		}
+		return pensionVO;
 	}
 }

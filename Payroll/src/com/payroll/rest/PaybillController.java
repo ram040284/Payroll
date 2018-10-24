@@ -15,7 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.payroll.Utils;
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
+import com.payroll.employee.pension.dataobjects.PensionPaybill;
+import com.payroll.employee.pension.dataobjects.PensionPaybillVO;
 import com.payroll.hrms.payroll.dataobjects.PaybillDetails;
+import com.payroll.hrms.payroll.dataobjects.PensionPaybillDetails;
 import com.payroll.hrms.payroll.dataobjects.EmployeePayroll;
 import com.payroll.hrms.payroll.service.GeneratePaybill;
 import com.payroll.hrms.payroll.service.PaybillService;
@@ -24,6 +27,7 @@ import com.payroll.login.dataobjects.User;
 import com.payroll.paybill.vo.PaybillBean;
 import com.payroll.paybill.vo.PaybillVO;
 import com.payroll.pdf.business.Book;
+import com.payroll.pdf.report.PensionPayBillReport;
 @Controller
 public class PaybillController {
 	@RequestMapping(value = "/inputPaybill", method = RequestMethod.POST)
@@ -115,6 +119,22 @@ public class PaybillController {
 		}
 		ModelAndView model = new ModelAndView(jspName, "command", paybill);
 		model.addObject(paybill);
+		model.addObject("departments", depJSON);
+		return model;
+	}
+	
+	private ModelAndView getPensionInputForm(PensionPaybillVO pensionPaybillVO, String jspName){
+		ObjectMapper mapper = new ObjectMapper();
+		//List<Department> deptList = new DepartmentService().getDepartments();
+		List<Department> deptList = new DepartmentService().getDeptSections();
+		String depJSON = "";
+		try {
+			depJSON = mapper.writeValueAsString(deptList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		ModelAndView model = new ModelAndView(jspName, "command", pensionPaybillVO);
+		model.addObject(pensionPaybillVO);
 		model.addObject("departments", depJSON);
 		return model;
 	}
@@ -247,4 +267,44 @@ public class PaybillController {
 		}
         return new ModelAndView("pdfView", "payslip", payslip);
     }
+	
+	@RequestMapping(value = "/pensionpaybill", method = RequestMethod.POST)
+	public ModelAndView generatePensionPayBill(PensionPaybillVO pensionPaybill) {
+		ModelAndView model = null;
+		System.out.println("Generating pension paybill..");
+		
+		try{
+			String month = Utils.getDateByMonth(Integer.parseInt(pensionPaybill.getMonthDate()));
+			int result = new PaybillService(pensionPaybill.getSection(), month).generatePensionPayBills(pensionPaybill.getPensionBillType());
+	 		model = new ModelAndView("pensionPaybillsResp", "command", pensionPaybill);
+	 		model.addObject("result", result);
+		}catch(Exception e){
+			throw new AppException(new Date(), "Failed to generate Paybills!");
+		}
+		
+		
+		return model;
+	}
+	
+	@RequestMapping(value = "/viewPensionReport", method = RequestMethod.POST)
+	public ModelAndView viewPayBill(PensionPaybillVO pensionPaybillVO) {
+		return getPensionInputForm(pensionPaybillVO, "pensionpaybill");
+	}
+	
+	@RequestMapping(value = "/downloadPensionPaybill", method = RequestMethod.POST)
+	public ModelAndView downloadPensionPaybill(PensionPaybillVO pensionPaybillVO) {
+		PensionPaybillDetails pensionPaybill = null;
+		
+		try{
+			String month = Utils.getDateByMonth(Integer.parseInt(pensionPaybillVO.getMonthDate()));
+			pensionPaybill = new PaybillService(pensionPaybillVO.getSection(), month).getPensionPayBills(pensionPaybillVO.getPensionBillType());
+			if(pensionPaybill == null  || (pensionPaybill.getPayrollList() == null || pensionPaybill.getPayrollList().isEmpty())){
+				return new ModelAndView("noActivity", "", pensionPaybill);
+			}
+		
+		}catch(Exception e){
+			throw new AppException(new Date(), "Failed to get Paybills Report!");
+		}
+        return new ModelAndView("pdfView", "pensionPaybillDetails", pensionPaybill);
+	}
 }

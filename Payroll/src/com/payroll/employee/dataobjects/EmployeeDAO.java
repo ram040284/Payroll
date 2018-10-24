@@ -21,7 +21,7 @@ import com.payroll.headInfo.dataobjects.HeadInfo;
 public class EmployeeDAO {
 
 	Session session = null;
-	public List<EmployeeVO> getEmployees(int deptId, int headId, String name){
+	public List<EmployeeVO> getEmployees(int deptId, int headId, String name, int employeeType){
 		List<EmployeeVO> employeeList = null;
 		Session session = null;
 		try{
@@ -35,7 +35,7 @@ public class EmployeeDAO {
 					+ "(select desg.designationName from Designation desg where desg.designationId = "
 					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = e.employeeId)), "
 					//+ "e.addressLine1, e.addressLine2, e.addressLine3, e.gender, e.joiningDate) from Employee e where e.status= ?");
-					+ "e.gender, e.joiningDate, e.retirementDate, e.handicapFlag, e.employeeType) from Employee e where e.status= ?");
+					+ "e.gender, e.joiningDate, e.retirementDate, e.handicapFlag, e.employeeType) from Employee e where e.status= ? and e.employeeType = ?");
 
 			
 			if(deptId != 0)
@@ -49,6 +49,7 @@ public class EmployeeDAO {
 			Query query = session.createQuery(searchCriteria.toString());
 			int i=0;
 			query.setParameter(i++, "A");
+			query.setParameter(i++, employeeType);
 			if(deptId != 0)
 				query.setParameter(i++, deptId);
 			if(headId != 0)
