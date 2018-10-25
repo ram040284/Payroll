@@ -70,7 +70,7 @@ table.dataTable thead:first-child .sorting_desc {
               success : function(allowanceData) {
                  $('#allowanceListTable').DataTable({
                	 columnDefs: [
-            		    { className: 'text-right', targets: [1, 2, 3, 4, 5, 6] }, // 1- CCA, 2- Washing Allowance, 3- NPA, 4- Uniform Allowance, 5-  Family Planning Allowance, 6- Cycle Allowance
+            		    { className: 'text-right', targets: [1, 2, 3, 4, 5] }, // 1- CCA, 2- Washing Allowance, 3- NPA, 4- Uniform Allowance, 5-  Family Planning Allowance, 6- Cycle Allowance
             		  ],
                	 "scrollX": true,
                  "scrollY": "350px",	 
@@ -79,7 +79,7 @@ table.dataTable thead:first-child .sorting_desc {
       				      { data: 'fullName', title: 'Employee',"autoWidth": true},
                       	  { data: 'cca', title: 'CCA',"autoWidth": true},
                           { data: 'washingAlwance', title: 'Washing Allowance',"autoWidth": true},
-                          { data: 'nonPracAwance', title: 'Non-Practical Allowance',"autoWidth": true},
+ //                         { data: 'nonPracAwance', title: 'Non-Pract Allowance',"autoWidth": true},
                           { data: 'uniformAlwance', title: 'Uniform Allowance',"autoWidth": true},
                           { data: 'familyPlanAlwance', title: 'Family Planning Allowance',"autoWidth": true},
                           { data: 'cycleAlwance', title: 'Cycle Allowance',"autoWidth": true},

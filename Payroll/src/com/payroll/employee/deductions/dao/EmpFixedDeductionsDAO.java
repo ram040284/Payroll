@@ -18,7 +18,7 @@ public class EmpFixedDeductionsDAO {
 			Session session = null;
 			try{
 				String queryString = " select new com.payroll.employee.deductions.dataobjects.EmpFixedDeductions(d.employee.employeeId, "
-						+"d.employee.firstName, d.employee.lastName, d.kssUnionFee, d.rent, d.courtRecovery, d.unionFee, d.gis,d.additionalPF, d.apfAcpf, d.rowUpdDate)"
+						+"d.employee.firstName, d.employee.lastName, d.kssUnionFee, d.rent, d.courtRecovery, d.unionFee, d.gis,d.apfAcpf, d.rowUpdDate)"
 						+ " from EmpFixedDeductions d where d.status = ? ";
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -45,7 +45,7 @@ public class EmpFixedDeductionsDAO {
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = d.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = d.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = d.employee.employeeId and dh.status = 'A'), "
-						+" d.kssUnionFee, d.rent,d.courtRecovery,d.unionFee, d.gis,d.additionalPF, d.apfAcpf, d.rowUpdDate)"
+						+" d.kssUnionFee, d.rent,d.courtRecovery,d.unionFee, d.gis,d.apfAcpf, d.rowUpdDate)"
 						+ " from EmpFixedDeductions d where d.employee.employeeId = ? and d.status = ? ";
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -68,7 +68,7 @@ public class EmpFixedDeductionsDAO {
 		EmployeeFixedDeductions empFixedDeductions = null;
 		Session session = null;
 			try{
-				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeFixedDeductions(s.employeeId, s.kssUnionFee, s.rent,s.courtRecovery,s.unionFee, s.gis, s.additionalPF, s.apfAcpf) from EmpFixedDeductions s where s.employeeId = ? and s.status = ?";				
+				String queryString = "select new com.payroll.employee.deductions.dataobjects.EmployeeFixedDeductions(s.employeeId, s.kssUnionFee, s.rent,s.courtRecovery,s.unionFee, s.gis,s.apfAcpf) from EmpFixedDeductions s where s.employeeId = ? and s.status = ?";				
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, empId);
@@ -164,20 +164,20 @@ public class EmpFixedDeductionsDAO {
 			}else {
 				
 				Query query = session.createQuery("update EmpFixedDeductions d set d.kssUnionFee = ?, d.rent = ?, d.courtRecovery = ?, "
-						+ "d.unionFee = ?, d.gis = ?, d.additionalPF = ?, d. apfAcpf = ?, d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ? and d.status = ?");
+						+ "d.unionFee = ?, d.gis = ?,d. apfAcpf = ?, d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ? and d.status = ?");
 				
 				query.setParameter(0, empFixedDeductions.getKssUnionFee());
 				query.setParameter(1, empFixedDeductions.getRent());
 				query.setParameter(2, empFixedDeductions.getCourtRecovery());
 				query.setParameter(3, empFixedDeductions.getUnionFee());
 				query.setParameter(4, empFixedDeductions.getGis());
-				query.setParameter(5, empFixedDeductions.getAdditionalPF());
-				query.setParameter(6, empFixedDeductions.getApfAcpf());
-				query.setParameter(7, "A");
-				query.setParameter(8, new Timestamp(System.currentTimeMillis()));
+//				query.setParameter(5, empFixedDeductions.getAdditionalPF());
+				query.setParameter(5, empFixedDeductions.getApfAcpf());
+				query.setParameter(6, "A");
+				query.setParameter(7, new Timestamp(System.currentTimeMillis()));
 				
-				query.setParameter(9, empFixedDeductions.getEmployeeId());
-				query.setParameter(10, "A");
+				query.setParameter(8, empFixedDeductions.getEmployeeId());
+				query.setParameter(9, "A");
 				int updated = query.executeUpdate();
 				if(updated > 0)
 					result = "Successfully deleted Employee Deduction details!";

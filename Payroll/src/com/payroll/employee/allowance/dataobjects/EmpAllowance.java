@@ -38,6 +38,9 @@ public class EmpAllowance implements Serializable {
 	@CsvBindByName(column= "PF_FLAG")
 	private byte pfFlag;
 	
+	@CsvBindByName(column= "NPA_FLAG")
+	private byte npaFlag;
+	
 	private Date rowUpdDate;
 	@CsvBindByName(column= "STATUS")
 	private String status;
@@ -52,7 +55,7 @@ public class EmpAllowance implements Serializable {
 	
 	public EmpAllowance(String employeeId, double cca, double washingAlwance, double nonPracAwance,
 			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, double tAllowance, double otherAllowance, Boolean hraFlag,
-			Boolean qtrFlag, Boolean afkFlag, byte taFlag, byte pfFlag, String status) {
+			Boolean qtrFlag, Boolean afkFlag, byte taFlag, byte pfFlag, byte npaFlag, String status) {
 		this.employeeId = employeeId;
 		this.cca = cca;
 		this.washingAlwance = washingAlwance;
@@ -65,6 +68,7 @@ public class EmpAllowance implements Serializable {
 		this.afkFlag = afkFlag;
 		this.taFlag = taFlag;
 		this.pfFlag = pfFlag;
+		this.npaFlag = npaFlag;
 		this.status = status;
 		this.otherAllowance = otherAllowance;
 		this.tAllowance = tAllowance;
@@ -75,6 +79,13 @@ public class EmpAllowance implements Serializable {
 	}
 	public void setPfFlag(byte pfFlag) {
 		this.pfFlag = pfFlag;
+	}
+	
+	public byte getnpaFlag() {
+		return npaFlag;
+	}
+	public void setnpaFlag(byte npaFlag) {
+		this.npaFlag = npaFlag;
 	}
 	
 	public Boolean getQtrFlag() {

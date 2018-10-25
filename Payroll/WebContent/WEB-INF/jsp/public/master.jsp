@@ -38,6 +38,47 @@ function getEmployees() {
 	var desgId = $('#designationId').val();
 	getEmployeesByIds(deptId, desgId, 0);
 }
+
+function getNPAByEmpId(empId){
+	var inputJson = { "employeeId" : empId};
+	 $.ajax({
+	     url: '../Payroll/employeeNPA',
+	     data: JSON.stringify(inputJson),
+	     type: "POST",           
+	     beforeSend: function(xhr) {
+	         xhr.setRequestHeader("Accept", "application/json");
+	         xhr.setRequestHeader("Content-Type", "application/json");
+	     },
+	     success: function(data){
+	     	$('#nonPracAwance').val(data);
+	     },
+	     failure: function (){
+	     	alert('Unable to load Non Practical Allowance value for employee.');
+	     }
+	 });
+}
+
+function getNPA(){
+	if($('#departmentId').val() == 0 || $('#designationId').val() == 0 || $('#employeeId').val() ==0){
+		alert("Department, Designation and Employee must be selected to get Allowance!");
+		if($('#departmentId').val() == 0)
+			$('#departmentId').focus();
+		else if($('#designationId').val() == 0)
+			$('#designationId').focus();
+		else if($('#employeeId').val() == 0)
+			$('#employeeId').focus();
+		return false;
+	}
+	
+	if ($("#npaFlag").val() == "1") {
+		getNPAByEmpId( $('#employeeId').val());
+	} else {
+		$('#nonPracAwance').val(0);
+	}	
+	
+	
+}
+
 function getHeads(){
 	if($('#departmentId').val() == 0){
 		alert("Department must be selected to get Heads!");

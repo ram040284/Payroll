@@ -11,6 +11,7 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
 import com.payroll.employee.dataobjects.Employee;
+import com.payroll.employee.pension.dataobjects.PensionPaybill;
 
 public class PaybillDAO {
 	private int headId=0;
@@ -127,7 +128,74 @@ public class PaybillDAO {
 		}
 		return paybill;
 	}
-
 	
+	public List<PensionPaybill> getPensionPaybillsByDept(int headId, boolean bankWise, byte pensionBillType){
+		this.headId = headId;
+		return getPensionPaybillsByDept(deptId, pensionBillType);
+	}
+	
+	public List<PensionPaybill> getPensionPaybillsByDept(int deptId, byte pensionBillType){
+		System.out.println("get pension paybill by dept id...");
+		List<PensionPaybill> pensionPaybills = null;
+			Session session = null;
+			try{
+				StringBuffer queryString = new StringBuffer(" from PensionPaybill p where p.employee.employeeId in ");
+				if(this.headId != 0)
+					queryString.append("(select eHead.employee.employeeId from EmpHeadInfo eHead where eHead.headInfo.headId = ?) and ");
+				else
+					queryString.append("(select eDept.employee.employeeId from EmpDepartment eDept where eDept.department.departmentId = ?) and p.familyPensionFlag = ? and ");
+				queryString.append("p.month >= :startDate and p.month <= :endDate ");
+				
+				session = HibernateConnection.getSessionFactory().openSession();
+				Query query = session.createQuery(queryString.toString());
+				if(this.headId != 0) {
+					query.setParameter(0, headId);
+				}
+				else {
+					query.setParameter(0, deptId);
+				}
+				
+				query.setTimestamp("startDate", startDate);
+				query.setTimestamp("endDate", endDate);
+				query.setParameter(1, pensionBillType);
+				pensionPaybills = query.list();
+				System.out.println("Report data " + pensionPaybills.toString());
+				System.out.println("**** getPensionPaybillsByDept Query Count: " + query.list().size());
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				HibernateConnection.closeSession(session);
+			}
+		
+		return pensionPaybills;
+	}
+
+	public String addPensionPaybill(PensionPaybill pensionPaybill){
+		System.out.println("paybill.getEmployeeId() " + pensionPaybill.getEmployeeId());
+		String result = null;
+		Session session = null;
+		Transaction transaction = null;
+		try{
+			session = HibernateConnection.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			Employee employee = (Employee)session.load(Employee.class, pensionPaybill.getEmployeeId());
+			
+			pensionPaybill.setEmployee(employee);
+			session.save(pensionPaybill);
+			transaction.commit();
+			result = "Yes";
+		}catch(ConstraintViolationException cv){
+			cv.printStackTrace();
+			transaction.rollback();
+			result = "Pension Paybill is Added!";
+		}catch(Exception e){
+			e.printStackTrace();
+			transaction.rollback();
+			result = "Unable to Add Pension Paybill";
+		}finally {
+			HibernateConnection.closeSession(session);
+		}
+		return result;
+	}
 
 }

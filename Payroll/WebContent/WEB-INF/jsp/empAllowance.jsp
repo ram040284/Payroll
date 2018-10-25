@@ -32,44 +32,46 @@ $(document).ready(function() {
 	if(empId != 0){
 		getEmployeesByIds(deptId, desgId, empId);
 	}
+	
+	var nonPracAwance = "${empAllowance.nonPracAwance}";
+	
 	var hraFlag = "${empAllowance.hraFlag}";
 	var qtrFlag = "${empAllowance.qtrFlag}";
 	var afkFlag = "${empAllowance.afkFlag}";
 	var taFlag = "${empAllowance.taFlag}";
 	var pfFlag = "${empAllowance.pfFlag}";
+	var npaFlag = "${empAllowance.npaFlag}";
 
 	$('#hraFlag').val(hraFlag);
 	$('#qtrFlag').val(qtrFlag);
 	$('#afkFlag').val(afkFlag);
-	
-	/* if (taFlag == 1) {
-		taFlag = "true";
-	}else {
-		taFlag = "false";
-	} */
 	$('#taFlag').val(taFlag);
-	/* alert(taFlag); */
 	$('#pfFlag').val(pfFlag);
+	$('#npaFlag').val(npaFlag);
+	
 	if(empId != 0)
 		$('#hraFlag').val(hraFlag);
 	$('#addAllowanceBtn').click(function(event) {
 
-				var cca = "${empAllowance.cca}";
-				var washingAlwance = "${empAllowance.washingAlwance}";
-				var nonPracAwance = "${empAllowance.nonPracAwance}";
-				var uniformAlwance = "${empAllowance.uniformAlwance}";
-				var familyPlanAlwance ="${empAllowance.familyPlanAlwance}";
-				var cycleAlwance = "${empAllowance.cycleAlwance}";
-				
-				if(empId != 0){
-					if(cca == $('#cca').val() && familyPlanAlwance == $('#familyPlanAlwance').val() && cycleAlwance == $('#cycleAlwance').val() &&
-							washingAlwance == $('#washingAlwance').val()  && nonPracAwance == $('#nonPracAwance').val() && uniformAlwance == $('#uniformAlwance').val() && 
-							hraFlag == $('#hraFlag').val() && qtrFlag == $('#qtrFlag').val() && afkFlag == $('#afkFlag').val() && taFlag == $('#taFlag').val() && pfFlag == $('#pfFlag').val()){
-						alert('Nothing was changed');
-						$('#employeeId').focus();
-						return false;
-					}
-				}
+		var cca = "${empAllowance.cca}";
+		var washingAlwance = "${empAllowance.washingAlwance}";
+		var nonPracAwance = "${empAllowance.nonPracAwance}";
+		var uniformAlwance = "${empAllowance.uniformAlwance}";
+		var familyPlanAlwance ="${empAllowance.familyPlanAlwance}";
+		var cycleAlwance = "${empAllowance.cycleAlwance}";
+		var npaFlag = "${empAllowance.npaFlag}";
+		
+		if(empId != 0){
+			if(cca == $('#cca').val() && familyPlanAlwance == $('#familyPlanAlwance').val() && cycleAlwance == $('#cycleAlwance').val() &&
+					washingAlwance == $('#washingAlwance').val()  && nonPracAwance == $('#nonPracAwance').val() && uniformAlwance == $('#uniformAlwance').val() && 
+					hraFlag == $('#hraFlag').val() && qtrFlag == $('#qtrFlag').val() && afkFlag == $('#afkFlag').val() && taFlag == $('#taFlag').val() && pfFlag == $('#pfFlag').val() && npaFlag == $('#npaFlag').val()){
+				alert('Nothing was changed');
+				$('#employeeId').focus();
+				return false;
+			}
+		}
+		
+		
 			
 		if($('#departmentId').val() == 0){
 			alert("Department must be selected!");
@@ -103,7 +105,7 @@ $(document).ready(function() {
 		var inputJson = { "employeeId" : $('#employeeId').val(), "cca" : $('#cca').val(),  
 				"washingAlwance" : $('#washingAlwance').val(), "familyPlanAlwance" : $('#familyPlanAlwance').val(), "cycleAlwance" : $('#cycleAlwance').val(),
 				"nonPracAwance" : $('#nonPracAwance').val(), "uniformAlwance" : $('#uniformAlwance').val(), 
-				"hraFlag": $('#hraFlag').val(),"qtrFlag": $('#qtrFlag').val(),"afkFlag": $('#afkFlag').val(),"taFlag": $('#taFlag').val(), "pfFlag": $('#pfFlag').val(), "addUpdate": $('#addUpdate').val()};
+				"hraFlag": $('#hraFlag').val(),"qtrFlag": $('#qtrFlag').val(),"afkFlag": $('#afkFlag').val(),"taFlag": $('#taFlag').val(), "pfFlag": $('#pfFlag').val(), "npaFlag": $('#npaFlag').val(), "addUpdate": $('#addUpdate').val()};
 		$.ajax({
 	        url: '../Payroll/addEmpAllowance',
 	        data: JSON.stringify(inputJson),
@@ -127,29 +129,25 @@ $(document).ready(function() {
 </head>
 <body>
 	<div class="contain-wrapp bodyDivCss">
-	<div class="container">
-	<div class="formDiv" style="border: none;">
+		<div class="container">
+			<div class="formDiv" style="border: none;">
 				<div class="row">
 					<div class="text-left" style="margin-left: 15px;">
 						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/viewEmpAlwnce')">Back</button>
 					</div>
 				</div>
 			</div>
-			</div>
+		</div>
 		<div class="container">
-			<div
-				style="display: none; color: red; font-weight: bold; height: 15px;"
-				id="errMsgDiv"></div>
+			<div style="display: none; color: red; font-weight: bold; height: 15px;"id="errMsgDiv"></div> 
 			<div class="formDiv">
-				<h4
-					style="color: #fff; padding: 5px; background-color: #8B9DC3; text-transform: none;">
+				<h4 style="color: #fff; padding: 5px; background-color: #8B9DC3; text-transform: none;">
 					<c:if test="${empAllowance.employeeId != '0'}">	Update</c:if>
 					<c:if test="${empAllowance.employeeId == '0'}">Add</c:if>
 					Employee Fixed Allowances
 				</h4>
 
-				<div class="col-lg-12 card-block bg-faded"
-					style="margin-bottom: 10px;">
+				<div class="col-lg-12 card-block bg-faded" style="margin-bottom: 10px;">
 					<div class="row">
 						<form:form method="POST" action="">
 							<div class="col-sm-12">
@@ -179,7 +177,8 @@ $(document).ready(function() {
 								</div>
 								<div class="row">
 									<div class="col-sm-4 form-group">
-										<label>Employee:</label> <select id="employeeId"
+										<label>Employee:</label> 
+										<select id="employeeId"
 											class="form-control"
 											<c:if test="${empAllowance.employeeId != '0'}" >disabled = "disabled" </c:if>>
 											<option value="0">-- Select Employee --</option>
@@ -198,19 +197,22 @@ $(document).ready(function() {
 
 								</div>
 								<div class="row">
-                                     <div class="col-sm-4 form-group">
-									   	<label>Non-Prac Allowance:</label>
-										<form:input path="nonPracAwance" id="nonPracAwance"
-											placeholder="Enter Non-Prac Allowance" class="form-control" />
-
-									</div>
+								
 									<div class="col-sm-4 form-group">
-										<label>Uniform Allowance:</label>
-										<form:input path="uniformAlwance" id="uniformAlwance"
-											placeholder="Enter Uniform Allowance" class="form-control" />
-										<input type="hidden" name="addUpdate" id="addUpdate"
-											<c:if test="${empAllowance.employeeId != '0'}" > value="1" </c:if> />
-                                   </div>
+										<label>Is NPA applicable?</label><br />
+										<form:select path = "npaFlag" id="npaFlag" class="form-control" onchange="getNPA()">
+											<form:option value="0" label="No" />
+											<form:option value="1" label="Yes" />
+										</form:select>  
+									</div> 
+									
+									
+									<div class="col-sm-4 form-group">
+										<label>Non-Practical Allowance:</label>
+										<form:input path="nonPracAwance" id="nonPracAwance"	
+											placeholder="Enter Non-Prac Allowance" class="form-control" />
+									</div>
+									
 									<div class="col-sm-4 form-group">
 										<label>Family Planning Allowance:</label>
 										<form:input path="familyPlanAlwance" id="familyPlanAlwance"
@@ -263,6 +265,17 @@ $(document).ready(function() {
 										placeholder="Enter PF" class="form-control"/>
 									</div>
 								</div>
+								
+								<div class="row">
+									<div class="col-sm-4 form-group">
+											<label>Uniform Allowance:</label>
+											<form:input path="uniformAlwance" id="uniformAlwance"
+									placeholder="Enter Uniform Allowance" class="form-control" />
+									<input type="hidden" name="addUpdate" id="addUpdate"
+										<c:if test="${empAllowance.employeeId != '0'}" > value="1" </c:if> />
+									</div>
+								</div>
+								
 								<div class="row">
 									<div class="text-right">
 										<button type="button" id="addAllowanceBtn" class="btn">Submit</button>

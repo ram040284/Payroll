@@ -117,6 +117,10 @@ public class EmployeePayroll {
 	private String contBankAcNumber;
 	private int billType;
     
+	private Date appointmentDate;
+	private Date endDate;
+	private String engagementLetterId;
+    
     //deductions
     public EmployeePayroll(){
     	
@@ -134,7 +138,8 @@ public class EmployeePayroll {
     }
     
     public EmployeePayroll(double basic, double gradePay, String scalePay, String scaleCode, 
-    		int empAbsentDays, int empPresentDays, String contBankAcNumber, String employeeId, int billType, int designationId) {
+    		int empAbsentDays, int empPresentDays, String contBankAcNumber, String employeeId, int billType, int designationId,
+    		Date appointmentDate, Date endDate, String engagementLetterId) {
     	this.basic = basic;
     	this.gradePay = gradePay;
     	this.scale = scaleCode;
@@ -143,6 +148,9 @@ public class EmployeePayroll {
     	this.contBankAcNumber = contBankAcNumber;
     	this.employeeId = employeeId;
     	this.billType = billType;
+    	this.appointmentDate = appointmentDate;
+    	this.endDate = endDate;
+    	this.engagementLetterId = engagementLetterId;
     	if (billType == 2) {
     		calculateAbsDedAmtCont();
 		}else if (billType == 3) {
@@ -1049,6 +1057,24 @@ public class EmployeePayroll {
 	}
 	public void setContBankAcNumber(String contBankAcNumber) {
 		this.contBankAcNumber = contBankAcNumber;
+	}
+	public Date getAppointmentDate() {
+		return appointmentDate;
+	}
+	public void setAppointmentDate(Date appointmentDate) {
+		this.appointmentDate = appointmentDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+	public String getEngagementLetterId() {
+		return engagementLetterId;
+	}
+	public void setEngagementLetterId(String engagementLetterId) {
+		this.engagementLetterId = engagementLetterId;
 	}
 
 	/*public double getOthers() {

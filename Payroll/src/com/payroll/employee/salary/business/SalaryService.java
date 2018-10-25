@@ -45,4 +45,14 @@ public class SalaryService {
 		
 		return empGrossSalary;
 	}
+	
+
+	public double getNPAForEmployee(String employeeId) {
+		 double npa = 0;
+		if(employeeId != null) {
+			SalaryVO empSalary = new SalaryDAO().getEmpSalary(employeeId);
+			npa = (empSalary.getBasic() + empSalary.getGradePay()) * 0.25;
+		}
+		return npa;		
+	}
 }

@@ -55,8 +55,8 @@ public class EmployeeService {
 		
 		return states;
 	}
-	public List<EmployeeVO> getEmployees(int deptId, int headId, String name){
-		return new EmployeeDAO().getEmployees(deptId, headId, name);
+	public List<EmployeeVO> getEmployees(int deptId, int headId, String name, int employeeType){
+		return new EmployeeDAO().getEmployees(deptId, headId, name, employeeType);
 	}
 	public List<EmployeeVO> getEmployees(int deptId, int desgId){
 		return new EmployeeDAO().getEmployees(deptId, desgId);
@@ -68,6 +68,10 @@ public class EmployeeService {
 	
 	public List<EmployeeVO> getAllEmployees(){
 		return new EmployeeDAO().getAllEmployees();
+	}
+	
+	public List<EmployeeVO> getAllContactEmployees(){
+		return new EmployeeDAO().getAllContractEmployees();
 	}
 	
 	public String addUpdateEmployee(com.payroll.employee.Employee emp){
@@ -98,8 +102,6 @@ public class EmployeeService {
 		
 	private Employee copyEmp(com.payroll.employee.Employee emp){
 		Employee dbEmp = null;
-		String empID = "";
-		String empPrefix="";
 		try{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			dbEmp =  new Employee();
@@ -118,9 +120,8 @@ public class EmployeeService {
 			dbEmp.setMiddleName(emp.getMiddleName());
 			dbEmp.setPhone(emp.getPhone());
 			dbEmp.setPan(emp.getPan());
-			
+			dbEmp.setHandicapFlag(emp.getHandicapFlag());
 			dbEmp.setEmployeeId(emp.getEmployeeId());
-						
 			dbEmp.setDesignationId(emp.getDesignationId());
 			dbEmp.setGender(emp.getGender());
 			dbEmp.setHeadId(emp.getHeadId());
@@ -157,8 +158,8 @@ public class EmployeeService {
 			dbEmp.setEmployeeId(emp.getEmployeeId());
 			dbEmp.setDesignationId(emp.getDesignationId());
 			dbEmp.setGender(emp.getGender());
+			dbEmp.setHandicapFlag(emp.getHandicapFlag());
 			dbEmp.setEmployeeType(emp.getEmployeeType());
-			System.out.println("headId:"+emp.getHeadId());
 			dbEmp.setHeadId(emp.getHeadId());
 			dbEmp.setRetirementDate(emp.getRetirementDate());
 		}catch(Exception e){

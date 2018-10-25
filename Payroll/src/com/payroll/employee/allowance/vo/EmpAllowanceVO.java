@@ -17,6 +17,7 @@ public class EmpAllowanceVO {
 	private Boolean afkFlag;
 	private byte taFlag;
 	private byte pfFlag;
+	private byte npaFlag;
 	private int departmentId;
 	private int headId;
 	private int designationId;
@@ -25,12 +26,66 @@ public class EmpAllowanceVO {
 	private double tAllowance;
 	private Date rowUpdDate;
 	
+	public EmpAllowanceVO(String employeeId, String firstName, String lastName, double cca, double washingAlwance,	double nonPracAwance, 
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, double otherAllowance,  double tAllowance, Boolean hraFlag, Boolean qtrFlag, Boolean afkFlag, byte taFlag, byte pfFlag, byte npaFlag) {
+		this.employeeId = employeeId;
+		StringBuffer fullNameSB = new StringBuffer(firstName);
+		fullNameSB.append(" ");
+		fullNameSB.append(Utils.safeTrim(lastName));
+		this.fullName = fullNameSB.toString();
+		this.cca = cca;
+		this.washingAlwance = washingAlwance;
+		this.nonPracAwance = nonPracAwance;
+		this.uniformAlwance = uniformAlwance;
+		this.familyPlanAlwance = familyPlanAlwance;
+		this.cycleAlwance = cycleAlwance;
+		this.hraFlag = hraFlag;
+		this.qtrFlag = qtrFlag;
+		this.afkFlag = afkFlag;
+		this.taFlag = taFlag;
+		this.pfFlag = pfFlag;
+		this.otherAllowance = otherAllowance;
+		this.tAllowance = tAllowance;
+		this.npaFlag = npaFlag;
+	}
+	
+	public EmpAllowanceVO(String employeeId, int departmentId, int designationId, int headId, double cca, double washingAlwance, double nonPracAwance, 
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, byte npaFlag, double otherAllowance, double tAllowance, Date rowUpdDate) {
+		this.employeeId = employeeId;
+		this.departmentId = departmentId;
+		this.designationId = designationId;
+		this.headId = headId;
+		this.cca = cca;
+		this.washingAlwance = washingAlwance;
+		this.nonPracAwance = nonPracAwance;
+		this.uniformAlwance = uniformAlwance;
+		this.familyPlanAlwance = familyPlanAlwance;
+		this.cycleAlwance = cycleAlwance;
+		this.hraFlag = hraFlag;
+		this.qtrFlag = qtrFlag;
+		this.afkFlag = afkFlag;
+		this.taFlag = taFlag;
+		this.pfFlag = pfFlag;
+		this.npaFlag = npaFlag;
+		this.otherAllowance = otherAllowance;
+		this.tAllowance = tAllowance;
+		this.rowUpdDate = rowUpdDate;
+	}
+	
 	public byte getPfFlag() {
 		return pfFlag;
 	}
 
 	public void setPfFlag(byte pfFlag) {
 		this.pfFlag = pfFlag;
+	}
+	
+	public byte getnpaFlag() {
+		return npaFlag;
+	}
+
+	public void setnpaFlag(byte npaFlag) {
+		this.npaFlag = npaFlag;
 	}
 
 	public Boolean getQtrFlag() {
@@ -75,50 +130,6 @@ public class EmpAllowanceVO {
 	
 	public EmpAllowanceVO(){
 		
-	}
-	
-	public EmpAllowanceVO(String employeeId, String firstName, String lastName, double cca, double washingAlwance,	double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag,byte pfFlag, double otherAllowance, double tAllowance) {
-		this.employeeId = employeeId;
-		StringBuffer fullNameSB = new StringBuffer(firstName);
-		fullNameSB.append(" ");
-		fullNameSB.append(Utils.safeTrim(lastName));
-		this.fullName = fullNameSB.toString();
-		this.cca = cca;
-		this.washingAlwance = washingAlwance;
-		this.nonPracAwance = nonPracAwance;
-		this.uniformAlwance = uniformAlwance;
-		this.familyPlanAlwance = familyPlanAlwance;
-		this.cycleAlwance = cycleAlwance;
-		this.hraFlag = hraFlag;
-		this.qtrFlag = qtrFlag;
-		this.afkFlag = afkFlag;
-		this.taFlag = taFlag;
-		this.pfFlag = pfFlag;
-		this.otherAllowance = otherAllowance;
-		this.tAllowance = tAllowance;
-	}
-	
-	public EmpAllowanceVO(String employeeId, int departmentId, int designationId, int headId, double cca, double washingAlwance, double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, double otherAllowance, double tAllowance, Date rowUpdDate) {
-		this.employeeId = employeeId;
-		this.departmentId = departmentId;
-		this.designationId = designationId;
-		this.headId = headId;
-		this.cca = cca;
-		this.washingAlwance = washingAlwance;
-		this.nonPracAwance = nonPracAwance;
-		this.uniformAlwance = uniformAlwance;
-		this.familyPlanAlwance = familyPlanAlwance;
-		this.cycleAlwance = cycleAlwance;
-		this.hraFlag = hraFlag;
-		this.qtrFlag = qtrFlag;
-		this.afkFlag = afkFlag;
-		this.taFlag = taFlag;
-		this.pfFlag = pfFlag;
-		this.otherAllowance = otherAllowance;
-		this.tAllowance = tAllowance;
-		this.rowUpdDate = rowUpdDate;
 	}
 	
 	public String getEmployeeId() {

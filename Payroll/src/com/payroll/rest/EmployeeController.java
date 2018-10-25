@@ -83,7 +83,7 @@ public class EmployeeController {
 				List<EmployeeVO> employees = null;
 				 if(employee.getDepartmentId() !=0 || !Utils.isEmpty(employee.getFirstName())){
 					   employees = new EmployeeService().getEmployees(
-						   employee.getDepartmentId(), employee.getHeadId(), employee.getFirstName());
+						   employee.getDepartmentId(), employee.getHeadId(), employee.getFirstName(), employee.getEmployeeType());
 				   }
 				return employees;
 			} else {
@@ -101,7 +101,7 @@ public class EmployeeController {
 			User loggedInUser = (User) request.getSession().getAttribute("user");
 			
 			if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-				List<EmployeeVO> employees = new EmployeeService().getEmployees(0,0,null);
+				List<EmployeeVO> employees = new EmployeeService().getEmployees(0,0,null,1);
 				return employees;
 			} else {
 				model = new ModelAndView("unauthorized", "message", "You do not have access to view employees. Please click home button to go back.");
@@ -201,7 +201,7 @@ public class EmployeeController {
 		   List<EmployeeVO> employees = null;
 		   if(employee.getDepartmentId() !=0 || !Utils.isEmpty(employee.getFirstName())){
 			   employees = new EmployeeService().getEmployees(
-				   employee.getDepartmentId(), employee.getHeadId(), employee.getFirstName());
+				   employee.getDepartmentId(), employee.getHeadId(), employee.getFirstName(), employee.getEmployeeType());
 		   }
 
 		   ModelAndView model = new ModelAndView("listEmp", "command", employee);
