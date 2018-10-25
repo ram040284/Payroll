@@ -147,7 +147,7 @@ public class Employee {
 	
 	
 	public Employee(String firstName, String lastName, String middleName, String designation, 
-			String email, String phone, int employeeType){
+			String email, String phone, int employeeType, byte handicapFlag){
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
@@ -155,6 +155,7 @@ public class Employee {
 		this.designation = designation;
 		this.phone = phone;
 		this.employeeType = employeeType;
+		this.handicapFlag = handicapFlag;
 		
 	}
 	
@@ -181,7 +182,7 @@ public class Employee {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "employeeId:"+employeeId+" | FName:"+this.firstName+" | lName:"+this.lastName+" | desigId:"+this.designationId+" | "
-				+ "departId:"+this.departmentId+" | email:"+this.email+" | phone:"+this.phone+" | employeeType:"+this.employeeType;
+				+ "departId:"+this.departmentId+" | email:"+this.email+" | phone:"+this.phone+" | handicapFlag:"+this.handicapFlag+" | employeeType:"+this.employeeType;
 	}
 
 	public String getAddressLine1() {

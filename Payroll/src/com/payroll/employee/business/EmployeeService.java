@@ -102,8 +102,6 @@ public class EmployeeService {
 		
 	private Employee copyEmp(com.payroll.employee.Employee emp){
 		Employee dbEmp = null;
-		String empID = "";
-		String empPrefix="";
 		try{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			dbEmp =  new Employee();
@@ -122,9 +120,8 @@ public class EmployeeService {
 			dbEmp.setMiddleName(emp.getMiddleName());
 			dbEmp.setPhone(emp.getPhone());
 			dbEmp.setPan(emp.getPan());
-			
+			dbEmp.setHandicapFlag(emp.getHandicapFlag());
 			dbEmp.setEmployeeId(emp.getEmployeeId());
-						
 			dbEmp.setDesignationId(emp.getDesignationId());
 			dbEmp.setGender(emp.getGender());
 			dbEmp.setHeadId(emp.getHeadId());
@@ -161,8 +158,8 @@ public class EmployeeService {
 			dbEmp.setEmployeeId(emp.getEmployeeId());
 			dbEmp.setDesignationId(emp.getDesignationId());
 			dbEmp.setGender(emp.getGender());
+			dbEmp.setHandicapFlag(emp.getHandicapFlag());
 			dbEmp.setEmployeeType(emp.getEmployeeType());
-			System.out.println("headId:"+emp.getHeadId());
 			dbEmp.setHeadId(emp.getHeadId());
 			dbEmp.setRetirementDate(emp.getRetirementDate());
 		}catch(Exception e){

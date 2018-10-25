@@ -72,7 +72,7 @@ $(document).ready(function() {
 			   success : function(empDeductionData){
             	  $('#deductionListTable').DataTable({
             		  columnDefs: [
-              		    { className: 'text-right', targets: [1, 2, 3, 4, 5, 6] }, // 1- KSS Union Fee, 2- Rent, 3- Court Recovery, 4- Union Fee, 5- GIS, 6- Additional PF
+              		    { className: 'text-right', targets: [1, 2, 3, 4, 5] }, // 1- KSS Union Fee, 2- Rent, 3- Court Recovery, 4- Union Fee, 5- GIS, 6- Additional PF
               		  ],
             		  data:empDeductionData,
 				  	  columns:[
@@ -82,7 +82,6 @@ $(document).ready(function() {
             			  {data:'courtRecovery',title:'Court Recovery'},
 						  {data:'unionFee',title:'Union Fee'},
 						  {data:'gis',title:'GIS'},
-						  {data:'additionalPF',title:'Additional PF'},
 						  {data:'apfAcpf',title:'APF/ ACPF'},
                           { 
 						   'data': null, 
@@ -93,8 +92,7 @@ $(document).ready(function() {
                                return '<a id= "' +row.Id +'" href="#" onclick="updateDeductions(\'' + empDeductionData.employeeId + '\')"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/> <a id="' +row.Id+'"  href="#" onclick="deleteDeductions(\'' + empDeductionData.employeeId + '\')"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"/>'}
        
                                 }
-						  
-           
+          
 						  ]	  
             	  });
               }
