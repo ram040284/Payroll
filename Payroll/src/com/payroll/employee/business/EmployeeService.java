@@ -70,6 +70,10 @@ public class EmployeeService {
 		return new EmployeeDAO().getAllEmployees();
 	}
 	
+	public List<EmployeeVO> getAllContactEmployees(){
+		return new EmployeeDAO().getAllContractEmployees();
+	}
+	
 	public String addUpdateEmployee(com.payroll.employee.Employee emp){
 			return new EmployeeDAO().addUpdateEmployee(copyEmp(emp));
 	}

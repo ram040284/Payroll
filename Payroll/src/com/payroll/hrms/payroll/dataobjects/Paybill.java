@@ -78,6 +78,10 @@ public class Paybill implements Serializable{
 	private String contPan;
 	private String contBankAcNumber;
 	
+	private Date appointmentDate;
+	private Date endDate;
+	private String engagementLetterId;
+	
 	/*private String employeeName;
 	private String panNo;
 	private String dob;
@@ -470,5 +474,23 @@ public class Paybill implements Serializable{
 	}
 	public void setContBankAcNumber(String contBankAcNumber) {
 		this.contBankAcNumber = contBankAcNumber;
+	}
+	public Date getAppointmentDate() {
+		return appointmentDate;
+	}
+	public void setAppointmentDate(Date appointmentDate) {
+		this.appointmentDate = appointmentDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+	public String getEngagementLetterId() {
+		return engagementLetterId;
+	}
+	public void setEngagementLetterId(String engagementLetterId) {
+		this.engagementLetterId = engagementLetterId;
 	}
 }

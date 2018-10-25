@@ -596,4 +596,25 @@ public class EmployeeDAO {
 		}
 		return employee;
 	}
+	
+	public List<EmployeeVO> getAllContractEmployees(){
+		List<EmployeeVO> empList = null;
+		Session session = null;
+		try{
+			String queryString = "select new com.payroll.employee.vo.EmployeeVO(e.employeeId, e.firstName, e.lastName, e.middleName) from Employee e "
+					+ "where e.status = ? and e.employeeType = ?";
+			session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, "A");
+			query.setParameter(1, 2);
+			empList = query.list();
+			if(!empList.isEmpty())
+				System.out.println("getAllEmployees Size:"+empList.size());
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return empList;
+	}
 }
