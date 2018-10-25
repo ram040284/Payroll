@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -90,10 +91,18 @@ if(!salary.getEmployeeId().equals("0"))
 		
 		
 	}
+	
+	@RequestMapping(value="/employeeNPA", method=RequestMethod.POST)
+	public @ResponseBody 
+		String employeeNPA(@RequestBody Salary salary, HttpServletRequest request) {
+		double npaValue = new SalaryService().getNPAForEmployee(salary.getEmployeeId());
+		return Double.toString(npaValue);
+	}
+	
 	   
 	@RequestMapping(value="/addSalary",method=RequestMethod.POST)
 	public @ResponseBody
-	String addSalary(@RequestBody Salary salary, HttpServletRequest request){
+		String addSalary(@RequestBody Salary salary, HttpServletRequest request){
 		
 		permissionForThis = "addEmployeeSalary";
 		User loggedInUser = (User) request.getSession().getAttribute("user");
@@ -101,7 +110,7 @@ if(!salary.getEmployeeId().equals("0"))
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
 			//System.out.println("addSalary -- salary : "+salary.getAddUpdate());
 			   String result = new SalaryService().addUpdateSalary(salary);
-			   System.out.println("Add/Update Salary -- result:"+result);
+			 //  System.out.println("Add/Update Salary -- result:"+result);
 			   return result;
 		} else {
 			request.getSession().setAttribute("message", "You do not have access to add employee salary. Please click home button to go back.");
