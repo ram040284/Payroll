@@ -109,6 +109,10 @@ public class PdfBuilder extends AbstractITextPdfView {
         cell1.setPadding(3);
         if(alignRight)
         	cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        
+        if(value.contains("FORM NO.")) {
+        	cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        }
         cell1.setPhrase(new Phrase(value, font));
        
         return cell1;

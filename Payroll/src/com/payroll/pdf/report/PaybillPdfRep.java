@@ -7,6 +7,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.TabStop.Alignment;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import com.payroll.Utils;
@@ -29,6 +30,20 @@ public class PaybillPdfRep extends PdfBuilder{
 			String watermarkImg = imgPath+"//CBK_Logo_min.png";//request.getSession().getServletContext().getRealPath("/resources/images/CBK_Logo.png");
 	        String logoImg = imgPath+"//logo_new_min.jpg";
 	        doc.add(PdfUtils.getMainHeader(logoImg));
+	        
+	        
+	        /********************************/
+	        Font seeRuleFont = FontFactory.getFont(FontFactory.HELVETICA);
+	        seeRuleFont.setSize(8);
+	        StringBuffer seeText = new StringBuffer("FORM NO. CANTT. 15-B [SEE RULE 48(2)]");
+	      
+	        PdfPTable paybillTabs = null;
+	        float paybillTabWid[] = {7f};
+	        paybillTabs = createPdfPTable(1, 0, paybillTabWid);
+	        paybillTabs.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        paybillTabs.addCell(addToCell(seeText.toString(), headHdFont, true));
+	        doc.add(paybillTabs);
+	        /******************************/
 	        
 	        DottedLineSeparator dottedline = new DottedLineSeparator();
 	        dottedline.setOffset(-2);

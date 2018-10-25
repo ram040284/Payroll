@@ -194,19 +194,19 @@ $(document).ready(function() {
 							</div>
 							<div class="row">
 								<div class="col-sm-3 form-group">
-									<label>Earned Lvs: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.earnLeave}"/></span></c:if> </label>
+									<label>Earned Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.earnLeave}"/></span></c:if> </label>
 									<form:input path="earnLeaveInp"  id="earnLeaveInp" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
-									<label>Ptrnty Lvs: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.paternityLeave}"/></span></c:if></label>
+									<label>Paternity Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.paternityLeave}"/></span></c:if></label>
 									<form:input path="paternityLeaveInp"  id="paternityLeaveInp" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
-									<label>Mtrnity Lvs: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.maternityLeave}"/></span></c:if></label>
+									<label>Maternity Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.maternityLeave}"/></span></c:if></label>
 									<form:input path="maternityLeaveInp"  id="maternityLeaveInp" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
-									<label>Xtrdry Lvs: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.extraLeave}"/></span></c:if></label>
+									<label>Extra Ordinary Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.extraLeave}"/></span></c:if></label>
 									<form:input path="extraLeaveInp"  id="extraLeaveInp" class="form-control"/>
 								</div>
 	

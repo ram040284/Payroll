@@ -195,13 +195,13 @@ display: none;
 								<th>Arrears</th>
 								<th>OT Amount</th>
 								<th>OT Wages</th>
-								<th>HAR Section 10(3A):</th>
+								<th>HRA Section 10(3A):</th>
 								<th>Income tax rebate 87C:</th>
-								<th>Child Tran Allw 10(14):</th>
-								<th>Home load 24B:</th>
+								<th>Child Transport Allowance 10(14):</th>
+								<th>Home loan 24B:</th>
 								<th>HLP PF LIC 80C:</th>
 								<th>NSP 80CCD(1B):</th>
-								<th>Health Insu 80D:</th>
+								<th>Health Insurance 80D:</th>
 								<th>Des Dep 80DD:</th>
 								<th>Medical 80DDB:</th>
 								<th>EDU Load 80D:</th>

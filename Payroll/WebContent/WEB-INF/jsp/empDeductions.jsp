@@ -529,12 +529,12 @@ function getEmployeesByIds(deptId, desgId, empId){
 								</div>
 								<div class="col-sm-4 form-group">
 									<label>Section 80C:</label>
-									<form:input path="section80C"  id="section80C" placeholder="Enter Section 80C" class="form-control"/>
+									<form:input type="text" title="Deductions on Investments" path="section80C"  id="section80C" placeholder="Enter Section 80C" class="form-control"/>
 									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empDeductions.employeeId != '0'}" > value="1" </c:if>/>
 								</div>
 								<div class="col-sm-4 form-group">
 									<label>Section 80D:</label>
-									<form:input path="section80D"  id="section80D" placeholder="Enter Section 80D" class="form-control"/>
+									<form:input type="text" title="Deduction for the premium paid for Medical Insurance" path="section80D"  id="section80D" placeholder="Enter Section 80D" class="form-control"/>
 									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empDeductions.employeeId != '0'}" > value="1" </c:if>/>
 								</div>
 							
@@ -542,74 +542,74 @@ function getEmployeesByIds(deptId, desgId, empId){
 							<div class="row">
 							<div class="col-sm-3 form-group">
 									<label>Section 80E:</label>
-									<form:input path="section80E"  id="section80E" placeholder="Enter Section 80E" class="form-control"/>
+									<form:input type="text" title="Deduction for Interest on Education Loan for Higher Studies" path="section80E"  id="section80E" placeholder="Enter Section 80E" class="form-control"/>
 									<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empDeductions.employeeId != '0'}" > value="1" </c:if>/>
 								</div>
 								<div class="col-sm-3 form-group">
-									<label>Home Loan Interest 88EE:</label>
-									<form:input path="homeLoanIntrst88EE"  id="homeLoanIntrst88EE" placeholder="Enter Home Loan Interest" class="form-control"/>
+									<label>Home Loan Interest 88EE: </label>
+									<form:input type="text" title="Deductions on Home Loan Interest for First Time Home Owners" path="homeLoanIntrst88EE"  id="homeLoanIntrst88EE" placeholder="Enter Home Loan Interest" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>Cess:</label>
-									<form:input path="cess"  id="cess" placeholder="Enter Cess" class="form-control"/>
+									<form:input type="text" title="This is a tax on tax"  path="cess"  id="cess" placeholder="Enter Cess" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>Section 80DD:</label>
-									<form:input path="section80DD"  id="section80DD" placeholder="Enter Section 80DD" class="form-control"/>
+									<form:input type="text" title="Deduction for Rehabilitation of Handicapped Dependent Relative" path="section80DD"  id="section80DD" placeholder="Enter Section 80DD" class="form-control"/>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-3 form-group">
 									<label>Self Disable 80U:</label>
-									<form:input path="selfDisable80U"  id="selfDisable80U" placeholder="Enter Section 80C" class="form-control"/>
+									<form:input type="text" title="Deduction for Person suffering from Physical Disability" path="selfDisable80U"  id="selfDisable80U" placeholder="Enter Section 80C" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>Loan Principal:</label>
-									<form:input path="loanPrincipal"  id="loanPrincipal" placeholder="Enter Loan Principal" class="form-control"/>
+									<form:input type="text" title="The principal of a loan is the amount borrowed. Interest is calculated on the principal." path="loanPrincipal"  id="loanPrincipal" placeholder="Enter Loan Principal" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>School Fee:</label>
-									<form:input path="schoolFees"  id="schoolFees" placeholder="Enter School Fee" class="form-control"/>
+									<form:input type="text" title="Children school fees" path="schoolFees"  id="schoolFees" placeholder="Enter School Fee" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>LIC:</label>
-									<form:input path="lic"  id="lic" placeholder="Enter LIC" class="form-control"/>
+									<form:input  type="text" title="LIC Policy benefit" path="lic"  id="lic" placeholder="Enter LIC" class="form-control"/>
 								</div>
 								</div>
 								<div class="row">
 								<div class="col-sm-3 form-group">
 									<label>Mutual Fund:</label>
-									<form:input path="mutualFund"  id="mutualFund" placeholder="Enter Mutual Fund" class="form-control"/>
+									<form:input type="text" title="Mutual Funds Exemption" path="mutualFund"  id="mutualFund" placeholder="Enter Mutual Fund" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>NSC:</label>
-									<form:input path="nsc"  id="nsc" placeholder="Enter NSC" class="form-control"/>
+									<form:input type="text" title="National Savings Certificate" path="nsc"  id="nsc" placeholder="Enter NSC" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>PPF:</label>
-									<form:input path="ppf"  id="ppf" placeholder="Enter PPF" class="form-control"/>
+									<form:input type="text" title="Public Provident Fund" path="ppf"  id="ppf" placeholder="Enter PPF" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>Donation:</label>
-									<form:input path="donation"  id="donation" placeholder="Enter donation" class="form-control"/>
+									<form:input type="text" title="Deduction for donations towards Social Causes" path="donation"  id="donation" placeholder="Enter donation" class="form-control"/>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-3 form-group">
 									<label>Bonus:</label>
-									<form:input path="bonus"  id="bonus" placeholder="Enter Bonus" class="form-control"/>
+									<form:input type="text" title="Bonus" path="bonus"  id="bonus" placeholder="Enter Bonus" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>Arrears:</label>
-									<form:input path="arrears"  id="arrears" placeholder="Enter Arrears" class="form-control"/>
+									<form:input type="text" title="Arrears" path="arrears"  id="arrears" placeholder="Enter Arrears" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>OT Amount:</label>
-									<form:input path="otAmount"  id="otAmount" placeholder="Enter OT Amount" class="form-control"/>
+									<form:input type="text" title="Over Time Amount" path="otAmount"  id="otAmount" placeholder="Enter OT Amount" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>OT Wages:</label>
-									<form:input path="otWages"  id="otWages" placeholder="Enter OT Wages" class="form-control"/>
+									<form:input type="text" title="Over Time Wages" path="otWages"  id="otWages" placeholder="Enter OT Wages" class="form-control"/>
 								</div>
 							</div>
 							
@@ -617,69 +617,69 @@ function getEmployeesByIds(deptId, desgId, empId){
 							
 							<div class="row">
 								<div class="col-sm-3 form-group">
-									<label>HAR Section 10(3A):</label>
-									<form:input path="hra_section10_13A"  id="hra_section10_13A" placeholder="Enter Bonus" class="form-control"/>
+									<label>HRA Section 10(3A):</label>
+									<form:input type="text" title="House Rent Allowance" path="hra_section10_13A"  id="hra_section10_13A" placeholder="Enter HRA" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
-									<label>Income tax rebate 87C:</label>
-									<form:input path="income_tax_rebate_section_87C"  id="income_tax_rebate_section_87C" placeholder="Enter Arrears" class="form-control"/>
+									<label>Income tax rebate 87A:</label>
+									<form:input type="text" title="An Indian resident earning more than Rs 3,50,000/per annum can claim rebate under section 87A" path="income_tax_rebate_section_87C"  id="income_tax_rebate_section_87C" placeholder="Enter Income Tax Rebate" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>Child Tran Allw 10(14):</label>
-									<form:input path="child_trans_allw_10_14"  id="child_trans_allw_10_14" placeholder="Enter OT Amount" class="form-control"/>
+									<form:input type="text" title="Child Transport Allowance" path="child_trans_allw_10_14"  id="child_trans_allw_10_14" placeholder="Enter Child Transport Allowance" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
-									<label>Home load 24B:</label>
-									<form:input path="home_loan_section_24B"  id="home_loan_section_24B" placeholder="Enter OT Wages" class="form-control"/>
+									<label>Home loan 24B:</label>
+									<form:input type="text" title="Home Loan" path="home_loan_section_24B"  id="home_loan_section_24B" placeholder="Enter Home Loan" class="form-control"/>
 								</div>
 							</div>
 							
 							<div class="row">
 								<div class="col-sm-3 form-group">
 									<label>HLP PF LIC 80C:</label>
-									<form:input path="hlp_pf_lic_80C"  id="hlp_pf_lic_80C" placeholder="Enter Bonus" class="form-control"/>
+									<form:input type="text" title="Deduction for Premium Paid for Annuity Plan of LIC or Other Insurer" path="hlp_pf_lic_80C"  id="hlp_pf_lic_80C" placeholder="Enter HLP PF LIC" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
-									<label>NSP 80CCD(1B):</label>
-									<form:input path="nps_80CCD_1B"  id="nps_80CCD_1B" placeholder="Enter Arrears" class="form-control"/>
+									<label>NPS 80CCD(1B):</label>
+									<form:input type="text" title="National Pension scheme" path="nps_80CCD_1B"  id="nps_80CCD_1B" placeholder="Enter NPS" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
-									<label>Health Insu 80D:</label>
-									<form:input path="health_insu_80D"  id="health_insu_80D" placeholder="Enter OT Amount" class="form-control"/>
+									<label>Health Insurance 80D:</label>
+									<form:input type="text" title="Additional exemption up to Rs 50,000 in NPS is eligible for income tax deduction" path="health_insu_80D"  id="health_insu_80D" placeholder="Enter Health Insurance" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>Des Dep 80DD:</label>
-									<form:input path="des_dep_80DD"  id="des_dep_80DD" placeholder="Enter OT Wages" class="form-control"/>
+									<form:input type="text" title="Deduction for Rehabilitation of Handicapped Dependent Relative"  path="des_dep_80DD"  id="des_dep_80DD" placeholder="Enter Des Dep" class="form-control"/>
 								</div>
 							</div>
 							
 							<div class="row">
 								<div class="col-sm-3 form-group">
 									<label>Medical 80DDB:</label>
-									<form:input path="medical_80DDB"  id="medical_80DDB" placeholder="Enter Bonus" class="form-control"/>
+									<form:input type="text" title="Deduction for Medical Expenditure on Self or Dependent Relative" path="medical_80DDB"  id="medical_80DDB" placeholder="Enter Medical Expenditure" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
-									<label>EDU Load 80D:</label>
-									<form:input path="edu_load_80D"  id="edu_load_80D" placeholder="Enter Arrears" class="form-control"/>
+									<label>EDU Load 80E:</label>
+									<form:input type="text" title="Adding deduction on education loan under Section 80E Deduction for Interest on Education Loan for Higher Studies" path="edu_load_80D"  id="edu_load_80D" placeholder="Enter EDU Load amount" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>Donation 80G:</label>
-									<form:input path="donation_80G"  id="donation_80G" placeholder="Enter OT Amount" class="form-control"/>
+									<form:input type="text" title="Deduction for donations towards Social Causes" path="donation_80G"  id="donation_80G" placeholder="Enter Donation amount" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>RENT 80GG:</label>
-									<form:input path="rent_80GG"  id="rent_80GG" placeholder="Enter OT Wages" class="form-control"/>
+									<form:input type="text" title="Deduction for House Rent Paid Where HRA is not Received" path="rent_80GG"  id="rent_80GG" placeholder="Enter RENT" class="form-control"/>
 								</div>
 							</div>
 							
 							<div class="row">
 								<div class="col-sm-3 form-group">
 									<label>Int Bank 80TTA:</label>
-									<form:input path="int_bank_section_80TTA"  id="int_bank_section_80TTA" placeholder="Enter Bonus" class="form-control"/>
+									<form:input type="text" title="Deduction from Gross Total Income for Interest on Savings Bank Account" path="int_bank_section_80TTA"  id="int_bank_section_80TTA" placeholder="Enter Int Bank amount" class="form-control"/>
 								</div>
 								<div class="col-sm-3 form-group">
 									<label>Phys Dis Per 80U:</label>
-									<form:input path="phys_dis_per_section_80U"  id="phys_dis_per_section_80U" placeholder="Enter Arrears" class="form-control"/>
+									<form:input type="text" title="Physically disabled person" path="phys_dis_per_section_80U"  id="phys_dis_per_section_80U" placeholder="Enter amount for Physically disabled person" class="form-control"/>
 								</div>
 							</div>
 							
