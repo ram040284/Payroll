@@ -21,6 +21,7 @@ import com.payroll.employee.allowance.vo.EmployeeAllowances;
 import com.payroll.employee.arrears.dataobjects.EmpArrearDAO;
 import com.payroll.employee.arrears.dataobjects.EmpArrears;
 import com.payroll.employee.bank.vo.BankVO;
+import com.payroll.employee.contract.EmployeeContract;
 import com.payroll.employee.dataobjects.EmpDesignation;
 import com.payroll.employee.deductions.dao.EmpFixedDeductionsDAO;
 import com.payroll.employee.deductions.dao.EmpVarDeductionsDAO;
@@ -92,7 +93,7 @@ public class EmployeePayrollDAO {
 		//System.out.println("loading payroll info...");
 		//System.out.println("loadPayrollInfo employeeId " + employeeId);
     	Salary salary = null;
-		
+		EmployeeContract employeeContract = null;
     	EmployeeAdvanceVO employeeAdvanceVO = null;
 		//EmpLic empLic = null;
 		List<Overtime> overtimeList = null;
@@ -104,6 +105,7 @@ public class EmployeePayrollDAO {
     		this.employeeId = employeeId;
 			session = HibernateConnection.getSessionFactory().openSession();
 			salary = (Salary)getObjectByEmpId(" from Salary s where s.employee.employeeId = ? and s.status = ?");
+			employeeContract = (EmployeeContract)getObjectByEmpId(" from EmployeeContract empCont where empCont.employee.employeeId = ? and empCont.status = ?");
 			empDesignation = (EmpDesignation) getObjectByEmpId(" from EmpDesignation d where d.employeeId = ? and d.status = ?");
 			EmployeeAllowances employeeAllowances = new EmpAllowanceDAO().getEmployeeAllowances(employeeId);
 			
@@ -238,11 +240,13 @@ public class EmployeePayrollDAO {
 			} else if (billType == 2) {
 				empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(),
 						salary.getEmpAbsentDays(), salary.getEmpPresentDays(), bankVo.getAccountNo(), bankVo.getEmployeeId(), billType, 
-						empDesignation.getDesignation().getDesignationId());
+						empDesignation.getDesignation().getDesignationId(), employeeContract.getAppointmentDate(), employeeContract.getEndDate(),
+						employeeContract.getEngagementLetterId());
 			} else if (billType == 3) {
 				empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(),
 						salary.getEmpAbsentDays(), salary.getEmpPresentDays(), bankVo.getAccountNo(), bankVo.getEmployeeId(), billType, 
-						empDesignation.getDesignation().getDesignationId());
+						empDesignation.getDesignation().getDesignationId(), employeeContract.getAppointmentDate(), employeeContract.getEndDate(),
+						employeeContract.getEngagementLetterId());
 			}
 
    		}catch(Exception e){

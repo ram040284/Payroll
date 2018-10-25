@@ -59,5 +59,6 @@
   	<mapping resource="/com/payroll/employee/servicebill/dataobject/EmployeeServiceBook.hbm.xml"/>
   	<mapping resource="com/payroll/employee/pension/dataobjects/Pension.hbm.xml"/>
   	<mapping resource="com/payroll/employee/pension/dataobjects/PensionPaybill.hbm.xml"/>
+  	<mapping resource="com/payroll/employee/contract/EmployeeContract.hbm.xml"/>
 </session-factory>
 </hibernate-configuration>

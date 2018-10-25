@@ -190,6 +190,9 @@ public class PdfUtils {
 	public static final String COMMUTATION_AMT = "Commutation Amount";
 	public static final String CF_TOTAL = "C/F Total:";
 	
+	public static final String END_DATE = "End Dt.";
+	public static final String ENGAGEMENT_LETTER_ID = "Engagement Letter Id";
+	
 	public static com.itextpdf.text.Image getWaterMarkImg(String waterMarkImg){
 		com.itextpdf.text.Image wmarkimge = null;
 		try{

@@ -70,5 +70,8 @@
     <property name="empPresentDays" column="PRESENT_DAYS" not-null="true"/>  
     <property name="contPan" column="CON_PAN_NUM"  />
     <property name="contBankAcNumber" column="CON_BANK_NUM"/>
+     <property name="appointmentDate" column="APPOINTMENT_DATE"/>
+    <property name="endDate" column="END_DATE"/>
+    <property name="engagementLetterId" column="ENGAGEMENT_LETTER_ID"/>
   </class>  
  </hibernate-mapping>

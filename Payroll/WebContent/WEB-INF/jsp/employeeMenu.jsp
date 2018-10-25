@@ -159,6 +159,16 @@
 						</h3>
 					</div>
 				</div>
+				<div class="col-xs-4 text-center">
+					<div class="precess-column">
+						<a href="../Payroll/viewContractEmp"><img
+							src="../Payroll/resources/images/emp1.png"
+							class="img-responsive imageMenuItem" alt="theme logo" /></a>
+						<h3>
+							<a href="../Payroll/viewContractEmp">Contractual Employee Details</a>
+						</h3>
+					</div>
+				</div>
 				
 			</div>
 		</div>
