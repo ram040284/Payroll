@@ -77,12 +77,12 @@ $(document).ready(function() {
 			return false;
 		}
 		
-		if($('#departmentId').val() == 0){
+	/*	if($('#departmentId').val() == 0){
 			alert('Department must be provided to get List!');
 			$('#departmentId').focus();
 			return false;
 		}
-		
+		*/
 		e.preventDefault();
 		var inputJson = { "firstName" : $('#firstName').val(),"departmentId": $('#departmentId').val(), "headId":$('#headId').val(), "employeeType":$('#employeeType').val()};
 		
