@@ -21,10 +21,21 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 	private int headId;
 	
 	private int casualLeaves;
+	private int childLeaves;
+	
 	private int paidLeaves;
 	private int sickLeaves;
 	private String leaveIds;
-	private int casualLeaveInp;
+    private int casualLeaveInp;
+	private int childLeaveInp;
+	public int getChildLeaveInp() {
+		return childLeaveInp;
+	}
+
+	public void setChildLeaveInp(int childLeaveInp) {
+		this.childLeaveInp = childLeaveInp;
+	}
+
 	private int paidLeaveInp;
 	private int sickLeaveInp;
 	
@@ -69,9 +80,10 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 		
 	}
 	
-	public LeaveVO(String empId, String empName, int cLeave, int pLeave, int sLeave, int eLeave, 
+	public LeaveVO(String empId, String empName, int cLeave,int ccLeave, int pLeave, int sLeave, int eLeave, 
 			int mLeave, int ptLeave, int xLeave, String leaveIds){
 		this.casualLeaves = cLeave;
+		this.childLeaves = ccLeave;
 		this.sickLeaves = sLeave;
 		this.paidLeaves = pLeave;
 		this.employeeId =empId;
@@ -80,11 +92,11 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 		this.maternityLeave = mLeave;
 		this.paternityLeave = ptLeave;
 		this.extraLeave = xLeave;
-		this.leaveBalance = casualLeaves + sickLeaves + paidLeaves + earnLeave + maternityLeave + paternityLeave + extraLeave;
+		this.leaveBalance = casualLeaves + childLeaves + sickLeaves + paidLeaves + earnLeave + maternityLeave + paternityLeave + extraLeave;
 		this.leaveIds = leaveIds;
 		
 	}
-	public LeaveVO (String empId, int deptId, int desgId, int headId, int sLeave, int cLeave, int pLeave,
+	public LeaveVO (String empId, int deptId, int desgId, int headId, int sLeave, int cLeave,int ccLeave, int pLeave,
 			int eLeave, int mLeave, int ptLeave, int xLeave,int leaveBalance, String leaveIds){
 		super(deptId, headId);
 		this.employeeId = empId;
@@ -93,6 +105,7 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 		this.leaveBalance = leaveBalance;
 		//this.headId = headId;
 		this.casualLeaves = cLeave;
+		this.childLeaves = ccLeave;
 		this.sickLeaves = sLeave;
 		this.paidLeaves = pLeave;
 		this.leaveIds = leaveIds;
@@ -175,6 +188,14 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 	public void setCasualLeaves(int casualLeaves) {
 		this.casualLeaves = casualLeaves;
 	}
+	public int getchildLeaves() {
+		return childLeaves;
+	}
+
+	public void setchildLeaves(int childLeaves) {
+		this.childLeaves = childLeaves;
+	}
+
 
 	public void setPaidLeaves(int paidLeaves) {
 		this.paidLeaves = paidLeaves;

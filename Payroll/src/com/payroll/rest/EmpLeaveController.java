@@ -56,7 +56,7 @@ public class EmpLeaveController {
 		   return model;
     }
 	
-	@RequestMapping(value="/empLeaveSearch", method = RequestMethod.POST)
+	@RequestMapping(value="/empLeaveSearch", method = RequestMethod.GET)
     public ModelAndView getEmpLeaveSearch(HttpServletRequest request, LeaveRequest leaveReauest){
 		  ObjectMapper mapper = new ObjectMapper();
 		  List<LeaveVO> empLeaveList = new LeaveService().getLeaves(leaveReauest.getDepartmentId(), leaveReauest.getHeadId(), leaveReauest.getFirstName());
@@ -66,7 +66,7 @@ public class EmpLeaveController {
 		   return model;
     }
 	
-	@RequestMapping(value="/empLeaveListApply", method = RequestMethod.POST)
+	@RequestMapping(value="/empLeaveListApply", method = RequestMethod.GET)
     public ModelAndView getEmpLeaveListApply(HttpServletRequest request, LeaveRequest leaveReauest){
 		  ObjectMapper mapper = new ObjectMapper();
 		  List<LeaveVO> empLeaveList = new LeaveService().getLeaves(leaveReauest.getListDeptId(), leaveReauest.getListHeadId(), leaveReauest.getListName());
@@ -76,7 +76,7 @@ public class EmpLeaveController {
 		   return model;
     }
 	
-	@RequestMapping(value = "/viewLeave_1", method = RequestMethod.POST)
+	@RequestMapping(value = "/viewLeave_1", method = RequestMethod.GET)
 	public ModelAndView viewLeave_1(LeaveVO leaveVO, HttpServletRequest request) {
 		//return "listLeaves";
 		
@@ -96,7 +96,7 @@ public class EmpLeaveController {
 	
 	//@RequestMapping(value = "/viewLeave", method = RequestMethod.GET)
 	//public String viewLeave(ModelMap model) {
-	@RequestMapping(value = "/viewLeave", method = RequestMethod.POST)
+	@RequestMapping(value = "/viewLeave", method = RequestMethod.GET)
 	public ModelAndView viewLeave(LeaveRequest leaveReauest) {
 		//return "listLeaves";
 		LeaveService service = new LeaveService();
@@ -112,7 +112,7 @@ public class EmpLeaveController {
 	}
 
 
-	@RequestMapping(value = "/applyLeave", method = RequestMethod.POST)
+	@RequestMapping(value = "/applyLeave", method = RequestMethod.GET)
 	public ModelAndView applyLeave(@ModelAttribute LeaveRequest leaveRequest, HttpServletRequest request) {
 		//return "listLeaves";
 		LeaveService service = new LeaveService();
@@ -176,7 +176,7 @@ public class EmpLeaveController {
 		  
     }
 	
-	@RequestMapping(value = "/empLeaveReportSearch", method = RequestMethod.POST)
+	@RequestMapping(value = "/empLeaveReportSearch", method = RequestMethod.GET)
 	public ModelAndView getEmpLeaveReportSearch(HttpServletRequest request, LeaveRequest leaveReauest) {
 		
 		permissionForThis = "viewEmployeeLeaveSearch";
@@ -202,7 +202,7 @@ public class EmpLeaveController {
 		}
 		
 	}
-	@RequestMapping(value = "/inputLeave", method = RequestMethod.POST)
+	@RequestMapping(value = "/inputLeave", method = RequestMethod.GET)
 	public ModelAndView inputLeave(LeaveVO leave, HttpServletRequest request) {
 		
 		permissionForThis = "addEmployeeeLeave";
@@ -260,7 +260,7 @@ public class EmpLeaveController {
 	   
 	}
 	
-	@RequestMapping(value="/deleteLeave",method=RequestMethod.POST)
+	@RequestMapping(value="/deleteLeave",method=RequestMethod.GET)
 	public ModelAndView deleteLeave(LeaveVO leave, HttpServletRequest request){
 		
 		permissionForThis = "deleteEmployeeeLeave";
@@ -269,7 +269,7 @@ public class EmpLeaveController {
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
 			System.out.println("deleteLeave -- Leave:"+leave.getEmployeeId());
-			   String result = new LeaveService().deleteLeave(leave.getEmployeeId());
+			   String result = new LeaveService().deleteLeave(leave.getEmployeeId(), leave.getLeaveId()+"");
 			   System.out.println("result:"+result);
 			   //return "listLeaves";
 			   return listResult(leave);
@@ -281,7 +281,7 @@ public class EmpLeaveController {
 	   
 	}
 
-	@RequestMapping(value="/empLeaves",method=RequestMethod.POST)
+	@RequestMapping(value="/empLeaves",method=RequestMethod.GET)
 	public String getLeavesByEmp(LeaveVO leave){
 	   System.out.println("empLeaves -- Leave:"+leave.getEmployeeId());
 	   List<LeaveVO> leaveVoNew = new LeaveService().getEmpAvailableLeaves(leave.getEmployeeId());

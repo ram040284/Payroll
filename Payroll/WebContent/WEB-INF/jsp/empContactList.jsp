@@ -4,6 +4,7 @@
 <html>
 <head>
 <title>Employee Details</title>
+<%-- <jsp:include page="../jsp/public/jqueryPluginMin.jsp"/> --%>
 <jsp:include page="../jsp/public/postHeader.jsp" />
 <jsp:include page="../jsp/public/jqueryPluginMin.jsp"/>
 
@@ -35,12 +36,19 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+	/* $("#addBtn").hide();
+	$("#collapse").hide();
+	$("#expand").show();
+	var departmentList = ${departments};	 */
 	
+	
+	//alert("search");
+		
 	$("#addBtn").hide();
 	$("#collapse").hide();
 	$("#expand").show();
-	var departmentList = ${sessionScope.departments};
-	$.each(departmentList, function( index, value ) {
+	var departmentList = ${departments};
+   $.each(departmentList, function( index, value ) {
 		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#departmentId');
 	});
 	var deptId = "${employee.departmentId}";
@@ -57,6 +65,7 @@ $(document).ready(function() {
 		   $("#expand").toggle();
 	});
 	
+	$('#searchBtn').on('click',function(e){
 	$('#empContactTable').DataTable({
 		"info" : false,
 		"sort":$('#empContactTable tbody tr').length>1,
@@ -75,6 +84,11 @@ $(document).ready(function() {
  	});
 });
 
+});
+</script>
+
+<script type="text/javascript">
+/* }); */
 function viewEmpContact(id){
 	var f = document.forms['editForm'];
 	f.employeeId.value=id;
@@ -126,6 +140,7 @@ alert("${message}");
 		<div style="margin-top: 6px; float: left; width: 100%;">
 			<div id="empListDiv" class="rptTblClass" style="width: 100%;">
 			<table id="empContactTable" class="table table-striped table-bordered table-responsive">
+
 			<thead>
 				<tr>
 					<th>Name</th>
@@ -158,7 +173,7 @@ alert("${message}");
 	</c:if>
 	</div>
 	</div>
-	<form  action="" id="editForm" method="post">
+	<form  action="" id="editForm" method="GET">
 		<input type="hidden" name="employeeId" value="0">
 		<input type="hidden" name="departmentId" value="${employee.departmentId}"/>
 		<input type="hidden" name="headId" value="${employee.headId}"/>

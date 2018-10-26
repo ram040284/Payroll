@@ -12,7 +12,7 @@ public class PdfUtils {
     public static double HRA_PERCENT = 30.00;
     
 	public static final String IMG_PATH= "/resources/images/";
-	public static final String BASICS = "Basics:";
+	public static final String BASIC = "Basic:";
 	public static final String GRADEPAY = "Grade Pay/DP:";
 	public static final String DA = "DA:";
 	public static final String HRA = "HRA:";
@@ -24,13 +24,13 @@ public class PdfUtils {
 	public static final String UNIFORMALW = "Uniform Alw:";
 	public static final String FLYPLGALW = "Fly/Plg Alw:";
 	public static final String TALW = "TAlw:";
-	public static final String OTAMT = "OTAmt:";
+	public static final String OTAMT = "OT Amt:";
 	public static final String OTHERS = "Others:";
 	public static final String GROSS = "Gross Pay:";
 	public static final String SNO = "Sr.No.:";
 	public static final String HEAD = "Budget HEAD:";
 	public static final String EMPLOYEE_ID = "Employee Id:";
-	public static final String CODE_NAME = "Code Name:";
+	public static final String NAME = "Name:";
 	public static final String DESIGNATION = "Designation:";
 	public static final String BANK_NAME = "Bank Name:";
 	public static final String BANK_ACCTNO = "Bank A/c No.:";
@@ -76,7 +76,7 @@ public class PdfUtils {
 	public static final String EARNINGSTOT = "Earnings Totals:";
 	public static final String DEDUCTIONSTOT = "Deductions Totals:";
 	
-	public static final String EMPNO = "Employee#:";
+	public static final String EMPNO = "Employee Id:";
 	public static final String EMPNAME = "Name:";
 	public static final String GENDER = "Gender:";
 	public static final String DEPARTMENT = "Department:";
@@ -87,8 +87,8 @@ public class PdfUtils {
 	public static final String COMP_NAME = "KHADKI CANTONMENT BOARD";
 	public static final String ADD_LINE1 = "17, Field Marshall, Cariappa Road, Khadki,";
 	public static final String ADD_LINE2 = "Pune, Maharashtra 411003";
-	public static final String[] PBITEMS = {"Basics", "Grade Pay/DP", "DA", "HRA", "CCA", "TA", "NPA", "WA", "CA",
-			"Uniform Alw", "Fly/Plg Alw", "Total Alw", "OTAmt", "Others", "Grosspay", "Rent", "AFK Rent", "Absent Deductions",
+	public static final String[] PBITEMS = {"Basic", "Grade Pay/DP", "DA", "HRA", "CCA", "TA", "NPA", "WA", "CA",
+			"Uniform Alw", "Fly/Plg Alw", "Total Alw", "OT Amt", "Others", "Grosspay", "Rent", "AFK Rent", "Absent Deductions",
 			"Fest.Adv.Recovery", "PT", "LIC", "Society", "GIS", "Bank Loan Recovery", "VLR", "PFS+CPF", "APF+ACPF", "PF Loan Recovery",
 			"CPF Recovery", "I. Tax", "Union Fees", "Elec.Recovery", "Court Recovery", "Other Deduction(s)", "Misc.",
 			"Total Deductions", "Netpay"};
@@ -103,9 +103,10 @@ public class PdfUtils {
 	public static final String NO_OF_DAYS = "No. of Days";
 	public static final String PRESENT_DAY = "Present Day";
 	public static final String ABS_DED_AMT = "ABs ded amount";
-	public static final String ABS_DED_TOTAL_AMT = "ABs ded total amount";
+	public static final String ABS_DED_TOTAL_AMT = "ABs Ded Total Amount:";
+//	public static final String ABS_DED_TOTAL_AMT = "ABs:";
 	public static final String TDS = "TDS";
-	public static final String TOT_TDS = "Total TDS";
+	public static final String TOT_TDS = "Total TDS:";
 	public static final String OTHER_DED = "Other Deduction";
 	public static final String TOTAL_PAY = "Total Pay";
 	public static final String REMARK = "Remark";
@@ -120,7 +121,7 @@ public class PdfUtils {
 	public static final String ABSENT = "Absent";
 	public static final String ABS_DED = "Abs. Ded";
 	public static final String ORDER_DED = "Order. Ded";
-	public static final String NET_PAY = "Net pay";
+	public static final String NET_PAY = "Net pay:";
 	public static final String BANK_CODE = "Bank code";
 	public static final String BANK_NO = "Bank No";
 	public static final String DED_REMARK = "Ded. Remark";

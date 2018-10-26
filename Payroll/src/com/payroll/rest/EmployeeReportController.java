@@ -84,7 +84,7 @@ public class EmployeeReportController
     return model;
   }
   
-  @RequestMapping(value={"/employeeReport"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  @RequestMapping(value={"/employeeReport"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public ModelAndView getEmployeesReport(HttpServletRequest request, SearchCriteria search)
   {
     List<EmployeeReportVO> employeesList = new EmployeeReportService().getEmployees(search.getDepartmentId(), search.getHeadId());
@@ -129,7 +129,7 @@ public class EmployeeReportController
     return model;
   }
   
-  @RequestMapping(value={"/empAllowanceReport"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  @RequestMapping(value={"/empAllowanceReport"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public ModelAndView getEmpAllowanceReport(HttpServletRequest request, SearchCriteria search)
   {
     List<EmpAllowanceReportVO> employeesList = new EmployeeReportService().getEmpAllowancesReport(search.getDepartmentId(), search.getHeadId());

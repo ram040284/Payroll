@@ -159,6 +159,18 @@
 						</h3>
 					</div>
 				</div>
+				<div class="col-xs-4 text-center">
+					<div class="precess-column">
+						<a href="../Payroll/empContactList"><img
+							src="../Payroll/resources/images/contact.jpg"
+							class="img-responsive imageMenuItem" alt="theme logo" /></a>
+						<h3>
+							<a href="../Payroll/empContactList">Employee
+							contact	Details</a>
+						</h3>
+					</div>
+				</div>
+				
 				
 			</div>
 		</div>

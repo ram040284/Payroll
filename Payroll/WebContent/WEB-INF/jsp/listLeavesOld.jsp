@@ -40,7 +40,7 @@
     		  var f = document.forms[0];
     		  f.leaveId.value=id;
     		  f.action="../Payroll/deleteLeave";
-    		  f.submit();
+    		   f.submit();
     	  }
       }
       </script>

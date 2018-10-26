@@ -122,7 +122,7 @@ function getHeadsByDept(deptId, headId) {
 	  $.ajax({
 	    url: '../Payroll/loadHeads',
 	    data: JSON.stringify(inputJson),
-	    type: "POST",           
+	    type: "GET",           
 	    beforeSend: function(xhr) {
 	        xhr.setRequestHeader("Accept", "application/json");
 	        xhr.setRequestHeader("Content-Type", "application/json");
@@ -152,7 +152,7 @@ function getHeadsByDept(deptId, headId) {
 <h6 style="color: #0101DF;margin-bottom:0px;"><a id="closeBtn" href="#" style="color: blue;"><label id="collapse" style="color: blue;" class="glyphicon-plus"></label> <label id="expand" class="glyphicon-minus" style="color: blue;"></label> Show / Hide Search</a></h6>
 </div>  --%>
 
-	<form:form id="formSearch" method = "POST" action = "" >
+	<form:form id="formSearch" method = "GET" action = "" >
 	<div id="searchDiv" class="container" style ="position: relative;">
 	 <div class="panel panel-primary">
       <div class="panel-heading" style="margin:0px;padding:0px;background-color: #8B9DC3;">

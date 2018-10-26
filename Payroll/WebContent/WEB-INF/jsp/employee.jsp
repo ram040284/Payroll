@@ -416,7 +416,7 @@ function getEmployeesByIds(deptId, desgId, empId){
 			</h4>
 			<div class="col-lg-12 card-block bg-faded" style="padding-bottom: 5px;">
 			<div class="row">
-			<form:form method = "POST" action = "" name="empForm">
+			<form:form method = "GET" action = "" name="empForm">
 					<div class="col-sm-12">
 						<div class="row">
 							<div class="col-sm-4 form-group">

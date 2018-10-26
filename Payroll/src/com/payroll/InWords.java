@@ -11,6 +11,7 @@ public class InWords {
 
 	    public static String getInWords(double number) 
 	    {
+	    	text = "";
 	        System.out.println("Enter Number to convert into words");
 	        double num = number;
 	        int rem = 0;

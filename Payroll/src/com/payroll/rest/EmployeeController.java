@@ -1,17 +1,23 @@
 package com.payroll.rest;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.payroll.Utils;
 import com.payroll.department.business.DepartmentService;
@@ -32,11 +38,12 @@ import com.payroll.report.vo.EmployeeReportVO;
 @Controller
 public class EmployeeController {
 	
+	private static final String UPLOADED_FOLDER = null;
 	String permissionForThis = null;
 	private PermissionsDAO permissionsDAO = new PermissionsDAO();
-	   //@RequestMapping(value = "/employee", method = RequestMethod.POST)
+	   //@RequestMapping(value = "/employee", method = RequestMethod.GET)
 	   //public ModelAndView getEmployees(Employee employee) {
-		@RequestMapping(value = "/employee", method = RequestMethod.POST)
+		@RequestMapping(value = "/employee", method = RequestMethod.GET)
 		public ModelAndView  getEmployees(com.payroll.employee.Employee employee, HttpServletRequest request) {
 		   /*ObjectMapper mapper = new ObjectMapper();
 		   List<Department> deptList = new DepartmentService().getDepartments();
@@ -72,13 +79,14 @@ public class EmployeeController {
 			}
 	   }
 		
-		 @RequestMapping(value="/getEmployeeList", method = RequestMethod.POST, produces = "application/json")
-		    public @ResponseBody List<EmployeeVO> getEmployeeList(@RequestBody Employee employee){
+		 @RequestMapping(value="/getEmployeeList", method = RequestMethod.GET, produces = "application/json")
+		    public @ResponseBody List<EmployeeVO> getEmployeeList(@RequestParam String firstName, @RequestParam String departmentId, @RequestParam String headId){
 			//   List<EmployeeVO> employees = new EmployeeService().getEmployees(0,0,null);		
 			 List<EmployeeVO> employees = null;
-			   if(employee.getDepartmentId() !=0 || !Utils.isEmpty(employee.getFirstName())){
+			 //Employee employee = new Employee();
+			   if(departmentId != "0" || firstName != null || firstName != ""){
 				   employees = new EmployeeService().getEmployees(
-					   employee.getDepartmentId(), employee.getHeadId(), employee.getFirstName());
+					   Integer.valueOf(departmentId), Integer.valueOf(headId), firstName);
 			   }
 		       return employees;
 		    }
@@ -92,7 +100,7 @@ public class EmployeeController {
 				   
 	        return employees;
 	    }
-	   @RequestMapping(value = "/viewEmp", method = RequestMethod.POST)
+	   @RequestMapping(value = "/viewEmp", method = RequestMethod.GET)
 	   public ModelAndView  viewEmp(com.payroll.employee.Employee employee, HttpServletRequest request) {
 		   
 		   permissionForThis = "addEmployee";
@@ -144,7 +152,7 @@ public class EmployeeController {
 		   //return listResult(employee);
 	    }
 	   
-	   @RequestMapping(value="/deleteEmp",method=RequestMethod.POST)
+	   @RequestMapping(value="/deleteEmp",method=RequestMethod.GET)
 		public ModelAndView deleteEmp(Employee employee, HttpServletRequest request){
 		   
 		   permissionForThis = "deleteEmployee";
@@ -203,12 +211,13 @@ public class EmployeeController {
 			   SearchCriteria employee = new SearchCriteria();
 			   ModelAndView model = new ModelAndView("empContactList", "command", employee);
 			   model.addObject("employee", employee);
-			   request.getSession().setAttribute("departments", depJSON);
+			   model.addObject("departments", depJSON);
+			   //request.getSession().setAttribute("departments", depJSON);
 			   request.getSession().removeAttribute("employees");
 			   return model;
 	    }
 	   
-	   @RequestMapping(value={"/empContactListSearch"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	   @RequestMapping(value={"/empContactListSearch"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
 	   public ModelAndView getEmpContactListSearch(HttpServletRequest request, SearchCriteria search)
 	   {
 	     List<EmployeeReportVO> employeesList = new EmployeeReportService().getEmployees(search.getDepartmentId(), search.getHeadId());
@@ -247,7 +256,7 @@ public class EmployeeController {
 	     return model;
 	   }
 	   
-	   @RequestMapping(value = "/viewEmpContact", method = RequestMethod.POST)
+	   @RequestMapping(value = "/viewEmpContact", method = RequestMethod.GET)
 	   public ModelAndView  viewEmpContact(HttpServletRequest request, SearchCriteria employee) {
 		   EmpContactVO empContactVO = null;
 			if(!employee.getEmployeeId().equalsIgnoreCase("0")){
@@ -280,7 +289,7 @@ public class EmployeeController {
 			return model;
 	   }
 	   
-	   @RequestMapping(value={"/empContactListBack"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+	   @RequestMapping(value={"/empContactListBack"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
 	   public ModelAndView getEmpContactListBack(HttpServletRequest request, SearchCriteria search)
 	   {
 	     ModelAndView model = new ModelAndView("empContactList", "command", search);
@@ -344,5 +353,74 @@ public class EmployeeController {
 			   return model;
 		   }
 		   
+		   
 	   }
-}	
+		/*@RequestMapping(value = "/saveEmp", method= RequestMethod.POST)
+		public String saveEmp(@RequestPart(value = "file") MultipartFile multipartFile) throws ParseException {
+			new EmployeeService().saveEmp(multipartFile);
+			return "redirect:/viewEmp";
+			//return "viewEmpAlwnce";
+		}*/
+	   private String saveDirectory = "E:\\payroll workspace\\Payroll\\Payroll\\WebContent\\resources\\images\\";
+
+		@RequestMapping(value = "/uploadFile/{id}", method= RequestMethod.POST)
+		private String handleFileUpload(HttpServletRequest request,
+         @RequestParam CommonsMultipartFile[] fileUpload,
+         @PathParam("id") String id) throws Exception 
+		{
+		//	 @RequestParam("file") MultipartFile file)
+        ModelAndView model = null;
+        com.payroll.employee.Employee employee = null;
+			/*User loggedInUser = (User) request.getSession().getAttribute("user");
+			
+			if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+				//return listResult(employee);
+			}
+			 
+			 if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+				   ObjectMapper mapper = new ObjectMapper();
+				   
+				   List<Department> deptList = new DepartmentService().getDepartments();
+				   //List<Designation> desigList = new DesignationService().getDesignationList();
+				   
+				   String depJSON = "";
+				   String desigJSON = "";
+					try {
+						depJSON = mapper.writeValueAsString(deptList);
+						//desigJSON = mapper.writeValueAsString(desigList);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+	        System.out.println("description: " + request.getParameter("description"));*/
+	        
+	        if (fileUpload != null && fileUpload.length > 0) {
+	            for (CommonsMultipartFile aFile : fileUpload){
+	            System.out.println("Saving file: " + aFile.getOriginalFilename());
+	                String filePath = saveDirectory + id +".pdf";
+	                System.out.println("file path: " + filePath);
+
+	                if (!aFile.getOriginalFilename().equals("")) {
+	                    aFile.transferTo(new File(filePath));
+	                    if(id != null){
+	                    	employee = new EmployeeService().getEmployeeById(id);
+	    				}
+	    				
+	                   // model = new ModelAndView(new RedirectView("/employee"));
+	                   // return model;
+
+	                    //return ((ModelAndView)listResult(employee)).setViewName("");;
+	                }
+	            }
+	        
+	        // returns to the view "Result"
+	          
+//	        }
+			
+
+
+	    }
+    		return "redirect:/employee";
+
+			  //return model;
+	}
+}

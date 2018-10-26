@@ -79,7 +79,7 @@ $(document).ready(function() {
 		  f.submit();
 	  }
       function inputPage(){
-    	  var f = document.forms['editForm'];
+    	  var f = document.forms['empSearch'];
 		  f.action="../Payroll/inputLeave";
 		  f.submit();
 	  }

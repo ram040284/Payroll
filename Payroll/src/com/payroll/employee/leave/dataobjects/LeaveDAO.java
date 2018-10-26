@@ -238,9 +238,9 @@ public class LeaveDAO {
 						//int maxId = getMaxLeaveId(session);
 						leave.setStatus("A");
 						leave.setEmployee(employee);
-//						leave.setLeaveBalance(leave.getNoOfLeaves());
+//					leave.setLeaveBalance(leave.getNoOfLeaves());
 						leave.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
-						//leave.setLeaveId(maxId);
+					//	leave.setLeaveId(maxId);
 						session.save(leave);
 //					}
 				}
@@ -294,7 +294,7 @@ public class LeaveDAO {
 			return maxId;
 		}
 		
-		public String deleteEmpLeave(String empId){
+		public String deleteEmpLeave(String empId, String leaveId){
 			String result = null;
 			Session session = null;
 			Transaction transaction = null;
@@ -302,7 +302,7 @@ public class LeaveDAO {
 				session = HibernateConnection.getSessionFactory().openSession();
 				transaction = session.beginTransaction();
 				Query query = session.createQuery("update Leave l set l.status = ?, l.rowUpdDate = ? where l.employee.employeeId = ?");
-				query.setParameter(0, "S");
+				query.setParameter(0, "I");
 				query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 				query.setParameter(2, empId);
 				int updated = query.executeUpdate();

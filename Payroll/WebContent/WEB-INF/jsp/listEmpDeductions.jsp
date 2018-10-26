@@ -140,7 +140,7 @@ display: none;
 				<h6 style="color: #0101DF;margin-bottom:0px;"><a id="closeBtn" href="#" style="color: #0101DF;"><label id="collapse" style="color: #0101DF;" class="glyphicon-plus">&nbsp;Show</label> <label id="expand" class="glyphicon-minus" style="color: #0101DF;">&nbsp;Hide</label> </a></h6>
 			</div> 
 			<div id="searchDiv" style="width:100%;margin-top:0px;" class="formDiv">
-				<form method = "POST" action = "../Payroll/listEmpDeductions" name="empDedSearch">
+				<form method = "GET" action = "../Payroll/listEmpDeductions" name="empDedSearch">
 					<div  class="col-sm-12" style="width:100%;margin-top:0px; margin-bottom:10px; padding-top:5px; padding-bottom:10px;float: left;">
 						<div class="row">
 							<div class="col-sm-3">

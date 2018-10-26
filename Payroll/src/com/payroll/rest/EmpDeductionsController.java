@@ -30,7 +30,7 @@ public class EmpDeductionsController {
 	
 	String permissionForThis = null;
 	
-	@RequestMapping(value="/listEmpDeductions", method = RequestMethod.POST)
+	@RequestMapping(value="/listEmpDeductions", method = RequestMethod.GET)
 	public ModelAndView  getEmpDeductionsList(com.payroll.employee.Employee employee, HttpServletRequest request) {
 		
 		permissionForThis = "listEmpDeductions";
