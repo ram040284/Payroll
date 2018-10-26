@@ -74,12 +74,13 @@ $(document).ready(function() {
 			var pan = "${employee.pan}";
 			var retirementDate = "${employee.retirementDate}";
 			var employeeType = "${employee.employeeType}";
-						
-		if(desgId == $('#designationId').val() && deptId == $('#departmentId').val() && genderId == $('#gender').val().trim() && 
+			var handicapFlag = "${employee.handicapFlag}";
+			
+			if(desgId == $('#designationId').val() && deptId == $('#departmentId').val() && 
 			fname == $('#fname').val().trim() && lname == $('#lname').val().trim() && mname==$('#mname').val().trim() &&
 			dob == $('#dob').val().trim() && joiningDate == $('#joiningDate').val().trim() && 
 			adharNo == $('#aadhar').val().trim() && pan == $('#pan').val().trim() && 
-			retirementDate == $('#retirementDate').val().trim() && employeeType == $('#employeeType').val()) {
+			retirementDate == $('#retirementDate').val().trim() && handicapFlag == $('#handicapFlag').val() && employeeType == $('#employeeType').val() && genderId == $('#gender').val().trim()) {
 			//address1 == $('#addressLine1').val().trim() && address2 == $('#addressLine2').val().trim() && address3 ==$('#addressLine3').val().trim() &&
 			// phone == $('#phone').val().trim() && email == $('#email').val().trim() &&
 				alert('Nothing was changed!');
@@ -221,7 +222,7 @@ $(document).ready(function() {
 						var inputJson = { "firstName" : $('#fname').val(), "middleName" : $('#mname').val(), "lastName" : $('#lname').val(),"designationId" : $('#designationId').val(), 
 				"departmentId": $('#departmentId').val(), "pan":panValue,				
 				"adharNo":$('#aadhar').val(),"dob":$('#dob').val(), "employeeId":$('#employeeId').val(), "gender":$('#gender').val(),
-				"joiningDate":$('#joiningDate').val(), "headId":$('#headId').val(), "retirementDate":$('#retirementDate').val(), "employeeType" : $('#employeeType').val()};
+				"joiningDate":$('#joiningDate').val(), "headId":$('#headId').val(), "retirementDate":$('#retirementDate').val(), "handicapFlag":$('#handicapFlag').val(), "employeeType" : $('#employeeType').val()};
 						
 				}
 				else {
@@ -229,7 +230,7 @@ $(document).ready(function() {
 					var inputJson = { "firstName" : $('#fname').val(), "middleName" : $('#mname').val(), "lastName" : $('#lname').val(),"designationId" : $('#designationId').val(), 
 							"departmentId": $('#departmentId').val(), "pan":panValue,				
 							"adharNo":$('#aadhar').val(),"dob":$('#dob').val(), "employeeId":$('#kcbId').val(), "gender":$('#gender').val(),
-							"joiningDate":$('#joiningDate').val(), "headId":$('#headId').val(), "retirementDate":$('#retirementDate').val(), "employeeType" : $('#employeeType').val()};
+							"joiningDate":$('#joiningDate').val(), "headId":$('#headId').val(), "retirementDate":$('#retirementDate').val(), "handicapFlag":$('#handicapFlag').val(), "employeeType" : $('#employeeType').val()};
 				}		
 						
 		// "addressLine1":$('#addressLine1').val(),"addressLine2":$('#addressLine2').val(),"addressLine3":$('#addressLine3').val(),
@@ -537,7 +538,16 @@ function getEmployeesByIds(deptId, desgId, empId){
 								</c:if>
 								
 							</div>
-						
+							
+							<div class="col-sm-4 form-group">
+								<label>Is Handicapped?</label><br />
+								<form:select path = "handicapFlag" id="handicapFlag" class="form-control">
+								<form:option value="0" label="No"/>
+								<form:option value="1" label="Self"/>
+								<form:option value="2" label="Dependent"/>
+								<form:option value="3" label="Both"/>
+								</form:select>  
+							</div> 
 						</div>		
 						
 						<div class="row">	

@@ -24,7 +24,7 @@ public class EmpAllowanceDAO {
 			try{
 				String queryString = " select new com.payroll.employee.allowance.vo.EmpAllowanceVO(a.employee.employeeId, "
 						+ "a.employee.firstName, a.employee.lastName, a.cca, a.washingAlwance, "
-						+ "a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag,a.qtrFlag, a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance) "
+						+ "a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.otherAllowance, a.tAllowance, a.hraFlag, a.qtrFlag, a.afkFlag, a.taFlag, a.pfFlag, a.npaFlag ) "
 						+ "from EmpAllowance a where a.status = ?";
 				session = HibernateConnection.getSessionFactory().openSession();
 				Query query = session.createQuery(queryString);
@@ -47,7 +47,7 @@ public class EmpAllowanceDAO {
 						+ "(select dept.department.departmentId from EmpDepartment dept where dept.employee.employeeId = a.employee.employeeId and dept.status = 'A'), "
 						+ "(select desg.designation.designationId from EmpDesignation desg where desg.employee.employeeId = a.employee.employeeId and desg.status='A'), "
 						+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = a.employee.employeeId and dh.status = 'A'), "
-						+ "a.cca, a.washingAlwance, a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag, a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag, a.otherAllowance, a.tAllowance, a.rowUpdDate) from EmpAllowance a "
+						+ "a.cca, a.washingAlwance, a.nonPracAwance, a.uniformAlwance, a.familyPlanAlwance, a.cycleAlwance, a.hraFlag, a.qtrFlag,a.afkFlag, a.taFlag, a.pfFlag, a.npaFlag , a.otherAllowance, a.tAllowance, a.rowUpdDate) from EmpAllowance a "
 						+ "where a.status = ? and a.employee.employeeId = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
@@ -76,7 +76,7 @@ public class EmpAllowanceDAO {
 				String queryString = "select new com.payroll.employee.allowance.vo.EmployeeAllowances(a.employeeId, a.cca, a.washingAlwance,"
 						+ "a.nonPracAwance,a.uniformAlwance,a.familyPlanAlwance,"
 						+ " a.cycleAlwance,a.hraFlag,a.qtrFlag,a.afkFlag, a.taFlag,"
-						+ " a.pfFlag, a.otherAllowance, a.tAllowance) from EmpAllowance a"
+						+ " a.pfFlag, a.npaFlag, a.otherAllowance, a.tAllowance) from EmpAllowance a"
 						+ " where a.employee.employeeId = ? and a.status = ?";		
 				
 				session = HibernateConnection.getSessionFactory().openSession();
@@ -101,7 +101,7 @@ public class EmpAllowanceDAO {
  			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			
-			Query query = session.createQuery("update EmpAllowance a set a.cca = ?, a.washingAlwance = ?,a.nonPracAwance = ? , a.uniformAlwance = ?, a.familyPlanAlwance = ? ,a.cycleAlwance = ?, a.hraFlag =?, a.qtrFlag = ?,a.afkFlag = ?,a.taFlag = ?, a.pfFlag = ?, a.otherAllowance = ?,a.tAllowance = ?,a.rowUpdDate = ? "
+			Query query = session.createQuery("update EmpAllowance a set a.cca = ?, a.washingAlwance = ?,a.nonPracAwance = ? , a.uniformAlwance = ?, a.familyPlanAlwance = ? ,a.cycleAlwance = ?, a.hraFlag =?, a.qtrFlag = ?,a.afkFlag = ?,a.taFlag = ?, a.pfFlag = ?, a.npaFlag = ?, a.otherAllowance = ?,a.tAllowance = ?,a.rowUpdDate = ? "
 					+ "where a.employeeId = ? and a.status = ?");
             query.setParameter(0,empAllowance.getCca()) ;
 			query.setParameter(1,empAllowance.getWashingAlwance());
@@ -114,11 +114,12 @@ public class EmpAllowanceDAO {
 			query.setParameter(8,empAllowance.getAfkFlag());
 			query.setParameter(9,empAllowance.getTaFlag());
 			query.setParameter(10,empAllowance.getPfFlag());
-            query.setParameter(11,empAllowance.getOtherAllowance());
-			query.setParameter(12,empAllowance.gettAllowance());
-			query.setParameter(13,empAllowance.getRowUpdDate());
-            query.setParameter(14,empAllowance.getEmployeeId());
-			query.setParameter(15,"A");
+			query.setParameter(11,empAllowance.getnpaFlag());
+            query.setParameter(12,empAllowance.getOtherAllowance());
+			query.setParameter(13,empAllowance.gettAllowance());
+			query.setParameter(14,empAllowance.getRowUpdDate());
+            query.setParameter(15,empAllowance.getEmployeeId());
+			query.setParameter(16,"A");
           int updated = query.executeUpdate();
  			if(updated > 0)
  				result = "Successfully updated var allowance Details!";

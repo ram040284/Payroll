@@ -103,7 +103,7 @@ function generatePaybill(){
 		
 	<div class="row">
 		<div class="col-sm" style="float: right; margin-right: 20px; margin-bottom: 5px;">
-			<button type="button" id="searchBtn"  class="btn" onclick="generatePaybill()">Get Report</button>
+			<button type="button" id="searchBtn"  class="btn" onclick="generatePaybill()">Generate Report</button>
 			
 		</div>
 	</div>

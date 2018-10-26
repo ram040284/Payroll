@@ -20,6 +20,8 @@ public class Pension implements Serializable{
 	private Timestamp rowUpdDate;
 	private Employee employee;
 	private short addUpdate; // 0 - Add / 1 - update
+	private double dearnessRelief;
+	private double arrears;
 	
 	public short getAddUpdate() {
 		return addUpdate;
@@ -98,6 +100,18 @@ public class Pension implements Serializable{
 	}
 	public void setPensionRemark(String pensionRemark) {
 		this.pensionRemark = pensionRemark;
+	}
+	public double getDearnessRelief() {
+		return dearnessRelief;
+	}
+	public void setDearnessRelief(double dearnessRelief) {
+		this.dearnessRelief = dearnessRelief;
+	}
+	public double getArrears() {
+		return arrears;
+	}
+	public void setArrears(double arrears) {
+		this.arrears = arrears;
 	}
 	
 }

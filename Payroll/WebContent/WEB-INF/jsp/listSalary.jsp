@@ -13,6 +13,11 @@ select {
 	min-height: 30px;
 }
 
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
 .buttonPadding {
 	padding: 5px;
 }
@@ -88,7 +93,7 @@ table.dataTable thead:first-child .sorting_desc {
                         {
 						 'data': null,title:'<a href="#" onclick="addSalary()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
 						 'render': function (salaryData, type, row) {
-            			   return '<a id="' + row.Id +'" href="#" onclick="updateSalary(\'' + salaryData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteSalary(\'' + salaryData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
+            			   return '<a id="' + row.Id +'" href="#" onclick="viewSalary(\'' + salaryData.employeeId + '\')" title:"View"><img src="../Payroll/resources/images/empProcessAttendance.png" alt="Edit" class="listImg"/></a>  <a id="' + row.Id +'" href="#" onclick="updateSalary(\'' + salaryData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a>  <a id="' + row.Id +'"  href="#" onclick="deleteSalary(\'' + salaryData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
 			            	}
 						}
                      ] 
@@ -100,6 +105,7 @@ table.dataTable thead:first-child .sorting_desc {
       function addSalary(){
        	  var f = document.forms['editForm'];
    		  f.action="../Payroll/inputSalary";
+   		sessionStorage.setItem('view', '0');
    		  f.submit();
    	  }
 
@@ -107,8 +113,17 @@ table.dataTable thead:first-child .sorting_desc {
     	  var f = document.forms['editForm'];
 		  f.employeeId.value=id;
 		  f.action="../Payroll/inputSalary";
+		  sessionStorage.setItem('view', '0');
 		  f.submit();
-	  }
+      }
+      
+      function viewSalary(id){
+    	  var f = document.forms['editForm'];
+    	  f.employeeId.value=id;
+		  f.action="../Payroll/inputSalary";
+		  sessionStorage.setItem('view', '1');    // Save data to sessionStorage
+		  f.submit();
+    	}
       
       function deleteSalary(id){
     	  if(confirm("Are you sure want to delete Employee Salary?")){
@@ -118,6 +133,9 @@ table.dataTable thead:first-child .sorting_desc {
     		  f.submit();
     	  }
       }
+      
+     
+      
      </script>
 </head>
 <body>

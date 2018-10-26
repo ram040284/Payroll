@@ -11,7 +11,6 @@
 
 <style type="text/css">
 select {
-
 	min-width: 200px;
 	min-height: 30px;
 }
@@ -71,15 +70,22 @@ table.dataTable thead:first-child .sorting_desc {
 $(document).ready(function() {
 	
 	$('#searchBtn').on('click',function(e){
-
-		if($('#departmentId').val() == 0 && $('#firstName').val().trim() == ""){
-			alert('Either Department or Name must be provided to get List!');
+		
+		if($('#departmentId').val() == 0 && $('#firstName').val().trim() == "" && $('#employeeType').val() == 0){
+			alert('Either Department or Name or Employee type must be provided to get List!');
+			$('#departmentId').focus();
+			return false;
+		}
+		
+		if($('#departmentId').val() == 0){
+			alert('Department must be provided to get List!');
 			$('#departmentId').focus();
 			return false;
 		}
 		
 		e.preventDefault();
-		var inputJson = { "firstName" : $('#firstName').val(),"departmentId": $('#departmentId').val(), "headId":$('#headId').val()};
+		var inputJson = { "firstName" : $('#firstName').val(),"departmentId": $('#departmentId').val(), "headId":$('#headId').val(), "employeeType":$('#employeeType').val()};
+		
 		$.ajax({
 			//async:false,
 			url : '../Payroll/getEmployeeList',

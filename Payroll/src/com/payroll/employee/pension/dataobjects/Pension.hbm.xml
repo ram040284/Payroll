@@ -14,6 +14,8 @@
 		constrained="true" fetch="select"></one-to-one>
     <property name="basicPension" column="BASIC_PENSION" not-null="true"/> 
     <property name="residualPension" column="RESIDUAL_PENSION"/>
+    <property name="dearnessRelief" column="DEARNESS_RELIEF"/>
+    <property name="arrears" column="ARREARS"/>
     <property name="commutationAmount" column="COMMUTATION_AMT" /> 
     <property name="medicalAllowance" column="MEDICAL_ALLOWANCE" not-null="true"/>
     <property name="familyPensionFlag" column="FAMILY_PENSION_FLAG"/>

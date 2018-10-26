@@ -8,11 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.payroll.HibernateConnection;
 import com.payroll.Utils;
+import com.payroll.advance.dataobjects.EmployeeAdvanceVO;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.department.dataobjects.DepartmentDAO;
 import com.payroll.employee.dataobjects.EmployeeDAO;
@@ -175,6 +177,29 @@ public class UserDAO {
 		}
 		return null;
 	}
+	
+	/****************************************/
+		public String getUserRolesByEmpId(String employeeId) {
+				String userRole = null;
+				Session session = null;
+				
+				session = HibernateConnection.getSessionFactory().openSession();
+				
+				SQLQuery query = session.createSQLQuery("select rol.ROLE_NAME  from emp_master em  "
+						+ "inner join user_master um on em.EMP_ID = um.EMP_ID "
+						+ "inner join user_roles urol on um.USR_ID = urol.USR_ID "
+						+ "inner join roles rol on urol.ROLE_ID = rol.ROLE_ID "
+						+ "where um.emp_id = :employeeId");
+				
+				query.setParameter("employeeId", employeeId);
+			
+				if(query.list()!= null) {
+					userRole = (String) query.list().get(0);
+				}
+				
+				return userRole;
+		}					
+	/***************************************/	
 	
 	public User getUserByEmpId(User userVo){
 		Session session = null;

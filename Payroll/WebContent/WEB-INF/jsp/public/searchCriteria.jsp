@@ -84,6 +84,14 @@ function getHeadsByDept(deptId, headId) {
 		<input type="hidden" name="employeeId" value="0">
 		<input type="hidden" name="empId" value="0">
 	</div>
+	<div class="col-sm-3">
+		<label>Employee Type </label> 
+		<select id="employeeType" class="form-control" name="employeeType">
+			<option value="1">Permanent</option>
+			<option value="2">Contract</option>
+			<option value="3">Honorary</option>
+		</select>
+	</div>
 	<div class="col-sm-3" style="margin-top: 25px; float: right;">
 		
 		<button type="button" id="searchBtn"  class="btn"onclick="searchEmps()"  style="margin-left: 15px;">Search</button>

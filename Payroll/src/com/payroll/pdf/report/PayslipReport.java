@@ -32,6 +32,21 @@ public class PayslipReport extends PaybillPdfRep{
 	        dottedline.setOffset(-2);
 	        dottedline.setGap(2f);
 	        
+	        
+	        /********************************/
+	        Font seeRuleFont = FontFactory.getFont(FontFactory.HELVETICA);
+	        seeRuleFont.setSize(8);
+	        StringBuffer seeText = new StringBuffer("Form XI :[See Rule 26(2) of minimum wages(Central) Rules 1950.]");
+	      
+	        PdfPTable paybillTab2 = null;
+	        float paybillTabWid[] = {7f};
+	        paybillTab2 = createPdfPTable(1, 0, paybillTabWid);
+	        paybillTab2.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        paybillTab2.addCell(addToCell(seeText.toString(), headHdFont, false));
+	        doc.add(paybillTab2);
+	        /******************************/
+	        
+	        
 	        Font frtHdFont = FontFactory.getFont(FontFactory.HELVETICA);
 	        frtHdFont.setSize(8);
 	        StringBuffer titleText = new StringBuffer("Paybill");
@@ -144,6 +159,19 @@ public class PayslipReport extends PaybillPdfRep{
 	        doc.add(psPayDetTab);
 	        doc.add(dottedline);
 	        
+	        Font footFont = FontFactory.getFont(FontFactory.HELVETICA);
+	        footFont.setSize(8);
+	        StringBuffer endText = new StringBuffer("This Pay Slip is for individual's Salary not for any other use !!");
+	      
+	        PdfPTable paybillTab1 = null;
+	        float paybillTabWi[] = {7f};
+	        paybillTab1 = createPdfPTable(1, 0, paybillTabWi);
+	        paybillTab1.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        paybillTab1.addCell(addToCell(endText.toString(), headHdFont, false));
+	        doc.add(paybillTab1);
+	      
+	        
+	        
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -156,6 +184,13 @@ public class PayslipReport extends PaybillPdfRep{
         
         if(alignRight)
         	cell1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        
+        
+        if (value.contains("Form XI")) {
+        	cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        }
+        
+        
        /* else 
         	cell1.setHorizontalAlignment(Element.ALIGN_CENTER);*/
         cell1.setPhrase(new Phrase(value, font));

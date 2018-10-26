@@ -17,7 +17,6 @@
     <property name="apfAcpf" column="APF_ACPF_CNTRB" />  
     <property name="unionFee" column="UNION_FEE"/>
     <property name="gis" column="GIS" />
-    <property name="additionalPF" column="ADD_PF" />
     <property name="status" column="STATUS" not-null="true"/>  
     <property name="rowUpdDate" column="ROW_UPD_DATE" not-null="true"/>
   </class>  

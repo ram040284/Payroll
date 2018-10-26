@@ -78,7 +78,7 @@ public class EmployeeController {
 			    return model;
 			}
 	   }
-		
+		/* check
 		 @RequestMapping(value="/getEmployeeList", method = RequestMethod.GET, produces = "application/json")
 		    public @ResponseBody List<EmployeeVO> getEmployeeList(@RequestParam String firstName, @RequestParam String departmentId, @RequestParam String headId){
 			//   List<EmployeeVO> employees = new EmployeeService().getEmployees(0,0,null);		
@@ -90,16 +90,49 @@ public class EmployeeController {
 			   }
 		       return employees;
 		    }
-	   
+	   	*/	@RequestMapping(value="/getEmployeeList", method = RequestMethod.GET, produces = "application/json")
+ public @ResponseBody List<EmployeeVO> getEmployeeList(@RequestParam String firstName, @RequestParam String departmentId, @RequestParam String headId,@RequestParam String employeeType, HttpServletRequest request){
+
+	   			
+	 List<EmployeeVO> employees = null;
+            permissionForThis = "viewEmployees";
+			ModelAndView model = null;
+			
+			User loggedInUser = (User) request.getSession().getAttribute("user");
+			
+			if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+			//	List<EmployeeVO> employees = null;
+				 if(departmentId != "0" || firstName != null || firstName != ""){
+					employees = new EmployeeService().getEmployees(
+					Integer.valueOf(departmentId), Integer.valueOf(headId), firstName,Integer.valueOf(employeeType));
+					}
+				return employees;
+			} else {
+				model = new ModelAndView("unauthorized", "message", "You do not have access to view employees. Please click home button to go back.");
+			    model.addObject("unauthorizedMessage", true);
+			    return (List<EmployeeVO>) model;
+			}
+ 
+}
+	   	
+	   	
+	   	//check
 	   @RequestMapping(value="/view", method = RequestMethod.GET, produces = "application/json")
-	    public @ResponseBody List<EmployeeVO> getEmployees(){
-		   List<EmployeeVO> employees = new EmployeeService().getEmployees(0,0,null);/*new ArrayList<Employee>();
-		   employees.add(new Employee("Rajendra", "Gangarde", "", "Vice President", "raj@gmail.com", "9878687678"));
-		   employees.add(new Employee("Ramanjaneyulu", "Kummari", "", "Tech Lead", "ram040284@gmail.com", "8939345488"));
-		   employees.add(new Employee("Srinivasa", "Mukku", "", "Tech Lead", "srini.mukku@gmail.com", "98787687686"));*/
-				   
-	        return employees;
-	    }
+	    public @ResponseBody List<EmployeeVO> getEmployees(HttpServletRequest request){  
+		   permissionForThis = "viewEmployees";
+			ModelAndView model = null;
+			
+			User loggedInUser = (User) request.getSession().getAttribute("user");
+			
+			if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
+				List<EmployeeVO> employees = new EmployeeService().getEmployees(0,0,null,1);
+				return employees;
+			} else {
+				model = new ModelAndView("unauthorized", "message", "You do not have access to view employees. Please click home button to go back.");
+			    model.addObject("unauthorizedMessage", true);
+			    return (List<EmployeeVO>) model;
+			}
+	   }
 	   @RequestMapping(value = "/viewEmp", method = RequestMethod.GET)
 	   public ModelAndView  viewEmp(com.payroll.employee.Employee employee, HttpServletRequest request) {
 		   
@@ -187,7 +220,7 @@ public class EmployeeController {
 		   List<EmployeeVO> employees = null;
 		   if(employee.getDepartmentId() !=0 || !Utils.isEmpty(employee.getFirstName())){
 			   employees = new EmployeeService().getEmployees(
-				   employee.getDepartmentId(), employee.getHeadId(), employee.getFirstName());
+				   employee.getDepartmentId(), employee.getHeadId(), employee.getFirstName(),employee.getEmployeeType());
 		   }
 
 		   ModelAndView model = new ModelAndView("listEmp", "command", employee);
@@ -361,6 +394,7 @@ public class EmployeeController {
 			return "redirect:/viewEmp";
 			//return "viewEmpAlwnce";
 		}*/
+		
 	   private String saveDirectory = "E:\\payroll workspace\\Payroll\\Payroll\\WebContent\\resources\\images\\";
 
 		@RequestMapping(value = "/uploadFile/{id}", method= RequestMethod.POST)
@@ -368,6 +402,9 @@ public class EmployeeController {
          @RequestParam CommonsMultipartFile[] fileUpload,
          @PathParam("id") String id) throws Exception 
 		{
+		
+		
+		String relativePath = request.getContextPath();
 		//	 @RequestParam("file") MultipartFile file)
         ModelAndView model = null;
         com.payroll.employee.Employee employee = null;

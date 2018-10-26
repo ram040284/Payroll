@@ -6,7 +6,6 @@
   <class name="com.payroll.employee.dataobjects.Employee" table="EMP_MASTER">  
     <id name="employeeId" type="string" >  
      <column name="EMP_ID" sql-type="string" not-null="true"/>  
-    <!--  <generator class="assigned"/> -->
     </id>  
     <property name="firstName" column="EMP_FNAME" not-null="true"/>
     <property name="lastName" column="EMP_LNAME" not-null="true"/>

@@ -79,6 +79,10 @@ public class ReportDetails {
 	private String contBankAcNumber;
 	private Employee employee;
 	
+	private String appointmentDate;
+	private String endDate;
+	private String engagementLetterId;
+	
 	public String getEmployeeId() {
 		return employeeId;
 	}
@@ -528,6 +532,24 @@ public class ReportDetails {
 		otherDeducs += payroll.getOtherDeductions();
 		misc += payroll.getMiscAllowance();
 	}*/
+	public String getAppointmentDate() {
+		return appointmentDate;
+	}
+	public void setAppointmentDate(String appointmentDate) {
+		this.appointmentDate = appointmentDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getEngagementLetterId() {
+		return engagementLetterId;
+	}
+	public void setEngagementLetterId(String engagementLetterId) {
+		this.engagementLetterId = engagementLetterId;
+	}
 	
 		
 }

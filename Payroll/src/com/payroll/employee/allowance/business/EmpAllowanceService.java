@@ -82,13 +82,12 @@ public String addEmployeeAllowances(MultipartFile multipartFile) throws ParseExc
 			while (eachRowFromCSVRows.hasNext()) {
 				String[] rd = eachRowFromCSVRows.next();
 				if (rd.length != 1) {
-				    if (rd[14].endsWith("A")) {
+				    if (rd[16].endsWith("A")) {
 					empAllowances.add(new EmpAllowance(rd[0],Double.valueOf(rd[1]), Double.valueOf(rd[2]),Double.valueOf(rd[3]),Double.valueOf(rd[4]),Double.valueOf(rd[5])
 							,Double.valueOf(rd[6]),Double.valueOf(rd[7]),Double.valueOf(rd[8]),Boolean.valueOf(rd[9]),Boolean.valueOf(rd[10]),Boolean.valueOf(rd[11]),
-							Byte.valueOf(rd[12]), Byte.valueOf(rd[13]),rd[14]));
+							Byte.valueOf(rd[12]), Byte.valueOf(rd[13]),Byte.valueOf(rd[14]),rd[15]));
 					
 					}
-				    
 				}
 			}
 			

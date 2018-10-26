@@ -48,7 +48,6 @@ td, th {
 											var courtRecoveryVal = $('#courtRecovery').val();
 											var unionFeeVal = $('#unionFee').val();
 											var gisVal = $('#gis').val();
-											var additionalPFVal = $('#additionalPF').val();
 											var apfAcpfVal = $('#apfAcpf').val();
 											
 											if (empId != 0) {
@@ -57,14 +56,12 @@ td, th {
 												var courtRecovery = "${empDeductions.courtRecovery}";
 												var unionFee = "${empDeductions.unionFee}";
 												var gis = "${empDeductions.gis}";
-												var additionalPF = "${empDeductions.additionalPF}";
 												var apfAcpf = "${empDeductions.apfAcpf}";
 												if (kssUnionFee == kssUnionFeeVal
 														&& rent == rentVal
 														&& courtRecovery == courtRecoveryVal
 														&& unionFee == unionFeeVal
 														&& gis == gisVal
-														&& additionalPF == additionalPFVal
 														&& apfAcpf == apfAcpfVal) {
 													alert('Nothing was changed');
 													$('#kssUnionFee').focus();
@@ -119,11 +116,7 @@ td, th {
 												$('#gis').focus();
 												return false;
 											}
-											if (additionalPFVal && isNaN(additionalPFVal)) {
-												alert("Please enter valid Additional PF Value!");
-												$('#additionalPF').focus();
-												return false;
-											}
+// 											
 											if (apfAcpfVal && isNaN(apfAcpfVal)) {
 												alert("Please enter valid APF /ACPF Value!");
 												$('#apfAcpf').focus();
@@ -138,7 +131,6 @@ td, th {
 												"unionFee" : unionFeeVal,
 												"courtRecovery" : courtRecoveryVal,
 												"gis" : gisVal,
-												"additionalPF" : additionalPFVal,
 												"apfAcpf" : apfAcpfVal
 											};
 											$
@@ -255,14 +247,8 @@ td, th {
 										<form:input path="gis" id="gis"
 											placeholder="Enter GIS value" class="form-control" />
 											
-									</div>
-									<div class="col-sm-4 form-group">
-										<label>Additional PF:</label>
-										<form:input path="additionalPF" id="additionalPF"
-											placeholder="Enter Additional PF value" class="form-control" />
-										<input type="hidden" name="addUpdate" id="addUpdate"
-											<c:if test="${empDeductions.employeeId != '0'}" > value="1" </c:if> />
-									</div>
+									</div>							
+ 									
 									<div class="col-sm-4 form-group">
 										<label>APF/ ACPF</label>
 										<form:input path="apfAcpf" id="apfAcpf"

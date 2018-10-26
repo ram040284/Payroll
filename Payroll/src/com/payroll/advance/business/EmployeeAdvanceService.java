@@ -14,7 +14,7 @@ public class EmployeeAdvanceService {
 		return new EmployeeAdvanceDAO().getEmployeeAdvanceList();
 	}
 	public EmployeeAdvance getEmployeeAdvanceById(int advanceId){
-		return new EmployeeAdvanceDAO().getEmployeeAvanceById(advanceId);
+		return new EmployeeAdvanceDAO().getEmployeeAdvanceById(advanceId);
 	}
 	/**
 	 * 
@@ -59,6 +59,7 @@ public class EmployeeAdvanceService {
 			
 			empAdvanceVO.setAdvanceDate((empAdvance.getAdvanceDate()!= null ? dateFormat.parse(empAdvance.getAdvanceDate()): new Date()));
 			empAdvanceVO.setInstallStartDate((empAdvance.getInstallStartDate()!= null ? dateFormat.parse(empAdvance.getInstallStartDate()): new Date()));
+			empAdvanceVO.setInstallEndDate((empAdvance.getInstallEndDate()!= null ? dateFormat.parse(empAdvance.getInstallEndDate()): new Date()));
 
 		}catch(Exception e){
 			

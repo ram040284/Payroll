@@ -65,6 +65,10 @@ public class LoginController
 	     model.addObject("welcomeMsg", true);
 	     byte handicapFlag = 0;
 	     user.setEmployee(new EmployeeVO(employee.getEmployeeId(), employee.getFirstName(), employee.getLastName(), "", handicapFlag));
+	   
+	     String userRole = new UserDAO().getUserRolesByEmpId(employee.getEmployeeId());
+	     user.setRoleNames(userRole);
+	     
 	     //user.setEmployee(new EmployeeVO(0, "Payroll", "User", "", handicapFlag));
 	     request.getSession().setAttribute("user", user);
 	 } else {

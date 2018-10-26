@@ -17,6 +17,8 @@ td, th {
 <script type="text/javascript">
 $(document).ready(function() {
 	var departmentList = ${departments};
+	var salaryList = ${salaries};
+	
 	$.each(departmentList, function( index, value ) {
 		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#departmentId');
 	});
@@ -36,11 +38,26 @@ $(document).ready(function() {
 		getEmployeesByIds(deptId, desgId, empId);
 	}
 	
-	$('#advanceDate').datepick({dateFormat: 'dd/mm/yyyy'});
-	$('#inlineDatepicker').datepick({onSelect: showDate});	
+	var advId = "${advance.advanceId}";
 	
-	$('#installStartDate').datepick({dateFormat: 'dd/mm/yyyy'});
-	$('#inlineDatepicker').datepick({onSelect: showDate});	
+	if(advId == 0)
+		{
+			$('#advanceDate').datepick({dateFormat: 'dd/mm/yyyy'});
+			$('#inlineDatepicker').datepick({onSelect: showDate});	
+			
+			var d = new Date();
+			$('#advanceDate').datepick('setDate', d);
+		    var currMonth = d.getMonth();
+		    var currYear = d.getFullYear();
+		    var currDay  = 25 ;// d.getDay(); //25;
+		    var installStartDate = new Date(currYear, currMonth + 1, currDay);
+			    $('#installStartDate').datepick({dateFormat: 'dd/mm/yyyy'});
+			    $('#installStartDate').datepick('setDate', installStartDate);
+			    
+			var installEndDate = new Date(currYear, currMonth + 11, currDay);
+			    $('#installEndDate').datepick({dateFormat: 'dd/mm/yyyy'});
+			    $('#installEndDate').datepick('setDate', installEndDate);
+		}
 	
 	$('#addAdvanceButtotn').click(function(event) {
 		
@@ -50,10 +67,11 @@ $(document).ready(function() {
 		var advanceAmount = "${advance.advanceAmount}";
 		var installAmount = "${advance.installAmount}";
 		var installStartDate = "${advance.installStartDate}";
+		var installEndDate = "${advance.installEndDate}";
 			
 			if(advanceId !=0){
 				if(advanceAmount == $('#advanceAmount').val() && advanceName == $('#advanceName').val() && 
-						installAmount == $('#installAmount').val() && advanceDate == $('#advanceDate').val() && installStartDate == $('#installStartDate').val()){
+						installAmount == $('#installAmount').val() && advanceDate == $('#advanceDate').val() && installStartDate == $('#installStartDate').val() && installEndDate == $('#installEndDate').val()){
 					alert('Nothing was changed');
 					$('#advanceName').focus();
 					return false;
@@ -94,6 +112,13 @@ $(document).ready(function() {
 			$('#installStartDate').focus();
 			return false;
 		}
+		
+		if($('#installEndDate').val() == 0){
+			alert("installEndDate Date must be provided!");
+			$('#installEndDate').focus();
+			return false;
+		}
+		
 		var installAmount = $('#installAmount').val();
 		if(installAmount){
 			if(!checkAmount(installAmount)){
@@ -118,25 +143,44 @@ $(document).ready(function() {
 			$('#advanceAmount').focus();
 			return false;
 		}
-		
-		var inputJson = { "advanceId" : $('#advanceId').val(),"employeeId" : $('#employeeId').val(),"advanceName" : $('#advanceName').val(),"advanceAmount" : $('#advanceAmount').val(),
-				"installAmount" : $('#installAmount').val(),"advanceDate": $('#advanceDate').val(),"installStartDate": $('#installStartDate').val()};
-		//alert(JSON.stringify(inputJson));
-		$.ajax({
-	        url: '../Payroll/addEmployeeAdvance',
-	        data: JSON.stringify(inputJson),
-	        type: "POST",           
-	        contentType: "application/json;charset=utf-8",
-	        success: function(data){ 
-	            if(data == "Yes"){
-	            	window.location = "../Payroll/viewAdvance";
-	            }else {
-	            	$("#errMsgDiv").text(data);
+			
+		$.each(salaryList, function( index, value ) {
+	
+			if($('#employeeId').val() == value.employeeId ){
+			
+				if(value.gradePay > 4800){
+					$("#errMsgDiv").text("Not Eligible for receiving Festival Advance since grade pay is not equal to OR less than 4800 !!");
 		        	$("#errMsgDiv").show();
-	            }
-	        }
-	    });
-	    event.preventDefault();
+				}
+				else{
+					var inputJson = { "advanceId" : $('#advanceId').val(),"employeeId" : $('#employeeId').val(),"advanceName" : $('#advanceName').val(),"advanceAmount" : $('#advanceAmount').val(),
+							"installAmount" : $('#installAmount').val(),"advanceDate": $('#advanceDate').val(),"installStartDate": $('#installStartDate').val(), "installEndDate": $('#installEndDate').val()};
+					
+					$.ajax({
+				        url: '../Payroll/addEmployeeAdvance',
+				        data: JSON.stringify(inputJson),
+				        type: "POST",           
+				        contentType: "application/json;charset=utf-8",
+				        success: function(data){ 
+				            if(data == "Yes"){
+				            	window.location = "../Payroll/viewAdvance";
+				            }else {
+				            	$("#errMsgDiv").text(data);
+					        	$("#errMsgDiv").show();
+				            }
+				        }
+				    });
+				    event.preventDefault();
+				}
+			}   // if empid
+			
+			else{
+				$("#errMsgDiv").text("EmployeeId not match !!");
+	        	$("#errMsgDiv").show();
+			}
+			
+			
+		});   // salary
 	});
 });	
 
@@ -150,7 +194,19 @@ function checkAmount(value){
 	}
 	return false;
 }
-     
+
+/* function updateInstallStartDate(){
+	var d = $('#advanceDate').val();
+	alert('Inside : Advance Date = ' + d);
+	var currMonth = d.getMonth();
+    var currYear = d.getFullYear();
+    var currDay  = d.getDay();
+    alert('Inside : CurrMonth = ' + currMonth);
+    var installStartDate = new Date(currYear, currMonth + 2, currDay);
+    $('#installStartDate').datepick({dateFormat: 'dd/mm/yyyy'});
+    $('#installStartDate').datepick('setDate', installStartDate);
+}
+     */ 
 </script>
 <jsp:include page="../jsp/public/master.jsp" />
 </head>
@@ -212,11 +268,17 @@ function checkAmount(value){
 							<div class="row">
 								<div class="col-sm-6 form-group">
 									<label>Advance Name:</label>
-									<form:input path="advanceName" placeholder="Enter advance Name"  id="advanceName" class="form-control" value=""/>
+									<form:input path="advanceName" placeholder="Enter Advance Name"  id="advanceName" class="form-control" value=""/>
 								</div>
 								<div class="col-sm-6 form-group">
 									<label>Advance Date:</label>
-									<form:input path="advanceDate" placeholder="Enter Advance Date (DD/MM/YYYY)"  id="advanceDate" class="form-control" value=""/>
+									<c:if test="${advance.advanceId != '0'}" > 
+										<form:input path="advanceDate" id="advanceDate"  placeholder="Enter Advance Date" class="form-control" value="" disabled="true"/>
+										<%-- 	<form:input path="advanceDate" id="advanceDate" class="form-control" value="" onchange ="updateInstallStartDate()" disabled="true"/> --%>
+									 </c:if>
+									 <c:if test="${advance.advanceId == '0'}" > 
+										<form:input path="advanceDate" id="advanceDate" placeholder="Enter Advance Date" class="form-control" value="" disabled="true"/>
+									 </c:if>
 								</div>
 							</div>
 							<div class="row">
@@ -227,13 +289,28 @@ function checkAmount(value){
 								</div>							
 								<div class="col-sm-6 form-group">
 									<label>Installment Amount:</label>
-									<form:input path="installAmount" id="installAmount" placeholder="Enter Installment Amount" class="form-control"/>
+									<form:input path="installAmount" id="installAmount" placeholder="Enter Installment Amount" class="form-control" />
 								</div>
 								<div class="col-sm-6 form-group">
 									<label>Installment Start Date:</label>
-									<form:input path="installStartDate" placeholder="Enter Advance Date (DD/MM/YYYY)"  id="installStartDate" class="form-control" value=""/>
+									<c:if test="${advance.advanceId != '0'}" >
+										<form:input path="installStartDate" id="installStartDate"  placeholder="Enter Installment Start Date" class="form-control" value="" disabled="true"/>
+									</c:if>
+									<c:if test="${advance.advanceId == '0'}" >
+										<form:input path="installStartDate" id="installStartDate" placeholder="Enter Installment Start Date" class="form-control" value="" disabled="true"/>
+									</c:if>
 								</div>
-						</div>
+								<div class="col-sm-6 form-group">
+									<label>Installment End Date:</label>
+									<c:if test="${advance.advanceId != '0'}" >
+										<form:input path="installEndDate"  id="installEndDate" placeholder="Enter Installment End Date" class="form-control" value=""  disabled="true"/>
+									</c:if>
+									<c:if test="${advance.advanceId == '0'}" >
+										<form:input path="installEndDate"  id="installEndDate" placeholder="Enter Installment End Date" class="form-control" value="" disabled="true"/>
+									</c:if>
+								</div>
+							</div>
+						
 						<div class="row">	
 							<div class="text-right">
 								<button type="button" id="addAdvanceButtotn" class="btn">Submit</button>

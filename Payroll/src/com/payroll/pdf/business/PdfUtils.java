@@ -180,6 +180,20 @@ public class PdfUtils {
 	public static final String PAY_CLEARK = "Pay Cleark:";
 	public static final String CHECKED_BY = "Checked by:";
 	
+	public static final String PENSION_EMP_HEAD = "Code Name & Dt. of Retirement";
+	public static final String BASIC_PENION = "Basic Pension";
+	public static final String RESY_PENSION = "Res'y Pension";
+	public static final String DR = "D.R";
+	public static final String ARREARS = "Arrears";
+	public static final String MEDICAL_ALLOWANCES = "Medical Allowances";
+	public static final String TOTAL_PENSION_DEDUCTIONS = "Total Pension Deductions";
+	public static final String NET_PENSION = "Net Pension";
+	public static final String COMMUTATION_AMT = "Commutation Amount";
+	public static final String CF_TOTAL = "C/F Total:";
+	
+	public static final String END_DATE = "End Dt.";
+	public static final String ENGAGEMENT_LETTER_ID = "Engagement Letter Id";
+	
 	public static com.itextpdf.text.Image getWaterMarkImg(String waterMarkImg){
 		com.itextpdf.text.Image wmarkimge = null;
 		try{

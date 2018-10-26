@@ -31,6 +31,29 @@ $(document).ready(function() {
 	if(empId != 0){
 		getEmployeesByIds(deptId, desgId, empId);
 	}
+	
+	 // Get saved data from sessionStorage
+	 var viewFlag = 0;
+	 viewFlag = sessionStorage.getItem('view');
+	// alert("ViewFlag is "+viewFlag);
+	 
+	 if (viewFlag ==1){
+		/* <c:if test="${salary.employeeId != '0'}" >	View</c:if> Employee Salary */ 
+		 $("#year").prop("disabled", true);
+		 $("#basic").prop("disabled", true);
+		 $("#gradePay").prop("disabled", true);
+		 $("#scalePay").prop("disabled", true);
+		 $("#scaleCode").prop("disabled", true);
+	 }
+	 else{
+		/*  <c:if test="${salary.employeeId != '0'}" >	Update</c:if> Employee Salary */ 
+		 $("#year").prop("disabled", false);
+		 $("#basic").prop("disabled", false);
+		 $("#gradePay").prop("disabled", false);
+		 $("#scalePay").prop("disabled", false);
+		 $("#scaleCode").prop("disabled", false);
+	 }
+	
 	$('#addSalaryBtn').click(function(event) {
 		
 			var year = "${salary.year}";

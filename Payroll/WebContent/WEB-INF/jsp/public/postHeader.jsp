@@ -107,7 +107,7 @@ h3 {font-size:16pt;}
 .bodyDivCss {
 	position:relative;
 	padding-bottom: 50px;
-	margin-top: 160px;	
+	margin-top: 170px;	
 }
 .errMsg {
 	display: none;
@@ -255,6 +255,9 @@ h3 {font-size:16pt;}
 							<%--<li><a href="portfolio-alt2.html">Option-02</a></li>
 							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
 						</ul>
+					</li>
+					<li class="dropdown">
+						<h6	style="color:white; margin-left: 135px;">${sessionScope.user.employee.fullName} (${sessionScope.user.roleNames})</h6>
 					</li>
 				</c:if>
 				</ul>

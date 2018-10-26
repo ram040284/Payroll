@@ -9,6 +9,8 @@ import com.payroll.Utils;
 import com.payroll.department.business.DepartmentService;
 import com.payroll.department.dataobjects.Department;
 import com.payroll.employee.dataobjects.EmployeeDAO;
+import com.payroll.employee.pension.dataobjects.PensionPaybill;
+import com.payroll.employee.pension.vo.PensionVO;
 import com.payroll.employee.vo.EmployeeVO;
 import com.payroll.headInfo.dataobjects.HeadInfoDAO;
 import com.payroll.headInfo.vo.HeadInfoVO;
@@ -16,12 +18,18 @@ import com.payroll.hrms.payroll.dao.EmployeePayrollDAO;
 import com.payroll.hrms.payroll.dataobjects.Paybill;
 import com.payroll.hrms.payroll.dataobjects.PaybillDAO;
 import com.payroll.hrms.payroll.dataobjects.PaybillDetails;
+import com.payroll.hrms.payroll.dataobjects.PensionPaybillDetails;
+import com.payroll.hrms.payroll.dataobjects.PensionReportDetails;
 import com.payroll.hrms.payroll.dataobjects.ReportDetails;
+import com.payroll.pdf.report.PensionPayBillReport;
 
 public class PaybillService {
 	List<Paybill> paybillList = null;
+	List<PensionPaybill> pensionPaybills = null;
 	List<EmployeeVO> empList = null;
 	List<EmployeeVO> sectionEmpList = null;
+	List<PensionVO> pensionVOs = null;
+	List<PensionVO> sectionPensionList = null;
 	int headId;
 	private int deptId;
 	private String section;
@@ -148,7 +156,7 @@ public class PaybillService {
 				success = 1;
 				continue;
 			}
-			EmployeePayrollService payroll = new EmployeePayrollService(empList);
+			EmployeePayrollService payroll = new EmployeePayrollService(empList, pensionVOs);
 			boolean result = payroll.createPaybills(department.getDepartmentId(), startDate, billType);
 			success = (result) ? 2 :3;
 		}
@@ -262,6 +270,92 @@ public class PaybillService {
     	}
     	payrollTotals.setMonth(startDate);
         return pbDetailsList;
+    }
+    
+    public int generatePensionPayBills(byte pensionBIllType){
+		int success = 0;
+		
+		List<Department> departments = new DepartmentService().getDepartmentsBySection(section);
+		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
+			Department department = (Department) iterator.next();
+			if(checkPensionPayBills(department.getDepartmentId(), pensionBIllType)){
+				System.out.println("inside checkbills... success = true ");
+				success = 1;
+				continue;
+			}
+			EmployeePayrollService payroll = new EmployeePayrollService(empList, pensionVOs);
+			boolean result = payroll.createPensionPaybills(department.getDepartmentId(), startDate);
+			success = (result) ? 2 :3;
+		}
+		return success;
+	}
+    
+    private boolean checkPensionPayBills(int deptId, byte pensionBillType){
+    	
+		boolean billsExist = false;
+		pensionVOs = new EmployeePayrollDAO().getActivePensionEmployeesByDept(deptId, startDate, pensionBillType);// get active penstion employee
+		List<PensionPaybill> paybillListTemp = new PaybillDAO(startDate, endDate, deptId).getPensionPaybillsByDept(headId, bankWise, pensionBillType); // generate pension paybill as per the data
+		if(paybillListTemp !=null && !paybillListTemp.isEmpty()){
+			billsExist = true;
+		}
+		if(sectionPensionList == null)
+			sectionPensionList = new ArrayList<PensionVO>();
+		sectionPensionList.addAll(pensionVOs);
+		if(pensionPaybills == null)
+			pensionPaybills = new ArrayList<PensionPaybill>();
+		pensionPaybills.addAll(paybillListTemp);
+		System.out.println("Data is added into pension paybill table");
+		return billsExist;
+	}
+    
+    public PensionPaybillDetails getPensionPayBills(byte pensionBillType){
+    	PensionPaybillDetails details = null;
+		
+		List<Department> departments = new DepartmentService().getDepartmentsBySection(section);
+		for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
+			System.out.println("inside for");
+			Department department = (Department) iterator.next();
+			checkPensionPayBills(department.getDepartmentId(), pensionBillType);
+		}
+		details = getPensionPaybillDetails();
+		return details;
+	}
+    
+    private PensionPaybillDetails getPensionPaybillDetails(){
+    	PensionPaybillDetails paybillDetails = new PensionPaybillDetails();
+    	System.out.println("head id... " + headId);
+    	try {
+		for (PensionPaybill pensionPaybill : pensionPaybills) {
+			
+    		PensionReportDetails empPayroll = new PensionReportDetails(); 
+    		org.apache.commons.beanutils.BeanUtils.copyProperties(empPayroll, pensionPaybill);
+    		if(null != pensionVOs) {  
+    			for (PensionVO penVO : pensionVOs) {
+    				if(penVO.getEmployeeId().equals(empPayroll.getEmployeeId())){
+    					empPayroll.setFullName(penVO.getFullName());
+    					empPayroll.setDepartment(penVO.getDepartment());
+    					empPayroll.setEmployeeId(penVO.getEmployeeId());
+    					empPayroll.setBasicPension(penVO.getBasicPension());
+    					empPayroll.setResidualPension(penVO.getResidualPension());
+    					empPayroll.setDearnessRelief(penVO.getDearnessRelief());
+    					empPayroll.setCommutationAmount(penVO.getCommutationAmount());
+    					empPayroll.setMedicalAllowance(penVO.getMedicalAllowance());
+    					empPayroll.setFamilyPensionFlag(penVO.getFamilyPensionFlag());
+    					empPayroll.setFamilyPensionName(penVO.getFamilyPensionName());
+    					empPayroll.setDesignation(penVO.getDesignation());
+    					empPayroll.setRetirementDate(penVO.getRetirementDate());
+    					empPayroll.setArrears(penVO.getArrears());
+    					break;
+    				}
+    			}
+    		}
+    		paybillDetails.addPensionEmployeePayroll(empPayroll);
+		}
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	paybillDetails.setMonth(startDate);
+        return paybillDetails;
     }
     
 

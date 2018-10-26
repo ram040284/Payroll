@@ -82,7 +82,7 @@ function headwiseRpt(){
 		
 	<div class="row">
 		<div class="col-sm" style="float: right; margin-right: 20px; margin-bottom: 5px;">
-			<button type="button" id="searchBtn"  class="btn" onclick="headwiseRpt()">Get Report</button>
+			<button type="button" id="searchBtn"  class="btn" onclick="headwiseRpt()">Generate Report</button>
 		</div>
 	</div>
 	</div>

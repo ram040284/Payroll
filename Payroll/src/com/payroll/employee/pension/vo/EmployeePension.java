@@ -4,21 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class EmployeePension implements Serializable{
-	@Override
-	public String toString() {
-		return "EmployeeSalary [employeeId=" + employeeId + ", basic=" + basic + ", gradePay=" + gradePay
-				+ ", scalePay=" + scalePay + ", scaleCode=" + scaleCode + "]";
-	}
-	public EmployeePension(String employeeId, double basic, double gradePay, String scalePay, String scaleCode, double incrementAmount, Date incrementDate) {
-		super();
-		this.employeeId = employeeId;
-		this.basic = basic;
-		this.gradePay = gradePay;
-		this.scalePay = scalePay;
-		this.scaleCode = scaleCode;
-		this.incrementAmount = incrementAmount;
-		this.incrementDate = incrementDate;
-	}
+	
 	private String employeeId;
 	private double basic;
 	private double gradePay;
@@ -69,6 +55,22 @@ public class EmployeePension implements Serializable{
 		return incrementDate;
 	}
 	public void setIncrementDate(Date incrementDate) {
+		this.incrementDate = incrementDate;
+	}
+	
+	@Override
+	public String toString() {
+		return "EmployeeSalary [employeeId=" + employeeId + ", basic=" + basic + ", gradePay=" + gradePay
+				+ ", scalePay=" + scalePay + ", scaleCode=" + scaleCode + "]";
+	}
+	public EmployeePension(String employeeId, double basic, double gradePay, String scalePay, String scaleCode, double incrementAmount, Date incrementDate) {
+		super();
+		this.employeeId = employeeId;
+		this.basic = basic;
+		this.gradePay = gradePay;
+		this.scalePay = scalePay;
+		this.scaleCode = scaleCode;
+		this.incrementAmount = incrementAmount;
 		this.incrementDate = incrementDate;
 	}
 }

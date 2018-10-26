@@ -19,6 +19,7 @@ public class EmployeeAdvance {
 	private double installAmount;
 	private String advanceDate;
 	private String installStartDate;
+	private String installEndDate;
 	private String status;
 	private Timestamp rowUpdDate;
 	private String fullName;
@@ -40,7 +41,7 @@ public class EmployeeAdvance {
 
 
 	public EmployeeAdvance(int advanceId,String employeeId, int departmentId, int designationId, int headId, 
-			String advanceName, double advanceAmount,  Date advanceDate, double installAmount, Date installStartDate) {
+			String advanceName, double advanceAmount,  Date advanceDate, double installAmount, Date installStartDate, Date installEndDate) {
 		super();
 		this.employeeId = employeeId;
 		this.departmentId = departmentId;
@@ -54,9 +55,11 @@ public class EmployeeAdvance {
 			this.advanceDate = dateFormat.format(advanceDate);
 		if(installStartDate != null)
 			this.installStartDate = dateFormat.format(installStartDate);
+		if(installEndDate != null)
+			this.installEndDate = dateFormat.format(installEndDate);
 	}
 
-	public EmployeeAdvance( int advanceId,String employeeId, String fName, String lName, String advanceName, double advanceAmount, Date advanceDate, double installAmount, Date installStartDate) {
+	public EmployeeAdvance( int advanceId,String employeeId, String fName, String lName, String advanceName, double advanceAmount, Date advanceDate, double installAmount, Date installStartDate, Date installEndDate) {
 		super();
 		this.advanceId = advanceId;
 		this.employeeId = employeeId;
@@ -67,6 +70,8 @@ public class EmployeeAdvance {
 		this.advanceName = advanceName;
 		if(installStartDate != null)
 			this.installStartDate = dateFormat.format(installStartDate);
+		if(installEndDate != null)
+			this.installEndDate = dateFormat.format(installEndDate);
 		StringBuffer fullNameSB = new StringBuffer(fName);
 		fullNameSB.append(" ");
 		fullNameSB.append(Utils.safeTrim(lName));
@@ -133,6 +138,14 @@ public class EmployeeAdvance {
 	public void setInstallStartDate(String installStartDate) {
 		this.installStartDate = installStartDate;
 	}
+	
+	public String getInstallEndDate() {
+		return installEndDate;
+	}
+	public void setInstallEndDate(String installEndDate) {
+		this.installEndDate = installEndDate;
+	}
+	
 	public String getStatus() {
 		return status;
 	}

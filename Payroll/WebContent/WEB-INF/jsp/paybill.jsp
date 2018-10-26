@@ -180,7 +180,7 @@ function getHeadsByDept(deptId) {
 	
 	<div class="row">
 		<div class="col-sm" style="float: right; margin-right: 20px; margin-bottom: 5px;">
-			<button type="button" id="searchBtn"  class="btn" onclick="generatePaybill()">Get Report</button>
+			<button type="button" id="searchBtn"  class="btn" onclick="generatePaybill()">Generate Report</button>
 			<%--<button type="button" id="searchBtn"  class="btn" onclick="generateMonthlyRpt()">Monthly Bill</button>
 			<button type="button" id="searchBtn"  class="btn" onclick="headwiseRpt()">Headwise Report</button>
 			<button type="button" id="searchBtn"  class="btn" onclick="bankwiseRpt()">Bankwise Report</button>
