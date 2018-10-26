@@ -11,7 +11,6 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	
 	var empId = "${employeeContract.employeeId}";
 	$.ajax({
         url : '../Payroll/loadContractualEmp',

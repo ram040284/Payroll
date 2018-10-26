@@ -167,6 +167,35 @@ public class EmployeePayroll {
     	
     }
     
+    public EmployeePayroll(double basic, double gradePay, String scalePay, String scaleCode, 
+    		int empAbsentDays, int empPresentDays, String contBankAcNumber, String employeeId, int billType, int designationId) {
+    	this.basic = basic;
+    	this.gradePay = gradePay;
+    	this.scale = scaleCode;
+    	this.empAbsentDays = empAbsentDays;
+    	this.empPresentDays = empPresentDays;
+    	this.contBankAcNumber = contBankAcNumber;
+    	this.employeeId = employeeId;
+    	this.billType = billType;
+    	this.appointmentDate = appointmentDate;
+    	this.endDate = endDate;
+    	this.engagementLetterId = engagementLetterId;
+    	if (billType == 2) {
+    		calculateAbsDedAmtCont();
+		}else if (billType == 3) {
+			calculateAbsDedAmtHon();
+		}
+    	
+    	System.out.println("Designation id is " + designationId);
+    	if (designationId == 135 || designationId == 136 || designationId == 137 || designationId == 138 || designationId == 151) {
+    		calculateTDSForTenPer();
+		}else {
+			calculateTDSForOnePer();
+		}
+    	
+    	
+    }
+    
    public EmployeePayroll(String employeeId, byte handicapFlag, double basic, double gradePay, String scalePay, String scaleCode, double otherPayAmount,
     		double cca, double cycleAllowance, double otherAllowance, double fmlyPlgAlw, double npa, double wshngAlw, double uniformAlw, boolean hraFlag,byte pfFlag, byte taFlag, double tAllowance,
     		double unionFee, double unionFeeKss, double lfee, double electricityRecovery, double courtRcry, double gis, double afkRent, double pfLoanRecovery, double otherDeduct,

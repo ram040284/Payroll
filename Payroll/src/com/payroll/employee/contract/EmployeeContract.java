@@ -14,6 +14,7 @@ public class EmployeeContract  implements Serializable{
 	private String engagementLetterId;
 	private String status;
 	private short addUpdate;
+	private Date rowUpdatedDate;
 	
 	public EmployeeContract() {}
 	
@@ -62,6 +63,14 @@ public class EmployeeContract  implements Serializable{
 
 	public void setAddUpdate(short addUpdate) {
 		this.addUpdate = addUpdate;
+	}
+
+	public Date getRowUpdatedDate() {
+		return rowUpdatedDate;
+	}
+
+	public void setRowUpdatedDate(Date rowUpdatedDate) {
+		this.rowUpdatedDate = rowUpdatedDate;
 	}
 	
 }

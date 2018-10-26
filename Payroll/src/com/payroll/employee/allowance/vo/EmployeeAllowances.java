@@ -15,6 +15,7 @@ public class EmployeeAllowances {
 	private byte pfFlag;
 	private double otherAllowance;
 	private double tAllowance;
+	private byte npaFlag;
 	
 	public EmployeeAllowances(){
 		
@@ -23,7 +24,7 @@ public class EmployeeAllowances {
 	/**
 	 */
 	public EmployeeAllowances(String employeeId, double cca, double washingAlwance, double nonPracAwance, 
-			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, double otherAllowance, double tAllowance) {
+			double uniformAlwance, double familyPlanAlwance, double cycleAlwance, Boolean hraFlag,Boolean qtrFlag,Boolean afkFlag,byte taFlag, byte pfFlag, byte npaFlag, double otherAllowance, double tAllowance) {
 		this.employeeId = employeeId;
 		this.cca = cca;
 		this.washingAlwance = washingAlwance;
@@ -38,6 +39,7 @@ public class EmployeeAllowances {
 		this.pfFlag = pfFlag;
 		this.otherAllowance = otherAllowance;
 		this.tAllowance = tAllowance;
+		this.npaFlag = npaFlag;
 	}
 	
 		public byte getPFFlag() {
@@ -145,6 +147,22 @@ public class EmployeeAllowances {
 
 	public void settAllowance(double tAllowance) {
 		this.tAllowance = tAllowance;
+	}
+
+	public byte getNpaFlag() {
+		return npaFlag;
+	}
+
+	public void setNpaFlag(byte npaFlag) {
+		this.npaFlag = npaFlag;
+	}
+
+	public byte getPfFlag() {
+		return pfFlag;
+	}
+
+	public void setPfFlag(byte pfFlag) {
+		this.pfFlag = pfFlag;
 	}
 
 	@Override

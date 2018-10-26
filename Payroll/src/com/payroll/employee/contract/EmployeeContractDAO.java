@@ -34,7 +34,7 @@ public class EmployeeContractDAO {
 	public EmployeeContractVO getContractualEmployeeById(String empId){
 		EmployeeContractVO employee = null;
 		try{
-			String queryString = " select new com.payroll.employee.contract.EmployeeContractVO(empCont.employeeId,"
+			String queryString = " select new com.payroll.employee.contract.EmployeeContractVO(empCont.employee.employeeId,"
 					+ "empCont.employee.firstName, empCont.employee.lastName, empCont.appointmentDate, empCont.endDate, empCont.engagementLetterId) from EmployeeContract empCont where empCont.employeeId = ? and empCont.status = ?";		
 			if(session == null || !session.isOpen()) 
 				session = HibernateConnection.getSessionFactory().openSession();
@@ -81,16 +81,27 @@ public class EmployeeContractDAO {
 			Employee employee = (Employee)session.load(Employee.class, contract.getEmployeeId());
 			EmployeeContractVO employeeContractVO = checkContractEmp(contract.getEmployeeId());
 			contract.setEmployee(employee);
+			contract.setRowUpdatedDate(new Timestamp(System.currentTimeMillis()));
 			contract.setStatus("A");
 			if (contract.getAddUpdate() == 0) {
-				if (employeeContractVO == null) {
-					session.save(contract);
-				}else {
-					session.update(contract);
-				}
+				session.save(contract);
 				
 			}else {
-				session.update(contract);
+				Query query = session.createQuery("update EmployeeContract d set d.appointmentDate = ?, d.endDate = ?, d.engagementLetterId = ?, "
+						+ "d.status = ?, d.rowUpdatedDate = ? where d.employee.employeeId = ? and  d.status = ?");
+				
+				query.setParameter(0, contract.getAppointmentDate());
+				query.setParameter(1, contract.getEndDate());
+				query.setParameter(2, contract.getEngagementLetterId());
+				query.setParameter(3, "A");
+				query.setParameter(4, contract.getRowUpdatedDate());
+				
+				query.setParameter(5, contract.getEmployeeId());
+				query.setParameter(6, "A");
+				
+				int updated = query.executeUpdate();
+				if(updated > 0)
+					result = "Successfully update Contractual Employee details!";
 			}
 			session.flush();
 			transaction.commit();

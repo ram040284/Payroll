@@ -122,12 +122,12 @@ public class EmpFixedDeductionsDAO {
         	
 			session = HibernateConnection.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("update EmpFixedDeductions d set d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ? and d.status = ? and d.rowUpdDate = ?");
+			Query query = session.createQuery("update EmpFixedDeductions d set d.status = ?, d.rowUpdDate = ? where d.employee.employeeId = ? and d.status = ?");
 			query.setParameter(0, "I");
 			query.setParameter(1, new Timestamp(System.currentTimeMillis()));
 			query.setParameter(2, empId);
 			query.setParameter(3, "A");
-			query.setParameter(4, fixedDeductions.getRowUpdDate());
+			//query.setParameter(4, fixedDeductions.getRowUpdDate());
 			int updated = query.executeUpdate();
 			if(updated > 0)
 				result = "Successfully deleted Employee Deduction details!";

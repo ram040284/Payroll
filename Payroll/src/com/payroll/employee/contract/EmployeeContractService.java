@@ -34,6 +34,7 @@ public class EmployeeContractService {
 				new Date());
 			employeeContract.setEngagementLetterId(contract.getEngagementLetterId());
 			employeeContract.setEmployeeId(contract.getEmployeeId());
+			employeeContract.setAddUpdate(contract.getAddUpdate());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
