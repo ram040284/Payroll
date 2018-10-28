@@ -61,7 +61,7 @@ public class EmployeeContractController {
 				employeeContract = new EmployeeContractService().getContractualEmpById(employeeContract.getEmployeeId());
 			}
 			model = new ModelAndView("employeeContract", "command", employeeContract);
-			model.addObject(employeeContract);
+			model.addObject("employeeContract", employeeContract);
 			
 			return model;
 		}else {

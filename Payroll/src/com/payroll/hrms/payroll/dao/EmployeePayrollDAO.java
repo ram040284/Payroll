@@ -245,8 +245,7 @@ public class EmployeePayrollDAO {
 			} else if (billType == 3) {
 				empPayroll = new EmployeePayroll(salary.getBasic(), salary.getGradePay(), salary.getScalePay(), salary.getScaleCode(),
 						salary.getEmpAbsentDays(), salary.getEmpPresentDays(), bankVo.getAccountNo(), bankVo.getEmployeeId(), billType, 
-						empDesignation.getDesignation().getDesignationId(), employeeContract.getAppointmentDate(), employeeContract.getEndDate(),
-						employeeContract.getEngagementLetterId());
+						empDesignation.getDesignation().getDesignationId());
 			}
 
    		}catch(Exception e){

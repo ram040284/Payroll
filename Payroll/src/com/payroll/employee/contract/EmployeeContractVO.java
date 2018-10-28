@@ -14,6 +14,7 @@ public class EmployeeContractVO {
 	private String status;
 	private String fullName;
 	private short addUpdate;
+	private Date rowUpdatedDate;
 	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	
@@ -77,6 +78,13 @@ public class EmployeeContractVO {
 	public void setAddUpdate(short addUpdate) {
 		this.addUpdate = addUpdate;
 	}
-	
+
+	public Date getRowUpdatedDate() {
+		return rowUpdatedDate;
+	}
+
+	public void setRowUpdatedDate(Date rowUpdatedDate) {
+		this.rowUpdatedDate = rowUpdatedDate;
+	}
 	
 }

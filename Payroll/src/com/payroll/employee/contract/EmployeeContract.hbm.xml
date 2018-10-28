@@ -15,6 +15,7 @@
     <property name="appointmentDate" column="APPOINTMENT_DATE"/>
     <property name="endDate" column="END_DATE"/>
     <property name="engagementLetterId" column="ENGAGEMENT_LETTER_ID"/>
+    <property name="rowUpdatedDate" column="ROW_UPD_DATE" not-null="true" />
     <property name="status" column="STATUS" not-null="true"/>
    </class>  
  </hibernate-mapping> 
