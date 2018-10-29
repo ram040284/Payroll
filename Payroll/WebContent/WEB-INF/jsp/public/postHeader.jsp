@@ -107,7 +107,7 @@ h3 {font-size:16pt;}
 .bodyDivCss {
 	position:relative;
 	padding-bottom: 50px;
-	margin-top: 170px;	
+	margin-top: 250px;	
 }
 .errMsg {
 	display: none;
