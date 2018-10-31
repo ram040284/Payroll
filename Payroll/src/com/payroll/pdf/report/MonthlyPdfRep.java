@@ -96,7 +96,7 @@ public class MonthlyPdfRep extends PaybillPdfRep{
 	}
 	private int addTotalDetails(int srNo, PdfPTable table, PaybillDetails payroll, PaybillDetails lmDetails, Font font){
 		table.addCell(addToCell(srNo++ +"", font));
-		table.addCell(addToCell(PdfUtils.BASICS, font));
+		table.addCell(addToCell(PdfUtils.BASIC, font));
 		table.addCell(addToCell(payroll.getBasicPay()+"", font, true));
 		table.addCell(addToCell(lmDetails.getBasicPay()+"", font, true));
 		table.addCell(addToCell((payroll.getBasicPay() - lmDetails.getBasicPay())+"", font, true));

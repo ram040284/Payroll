@@ -64,7 +64,7 @@ function getHeadsByDept(deptId, headId) {
 <h6 style="color: #0101DF;margin-bottom:0px;"><a id="closeBtn" href="#" style="color: #0101DF;"><label id="collapse" style="color: #0101DF;" class="glyphicon-plus">&nbsp;Show</label> <label id="expand" class="glyphicon-minus" style="color: #0101DF;">&nbsp;Hide</label> </a></h6>
 </div>  
 <div id="searchDiv" style="width:100%;margin-top:0px;" class="formDiv">
-	<form method = "POST" action = "../Payroll/employee" name="empSearch">
+	<form method = "GET" action = "../Payroll/employee" name="empSearch">
 	<div  class="col-sm-12" style="width:100%;margin-top:0px; margin-bottom:10px; padding-top:5px; padding-bottom:10px;float: left;">
 	<div class="row">
 	<div class="col-sm-3">
@@ -94,7 +94,7 @@ function getHeadsByDept(deptId, headId) {
 	</div>
 	<div class="col-sm-3" style="margin-top: 25px; float: right;">
 		
-		<button type="button" id="searchBtn"  class="btn" onclick="searchEmps()">Search</button>
+		<button type="button" id="searchBtn"  class="btn"onclick="searchEmps()"  style="margin-left: 15px;">Search</button>
 		<%--<button type="reset"  class="btn">Reset</button> --%>
 		<button type="button" id="addBtn"  class="btn" onclick="inputPage()" style="margin-left: 15px;">Add</button>	
 	</div>

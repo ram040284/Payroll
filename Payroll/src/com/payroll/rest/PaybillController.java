@@ -30,7 +30,7 @@ import com.payroll.pdf.business.Book;
 import com.payroll.pdf.report.PensionPayBillReport;
 @Controller
 public class PaybillController {
-	@RequestMapping(value = "/inputPaybill", method = RequestMethod.POST)
+	@RequestMapping(value = "/inputPaybill", method = RequestMethod.GET)
 	public ModelAndView inputPaybill(PaybillVO paybill) {
 		/*ObjectMapper mapper = new ObjectMapper();
 		List<Department> deptList = new DepartmentService().getDepartments();
@@ -46,22 +46,22 @@ public class PaybillController {
 		return getInputForm(paybill, "paybill");
 	}
 	
-	@RequestMapping(value = "/monthlyRep", method = RequestMethod.POST)
+	@RequestMapping(value = "/monthlyRep", method = RequestMethod.GET)
 	public ModelAndView monthlyRep(PaybillVO paybill) {
 		return getInputForm(paybill, "monthlyRep");
 	}
 	
-	@RequestMapping(value = "/bankwiseRep", method = RequestMethod.POST)
+	@RequestMapping(value = "/bankwiseRep", method = RequestMethod.GET)
 	public ModelAndView bankwiseRep(PaybillVO paybill) {
 		return getInputForm(paybill, "bankwiseRep");
 	}
 	
-	@RequestMapping(value = "/headwiseRep", method = RequestMethod.POST)
+	@RequestMapping(value = "/headwiseRep", method = RequestMethod.GET)
 	public ModelAndView headwiseRep(PaybillVO paybill) {
 		return getInputForm(paybill, "headwiseRep");
 	}
 	
-	@RequestMapping(value = "/paycheckRep", method = RequestMethod.POST)
+	@RequestMapping(value = "/paycheckRep", method = RequestMethod.GET)
 	public ModelAndView paycheckRep(PaybillVO paybill) {
 		ObjectMapper mapper = new ObjectMapper();
 		List<Department> deptList = new DepartmentService().getDepartments();
@@ -77,7 +77,7 @@ public class PaybillController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/generateBills", method = RequestMethod.POST)
+	@RequestMapping(value = "/generateBills", method = RequestMethod.GET)
 	public ModelAndView generateBills(PaybillVO paybill, HttpServletRequest request) {
 		
 		String permissionForThis = "generateBills";
@@ -139,7 +139,7 @@ public class PaybillController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/generatePaybill", method = RequestMethod.POST)
+	@RequestMapping(value = "/generatePaybill", method = RequestMethod.GET)
 	public String inputHead(PaybillVO paybill) {
 		return null;
 	}
@@ -147,7 +147,7 @@ public class PaybillController {
 	/**
 	 * Generating Paybills
 	 */
-	@RequestMapping(value = "/generatePaybills", method = RequestMethod.POST)
+	@RequestMapping(value = "/generatePaybills", method = RequestMethod.GET)
     public ModelAndView generatePaybills(PaybillVO paybill) {
 		ModelAndView model = null;
 		System.out.println("Generating paybill..");
@@ -182,7 +182,7 @@ public class PaybillController {
 	 * @param paybill
 	 * @return
 	 */
-	@RequestMapping(value = "/downloadPDF", method = RequestMethod.POST)
+	@RequestMapping(value = "/downloadPDF", method = RequestMethod.GET)
 		public ModelAndView downloadExcel(PaybillVO paybill) {
 			List<PaybillDetails> monthlyDetails = null;
 			try{
@@ -201,7 +201,7 @@ public class PaybillController {
 		    return new ModelAndView("pdfView", "monthlyDetails", monthlyDetails);
 		}
 	
-	@RequestMapping(value = "/downloadPaybill", method = RequestMethod.POST)
+	@RequestMapping(value = "/downloadPaybill", method = RequestMethod.GET)
     public ModelAndView downloadPaybill(PaybillVO paybill) {
 		PaybillDetails paybillDetails = null;
 		try{
@@ -219,7 +219,7 @@ public class PaybillController {
         return new ModelAndView("pdfView", "paybillDetails", paybillDetails);
     }
 	
-	@RequestMapping(value = "/headwiseReport", method = RequestMethod.POST)
+	@RequestMapping(value = "/headwiseReport", method = RequestMethod.GET)
     public ModelAndView headwiseReport(PaybillVO paybill) {
 		List<PaybillDetails> headwiseDetails = null;
 		try{
@@ -234,7 +234,7 @@ public class PaybillController {
         return new ModelAndView("pdfView", "headwiseDetails", headwiseDetails);
     }
 	
-	@RequestMapping(value = "/bankwiseReport", method = RequestMethod.POST)
+	@RequestMapping(value = "/bankwiseReport", method = RequestMethod.GET)
     public ModelAndView bankwiseReport(PaybillVO paybill) {
 		List<PaybillDetails>  bankwiseDetails = null;
 		try{
@@ -250,7 +250,7 @@ public class PaybillController {
         return new ModelAndView("pdfView", "bankwiseDetails", bankwiseDetails);
     }
 	
-	@RequestMapping(value = "/payslip", method = RequestMethod.POST)
+	@RequestMapping(value = "/payslip", method = RequestMethod.GET)
     public ModelAndView payslip(PaybillVO paybill) {
 		PaybillDetails  payslip = null;
 		try{

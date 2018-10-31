@@ -49,8 +49,8 @@ public class PayslipReport extends PaybillPdfRep{
 	        
 	        Font frtHdFont = FontFactory.getFont(FontFactory.HELVETICA);
 	        frtHdFont.setSize(8);
-	        StringBuffer titleText = new StringBuffer("Paybill of Permanent/Temporary Establishment ");
-	        titleText.append("for the Month of ");
+	        StringBuffer titleText = new StringBuffer("Paybill");
+	        titleText.append(" for the Month of ");
 	        Date month = (payslip.getMonth()!= null) ? payslip.getMonth() : new Date();
 	        titleText.append(Utils.getMonthYear(month));
 	        PdfPTable paybillTab = null;
@@ -130,18 +130,22 @@ public class PayslipReport extends PaybillPdfRep{
 	        addTotalDetails(psEarTab, payslip, frtHdFont);
 	        PdfPTable psDeductionTab = createPdfPTable(2, 0, psEarTabW);
 	        addDeductionTotals(psDeductionTab, payslip, frtHdFont);
+	        
+	        
+	        
 	        psPayDetTab.addCell(psEarTab);
 	        psPayDetTab.addCell(psDeductionTab);
 	        doc.add(psPayDetTab);
 	        doc.add(dottedline);
 	        psPayDetTab = createPdfPTable(2, 0, psPayDetTabW);
 	        psEarTab = createPdfPTable(2, 1, psEarTabW);
+	        
 	        psEarTab.addCell(addToCell(PdfUtils.EARNINGSTOT, headHdFont, false));
-	        psEarTab.addCell(addToCell(payslip.getTotalGrossPay()+"", headHdFont, false));
+	        psEarTab.addCell(addToCell(Utils.getDecimalFormat(payslip.getTotalGrossPay())+"", headHdFont, true));
 	        psPayDetTab.addCell(psEarTab);
 	        psEarTab = createPdfPTable(2, 1, psEarTabW);
 	        psEarTab.addCell(addToCell(PdfUtils.DEDUCTIONSTOT, headHdFont, false));
-	        psEarTab.addCell(addToCell(payslip.getTotalDeductions()+"", headHdFont, false));
+	        psEarTab.addCell(addToCell(Utils.getDecimalFormat(payslip.getTotalDeductions())+"", headHdFont, true));
 	        psPayDetTab.addCell(psEarTab);
 	        doc.add(psPayDetTab);
 	        doc.add(dottedline);

@@ -19,7 +19,7 @@ public class EmployeeServiceBookController {
 
 	String permissionForThis = null;
 
-	@RequestMapping(value = "/generateEmpBook", method = RequestMethod.POST)
+	@RequestMapping(value = "/generateEmpBook", method = RequestMethod.GET)
 	public ModelAndView generateEmpBook(Employee employee, HttpServletRequest request) {
 
 		EmpServiceBill empServiceBill = null;

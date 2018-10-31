@@ -22,7 +22,8 @@ import org.springframework.ui.ModelMap;
 
 @Controller
 public class EmployeeController {
-	   @RequestMapping(value = "/employee", method = RequestMethod.GET)public String printHello(ModelMap model) {
+	   @RequestMapping(value = "/employee", method = RequestMethod.GET)
+	   public String printHello(ModelMap model) {
 		      //model.addAttribute("message", "Hello Spring MVC Framework!");
 		      return "listEmp";
 	   }

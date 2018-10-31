@@ -147,9 +147,9 @@ $(document).ready(function() {
 		}
 		
 		if($('#secEmail').val() != ""){
-			if(!emailValid($('#secPhone').val())){
+			if(!emailValid($('#secEmail').val())){
 				alert("You have entered an invalid email address!")  
-				$('#secPhone').focus();
+				$('#secEmail').focus();
 			    return false;  
 			}		
 		}
@@ -240,6 +240,13 @@ function emailValid(emailTxt){
 <body >
 <div class="contain-wrapp bodyDivCss">	
 		<div class="container">
+		<div class="formDiv" style="border: none;">
+				<div class="row">
+					<div class="text-left" style="margin-left: 15px;">
+						<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/empContactList')">Back</button>
+					</div>
+				</div>
+			</div>	
 		<div style="display: none;color: red; font-weight:bold; height: 15px;" id="errMsgDiv"></div>
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;">
@@ -398,7 +405,7 @@ function emailValid(emailTxt){
 	</div>
 	</div>
 	</div>
-	</div>
+	</div>  
 	<jsp:include page="../jsp/public/postFooter.jsp" />
 </body>
 </html>

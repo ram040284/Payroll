@@ -46,7 +46,7 @@ function headwiseRpt(){
 		<div class="container">
 
 <div style="margin-top:0px;">
-	<form method = "POST" action = "../Payroll/employee" name="paybillForm">
+	<form method = "GET" action = "../Payroll/employee" name="paybillForm">
 	<div class="panel panel-primary" style="width: 40%; margin-left: 25%;">
     	<div class="panel-heading" style="margin:0px;padding:10px;background-color: #8B9DC3; font-size: 1.2em;"><b>Headwise Report</b></div>
 		<div  class="panel-body formDiv" style="padding:5px;margin:0px; width: 100%;">

@@ -34,12 +34,13 @@ $(document).ready(function() {
 			if(empId != 0){
 				var sickLeaves = "${leave.sickLeaves}";
 				var casualLeaves = "${leave.casualLeaves}";
+				var childLeaves = "${leave.childLeaves}";
 				var paidLeaves = "${leave.paidLeaves}";
 				var earnLeave = "${leave.earnLeave}";
 				var maternityLeave = "${leave.maternityLeave}";
 				var paternityLeave = "${leave.paternityLeave}";
 				var extraLeave = "${leave.extraLeave}";
-				if(sickLeaves == $('#sickLeaveInp').val() && casualLeaves == $('#casualLeaveInp').val() && paidLeaves == $('#paidLeaveInp').val() &&
+				if(sickLeaves == $('#sickLeaveInp').val() && casualLeaves == $('#casualLeaveInp').val() && childLeaves == $('#childLeaveInp').val() && paidLeaves == $('#paidLeaveInp').val() &&
 						earnLeave == $('#earnLeaveInp').val() && maternityLeave == $('#maternityLeaveInp').val() && paternityLeave == $('#paternityLeaveInp').val()&& 
 						extraLeave == $('#extraLeaveInp').val()){
 					alert('Nothing was changed');
@@ -71,8 +72,8 @@ $(document).ready(function() {
 			}
 			if($('#sickLeaveInp').val() == 0 && $('#casualLeaveInp').val() == 0 && $('#paidLeaveInp').val() == 0 && 
 					$('#earnLeaveInp').val() == 0 && $('#maternityLeaveInp').val() == 0 && $('#paternityLeaveInp').val() == 0 && 
-					$('#extraLeaveInp').val() ==0){
-				alert("At least one (Sick/Casual/Paid/Earned/Maternity/Paternity/Extraordinary) must be provided!");
+					$('#extraLeaveInp').val() == 0 &&	$('#childLeaveInp').val() ==0){
+				alert("At least one (Sick/Casual/Paid/Earned/Maternity/Paternity/Extraordinary/ChildCare) must be provided!");
 				$('#sickLeaveInp').focus();
 				return false;
 			}//{"CL", "SL", "PL", "EL", "MTL", "PTL", "EXL"};
@@ -82,31 +83,34 @@ $(document).ready(function() {
 		else
 			empIdInput = $('#employeeId').val();
 		if ($('#casualLeaveInp').val() != 0) {
-			leaveIds.push("CL:1,");
+			leaveIds.push("CL:1");
 		}
 		if ($('#sickLeaveInp').val() != 0) {
-			leaveIds.push("SL:2,");
+			leaveIds.push("SL:2");
 		}
 		if ($('#paidLeaveInp').val() != 0) {
-			leaveIds.push("PL:3,");
+			leaveIds.push("PL:3");
 		}
 		if ($('#earnLeaveInp').val() != 0) {
-			leaveIds.push("EL:4,");
+			leaveIds.push("EL:4");
 		}
 		if ($('#maternityLeaveInp').val() != 0) {
-			leaveIds.push("MTL:5,");
+			leaveIds.push("MTL:5");
 		}
 		if ($('#paternityLeaveInp').val() != 0) {
-			leaveIds.push("PTL:6,");
+			leaveIds.push("PTL:6");
 		}
 		if ($('#extraLeaveInp').val() != 0) {
 			leaveIds.push("EXL:7");
+		}
+		if ($('#childLeaveInp').val() != 0) {
+			leaveIds.push("CCL:8");
 		}
 		$('#leaveIds').val(leaveIds);
 		var inputJson = { "employeeId" : empIdInput, "sickLeaveInp" : $('#sickLeaveInp').val(),  
 				"casualLeaveInp" : $('#casualLeaveInp').val(), "paidLeaveInp" : $('#paidLeaveInp').val(), "leaveIds": $('#leaveIds').val(),
 				"earnLeaveInp" : $('#earnLeaveInp').val(), "maternityLeaveInp" : $('#maternityLeaveInp').val(), "paternityLeaveInp" : $('#paternityLeaveInp').val(),  
-				"extraLeaveInp" : $('#extraLeaveInp').val()};
+				"extraLeaveInp" : $('#extraLeaveInp').val(),"childLeaveInp" : $('#childLeaveInp').val()};
 		$.ajax({
 	        url: '../Payroll/addLeave',
 	        data: JSON.stringify(inputJson),
@@ -114,12 +118,14 @@ $(document).ready(function() {
 	        contentType: "application/json;charset=utf-8",
 	        success: function(data){ 
 	            if(data == "Yes"){
-	            	var f = document.forms['leaveInputForm'];
+	            	/* var f = document.forms['leaveInputForm'];
 	            	var submittedForm = document.forms['leaveForm'];
 	            	f.departmentId.value = submittedForm.departmentId.value;
 	            	f.headId.value = submittedForm.headId.value;
 	            	f.action="../Payroll/viewLeave_1";
-	            	f.submit();
+	        	    f.submit(); */
+	        	    
+	        	    window.location = "../Payroll/viewLeave_1";
 	            }else {
 	            	$("#errMsgDiv").text(data);
 		        	$("#errMsgDiv").show();
@@ -181,6 +187,10 @@ $(document).ready(function() {
 									<div class="col-sm-4 form-group">
 										<label>Medical Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.sickLeaves}"/></span></c:if> </label>
 										<form:input path="sickLeaveInp"  id="sickLeaveInp" class="form-control"/>
+									</div>
+									<div class="col-sm-4 form-group">
+										<label>Child Care Leave: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.childLeaves}"/></span></c:if> </label>
+										<form:input path="childLeaveInp"  id="childLeaveInp" class="form-control"/>
 									</div>
 									<div class="col-sm-4 form-group">
 										<label>Casual Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.casualLeaves}"/></span></c:if></label>

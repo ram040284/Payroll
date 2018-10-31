@@ -143,7 +143,7 @@ function showDate(date) {
 
 		<div class="col-lg-12 card-block bg-faded" style="margin-bottom: 10px;">
 			<div class="row">
-				<form:form method = "POST" action = "">
+				<form:form method = "GET" action = "">
 					<div class="col-sm-12">
 						<div class="row">
 							<div class="col-sm-4 form-group">

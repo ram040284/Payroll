@@ -107,7 +107,7 @@ h3 {font-size:16pt;}
 .bodyDivCss {
 	position:relative;
 	padding-bottom: 50px;
-	margin-top: 170px;	
+	margin-top: 250px;	
 }
 .errMsg {
 	display: none;
@@ -337,7 +337,7 @@ h3 {font-size:16pt;}
 	<%----<footer>Copyright &copy; W3Schools.com</footer>-->
 
 </div>	 --%>
-<form action="" name="inputForm" method="post">
+<form action="" name="inputForm" method="GET">
 	
 </form>
 <script type="text/javascript">

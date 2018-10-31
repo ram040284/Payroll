@@ -87,11 +87,12 @@ $(document).ready(function() {
 		var inputJson = { "firstName" : $('#firstName').val(),"departmentId": $('#departmentId').val(), "headId":$('#headId').val(), "employeeType":$('#employeeType').val()};
 		
 		$.ajax({
-			async:false,
+			//async:false,
 			url : '../Payroll/getEmployeeList',
-		    data : JSON.stringify(inputJson),
-		    type : "POST",
-		    contentType: "application/json;charset=utf-8",
+		    type : "GET",
+		    data : inputJson,
+		    //data : JSON.stringify(inputJson),
+            //contentType: "application/json;charset=utf-8",
 		    success : function(empData) {
 			 var table = $('#empListTable').DataTable({
 				 destroy: true,
@@ -107,12 +108,28 @@ $(document).ready(function() {
 			            	{ data: 'gender', title: 'Gender',"autoWidth": false},
 			            	{ data: 'joiningDate', title: 'Joining Date',"autoWidth": false},
 			          		{ data: 'retirementDate', title: 'Retirement Date',"autoWidth": false},
-			            	{
+			            	/* {
 							  'data': null, title:'<a href="#" onclick="inputPage()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
 							  'render': function (empData, type, row) {
 							     return '<a id="' + row.Id +'" href="#" onclick="viewEmp(\'' + empData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'" href="#" onclick="empServiceBook(\'' + empData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/empProcessAttendance.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteEmp(\'' + empData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
 				              }
-							}
+							} */
+			          		{
+								 //'data': null,title:'<a href="#" onclick="inputPage()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
+								 'data': null, title:'<a href="#" onclick="inputPage()"><img style="vertical-align: middle;" src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
+								 ' width' : '150px',
+								 'render': function (empData, type, row) {
+								 return '<a id="' + row.Id +'" href="#" onclick="viewEmp(\'' + empData.employeeId +'\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'" href="#" onclick="empServiceBook(\'' + empData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/empProcessAttendance.png" alt="Edit" class="listImg"/></a><a id="' + row.Id +'"  href="#" onclick="deleteEmp(\'' + empData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
+								}
+								},
+								 {
+									 'data': null,title:'Upload File',
+									 ' width' : '150px',
+									 'render': function (empData, type, row) {
+									 return	'<a id="' + row.Id +'" href="#"><form method="POST" name=\'' + empData.employeeId +'\' action="" enctype="multipart/form-data" onSubmit="return uploadFile(this);"><div class="input-group"><input type="file"class="file" name="fileUpload"/><input type="hidden" name="id" value="'+empData.employeeId +'"><input type="submit" name="Upload" value="Upload" title="Upload file"></div></form></a>' 
+									 }
+								 } 
+								
 			         ]
 			      }); 
 			   }  
@@ -146,7 +163,8 @@ $(document).ready(function() {
 		  contentType: "application/json;charset=utf-8",
 		  success : function(empData) {
 		 var table = $('#empListTable').DataTable({
-			 "scrollY": "300px",
+			 "scrollY": "400px",
+			 fixedHeader: true,
 			 "searching": false,
 		        data: empData,
 		          columns: [
@@ -159,12 +177,23 @@ $(document).ready(function() {
 		            	{ data: 'joiningDate', title: 'Joining Date',"autoWidth": false},
 		          		{ data: 'retirementDate', title: 'Retirement Date',"autoWidth": false},
 		            	{
-						 'data': null,title:'<a href="#" onclick="inputPage()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
+						 //'data': null,title:'<a href="#" onclick="inputPage()" title:"Add"><img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
+						 'data': null, title:'<a href="#" onclick="inputPage()"><img style="vertical-align: middle;" src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>',
+						 ' width' : '150px',
 						 'render': function (empData, type, row) {
-						 return '<a id="' + row.Id +'" href="#" onclick="viewEmp(\'' + empData.employeeId +'\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'" href="#" onclick="empServiceBook(\'' + empData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/empProcessAttendance.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'"  href="#" onclick="deleteEmp(\'' + empData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
-
-						 }
+						 return '<a id="' + row.Id +'" href="#" onclick="viewEmp(\'' + empData.employeeId +'\')" title:"Edit"><img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/></a> <a id="' + row.Id +'" href="#" onclick="empServiceBook(\'' + empData.employeeId + '\')" title:"Edit"><img src="../Payroll/resources/images/empProcessAttendance.png" alt="Edit" class="listImg"/></a><a id="' + row.Id +'"  href="#" onclick="deleteEmp(\'' + empData.employeeId + '\')" title:"Delete"><img src="../Payroll/resources/images/delete.png" alt="Delete" class="listImg"></a>'
 						}
+						},
+						 {
+							 'data': null,title:'Upload File',
+							 ' width' : '150px',
+							 'render': function (empData, type, row) {
+							 return	'<a id="' + row.Id +'" href="#"><form method="POST" name=\'' + empData.employeeId +'\' action="" enctype="multipart/form-data" onSubmit="return uploadFile(this);"><div class="input-group"><input type="file"class="file" name="fileUpload"/><input type="hidden" name="id" value="'+empData.employeeId +'"><input type="submit" name="Upload" value="Upload" title="Upload file"></div></form></a>' 
+							 }
+						 } 
+						 
+						 //'    <a id="' + row.Id +'" href="#" onclick="uploadFile(\'' + empData.employeeId +'\')" title="Upload file"><img src="../Payroll/resources/images/add.jpg" alt="Upload file" class="addImg" /></a>'
+				        
 		         ]
 		      }); 
 		   }
@@ -192,8 +221,22 @@ function deleteEmp(id){
     	f.action="../Payroll/deleteEmp";
     	f.submit();
     }
+	/*  function addEmployee(id) {
+ 		var f = document.forms['uploadForm'];
+ 		f.action = "../Payroll/addEmployee";
+ 		f.submit();
+  	} */
+ 
 }
 
+ function uploadFile(element) 
+ {
+	var id = element.id.value
+	element.action = "../Payroll/uploadFile/"+id;
+	return true;
+	
+} 
+	
 function empServiceBook(id){
 	var employeeIds = ['197810030', '198005008', '198505019', '198712210', 
 		          '198811034', '198901028', '198901211', '198905457',
@@ -225,15 +268,64 @@ function empServiceBook(id){
 				</div>
 			</div>	
 		</div>
-		<div class="container">
+		<!--new code  -->
+				<div class="container">
+		<div style="margin-top: 12px; float: left; width: 98%;">
+					<h4 style="color: #0101DF;">Employee Details</h4>	
+					<%--<form method="POST" name="uploadForm" action="uploadFile" enctype="multipart/form-data">
+	                                   <td><input type="file" name="fileUpload" size="50" /></td>
+	               
+						<a href="#" onclick="uploadFile()" title="Upload file">
+		                <img src="../Payroll/resources/images/add.jpg" alt="Upload file" class="addImg"></a>
+					      
+					     </form>--%>
+			
+				<%-- 	<form method="POST" name="uploadForm" action="" enctype="multipart/form-data">
+            <table border="0">
+                <tr>
+                    <td>Pick file #1:</td>
+                    <td><input type="file" name="fileUpload" size="50" /></td>
+                	<td><input type="hidden" name="id"></td>
+                </tr>
+            </table>
+        </form> --%>
+        
+			 <%-- <html>
+			 <body>
+    <center>
+<!--         <h1>Spring MVC File Upload Demo</h1>
+ -->       
+  <form method="post" action="uploadFile" enctype="multipart/form-data">
+            <table border="0">
+                <tr>
+                    <td>Description:</td>
+                    <td><input type="text" name="description" size="50"/></td>
+                </tr>
+                <tr>
+                    <td>Pick file #1:</td>
+                    <td><input type="file" name="fileUpload" size="50" /></td>
+                </tr>
+                <tr>
+                    <td>Pick file #2:</td>
+                    <td><input type="file" name="fileUpload" size="50" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><input type="submit" value="Upload" /></td>
+                </tr>
+            </table>
+        </form>
+    </center>
+</body>
+</html> --%>
+	<!-- <div class="container">
 			<h5 style="color: #0101DF;">Employee Details</h5>
-			<jsp:include page="../jsp/public/searchCriteria.jsp" />
+		 -->	<jsp:include page="../jsp/public/searchCriteria.jsp" />
 			<div id="empListDiv" class="empListTableClass" style ="width:100%; margin-top: 25px">
 					<table id="empListTable" class="table table-striped table-bordered table-responsive"></table>
 			</div>
  		</div>
 	</div>
-	<form action="" name="editForm" method="post">
+	<form action="" name="editForm" method="POST">
 		<input type="hidden" name="employeeId" value="0">
 		<input type="hidden" name="departmentId" />
 		<input type="hidden" name="headId" />
