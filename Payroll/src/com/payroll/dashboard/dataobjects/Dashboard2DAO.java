@@ -14,7 +14,7 @@ public class Dashboard2DAO {
 		
 		List<PaybillChart> payBillCharts = new ArrayList<PaybillChart>();
 		
-		List<String> monthList = Arrays.asList("2018-04-01", "2018-05-01");
+		List<String> monthList = Arrays.asList(previousMonthDate, currentMonthDate);
 		
 		Session session = null;
 		

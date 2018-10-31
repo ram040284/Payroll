@@ -10,6 +10,11 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 
+function getMonthName(month){
+	var monthsName = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+	return monthsName[parseInt(month)-1];
+}
+
 $(document).ready(function() {
 	
 	google.charts.load('current', {'packages':['corechart']});
@@ -24,22 +29,24 @@ $(document).ready(function() {
         contentType: "application/json;charset=utf-8",
         success: function(monthlySummaryDate){
         	for (i=0; i< monthlySummaryDate.length; i++) {
-        		if (monthlySummaryDate[i]['month'] == '2018-05-01' ) {
-        			monthlySummaryDate[i]['month'] = 'April 2018';
-        		}
+        		monthlySummaryDate[i]['month'] = getMonthName(monthlySummaryDate[i]['month'].substring(5,7)) + " " + monthlySummaryDate[i]['month'].substring(0,4);
+
         	}
-        	 $('#monthlyDashboard').DataTable( {
+        	$('#monthlyDashboardTable').DataTable( {
+        		/* "bLengthChange": false,
+        		 "filter" : false, 
+        		 */
         		 columnDefs: [
          		    { className: 'text-right', targets: [2,3,4,5] }, // 2- No. of employees, 3- Total Gross Pay, 4- Total Deductions, 5- Total Net Pay
          		  ],   
         		 "data": monthlySummaryDate,
         	        "columns": [
-        	            { "data": "month" },
-        	            { "data": "department" },
-        	            { "data": "noOfEmployees" },
-        	            { "data": "totalGrossPay" },
-        	            { "data": "totalDeductions" },
-        	            { "data": "netPay" }
+        	            { "data": "month", title : 'Month'},
+        	            { "data": "department", title : 'Department' },
+        	            { "data": "noOfEmployees", title : 'No. of employees'},
+        	            { "data": "totalGrossPay", title : 'Total Gross Pay' },
+        	            { "data": "totalDeductions", title : 'Total Deductions' },
+        	            { "data": "netPay", title : 'Total Net Pay' }
         	        ]
         	    } );
         }
@@ -55,12 +62,9 @@ function drawVisualization() {
         contentType: "application/json;charset=utf-8",
         success: function(data){
         	
-        	//FIXME: PrasadS - Fix below hardcoded values
-        	if (data[0]["monthDate"] == '2018-04-01') {
-        		data[0]["monthDate"] = "April 2018";
-        	}
-        	if (data[1]["monthDate"] == '2018-05-01') {
-        		data[1]["monthDate"] = "May 2018";
+
+        	for (i=0; i< data.length; i++) {
+        		data[i]['monthDate'] = getMonthName(data[i]['monthDate'].substring(5,7)) + " " + data[i]['monthDate'].substring(0,4);
         	}
         	
         	var paybillChartData = google.visualization.arrayToDataTable([
@@ -121,6 +125,9 @@ function drawChart() {
 
   
 }
+
+
+
 </script>
 <style type="text/css">
 select {
@@ -135,7 +142,7 @@ select {
 	background-color: #0101DF;
 }
 
-.monthlyDashboardDiv table {
+.monthlyDashboardTableClass table {
 	border-collapse: collapse;
 	width: 100%;
 	float: left;
@@ -145,19 +152,20 @@ select {
 	table-layout: auto;
 }
 
-.monthlyDashboardDiv th, td {
+.monthlyDashboardTableClass th, td {
 	text-align: left;
-	padding: 5px;
+	padding: 1px;
 }
 
-.monthlyDashboardDiv tr:nth-child(odd) {
+.monthlyDashboardTableClass tr:nth-child(odd) {
 	background-color: #f2f2f2; !important
 }
 
-.monthlyDashboardDiv th {
+.monthlyDashboardTableClass th {
 	background-color: #8B9DC3;
 	color: #fff;
 	cursor: pointer;
+	
 }
 table.dataTable thead:first-child .sorting_asc { 
 	background: url('../Payroll/resources/images/uparrow.png') no-repeat right bottom 8px; 
@@ -176,7 +184,9 @@ input[type=file] {
 }
 .dataTables_paginate {
 	text-align: right;
+	margin-bottom: 15px;
 }
+
 </style>
 </head>
 <body>
@@ -198,10 +208,19 @@ input[type=file] {
 		    </div>
 	    </div>
 	    
-	    <div class="row"><h4 style="color: #0101DF;">Monthly Summary</h4></div>
+	    <div class="container">
+			<div style="margin-top: 12px; float: left; width: 98%;">
+				<h4 style="color: #0101DF;">Monthly Summary</h4>
+				<div id="monthlyDashboardDiv" class="monthlyDashboardTableClass" style ="width:100%; margin-top: 25px">
+					<table id=monthlyDashboardTable class="table table-striped table-bordered table-responsive"></table>
+				</div>
+			</div>
+		</div>
+	    
+	    <!-- <div class="row"><h4 style="color: #0101DF;">Monthly Summary</h4></div>
 	    <div class="row monthlyDashboardDiv">
-	    	<table id="monthlyDashboard" class="display" style="width:100%">
-		    	<thead>
+	    	<table id="monthlyDashboard" class="display" style="width:100%"> -->
+		    	<!-- <thead>
 			    	<tr>
 		                <th>Month</th>
 		                <th>Department</th>
@@ -210,8 +229,8 @@ input[type=file] {
 		                <th>Total Deductions</th>
 		                <th>Total Net Pay</th>
 		            </tr>
-	            </thead>
-	            <tfoot>
+	            </thead> -->
+	            <!-- <tfoot>
 			    	<tr>
 			    		<th>Month</th>
 			    		<th>Department</th>
@@ -220,9 +239,9 @@ input[type=file] {
 		                <th>Total Deductions</th>
 		                <th>Total Net Pay</th>
 		            </tr>
-	            <tfoot>
-	    	</table>
-	    </div>
+	            <tfoot> -->
+	    	<!-- </table> -->
+	    <!-- </div> -->
 <!-- 	    <div class="row">Headwise Summary</div> -->
 <!-- 	    <div class="row"> -->
 <!-- 	    	<table id="headwiseDashboard" class="display" style="width:100%"></table> -->
