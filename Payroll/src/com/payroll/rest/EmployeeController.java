@@ -408,29 +408,7 @@ public class EmployeeController {
 		//	 @RequestParam("file") MultipartFile file)
         ModelAndView model = null;
         com.payroll.employee.Employee employee = null;
-			/*User loggedInUser = (User) request.getSession().getAttribute("user");
-			
-			if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-				//return listResult(employee);
-			}
-			 
-			 if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
-				   ObjectMapper mapper = new ObjectMapper();
-				   
-				   List<Department> deptList = new DepartmentService().getDepartments();
-				   //List<Designation> desigList = new DesignationService().getDesignationList();
-				   
-				   String depJSON = "";
-				   String desigJSON = "";
-					try {
-						depJSON = mapper.writeValueAsString(deptList);
-						//desigJSON = mapper.writeValueAsString(desigList);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-	        System.out.println("description: " + request.getParameter("description"));*/
-	        
-	        if (fileUpload != null && fileUpload.length > 0) {
+			  if (fileUpload != null && fileUpload.length > 0) {
 	            for (CommonsMultipartFile aFile : fileUpload){
 	            System.out.println("Saving file: " + aFile.getOriginalFilename());
 	                String filePath = id +".pdf";
@@ -438,9 +416,7 @@ public class EmployeeController {
 	                
 	                ServletContext context = request.getServletContext();
 				    String appPath = context.getRealPath("");
-//				    System.out.println("appPath : " + appPath);
 	                
-//				    String rpath = "\\resources\\images";
 				    String relativeWebPath = "/resources/images";
 				    String absolutePath = request.getServletContext().getRealPath(relativeWebPath);
 				    File file = new File(absolutePath, filePath);
@@ -448,7 +424,6 @@ public class EmployeeController {
 
 				    System.out.println("Current Working Directory:" + filePath);
 				    System.out.println("\n\n");
-//				    System.out.println("Relative File path for uploading files:" + rpath);
 				    System.out.println("\n\n");	
 
 				    
@@ -460,22 +435,15 @@ public class EmployeeController {
 	                    	employee = new EmployeeService().getEmployeeById(id);
 	    				}
 	    				
-	                   // model = new ModelAndView(new RedirectView("/employee"));
-	                   // return model;
-
-	                    //return ((ModelAndView)listResult(employee)).setViewName("");;
-	                }
+	                    }
 	            }
 	        
-	        // returns to the view "Result"
 	          
-//	        }
 			
 
 
 	    }
     		return "redirect:/employee";
 
-			  //return model;
 	}
 }

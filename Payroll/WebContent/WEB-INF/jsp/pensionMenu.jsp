@@ -22,9 +22,9 @@
 				</div>
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-					<a href="#" onclick="getList('../Payroll/generatePensionPaybills')"><img src="../Payroll/resources/images/costhead1.png" class="img-responsive imageMenuItem" 
+					<a href="#" onclick="backNav('../Payroll/generatePensionPaybills')"><img src="../Payroll/resources/images/costhead1.png" class="img-responsive imageMenuItem" 
 					alt="theme logo" /></a>
-					<h3><a href="#" onclick="getList('../Payroll/generatePensionPaybills')">Pension Paybills</a></h3>
+					<h3><a href="#"onclick="backNav('../Payroll/generatePensionPaybills')">Pension Paybills</a></h3>
 					</div>
 				</div>
 			</div>	
