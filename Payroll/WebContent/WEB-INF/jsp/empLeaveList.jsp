@@ -35,8 +35,6 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	
-	$("#addBtn").hide();
 	$("#collapse").hide();
 	$("#expand").show();
 	var departmentList = ${sessionScope.departments};
@@ -75,15 +73,12 @@ $(document).ready(function() {
  	});
 });
 
-function viewLeave(id){
+function viewLeave(id, leaveType){
 	var f = document.forms['editForm'];
 	f.employeeId.value=id;
 	f.departmentId.value = $('#departmentId').val();
 	f.headId.value = $('#headId').val();
-	f.firstName.value = $('#firstName').val();
-	/*f.listDeptId.value = $('#departmentId').val();
-	f.listHeadId.value = $('#headId').val();
-	f.listName.value = $('#firstName').val();*/
+	f.firstName.value = leaveType;
 	f.action="../Payroll/viewLeave";
 	f.submit();
 }
@@ -99,7 +94,9 @@ function searchEmps(){
 }
 
 function inputPage(){
-	
+	var f = document.forms['empSearch'];
+	f.action="../Payroll/viewLeave";
+	f.submit();
 }
 
 <c:if test="${not empty message}">
@@ -129,26 +126,22 @@ alert("${message}");
 			<thead>
 				<tr>
 					<th>Employee</th>
-					<th>Medical </th>
-					<th>Casual</th>
-					<th>Half Paid</th>
-					<th>Earned </th>
-					<th>Maternity</th>
-					<th>Paternity</th>
-					<th>Extraordinary</th>
+					<th>Leave Type </th>
+					<th>No Of Leaves</th>
+					<th>From date</th>
+					<th>To Date </th>
+					<th>Reason</th>
 					<th>Apply Leave</th>
 				</tr></thead>
 				<c:forEach var="leave" items="${sessionScope.empLeaveList}">
 				<tr>
 					<td> ${leave.fullName} </td>
-					<td> ${leave.sickLeaves}</td>
-					<td> ${leave.casualLeaves}</td>
-					<td> ${leave.paidLeaves}</td>
-					<td> ${leave.earnLeave} </td>
-					<td> ${leave.maternityLeave}</td>
-					<td> ${leave.paternityLeave}</td>
-					<td> ${leave.extraLeave}</td>
-					<td><a href="#" onclick="viewLeave('${leave.employeeId}')" >
+					<td> ${leave.description}</td>
+					<td> ${leave.noOfLeaves}</td>
+					<td> ${leave.fromDate}</td>
+					<td> ${leave.toDate} </td>
+					<td> ${leave.reason}</td>
+					<td><a href="#" onclick="viewLeave('${leave.employeeId}','${leave.description}')" >
 							<img src="../Payroll/resources/images/applyleave.png" alt="Apply Leave" class="listImg"/>
 						</a>
 					</td>
@@ -160,7 +153,7 @@ alert("${message}");
 	</c:if>
 	</div>
 	</div>
-	<form  action="" id="editForm" method="post">
+	<form  action="" id="editForm" method="get">
 		<input type="hidden" name="employeeId" value="0">
 		<input type="hidden" name="departmentId" value="${employee.departmentId}"/>
 		<input type="hidden" name="headId" value="${employee.headId}"/>

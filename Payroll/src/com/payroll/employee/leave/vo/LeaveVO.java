@@ -43,11 +43,13 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 	private int maternityLeaveInp;
 	private int paternityLeaveInp;
 	private int extraLeaveInp;
+	private int extraOrdinaryLeaveWithoutMediInp;
 	
 	private int earnLeave;
 	private int maternityLeave;
 	private int paternityLeave;
 	private int extraLeave;
+	private int extraOrdinaryLeaveWithoutMedi;
 	private EmployeeVO employee;
 	
 	public LeaveVO(){
@@ -81,7 +83,7 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 	}
 	
 	public LeaveVO(String empId, String empName, int cLeave,int ccLeave, int pLeave, int sLeave, int eLeave, 
-			int mLeave, int ptLeave, int xLeave, String leaveIds){
+			int mLeave, int ptLeave, int xLeave, String leaveIds, int extraOrdinaryLeaveWithoutMedi){
 		this.casualLeaves = cLeave;
 		this.childLeaves = ccLeave;
 		this.sickLeaves = sLeave;
@@ -92,12 +94,13 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 		this.maternityLeave = mLeave;
 		this.paternityLeave = ptLeave;
 		this.extraLeave = xLeave;
-		this.leaveBalance = casualLeaves + childLeaves + sickLeaves + paidLeaves + earnLeave + maternityLeave + paternityLeave + extraLeave;
+		this.extraOrdinaryLeaveWithoutMedi = extraOrdinaryLeaveWithoutMedi;
+		this.leaveBalance = casualLeaves + childLeaves + sickLeaves + paidLeaves + earnLeave + maternityLeave + paternityLeave + extraLeave + extraOrdinaryLeaveWithoutMedi;
 		this.leaveIds = leaveIds;
 		
 	}
 	public LeaveVO (String empId, int deptId, int desgId, int headId, int sLeave, int cLeave,int ccLeave, int pLeave,
-			int eLeave, int mLeave, int ptLeave, int xLeave,int leaveBalance, String leaveIds){
+			int eLeave, int mLeave, int ptLeave, int xLeave,int leaveBalance, String leaveIds, int extraOrdinaryLeaveWithoutMedi){
 		super(deptId, headId);
 		this.employeeId = empId;
 		//this.departmentId = deptId;
@@ -113,6 +116,7 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 		this.maternityLeave = mLeave;
 		this.paternityLeave = ptLeave;
 		this.extraLeave = xLeave;
+		this.extraOrdinaryLeaveWithoutMedi = extraOrdinaryLeaveWithoutMedi;
 	}
 	
 
@@ -315,5 +319,21 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 
 	public void setLeaveTypeId(int leaveTypeId) {
 		this.leaveTypeId = leaveTypeId;
+	}
+
+	public int getExtraOrdinaryLeaveWithoutMediInp() {
+		return extraOrdinaryLeaveWithoutMediInp;
+	}
+
+	public void setExtraOrdinaryLeaveWithoutMediInp(int extraOrdinaryLeaveWithoutMediInp) {
+		this.extraOrdinaryLeaveWithoutMediInp = extraOrdinaryLeaveWithoutMediInp;
+	}
+
+	public int getExtraOrdinaryLeaveWithoutMedi() {
+		return extraOrdinaryLeaveWithoutMedi;
+	}
+
+	public void setExtraOrdinaryLeaveWithoutMedi(int extraOrdinaryLeaveWithoutMedi) {
+		this.extraOrdinaryLeaveWithoutMedi = extraOrdinaryLeaveWithoutMedi;
 	}
 }

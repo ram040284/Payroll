@@ -40,9 +40,10 @@ $(document).ready(function() {
 				var maternityLeave = "${leave.maternityLeave}";
 				var paternityLeave = "${leave.paternityLeave}";
 				var extraLeave = "${leave.extraLeave}";
+				var extraOrdinaryLeaveWithoutMediInp = "${leave.extraOrdinaryLeaveWithoutMediInp}";
 				if(sickLeaves == $('#sickLeaveInp').val() && casualLeaves == $('#casualLeaveInp').val() && childLeaves == $('#childLeaveInp').val() && paidLeaves == $('#paidLeaveInp').val() &&
 						earnLeave == $('#earnLeaveInp').val() && maternityLeave == $('#maternityLeaveInp').val() && paternityLeave == $('#paternityLeaveInp').val()&& 
-						extraLeave == $('#extraLeaveInp').val()){
+						extraLeave == $('#extraLeaveInp').val()&&extraOrdinaryLeaveWithoutMediInp == $('#extraOrdinaryLeaveWithoutMediInp').val()){
 					alert('Nothing was changed');
 					$('#sickLeaves').focus();
 					return false;
@@ -72,7 +73,7 @@ $(document).ready(function() {
 			}
 			if($('#sickLeaveInp').val() == 0 && $('#casualLeaveInp').val() == 0 && $('#paidLeaveInp').val() == 0 && 
 					$('#earnLeaveInp').val() == 0 && $('#maternityLeaveInp').val() == 0 && $('#paternityLeaveInp').val() == 0 && 
-					$('#extraLeaveInp').val() == 0 &&	$('#childLeaveInp').val() ==0){
+					$('#extraLeaveInp').val() == 0 &&	$('#childLeaveInp').val() ==0&&	$('#extraOrdinaryLeaveWithoutMediInp').val() ==0){
 				alert("At least one (Sick/Casual/Paid/Earned/Maternity/Paternity/Extraordinary/ChildCare) must be provided!");
 				$('#sickLeaveInp').focus();
 				return false;
@@ -106,11 +107,14 @@ $(document).ready(function() {
 		if ($('#childLeaveInp').val() != 0) {
 			leaveIds.push("CCL:8");
 		}
+		if ($('#extraOrdinaryLeaveWithoutMediInp').val() != 0) {
+			leaveIds.push("EXLM:9");
+		}
 		$('#leaveIds').val(leaveIds);
 		var inputJson = { "employeeId" : empIdInput, "sickLeaveInp" : $('#sickLeaveInp').val(),  
 				"casualLeaveInp" : $('#casualLeaveInp').val(), "paidLeaveInp" : $('#paidLeaveInp').val(), "leaveIds": $('#leaveIds').val(),
 				"earnLeaveInp" : $('#earnLeaveInp').val(), "maternityLeaveInp" : $('#maternityLeaveInp').val(), "paternityLeaveInp" : $('#paternityLeaveInp').val(),  
-				"extraLeaveInp" : $('#extraLeaveInp').val(),"childLeaveInp" : $('#childLeaveInp').val()};
+				"extraLeaveInp" : $('#extraLeaveInp').val(),"childLeaveInp" : $('#childLeaveInp').val(),"extraOrdinaryLeaveWithoutMediInp" : $('#extraOrdinaryLeaveWithoutMediInp').val()};
 		$.ajax({
 	        url: '../Payroll/addLeave',
 	        data: JSON.stringify(inputJson),
@@ -181,10 +185,7 @@ $(document).ready(function() {
 										<option value="0">-- Select Employee --</option>
 									</select>
 								</div>
-							
-							</div>
-							<div class="row">
-									<div class="col-sm-4 form-group">
+								<div class="col-sm-4 form-group">
 										<label>Medical Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.sickLeaves}"/></span></c:if> </label>
 										<form:input path="sickLeaveInp"  id="sickLeaveInp" class="form-control"/>
 									</div>
@@ -196,30 +197,38 @@ $(document).ready(function() {
 										<label>Casual Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.casualLeaves}"/></span></c:if></label>
 										<form:input path="casualLeaveInp"  id="casualLeaveInp" class="form-control"/>
 									</div>
+							
+							</div>
+							<div class="row">
+									
 									<div class="col-sm-4 form-group">
 										<label>Half Pay Leave: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.paidLeaves}"/></span></c:if></label>
 										<form:input path="paidLeaveInp"  id="paidLeaveInp" class="form-control"/>
 									</div>
-									
-							</div>
-							<div class="row">
-								<div class="col-sm-3 form-group">
+									<div class="col-sm-4 form-group">
 									<label>Earned Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.earnLeave}"/></span></c:if> </label>
 									<form:input path="earnLeaveInp"  id="earnLeaveInp" class="form-control"/>
 								</div>
-								<div class="col-sm-3 form-group">
+								<div class="col-sm-4 form-group">
 									<label>Paternity Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.paternityLeave}"/></span></c:if></label>
 									<form:input path="paternityLeaveInp"  id="paternityLeaveInp" class="form-control"/>
 								</div>
-								<div class="col-sm-3 form-group">
+								
+									
+							</div>
+							<div class="row">
+								<div class="col-sm-4 form-group">
 									<label>Maternity Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.maternityLeave}"/></span></c:if></label>
 									<form:input path="maternityLeaveInp"  id="maternityLeaveInp" class="form-control"/>
 								</div>
-								<div class="col-sm-3 form-group">
-									<label>Extra Ordinary Leaves: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.extraLeave}"/></span></c:if></label>
+								<div class="col-sm-4 form-group">
+									<label>EOL with medical: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.extraLeave}"/></span></c:if></label>
 									<form:input path="extraLeaveInp"  id="extraLeaveInp" class="form-control"/>
 								</div>
-	
+								<div class="col-sm-4 form-group">
+									<label>EOL without medical: <c:if test="${leave.employeeId != '0'}" ><span style="color: #0101DF; margin-left: 5px;">Avl. Bal:<c:out value="${leave.extraOrdinaryLeaveWithoutMedi}"/></span></c:if></label>
+									<form:input path="extraOrdinaryLeaveWithoutMediInp"  id="extraOrdinaryLeaveWithoutMediInp" class="form-control"/>
+								</div>
 							</div>	
 							<div class="row">
 								<div class="text-right">

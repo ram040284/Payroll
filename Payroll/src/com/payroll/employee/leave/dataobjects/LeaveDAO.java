@@ -1,7 +1,10 @@
 package com.payroll.employee.leave.dataobjects;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +15,7 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.payroll.HibernateConnection;
 import com.payroll.Utils;
+import com.payroll.employee.contract.EmployeeContractVO;
 import com.payroll.employee.dataobjects.Employee;
 import com.payroll.employee.leave.vo.LeaveVO;
 
@@ -19,6 +23,8 @@ public class LeaveDAO {
 	private int deptId = 0;
 	private int headId = 0;
 	private String name; 
+	private static SimpleDateFormat inSDF = new SimpleDateFormat("mm/dd/yyyy");
+	private static SimpleDateFormat outSDF = new SimpleDateFormat("yyyy-mm-dd");
 	public List<com.payroll.employee.leave.vo.LeaveVO> getLeaves(int deptId, int headId, String name){
 		this.deptId = deptId;
 		this.headId = headId;
@@ -70,19 +76,20 @@ public class LeaveDAO {
 			return leaves;
 		}
 	
-	public List<LeaveRequest> getLeaveRequests(int deptId, int headId, String name){
+	public List<LeaveRequestVO> getLeaveRequests(int deptId, int headId, String name){
 		this.deptId = deptId;
 		this.headId = headId;
 		this.name = name;
 		return getLeaveRequests();
 	}
-	public List<LeaveRequest> getLeaveRequests(){
-			List<LeaveRequest> leaves = null;
+	public List<LeaveRequestVO> getLeaveRequests(){
+			List<LeaveRequestVO> leaves = null;
 				Session session = null;
 				StringBuffer searchCriteria = new StringBuffer("");
 				try{
 					//String queryString
-					searchCriteria.append(" from LeaveRequest l where l.status = ?");
+					searchCriteria.append(" select new com.payroll.employee.leave.dataobjects.LeaveRequestVO(l.employee.employeeId, l.noOfLeaves, l.fromDate "
+							+ ",l.toDate, l.reason, l.employee.lastName, l.employee.firstName, l.leaveType.description) from LeaveRequest l where l.status = ?");
 					if(deptId != 0)
 						searchCriteria.append(" and l.employee.employeeId = (select eDept.employee.employeeId from EmpDepartment eDept where l.employee.employeeId = eDept.employee.employeeId and eDept.department.departmentId = ? and eDept.status = 'A')");
 					if(headId != 0){
@@ -142,6 +149,32 @@ public class LeaveDAO {
 		return leaveVOList;
 	}
 	
+	public List<LeaveVO> getEmpLeaveByType(String empId, int leaveType){
+		List<LeaveVO> leaveVOList = null;
+		Session session = null;
+		try{
+			String queryString = " select new com.payroll.employee.leave.vo.LeaveVO(l.employee.employeeId, "+
+					"(select eDept.department.departmentId from EmpDepartment eDept where eDept.employee.employeeId = l.employee.employeeId and eDept.status='A'), "
+					+ "(select eDesg.designation.designationId from EmpDesignation eDesg where eDesg.employee.employeeId = l.employee.employeeId "
+					+ "and eDesg.status = 'A'), "
+					+ "(select dh.headInfo.headId from EmpHeadInfo dh where dh.employee.employeeId = l.employee.employeeId and dh.status='A'), "
+					+ "l.leaveId, l.leaveType.id, l.leaveBalance) from Leave l where l.employee.employeeId = ? and l.status = ? and l.leaveType.id = ?";		
+			
+			session = HibernateConnection.getSessionFactory().openSession();
+			Query query = session.createQuery(queryString);
+			query.setParameter(0, empId);
+			query.setParameter(1, "A");
+			query.setParameter(2, leaveType);
+			//leaveVO = (LeaveVO)(!(query.list().isEmpty()) ? query.list().get(0) : null);
+			leaveVOList = query.list();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			HibernateConnection.closeSession(session);
+		}
+		return leaveVOList;
+	}
+	
 	public Leave getEmpLeave(String empId, int leaveTypeId){
 		List<Leave> leaveVOList = null;
 		Session session = null;
@@ -188,10 +221,36 @@ public class LeaveDAO {
 				session = HibernateConnection.getSessionFactory().openSession();
 				transaction = session.beginTransaction();
 				Employee employee = null;
-						leaveRequest.setLeaveType(leaveRequest.getLeave().getLeaveType());
-						leaveRequest.setStatus("A");
-						leaveRequest.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
-						session.save(leaveRequest);
+				
+				String fromDate = formatDate(leaveRequest.getFromDate());
+				String toDate = formatDate(leaveRequest.getToDate());
+				
+				leaveRequest.setFromDate(fromDate);
+				leaveRequest.setToDate(toDate);
+				leaveRequest.setLeaveType(leaveRequest.getLeave().getLeaveType());
+				leaveRequest.setStatus("A");
+				leaveRequest.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+				if (leaveRequest.getAddUpdate() == 0) {
+					session.save(leaveRequest);
+				}else {
+					Query query = session.createQuery("update LeaveRequest lr set lr.noOfLeaves = ?, lr.fromDate = ?, lr.toDate = ?, lr.reason = ?, "
+							+ "lr.status = ?, lr.rowUpdDate = ? where lr.employee.employeeId = ? and  lr.status = ?");
+								
+					query.setParameter(0, leaveRequest.getNoOfLeaves());
+					query.setParameter(1, leaveRequest.getFromDate());
+					query.setParameter(2, leaveRequest.getToDate());
+					query.setParameter(3, leaveRequest.getReason());
+					query.setParameter(4, "A");
+					query.setParameter(5, leaveRequest.getRowUpdDate());
+					
+					query.setParameter(6, leaveRequest.getEmployeeId());
+					query.setParameter(7, "A");
+					
+					int updated = query.executeUpdate();
+					if(updated > 0)
+						result = "Successfully update Employee leave!";
+						}
+				
 				transaction.commit();
 				result = "Yes";
 			}catch(ConstraintViolationException cv){
@@ -207,6 +266,19 @@ public class LeaveDAO {
 			}
 			return result;
 		}
+		
+		public static String formatDate(String inDate) {
+		    String outDate = "";
+		    if (inDate != null) {
+		        try {
+		            Date date = inSDF.parse(inDate);
+		            outDate = outSDF.format(date);
+		        } catch (ParseException ex){ 
+		        	ex.printStackTrace();
+		        }
+		    }
+		    return outDate;
+		  }
 		
 		public String addUpdateLeave(List<Leave> leaves){
 			String result = null;
@@ -238,7 +310,7 @@ public class LeaveDAO {
 						//int maxId = getMaxLeaveId(session);
 						leave.setStatus("A");
 						leave.setEmployee(employee);
-//					leave.setLeaveBalance(leave.getNoOfLeaves());
+//						leave.setLeaveBalance(leave.getNoOfLeaves());
 						leave.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 					//	leave.setLeaveId(maxId);
 						session.save(leave);
@@ -351,6 +423,44 @@ public class LeaveDAO {
 				String queryString = " from LeaveType where id=?";		
 				Query query = session.createQuery(queryString);
 				query.setParameter(0, id);
+				leaveTypes = query.list();
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				HibernateConnection.closeSession(session);
+			}
+			return leaveTypes;
+			
+		}
+		
+		public LeaveRequestVO getEmpLeaveRequest(String empId){
+			LeaveRequestVO leaveRequestVOs = null;
+			Session session = null;
+			String queryString;
+			try{
+				queryString = " select new com.payroll.employee.leave.dataobjects.LeaveRequestVO(l.employee.employeeId, l.noOfLeaves, l.fromDate "
+						+ ",l.toDate, l.reason, l.employee.lastName, l.employee.firstName, l.leaveType.description) from LeaveRequest l where l.employee.employeeId = ? and l.status = ?";		
+				
+				session = HibernateConnection.getSessionFactory().openSession();
+				Query query = session.createQuery(queryString);
+				query.setParameter(0, empId);
+				query.setParameter(1, "A");
+				leaveRequestVOs = (LeaveRequestVO)(!(query.list().isEmpty()) ? query.list().get(0) : null);
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				HibernateConnection.closeSession(session);
+			}
+			return leaveRequestVOs;
+		}
+		
+		public List<LeaveType> getLeaveType() {
+			List<LeaveType> leaveTypes = new ArrayList<LeaveType>();
+			Session session = null;
+			try{
+				session = HibernateConnection.getSessionFactory().openSession();
+				String queryString = " from LeaveType";		
+				Query query = session.createQuery(queryString);
 				leaveTypes = query.list();
 			}catch(Exception e){
 				e.printStackTrace();

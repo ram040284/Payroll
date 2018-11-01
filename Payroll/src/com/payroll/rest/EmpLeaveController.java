@@ -22,6 +22,8 @@ import com.payroll.employee.leave.business.LeaveService;
 import com.payroll.employee.leave.dataobjects.Leave;
 import com.payroll.employee.leave.dataobjects.LeaveDAO;
 import com.payroll.employee.leave.dataobjects.LeaveRequest;
+import com.payroll.employee.leave.dataobjects.LeaveRequestVO;
+import com.payroll.employee.leave.dataobjects.LeaveType;
 import com.payroll.employee.leave.vo.LeaveVO;
 import com.payroll.login.dao.PermissionsDAO;
 import com.payroll.login.dataobjects.User;
@@ -59,7 +61,7 @@ public class EmpLeaveController {
 	@RequestMapping(value="/empLeaveSearch", method = RequestMethod.GET)
     public ModelAndView getEmpLeaveSearch(HttpServletRequest request, LeaveRequest leaveReauest){
 		  ObjectMapper mapper = new ObjectMapper();
-		  List<LeaveVO> empLeaveList = new LeaveService().getLeaves(leaveReauest.getDepartmentId(), leaveReauest.getHeadId(), leaveReauest.getFirstName());
+		  List<LeaveRequestVO> empLeaveList = new LeaveService().getLeaveRequests(leaveReauest.getDepartmentId(), leaveReauest.getHeadId(), leaveReauest.getFirstName());
 		  request.getSession().setAttribute("empLeaveList", empLeaveList);
 		   ModelAndView model = new ModelAndView("empLeaveList", "command", leaveReauest);
 		   model.addObject("employee", leaveReauest);
@@ -93,56 +95,63 @@ public class EmpLeaveController {
 		}
 	}
 	
-	
-	//@RequestMapping(value = "/viewLeave", method = RequestMethod.GET)
-	//public String viewLeave(ModelMap model) {
 	@RequestMapping(value = "/viewLeave", method = RequestMethod.GET)
 	public ModelAndView viewLeave(LeaveRequest leaveReauest) {
 		//return "listLeaves";
-		LeaveService service = new LeaveService();
-		LeaveVO  leaveVoDb = service.getLeaveDetailsById(leaveReauest.getEmployeeId());
-		//Map<String, String> leaveTypes = service.getLeaveTypes(leaveVoDb.getEmployee().getGender());
-		Map<String, String> leaveBalance = service.getLeaveBalance(leaveVoDb);
-		ModelAndView model = new ModelAndView("applyLeave", "command", leaveReauest);
+		ModelAndView model = null;
+		LeaveVO  leaveVoDb = null;
+		Map<String, String> leaveTypes = null;
+		Map<String, String> leaveBalance = null;
+		LeaveRequestVO empLeaveList = null;
+		List<Department> deptList = new DepartmentService().getDepartments();
+		List<LeaveType> types = new LeaveService().getLeaveTypes();
+		   //List<Designation> desigList = new DesignationService().getDesignationList();
+			
+		ObjectMapper mapper = new ObjectMapper();
+		String depJSON = "";
+		String leaveJson = "";
+		try {
+			depJSON = mapper.writeValueAsString(deptList);
+			leaveJson = mapper.writeValueAsString(types);
+			//desigJSON = mapper.writeValueAsString(desigList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(!leaveReauest.getEmployeeId().equalsIgnoreCase("0")){
+			LeaveService service = new LeaveService();
+			leaveVoDb = service.getLeaveDetailsById(leaveReauest.getEmployeeId(), leaveReauest.getFirstName());
+			leaveTypes = service.getLeaveTypes(leaveVoDb.getEmployee().getGender());
+			leaveBalance = service.getLeaveBalance(leaveVoDb);
+			empLeaveList = new LeaveService().getEmpLeaveRequest(leaveReauest.getEmployeeId());
+		}
+		
+		model = new ModelAndView("applyLeave", "command", leaveReauest);
 		model.addObject("employee", leaveReauest);
 		model.addObject("leave", leaveVoDb);
 		model.addObject("leaveBalance", leaveBalance);
-		//model.addObject("leaveTypes", leaveTypes);
+		model.addObject("leaveRequest", empLeaveList);
+		model.addObject("leaveTypes", leaveTypes);
+		model.addObject("departments", depJSON);
+		model.addObject("leavetype", leaveJson);
+		
+		
   	    return model;
 	}
 
 
-	@RequestMapping(value = "/applyLeave", method = RequestMethod.GET)
-	public ModelAndView applyLeave(@ModelAttribute LeaveRequest leaveRequest, HttpServletRequest request) {
-		//return "listLeaves";
+	@RequestMapping(value = "/applyLeave", method = RequestMethod.POST)
+	public @ResponseBody String applyLeave(@RequestBody LeaveRequest leaveRequest) {
 		LeaveService service = new LeaveService();
 //		Leave leave = service.getLeaveDetailsByLeaveType(leaveRequest.getEmployeeId(), leaveRequest.getLeaveType());
-		Leave leave = service.getLeaveDetailsByLeaveType(leaveRequest.getEmployeeId(), leaveRequest.getLeaveType().getName());
+		Leave leave = service.getLeaveDetailsByLeaveType(leaveRequest.getEmployeeId(), leaveRequest.getLeaveTypes());
 		int noOfLeaves = leave.getLeaveBalance();
 		if (noOfLeaves >= leaveRequest.getNoOfLeaves())
 		leave.setLeaveBalance(noOfLeaves - leaveRequest.getNoOfLeaves());
 		leaveRequest.setLeave(leave);
 		leaveRequest.setEmployee(leave.getEmployee());
 		String result = service.addLeaveRequest(leaveRequest);
-		
-		LeaveRequest leaveReq = new LeaveRequest();
-		leaveReq.setDepartmentId(leaveRequest.getDepartmentId());
-		leaveReq.setHeadId(leaveRequest.getHeadId());
-		leaveReq.setFirstName(leaveRequest.getFirstName());
-		leaveReq.setListDeptId(leaveRequest.getListDeptId());
-		leaveReq.setListHeadId(leaveRequest.getListHeadId());
-		leaveReq.setListName(leaveRequest.getListName());
-		
-		List<LeaveVO> empLeaveList = new LeaveService().getLeaves(leaveRequest.getListDeptId(), leaveRequest.getListHeadId(), leaveRequest.getListName());
-		//request.getSession().setAttribute("empLeaveList", empLeaveList);
-		  
-		ModelAndView model = new ModelAndView("empLeaveList", "command", leaveReq);
-		if (result!= null && result.equalsIgnoreCase("YES")) 
-			model.addObject("message", "Leave request successfully submitted");
-		else
-			model.addObject("message", "Leave request submition failed");
-		model.addObject("employee", leaveReq);
-  	    return model;
+  	    return result;
 	}
 	
 	@RequestMapping(value="/empLeaveReport", method = RequestMethod.GET)
@@ -185,9 +194,9 @@ public class EmpLeaveController {
 			
 		if (new PermissionsDAO().getPermissions(loggedInUser.getEmployee().getEmployeeId()).contains(permissionForThis) ) {
 			LeaveService service = new LeaveService();
-			List<LeaveRequest> leaveRequests = service.getLeaveRequests(leaveReauest.getDepartmentId(), leaveReauest.getHeadId(), leaveReauest.getFirstName());
+			List<LeaveRequestVO> leaveRequests = service.getLeaveRequests(leaveReauest.getDepartmentId(), leaveReauest.getHeadId(), leaveReauest.getFirstName());
 
-			for (LeaveRequest leaveReq : leaveRequests) {
+			for (LeaveRequestVO leaveReq : leaveRequests) {
 				leaveReq.setLeave(new LeaveDAO().getEmpLeave(leaveReq.getEmployee().getEmployeeId(), leaveReq.getLeaveType().getId()));
 			}
 

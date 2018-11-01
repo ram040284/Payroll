@@ -125,13 +125,14 @@ $(document).ready(function() {
 				<thead>
 				<tr>
 					<th>Employee</th>
-					<th>Medical </th>
 					<th>Casual</th>
+					<th>Medical </th>
 					<th>Half Paid</th>
 					<th>Earned </th>
 					<th>Maternity</th>
 					<th>Paternity</th>
-					<th>Extraordinary</th>
+					<th>Extraordinary With Medical</th>
+					<th>Extraordinary Without Medical</th>
 					<th>Avl. Leave Bal</th>
 					<th><a href="#" onclick="inputPage()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
@@ -141,13 +142,14 @@ $(document).ready(function() {
 				<c:forEach var="leave" items="${leaveVOList}">
 				<tr>
 					<td> ${leave.fullName} </td>
-					<td> ${leave.sickLeaves}</td>
 					<td> ${leave.casualLeaves}</td>
+					<td> ${leave.sickLeaves}</td>
 					<td> ${leave.paidLeaves}</td>
 					<td> ${leave.earnLeave} </td>
 					<td> ${leave.maternityLeave}</td>
 					<td> ${leave.paternityLeave}</td>
 					<td> ${leave.extraLeave}</td>
+					<td> ${leave.extraOrdinaryLeaveWithoutMedi}</td>
 					<td> ${leave.leaveBalance} </td>
 					<td><a href="#" onclick="viewLeave('${leave.employeeId}')" title="Edit">
 							<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/>

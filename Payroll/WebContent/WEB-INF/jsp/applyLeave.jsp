@@ -69,6 +69,51 @@ td, th {
 <script type="text/javascript">
 var rolesList ;
 $(document).ready(function() {
+	
+	var departmentList = ${departments};
+	var leaveTypesList = ${leavetype};
+	<%--var designationList = ${designations};--%>
+	$.each(departmentList, function( index, value ) {
+		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#departmentId');
+	});
+	var empId = "${employee.employeeId}";
+	if (empId==0) {
+		$.each(leaveTypesList, function( index, value ) {
+			$('<option>').val(value.description).text(value.description).appendTo('#leaveType');
+		});
+	}
+	
+	
+	var deptId = "${leave.departmentId}";
+	var headId = "${leave.headId}";
+	var desgId = "${leave.designationId}";
+	
+	if (deptId!=0) {
+		$('#departmentId').val(deptId);
+	}
+	
+	if(deptId !=0) {
+		getHeadData(deptId, headId);
+	}
+	if(headId != 0) {
+		loadDesgByHead(headId, desgId);
+	}
+	
+	var empId = "${leaveRequest.employeeId}";
+	if(empId != 0){
+		getEmployeesByIds(deptId, desgId, empId);
+	}
+	
+	var noOfLeaves = "${leaveRequest.noOfLeaves}";
+	var reason = "${leaveRequest.reason}";
+	var fromDate = "${leaveRequest.fromDate}";
+	var toDate = "${leaveRequest.toDate}"
+	$('#noOfLeaves').val(noOfLeaves);
+	$('#reason').val(reason);
+	$('#fromDate').val(fromDate);
+	$('#toDate').val(toDate);
+	
+	console.log("number of leave " + noOfLeaves);
 		$('#fromDate').datepick({dateFormat: 'dd/mm/yyyy'});
 		$('#toDate').datepick({dateFormat: 'dd/mm/yyyy'});
 	    $("#resetBtn").click(function() {    
@@ -134,11 +179,149 @@ $(document).ready(function() {
 	    		return false;
 	    	}
 	    	
-	    	$("#userForm").attr("action", "../Payroll/applyLeave");
-			$("#userForm").submit();
+			var inputJson = { "noOfLeaves" : $('#noOfLeaves').val(), "fromDate" : $('#fromDate').val(), "toDate" : $('#toDate').val(),"reason" : $('#reason').val()
+					, "employeeId":$('#employeeId').val(), "leaveTypes":$('#leaveType').val(), "addUpdate": $('#addUpdate').val()};
+			
+			$.ajax({
+		        url: '../Payroll/applyLeave',
+		        data: JSON.stringify(inputJson),
+		        type: "POST",           
+		        contentType: "application/json;charset=utf-8",
+		        success: function(data){ 
+		            if(data == "Yes"){
+		            	var f = document.forms['listForm'];
+		            	f.action="../Payroll/empLeaveList";
+		            	f.submit();
+		            }else {
+		            	$("#errMsgDiv").text(data);
+			        	$("#errMsgDiv").show();
+		            }
+		        }
+		    });
 	    });
 	    
 });
+
+function getHeadData(deptId, headId){
+	var inputJson = { "departmentId" : deptId};
+	  $.ajax({
+	    url: '../Payroll/loadHeads',
+	    data: JSON.stringify(inputJson),
+	    async:false,
+	    type: "POST",   
+	    beforeSend: function(xhr) {
+	        xhr.setRequestHeader("Accept", "application/json");
+	        xhr.setRequestHeader("Content-Type", "application/json");
+	    },
+	    success: function(data){ 
+	    	$('#headId').empty();
+	    	$('<option>').val(0).text("-- Select Head --").appendTo('#headId');
+	    	$('#designationId').empty();
+	    	$('<option>').val(0).text("-- Select Designation --").appendTo('#designationId');
+	    	$(data).each(function(i, headInfo){
+	    		$('<option>').val(headInfo.headId).text(headInfo.headName).appendTo('#headId');
+	    	});
+	    	var hId = "${employee.headId}";
+	    	if (hId == 0) {
+	    		hId = headId;
+			}
+	    	if(headId !=0) {
+	  		$('#headId').val(headId);
+	  		
+	  	}
+	    },
+	    failure: function (){
+	    	alert('Unable to load Heads');
+	    }
+	});
+}
+
+function getHeads(){
+	if($('#departmentId').val() == 0){
+		alert("Department must be selected to get Heads!");
+		$('#departmentId').focus();
+		return false;
+	}
+	var deptId = $('#departmentId').val();
+	getHeadsByDept(deptId);
+}
+
+
+
+function getHeadsByDept(deptId) {
+	alert(deptId);
+	var inputJson = { "departmentId" : deptId};
+	  $.ajax({
+	    url: '../Payroll/loadHeads',
+	    data: JSON.stringify(inputJson),
+	    async:false,
+	    type: "POST",   
+	    beforeSend: function(xhr) {
+	        xhr.setRequestHeader("Accept", "application/json");
+	        xhr.setRequestHeader("Content-Type", "application/json");
+	    },
+	    success: function(data){ 
+	    	$('#headId').empty();
+	    	$('<option>').val(0).text("-- Select Head --").appendTo('#headId');
+	    	$('#designationId').empty();
+	    	$('<option>').val(0).text("-- Select Designation --").appendTo('#designationId');
+	    	$(data).each(function(i, headInfo){
+	    		$('<option>').val(headInfo.headId).text(headInfo.headName).appendTo('#headId');
+	    	});
+	    	var headId = "${employee.headId}";
+	    	if(headId !=0) {
+	  		$('#headId').val(headId);
+	  		
+	  	}
+	    },
+	    failure: function (){
+	    	alert('Unable to load Heads');
+	    }
+	});
+	  
+	  alert("SDF");
+
+}
+
+function loadDesignations(){
+	if($('#headId').val() == 0){
+		alert("Head must be selected to get Designations!");
+		$('#headId').focus();
+		return false;
+	}
+	var headId = $('#headId').val();
+	loadDesgByHead(headId);
+}
+function loadDesgByHead(headId) {
+	var inputJson = { "headId" : headId};
+	
+	$.ajax({
+	    url: '../Payroll/loadDesignations',
+	    data: JSON.stringify(inputJson),
+	    async:false,
+	    type: "POST",           
+	    beforeSend: function(xhr) {
+	        xhr.setRequestHeader("Accept", "application/json");
+	        xhr.setRequestHeader("Content-Type", "application/json");
+	    },
+	    success: function(data){ 
+	    	$('#designationId').empty();
+	    	$('<option>').val(0).text("-- Select Designation --").appendTo('#designationId');
+	    	$(data).each(function(i, designation){
+	    		$('<option>').val(designation.designationId).text(designation.designationName).appendTo('#designationId');
+	    	});
+	    	var designationId = "${employee.designationId}";
+	    	if(designationId !=0) {
+	  			$('#designationId').val(designationId);
+	  		}
+	    },
+	    failure: function (){
+	    	alert('Unable to load Heads');
+	    }
+	});
+	
+	alert("DSF");
+}
 
 function dateConversion(dateString) {
 	var dateArray =  dateString.split("/"); 
@@ -162,9 +345,19 @@ function getLeaveBalance() {
 }
 
 </script>
+<jsp:include page="../jsp/public/master.jsp" />
 </head>
 <body>
 	<div class="contain-wrapp bodyDivCss">	
+		<div class="container">
+				<div class="formDiv" style="border: none;">
+					<div class="row">
+						<div class="text-left" style="margin-left: 15px;">
+							<button type="button" id="backBtn" class="btn" onclick="backNav('../Payroll/empLeaveList')">Back</button>
+						</div>
+					</div>
+				</div>	
+		</div>
 		<div class="container">
 		<div class="formDiv">
 			<h4 style="color: #fff; padding:5px; background-color: #8B9DC3; text-transform: none;font-size:12pt;">
@@ -173,37 +366,37 @@ function getLeaveBalance() {
 			
 			<div class="col-lg-12 card-block bg-faded" style="padding-bottom: 5px;">
 			<div class="row">
-			<form:form action="" id="userForm" method="post" autocomplete="off">
+			<form:form action="" id="userForm" method="POST" autocomplete="off">
 				<div class="col-sm-12">
-						<div class="row">	
-							
-							<div class="col-sm-6 form-group">
-								<label>Employee</label>
-								<div class="ui-widget">
-								${leave.employee.fullName}
-								<form:input type="hidden" path="employeeId"/>
-								</div>
-							</div>
-							<div class="col-sm-6 form-group">
-								<label>Department</label>
-								<div class="ui-widget">
-								${leave.employee.department}
-								</div>
-							</div>
-						</div>	
-						
+				
 						<div class="row">
-							<div class="col-sm-6 form-group">
-								<label>Head</label>
-								<div class="ui-widget">
-								${leave.employee.headName}
-								</div>
+							<div class="col-sm-4 form-group">
+								<label>Department</label>
+								<select id="departmentId" name="departmentId" class="form-control" onchange="getHeads()" 
+								<c:if test="${employee.employeeId != '0'}" > disabled= "disabled" </c:if>>
+									<option value="0">-- Select Department --</option></select>
 							</div>
+							<div class="col-sm-4 form-group">
+								<label>Head:</label>
+								<select id="headId" name="headId" class="form-control" onchange="loadDesignations()"
+								<c:if test="${employee.employeeId != '0'}" > disabled= "disabled" </c:if>>
+								<option value="0">-- Select Head --</option></select>
+							</div>
+							<div class="col-sm-4 form-group">
+								<label>Designation:</label>
+								<select id="designationId" class="form-control"  onchange="getEmployees()"
+								<c:if test="${employee.employeeId != '0'}" > disabled= "disabled" </c:if>>
+								<option value="0">-- Select Designation --</option></select>
+							</div>
+							
+						</div>	
+						<div class="row">	
 							<div class="col-sm-6 form-group">
-								<label>Designation</label>
-								<div class="ui-widget">
-								${leave.employee.designation}
-								</div>
+									<label>Employee:</label>
+									<select id="employeeId" class="form-control"
+									<c:if test='${!employee.employeeId eq "0"}' >disabled = "disabled" </c:if>>
+										<option value="0">-- Select Employee --</option>
+									</select>
 							</div>
 						</div>	
 						
@@ -211,7 +404,7 @@ function getLeaveBalance() {
 							<div class="col-sm-6 form-group">
 								<label>Leave Type</label>
 								<div class="ui-widget">
-								<select id="leaveType.name" class="form-control" name="leaveType.name" onchange="getLeaveBalance()">
+								<select id="leaveType" class="form-control" name="leaveType" onchange="getLeaveBalance()">
 								<option value="">-- Select Leave Type --</option>
 								<c:forEach var="leaveType" items="${leaveBalance}">
 								<option value="${leaveType.key}">${leaveType.key}</option>
@@ -222,7 +415,6 @@ function getLeaveBalance() {
 							<div class="col-sm-6 form-group">
 								<label>Available Balance</label>
 								<div class="ui-widget" id="leaveBalance">
-								
 								</div>
 							</div>
 						</div>	
@@ -230,11 +422,15 @@ function getLeaveBalance() {
 						<div class="col-sm-6 form-group">
 							<label>from Date</label>
 							<form:input type="text" id="fromDate" path="fromDate" placeholder="Enter From (DD/MM/YYYY)" class="form-control"/>
+							<input type="hidden" name="addUpdate" id="addUpdate"
+								<c:if test="${employee.employeeId != '0'}" > value="1" </c:if> />
 						</div>
 							
 						<div class="col-sm-6 form-group">
 							<label>To Date</label>
 							<form:input type="text" id="toDate" path="toDate" placeholder="Enter To Date (DD/MM/YYYY)" class="form-control"/>
+							<input type="hidden" name="addUpdate" id="addUpdate"
+								<c:if test="${employee.employeeId != '0'}" > value="1" </c:if> />
 						</div>
 						</div>
 						
@@ -242,11 +438,15 @@ function getLeaveBalance() {
 						<div class="col-sm-6 form-group">
 							<label>Number of Days</label>
 							<form:input type="text" id="noOfLeaves" path="noOfLeaves" placeholder="Enter Number of Leaves" class="form-control"/>
+							<input type="hidden" name="addUpdate" id="addUpdate"
+								<c:if test="${employee.employeeId != '0'}" > value="1" </c:if> />
 						</div>
 							
 						<div class="col-sm-6 form-group">
 							<label>Reason</label>
 							<form:textarea id="reason" path="reason" placeholder="Enter Reason" class="form-control"/>
+							<input type="hidden" name="addUpdate" id="addUpdate"
+								<c:if test="${employee.employeeId != '0'}" > value="1" </c:if> />
 						</div>
 						</div>
 						
@@ -272,7 +472,7 @@ function getLeaveBalance() {
 	</div>
 	</div>
 	
-	<form:form  action="" id="listForm" method="post">
+	<form:form  action="" id="listForm" method="get">
 		<form:input type="hidden" path="departmentId"/>
 		<form:input type="hidden" path="headId"/>
 		<form:input type="hidden" path="firstName"/>
