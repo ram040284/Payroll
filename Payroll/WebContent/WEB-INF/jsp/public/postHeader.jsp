@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Dash Board</title>
+<title>Home</title>
  <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -114,19 +114,16 @@ h3 {font-size:16pt;}
 	font-size: 1.2em;
 	color: red;
 }
+ul a { 
+    cursor: pointer;
+}
+.active { 
+    background-color:#E0E2EE !important;
+    color:#3b589a !important;
+}
 
  </style>
- <script type="text/javascript">
- 	function getList(actionPath) {
- 		var f = document.forms['inputForm'];
- 		<%--f.action="../Payroll/employee";--%>
- 		f.action=actionPath;
- 		f.submit();
- 	}
- 	function backNav(actionPath){
- 		window.location = actionPath;
- 	}
- </script>
+
 </head>
 <body>
 <div id="loading" class="loading-invisible">
@@ -190,14 +187,10 @@ h3 {font-size:16pt;}
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Masters <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<%--<li><a href="portfolio-alt1.html">Option-01</a></li>
-							<li><a href="portfolio-alt2.html">Option-02</a></li>
-							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
 							<li><a href="../Payroll/viewDept"> Department</a></li>
 				            <li><a href="../Payroll/viewHeads">Budget Heads</a></li>
 				            <li><a href="../Payroll/viewDesg">Designation</a></li>
 				            <li><a href="../Payroll/viewBankDetails">Bank Details</a></li>
-				           <li><a href="../Payroll/viewAdvance">Advances </a></li>
 				            <li><a href="../Payroll/viewTaxSlab">Incometax Slabs </a></li>
 				            <li><a href="../Payroll/usersList">User </a></li>	
 						</ul>
@@ -205,15 +198,11 @@ h3 {font-size:16pt;}
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Employee <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<%--<li><a href="#" onclick="inputAction('../Payroll/viewEmp')">New Employee</a></li> --%>
-							<li><a href="#" onclick="getList('../Payroll/employee')">Employee Master</a></li>
-<!-- TODO: Needs to be enabled afterwards: Prasad							<li><a href="../Payroll/empContactList">Employee Contact Info</a></li> -->
+							<li><a href="../Payroll/employee">Employee Master</a></li>
 							<li><a href="../Payroll/viewBank">Employee Bank</a></li>
 							<li><a href="../Payroll/viewSalary">Employee Salary</a></li>
-							<li><a href="#" onclick="getList('../Payroll/viewLeave_1')">Employee Leave</a></li>
-							<li><a href="../Payroll/viewEmpPf">Employee PF</a></li>
+							<li><a href="../Payroll/viewLeave_1">Employee Leave</a></li>
 							<li><a href="../Payroll/viewAdvance">Employee Festival Advance</a></li>
-<!-- TODO: Needs to be enabled afterwards: Prasad	<li><a href="../Payroll/viewEmpQtr">Employee Festival Advance</a></li> -->
 							<li><a href="../Payroll/viewEmpLicMaster">Employee LIC Master</a></li>
 							<li><a href="../Payroll/viewEmpLic">Employee LIC Details</a></li>
 							<li><a href="../Payroll/viewEmpAlwnce">Employee Fixed Allowances</a></li>
@@ -222,7 +211,7 @@ h3 {font-size:16pt;}
 							<li><a href="../Payroll/viewEmpFixedDeductions">Employee Fixed Deductions</a></li>
 							<li><a href="../Payroll/viewEmpVarDeductions">Employee Variable Deductions</a></li>
 							<li><a href="../Payroll/viewArrears">Employee Arrears</a></li>
-							</ul>
+						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Leave <span class="caret"></span></a>
@@ -236,10 +225,7 @@ h3 {font-size:16pt;}
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Payroll <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#" onclick="getList('../Payroll/generateBills')">Generate Bills</a></li>
-							<%---<li><a href="portfolio-alt1.html">Employee Salary</a></li>
-							<li><a href="portfolio-alt2.html">Option-02</a></li>
-							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
+							<li><a href="../Payroll/generateBills">Generate Bills</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -247,13 +233,11 @@ h3 {font-size:16pt;}
 						<ul class="dropdown-menu">
 							<li><a href="../Payroll/employeeSearch">Employee Details</a></li>
 							<li><a href="../Payroll/empAllowanceSearch">Employee Allowances</a></li>
-							<li><a href="#" onclick="getList('../Payroll/inputPaybill')">Paybill Report</a></li>
-							<li><a href="#" onclick="getList('../Payroll/monthlyRep')">Monthly Report</a></li>
-							<li><a href="#" onclick="getList('../Payroll/headwiseRep')">Headwise Report</a></li>
-							<li><a href="#" onclick="getList('../Payroll/bankwiseRep')">Bankwise Report</a></li>
-							<li><a href="#" onclick="getList('../Payroll/paycheckRep')">Employee Payslip</a></li>
-							<%--<li><a href="portfolio-alt2.html">Option-02</a></li>
-							<li><a href="portfolio-alt3.html">Option-03</a></li> --%>
+							<li><a href="../Payroll/inputPaybill">Paybill Report</a></li>
+							<li><a href="../Payroll/monthlyRep">Monthly Report</a></li>
+							<li><a href="../Payroll/headwiseRep">Headwise Report</a></li>
+							<li><a href="../Payroll/bankwiseRep">Bankwise Report</a></li>
+							<li><a href="../Payroll/paycheckRep">Employee Payslip</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -261,15 +245,7 @@ h3 {font-size:16pt;}
 					</li>
 				</c:if>
 				</ul>
-				<!--<div class="navlink-right">
-						<div class="dropdown shopping-cart">
-							<button class="btn-navlink" type="button" data-toggle="dropdown">
-								<i class="fa fa-sign-out fa-4" style="color:#ffff"></i>
-							</button>
-						</div>
-				</div>-->
-			</div><!--/.nav-collapse -->
-			
+			</div>
 		</div>
 		</div>
 		<%--</c:if> --%>
@@ -278,76 +254,6 @@ h3 {font-size:16pt;}
 	
 	<div class="clearfix"></div>
 	
-	<%--<header style="background-color: #8B9DC3; width: 96.5%; margin-left: 10px; margin-right: 10px;">
-    <div class="wrapper">
-		<img src="../Payroll/resources/images/logo_new.jpg" alt="Mountain View" class= "logoImage" style="width:105px;height:105px; float:left; margin-right:135px;">
-        <h1 style="color: #fff;">KHADAKI CANTONMENT BOARD, PUNE</h1>
-		<img src="../Payroll/resources/images/Emblem.png" alt="Mountain View" class= "logoImage" style="width:105px;height:105px; float: right; ">
-		
-	</div>
-	
-</header>
-<div class="wrapper">
-    <div class="navMenu" style="width: 98%; margin-top:2px;">
-      <ul>
-        <li class="home"><a href="../Payroll/dashboard">Home</a></li>
-        <li class="tutorials"><a href="#"> Masters<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-          <ul>
-            <li><a href="../Payroll/viewDept"> Department</a></li>
-            <li><a href="../Payroll/viewDesg">Designation</a></li>
-           
-          </ul>
-        </li>
-        <li class="about"><a href="#">Employee <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-			  <ul>
-				<li><a href="#" onclick="inputAction('../Payroll/viewEmp')">New Employee</a></li>
-				<li><a href="../Payroll/employee">List Employee</a></li>
-				
-			  </ul>
-		</li>
-        <li class="news"><a href="#">Leave <i class="fa fa-angle-down" ></i></a>
-          <ul>
-            <li><a href="#" onclick="inputAction('../Payroll/inputDept')">News Department</a></li>
-            <li><a href="../Payroll/viewDept">List Departments</a></li>
-           
-          </ul>
-        </li>
-        <li class="news"><a href="#">Payroll <i class="fa fa-angle-down" ></i></a>
-          <ul>
-            <li><a href="#" onclick="inputAction('../Payroll/inputDept')">News Department</a></li>
-            <li><a href="../Payroll/viewDept">List Departments</a></li>
-           
-          </ul>
-        </li>
-        <li class="news"><a href="#">Reports <i class="fa fa-angle-down" ></i></a>
-          <ul>
-            <li><a href="#" onclick="inputAction('../Payroll/inputDept')">News Department</a></li>
-            <li><a href="../Payroll/viewDept">List Departments</a></li>
-           
-          </ul>
-        </li>
-        <li class="logoutCSS"><a href="#">Logout</a></li>
-      </ul>
-    </div>
-	</div>
-	<form action="" name="inputForm" method="post">
-	
-	</form>
-
-	<%----<footer>Copyright &copy; W3Schools.com</footer>-->
-
-</div>	 --%>
-<form action="" name="inputForm" method="GET">
-	
-</form>
-<script type="text/javascript">
-function logoutEvent() {
-	var alertMsg = "Are you sure, you want to logout?";
-	if (confirm(alertMsg)) {
-		window.location = "../Payroll/login";
-	}
-}
-</script>
 <script src="../Payroll/resources/js/jquery-2.0.3.min.js"></script>
     <script src="../Payroll/resources/js/bootstrap.min.js"></script>
 	<script src="../Payroll/resources/js/jquery.easing-1.3.min.js"></script>
@@ -364,10 +270,6 @@ function logoutEvent() {
 	
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../Payroll/resources/js/ie10-viewport-bug-workaround.js"></script>
-	
-	
-	
-	
 	
     <!-- PrettyPhoto -->
 	<script src="../Payroll/resources/js/prettyPhoto/jquery.prettyPhoto.js"></script>  
@@ -424,8 +326,20 @@ function setNavigation() {
 	$(".nav a").each(function () {
 		var href = $(this).attr('href');
 		if (path == href.substring(2,href.length)) {
-			$(this).closest('a').addClass('active');
+			$(this).addClass('active');
+			$(this).closest('.dropdown-menu').prev('a.dropdown-toggle').addClass('active');
 		}
 	});
 }
-</script>
+
+function logoutEvent() {
+	var alertMsg = "Are you sure, you want to logout?";
+	if (confirm(alertMsg)) {
+		window.location = "../Payroll/login";
+	}
+}
+
+function backNav(actionPath){
+	window.location = actionPath;
+}
+ </script>
