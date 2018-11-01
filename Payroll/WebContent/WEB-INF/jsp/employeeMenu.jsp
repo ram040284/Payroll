@@ -10,11 +10,11 @@
 			<div class="row">
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="#" onclick="getList('../Payroll/employee')"><img
+						<a href="../Payroll/employee"><img
 							src="../Payroll/resources/images/emp1.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
-							<a href="#" onclick="getList('../Payroll/employee')">Employee
+							<a href="../Payroll/employee">Employee
 								Details</a>
 						</h3>
 					</div>
@@ -46,11 +46,11 @@
 			<div class="row">
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="#" onclick="getList('../Payroll/viewLeave_1')"><img
+						<a href="../Payroll/viewLeave_1"><img
 							src="../Payroll/resources/images/empLeave.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
-							<a href="#" onclick="getList('../Payroll/viewLeave_1')">Employee
+							<a href="../Payroll/viewLeave_1">Employee
 								Leave</a>
 						</h3>
 					</div>
@@ -119,7 +119,7 @@
 				
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="#" onclick="getList('../Payroll/listEmpDeductions')"><img
+						<a href="../Payroll/listEmpDeductions"><img
 							src="../Payroll/resources/images/deductions.png"
 							class="img-responsive imageMenuItem" alt="theme logo" /></a>
 						<h3>
