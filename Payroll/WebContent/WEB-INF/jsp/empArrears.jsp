@@ -12,8 +12,43 @@ $(document).ready(function() {
 	$.each(departmentList, function( index, value ) {
 		$('<option>').val(value.departmentId).text(value.departmantName).appendTo('#departmentId');
 	});
+	
 	var arrearId = "${empArrears.arrearId}";
+	
 	var arrearsType = "${empArrears.arrearsType}";
+	if (arrearsType == "OtherArrears") {
+ 	//	$('#arrearpayDiv').css('visibility', 'visible');
+	//	$('#arreardeductionDiv').css('visibility', 'hidden');
+
+		$('#arrearpayDiv').show();
+		$('#arreardeductionDiv').hide();
+	
+		//$('#arrearpayDiv').css('display', 'block');
+		//$('#arreardeductionDiv').css('display', 'none');
+	
+ 	} 
+	else if(arrearsType == "OtherDeduction")
+	{
+		//$('#arrearpayDiv').css('visibility', 'hidden');
+		//$('#arreardeductionDiv').css('visibility', 'visible');
+		//$('#arrearpayDiv').css('display', 'none');
+		//$('#arreardeductionDiv').css('display', 'block');
+		
+		$('#arrearpayDiv').hide();
+		$('#arreardeductionDiv').show();
+	
+	} 
+	else 
+	{
+		//$('#arrearpayDiv').css('visibility', 'hidden');
+		//$('#arreardeductionDiv').css('visibility', 'visible');
+		//$('#arrearpayDiv').css('display', 'none');
+		//$('#arreardeductionDiv').css('display', 'block');
+		
+		$('#arrearpayDiv').hide();
+		$('#arreardeductionDiv').hide();
+	
+	} 
 	var deptId = "${empArrears.departmentId}";
 	var desgId = "${empArrears.designationId}";
 	var headId = "${empArrears.headId}";
@@ -82,7 +117,7 @@ $(document).ready(function() {
 			$('#arrearsType').focus();
 			return false;
 		}
-		if($('#arrearsPay').val() == ''){
+		/* if($('#arrearsPay').val() == ''){
 			alert("Arrear Pay must be provided!");
 			$('#arrearsPay').focus();
 			return false;
@@ -91,7 +126,7 @@ $(document).ready(function() {
 			alert("Arrear Dedu must be provided!");
 			$('#arrearsDeductions').focus();
 			return false;
-		}
+		} */
 		/* if($('#miscPay').val() == ''){
 			alert("Misc Pay must be provided!");
 			$('#miscPay').focus();
@@ -102,7 +137,7 @@ $(document).ready(function() {
 			$('#miscDeductions').focus();
 			return false;
 		} */
-		if($('#arrearsPayNote').val() == ''){
+		/* if($('#arrearsPayNote').val() == ''){
 			alert("Arrear Pay Note must be provided!");
 			$('#arrearsPayNote').focus();
 			return false;
@@ -111,7 +146,7 @@ $(document).ready(function() {
 			alert("Arrear Dedu Note must be provided!");
 			$('#arrearsDeductionNote').focus();
 			return false;
-		}
+		} */
 		var inputJson = { 
 				"arrearId" : arrearId, 
 				"employeeId" : $('#employeeId').val(), 
@@ -139,7 +174,35 @@ $(document).ready(function() {
 	    });
 	    event.preventDefault();
 	});
+	
+	
+	$("#arrearsType").change(function () {
+		if ($(this).val()== "OtherArrears" ) {
+			//$('#arrearpayDiv').css('visibility', 'visible');
+			//$('#arreardeductionDiv').css('visibility', 'hidden');
+			
+			//$('#arrearpayDiv').css('display','block');
+			//$('#arreardeductionDiv').css('display','none');
+			
+			$('#arrearpayDiv').show();
+			$('#arreardeductionDiv').hide();
+		}
+		else{
+			//$('#arrearpayDiv').css('visibility', 'hidden');
+			//$('#arreardeductionDiv').css('visibility', 'visible');
+			
+			//$('#arreardeductionDiv').css('display','block');
+			//$('#arrearpayDiv').css('display','none');
+			$('#arrearpayDiv').hide();
+			$('#arreardeductionDiv').show();
+		}
+		
+	});
 });
+function btnType(){
+	
+	 
+}
 </script>
 <jsp:include page="../jsp/public/master.jsp" />
 </head>
@@ -199,7 +262,7 @@ $(document).ready(function() {
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-12 form-group">
+								<div class="col-sm-12 form-group" id = "arrearDiv">
 									<div class="col-sm-6 form-group">
 										<label>Arrears Type :</label>
 										<select id="arrearsType" class="form-control"
@@ -208,12 +271,13 @@ $(document).ready(function() {
 											<option value="Rent">Rent</option>
 											<option value="AfkRent">AfkRent</option>
 											<option value="Misc">Misc</option>
-											<option value="Other">Other</option>
-										</select>
-									</div>
-								</div>
-								<div class="col-sm-12 form-group">
-									<div class="col-sm-6 form-group">
+											<option value="OtherArrears">Other Pay </option>
+											<option value="OtherDeduction">Other Deduction</option>
+											</select>
+											</div>
+								<!-- <div class="col-sm-12 form-group" id = "arrearpayDiv" style="visibility:hidden;"> -->
+								<div class="col-sm-12 form-group" id = "arrearpayDiv" style="display:none;padding-left:5px;">
+									<div class="col-sm-6 form-group"   id = "payDiv">
 										<label>Arrears Pay:</label>
 										<form:input path="arrearsPay"  id="arrearsPay" placeholder="Enter Account No" class="form-control"/>
 										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.arrearId != '0'}" > value="1" </c:if>/>
@@ -223,14 +287,16 @@ $(document).ready(function() {
 										<form:input path="miscPay"  id="miscPay" placeholder="Enter Arrears Type" class="form-control"/>
 										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.employeeId != '0'}" > value="1" </c:if>/>
 									</div> --%>
-									<div class="col-sm-6 form-group">
+									<div class="col-sm-6 form-group"  id = "payNoteDiv">
 										<label>Arrears Pay Note:</label>
 										<form:textarea path="arrearsPayNote"  id="arrearsPayNote" placeholder="Enter Arrears Type" class="form-control"/>
 										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.arrearId != '0'}" > value="1" </c:if>/>
 									</div>
 								</div>
-								<div class="col-sm-12 form-group">
-									<div class="col-sm-6 form-group">
+								<!-- <div class="col-sm-12 form-group" id = "arreardeductionDiv" style="visibility:hidden;"> -->
+								<div class="col-sm-12 form-group" id = "arreardeductionDiv" style="display:none;padding-left:5px;">
+
+									<div class="col-sm-6 form-group"  id = "deductionDiv">
 										<label>Arrears Deductions:</label>
 										<form:input path="arrearsDeductions"  id="arrearsDeductions" placeholder="Enter Arrears Type" class="form-control"/>
 										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.arrearId != '0'}" > value="1" </c:if>/>
@@ -240,12 +306,12 @@ $(document).ready(function() {
 										<form:input path="miscDeductions"  id="miscDeductions" placeholder="Enter Account No" class="form-control"/>
 										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.employeeId != '0'}" > value="1" </c:if>/>
 									</div> --%>
-									<div class="col-sm-6 form-group">
-										<label>Arrears Diduction Note:</label>
+									<div class="col-sm-6 form-group" id = "deductionNoteDiv">
+										<label>Arrears Deduction Note:</label>
 										<form:textarea path="arrearsDeductionNote"  id="arrearsDeductionNote" placeholder="Enter Arrears Type" class="form-control"/>
 										<input type="hidden" name="addUpdate" id="addUpdate" <c:if test="${empArrears.arrearId != '0'}" > value="1" </c:if>/>
 									</div>
-									
+									</div>
 									<div class="row">
 										<div class="col-sm-12">	
 											<div class="text-right">
@@ -255,12 +321,8 @@ $(document).ready(function() {
 										</div>
 									</div>
 								</div>
-								
-								
-								
-						</div>
-						
-				</form:form>
+								</div>
+					</form:form>
 			</div>
 		</div>
 	</div>

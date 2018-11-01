@@ -92,7 +92,7 @@ function bankwiseRpt(){
 <div class="container">
 <%--<h5 style="color: #0101DF;">Paybill Report</h5> --%>
 <div style="margin-top:0px;">
-	<form method = "POST" action = "../Payroll/employee" name="paybillForm">
+	<form method = "GET" action = "../Payroll/employee" name="paybillForm">
 	<%--<div  class="col-sm-12" style="margin-top:0px; margin-bottom:10px; padding-top:5px; padding-bottom:10px;float: left;"> --%>
 	<div class="panel panel-primary" style="width: 45%; margin-left: 25%;">
     	<div class="panel-heading" style="margin:0px;padding:10px;background-color: #8B9DC3; font-size: 1.2em;"><b>Paybill Report</b></div>

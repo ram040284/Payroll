@@ -268,7 +268,7 @@ public class PaybillController {
         return new ModelAndView("pdfView", "payslip", payslip);
     }
 	
-	@RequestMapping(value = "/pensionpaybill", method = RequestMethod.POST)
+	@RequestMapping(value = "/pensionpaybill", method = RequestMethod.GET)
 	public ModelAndView generatePensionPayBill(PensionPaybillVO pensionPaybill) {
 		ModelAndView model = null;
 		System.out.println("Generating pension paybill..");
@@ -286,12 +286,12 @@ public class PaybillController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/viewPensionReport", method = RequestMethod.POST)
+	@RequestMapping(value = "/viewPensionReport", method = RequestMethod.GET)
 	public ModelAndView viewPayBill(PensionPaybillVO pensionPaybillVO) {
 		return getPensionInputForm(pensionPaybillVO, "pensionpaybill");
 	}
 	
-	@RequestMapping(value = "/downloadPensionPaybill", method = RequestMethod.POST)
+	@RequestMapping(value = "/downloadPensionPaybill", method = RequestMethod.GET)
 	public ModelAndView downloadPensionPaybill(PensionPaybillVO pensionPaybillVO) {
 		PensionPaybillDetails pensionPaybill = null;
 		
