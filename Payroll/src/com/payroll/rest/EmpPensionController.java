@@ -127,7 +127,7 @@ public class EmpPensionController {
 		}
 	}
 	
-	@RequestMapping(value = "/generatePensionPaybills", method = RequestMethod.POST)
+	@RequestMapping(value = "/generatePensionPaybills", method = RequestMethod.GET)
 	public ModelAndView generatePensionPayBill(PensionVO pensionVO, HttpServletRequest request) {
 		
 		String permissionForThis = "generateBills";

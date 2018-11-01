@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 
@@ -395,15 +396,14 @@ public class EmployeeController {
 			//return "viewEmpAlwnce";
 		}*/
 		
-	   private String saveDirectory = "E:\\payroll workspace\\Payroll\\Payroll\\WebContent\\resources\\images\\";
-
+	 //  private String saveDirectory = "E:\\payroll workspace\\Payroll\\Payroll\\WebContent\\resources\\images\\";
+	 //  private   String saveDirectory = ("../filePath");
 		@RequestMapping(value = "/uploadFile/{id}", method= RequestMethod.POST)
 		private String handleFileUpload(HttpServletRequest request,
          @RequestParam CommonsMultipartFile[] fileUpload,
          @PathParam("id") String id) throws Exception 
 		{
-		
-		
+			
 		String relativePath = request.getContextPath();
 		//	 @RequestParam("file") MultipartFile file)
         ModelAndView model = null;
@@ -433,11 +433,29 @@ public class EmployeeController {
 	        if (fileUpload != null && fileUpload.length > 0) {
 	            for (CommonsMultipartFile aFile : fileUpload){
 	            System.out.println("Saving file: " + aFile.getOriginalFilename());
-	                String filePath = saveDirectory + id +".pdf";
+	                String filePath = id +".pdf";
 	                System.out.println("file path: " + filePath);
+	                
+	                ServletContext context = request.getServletContext();
+				    String appPath = context.getRealPath("");
+//				    System.out.println("appPath : " + appPath);
+	                
+//				    String rpath = "\\resources\\images";
+				    String relativeWebPath = "/resources/images";
+				    String absolutePath = request.getServletContext().getRealPath(relativeWebPath);
+				    File file = new File(absolutePath, filePath);
+//				    appPath = appPath + rpath;
 
+				    System.out.println("Current Working Directory:" + filePath);
+				    System.out.println("\n\n");
+//				    System.out.println("Relative File path for uploading files:" + rpath);
+				    System.out.println("\n\n");	
+
+				    
+				    
+				    
 	                if (!aFile.getOriginalFilename().equals("")) {
-	                    aFile.transferTo(new File(filePath));
+	                    aFile.transferTo(file);
 	                    if(id != null){
 	                    	employee = new EmployeeService().getEmployeeById(id);
 	    				}
