@@ -27,37 +27,37 @@
 				</div>
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="#" onclick="getList('../Payroll/inputPaybill')"><img src="../Payroll/resources/images/Reports.png" class="img-responsive imageMenuItem"
+						<a href="../Payroll/inputPaybill"><img src="../Payroll/resources/images/Reports.png" class="img-responsive imageMenuItem"
 					alt="Paybill Report" /></a>
-					<h3><a href="#" onclick="getList('../Payroll/inputPaybill')">Paybill Reports</a></h3>
+					<h3><a href="../Payroll/inputPaybill">Paybill Reports</a></h3>
 					</div>
 				</div>
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="#" onclick="getList('../Payroll/monthlyRep')"><img src="../Payroll/resources/images/Reports.png" class="img-responsive imageMenuItem"
+						<a href="../Payroll/monthlyRep"><img src="../Payroll/resources/images/Reports.png" class="img-responsive imageMenuItem"
 					alt="Monthly Report" /></a>
-					<h3><a href="#" onclick="getList('../Payroll/monthlyRep')">Monthly Reports</a></h3>
+					<h3><a href="../Payroll/monthlyRep">Monthly Reports</a></h3>
 					</div>
 				</div>
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="#" onclick="getList('../Payroll/headwiseRep')"><img src="../Payroll/resources/images/Reports.png" class="img-responsive imageMenuItem"
+						<a href="../Payroll/headwiseRep"><img src="../Payroll/resources/images/Reports.png" class="img-responsive imageMenuItem"
 					alt="Headwise Report" /></a>
-					<h3><a href="#" onclick="getList('../Payroll/headwiseRep')">Headwise Reports</a></h3>
+					<h3><a href="../Payroll/headwiseRep">Headwise Reports</a></h3>
 					</div>
 				</div>
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="#" onclick="getList('../Payroll/bankwiseRep')"><img src="../Payroll/resources/images/Reports.png" class="img-responsive imageMenuItem"
+						<a href="../Payroll/bankwiseRep"><img src="../Payroll/resources/images/Reports.png" class="img-responsive imageMenuItem"
 					alt="Bankwise Report" /></a>
-					<h3><a href="#" onclick="getList('../Payroll/bankwiseRep')">Bankwise Reports</a></h3>
+					<h3><a href="../Payroll/bankwiseRep">Bankwise Reports</a></h3>
 					</div>
 				</div>
 				<div class="col-xs-4 text-center">
 					<div class="precess-column">
-						<a href="#" onclick="getList('../Payroll/paycheckRep')"><img src="../Payroll/resources/images/rs.png" class="img-responsive imageMenuItem"
+						<a href="../Payroll/paycheckRep"><img src="../Payroll/resources/images/rs.png" class="img-responsive imageMenuItem"
 					alt="Emp Payslip" /></a>
-					<h3><a href="#" onclick="getList('../Payroll/paycheckRep')">Employee Payslip</a></h3>
+					<h3><a href="../Payroll/paycheckRep">Employee Payslip</a></h3>
 					</div>
 				</div>
 			</div>

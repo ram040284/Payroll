@@ -232,7 +232,7 @@ $(document).ready(function() {
 							</div>	
 							<div class="row">
 								<div class="text-right">
-									<button type="button" id="backBtn" class="btn text-left" style="margin-left: 10px; float: left;" onclick="getList('../Payroll/viewLeave_1')">Back</button>
+									<button type="button" id="backBtn" class="btn text-left" style="margin-left: 10px; float: left;" onclick="backNav('../Payroll/viewLeave_1')">Back</button>
 									<button type="button" id="addLeaveBtn" class="btn">Submit</button>
 									<button type="reset" class="btn">Reset</button>	
 								</div>	
