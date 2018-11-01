@@ -219,6 +219,7 @@ public class LeaveDAO {
 			Session session = null;
 			Transaction transaction = null;
 			LeaveVO leave = null;
+			LeaveRequestVO request = new LeaveService().getEmpLeaveRequestById(leaveRequest.getEmployeeId(), leaveRequest.getLeaveTypes());
 			try{
 				
 				leave = new LeaveService().getLeaveDetailsById(leaveRequest.getEmployeeId(), leaveRequest.getLeaveTypes());
@@ -229,16 +230,20 @@ public class LeaveDAO {
 				String fromDate = formatDate(leaveRequest.getFromDate());
 				String toDate = formatDate(leaveRequest.getToDate());
 				
+				
 				leaveRequest.setFromDate(fromDate);
 				leaveRequest.setToDate(toDate);
 				leaveRequest.setLeaveType(leaveRequest.getLeave().getLeaveType());
 				leaveRequest.setStatus("A");
 				leaveRequest.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
+				
+				
+				int newLeavebal = leave.getLeaveBalance() - leaveRequest.getNoOfLeaves();
 				if (leaveRequest.getAddUpdate() == 0) {
 					session.save(leaveRequest);
-					int newLeavebal = leave.getLeaveBalance() - leaveRequest.getNoOfLeaves();
+					
 					Query query = session.createQuery("update Leave l set l.leaveBalance = ? where l.employee.employeeId = ? and l.leaveType.id = ?");
-					leave.setLeaveBalance(newLeavebal);
+					//leave.setLeaveBalance(newLeavebal);
 					
 					query.setParameter(0, newLeavebal);
 					query.setParameter(1, leaveRequest.getEmployeeId());
@@ -251,10 +256,13 @@ public class LeaveDAO {
 					
 				}else {
 					
+					int oldLeave = 0;
+					if (request!=null) {
+						oldLeave = request.getNoOfLeaves();
+					}
 					
-					int newLeavebal = leaveRequest.getNoOfLeaves() - leave.getLeaveBalance();
 					Query leaveQuery = session.createQuery("update Leave l set l.leaveBalance = ? where l.employee.employeeId = ? and l.leaveType.id = ?");
-					leave.setLeaveBalance(newLeavebal);
+					//leave.setLeaveBalance(newLeavebal);
 					
 					leaveQuery.setParameter(0, newLeavebal);
 					leaveQuery.setParameter(1, leaveRequest.getEmployeeId());
@@ -265,7 +273,7 @@ public class LeaveDAO {
 					Query query = session.createQuery("update LeaveRequest lr set lr.noOfLeaves = ?, lr.fromDate = ?, lr.toDate = ?, lr.reason = ?, "
 							+ "lr.status = ?, lr.rowUpdDate = ? where lr.employee.employeeId = ? and  lr.status = ?");
 								
-					query.setParameter(0, leaveRequest.getNoOfLeaves());
+					query.setParameter(0, leaveRequest.getNoOfLeaves()+oldLeave);
 					query.setParameter(1, leaveRequest.getFromDate());
 					query.setParameter(2, leaveRequest.getToDate());
 					query.setParameter(3, leaveRequest.getReason());
@@ -498,5 +506,26 @@ public class LeaveDAO {
 			}
 			return leaveTypes;
 			
+		}
+		
+		public LeaveRequestVO getEmpLeaveRequestById(String empId, String leaveType){
+			LeaveRequestVO leaveRequestVOs = null;
+			Session session = null;
+			String queryString;
+			try{
+				queryString = " select new com.payroll.employee.leave.dataobjects.LeaveRequestVO(l.employee.employeeId, l.noOfLeaves, l.fromDate "
+						+ ",l.toDate, l.reason, l.employee.lastName, l.employee.firstName, l.leaveType.description) from LeaveRequest l where l.employee.employeeId = ? and l.status = ?";		
+				
+				session = HibernateConnection.getSessionFactory().openSession();
+				Query query = session.createQuery(queryString);
+				query.setParameter(0, empId);
+				query.setParameter(1, "A");
+				leaveRequestVOs = (LeaveRequestVO)(!(query.list().isEmpty()) ? query.list().get(0) : null);
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				HibernateConnection.closeSession(session);
+			}
+			return leaveRequestVOs;
 		}
 }

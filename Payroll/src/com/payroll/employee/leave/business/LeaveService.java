@@ -83,6 +83,10 @@ public class LeaveService {
 		return new LeaveDAO().getEmpLeaveRequest(employeeId);
 	}
 	
+	public LeaveRequestVO getEmpLeaveRequestById(String employeeId, String leaveType){
+		return new LeaveDAO().getEmpLeaveRequestById(employeeId, leaveType);
+	}
+	
 	public String addUpdateLeave(LeaveVO leaveVO){
 		return new LeaveDAO().addUpdateLeave(copyProperties(leaveVO));
 	}
