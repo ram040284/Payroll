@@ -17,6 +17,7 @@ import com.payroll.HibernateConnection;
 import com.payroll.Utils;
 import com.payroll.employee.contract.EmployeeContractVO;
 import com.payroll.employee.dataobjects.Employee;
+import com.payroll.employee.leave.business.LeaveService;
 import com.payroll.employee.leave.vo.LeaveVO;
 
 public class LeaveDAO {
@@ -217,7 +218,10 @@ public class LeaveDAO {
 			String result = null;
 			Session session = null;
 			Transaction transaction = null;
+			LeaveVO leave = null;
 			try{
+				
+				leave = new LeaveService().getLeaveDetailsById(leaveRequest.getEmployeeId(), leaveRequest.getLeaveTypes());
 				session = HibernateConnection.getSessionFactory().openSession();
 				transaction = session.beginTransaction();
 				Employee employee = null;
@@ -232,7 +236,32 @@ public class LeaveDAO {
 				leaveRequest.setRowUpdDate(new Timestamp(System.currentTimeMillis()));
 				if (leaveRequest.getAddUpdate() == 0) {
 					session.save(leaveRequest);
+					int newLeavebal = leave.getLeaveBalance() - leaveRequest.getNoOfLeaves();
+					Query query = session.createQuery("update Leave l set l.leaveBalance = ? where l.employee.employeeId = ? and l.leaveType.id = ?");
+					leave.setLeaveBalance(newLeavebal);
+					
+					query.setParameter(0, newLeavebal);
+					query.setParameter(1, leaveRequest.getEmployeeId());
+					query.setParameter(2, leaveRequest.getLeaveType().getId());
+					
+					int updated = query.executeUpdate();
+					if(updated > 0) {
+						result = "Successfully update Employee leave!";
+					}
+					
 				}else {
+					
+					
+					int newLeavebal = leaveRequest.getNoOfLeaves() - leave.getLeaveBalance();
+					Query leaveQuery = session.createQuery("update Leave l set l.leaveBalance = ? where l.employee.employeeId = ? and l.leaveType.id = ?");
+					leave.setLeaveBalance(newLeavebal);
+					
+					leaveQuery.setParameter(0, newLeavebal);
+					leaveQuery.setParameter(1, leaveRequest.getEmployeeId());
+					leaveQuery.setParameter(2, leaveRequest.getLeaveType().getId());
+					
+					leaveQuery.executeUpdate();
+					
 					Query query = session.createQuery("update LeaveRequest lr set lr.noOfLeaves = ?, lr.fromDate = ?, lr.toDate = ?, lr.reason = ?, "
 							+ "lr.status = ?, lr.rowUpdDate = ? where lr.employee.employeeId = ? and  lr.status = ?");
 								
