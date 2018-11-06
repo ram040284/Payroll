@@ -1,7 +1,6 @@
 package com.payroll.employee.leave.vo;
 
 import java.io.Serializable;
-
 import com.payroll.Utils;
 import com.payroll.employee.SearchCriteria;
 import com.payroll.employee.leave.dataobjects.LeaveType;
@@ -52,6 +51,37 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 	private int extraOrdinaryLeaveWithoutMedi;
 	private EmployeeVO employee;
 	
+	private Integer casualLeaveBal;
+	private Integer sickLeaveBal;
+	private Integer halfPaidLeaveBal;
+	private Integer earnLeaveBal;
+	private Integer maternityLeaveBal;
+	private Integer paternitiLeaveBal;
+	private Integer extraOrdLeaveBal;
+	private Integer childCareLeaveBal;
+	private Integer extraOrdLeaveWithoutMediBal;
+	
+	public LeaveVO(String employeeId, String fName, String lName, Integer casualLeaveBal
+			, Integer sickLeaveBal, Integer halfPaidLeaveBal, Integer earnLeaveBal,
+			Integer maternityLeaveBal, Integer paternitiLeaveBal, Integer extraOrdLeaveBal, Integer childCareLeaveBal,
+			Integer extraOrdLeaveWithoutMediBal
+			) {
+		this.employeeId = employeeId;
+		this.casualLeaveBal = casualLeaveBal;
+		this.sickLeaveBal = sickLeaveBal;
+		this.halfPaidLeaveBal = halfPaidLeaveBal;
+		this.earnLeaveBal = earnLeaveBal;
+		this.maternityLeaveBal = maternityLeaveBal;
+		this.paternitiLeaveBal = paternitiLeaveBal;
+		this.extraOrdLeaveBal = extraOrdLeaveBal;
+		this.childCareLeaveBal = childCareLeaveBal;
+		this.extraOrdLeaveWithoutMediBal = extraOrdLeaveWithoutMediBal;
+		StringBuffer fullNameSB = new StringBuffer(fName);
+		fullNameSB.append(" ");
+		fullNameSB.append(Utils.safeTrim(lName));
+		this.fullName = fullNameSB.toString();
+	}
+
 	public LeaveVO(){
 		super();
 	}
@@ -335,5 +365,81 @@ public class LeaveVO extends SearchCriteria implements Serializable{
 
 	public void setExtraOrdinaryLeaveWithoutMedi(int extraOrdinaryLeaveWithoutMedi) {
 		this.extraOrdinaryLeaveWithoutMedi = extraOrdinaryLeaveWithoutMedi;
+	}
+
+	public Integer getCasualLeaveBal() {
+		return casualLeaveBal;
+	}
+
+	public void setCasualLeaveBal(Integer casualLeaveBal) {
+		this.casualLeaveBal = casualLeaveBal;
+	}
+
+	public Integer getSickLeaveBal() {
+		return sickLeaveBal;
+	}
+
+	public void setSickLeaveBal(Integer sickLeaveBal) {
+		this.sickLeaveBal = sickLeaveBal;
+	}
+
+	public Integer getHalfPaidLeaveBal() {
+		return halfPaidLeaveBal;
+	}
+
+	public void setHalfPaidLeaveBal(Integer halfPaidLeaveBal) {
+		this.halfPaidLeaveBal = halfPaidLeaveBal;
+	}
+
+	public Integer getEarnLeaveBal() {
+		return earnLeaveBal;
+	}
+
+	public void setEarnLeaveBal(Integer earnLeaveBal) {
+		this.earnLeaveBal = earnLeaveBal;
+	}
+
+	public Integer getMaternityLeaveBal() {
+		return maternityLeaveBal;
+	}
+
+	public void setMaternityLeaveBal(Integer maternityLeaveBal) {
+		this.maternityLeaveBal = maternityLeaveBal;
+	}
+
+	public Integer getPaternitiLeaveBal() {
+		return paternitiLeaveBal;
+	}
+
+	public void setPaternitiLeaveBal(Integer paternitiLeaveBal) {
+		this.paternitiLeaveBal = paternitiLeaveBal;
+	}
+
+	public Integer getExtraOrdLeaveBal() {
+		return extraOrdLeaveBal;
+	}
+
+	public void setExtraOrdLeaveBal(Integer extraOrdLeaveBal) {
+		this.extraOrdLeaveBal = extraOrdLeaveBal;
+	}
+
+	public Integer getChildCareLeaveBal() {
+		return childCareLeaveBal;
+	}
+
+	public void setChildCareLeaveBal(Integer childCareLeaveBal) {
+		this.childCareLeaveBal = childCareLeaveBal;
+	}
+
+	public Integer getExtraOrdLeaveWithoutMediBal() {
+		return extraOrdLeaveWithoutMediBal;
+	}
+
+	public void setExtraOrdLeaveWithoutMediBal(Integer extraOrdLeaveWithoutMediBal) {
+		this.extraOrdLeaveWithoutMediBal = extraOrdLeaveWithoutMediBal;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 }

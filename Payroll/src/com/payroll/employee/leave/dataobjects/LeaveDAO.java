@@ -33,49 +33,53 @@ public class LeaveDAO {
 		return getLeaves();
 	}
 	public List<com.payroll.employee.leave.vo.LeaveVO> getLeaves(){
-			List<com.payroll.employee.leave.vo.LeaveVO> leaves = null;
-				Session session = null;
-				StringBuffer searchCriteria = new StringBuffer("");
-				try{
-					//String queryString
-					searchCriteria.append(" select new com.payroll.employee.leave.vo.LeaveVO(l.employee.employeeId, "
-							//+ "(select e.firstName from Employee e where e.employeeId = l.employee.employeeId),"
-							//+ " (select e.lastName from Employee e where e.employeeId = l.empId), "
-							+"l.employee.firstName, l.employee.lastName, "
-							+ "l.leaveId, l.leaveType.id, l.leaveBalance) from Leave l where l.status = ?");
-					if(deptId != 0)
-						searchCriteria.append(" and l.employee.employeeId = (select eDept.employee.employeeId from EmpDepartment eDept where l.employee.employeeId = eDept.employee.employeeId and eDept.department.departmentId = ? and eDept.status = 'A')");
-					if(headId != 0){
-						//searchCriteria.append(" and e.employeeId = (select eMas.empId from EmployeeMaster eMas where e.employeeId = eMas.empId and eMas.headId = ?)");
-						searchCriteria.append(" and l.employee.employeeId = (select eMas.employee.employeeId from EmpHeadInfo eMas where l.employee.employeeId = eMas.employee.employeeId and eMas.headInfo.headId = ? and eMas.status = 'A')");
-					}
-					if(!Utils.isEmpty(name))
-						//searchCriteria.append(" and l.employee.employeeId = (select e.employeeId from Employee where e.employeeId = l.empId and (e.firstName like :fname or e.middleName like :mname or e.lastName like :lname))");
-						searchCriteria.append(" and l.employee.firstName like :fname or l.employee.middleName like :mname or l.employee.lastName like :lname))");
-					
-					searchCriteria.append(" order by l.employee.employeeId");
-					session = HibernateConnection.getSessionFactory().openSession();
-					Query query = session.createQuery(searchCriteria.toString());
-					int i=0;
-					query.setParameter(i++, "A");
-					if(deptId != 0)
-						query.setParameter(i++, deptId);
-					if(headId != 0)
-						query.setParameter(i++, headId);
-					if(!Utils.isEmpty(name)){
-						query.setParameter("fname", "%"+name+"%");
-						query.setParameter("mname", "%"+name+"%");
-						query.setParameter("lname", "%"+name+"%");
-					}
-					leaves = query.list();
-				}catch(Exception e){
-					e.printStackTrace();
-				}finally{
-					HibernateConnection.closeSession(session);
+		List<com.payroll.employee.leave.vo.LeaveVO> leaves = null;
+			Session session = null;
+			StringBuffer searchCriteria = new StringBuffer("");
+			try{
+				searchCriteria.append(" select new com.payroll.employee.leave.vo.LeaveVO(lm.employee.employeeId, "
+						+"lm.employee.firstName, lm.employee.lastName, "
+						+ "MAX(CASE WHEN lm.leaveType.id = 1 THEN lm.leaveBalance END) as casualLeaveBal, "
+						+ "MAX(CASE WHEN lm.leaveType.id = 2 THEN lm.leaveBalance END) as sickLeaveBal, "
+						+ "MAX(CASE WHEN lm.leaveType.id = 3 THEN lm.leaveBalance END) as halfPaidLeaveBal, "
+						+ "MAX(CASE WHEN lm.leaveType.id = 4 THEN lm.leaveBalance END) as earnLeaveBal, "
+						+ "MAX(CASE WHEN lm.leaveType.id = 5 THEN lm.leaveBalance END) as maternityLeaveBal, "
+						+ "MAX(CASE WHEN lm.leaveType.id = 6 THEN lm.leaveBalance END) as paternitiLeaveBal, "
+						+ "MAX(CASE WHEN lm.leaveType.id = 7 THEN lm.leaveBalance END) as extraOrdLeaveBal, "
+						+ "MAX(CASE WHEN lm.leaveType.id = 8 THEN lm.leaveBalance END) as childCareLeaveBal, "
+						+ "MAX(CASE WHEN lm.leaveType.id = 9 THEN lm.leaveBalance END) as extraOrdLeaveWithoutMediBal) "
+						+ " from Leave lm where lm.status = ? ");
+				if(deptId != 0)
+					searchCriteria.append(" and lm.employee.employeeId = (select eDept.employee.employeeId from EmpDepartment eDept where lm.employee.employeeId = eDept.employee.employeeId and eDept.department.departmentId = ? and eDept.status = 'A')");
+				if(headId != 0){
+					searchCriteria.append(" and lm.employee.employeeId = (select eMas.employee.employeeId from EmpHeadInfo eMas where lm.employee.employeeId = eMas.employee.employeeId and eMas.headInfo.headId = ? and eMas.status = 'A')");
 				}
-			
-			return leaves;
-		}
+				if(!Utils.isEmpty(name))
+					searchCriteria.append(" and lm.employee.firstName like :fname or lm.employee.middleName like :mname or lm.employee.lastName like :lname))");
+				
+				searchCriteria.append(" group by lm.employee.employeeId");
+				session = HibernateConnection.getSessionFactory().openSession();
+				Query query = session.createQuery(searchCriteria.toString());
+				int i=0;
+				query.setParameter(i++, "A");
+				if(deptId != 0)
+					query.setParameter(i++, deptId);
+				if(headId != 0)
+					query.setParameter(i++, headId);
+				if(!Utils.isEmpty(name)){
+					query.setParameter("fname", "%"+name+"%");
+					query.setParameter("mname", "%"+name+"%");
+					query.setParameter("lname", "%"+name+"%");
+				}
+				leaves = query.list();
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				HibernateConnection.closeSession(session);
+			}
+		
+		return leaves;
+	}
 	
 	public List<LeaveRequestVO> getLeaveRequests(int deptId, int headId, String name){
 		this.deptId = deptId;

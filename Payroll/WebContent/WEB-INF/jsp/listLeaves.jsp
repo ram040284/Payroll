@@ -125,15 +125,15 @@ $(document).ready(function() {
 				<thead>
 				<tr>
 					<th>Employee</th>
-					<th>Casual</th>
-					<th>Medical </th>
-					<th>Half Paid</th>
-					<th>Earned </th>
-					<th>Maternity</th>
-					<th>Paternity</th>
-					<th>Extraordinary With Medical</th>
-					<th>Extraordinary Without Medical</th>
-					<th>Avl. Leave Bal</th>
+					<th>Casual Bal</th>
+					<th>Medical Bal</th>
+					<th>Half Paid Bal</th>
+					<th>Earned Bal</th>
+					<th>Maternity Bal</th>
+					<th>Paternity Bal</th>
+					<th>Child Care leave</th>
+					<th>Extraordinary With Medical Bal</th>
+					<th>Extraordinary Without Medical Bal</th>
 					<th><a href="#" onclick="inputPage()" title="Add">
 						<img src="../Payroll/resources/images/add.jpg" alt="Add" class="addImg"/></a>
 					</th>
@@ -142,15 +142,15 @@ $(document).ready(function() {
 				<c:forEach var="leave" items="${leaveVOList}">
 				<tr>
 					<td> ${leave.fullName} </td>
-					<td> ${leave.casualLeaves}</td>
-					<td> ${leave.sickLeaves}</td>
-					<td> ${leave.paidLeaves}</td>
-					<td> ${leave.earnLeave} </td>
-					<td> ${leave.maternityLeave}</td>
-					<td> ${leave.paternityLeave}</td>
-					<td> ${leave.extraLeave}</td>
-					<td> ${leave.extraOrdinaryLeaveWithoutMedi}</td>
-					<td> ${leave.leaveBalance} </td>
+					<td> ${leave.casualLeaveBal}</td>
+					<td> ${leave.sickLeaveBal}</td>
+					<td> ${leave.halfPaidLeaveBal}</td>
+					<td> ${leave.earnLeaveBal} </td>
+					<td> ${leave.maternityLeaveBal}</td>
+					<td> ${leave.paternitiLeaveBal}</td>
+					<td> ${leave.childCareLeaveBal}</td>
+					<td> ${leave.extraOrdLeaveBal}</td>
+					<td> ${leave.extraOrdLeaveWithoutMediBal} </td>
 					<td><a href="#" onclick="viewLeave('${leave.employeeId}')" title="Edit">
 							<img src="../Payroll/resources/images/edit.png" alt="Edit" class="listImg"/>
 						</a>

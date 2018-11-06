@@ -71,7 +71,7 @@ public class EmpLeaveController {
 	@RequestMapping(value="/empLeaveListApply", method = RequestMethod.GET)
     public ModelAndView getEmpLeaveListApply(HttpServletRequest request, LeaveRequest leaveReauest){
 		  ObjectMapper mapper = new ObjectMapper();
-		  List<LeaveVO> empLeaveList = new LeaveService().getLeaves(leaveReauest.getListDeptId(), leaveReauest.getListHeadId(), leaveReauest.getListName());
+		  List<LeaveVO> empLeaveList = new LeaveService().getLeavesData(leaveReauest.getListDeptId(), leaveReauest.getListHeadId(), leaveReauest.getListName());
 		  request.getSession().setAttribute("empLeaveList", empLeaveList);
 		   ModelAndView model = new ModelAndView("empLeaveList", "command", leaveReauest);
 		   model.addObject("employee", leaveReauest);
@@ -310,12 +310,13 @@ public class EmpLeaveController {
 		   System.out.println("leaveVO:"+leaveVO);
 		   List<LeaveVO> leaveVOList = null;
 		   if(leaveVO.getDepartmentId() !=0 || !Utils.isEmpty(leaveVO.getFirstName())){
-			   leaveVOList = new LeaveService().getLeaves(
+			   leaveVOList = new LeaveService().getLeavesData(
 					   leaveVO.getDepartmentId(), leaveVO.getHeadId(), leaveVO.getFirstName());
 		   } else {
-			   leaveVOList = new LeaveService().getLeaves(
+			   leaveVOList = new LeaveService().getLeavesData(
 					   leaveVO.getDepartmentId(), leaveVO.getHeadId(), leaveVO.getFirstName());
 		   }
+		   
 		   ModelAndView model = new ModelAndView("listLeaves", "command", leaveVO);
 		   model.addObject("leave", leaveVO);
 		   model.addObject("leaveVOList", leaveVOList);
